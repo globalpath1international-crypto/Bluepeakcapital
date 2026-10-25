@@ -2008,7 +2008,6 @@
       }
 
       function updateP2PInfo() {
-        // No longer displays rates/info — just stores state
         if (!selectedAsset) return;
       }
 
@@ -2033,7 +2032,6 @@
           p2pAmountError.classList.add('visible');
           return;
         }
-        // Navigate to P2P page simulation — show offer appears
         alert(`P2P ${p2pMode.toUpperCase()} request\n\nAsset: ${selectedAsset.symbol}\nAmount: $${amount.toFixed(2)}\nPayment: ${selectedPayment.name}\n\n✅ Offer placed successfully — redirecting to P2P marketplace.\n\n(Integration point: connect to backend order service and navigate to offers page.)`);
       }
 
