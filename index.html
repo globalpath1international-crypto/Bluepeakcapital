@@ -10,7 +10,7 @@
   <style>
     /* ============================================================
        BLUEPEAK CAPITAL — PROFESSIONAL DESIGN SYSTEM
-       Deep Navy (#0A1A2F) + Sovereign Gold (#C9A84C)
+       Deep Navy + Sovereign Gold
        ============================================================ */
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -28,7 +28,6 @@
       --red-500: #D14343;
       --red-100: #FDECEC;
       --white: #FFFFFF;
-      --off-white: #FAFBFD;
       --gray-200: #E3E8EF;
       --gray-300: #CDD5E0;
       --gray-400: #94A3B8;
@@ -37,12 +36,9 @@
       --bg-main: var(--navy-50);
       --text-primary: var(--navy-900);
       --text-secondary: var(--gray-500);
-      --accent-gold: var(--gold-500);
-      --action-green: var(--green-500);
       --card-bg: var(--white);
       --card-border: var(--gray-200);
       --nav-bg: var(--white);
-      --muted-bg: var(--navy-50);
       --shadow-xs: 0 1px 2px rgba(10, 26, 47, 0.04);
       --shadow-sm: 0 2px 8px rgba(10, 26, 47, 0.05);
       --shadow-md: 0 8px 24px rgba(10, 26, 47, 0.07);
@@ -77,7 +73,7 @@
        HEADER
        ============================================================ */
     .app-header {
-      background: rgba(255, 255, 255, 0.92);
+      background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(12px);
       padding: 12px 20px;
       display: flex;
@@ -87,7 +83,6 @@
       position: sticky;
       top: 0;
       z-index: 30;
-      flex-wrap: nowrap;
       gap: 8px;
     }
 
@@ -101,37 +96,95 @@
     .menu-icon:hover { background: var(--navy-50); }
     .menu-icon span { display: block; width: 20px; height: 2px; background-color: var(--text-primary); border-radius: 2px; }
 
+    /* IMPROVED LOGO */
     .logo {
-      font-size: 21px; font-weight: 800; letter-spacing: -0.6px;
-      white-space: nowrap; line-height: 1.15; flex-shrink: 1;
-      display: flex; align-items: baseline; gap: 1px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      line-height: 1;
+      flex-shrink: 1;
+      min-width: 0;
     }
-    .logo .blue { color: var(--navy-900); }
-    .logo .peak { color: var(--gold-500); }
-    .logo small {
-      font-size: 8.5px; font-weight: 700; color: var(--gray-500);
-      letter-spacing: 1.4px; margin-left: 5px; text-transform: uppercase;
-      display: inline-block; vertical-align: middle; background: var(--navy-50);
-      padding: 2px 6px; border-radius: 4px;
+    .logo .wordmark {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.8px;
+      white-space: nowrap;
+    }
+    .logo .wordmark .blue { color: var(--navy-900); }
+    .logo .wordmark .peak {
+      color: var(--gold-500);
+      position: relative;
+      display: inline-block;
+    }
+    .logo .wordmark .peak::after {
+      content: '';
+      position: absolute;
+      right: -4px;
+      bottom: 4px;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--gold-500);
+    }
+    .logo .tagline {
+      font-size: 8.5px;
+      font-weight: 700;
+      color: var(--gray-500);
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+      padding: 3px 7px;
+      border-left: 1.5px solid var(--gold-500);
+      line-height: 1;
     }
 
     .header-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
 
+    /* PROFESSIONAL BALANCE / EYE TOGGLE */
     .balance-wrapper {
-      display: flex; align-items: center; gap: 6px;
-      background: var(--navy-50); border: 1px solid var(--gray-200);
-      padding: 6px 12px; border-radius: var(--radius-pill);
-      font-size: 13.5px; font-weight: 700; color: var(--navy-900);
-      white-space: nowrap; flex-shrink: 1; font-variant-numeric: tabular-nums;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      padding: 5px 5px 5px 12px;
+      border-radius: var(--radius-pill);
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--navy-900);
+      white-space: nowrap;
+      flex-shrink: 1;
+      font-variant-numeric: tabular-nums;
+      box-shadow: var(--shadow-xs);
     }
-    .balance-wrapper .balance-amount { min-width: 54px; text-align: right; }
+    .balance-wrapper .balance-amount {
+      min-width: 54px;
+      text-align: right;
+      letter-spacing: -0.2px;
+    }
+    .balance-wrapper .balance-amount.masked {
+      letter-spacing: 3px;
+      color: var(--gray-500);
+    }
 
     .eye-toggle {
-      background: none; border: none; cursor: pointer; padding: 0 2px;
-      font-size: 14px; line-height: 1; display: flex; align-items: center;
-      color: var(--gray-500); opacity: 0.8; transition: opacity 0.2s;
+      background: var(--navy-50);
+      border: 1px solid var(--gray-200);
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--navy-900);
+      transition: background 0.2s, border-color 0.2s, transform 0.15s;
+      flex-shrink: 0;
     }
-    .eye-toggle:hover { opacity: 1; }
+    .eye-toggle:hover { background: var(--gold-100); border-color: var(--gold-500); }
+    .eye-toggle:active { transform: scale(0.94); }
+    .eye-toggle svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
     .avatar {
       width: 36px; height: 36px; border-radius: 50%;
@@ -167,19 +220,9 @@
     }
 
     /* ============================================================
-       HERO
+       HERO (clean, no banner)
        ============================================================ */
-    .hero { text-align: center; padding: 20px 0 4px; position: relative; }
-
-    .hero-eyebrow {
-      display: inline-flex; align-items: center; gap: 6px;
-      background: var(--gold-100); color: var(--navy-800);
-      font-size: 11px; font-weight: 700; letter-spacing: 0.8px;
-      text-transform: uppercase; padding: 6px 14px;
-      border-radius: var(--radius-pill); margin-bottom: 16px;
-      border: 1px solid rgba(201, 168, 76, 0.3);
-    }
-    .hero-eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold-500); display: inline-block; }
+    .hero { text-align: center; padding: 24px 0 4px; position: relative; }
 
     .hero h1 {
       font-size: 40px; font-weight: 800; line-height: 1.1;
@@ -199,7 +242,7 @@
     .hero-stat .value.green { color: var(--green-500); }
 
     /* ============================================================
-       MARKET TICKER — CONTINUOUS MARQUEE
+       MARKET TICKER
        ============================================================ */
     .market-ticker-wrapper {
       background: var(--white);
@@ -238,9 +281,9 @@
       background: var(--navy-50); border: 1px solid var(--gray-200);
       display: flex; align-items: center; justify-content: center;
       font-size: 11px; font-weight: 800; color: var(--navy-800);
-      flex-shrink: 0; overflow: hidden;
+      flex-shrink: 0; overflow: hidden; padding: 4px;
     }
-    .ticker-icon img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+    .ticker-icon img { width: 100%; height: 100%; object-fit: contain; }
 
     .ticker-info { display: flex; flex-direction: column; gap: 1px; }
     .ticker-symbol { font-size: 12px; font-weight: 700; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.5px; }
@@ -301,252 +344,196 @@
     .section-label::before { content: ''; width: 3px; height: 16px; background: var(--gold-500); border-radius: 2px; }
 
     /* ============================================================
-       ASSET PICKER — FULL LIST MODAL
+       QUICK P2P ACTIONS (Grid format with actual prices)
        ============================================================ */
-    .asset-picker-overlay {
+    .quick-p2p-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 4px;
+    }
+    .qa-card {
+      background: var(--navy-50);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .qa-card:hover {
+      border-color: var(--gold-500);
+      background: var(--white);
+      box-shadow: var(--shadow-sm);
+    }
+    .qa-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .qa-card-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--navy-900);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .qa-card-title .qa-icon {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--white); border: 1px solid var(--gray-200);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; flex-shrink: 0; padding: 2px;
+    }
+    .qa-card-title .qa-icon img { width: 100%; height: 100%; object-fit: contain; }
+    .qa-card-rate {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--navy-900);
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.3px;
+    }
+    .qa-card-sub {
+      font-size: 10.5px;
+      font-weight: 600;
+      color: var(--gray-500);
+    }
+
+    /* ============================================================
+       ASSET / PAYMENT SELECT CARDS (Smoother, professional)
+       ============================================================ */
+    .asset-select-card {
+      display: flex; align-items: center; justify-content: space-between;
+      background: var(--white);
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      gap: 12px;
+      cursor: pointer;
+      transition: all 0.22s;
+    }
+    .asset-select-card:hover {
+      border-color: var(--gold-500);
+      box-shadow: var(--shadow-sm);
+    }
+    .asset-left { display: flex; align-items: center; gap: 12px; min-width: 0; }
+    .asset-icon-wrap {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--navy-50); border: 1px solid var(--gray-200);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; padding: 6px;
+    }
+    .asset-icon-wrap img { width: 100%; height: 100%; object-fit: contain; }
+    .asset-icon-wrap.green-bg { background: var(--green-100); border-color: var(--green-500); }
+    
+    .asset-info { display: flex; flex-direction: column; min-width: 0; }
+    .asset-main-label { font-weight: 800; font-size: 15px; color: var(--navy-900); letter-spacing: -0.2px; }
+    .asset-sub { font-size: 11.5px; color: var(--gray-500); font-weight: 500; margin-top: 1px; }
+
+    .action-circle {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--navy-50);
+      color: var(--navy-800);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; flex-shrink: 0;
+      border: 1px solid var(--gray-200);
+    }
+    .action-circle svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ============================================================
+       FULL-SCREEN SELECTOR OVERLAYS (Assets & Payments)
+       ============================================================ */
+    .selector-overlay {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
       background: rgba(10, 26, 47, 0.5); backdrop-filter: blur(4px);
       z-index: 70; opacity: 0; pointer-events: none; transition: opacity 0.25s;
     }
-    .asset-picker-overlay.open { opacity: 1; pointer-events: auto; }
+    .selector-overlay.open { opacity: 1; pointer-events: auto; }
 
-    .asset-picker {
+    .selector-modal {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: var(--white); z-index: 75;
+      background: var(--bg-main); z-index: 75;
       transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
       display: flex; flex-direction: column;
     }
-    .asset-picker.open { transform: translateY(0); }
+    .selector-modal.open { transform: translateY(0); }
 
-    .asset-picker-header {
+    .selector-header {
       display: flex; align-items: center; justify-content: space-between;
       padding: 16px 20px; border-bottom: 1px solid var(--gray-200);
-      flex-shrink: 0;
+      background: var(--white); flex-shrink: 0;
     }
-    .asset-picker-header h3 { font-size: 18px; font-weight: 800; color: var(--navy-900); }
-    .asset-picker-close {
+    .selector-header h3 { font-size: 18px; font-weight: 800; color: var(--navy-900); }
+    .selector-close {
       background: var(--navy-50); border: none; width: 34px; height: 34px;
       border-radius: 50%; font-size: 16px; cursor: pointer; color: var(--navy-900);
       display: flex; align-items: center; justify-content: center;
     }
 
-    .asset-search-box {
-      padding: 14px 20px; flex-shrink: 0;
+    .selector-search {
+      padding: 12px 20px; background: var(--white); flex-shrink: 0;
+      border-bottom: 1px solid var(--gray-200);
     }
-    .asset-search-box input {
+    .selector-search input {
       width: 100%; padding: 12px 16px; border: 1.5px solid var(--gray-200);
       border-radius: var(--radius-sm); font-family: var(--font);
       font-size: 15px; font-weight: 500; background: var(--navy-50);
       color: var(--navy-900); outline: none;
     }
-    .asset-search-box input:focus { border-color: var(--gold-500); }
+    .selector-search input:focus { border-color: var(--gold-500); }
 
-    .asset-picker-list { flex: 1; overflow-y: auto; padding: 0 20px 20px; }
+    .selector-list { flex: 1; overflow-y: auto; padding: 12px 20px 24px; }
 
-    .asset-option {
-      display: flex; align-items: center; gap: 14px;
-      padding: 14px 12px; border-radius: var(--radius-sm);
-      cursor: pointer; transition: background 0.15s;
-      border-bottom: 1px solid var(--gray-200);
-    }
-    .asset-option:last-child { border-bottom: none; }
-    .asset-option:hover { background: var(--navy-50); }
-
-    .asset-option-logo {
-      width: 40px; height: 40px; border-radius: 50%;
-      background: var(--navy-50); border: 1px solid var(--gray-200);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 13px; font-weight: 800; color: var(--navy-800);
-      flex-shrink: 0; overflow: hidden;
-    }
-    .asset-option-logo img { width: 100%; height: 100%; object-fit: cover; }
-
-    .asset-option-info { flex: 1; min-width: 0; }
-    .asset-option-name { font-size: 15px; font-weight: 700; color: var(--navy-900); }
-    .asset-option-symbol { font-size: 12px; font-weight: 600; color: var(--gray-500); text-transform: uppercase; }
-    .asset-option-price { text-align: right; flex-shrink: 0; }
-    .asset-option-price .price { font-size: 14px; font-weight: 700; color: var(--navy-900); font-variant-numeric: tabular-nums; }
-    .asset-option-price .change { font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; }
-    .asset-option-price .change.positive { color: var(--green-500); }
-    .asset-option-price .change.negative { color: var(--red-500); }
-
-    .asset-option-check {
-      width: 22px; height: 22px; border-radius: 50%;
-      border: 2px solid var(--gray-300); flex-shrink: 0;
-      display: flex; align-items: center; justify-content: center;
-      transition: all 0.15s;
-    }
-    .asset-option.selected .asset-option-check {
-      background: var(--green-500); border-color: var(--green-500);
-    }
-    .asset-option.selected .asset-option-check::after {
-      content: '✓'; color: #fff; font-size: 13px; font-weight: 800;
-    }
-
-    /* ============================================================
-       PAYMENT METHOD MODAL
-       ============================================================ */
-    .payment-modal-overlay {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(10, 26, 47, 0.5); backdrop-filter: blur(4px);
-      z-index: 70; opacity: 0; pointer-events: none; transition: opacity 0.25s;
-    }
-    .payment-modal-overlay.open { opacity: 1; pointer-events: auto; }
-
-    .payment-modal {
-      position: fixed; bottom: 0; left: 0; width: 100%; max-height: 85vh;
-      background: var(--white); z-index: 75;
-      border-radius: var(--radius-xl) var(--radius-xl) 0 0;
-      transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
-      display: flex; flex-direction: column; overflow: hidden;
-    }
-    .payment-modal.open { transform: translateY(0); }
-
-    .payment-modal-header {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 18px 20px; border-bottom: 1px solid var(--gray-200); flex-shrink: 0;
-    }
-    .payment-modal-header h3 { font-size: 17px; font-weight: 800; color: var(--navy-900); }
-    .payment-modal-close {
-      background: var(--navy-50); border: none; width: 34px; height: 34px;
-      border-radius: 50%; font-size: 16px; cursor: pointer; color: var(--navy-900);
-      display: flex; align-items: center; justify-content: center;
-    }
-
-    .payment-search-box { padding: 12px 20px; flex-shrink: 0; }
-    .payment-search-box input {
-      width: 100%; padding: 11px 16px; border: 1.5px solid var(--gray-200);
-      border-radius: var(--radius-sm); font-family: var(--font);
-      font-size: 14px; background: var(--navy-50); color: var(--navy-900); outline: none;
-    }
-    .payment-search-box input:focus { border-color: var(--gold-500); }
-
-    .payment-modal-list { flex: 1; overflow-y: auto; padding: 0 20px 24px; }
-
-    .payment-group-label {
+    .selector-group-label {
       font-size: 10.5px; font-weight: 800; color: var(--gray-500);
       text-transform: uppercase; letter-spacing: 1px; padding: 14px 4px 8px;
     }
 
-    .payment-option {
+    .sel-item {
       display: flex; align-items: center; gap: 14px;
-      padding: 13px 12px; border-radius: var(--radius-sm);
-      cursor: pointer; transition: background 0.15s;
+      padding: 12px; border-radius: var(--radius-md);
+      background: var(--white); border: 1px solid var(--gray-200);
+      margin-bottom: 8px; cursor: pointer; transition: all 0.15s;
     }
-    .payment-option:hover { background: var(--navy-50); }
-    .payment-option.selected { background: var(--gold-100); }
-
-    .payment-option-icon {
-      width: 38px; height: 38px; border-radius: 10px;
+    .sel-item:hover { border-color: var(--gold-500); }
+    .sel-item.selected { border-color: var(--green-500); background: var(--green-100); }
+    
+    .sel-icon {
+      width: 40px; height: 40px; border-radius: 50%;
       background: var(--navy-50); border: 1px solid var(--gray-200);
       display: flex; align-items: center; justify-content: center;
-      font-size: 18px; flex-shrink: 0;
+      flex-shrink: 0; font-size: 18px; overflow: hidden; padding: 5px;
     }
-    .payment-option-info { flex: 1; }
-    .payment-option-name { font-size: 14.5px; font-weight: 700; color: var(--navy-900); }
-    .payment-option-sub { font-size: 11.5px; font-weight: 500; color: var(--gray-500); margin-top: 1px; }
+    .sel-icon img { width: 100%; height: 100%; object-fit: contain; }
+    
+    .sel-info { flex: 1; min-width: 0; }
+    .sel-name { font-size: 15px; font-weight: 800; color: var(--navy-900); }
+    .sel-sub { font-size: 12px; font-weight: 500; color: var(--gray-500); margin-top: 1px; }
+    
+    .sel-price { text-align: right; flex-shrink: 0; }
+    .sel-price .p { font-size: 14px; font-weight: 800; color: var(--navy-900); font-variant-numeric: tabular-nums; }
+    .sel-price .c { font-size: 11.5px; font-weight: 700; margin-top: 1px; }
+    .c.positive { color: var(--green-500); }
+    .c.negative { color: var(--red-500); }
 
-    .payment-option-check {
-      width: 20px; height: 20px; border-radius: 50%;
+    .sel-check {
+      width: 22px; height: 22px; border-radius: 50%;
       border: 2px solid var(--gray-300); flex-shrink: 0;
       display: flex; align-items: center; justify-content: center;
     }
-    .payment-option.selected .payment-option-check {
+    .sel-item.selected .sel-check {
       background: var(--green-500); border-color: var(--green-500);
     }
-    .payment-option.selected .payment-option-check::after {
-      content: '✓'; color: #fff; font-size: 12px; font-weight: 800;
+    .sel-item.selected .sel-check::after {
+      content: '✓'; color: #fff; font-size: 13px; font-weight: 800;
     }
 
     /* ============================================================
-       QUICK ACTION BANNER
-       ============================================================ */
-    .quick-actions-banner {
-      background: linear-gradient(135deg, var(--navy-900), var(--navy-800));
-      border-radius: var(--radius-lg);
-      padding: 20px 18px;
-      color: var(--white);
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      box-shadow: var(--shadow-md);
-      position: relative;
-      overflow: hidden;
-    }
-    .quick-actions-banner::before {
-      content: ''; position: absolute; top: -40%; right: -20%;
-      width: 200px; height: 200px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(201, 168, 76, 0.15), transparent 70%);
-      pointer-events: none;
-    }
-
-    .quick-actions-banner h3 {
-      font-size: 17px;
-      font-weight: 800;
-      letter-spacing: -0.3px;
-      position: relative;
-      z-index: 1;
-    }
-    .quick-actions-banner h3 .gold { color: var(--gold-400); }
-
-    .quick-action-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .quick-action-btn {
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-      padding: 13px 12px; border-radius: var(--radius-sm);
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: var(--white); font-family: var(--font);
-      font-size: 13px; font-weight: 700;
-      cursor: pointer; transition: all 0.2s;
-      white-space: nowrap; letter-spacing: -0.1px;
-    }
-    .quick-action-btn:hover {
-      background: rgba(201, 168, 76, 0.2);
-      border-color: var(--gold-500);
-    }
-    .quick-action-btn .qa-icon {
-      font-size: 15px; display: flex; align-items: center;
-    }
-
-    /* ============================================================
-       EXPLORE P2P BANNER
-       ============================================================ */
-    .explore-p2p-banner {
-      background: linear-gradient(135deg, var(--gold-500), var(--gold-400));
-      border-radius: var(--radius-lg);
-      padding: 22px 20px;
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 16px; cursor: pointer;
-      box-shadow: var(--shadow-gold);
-      transition: transform 0.2s, box-shadow 0.2s;
-      position: relative; overflow: hidden;
-    }
-    .explore-p2p-banner:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(201, 168, 76, 0.4); }
-
-    .explore-p2p-banner-text h3 {
-      font-size: 18px; font-weight: 800; color: var(--navy-900);
-      letter-spacing: -0.4px; line-height: 1.2;
-    }
-    .explore-p2p-banner-text p {
-      font-size: 12.5px; font-weight: 600; color: var(--navy-800);
-      margin-top: 3px; opacity: 0.85;
-    }
-    .explore-p2p-arrow {
-      width: 40px; height: 40px; border-radius: 50%;
-      background: var(--navy-900); color: var(--gold-400);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px; flex-shrink: 0;
-    }
-
-    /* ============================================================
-       SWAP PAGE — LIVE RATE BANNER
+       SWAP — LIVE RATE BANNER
        ============================================================ */
     .swap-rate-banner {
       background: linear-gradient(135deg, var(--navy-900), var(--navy-800));
@@ -582,220 +569,7 @@
       position: relative; z-index: 1; font-variant-numeric: tabular-nums;
     }
     .swap-rate-banner .sr-rate .unit { font-size: 14px; font-weight: 600; color: var(--gray-300); margin-left: 4px; }
-    .swap-rate-banner .sr-sub {
-      font-size: 12.5px; font-weight: 600; color: var(--gray-300);
-      position: relative; z-index: 1;
-    }
-
-    /* ============================================================
-       TRADE PAGE — PROFESSIONAL BUTTONS
-       ============================================================ */
-    .trade-action-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
-    }
-
-    .trade-action-card {
-      display: flex; flex-direction: column; gap: 8px;
-      padding: 18px 16px; border-radius: var(--radius-md);
-      border: 1.5px solid var(--gray-200);
-      background: var(--white); cursor: pointer;
-      transition: all 0.22s; text-align: left;
-    }
-    .trade-action-card:hover { border-color: var(--gold-500); box-shadow: var(--shadow-gold); transform: translateY(-2px); }
-
-    .trade-action-card .tac-icon {
-      width: 44px; height: 44px; border-radius: 12px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 20px; flex-shrink: 0;
-    }
-    .trade-action-card .tac-icon.bot { background: var(--gold-100); color: var(--gold-500); }
-    .trade-action-card .tac-icon.chart { background: var(--green-100); color: var(--green-500); }
-
-    .trade-action-card h4 {
-      font-size: 14.5px; font-weight: 800; color: var(--navy-900);
-      letter-spacing: -0.2px; line-height: 1.25;
-    }
-    .trade-action-card p {
-      font-size: 11.5px; font-weight: 500; color: var(--gray-500);
-      line-height: 1.4;
-    }
-
-    /* ============================================================
-       BOT PANEL
-       ============================================================ */
-    .bot-panel {
-      background: var(--white); border: 1px solid var(--gray-200);
-      border-radius: var(--radius-lg); padding: 18px;
-      display: flex; flex-direction: column; gap: 14px;
-      box-shadow: var(--shadow-sm);
-    }
-    .bot-panel-header {
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    .bot-panel-header h4 {
-      font-size: 15px; font-weight: 800; color: var(--navy-900);
-      display: flex; align-items: center; gap: 8px;
-    }
-    .bot-panel-header h4 .bot-badge {
-      font-size: 8.5px; font-weight: 800; letter-spacing: 0.5px;
-      padding: 3px 8px; border-radius: var(--radius-pill);
-      background: var(--gold-100); color: var(--gold-500);
-      border: 1px solid rgba(201, 168, 76, 0.4);
-    }
-
-    .passkey-box {
-      background: var(--navy-50); border: 1.5px dashed var(--gray-300);
-      border-radius: var(--radius-sm); padding: 12px 14px;
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 10px;
-    }
-    .passkey-box code {
-      font-family: 'SF Mono', 'Consolas', monospace;
-      font-size: 12px; font-weight: 600; color: var(--navy-800);
-      letter-spacing: 0.5px; word-break: break-all;
-    }
-    .copy-btn {
-      background: var(--navy-900); color: var(--gold-400);
-      border: none; padding: 8px 14px; border-radius: var(--radius-xs);
-      font-family: var(--font); font-size: 11.5px; font-weight: 700;
-      cursor: pointer; flex-shrink: 0; transition: background 0.2s;
-    }
-    .copy-btn:hover { background: var(--navy-800); }
-
-    .upgrade-banner {
-      background: linear-gradient(135deg, var(--navy-900), var(--navy-800));
-      border-radius: var(--radius-md); padding: 16px;
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 12px; cursor: pointer; transition: transform 0.2s;
-    }
-    .upgrade-banner:hover { transform: translateY(-1px); }
-    .upgrade-banner-text h5 {
-      font-size: 14px; font-weight: 800; color: var(--white);
-      letter-spacing: -0.2px;
-    }
-    .upgrade-banner-text h5 .gold { color: var(--gold-400); }
-    .upgrade-banner-text p {
-      font-size: 11px; font-weight: 500; color: var(--gray-300);
-      margin-top: 2px;
-    }
-    .upgrade-banner .upgrade-arrow {
-      width: 34px; height: 34px; border-radius: 50%;
-      background: var(--gold-500); color: var(--navy-900);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 16px; flex-shrink: 0;
-    }
-
-    /* ============================================================
-       MARKET CAP CARD — ENHANCED 3-COLUMN
-       ============================================================ */
-    .marketcap-card {
-      background: var(--white); border: 1px solid var(--gray-200);
-      border-radius: var(--radius-lg); padding: 20px 18px;
-      display: flex; flex-direction: column; gap: 16px;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .marketcap-statement {
-      background: linear-gradient(135deg, var(--navy-50), #EEF2F8);
-      border-radius: var(--radius-md);
-      padding: 16px 18px;
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 14px;
-      border: 1px solid var(--gray-200);
-    }
-    .marketcap-statement-text { flex: 1; min-width: 0; }
-    .marketcap-statement-text p {
-      font-size: 13px; font-weight: 600; color: var(--navy-800);
-      line-height: 1.5; letter-spacing: -0.1px;
-    }
-    .marketcap-statement-text p strong { font-weight: 800; }
-    .marketcap-statement-text .highlight { color: var(--gold-500); }
-
-    .deposit-btn {
-      background: linear-gradient(135deg, var(--green-500), #0B8A5E);
-      color: #fff; border: none; padding: 11px 20px;
-      border-radius: var(--radius-pill); font-family: var(--font);
-      font-weight: 800; font-size: 13px; cursor: pointer;
-      transition: all 0.22s; flex-shrink: 0;
-      box-shadow: 0 4px 14px rgba(15, 157, 110, 0.3);
-      white-space: nowrap;
-    }
-    .deposit-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(15, 157, 110, 0.42); }
-
-    .marketcap-header {
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    .marketcap-header h3 {
-      font-size: 16px; font-weight: 800; color: var(--navy-900);
-      display: flex; align-items: center; gap: 8px;
-    }
-    .marketcap-header h3 .live-dot {
-      width: 7px; height: 7px; border-radius: 50%; background: var(--green-500);
-      display: inline-block; animation: pulse 1.5s ease-in-out infinite;
-    }
-    .marketcap-header .marketcap-updated {
-      font-size: 10.5px; font-weight: 600; color: var(--gray-500);
-    }
-
-    /* 3-column grid for market cap */
-    .marketcap-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 10px;
-    }
-
-    .marketcap-cell {
-      background: var(--navy-50);
-      border: 1px solid var(--gray-200);
-      border-radius: var(--radius-sm);
-      padding: 14px 12px;
-      display: flex; flex-direction: column; gap: 6px;
-      transition: all 0.2s;
-      cursor: pointer;
-    }
-    .marketcap-cell:hover {
-      border-color: var(--gold-500);
-      background: var(--white);
-      box-shadow: var(--shadow-sm);
-      transform: translateY(-1px);
-    }
-
-    .marketcap-cell-top {
-      display: flex; align-items: center; gap: 8px;
-    }
-    .marketcap-cell-logo {
-      width: 28px; height: 28px; border-radius: 50%;
-      background: var(--white); border: 1px solid var(--gray-200);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 9px; font-weight: 800; color: var(--navy-800);
-      flex-shrink: 0; overflow: hidden;
-    }
-    .marketcap-cell-logo img { width: 100%; height: 100%; object-fit: cover; }
-
-    .marketcap-cell-name {
-      font-size: 11.5px; font-weight: 800; color: var(--navy-900);
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    }
-    .marketcap-cell-symbol {
-      font-size: 9.5px; font-weight: 700; color: var(--gray-500);
-      text-transform: uppercase; letter-spacing: 0.3px;
-    }
-
-    .marketcap-cell-price {
-      font-size: 14px; font-weight: 800; color: var(--navy-900);
-      font-variant-numeric: tabular-nums; letter-spacing: -0.3px;
-    }
-    .marketcap-cell-change {
-      font-size: 11px; font-weight: 700; font-variant-numeric: tabular-nums;
-      display: flex; align-items: center; gap: 3px;
-    }
-    .marketcap-cell-change.positive { color: var(--green-500); }
-    .marketcap-cell-change.negative { color: var(--red-500); }
-
-    .marketcap-cell-volume {
-      font-size: 9.5px; font-weight: 600; color: var(--gray-500);
-      font-variant-numeric: tabular-nums;
-    }
+    .swap-rate-banner .sr-sub { font-size: 12.5px; font-weight: 600; color: var(--gray-300); position: relative; z-index: 1; }
 
     /* ============================================================
        FORM FIELDS
@@ -846,14 +620,13 @@
     }
     .btn-primary:hover { box-shadow: 0 6px 24px rgba(15, 157, 110, 0.42); transform: translateY(-1px); }
     .btn-primary:active { transform: translateY(0); }
-    .btn-primary:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
 
-    .error-text {
-      font-size: 12px; color: var(--red-500); margin-top: 2px;
-      display: none; font-weight: 600; padding: 6px 10px;
-      background: var(--red-100); border-radius: var(--radius-xs);
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold-500), var(--gold-400));
+      color: var(--navy-900);
+      box-shadow: 0 4px 16px rgba(201,168,76,0.35);
     }
-    .error-text.visible { display: block; }
+    .btn-gold:hover { box-shadow: 0 6px 24px rgba(201,168,76,0.45); }
 
     .swap-arrow-container { display: flex; justify-content: center; margin: -6px 0; position: relative; z-index: 2; }
     .swap-arrow-btn {
@@ -868,18 +641,96 @@
     .swap-arrow-btn:active { transform: rotate(180deg); }
 
     /* ============================================================
+       TRADE — PROFESSIONAL BUTTONS
+       ============================================================ */
+    .trade-action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .trade-action-card {
+      display: flex; flex-direction: column; gap: 8px;
+      padding: 18px 16px; border-radius: var(--radius-md);
+      border: 1.5px solid var(--gray-200);
+      background: var(--white); cursor: pointer;
+      transition: all 0.22s; text-align: left;
+    }
+    .trade-action-card:hover { border-color: var(--gold-500); box-shadow: var(--shadow-gold); transform: translateY(-2px); }
+    .trade-action-card .tac-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; flex-shrink: 0;
+    }
+    .trade-action-card .tac-icon.bot { background: var(--gold-100); color: var(--gold-500); }
+    .trade-action-card .tac-icon.chart { background: var(--green-100); color: var(--green-500); }
+    .trade-action-card h4 { font-size: 14.5px; font-weight: 800; color: var(--navy-900); letter-spacing: -0.2px; line-height: 1.25; }
+    .trade-action-card p { font-size: 11.5px; font-weight: 500; color: var(--gray-500); line-height: 1.4; }
+
+    .bot-panel {
+      background: var(--white); border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg); padding: 18px;
+      display: flex; flex-direction: column; gap: 14px;
+      box-shadow: var(--shadow-sm);
+    }
+    .bot-panel-header { display: flex; justify-content: space-between; align-items: center; }
+    .bot-panel-header h4 { font-size: 15px; font-weight: 800; color: var(--navy-900); display: flex; align-items: center; gap: 8px; }
+    .bot-panel-header h4 .bot-badge { font-size: 8.5px; font-weight: 800; letter-spacing: 0.5px; padding: 3px 8px; border-radius: var(--radius-pill); background: var(--gold-100); color: var(--gold-500); border: 1px solid rgba(201, 168, 76, 0.4); }
+
+    .passkey-box {
+      background: var(--navy-50); border: 1.5px dashed var(--gray-300);
+      border-radius: var(--radius-sm); padding: 12px 14px;
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    }
+    .passkey-box code { font-family: 'SF Mono', 'Consolas', monospace; font-size: 12px; font-weight: 600; color: var(--navy-800); letter-spacing: 0.5px; word-break: break-all; }
+    .copy-btn { background: var(--navy-900); color: var(--gold-400); border: none; padding: 8px 14px; border-radius: var(--radius-xs); font-family: var(--font); font-size: 11.5px; font-weight: 700; cursor: pointer; flex-shrink: 0; transition: background 0.2s; }
+    .copy-btn:hover { background: var(--navy-800); }
+
+    .upgrade-banner { background: linear-gradient(135deg, var(--navy-900), var(--navy-800)); border-radius: var(--radius-md); padding: 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer; transition: transform 0.2s; }
+    .upgrade-banner:hover { transform: translateY(-1px); }
+    .upgrade-banner-text h5 { font-size: 14px; font-weight: 800; color: var(--white); letter-spacing: -0.2px; }
+    .upgrade-banner-text h5 .gold { color: var(--gold-400); }
+    .upgrade-banner-text p { font-size: 11px; font-weight: 500; color: var(--gray-300); margin-top: 2px; }
+    .upgrade-banner .upgrade-arrow { width: 34px; height: 34px; border-radius: 50%; background: var(--gold-500); color: var(--navy-900); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+
+    /* ============================================================
+       MARKET CAP CARD
+       ============================================================ */
+    .marketcap-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 20px 18px; display: flex; flex-direction: column; gap: 16px; box-shadow: var(--shadow-sm); }
+    .marketcap-statement { background: linear-gradient(135deg, var(--navy-50), #EEF2F8); border-radius: var(--radius-md); padding: 16px 18px; display: flex; align-items: center; justify-content: space-between; gap: 14px; border: 1px solid var(--gray-200); }
+    .marketcap-statement-text { flex: 1; min-width: 0; }
+    .marketcap-statement-text p { font-size: 13px; font-weight: 600; color: var(--navy-800); line-height: 1.5; letter-spacing: -0.1px; }
+    .marketcap-statement-text p strong { font-weight: 800; }
+    .marketcap-statement-text .highlight { color: var(--gold-500); }
+    .deposit-btn { background: linear-gradient(135deg, var(--green-500), #0B8A5E); color: #fff; border: none; padding: 11px 20px; border-radius: var(--radius-pill); font-family: var(--font); font-weight: 800; font-size: 13px; cursor: pointer; transition: all 0.22s; flex-shrink: 0; box-shadow: 0 4px 14px rgba(15, 157, 110, 0.3); white-space: nowrap; }
+    .deposit-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(15, 157, 110, 0.42); }
+
+    .marketcap-header { display: flex; justify-content: space-between; align-items: center; }
+    .marketcap-header h3 { font-size: 16px; font-weight: 800; color: var(--navy-900); display: flex; align-items: center; gap: 8px; }
+    .marketcap-header h3 .live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green-500); display: inline-block; animation: pulse 1.5s ease-in-out infinite; }
+    .marketcap-header .marketcap-updated { font-size: 10.5px; font-weight: 600; color: var(--gray-500); }
+
+    .marketcap-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+    .marketcap-cell { background: var(--navy-50); border: 1px solid var(--gray-200); border-radius: var(--radius-sm); padding: 14px 12px; display: flex; flex-direction: column; gap: 6px; transition: all 0.2s; cursor: pointer; }
+    .marketcap-cell:hover { border-color: var(--gold-500); background: var(--white); box-shadow: var(--shadow-sm); transform: translateY(-1px); }
+    .marketcap-cell-top { display: flex; align-items: center; gap: 8px; }
+    .marketcap-cell-logo { width: 28px; height: 28px; border-radius: 50%; background: var(--white); border: 1px solid var(--gray-200); display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 800; color: var(--navy-800); flex-shrink: 0; overflow: hidden; padding: 3px; }
+    .marketcap-cell-logo img { width: 100%; height: 100%; object-fit: contain; }
+    .marketcap-cell-name { font-size: 11.5px; font-weight: 800; color: var(--navy-900); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .marketcap-cell-symbol { font-size: 9.5px; font-weight: 700; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.3px; }
+    .marketcap-cell-price { font-size: 14px; font-weight: 800; color: var(--navy-900); font-variant-numeric: tabular-nums; letter-spacing: -0.3px; }
+    .marketcap-cell-change { font-size: 11px; font-weight: 700; font-variant-numeric: tabular-nums; display: flex; align-items: center; gap: 3px; }
+    .marketcap-cell-change.positive { color: var(--green-500); }
+    .marketcap-cell-change.negative { color: var(--red-500); }
+    .marketcap-cell-volume { font-size: 9.5px; font-weight: 600; color: var(--gray-500); font-variant-numeric: tabular-nums; }
+
+    /* ============================================================
        BOTTOM NAVIGATION
        ============================================================ */
     .bottom-nav {
       position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
       width: 100%; max-width: 600px;
-      background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(16px);
+      background: rgba(255, 255, 255, 0.97); backdrop-filter: blur(16px);
       border-top: 1px solid var(--gray-200);
       display: flex; justify-content: space-around; align-items: center;
       padding: 8px 8px calc(8px + env(safe-area-inset-bottom, 0px));
       z-index: 40; box-shadow: 0 -4px 20px rgba(10, 26, 47, 0.06);
     }
-
     .nav-item {
       display: flex; flex-direction: column; align-items: center; gap: 3px;
       background: none; border: none; cursor: pointer;
@@ -892,17 +743,8 @@
     .nav-item.active { color: var(--navy-900); font-weight: 800; }
     .nav-item.active .nav-icon-wrap { background: var(--navy-900); }
     .nav-item.active .nav-icon-wrap svg { stroke: var(--gold-400); }
-
-    .nav-icon-wrap {
-      width: 38px; height: 28px; border-radius: var(--radius-xs);
-      display: flex; align-items: center; justify-content: center;
-      transition: background 0.2s;
-    }
-    .nav-item svg {
-      width: 21px; height: 21px; stroke: currentColor; fill: none;
-      stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round;
-      transition: stroke 0.2s;
-    }
+    .nav-icon-wrap { width: 38px; height: 28px; border-radius: var(--radius-xs); display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+    .nav-item svg { width: 21px; height: 21px; stroke: currentColor; fill: none; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.2s; }
 
     /* ============================================================
        DRAWER
@@ -913,7 +755,6 @@
       z-index: 50; opacity: 0; pointer-events: none; transition: opacity 0.25s;
     }
     .drawer-overlay.open { opacity: 1; pointer-events: auto; }
-
     .drawer {
       position: fixed; top: 0; left: 0; width: 300px; height: 100%;
       background: var(--white); z-index: 55; transform: translateX(-100%);
@@ -922,32 +763,15 @@
       box-shadow: 8px 0 32px rgba(10, 26, 47, 0.12); overflow-y: auto;
     }
     .drawer.open { transform: translateX(0); }
-
     .drawer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
     .drawer-logo { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; }
     .drawer-logo .blue { color: var(--navy-900); }
     .drawer-logo .peak { color: var(--gold-500); }
     .drawer-logo small { display: block; font-size: 8px; letter-spacing: 1.5px; color: var(--gray-500); font-weight: 700; margin-top: 1px; }
-
-    .drawer-close {
-      background: var(--navy-50); border: none; width: 32px; height: 32px;
-      border-radius: 50%; font-size: 16px; cursor: pointer; color: var(--navy-900);
-      display: flex; align-items: center; justify-content: center; transition: background 0.2s;
-    }
+    .drawer-close { background: var(--navy-50); border: none; width: 32px; height: 32px; border-radius: 50%; font-size: 16px; cursor: pointer; color: var(--navy-900); display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
     .drawer-close:hover { background: var(--gray-200); }
-
-    .drawer-section-label {
-      font-size: 10px; font-weight: 700; color: var(--gray-500);
-      text-transform: uppercase; letter-spacing: 1px; padding: 12px 10px 6px;
-    }
-
-    .drawer-link {
-      padding: 12px 12px; border-radius: var(--radius-sm);
-      font-size: 14.5px; font-weight: 600; color: var(--navy-900);
-      cursor: pointer; transition: background 0.2s; border: none;
-      background: transparent; text-align: left; font-family: var(--font);
-      display: flex; align-items: center; gap: 12px;
-    }
+    .drawer-section-label { font-size: 10px; font-weight: 700; color: var(--gray-500); text-transform: uppercase; letter-spacing: 1px; padding: 12px 10px 6px; }
+    .drawer-link { padding: 12px 12px; border-radius: var(--radius-sm); font-size: 14.5px; font-weight: 600; color: var(--navy-900); cursor: pointer; transition: background 0.2s; border: none; background: transparent; text-align: left; font-family: var(--font); display: flex; align-items: center; gap: 12px; }
     .drawer-link:hover { background: var(--navy-50); }
     .drawer-link .nav-ico { width: 18px; text-align: center; opacity: 0.7; }
     .drawer-link.danger { color: var(--red-500); }
@@ -956,35 +780,15 @@
     /* ============================================================
        NOTIFICATION & PROFILE POPUPS
        ============================================================ */
-    .notification-panel {
-      position: fixed; top: 64px; right: 16px; width: 300px;
-      max-width: calc(100vw - 32px); background: var(--white);
-      border-radius: var(--radius-md); box-shadow: var(--shadow-lg);
-      border: 1px solid var(--gray-200); padding: 16px;
-      z-index: 60; display: none; flex-direction: column; gap: 8px;
-    }
+    .notification-panel { position: fixed; top: 64px; right: 16px; width: 300px; max-width: calc(100vw - 32px); background: var(--white); border-radius: var(--radius-md); box-shadow: var(--shadow-lg); border: 1px solid var(--gray-200); padding: 16px; z-index: 60; display: none; flex-direction: column; gap: 8px; }
     .notification-panel.open { display: flex; }
-    .notification-panel .panel-title {
-      font-weight: 800; font-size: 14px; margin-bottom: 4px;
-      display: flex; justify-content: space-between; align-items: center;
-    }
+    .notification-panel .panel-title { font-weight: 800; font-size: 14px; margin-bottom: 4px; display: flex; justify-content: space-between; align-items: center; }
     .notification-item { font-size: 13px; color: var(--gray-500); padding: 10px 0; border-bottom: 1px solid var(--gray-200); line-height: 1.45; }
     .notification-item:last-child { border-bottom: none; }
     .notification-empty { font-size: 13px; color: var(--gray-500); text-align: center; padding: 20px 0; font-weight: 500; }
-
-    .profile-menu {
-      position: fixed; top: 64px; right: 16px; width: 210px;
-      background: var(--white); border-radius: var(--radius-md);
-      box-shadow: var(--shadow-lg); border: 1px solid var(--gray-200);
-      padding: 8px; z-index: 60; display: none; flex-direction: column;
-    }
+    .profile-menu { position: fixed; top: 64px; right: 16px; width: 210px; background: var(--white); border-radius: var(--radius-md); box-shadow: var(--shadow-lg); border: 1px solid var(--gray-200); padding: 8px; z-index: 60; display: none; flex-direction: column; }
     .profile-menu.open { display: flex; }
-    .profile-menu button {
-      padding: 11px 14px; border-radius: var(--radius-xs);
-      border: none; background: transparent; text-align: left;
-      font-family: var(--font); font-size: 14px; font-weight: 600;
-      color: var(--navy-900); cursor: pointer; transition: background 0.15s;
-    }
+    .profile-menu button { padding: 11px 14px; border-radius: var(--radius-xs); border: none; background: transparent; text-align: left; font-family: var(--font); font-size: 14px; font-weight: 600; color: var(--navy-900); cursor: pointer; transition: background 0.15s; }
     .profile-menu button:hover { background: var(--navy-50); }
     .profile-menu button.danger { color: var(--red-500); }
 
@@ -997,16 +801,17 @@
       .hero-stats { gap: 20px; }
       .hero-stat .value { font-size: 16px; }
       .app-header { padding: 10px 14px; }
-      .logo { font-size: 18px; }
-      .logo small { font-size: 7px; padding: 1px 4px; }
-      .balance-wrapper { font-size: 12px; padding: 5px 9px; }
+      .logo .wordmark { font-size: 18px; }
+      .logo .tagline { font-size: 7px; padding: 2px 5px; }
+      .balance-wrapper { font-size: 12px; padding: 4px 4px 4px 9px; }
+      .eye-toggle { width: 24px; height: 24px; }
       .avatar { width: 32px; height: 32px; font-size: 12px; }
       .bell { font-size: 17px; }
       .tab-btn { font-size: 12.5px; padding: 11px 4px; }
       .panel { padding: 18px 14px; }
       .ticker-item { padding: 14px 18px; gap: 10px; }
       .ticker-price { font-size: 15px; }
-      .quick-action-grid { grid-template-columns: 1fr; }
+      .quick-p2p-grid { grid-template-columns: 1fr; }
       .trade-action-grid { grid-template-columns: 1fr; }
       .marketcap-grid { grid-template-columns: 1fr 1fr; }
       .marketcap-statement { flex-direction: column; text-align: center; }
@@ -1020,17 +825,13 @@
       .hero p { font-size: 18px; }
       .bottom-nav { max-width: 640px; border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
       .panel { padding: 24px 22px; }
-      .quick-action-grid { grid-template-columns: 1fr 1fr 1fr; }
+      .quick-p2p-grid { grid-template-columns: repeat(4, 1fr); }
       .marketcap-grid { grid-template-columns: 1fr 1fr 1fr 1fr; }
     }
 
     @media (min-width: 1024px) {
       .app-main { max-width: 680px; }
       .bottom-nav { max-width: 680px; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .ticker-track { animation-duration: 180s; }
     }
 
     .hidden { display: none !important; }
@@ -1085,30 +886,30 @@
     <button class="danger">Logout</button>
   </div>
 
-  <!-- ASSET PICKER OVERLAY -->
-  <div class="asset-picker-overlay" id="assetPickerOverlay"></div>
-  <div class="asset-picker" id="assetPicker">
-    <div class="asset-picker-header">
+  <!-- ASSET SELECTOR OVERLAY -->
+  <div class="selector-overlay" id="assetSelectorOverlay"></div>
+  <div class="selector-modal" id="assetSelector">
+    <div class="selector-header">
       <h3>Select Asset</h3>
-      <button class="asset-picker-close" id="assetPickerClose" aria-label="Close asset picker">✕</button>
+      <button class="selector-close" id="assetSelectorClose" aria-label="Close">✕</button>
     </div>
-    <div class="asset-search-box">
+    <div class="selector-search">
       <input type="text" id="assetSearchInput" placeholder="Search assets…" autocomplete="off">
     </div>
-    <div class="asset-picker-list" id="assetPickerList"></div>
+    <div class="selector-list" id="assetSelectorList"></div>
   </div>
 
-  <!-- PAYMENT METHOD MODAL -->
-  <div class="payment-modal-overlay" id="paymentModalOverlay"></div>
-  <div class="payment-modal" id="paymentModal">
-    <div class="payment-modal-header">
+  <!-- PAYMENT SELECTOR OVERLAY -->
+  <div class="selector-overlay" id="paymentSelectorOverlay"></div>
+  <div class="selector-modal" id="paymentSelector">
+    <div class="selector-header">
       <h3>I pay with</h3>
-      <button class="payment-modal-close" id="paymentModalClose" aria-label="Close payment picker">✕</button>
+      <button class="selector-close" id="paymentSelectorClose" aria-label="Close">✕</button>
     </div>
-    <div class="payment-search-box">
+    <div class="selector-search">
       <input type="text" id="paymentSearchInput" placeholder="Search payment methods…" autocomplete="off">
     </div>
-    <div class="payment-modal-list" id="paymentModalList"></div>
+    <div class="selector-list" id="paymentSelectorList"></div>
   </div>
 
   <!-- HEADER -->
@@ -1118,14 +919,18 @@
         <span></span><span></span><span></span>
       </button>
       <div class="logo">
-        <span class="blue">BLUE</span><span class="peak">PEAK</span>
-        <small>CAPITAL</small>
+        <div class="wordmark">
+          <span class="blue">BLUE</span><span class="peak">PEAK</span>
+        </div>
+        <div class="tagline">CAPITAL</div>
       </div>
     </div>
     <div class="header-right">
       <div class="balance-wrapper">
         <span class="balance-amount" id="balanceDisplay">$0.00</span>
-        <button class="eye-toggle" id="eyeToggle" aria-label="Toggle balance visibility">👁️</button>
+        <button class="eye-toggle" id="eyeToggle" aria-label="Toggle balance visibility">
+          <svg id="eyeIcon" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
       </div>
       <div class="avatar" id="avatarBtn" role="button" tabindex="0">U</div>
       <button class="bell" id="bellBtn" aria-label="Notifications">
@@ -1140,7 +945,6 @@
 
     <!-- HERO -->
     <section class="hero">
-      <div class="hero-eyebrow"><span class="dot"></span>Trusted by 2M+ traders worldwide</div>
       <h1>Buy, Sell, Swap &amp;<br><span class="gold">Cash Out</span> Crypto</h1>
       <p>Trade Bitcoin, Tether (TRC20), Ethereum, and Solana with local payment methods, bank transfers, and institutional-grade security.</p>
       <div class="hero-stats">
@@ -1152,7 +956,7 @@
 
     <!-- MARKET TICKER -->
     <div class="market-ticker-wrapper" id="marketTickerWrapper">
-      <div class="ticker-loading" id="tickerLoading">Loading live market data…</div>
+      <div class="ticker-loading" id="tickerLoading">Loading market data…</div>
     </div>
 
     <!-- TAB SELECTOR -->
@@ -1166,7 +970,7 @@
     <div class="panel-container">
 
       <!-- ============================================================
-           P2P PANEL — SIMPLIFIED
+           P2P PANEL
            ============================================================ -->
       <div class="panel active-panel" id="panel-p2p" role="tabpanel">
         <p class="panel-desc">Trade crypto peer-to-peer with local payment methods, bank transfers, and secure transaction protection.</p>
@@ -1175,15 +979,17 @@
         <!-- Asset selection -->
         <div class="asset-select-card" id="assetSelectCard" role="button" tabindex="0">
           <div class="asset-left">
-            <div class="crypto-icon-green" id="selectedAssetIcon">₮</div>
+            <div class="asset-icon-wrap green-bg" id="selectedAssetIcon">
+              <img src="https://essamamdani.github.io/open-crypto-icons/icons/colored/usdt.svg" alt="USDT">
+            </div>
             <div class="asset-info">
               <span class="asset-main-label" id="selectedAssetLabel">Select Asset</span>
               <span class="asset-sub" id="selectedAssetSub">Tap to choose from available assets</span>
             </div>
           </div>
-          <button class="action-circle" id="assetActionBtn" aria-label="Open asset picker">
+          <div class="action-circle">
             <svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
-          </button>
+          </div>
         </div>
 
         <!-- Buy/Sell toggle -->
@@ -1195,28 +1001,23 @@
         <!-- Payment method trigger -->
         <div class="field-group">
           <label class="field-label">I pay with</label>
-          <div class="asset-select-card" id="paymentMethodTrigger" style="cursor:pointer;background:var(--navy-50);">
+          <div class="asset-select-card" id="paymentMethodTrigger" style="cursor:pointer;">
             <div class="asset-left">
-              <div class="payment-option-icon" id="selectedPaymentIcon" style="background:var(--white);">🏦</div>
+              <div class="sel-icon" id="selectedPaymentIcon">🏦</div>
               <div class="asset-info">
                 <span class="asset-main-label" id="selectedPaymentLabel">Bank Transfer</span>
                 <span class="asset-sub" id="selectedPaymentSub">Select payment method</span>
               </div>
             </div>
-            <div style="font-size:18px;color:var(--gray-500);">›</div>
+            <div class="action-circle" style="background:transparent;border:none;">
+              <svg viewBox="0 0 24 24" style="stroke:var(--gray-500);"><path d="M9 18l6-6-6-6"/></svg>
+            </div>
           </div>
         </div>
 
-        <!-- Quick action banner -->
-        <div class="quick-actions-banner">
-          <h3>Quick <span class="gold">P2P Actions</span></h3>
-          <div class="quick-action-grid">
-            <button class="quick-action-btn" data-quick="buy-usdt"><span class="qa-icon">💚</span>Buy USDT TRC</button>
-            <button class="quick-action-btn" data-quick="sell-usdt"><span class="qa-icon">💸</span>Sell USDT TRON</button>
-            <button class="quick-action-btn" data-quick="buy-btc"><span class="qa-icon">₿</span>Buy BTC</button>
-            <button class="quick-action-btn" data-quick="sell-btc"><span class="qa-icon">🟡</span>Sell BTC</button>
-            <button class="quick-action-btn" data-quick="instant-cashout" style="grid-column: 1 / -1;"><span class="qa-icon">⚡</span>Instant Cashout</button>
-          </div>
+        <!-- Quick action boxes with rates -->
+        <div class="quick-p2p-grid" id="quickP2PGrid">
+          <!-- Rendered by JS -->
         </div>
 
         <!-- Explore P2P banner -->
@@ -1246,17 +1047,16 @@
       </div>
 
       <!-- ============================================================
-           SWAP PANEL
+           SWAP PANEL (Instant Flow)
            ============================================================ -->
       <div class="panel" id="panel-swap" role="tabpanel">
-        <!-- Live rate banner -->
         <div class="swap-rate-banner" id="swapRateBanner">
           <span class="sr-live"><span class="pulse"></span>Live Rate · Instant Cashout</span>
           <div class="sr-rate" id="swapLiveRate">—<span class="unit" id="swapLiveRateUnit"></span></div>
           <div class="sr-sub" id="swapLiveRateSub">Fetching real-time rate…</div>
         </div>
 
-        <p class="panel-desc">Swap between major cryptocurrencies — BTC, ETH, USDT, SOL — at real-time rates with transparent fees.</p>
+        <p class="panel-desc">Instantly swap between major cryptocurrencies at real-time rates with transparent fees.</p>
 
         <div class="field-group">
           <label class="field-label">From</label>
@@ -1277,7 +1077,7 @@
         </div>
 
         <div class="field-group">
-          <label class="field-label">To</label>
+          <label class="field-label">To (Estimated)</label>
           <div class="field-row">
             <select class="select-field" id="swapToAsset">
               <option value="ETH">ETH</option>
@@ -1285,21 +1085,19 @@
               <option value="USDT_TRC20">USDT (TRC20)</option>
               <option value="SOL">SOL</option>
             </select>
-            <input type="number" class="input-field" id="swapToAmount" placeholder="0.00" readonly style="background:var(--navy-50);">
+            <input type="number" class="input-field" id="swapToAmount" placeholder="0.00" readonly style="background:var(--navy-50);font-weight:800;color:var(--green-500);">
           </div>
           <div class="info-row"><span>Estimated exchange rate</span><strong id="swapRate">—</strong></div>
           <div class="info-row"><span>Network fee</span><strong id="swapNetworkFee">—</strong></div>
           <div class="info-row"><span>Minimum received</span><strong id="swapMinReceived">—</strong></div>
         </div>
 
-        <button class="btn-primary" id="swapReviewBtn">Review Swap</button>
+        <button class="btn-primary btn-gold" id="swapReviewBtn">Swap Now</button>
         <div class="error-text" id="swapError">Please enter a valid amount</div>
 
-        <!-- Shouting swap banner -->
         <div class="quick-actions-banner" style="margin-top:4px;">
           <h3>🚀 <span class="gold">Open Instant Swap Interface</span></h3>
           <p style="font-size:12.5px;color:var(--gray-300);font-weight:500;position:relative;z-index:1;">Convert between top assets in seconds — zero hidden fees, instant settlement.</p>
-          <button class="btn-primary" style="background:linear-gradient(135deg,var(--gold-500),var(--gold-400));color:var(--navy-900);box-shadow:0 4px 16px rgba(201,168,76,0.35);">Open Swap Now →</button>
         </div>
       </div>
 
@@ -1309,7 +1107,6 @@
       <div class="panel" id="panel-trade" role="tabpanel">
         <p class="panel-desc">Access real-time markets with advanced tools — trade manually or let automation work for you.</p>
 
-        <!-- Professional trade action buttons -->
         <div class="trade-action-grid">
           <div class="trade-action-card" id="tradeBotCard">
             <div class="tac-icon bot">🤖</div>
@@ -1323,7 +1120,6 @@
           </div>
         </div>
 
-        <!-- Bot panel -->
         <div class="bot-panel" id="botPanel">
           <div class="bot-panel-header">
             <h4>🤖 Default Bot <span class="bot-badge">ACTIVE</span></h4>
@@ -1341,7 +1137,6 @@
           </div>
         </div>
 
-        <!-- Standard trade form -->
         <div class="field-group">
           <label class="field-label">Pair</label>
           <select class="select-field" id="tradePair">
@@ -1381,11 +1176,8 @@
 
     </div>
 
-    <!-- ============================================================
-         MARKET CAP CARD — ENHANCED 3-COLUMN WITH STATEMENT & DEPOSIT
-         ============================================================ -->
+    <!-- MARKET CAP CARD -->
     <div class="marketcap-card" id="marketcapCard">
-      <!-- Brief statement with deposit button -->
       <div class="marketcap-statement">
         <div class="marketcap-statement-text">
           <p><strong>Your portfolio, powered by real-time data.</strong> Track top assets, spot opportunities, and <span class="highlight">fund your account instantly</span> to start trading.</p>
@@ -1451,7 +1243,9 @@
       let p2pMode = 'buy';
       let tradeMode = 'buy';
       let tickerPrices = {};
-      let selectedAsset = null;
+      
+      // Default selections
+      let selectedAsset = { id: 'tether', symbol: 'USDT', name: 'Tether', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/usdt.svg' };
       let selectedPayment = { name: 'Bank Transfer', icon: '🏦', sub: 'Bank transfer payment' };
 
       // ============================================================
@@ -1462,6 +1256,7 @@
 
       const balanceDisplay = $('#balanceDisplay');
       const eyeToggle = $('#eyeToggle');
+      const eyeIcon = $('#eyeIcon');
       const menuBtn = $('#menuBtn');
       const drawer = $('#drawer');
       const drawerOverlay = $('#drawerOverlay');
@@ -1482,7 +1277,7 @@
         trade: $('#panel-trade'),
       };
 
-      // P2P
+      // P2P elements
       const p2pToggle = $('#p2pToggle');
       const p2pAmount = $('#p2pAmount');
       const p2pCurrency = $('#p2pCurrency');
@@ -1494,8 +1289,9 @@
       const selectedPaymentLabel = $('#selectedPaymentLabel');
       const selectedPaymentSub = $('#selectedPaymentSub');
       const selectedPaymentIcon = $('#selectedPaymentIcon');
+      const quickP2PGrid = $('#quickP2PGrid');
 
-      // Swap
+      // Swap elements
       const swapFromAsset = $('#swapFromAsset');
       const swapToAsset = $('#swapToAsset');
       const swapFromAmount = $('#swapFromAmount');
@@ -1511,7 +1307,7 @@
       const swapLiveRateUnit = $('#swapLiveRateUnit');
       const swapLiveRateSub = $('#swapLiveRateSub');
 
-      // Trade
+      // Trade elements
       const tradePair = $('#tradePair');
       const tradePrice = $('#tradePrice');
       const tradeChange = $('#tradeChange');
@@ -1529,13 +1325,69 @@
       const marketcapGrid = $('#marketcapGrid');
       const marketcapUpdated = $('#marketcapUpdated');
 
+      // Asset Data with Actual Logos
+      const ASSETS = [
+        { id: 'bitcoin', symbol: 'BTC', name: 'Bitcoin', icon: 'https://blockchains.tatum.io/assets/img/bitcoin.svg' },
+        { id: 'ethereum', symbol: 'ETH', name: 'Ethereum', icon: 'https://blockchains.tatum.io/assets/img/ethereum.svg' },
+        { id: 'tether', symbol: 'USDT', name: 'Tether', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/usdt.svg' },
+        { id: 'binancecoin', symbol: 'BNB', name: 'BNB', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/bnb.svg' },
+        { id: 'solana', symbol: 'SOL', name: 'Solana', icon: 'https://blockchains.tatum.io/assets/img/solana.svg' },
+        { id: 'ripple', symbol: 'XRP', name: 'XRP', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/xrp.svg' },
+        { id: 'cardano', symbol: 'ADA', name: 'Cardano', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/ada.svg' },
+        { id: 'dogecoin', symbol: 'DOGE', name: 'Dogecoin', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/doge.svg' },
+        { id: 'avalanche-2', symbol: 'AVAX', name: 'Avalanche', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/avax.svg' },
+        { id: 'polkadot', symbol: 'DOT', name: 'Polkadot', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/dot.svg' },
+        { id: 'chainlink', symbol: 'LINK', name: 'Chainlink', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/link.svg' },
+        { id: 'polygon-ecosystem-token', symbol: 'POL', name: 'Polygon', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/pol.svg' },
+        { id: 'litecoin', symbol: 'LTC', name: 'Litecoin', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/ltc.svg' },
+        { id: 'uniswap', symbol: 'UNI', name: 'Uniswap', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/uni.svg' },
+        { id: 'stellar', symbol: 'XLM', name: 'Stellar', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/xlm.svg' },
+      ];
+
+      // Payment Methods
+      const PAYMENT_METHODS = [
+        { group: 'Global', items: [
+          { name: 'Bank Transfer', icon: '🏦', sub: 'Standard bank transfer' },
+          { name: 'Visa / Mastercard', icon: '💳', sub: 'Debit or credit card' },
+          { name: 'PayPal', icon: '🅿️', sub: 'PayPal balance' },
+          { name: 'Wise', icon: '🌐', sub: 'International transfer' },
+        ]},
+        { group: 'Africa — Mobile Money', items: [
+          { name: 'M-Pesa Kenya', icon: '📱', sub: 'Safaricom M-Pesa · Kenya' },
+          { name: 'M-Pesa Tanzania', icon: '📱', sub: 'Vodacom M-Pesa · Tanzania' },
+          { name: 'MTN MoMo Ghana', icon: '📲', sub: 'MTN Mobile Money · Ghana' },
+          { name: 'Airtel Money Kenya', icon: '📶', sub: 'Airtel Money · Kenya' },
+          { name: 'Orange Money Senegal', icon: '🟠', sub: 'Orange Money · Senegal' },
+          { name: 'Flutterwave', icon: '🌊', sub: 'Pan-African payments' },
+          { name: 'Paystack', icon: '💠', sub: 'Nigeria & Ghana' },
+        ]},
+        { group: 'Americas', items: [
+          { name: 'ACH Transfer', icon: '🏦', sub: 'United States' },
+          { name: 'Zelle', icon: '⚡', sub: 'United States' },
+          { name: 'Venmo', icon: '💸', sub: 'United States' },
+          { name: 'PIX', icon: '⚡', sub: 'Brazil' },
+        ]},
+        { group: 'Europe & Asia', items: [
+          { name: 'SEPA', icon: '🇪🇺', sub: 'Euro transfers' },
+          { name: 'Alipay', icon: '🇨🇳', sub: 'China' },
+          { name: 'UPI', icon: '🇮🇳', sub: 'India' },
+        ]},
+      ];
+
       // ============================================================
-      // UTILITIES
+      // UTILS & STATE SAVING
       // ============================================================
       function setBalanceVisibility(visible) {
         balanceVisible = visible;
-        balanceDisplay.textContent = visible ? '$0.00' : '••••••';
-        eyeToggle.textContent = visible ? '👁️' : '🙈';
+        if (visible) {
+          balanceDisplay.textContent = '$0.00';
+          balanceDisplay.classList.remove('masked');
+          eyeIcon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+        } else {
+          balanceDisplay.textContent = '••••••';
+          balanceDisplay.classList.add('masked');
+          eyeIcon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
+        }
       }
 
       function closeAllPopups() {
@@ -1563,107 +1415,22 @@
                          (nav === 'home' && tab === 'p2p');
           btn.classList.toggle('active', active);
         });
+        
+        // Update URL hash without jumping
+        history.replaceState(null, null, '#' + tab);
+      }
+
+      function saveP2PState() {
+        const state = {
+          assetId: selectedAsset ? selectedAsset.id : null,
+          paymentName: selectedPayment ? selectedPayment.name : null,
+          mode: p2pMode
+        };
+        localStorage.setItem('bluepeak_p2p_state', JSON.stringify(state));
       }
 
       // ============================================================
-      // ASSET DATA — with real logos
-      // ============================================================
-      const ASSETS = [
-        { id: 'bitcoin', symbol: 'BTC', name: 'Bitcoin', icon: '₿' },
-        { id: 'ethereum', symbol: 'ETH', name: 'Ethereum', icon: 'Ξ' },
-        { id: 'tether', symbol: 'USDT', name: 'Tether', icon: '₮' },
-        { id: 'binancecoin', symbol: 'BNB', name: 'BNB', icon: 'BNB' },
-        { id: 'solana', symbol: 'SOL', name: 'Solana', icon: 'SOL' },
-        { id: 'ripple', symbol: 'XRP', name: 'XRP', icon: 'XRP' },
-        { id: 'cardano', symbol: 'ADA', name: 'Cardano', icon: 'ADA' },
-        { id: 'dogecoin', symbol: 'DOGE', name: 'Dogecoin', icon: 'Ð' },
-        { id: 'avalanche-2', symbol: 'AVAX', name: 'Avalanche', icon: 'AVAX' },
-        { id: 'polkadot', symbol: 'DOT', name: 'Polkadot', icon: 'DOT' },
-        { id: 'chainlink', symbol: 'LINK', name: 'Chainlink', icon: 'LINK' },
-        { id: 'polygon-ecosystem-token', symbol: 'POL', name: 'Polygon', icon: 'POL' },
-        { id: 'litecoin', symbol: 'LTC', name: 'Litecoin', icon: 'Ł' },
-        { id: 'uniswap', symbol: 'UNI', name: 'Uniswap', icon: 'UNI' },
-        { id: 'stellar', symbol: 'XLM', name: 'Stellar', icon: 'XLM' },
-      ];
-
-      // ============================================================
-      // PAYMENT METHODS — EXPANDED GLOBAL & AFRICA-FOCUSED
-      // ============================================================
-      const PAYMENT_METHODS = [
-        { group: 'Global', items: [
-          { name: 'Bank Transfer', icon: '🏦', sub: 'Standard bank transfer' },
-          { name: 'Visa / Mastercard', icon: '💳', sub: 'Debit or credit card' },
-          { name: 'PayPal', icon: '🅿️', sub: 'PayPal balance' },
-          { name: 'Wise', icon: '🌐', sub: 'International transfer' },
-          { name: 'Skrill', icon: '💶', sub: 'Skrill wallet' },
-          { name: 'Revolut', icon: '💷', sub: 'Revolut transfer' },
-        ]},
-        { group: 'Africa — Mobile Money', items: [
-          { name: 'M-Pesa Kenya', icon: '📱', sub: 'Safaricom M-Pesa · Kenya' },
-          { name: 'M-Pesa Tanzania', icon: '📱', sub: 'Vodacom M-Pesa · Tanzania' },
-          { name: 'M-Pesa Lesotho', icon: '📱', sub: 'Vodacom M-Pesa · Lesotho' },
-          { name: 'M-Pesa Mozambique', icon: '📱', sub: 'M-Pesa · Mozambique' },
-          { name: 'M-Pesa DRC', icon: '📱', sub: 'M-Pesa · DR Congo' },
-          { name: 'MTN MoMo Ghana', icon: '📲', sub: 'MTN Mobile Money · Ghana' },
-          { name: 'MTN MoMo Uganda', icon: '📲', sub: 'MTN Mobile Money · Uganda' },
-          { name: 'MTN MoMo Cameroon', icon: '📲', sub: 'MTN Mobile Money · Cameroon' },
-          { name: 'MTN MoMo Nigeria', icon: '📲', sub: 'MTN MoMo · Nigeria' },
-          { name: 'Airtel Money Kenya', icon: '📶', sub: 'Airtel Money · Kenya' },
-          { name: 'Airtel Money Uganda', icon: '📶', sub: 'Airtel Money · Uganda' },
-          { name: 'Airtel Money Nigeria', icon: '📶', sub: 'Airtel Money · Nigeria' },
-          { name: 'Airtel Money Tanzania', icon: '📶', sub: 'Airtel Money · Tanzania' },
-          { name: 'Orange Money Senegal', icon: '🟠', sub: 'Orange Money · Senegal' },
-          { name: 'Orange Money Mali', icon: '🟠', sub: 'Orange Money · Mali' },
-          { name: 'Orange Money Côte d\'Ivoire', icon: '🟠', sub: 'Orange Money · Côte d\'Ivoire' },
-          { name: 'Moov Money', icon: '🔵', sub: 'Moov Africa · Togo, Benin' },
-          { name: 'Wave Mobile Money', icon: '🌊', sub: 'Wave · Senegal, Côte d\'Ivoire' },
-          { name: 'Tigo Pesa', icon: '📱', sub: 'Tigo Pesa · Tanzania' },
-          { name: 'Halopesa', icon: '📱', sub: 'Halopesa · Tanzania' },
-          { name: 'Vodacom MPesa', icon: '📱', sub: 'Vodacom · South Africa' },
-          { name: 'eSewa', icon: '💚', sub: 'eSewa · Nepal' },
-          { name: 'bKash', icon: '💗', sub: 'bKash · Bangladesh' },
-        ]},
-        { group: 'Africa — Fintech & Bank', items: [
-          { name: 'Flutterwave', icon: '🌊', sub: 'Pan-African payments' },
-          { name: 'Paystack', icon: '💠', sub: 'Nigeria & Ghana' },
-          { name: 'OPay', icon: '🟢', sub: 'Nigeria' },
-          { name: 'PalmPay', icon: '🌴', sub: 'Nigeria' },
-          { name: 'Chipper Cash', icon: '🦅', sub: 'Ghana, Nigeria, Uganda' },
-          { name: 'Kuda Bank', icon: '🏦', sub: 'Nigeria' },
-          { name: 'Moniepoint', icon: '🏦', sub: 'Nigeria' },
-          { name: 'Equity Bank', icon: '🏦', sub: 'Kenya' },
-          { name: 'KCB Bank', icon: '🏦', sub: 'Kenya' },
-          { name: 'Co-operative Bank', icon: '🏦', sub: 'Kenya' },
-          { name: 'Stanbic Bank', icon: '🏦', sub: 'Multiple African countries' },
-          { name: 'Absa Bank', icon: '🏦', sub: 'South Africa' },
-          { name: 'FNB', icon: '🏦', sub: 'South Africa' },
-          { name: 'Capitec', icon: '🏦', sub: 'South Africa' },
-          { name: 'Ecobank', icon: '🏦', sub: 'Pan-African' },
-          { name: 'Access Bank', icon: '🏦', sub: 'Nigeria' },
-          { name: 'GTBank', icon: '🏦', sub: 'Nigeria' },
-          { name: 'Zenith Bank', icon: '🏦', sub: 'Nigeria' },
-        ]},
-        { group: 'Americas', items: [
-          { name: 'ACH Transfer', icon: '🏦', sub: 'United States' },
-          { name: 'Zelle', icon: '⚡', sub: 'United States' },
-          { name: 'Venmo', icon: '💸', sub: 'United States' },
-          { name: 'Cash App', icon: '💵', sub: 'United States' },
-          { name: 'PayPal', icon: '🅿️', sub: 'United States / Global' },
-          { name: 'PIX', icon: '⚡', sub: 'Brazil' },
-          { name: 'Mercado Pago', icon: '💙', sub: 'Brazil / Argentina' },
-        ]},
-        { group: 'Europe & Asia', items: [
-          { name: 'SEPA', icon: '🇪🇺', sub: 'Euro transfers' },
-          { name: 'Faster Payments', icon: '🇬🇧', sub: 'United Kingdom' },
-          { name: 'Alipay', icon: '🇨🇳', sub: 'China' },
-          { name: 'WeChat Pay', icon: '💬', sub: 'China' },
-          { name: 'UPI', icon: '🇮🇳', sub: 'India' },
-          { name: 'Paytm', icon: '💙', sub: 'India' },
-        ]},
-      ];
-
-      // ============================================================
-      // MARKET DATA
+      // MARKET DATA (CoinGecko)
       // ============================================================
       async function fetchTickerPrices() {
         try {
@@ -1692,13 +1459,13 @@
 
           renderTicker();
           renderMarketCap();
+          renderQuickActions();
           updateTradeInfo();
-          updateP2PInfo();
           updateSwapLiveRate();
         } catch (err) {
           console.warn('Market data error:', err);
           if (Object.keys(tickerPrices).length === 0) {
-            marketTickerWrapper.innerHTML = `<div class="ticker-loading">Market data unavailable. <br><span style="font-size:11px;">Unable to fetch live prices</span></div>`;
+            marketTickerWrapper.innerHTML = `<div class="ticker-loading">Market data unavailable. <br><span style="font-size:11px;">Unable to fetch prices</span></div>`;
             marketcapGrid.innerHTML = `<div class="ticker-loading" style="padding:14px;grid-column:1/-1;">Market data unavailable.</div>`;
           }
         }
@@ -1728,7 +1495,7 @@
             const sign = d.change >= 0 ? '+' : '';
             return `
               <div class="ticker-item">
-                <div class="ticker-icon">${coin.icon}</div>
+                <div class="ticker-icon"><img src="${coin.icon}" alt="${coin.symbol}"></div>
                 <div class="ticker-info">
                   <span class="ticker-symbol">${coin.symbol}</span>
                   <span class="ticker-price">${formatPrice(d.price)}</span>
@@ -1764,7 +1531,7 @@
           return `
             <div class="marketcap-cell" data-asset-symbol="${coin.symbol}">
               <div class="marketcap-cell-top">
-                <div class="marketcap-cell-logo">${coin.icon}</div>
+                <div class="marketcap-cell-logo"><img src="${coin.icon}" alt="${coin.symbol}"></div>
                 <div>
                   <div class="marketcap-cell-name">${coin.name}</div>
                   <div class="marketcap-cell-symbol">${coin.symbol}</div>
@@ -1777,7 +1544,6 @@
           `;
         }).join('');
 
-        // Click to select asset in P2P
         marketcapGrid.querySelectorAll('.marketcap-cell').forEach(cell => {
           cell.addEventListener('click', () => {
             const symbol = cell.dataset.assetSymbol;
@@ -1791,27 +1557,69 @@
         });
       }
 
-      // ============================================================
-      // ASSET PICKER
-      // ============================================================
-      const assetPickerOverlay = $('#assetPickerOverlay');
-      const assetPicker = $('#assetPicker');
-      const assetPickerList = $('#assetPickerList');
-      const assetSearchInput = $('#assetSearchInput');
-      const assetPickerClose = $('#assetPickerClose');
+      function renderQuickActions() {
+        const actions = [
+          { symbol: 'USDT', name: 'Tether', mode: 'buy', label: 'Buy USDT' },
+          { symbol: 'USDT', name: 'Tether', mode: 'sell', label: 'Sell USDT' },
+          { symbol: 'BTC', name: 'Bitcoin', mode: 'buy', label: 'Buy BTC' },
+          { symbol: 'BTC', name: 'Bitcoin', mode: 'sell', label: 'Sell BTC' },
+        ];
 
-      function openAssetPicker() {
-        assetPickerOverlay.classList.add('open');
-        assetPicker.classList.add('open');
+        quickP2PGrid.innerHTML = actions.map(act => {
+          const asset = ASSETS.find(a => a.symbol === act.symbol);
+          const price = tickerPrices[asset.id]?.price || 0;
+          return `
+            <div class="qa-card" data-quick="${act.mode}-${act.symbol}">
+              <div class="qa-card-top">
+                <div class="qa-card-title">
+                  <div class="qa-icon"><img src="${asset.icon}" alt="${act.symbol}"></div>
+                  ${act.label}
+                </div>
+              </div>
+              <div class="qa-card-rate">${formatPrice(price)}</div>
+              <div class="qa-card-sub">${act.mode === 'buy' ? 'Instant buy rate' : 'Instant sell rate'}</div>
+            </div>
+          `;
+        }).join('');
+
+        quickP2PGrid.querySelectorAll('.qa-card').forEach(card => {
+          card.addEventListener('click', () => {
+            const [mode, symbol] = card.dataset.quick.split('-');
+            const asset = ASSETS.find(a => a.symbol === symbol);
+            if (asset) {
+              selectAsset(asset);
+              p2pMode = mode;
+              p2pToggle.querySelectorAll('.toggle-btn').forEach(b => {
+                b.classList.toggle('active-toggle', b.dataset.p2pMode === mode);
+              });
+              saveP2PState();
+              p2pAmount.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+          });
+        });
+      }
+
+      // ============================================================
+      // ASSET SELECTOR MODAL
+      // ============================================================
+      const assetSelectorOverlay = $('#assetSelectorOverlay');
+      const assetSelector = $('#assetSelector');
+      const assetSelectorList = $('#assetSelectorList');
+      const assetSearchInput = $('#assetSearchInput');
+      const assetSelectorClose = $('#assetSelectorClose');
+
+      function openAssetSelector() {
+        assetSelectorOverlay.classList.add('open');
+        assetSelector.classList.add('open');
         document.body.style.overflow = 'hidden';
         renderAssetOptions('');
         assetSearchInput.value = '';
-        assetSearchInput.focus();
+        setTimeout(() => assetSearchInput.focus(), 300);
       }
 
-      function closeAssetPicker() {
-        assetPickerOverlay.classList.remove('open');
-        assetPicker.classList.remove('open');
+      function closeAssetSelector() {
+        assetSelectorOverlay.classList.remove('open');
+        assetSelector.classList.remove('open');
         document.body.style.overflow = '';
       }
 
@@ -1821,37 +1629,40 @@
           !q || a.name.toLowerCase().includes(q) || a.symbol.toLowerCase().includes(q)
         );
 
-        assetPickerList.innerHTML = filtered.map(coin => {
+        assetSelectorList.innerHTML = filtered.map(coin => {
           const d = tickerPrices[coin.id];
           const isSelected = selectedAsset && selectedAsset.id === coin.id;
           const priceHtml = d ? `
-            <div class="asset-option-price">
-              <div class="price">${formatPrice(d.price)}</div>
-              <div class="change ${d.change >= 0 ? 'positive' : 'negative'}">${d.change >= 0 ? '+' : ''}${d.change.toFixed(2)}%</div>
+            <div class="sel-price">
+              <div class="p">${formatPrice(d.price)}</div>
+              <div class="c ${d.change >= 0 ? 'positive' : 'negative'}">${d.change >= 0 ? '+' : ''}${d.change.toFixed(2)}%</div>
             </div>
           ` : '';
           return `
-            <div class="asset-option ${isSelected ? 'selected' : ''}" data-asset-id="${coin.id}">
-              <div class="asset-option-logo">${coin.icon}</div>
-              <div class="asset-option-info">
-                <div class="asset-option-name">${coin.name}</div>
-                <div class="asset-option-symbol">${coin.symbol}</div>
+            <div class="sel-item ${isSelected ? 'selected' : ''}" data-asset-id="${coin.id}">
+              <div class="sel-icon"><img src="${coin.icon}" alt="${coin.symbol}"></div>
+              <div class="sel-info">
+                <div class="sel-name">${coin.name}</div>
+                <div class="sel-sub">${coin.symbol}</div>
               </div>
               ${priceHtml}
-              <div class="asset-option-check"></div>
+              <div class="sel-check"></div>
             </div>
           `;
         }).join('');
 
         if (filtered.length === 0) {
-          assetPickerList.innerHTML = `<div class="ticker-loading" style="padding:20px;">No assets match "${filter}"</div>`;
+          assetSelectorList.innerHTML = `<div class="ticker-loading" style="padding:20px;">No assets match "${filter}"</div>`;
         }
 
-        assetPickerList.querySelectorAll('.asset-option').forEach(el => {
+        assetSelectorList.querySelectorAll('.sel-item').forEach(el => {
           el.addEventListener('click', () => {
             const id = el.dataset.assetId;
             const asset = ASSETS.find(a => a.id === id);
-            if (asset) selectAsset(asset);
+            if (asset) {
+              selectAsset(asset);
+              closeAssetSelector();
+            }
           });
         });
       }
@@ -1860,41 +1671,36 @@
         selectedAsset = asset;
         selectedAssetLabel.textContent = asset.name + ' (' + asset.symbol + ')';
         selectedAssetSub.textContent = 'Verified ' + asset.symbol + ' available';
-        selectedAssetIcon.textContent = asset.icon;
-        closeAssetPicker();
-        updateP2PInfo();
+        selectedAssetIcon.innerHTML = `<img src="${asset.icon}" alt="${asset.symbol}">`;
+        saveP2PState();
       }
 
-      $('#assetSelectCard').addEventListener('click', openAssetPicker);
-      $('#assetActionBtn').addEventListener('click', (e) => {
-        e.stopPropagation();
-        openAssetPicker();
-      });
-      assetPickerClose.addEventListener('click', closeAssetPicker);
-      assetPickerOverlay.addEventListener('click', closeAssetPicker);
+      $('#assetSelectCard').addEventListener('click', openAssetSelector);
+      assetSelectorClose.addEventListener('click', closeAssetSelector);
+      assetSelectorOverlay.addEventListener('click', closeAssetSelector);
       assetSearchInput.addEventListener('input', (e) => renderAssetOptions(e.target.value));
 
       // ============================================================
-      // PAYMENT METHOD PICKER
+      // PAYMENT SELECTOR MODAL
       // ============================================================
-      const paymentModalOverlay = $('#paymentModalOverlay');
-      const paymentModal = $('#paymentModal');
-      const paymentModalList = $('#paymentModalList');
+      const paymentSelectorOverlay = $('#paymentSelectorOverlay');
+      const paymentSelector = $('#paymentSelector');
+      const paymentSelectorList = $('#paymentSelectorList');
       const paymentSearchInput = $('#paymentSearchInput');
-      const paymentModalClose = $('#paymentModalClose');
+      const paymentSelectorClose = $('#paymentSelectorClose');
 
-      function openPaymentPicker() {
-        paymentModalOverlay.classList.add('open');
-        paymentModal.classList.add('open');
+      function openPaymentSelector() {
+        paymentSelectorOverlay.classList.add('open');
+        paymentSelector.classList.add('open');
         document.body.style.overflow = 'hidden';
         renderPaymentOptions('');
         paymentSearchInput.value = '';
-        paymentSearchInput.focus();
+        setTimeout(() => paymentSearchInput.focus(), 300);
       }
 
-      function closePaymentPicker() {
-        paymentModalOverlay.classList.remove('open');
-        paymentModal.classList.remove('open');
+      function closePaymentSelector() {
+        paymentSelectorOverlay.classList.remove('open');
+        paymentSelector.classList.remove('open');
         document.body.style.overflow = '';
       }
 
@@ -1907,17 +1713,17 @@
             !q || item.name.toLowerCase().includes(q) || item.sub.toLowerCase().includes(q)
           );
           if (matches.length === 0) return;
-          html += `<div class="payment-group-label">${group.group}</div>`;
+          html += `<div class="selector-group-label">${group.group}</div>`;
           matches.forEach(item => {
             const isSelected = selectedPayment && selectedPayment.name === item.name;
             html += `
-              <div class="payment-option ${isSelected ? 'selected' : ''}" data-payment-name="${item.name}">
-                <div class="payment-option-icon">${item.icon}</div>
-                <div class="payment-option-info">
-                  <div class="payment-option-name">${item.name}</div>
-                  <div class="payment-option-sub">${item.sub}</div>
+              <div class="sel-item ${isSelected ? 'selected' : ''}" data-payment-name="${item.name}">
+                <div class="sel-icon">${item.icon}</div>
+                <div class="sel-info">
+                  <div class="sel-name">${item.name}</div>
+                  <div class="sel-sub">${item.sub}</div>
                 </div>
-                <div class="payment-option-check"></div>
+                <div class="sel-check"></div>
               </div>
             `;
           });
@@ -1927,8 +1733,8 @@
           html = `<div class="ticker-loading" style="padding:20px;">No payment methods match "${filter}"</div>`;
         }
 
-        paymentModalList.innerHTML = html;
-        paymentModalList.querySelectorAll('.payment-option').forEach(el => {
+        paymentSelectorList.innerHTML = html;
+        paymentSelectorList.querySelectorAll('.sel-item').forEach(el => {
           el.addEventListener('click', () => {
             const name = el.dataset.paymentName;
             let found = null;
@@ -1938,106 +1744,24 @@
               selectedPaymentLabel.textContent = found.name;
               selectedPaymentSub.textContent = found.sub;
               selectedPaymentIcon.textContent = found.icon;
-              closePaymentPicker();
+              saveP2PState();
+              closePaymentSelector();
             }
           });
         });
       }
 
-      $('#paymentMethodTrigger').addEventListener('click', openPaymentPicker);
-      paymentModalClose.addEventListener('click', closePaymentPicker);
-      paymentModalOverlay.addEventListener('click', closePaymentPicker);
+      $('#paymentMethodTrigger').addEventListener('click', openPaymentSelector);
+      paymentSelectorClose.addEventListener('click', closePaymentSelector);
+      paymentSelectorOverlay.addEventListener('click', closePaymentSelector);
       paymentSearchInput.addEventListener('input', (e) => renderPaymentOptions(e.target.value));
 
       // ============================================================
-      // QUICK ACTIONS
+      // EXPLORE P2P NAVIGATION
       // ============================================================
-      $$('.quick-action-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const action = btn.dataset.quick;
-          const map = {
-            'buy-usdt': { symbol: 'USDT', name: 'Tether', icon: '₮', mode: 'buy' },
-            'sell-usdt': { symbol: 'USDT', name: 'Tether', icon: '₮', mode: 'sell' },
-            'buy-btc': { symbol: 'BTC', name: 'Bitcoin', icon: '₿', mode: 'buy' },
-            'sell-btc': { symbol: 'BTC', name: 'Bitcoin', icon: '₿', mode: 'sell' },
-          };
-          if (action === 'instant-cashout') {
-            alert('Instant Cashout\n\nConvert your crypto to local currency instantly.\n\n(Integration point: connect to cashout service.)');
-            return;
-          }
-          const cfg = map[action];
-          if (!cfg) return;
-          const asset = ASSETS.find(a => a.symbol === cfg.symbol);
-          if (asset) selectAsset(asset);
-          // set p2p mode
-          p2pMode = cfg.mode;
-          p2pToggle.querySelectorAll('.toggle-btn').forEach(b => {
-            b.classList.toggle('active-toggle', b.dataset.p2pMode === cfg.mode);
-          });
-          updateP2PInfo();
-          // scroll to form
-          p2pAmount.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        });
-      });
-
-      // Explore P2P banner
       $('#exploreP2PBanner').addEventListener('click', () => {
-        alert('Explore P2P Marketplace\n\nBrowse verified merchants and live offers.\n\n(Integration point: navigate to marketplace page.)');
-      });
-
-      // Deposit button
-      $('#depositBtn').addEventListener('click', () => {
-        alert('Deposit\n\nFund your account via bank transfer, card, or crypto.\n\n(Integration point: navigate to deposit page.)');
-      });
-
-      // ============================================================
-      // P2P LOGIC
-      // ============================================================
-      p2pToggle.addEventListener('click', (e) => {
-        const btn = e.target.closest('.toggle-btn');
-        if (!btn) return;
-        p2pMode = btn.dataset.p2pMode;
-        p2pToggle.querySelectorAll('.toggle-btn').forEach(b => b.classList.toggle('active-toggle', b === btn));
-        updateP2PInfo();
-      });
-
-      function getPriceForAsset(symbol) {
-        const asset = ASSETS.find(a => a.symbol === symbol);
-        if (!asset) return 0;
-        return tickerPrices[asset.id]?.price || 0;
-      }
-
-      function updateP2PInfo() {
-        if (!selectedAsset) return;
-      }
-
-      p2pAmount.addEventListener('input', updateP2PInfo);
-      p2pCurrency.addEventListener('change', updateP2PInfo);
-
-      function validateAndContinueP2P() {
-        const amount = parseFloat(p2pAmount.value);
-        p2pAmountError.classList.remove('visible');
-        if (!selectedAsset) {
-          p2pAmountError.textContent = 'Please select an asset first';
-          p2pAmountError.classList.add('visible');
-          return;
-        }
-        if (!amount || amount <= 0) {
-          p2pAmountError.textContent = 'Please enter a valid amount greater than zero';
-          p2pAmountError.classList.add('visible');
-          return;
-        }
-        if (amount < 5) {
-          p2pAmountError.textContent = 'Minimum amount is $5.00';
-          p2pAmountError.classList.add('visible');
-          return;
-        }
-        alert(`P2P ${p2pMode.toUpperCase()} request\n\nAsset: ${selectedAsset.symbol}\nAmount: $${amount.toFixed(2)}\nPayment: ${selectedPayment.name}\n\n✅ Offer placed successfully — redirecting to P2P marketplace.\n\n(Integration point: connect to backend order service and navigate to offers page.)`);
-      }
-
-      p2pContinueBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        validateAndContinueP2P();
+        saveP2PState();
+        window.location.href = 'p2p.html';
       });
 
       // ============================================================
@@ -2048,8 +1772,14 @@
 
       function updateSwapEstimate() {
         const fromAmt = parseFloat(swapFromAmount.value) || 0;
-        const fromPrice = getPriceForAsset(swapFrom);
-        const toPrice = getPriceForAsset(swapTo);
+        const fromAsset = ASSETS.find(a => a.symbol === swapFrom || (swapFrom === 'USDT_TRC20' && a.symbol === 'USDT'));
+        const toAsset = ASSETS.find(a => a.symbol === swapTo || (swapTo === 'USDT_TRC20' && a.symbol === 'USDT'));
+        
+        if (!fromAsset || !toAsset) return;
+        
+        const fromPrice = tickerPrices[fromAsset.id]?.price || 0;
+        const toPrice = tickerPrices[toAsset.id]?.price || 0;
+
         if (fromAmt <= 0 || !fromPrice || !toPrice) {
           swapToAmount.value = '';
           swapRate.textContent = '—';
@@ -2057,13 +1787,15 @@
           swapMinReceived.textContent = '—';
           return;
         }
+        
         const grossTo = (fromAmt * fromPrice) / toPrice;
         const fee = grossTo * 0.005;
         const netTo = grossTo - fee;
+        
         swapToAmount.value = netTo.toFixed(6);
-        swapRate.textContent = `1 ${swapFrom} ≈ ${(fromPrice / toPrice).toFixed(6)} ${swapTo}`;
-        swapNetworkFee.textContent = fee.toFixed(6) + ' ' + swapTo;
-        swapMinReceived.textContent = (netTo * 0.995).toFixed(6) + ' ' + swapTo;
+        swapRate.textContent = `1 ${swapFrom === 'USDT_TRC20' ? 'USDT' : swapFrom} ≈ ${(fromPrice / toPrice).toFixed(6)} ${swapTo === 'USDT_TRC20' ? 'USDT' : swapTo}`;
+        swapNetworkFee.textContent = fee.toFixed(6) + ' ' + (swapTo === 'USDT_TRC20' ? 'USDT' : swapTo);
+        swapMinReceived.textContent = (netTo * 0.995).toFixed(6) + ' ' + (swapTo === 'USDT_TRC20' ? 'USDT' : swapTo);
       }
 
       function updateSwapLiveRate() {
@@ -2099,7 +1831,7 @@
           swapError.classList.add('visible');
           return;
         }
-        alert(`Swap review\n\nFrom: ${fromAmt} ${swapFrom}\nTo: ${swapToAmount.value} ${swapTo}\n\n(Confirm with backend swap service.)`);
+        alert(`Swap executed instantly\n\nFrom: ${fromAmt} ${swapFrom === 'USDT_TRC20' ? 'USDT' : swapFrom}\nTo: ${swapToAmount.value} ${swapTo === 'USDT_TRC20' ? 'USDT' : swapTo}\n\n(Integration point: connect to backend swap service.)`);
       });
 
       // ============================================================
@@ -2111,16 +1843,16 @@
         if (pair === 'BTCUSDT') symbol = 'BTC';
         else if (pair === 'ETHUSDT') symbol = 'ETH';
         else if (pair === 'SOLUSDT') symbol = 'SOL';
-        const price = getPriceForAsset(symbol);
+        
         const asset = ASSETS.find(a => a.symbol === symbol);
         const d = asset ? tickerPrices[asset.id] : null;
-        const change = d?.change || 0;
-        tradePrice.textContent = price > 0 ? '$' + price.toFixed(2) : '—';
-        tradeChange.textContent = (change >= 0 ? '+' : '') + change.toFixed(2) + '%';
-        tradeChange.className = 'info-row';
-        tradeChange.style.color = change >= 0 ? 'var(--green-500)' : 'var(--red-500)';
-        const feeEstimate = price * 0.001;
-        tradeFees.textContent = price > 0 ? '$' + feeEstimate.toFixed(2) : '—';
+        
+        if (!d) return;
+        
+        tradePrice.textContent = '$' + d.price.toFixed(2);
+        tradeChange.textContent = (d.change >= 0 ? '+' : '') + d.change.toFixed(2) + '%';
+        tradeChange.style.color = d.change >= 0 ? 'var(--green-500)' : 'var(--red-500)';
+        tradeFees.textContent = '$' + (d.price * 0.001).toFixed(2);
       }
 
       tradePair.addEventListener('change', updateTradeInfo);
@@ -2143,33 +1875,24 @@
         alert(`Order review\n\n${tradeMode.toUpperCase()} ${amt} of ${tradePair.value}\n\n(Integration point: connect to trading engine.)`);
       });
 
-      // Trade bot card
       $('#tradeBotCard').addEventListener('click', () => {
         $('#botPanel').scrollIntoView({ behavior: 'smooth', block: 'center' });
       });
 
       $('#tradeChartCard').addEventListener('click', () => {
-        alert('Live Candles\n\nProfessional TradingView-style charting interface.\n\n(Integration point: embed charting library.)');
+        alert('Live Candles\n\nProfessional charting interface.\n\n(Integration point: embed charting library.)');
       });
 
-      // Copy passkey
       copyPasskeyBtn.addEventListener('click', () => {
         const text = botPasskey.textContent;
         if (navigator.clipboard) {
           navigator.clipboard.writeText(text).then(() => {
             copyPasskeyBtn.textContent = 'Copied!';
             setTimeout(() => { copyPasskeyBtn.textContent = 'Copy'; }, 1500);
-          }).catch(() => {
-            copyPasskeyBtn.textContent = 'Failed';
-            setTimeout(() => { copyPasskeyBtn.textContent = 'Copy'; }, 1500);
           });
-        } else {
-          copyPasskeyBtn.textContent = 'Copied!';
-          setTimeout(() => { copyPasskeyBtn.textContent = 'Copy'; }, 1500);
         }
       });
 
-      // Upgrade bot banner
       $('#upgradeBotBanner').addEventListener('click', () => {
         alert('Upgrade to Sniper Quantum Bot\n\nLightning execution · MEV protection · Advanced signals\n\n(Integration point: navigate to upgrade page.)');
       });
@@ -2222,7 +1945,12 @@
       $$('.drawer-link[data-nav]').forEach(link => {
         link.addEventListener('click', () => {
           closeAllPopups();
-          switchTab(link.dataset.nav);
+          if (link.dataset.nav === 'p2p') {
+            saveP2PState();
+            window.location.href = 'p2p.html';
+          } else {
+            switchTab(link.dataset.nav);
+          }
         });
       });
 
@@ -2230,7 +1958,12 @@
       tabSelector.addEventListener('click', (e) => {
         const btn = e.target.closest('.tab-btn');
         if (!btn) return;
-        switchTab(btn.dataset.tab);
+        if (btn.dataset.tab === 'p2p') {
+          saveP2PState();
+          window.location.href = 'p2p.html';
+        } else {
+          switchTab(btn.dataset.tab);
+        }
       });
 
       // Bottom nav
@@ -2242,7 +1975,8 @@
           switchTab('p2p');
           window.scrollTo({ top: 0, behavior: 'smooth' });
         } else if (nav === 'p2p') {
-          switchTab('p2p');
+          saveP2PState();
+          window.location.href = 'p2p.html';
         } else if (nav === 'trade') {
           switchTab('trade');
         } else if (nav === 'swap') {
@@ -2256,23 +1990,27 @@
       // INIT
       // ============================================================
       setBalanceVisibility(true);
-      const defaultAsset = ASSETS.find(a => a.symbol === 'USDT');
-      if (defaultAsset) selectAsset(defaultAsset);
+      selectAsset(selectedAsset);
+      
       selectedPaymentLabel.textContent = 'Bank Transfer';
       selectedPaymentSub.textContent = 'Bank transfer payment';
       selectedPaymentIcon.textContent = '🏦';
 
-      updateP2PInfo();
       updateTradeInfo();
       updateSwapEstimate();
+      
       swapFromBalance.textContent = '$0.00';
       tradeAvailableBalance.textContent = '$0.00';
       notifBadge.classList.remove('visible');
       notifCountLabel.textContent = '0 new';
 
-      // Fetch market data
+      // Fetch data
       fetchTickerPrices();
       setInterval(fetchTickerPrices, 60000);
+
+      // Check URL hash for initial tab
+      if (window.location.hash === '#swap') switchTab('swap');
+      if (window.location.hash === '#trade') switchTab('trade');
 
       window.addEventListener('resize', () => {
         document.body.style.overflowX = 'hidden';
