@@ -1,0 +1,2006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>P2P Trading — Bluepeak Capital</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================================
+       BLUEPEAK CAPITAL — P2P TRADING PAGE
+       Design: Deep Navy + Sovereign Gold
+       ============================================================ */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy-900: #0A1A2F;
+      --navy-800: #10243E;
+      --navy-700: #1A3352;
+      --navy-100: #E8EDF4;
+      --navy-50:  #F2F5FA;
+      --gold-500: #C9A84C;
+      --gold-400: #DDBE6B;
+      --gold-100: #FBF5E6;
+      --green-500: #0F9D6E;
+      --green-100: #E6F7F1;
+      --red-500: #D14343;
+      --red-100: #FDECEC;
+      --white: #FFFFFF;
+      --gray-100: #F1F4F9;
+      --gray-200: #E3E8EF;
+      --gray-300: #CDD5E0;
+      --gray-400: #94A3B8;
+      --gray-500: #64748B;
+      --gray-600: #475569;
+      --bg-main: #FAFBFD;
+      --text-primary: var(--navy-900);
+      --text-secondary: var(--gray-500);
+      --card-border: var(--gray-200);
+      --shadow-xs: 0 1px 2px rgba(10, 26, 47, 0.04);
+      --shadow-sm: 0 2px 8px rgba(10, 26, 47, 0.05);
+      --shadow-md: 0 8px 24px rgba(10, 26, 47, 0.07);
+      --shadow-lg: 0 16px 48px rgba(10, 26, 47, 0.10);
+      --shadow-gold: 0 4px 16px rgba(201, 168, 76, 0.25);
+      --radius-xs: 8px;
+      --radius-sm: 12px;
+      --radius-md: 16px;
+      --radius-lg: 20px;
+      --radius-pill: 999px;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    html { height: 100%; scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background-color: var(--bg-main);
+      color: var(--text-primary);
+      line-height: 1.45;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      padding-bottom: 92px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* ============================================================
+       HEADER
+       ============================================================ */
+    .p2p-header {
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(12px);
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--gray-200);
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      gap: 8px;
+    }
+    .p2p-header-left { display: flex; align-items: center; gap: 4px; flex-shrink: 1; min-width: 0; }
+    .icon-btn {
+      background: none; border: none; padding: 8px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: var(--radius-xs); color: var(--navy-900);
+      transition: background 0.2s; flex-shrink: 0;
+    }
+    .icon-btn:hover { background: var(--navy-50); }
+    .icon-btn svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    .p2p-tabs { display: flex; align-items: center; gap: 4px; margin-left: 4px; flex-shrink: 1; min-width: 0; }
+    .p2p-tab {
+      position: relative; background: none; border: none;
+      padding: 8px 10px; font-family: var(--font); font-size: 17px;
+      font-weight: 800; color: var(--gray-400); cursor: pointer;
+      letter-spacing: -0.4px; transition: color 0.2s; flex-shrink: 0;
+    }
+    .p2p-tab.active { color: var(--navy-900); }
+    .p2p-tab.active::after {
+      content: ''; position: absolute; left: 10px; right: 10px; bottom: 0;
+      height: 3px; background: var(--navy-900); border-radius: 3px 3px 0 0;
+    }
+
+    /* ============================================================
+       MAIN
+       ============================================================ */
+    .p2p-main {
+      flex: 1; padding: 16px 16px 0; max-width: 600px;
+      margin: 0 auto; width: 100%;
+      display: flex; flex-direction: column; gap: 16px;
+    }
+
+    /* ============================================================
+       PROMO CAROUSEL (4 slides — removed M-Pesa/MTN slide)
+       ============================================================ */
+    .promo-carousel {
+      position: relative;
+      background: linear-gradient(135deg, var(--navy-50), #EEF2F8);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      padding: 20px 18px 28px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    .promo-slide {
+      display: none; align-items: center; justify-content: space-between;
+      gap: 14px; animation: slideFade 0.35s ease;
+    }
+    .promo-slide.active { display: flex; }
+    @keyframes slideFade {
+      from { opacity: 0.4; transform: translateX(8px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    .promo-text { flex: 1; min-width: 0; }
+    .promo-text h3 {
+      font-size: 17px; font-weight: 800; color: var(--navy-900);
+      letter-spacing: -0.4px; line-height: 1.25; margin-bottom: 6px;
+    }
+    .promo-text p { font-size: 12.5px; font-weight: 600; color: var(--gray-500); line-height: 1.5; }
+    .promo-text .promo-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: var(--gold-100); color: var(--gold-500);
+      font-size: 10px; font-weight: 800; letter-spacing: 0.5px;
+      padding: 3px 8px; border-radius: var(--radius-pill); margin-top: 8px;
+      border: 1px solid rgba(201, 168, 76, 0.35);
+    }
+    .promo-icon {
+      width: 58px; height: 58px; border-radius: var(--radius-md);
+      background: linear-gradient(135deg, var(--navy-900), var(--navy-800));
+      color: var(--gold-400); display: flex; align-items: center; justify-content: center;
+      font-size: 26px; flex-shrink: 0; box-shadow: 0 6px 20px rgba(10, 26, 47, 0.3);
+      cursor: pointer; transition: transform 0.2s;
+    }
+    .promo-icon:hover { transform: scale(1.05); }
+    .promo-dots {
+      position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
+      display: flex; gap: 6px; z-index: 2;
+    }
+    .promo-dot {
+      width: 6px; height: 6px; border-radius: 50%; background: var(--gray-300);
+      border: none; cursor: pointer; transition: all 0.25s; padding: 0;
+    }
+    .promo-dot.active { width: 20px; border-radius: 3px; background: var(--navy-900); }
+
+    /* ============================================================
+       BUY/SELL + FIAT
+       ============================================================ */
+    .trade-controls-row { display: flex; align-items: center; gap: 10px; }
+    .buy-sell-toggle {
+      display: flex; background: var(--white); border: 1px solid var(--gray-200);
+      border-radius: var(--radius-pill); padding: 4px; gap: 3px; flex: 1;
+      box-shadow: var(--shadow-xs);
+    }
+    .bs-btn {
+      flex: 1; padding: 10px 0; border: none; background: transparent;
+      border-radius: var(--radius-pill); font-family: var(--font);
+      font-size: 14px; font-weight: 800; color: var(--gray-500);
+      cursor: pointer; transition: all 0.22s; letter-spacing: -0.1px;
+    }
+    .bs-btn.active {
+      background: var(--navy-900); color: var(--white);
+      box-shadow: 0 4px 12px rgba(10, 26, 47, 0.22);
+    }
+    .bs-btn.active.sell-active { background: var(--red-500); box-shadow: 0 4px 12px rgba(209, 67, 67, 0.3); }
+
+    .fiat-dropdown {
+      display: flex; align-items: center; gap: 6px;
+      background: var(--white); border: 1px solid var(--gray-200);
+      border-radius: var(--radius-pill); padding: 10px 14px;
+      font-family: var(--font); font-size: 14px; font-weight: 800;
+      color: var(--navy-900); cursor: pointer; box-shadow: var(--shadow-xs);
+      transition: border 0.2s; flex-shrink: 0;
+    }
+    .fiat-dropdown:hover { border-color: var(--gold-500); }
+    .fiat-dropdown svg { width: 14px; height: 14px; stroke: var(--gray-500); fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ============================================================
+       FILTER PILLS ROW — reordered: Crypto | Amount | Payment | Filter
+       ============================================================ */
+    .filter-row {
+      display: flex; gap: 8px; overflow-x: auto;
+      padding-bottom: 4px; scrollbar-width: none; -webkit-overflow-scrolling: touch;
+    }
+    .filter-row::-webkit-scrollbar { display: none; }
+    .filter-pill {
+      display: flex; align-items: center; gap: 6px;
+      background: var(--white); border: 1px solid var(--gray-200);
+      border-radius: var(--radius-pill); padding: 10px 14px;
+      font-family: var(--font); font-size: 13px; font-weight: 700;
+      color: var(--navy-900); cursor: pointer; white-space: nowrap;
+      transition: all 0.2s; flex-shrink: 0; box-shadow: var(--shadow-xs);
+    }
+    .filter-pill:hover { border-color: var(--gold-500); background: var(--gold-100); }
+    .filter-pill.active-filter { border-color: var(--gold-500); background: var(--gold-100); }
+    .filter-pill svg { width: 14px; height: 14px; stroke: var(--gray-500); fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+    .filter-pill .pill-icon {
+      width: 20px; height: 20px; border-radius: 50%; background: var(--green-100);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 800; color: var(--green-500); flex-shrink: 0;
+    }
+    .filter-pill .chevron { width: 12px; height: 12px; }
+    .filter-pill .amount-value {
+      font-size: 12px; font-weight: 800; color: var(--green-500);
+      background: var(--green-100); padding: 2px 6px; border-radius: 6px;
+    }
+
+    /* ============================================================
+       LIVE RATE STRIP
+       ============================================================ */
+    .live-rate-strip {
+      display: flex; align-items: center; justify-content: space-between;
+      background: var(--white); border: 1px solid var(--gray-200);
+      border-radius: var(--radius-pill); padding: 10px 16px;
+      box-shadow: var(--shadow-xs);
+    }
+    .live-rate-left {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 12.5px; font-weight: 600; color: var(--gray-500);
+    }
+    .live-rate-dot {
+      width: 7px; height: 7px; border-radius: 50%; background: var(--green-500);
+      animation: pulse 1.5s ease-in-out infinite; flex-shrink: 0;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(15, 157, 110, 0.4); }
+      50% { opacity: 0.7; box-shadow: 0 0 0 5px rgba(15, 157, 110, 0); }
+    }
+    .live-rate-left strong { color: var(--navy-900); font-weight: 800; }
+    .live-rate-refresh {
+      background: none; border: none; cursor: pointer; color: var(--gray-500);
+      padding: 4px; display: flex; align-items: center; justify-content: center;
+      border-radius: 50%; transition: background 0.2s, color 0.2s;
+    }
+    .live-rate-refresh:hover { background: var(--navy-50); color: var(--navy-900); }
+    .live-rate-refresh svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+    .live-rate-refresh.spinning svg { animation: spin 0.8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ============================================================
+       OFFER LIST
+       ============================================================ */
+    .offer-list { display: flex; flex-direction: column; gap: 14px; }
+
+    .offer-card {
+      background: var(--white); border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg); padding: 18px 16px;
+      box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 14px;
+      transition: box-shadow 0.2s, border-color 0.2s;
+    }
+    .offer-card:hover { box-shadow: var(--shadow-md); border-color: var(--gray-300); }
+
+    .merchant-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .merchant-identity { display: flex; align-items: center; gap: 10px; min-width: 0; }
+    .merchant-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--navy-800), var(--navy-900));
+      color: var(--gold-400); display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 13px; flex-shrink: 0;
+      border: 1.5px solid var(--gold-500);
+    }
+    .merchant-name-block { min-width: 0; }
+    .merchant-name {
+      display: flex; align-items: center; gap: 5px;
+      font-size: 14px; font-weight: 800; color: var(--navy-900);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .verified-badge {
+      width: 15px; height: 15px; border-radius: 50%; background: var(--gold-500);
+      color: var(--white); display: inline-flex; align-items: center; justify-content: center;
+      font-size: 9px; font-weight: 800; flex-shrink: 0;
+    }
+    .merchant-meta { font-size: 11px; font-weight: 600; color: var(--gray-500); margin-top: 1px; }
+    .view-profile {
+      font-size: 11.5px; font-weight: 700; color: var(--navy-700);
+      text-decoration: none; flex-shrink: 0; padding: 4px 8px;
+      border-radius: var(--radius-xs); transition: background 0.15s;
+    }
+    .view-profile:hover { background: var(--navy-50); color: var(--navy-900); }
+
+    .merchant-stats {
+      display: flex; flex-wrap: wrap; gap: 6px 14px;
+      font-size: 11.5px; font-weight: 600; color: var(--gray-500);
+    }
+    .merchant-stats span { display: inline-flex; align-items: center; gap: 3px; }
+    .merchant-stats strong { color: var(--navy-900); font-weight: 800; }
+    .merchant-stats .stat-good { color: var(--green-500); }
+
+    .offer-price { display: flex; align-items: baseline; gap: 4px; }
+    .offer-price .price-amount {
+      font-size: 26px; font-weight: 800; color: var(--navy-900);
+      letter-spacing: -0.8px; font-variant-numeric: tabular-nums;
+    }
+    .offer-price .price-unit { font-size: 13px; font-weight: 700; color: var(--gray-500); }
+
+    .offer-divider { height: 1px; background: var(--gray-200); margin: -2px 0; }
+
+    .limit-row { display: flex; flex-direction: column; gap: 4px; font-size: 12.5px; color: var(--gray-500); font-weight: 600; }
+    .limit-row .limit-line strong { color: var(--navy-900); font-weight: 800; font-variant-numeric: tabular-nums; }
+
+    .payment-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .payment-tag {
+      background: var(--gray-100); color: var(--navy-800);
+      font-size: 11px; font-weight: 700; padding: 5px 10px;
+      border-radius: var(--radius-xs); display: inline-flex;
+      align-items: center; gap: 4px; border: 1px solid var(--gray-200);
+    }
+    .payment-tag .tag-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green-500); display: inline-block; }
+
+    .offer-action-row { display: flex; justify-content: flex-end; }
+    .buy-btn {
+      background: linear-gradient(135deg, var(--green-500), #0B8A5E);
+      color: #fff; border: none; padding: 12px 32px;
+      border-radius: var(--radius-pill); font-family: var(--font);
+      font-weight: 800; font-size: 14.5px; cursor: pointer;
+      letter-spacing: -0.1px; transition: all 0.22s;
+      box-shadow: 0 4px 14px rgba(15, 157, 110, 0.3); min-width: 110px;
+    }
+    .buy-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(15, 157, 110, 0.42); }
+    .buy-btn:active { transform: translateY(0); }
+    .buy-btn.sell-btn-style { background: linear-gradient(135deg, var(--red-500), #B03333); box-shadow: 0 4px 14px rgba(209, 67, 67, 0.3); }
+    .buy-btn.sell-btn-style:hover { box-shadow: 0 6px 20px rgba(209, 67, 67, 0.42); }
+
+    /* States */
+    .state-box {
+      text-align: center; padding: 44px 20px;
+      background: var(--white); border: 1px dashed var(--gray-300);
+      border-radius: var(--radius-lg); display: flex; flex-direction: column;
+      align-items: center; gap: 8px;
+    }
+    .state-box .state-emoji { font-size: 32px; margin-bottom: 4px; }
+    .state-box .state-title { font-size: 15px; font-weight: 800; color: var(--navy-900); }
+    .state-box .state-sub { font-size: 12.5px; font-weight: 500; color: var(--gray-500); max-width: 260px; line-height: 1.5; }
+
+    .loading-skeleton {
+      background: var(--white); border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg); padding: 18px 16px;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .skel-line {
+      height: 12px; border-radius: 6px;
+      background: linear-gradient(90deg, var(--gray-100) 25%, var(--gray-200) 50%, var(--gray-100) 75%);
+      background-size: 200% 100%; animation: shimmer 1.4s infinite;
+    }
+    @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+    .load-more-btn {
+      background: var(--white); border: 1.5px solid var(--gray-200);
+      color: var(--navy-900); padding: 13px; border-radius: var(--radius-pill);
+      font-family: var(--font); font-weight: 800; font-size: 13.5px;
+      cursor: pointer; transition: all 0.2s; width: 100%;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+    }
+    .load-more-btn:hover { border-color: var(--gold-500); background: var(--gold-100); }
+    .load-more-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+    /* ============================================================
+       MODAL / BOTTOM SHEET
+       ============================================================ */
+    .modal-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(10, 26, 47, 0.5); backdrop-filter: blur(4px);
+      z-index: 70; opacity: 0; pointer-events: none; transition: opacity 0.25s;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: auto; }
+
+    .bottom-sheet {
+      position: fixed; bottom: 0; left: 0; width: 100%; max-height: 88vh;
+      background: var(--white); z-index: 75;
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
+      display: flex; flex-direction: column; overflow: hidden;
+    }
+    .bottom-sheet.open { transform: translateY(0); }
+
+    .sheet-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 20px; border-bottom: 1px solid var(--gray-200); flex-shrink: 0;
+    }
+    .sheet-header h3 { font-size: 17px; font-weight: 800; color: var(--navy-900); }
+    .sheet-close {
+      background: var(--navy-50); border: none; width: 34px; height: 34px;
+      border-radius: 50%; font-size: 16px; cursor: pointer; color: var(--navy-900);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .sheet-body { flex: 1; overflow-y: auto; padding: 16px 20px 24px; display: flex; flex-direction: column; gap: 18px; }
+
+    /* ============================================================
+       CURRENCY PICKER — FULL LIST WITH SEARCH
+       ============================================================ */
+    .currency-search-box { padding: 12px 20px; flex-shrink: 0; }
+    .currency-search-box input {
+      width: 100%; padding: 12px 16px; border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-sm); font-family: var(--font);
+      font-size: 14px; font-weight: 500; background: var(--navy-50);
+      color: var(--navy-900); outline: none;
+    }
+    .currency-search-box input:focus { border-color: var(--gold-500); }
+
+    .currency-list { flex: 1; overflow-y: auto; padding: 0 20px 24px; }
+    .currency-item {
+      display: flex; align-items: center; gap: 14px;
+      padding: 13px 12px; border-radius: var(--radius-sm);
+      cursor: pointer; transition: background 0.15s;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .currency-item:last-child { border-bottom: none; }
+    .currency-item:hover { background: var(--navy-50); }
+    .currency-item.selected { background: var(--gold-100); }
+
+    .currency-flag {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--navy-50); border: 1px solid var(--gray-200);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; flex-shrink: 0;
+    }
+    .currency-info { flex: 1; min-width: 0; }
+    .currency-code { font-size: 14.5px; font-weight: 800; color: var(--navy-900); }
+    .currency-name { font-size: 11.5px; font-weight: 600; color: var(--gray-500); margin-top: 1px; }
+    .currency-symbol {
+      font-size: 13px; font-weight: 800; color: var(--navy-700);
+      background: var(--navy-50); padding: 4px 10px; border-radius: var(--radius-xs);
+      flex-shrink: 0;
+    }
+    .currency-item.selected .currency-symbol { background: var(--gold-500); color: var(--white); }
+
+    /* ============================================================
+       AMOUNT PICKER — INPUT-BASED
+       ============================================================ */
+    .amount-input-wrap { padding: 4px 0 8px; }
+    .amount-input-box {
+      display: flex; align-items: center; gap: 10px;
+      background: var(--navy-50); border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-md); padding: 14px 16px;
+    }
+    .amount-input-box:focus-within { border-color: var(--gold-500); }
+    .amount-currency-sym {
+      font-size: 22px; font-weight: 800; color: var(--navy-900); flex-shrink: 0;
+    }
+    .amount-input-box input {
+      flex: 1; border: none; background: transparent;
+      font-family: var(--font); font-size: 24px; font-weight: 800;
+      color: var(--navy-900); outline: none; min-width: 0;
+      font-variant-numeric: tabular-nums;
+    }
+    .amount-input-box input::placeholder { color: var(--gray-300); }
+    .amount-quick-chips {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px;
+    }
+    .amount-chip {
+      padding: 9px 16px; border-radius: var(--radius-pill);
+      border: 1.5px solid var(--gray-200); background: var(--white);
+      font-family: var(--font); font-size: 13px; font-weight: 700;
+      color: var(--navy-900); cursor: pointer; transition: all 0.18s;
+    }
+    .amount-chip:hover { border-color: var(--gold-500); }
+    .amount-chip.selected { background: var(--navy-900); color: var(--white); border-color: var(--navy-900); }
+
+    .amount-hint {
+      font-size: 12px; font-weight: 600; color: var(--gray-500);
+      padding: 10px 0; line-height: 1.5;
+    }
+    .amount-hint strong { color: var(--navy-900); }
+
+    /* ============================================================
+       CRYPTO PICKER
+       ============================================================ */
+    .crypto-picker-list { display: flex; flex-direction: column; gap: 0; }
+    .crypto-pick-item {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 12px; border-radius: var(--radius-sm);
+      cursor: pointer; transition: background 0.15s;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .crypto-pick-item:last-child { border-bottom: none; }
+    .crypto-pick-item:hover { background: var(--navy-50); }
+    .crypto-pick-item.selected { background: var(--gold-100); }
+    .crypto-pick-icon {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: var(--navy-50); border: 1px solid var(--gray-200);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; font-weight: 800; color: var(--navy-800);
+      flex-shrink: 0;
+    }
+    .crypto-pick-icon.usdt { background: var(--green-100); color: var(--green-500); }
+    .crypto-pick-icon.btc { background: #FFF4E5; color: #F7931A; }
+    .crypto-pick-icon.eth { background: #EEF0FF; color: #627EEA; }
+    .crypto-pick-icon.sol { background: #F0F5FF; color: #9945FF; }
+    .crypto-pick-info { flex: 1; min-width: 0; }
+    .crypto-pick-name { font-size: 15px; font-weight: 800; color: var(--navy-900); }
+    .crypto-pick-symbol { font-size: 12px; font-weight: 600; color: var(--gray-500); text-transform: uppercase; margin-top: 1px; }
+    .crypto-pick-price {
+      text-align: right; flex-shrink: 0;
+    }
+    .crypto-pick-price .cp-price { font-size: 14px; font-weight: 800; color: var(--navy-900); font-variant-numeric: tabular-nums; }
+    .crypto-pick-price .cp-change { font-size: 11.5px; font-weight: 700; margin-top: 1px; }
+    .cp-change.positive { color: var(--green-500); }
+    .cp-change.negative { color: var(--red-500); }
+
+    /* ============================================================
+       PAYMENT PICKER (depends on currency)
+       ============================================================ */
+    .payment-pick-list { display: flex; flex-direction: column; gap: 0; }
+    .payment-pick-group-label {
+      font-size: 10.5px; font-weight: 800; color: var(--gray-500);
+      text-transform: uppercase; letter-spacing: 1px; padding: 14px 4px 8px;
+    }
+    .payment-pick-item {
+      display: flex; align-items: center; gap: 14px;
+      padding: 13px 12px; border-radius: var(--radius-sm);
+      cursor: pointer; transition: background 0.15s;
+    }
+    .payment-pick-item:hover { background: var(--navy-50); }
+    .payment-pick-item.selected { background: var(--gold-100); }
+    .payment-pick-icon {
+      width: 38px; height: 38px; border-radius: 10px;
+      background: var(--navy-50); border: 1px solid var(--gray-200);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; flex-shrink: 0;
+    }
+    .payment-pick-info { flex: 1; }
+    .payment-pick-name { font-size: 14.5px; font-weight: 800; color: var(--navy-900); }
+    .payment-pick-sub { font-size: 11.5px; font-weight: 500; color: var(--gray-500); margin-top: 1px; }
+    .payment-pick-check {
+      width: 20px; height: 20px; border-radius: 50%;
+      border: 2px solid var(--gray-300); flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .payment-pick-item.selected .payment-pick-check {
+      background: var(--green-500); border-color: var(--green-500);
+    }
+    .payment-pick-item.selected .payment-pick-check::after {
+      content: '✓'; color: #fff; font-size: 12px; font-weight: 800;
+    }
+
+    /* ============================================================
+       INFO / GUIDE PAGE
+       ============================================================ */
+    .guide-page {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: var(--bg-main); z-index: 90;
+      transform: translateY(100%); transition: transform 0.32s cubic-bezier(0.2, 0.9, 0.3, 1);
+      display: flex; flex-direction: column; overflow: hidden;
+    }
+    .guide-page.open { transform: translateY(0); }
+
+    .guide-header {
+      display: flex; align-items: center; gap: 8px;
+      padding: 14px 16px; border-bottom: 1px solid var(--gray-200);
+      background: var(--white); flex-shrink: 0;
+    }
+    .guide-header h2 { font-size: 17px; font-weight: 800; color: var(--navy-900); letter-spacing: -0.3px; }
+    .guide-body { flex: 1; overflow-y: auto; padding: 20px 20px 40px; max-width: 600px; width: 100%; margin: 0 auto; }
+
+    .guide-hero {
+      background: linear-gradient(135deg, var(--navy-900), var(--navy-800));
+      border-radius: var(--radius-lg); padding: 24px 20px; color: var(--white);
+      margin-bottom: 20px; position: relative; overflow: hidden;
+    }
+    .guide-hero::after {
+      content: ''; position: absolute; top: -30%; right: -20%;
+      width: 200px; height: 200px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(201, 168, 76, 0.2), transparent 70%);
+      pointer-events: none;
+    }
+    .guide-hero h3 { font-size: 22px; font-weight: 800; letter-spacing: -0.6px; line-height: 1.2; margin-bottom: 8px; position: relative; z-index: 1; }
+    .guide-hero h3 .gold { color: var(--gold-400); }
+    .guide-hero p { font-size: 13.5px; font-weight: 500; color: var(--gray-300); line-height: 1.55; position: relative; z-index: 1; }
+
+    .guide-step {
+      display: flex; gap: 14px; padding: 18px 0;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .guide-step:last-child { border-bottom: none; }
+    .guide-step-num {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold-500), var(--gold-400));
+      color: var(--navy-900); display: flex; align-items: center; justify-content: center;
+      font-size: 16px; font-weight: 800; flex-shrink: 0;
+    }
+    .guide-step-content h4 { font-size: 15px; font-weight: 800; color: var(--navy-900); margin-bottom: 4px; letter-spacing: -0.2px; }
+    .guide-step-content p { font-size: 13px; font-weight: 500; color: var(--gray-500); line-height: 1.55; }
+
+    .guide-tip {
+      background: var(--gold-100); border: 1px solid rgba(201, 168, 76, 0.35);
+      border-radius: var(--radius-md); padding: 16px; margin-top: 20px;
+      display: flex; gap: 12px;
+    }
+    .guide-tip .tip-icon { font-size: 22px; flex-shrink: 0; }
+    .guide-tip p { font-size: 12.5px; font-weight: 600; color: var(--navy-800); line-height: 1.55; }
+    .guide-tip p strong { font-weight: 800; }
+
+    .guide-cta {
+      margin-top: 24px; background: linear-gradient(135deg, var(--green-500), #0B8A5E);
+      border-radius: var(--radius-md); padding: 20px; text-align: center;
+      color: var(--white); cursor: pointer; transition: transform 0.2s;
+    }
+    .guide-cta:hover { transform: translateY(-2px); }
+    .guide-cta h4 { font-size: 17px; font-weight: 800; margin-bottom: 4px; }
+    .guide-cta p { font-size: 12.5px; font-weight: 600; opacity: 0.9; }
+
+    /* ============================================================
+       NAVIGATION DRAWER
+       ============================================================ */
+    .drawer-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(10, 26, 47, 0.45); backdrop-filter: blur(3px);
+      z-index: 80; opacity: 0; pointer-events: none; transition: opacity 0.25s;
+    }
+    .drawer-overlay.open { opacity: 1; pointer-events: auto; }
+
+    .drawer {
+      position: fixed; top: 0; left: 0; width: 92%; max-width: 380px; height: 100%;
+      background: var(--white); z-index: 85; transform: translateX(-100%);
+      transition: transform 0.32s cubic-bezier(0.2, 0.9, 0.3, 1);
+      display: flex; flex-direction: column;
+      box-shadow: 8px 0 40px rgba(10, 26, 47, 0.18);
+    }
+    .drawer.open { transform: translateX(0); }
+    .drawer-topbar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 20px; border-bottom: 1px solid var(--gray-200);
+      flex-shrink: 0; gap: 8px;
+    }
+    .drawer-topbar-left { display: flex; align-items: center; gap: 2px; }
+    .drawer-topbar .icon-btn { padding: 7px; }
+    .drawer-title { font-size: 17px; font-weight: 800; color: var(--navy-900); letter-spacing: -0.3px; margin-left: 4px; }
+    .lang-selector {
+      display: flex; align-items: center; gap: 5px;
+      background: var(--navy-50); border: 1px solid var(--gray-200);
+      border-radius: var(--radius-pill); padding: 6px 10px;
+      font-family: var(--font); font-size: 11.5px; font-weight: 700;
+      color: var(--navy-900); cursor: pointer; flex-shrink: 0;
+    }
+    .lang-selector svg { width: 13px; height: 13px; stroke: var(--gray-500); fill: none; stroke-width: 2; }
+
+    .drawer-scroll { flex: 1; overflow-y: auto; padding: 8px 16px 40px; }
+
+    .nav-section { border-bottom: 1px solid var(--gray-200); padding: 4px 0; }
+    .nav-section:last-child { border-bottom: none; }
+    .nav-section-header {
+      width: 100%; display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 8px; background: none; border: none; cursor: pointer;
+      font-family: var(--font); text-align: left; border-radius: var(--radius-sm);
+      transition: background 0.15s;
+    }
+    .nav-section-header:hover { background: var(--navy-50); }
+    .nav-section-title { display: flex; align-items: center; gap: 12px; font-size: 16px; font-weight: 800; color: var(--navy-900); letter-spacing: -0.3px; }
+    .nav-section-title .sec-icon {
+      width: 34px; height: 34px; border-radius: 10px; background: var(--navy-50);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; color: var(--navy-800); flex-shrink: 0;
+    }
+    .nav-section-title .sec-icon.trade-ico { background: var(--gold-100); color: var(--gold-500); }
+    .nav-section-title .sec-icon.wallet-ico { background: var(--green-100); color: var(--green-500); }
+    .nav-chevron {
+      width: 18px; height: 18px; stroke: var(--gray-500); fill: none;
+      stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;
+      transition: transform 0.25s; flex-shrink: 0;
+    }
+    .nav-section-header[aria-expanded="true"] .nav-chevron { transform: rotate(180deg); }
+    .nav-section-body { display: none; flex-direction: column; padding: 2px 4px 10px; }
+    .nav-section-body.open { display: flex; }
+
+    .nav-entry {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 11px 12px; border-radius: var(--radius-sm);
+      cursor: pointer; transition: background 0.15s; text-decoration: none;
+    }
+    .nav-entry:hover { background: var(--navy-50); }
+    .nav-entry.active-entry { background: var(--gold-100); }
+    .nav-entry-content { flex: 1; min-width: 0; }
+    .nav-entry-title {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 14px; font-weight: 800; color: var(--navy-900);
+      letter-spacing: -0.1px; flex-wrap: wrap;
+    }
+    .nav-entry-desc { font-size: 11.5px; font-weight: 500; color: var(--gray-500); margin-top: 2px; line-height: 1.4; }
+    .nav-badge { font-size: 8.5px; font-weight: 800; letter-spacing: 0.4px; padding: 2px 7px; border-radius: var(--radius-pill); text-transform: uppercase; line-height: 1.3; flex-shrink: 0; }
+    .nav-badge.low-fees { background: var(--gold-100); color: var(--gold-500); border: 1px solid rgba(201, 168, 76, 0.4); }
+    .nav-badge.escrow { background: var(--navy-50); color: var(--navy-700); border: 1px solid var(--gray-200); }
+    .nav-badge.live { background: var(--green-100); color: var(--green-500); border: 1px solid rgba(15, 157, 110, 0.35); }
+
+    /* ============================================================
+       BOTTOM NAV
+       ============================================================ */
+    .bottom-nav {
+      position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 100%; max-width: 600px; background: rgba(255, 255, 255, 0.97);
+      backdrop-filter: blur(16px); border-top: 1px solid var(--gray-200);
+      display: flex; justify-content: space-around; align-items: center;
+      padding: 8px 8px calc(8px + env(safe-area-inset-bottom, 0px));
+      z-index: 40; box-shadow: 0 -4px 20px rgba(10, 26, 47, 0.06);
+    }
+    .bottom-nav-item {
+      display: flex; flex-direction: column; align-items: center; gap: 3px;
+      background: none; border: none; cursor: pointer;
+      padding: 6px 8px; border-radius: var(--radius-sm);
+      transition: all 0.2s; flex: 1; max-width: 80px;
+      color: var(--gray-500); font-family: var(--font);
+      font-size: 10px; font-weight: 600; letter-spacing: 0.2px;
+    }
+    .bottom-nav-item.active { color: var(--navy-900); font-weight: 800; }
+    .bottom-nav-item.active .bn-icon-wrap { background: var(--navy-900); }
+    .bottom-nav-item.active .bn-icon-wrap svg { stroke: var(--gold-400); }
+    .bn-icon-wrap {
+      width: 38px; height: 26px; border-radius: var(--radius-xs);
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .bottom-nav-item svg {
+      width: 20px; height: 20px; stroke: currentColor; fill: none;
+      stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    /* ============================================================
+       TOAST
+       ============================================================ */
+    .toast {
+      position: fixed; bottom: 100px; left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--navy-900); color: var(--white);
+      padding: 12px 20px; border-radius: var(--radius-pill);
+      font-size: 13px; font-weight: 700; z-index: 200;
+      opacity: 0; pointer-events: none; transition: all 0.3s;
+      max-width: calc(100% - 40px); text-align: center;
+      box-shadow: 0 8px 24px rgba(10, 26, 47, 0.3);
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width: 400px) {
+      .p2p-tab { font-size: 15px; padding: 8px 8px; }
+      .promo-text h3 { font-size: 15px; }
+      .promo-icon { width: 50px; height: 50px; font-size: 22px; }
+      .offer-price .price-amount { font-size: 23px; }
+      .buy-btn { padding: 11px 26px; font-size: 13.5px; min-width: 96px; }
+      .filter-pill { font-size: 12px; padding: 9px 12px; }
+    }
+    @media (min-width: 700px) {
+      body { padding-bottom: 100px; }
+      .p2p-main { max-width: 640px; padding: 20px 24px 0; gap: 18px; }
+      .bottom-nav { max-width: 640px; border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
+      .offer-card { padding: 20px 20px; }
+      .offer-price .price-amount { font-size: 30px; }
+    }
+    @media (min-width: 1024px) {
+      .p2p-main { max-width: 680px; }
+      .bottom-nav { max-width: 680px; }
+    }
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+
+  <!-- DRAWER OVERLAY -->
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+
+  <!-- NAVIGATION DRAWER -->
+  <aside class="drawer" id="drawer" role="dialog" aria-label="Navigation menu">
+    <div class="drawer-topbar">
+      <div class="drawer-topbar-left">
+        <button class="icon-btn" id="drawerCloseBtn" aria-label="Close menu">
+          <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+        <button class="icon-btn" id="drawerSearchBtn" aria-label="Search navigation">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        </button>
+        <span class="drawer-title">Navigation</span>
+      </div>
+      <button class="lang-selector" id="langSelector" aria-label="Select language">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a15 15 0 010 18a15 15 0 010-18z"/></svg>
+        English
+      </button>
+    </div>
+    <div class="drawer-scroll">
+      <div class="nav-section">
+        <button class="nav-section-header" id="tradeSectionHeader" aria-expanded="true" aria-controls="tradeSectionBody">
+          <span class="nav-section-title"><span class="sec-icon trade-ico">⇅</span>Trade</span>
+          <svg class="nav-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="nav-section-body open" id="tradeSectionBody">
+          <a class="nav-entry active-entry" data-entry="p2p">
+            <div class="nav-entry-content">
+              <div class="nav-entry-title">P2P Trading <span class="nav-badge low-fees">Low Fees</span></div>
+              <div class="nav-entry-desc">Trade OTC bank and Mobile money</div>
+            </div>
+          </a>
+          <a class="nav-entry" data-entry="my-offers">
+            <div class="nav-entry-content">
+              <div class="nav-entry-title">My offers</div>
+              <div class="nav-entry-desc">View and manage your created offers</div>
+            </div>
+          </a>
+          <a class="nav-entry" data-entry="p2p-orders">
+            <div class="nav-entry-content">
+              <div class="nav-entry-title">P2P Orders <span class="nav-badge escrow">Escrow</span></div>
+              <div class="nav-entry-desc">Track active &amp; completed trades</div>
+            </div>
+          </a>
+          <a class="nav-entry" data-entry="notifications">
+            <div class="nav-entry-content">
+              <div class="nav-entry-title">Notifications</div>
+              <div class="nav-entry-desc">Order updates and trade notifications</div>
+            </div>
+          </a>
+          <a class="nav-entry" data-entry="spot-trade">
+            <div class="nav-entry-content">
+              <div class="nav-entry-title">Spot Trade</div>
+              <div class="nav-entry-desc">Order book trading &amp; spot charts</div>
+            </div>
+          </a>
+          <a class="nav-entry" data-entry="crypto-spot">
+            <div class="nav-entry-content">
+              <div class="nav-entry-title">Crypto Spot (Top 150) <span class="nav-badge live">Live</span></div>
+              <div class="nav-entry-desc">Top 150 crypto assets by live market cap</div>
+            </div>
+          </a>
+          <a class="nav-entry" data-entry="instant-swap">
+            <div class="nav-entry-content">
+              <div class="nav-entry-title">Instant Swap</div>
+              <div class="nav-entry-desc">One-click crypto conversion</div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="nav-section">
+        <button class="nav-section-header" id="walletSectionHeader" aria-expanded="false" aria-controls="walletSectionBody">
+          <span class="nav-section-title"><span class="sec-icon wallet-ico">👛</span>Wallet</span>
+          <svg class="nav-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="nav-section-body" id="walletSectionBody">
+          <a class="nav-entry" data-entry="wallet-overview">
+            <div class="nav-entry-content">
+              <div class="nav-entry-title">Overview</div>
+              <div class="nav-entry-desc">Total account balance and assets</div>
+            </div>
+          </a>
+          <a class="nav-entry" data-entry="deposit">
+            <div class="nav-entry-content">
+              <div class="nav-entry-title">Deposit</div>
+              <div class="nav-entry-desc">Fund your account</div>
+            </div>
+          </a>
+          <a class="nav-entry" data-entry="withdraw">
+            <div class="nav-entry-content">
+              <div class="nav-entry-title">Withdraw</div>
+              <div class="nav-entry-desc">Cash out to your bank or mobile wallet</div>
+            </div>
+          </a>
+          <a class="nav-entry" data-entry="transaction-history">
+            <div class="nav-entry-content">
+              <div class="nav-entry-title">Transaction History</div>
+              <div class="nav-entry-desc">All deposits, withdrawals &amp; swaps</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ============================================================
+       CURRENCY PICKER MODAL
+       ============================================================ -->
+  <div class="modal-overlay" id="currencyModalOverlay"></div>
+  <div class="bottom-sheet" id="currencyModal" role="dialog" aria-label="Select currency">
+    <div class="sheet-header">
+      <h3>Select Currency</h3>
+      <button class="sheet-close" id="currencyModalClose" aria-label="Close">✕</button>
+    </div>
+    <div class="currency-search-box">
+      <input type="text" id="currencySearchInput" placeholder="Search currency…" autocomplete="off">
+    </div>
+    <div class="currency-list" id="currencyList"></div>
+  </div>
+
+  <!-- ============================================================
+       CRYPTO PICKER MODAL
+       ============================================================ -->
+  <div class="modal-overlay" id="cryptoModalOverlay"></div>
+  <div class="bottom-sheet" id="cryptoModal" role="dialog" aria-label="Select cryptocurrency">
+    <div class="sheet-header">
+      <h3>Select Cryptocurrency</h3>
+      <button class="sheet-close" id="cryptoModalClose" aria-label="Close">✕</button>
+    </div>
+    <div class="sheet-body">
+      <div class="crypto-picker-list" id="cryptoPickerList"></div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       AMOUNT INPUT MODAL
+       ============================================================ -->
+  <div class="modal-overlay" id="amountModalOverlay"></div>
+  <div class="bottom-sheet" id="amountModal" role="dialog" aria-label="Enter amount">
+    <div class="sheet-header">
+      <h3>Enter Amount</h3>
+      <button class="sheet-close" id="amountModalClose" aria-label="Close">✕</button>
+    </div>
+    <div class="sheet-body">
+      <div class="amount-input-wrap">
+        <div class="amount-input-box">
+          <span class="amount-currency-sym" id="amountCurrencySym">$</span>
+          <input type="number" id="amountInput" placeholder="0.00" min="0" step="any" inputmode="decimal">
+        </div>
+        <div class="amount-quick-chips" id="amountQuickChips">
+          <button class="amount-chip" data-amt="50">50</button>
+          <button class="amount-chip" data-amt="100">100</button>
+          <button class="amount-chip" data-amt="250">250</button>
+          <button class="amount-chip" data-amt="500">500</button>
+          <button class="amount-chip" data-amt="1000">1,000</button>
+          <button class="amount-chip" data-amt="5000">5,000</button>
+        </div>
+        <div class="amount-hint" id="amountHint">
+          Enter any amount to filter offers by transaction limits.
+        </div>
+      </div>
+      <button class="btn-primary" style="padding:14px;border-radius:var(--radius-pill);border:none;background:linear-gradient(135deg,var(--green-500),#0B8A5E);color:#fff;font-family:var(--font);font-weight:800;font-size:15px;cursor:pointer;box-shadow:0 4px 14px rgba(15,157,110,0.3);" id="amountApplyBtn">Apply Amount</button>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       PAYMENT PICKER MODAL (depends on currency)
+       ============================================================ -->
+  <div class="modal-overlay" id="paymentModalOverlay"></div>
+  <div class="bottom-sheet" id="paymentModal" role="dialog" aria-label="Select payment method">
+    <div class="sheet-header">
+      <h3>Payment Method</h3>
+      <button class="sheet-close" id="paymentModalClose" aria-label="Close">✕</button>
+    </div>
+    <div class="sheet-body">
+      <div id="paymentPickList"></div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       GUIDE PAGE (merchant guide)
+       ============================================================ -->
+  <div class="guide-page" id="guidePage" role="dialog" aria-label="P2P Merchant Guide">
+    <div class="guide-header">
+      <button class="icon-btn" id="guideCloseBtn" aria-label="Close guide">
+        <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <h2>P2P Merchant Guide</h2>
+    </div>
+    <div class="guide-body">
+      <div class="guide-hero">
+        <h3>Earn as a <span class="gold">Bluepeak P2P Merchant</span></h3>
+        <p>Learn how to become a verified merchant, set your own rates, and earn through escrow arbitrage and maker rewards.</p>
+      </div>
+
+      <div class="guide-step">
+        <div class="guide-step-num">1</div>
+        <div class="guide-step-content">
+          <h4>Apply for Merchant Status</h4>
+          <p>Complete identity verification and meet the minimum trading volume requirement. Approval typically takes 24–48 hours.</p>
+        </div>
+      </div>
+      <div class="guide-step">
+        <div class="guide-step-num">2</div>
+        <div class="guide-step-content">
+          <h4>Set Up Your Payment Methods</h4>
+          <p>Add your bank accounts, mobile money wallets (M-Pesa, MTN MoMo, Airtel Money), and other supported payment channels.</p>
+        </div>
+      </div>
+      <div class="guide-step">
+        <div class="guide-step-num">3</div>
+        <div class="guide-step-content">
+          <h4>Create Your Offers</h4>
+          <p>Set your price spread, transaction limits, and available balance. You can create both buy and sell offers for each crypto asset.</p>
+        </div>
+      </div>
+      <div class="guide-step">
+        <div class="guide-step-num">4</div>
+        <div class="guide-step-content">
+          <h4>Complete Trades &amp; Earn</h4>
+          <p>Fulfil incoming orders promptly. Earnings come from your price spread plus escrow arbitrage rewards — up to 40% on qualifying trades.</p>
+        </div>
+      </div>
+      <div class="guide-step">
+        <div class="guide-step-num">5</div>
+        <div class="guide-step-content">
+          <h4>Build Your Reputation</h4>
+          <p>Maintain high completion rates and positive feedback to unlock lower fees, higher limits, and priority placement in the marketplace.</p>
+        </div>
+      </div>
+
+      <div class="guide-tip">
+        <div class="tip-icon">💡</div>
+        <p><strong>Pro tip:</strong> Merchants who respond within 5 minutes and maintain a 99%+ completion rate earn up to 3× more orders. Enable instant notifications to never miss a trade.</p>
+      </div>
+
+      <div class="guide-cta" id="guideApplyBtn">
+        <h4>Apply to Become a Merchant →</h4>
+        <p>Join thousands of verified merchants earning on Bluepeak Capital</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       P2P HEADER
+       ============================================================ -->
+  <header class="p2p-header">
+    <div class="p2p-header-left">
+      <button class="icon-btn" id="menuBtn" aria-label="Open navigation">
+        <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+      <button class="icon-btn" id="backBtn" aria-label="Go back">
+        <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="p2p-tabs">
+        <button class="p2p-tab active" data-p2ptab="p2p">P2P</button>
+        <button class="p2p-tab" data-p2ptab="express">Express</button>
+      </div>
+    </div>
+    <button class="icon-btn" id="searchBtn" aria-label="Search offers">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+    </button>
+  </header>
+
+  <!-- ============================================================
+       MAIN
+       ============================================================ -->
+  <main class="p2p-main">
+
+    <!-- PROMO CAROUSEL (4 slides — removed M-Pesa/MTN slide) -->
+    <div class="promo-carousel" id="promoCarousel">
+      <div class="promo-slide active">
+        <div class="promo-text">
+          <h3>How do I earn as a P2P Merchant?</h3>
+          <p>Zero maker fees · Up to 40% escrow arbitrage earnings</p>
+          <span class="promo-badge">✦ Tap to learn more</span>
+        </div>
+        <div class="promo-icon" data-guide="1">✨</div>
+      </div>
+      <div class="promo-slide">
+        <div class="promo-text">
+          <h3>Trade with verified merchants</h3>
+          <p>Escrow-protected trades · Fast local payouts · 24/7 support</p>
+          <span class="promo-badge">🛡️ Secure Escrow</span>
+        </div>
+        <div class="promo-icon">🤝</div>
+      </div>
+      <div class="promo-slide">
+        <div class="promo-text">
+          <h3>Instant cashout to local currency</h3>
+          <p>Withdraw directly to your mobile wallet or bank account</p>
+          <span class="promo-badge">⚡ Instant</span>
+        </div>
+        <div class="promo-icon">💸</div>
+      </div>
+      <div class="promo-slide">
+        <div class="promo-text">
+          <h3>Become a Bluepeak P2P Merchant</h3>
+          <p>Competitive rates · Dedicated dashboard · Priority support</p>
+          <span class="promo-badge">🏆 Apply Now</span>
+        </div>
+        <div class="promo-icon">🏅</div>
+      </div>
+      <div class="promo-dots" id="promoDots">
+        <button class="promo-dot active" data-slide="0" aria-label="Slide 1"></button>
+        <button class="promo-dot" data-slide="1" aria-label="Slide 2"></button>
+        <button class="promo-dot" data-slide="2" aria-label="Slide 3"></button>
+        <button class="promo-dot" data-slide="3" aria-label="Slide 4"></button>
+      </div>
+    </div>
+
+    <!-- BUY/SELL + FIAT -->
+    <div class="trade-controls-row">
+      <div class="buy-sell-toggle" id="buySellToggle">
+        <button class="bs-btn active" data-mode="buy">Buy</button>
+        <button class="bs-btn" data-mode="sell">Sell</button>
+      </div>
+      <button class="fiat-dropdown" id="fiatDropdown">
+        <span id="fiatLabel">USD</span>
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+    </div>
+
+    <!-- FILTER PILLS: Crypto | Amount | Payment | Filter -->
+    <div class="filter-row">
+      <button class="filter-pill" id="cryptoPill">
+        <span class="pill-icon" id="cryptoPillIcon">₮</span>
+        <span id="cryptoPillLabel">USDT</span>
+        <svg class="chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <button class="filter-pill" id="amountPill">
+        <span id="amountPillLabel">Amount</span>
+        <svg class="chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <button class="filter-pill" id="paymentPill">
+        <span id="paymentPillLabel">Payment</span>
+        <svg class="chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <button class="filter-pill" id="filterPill">
+        <svg viewBox="0 0 24 24"><path d="M3 5h18l-7 8v6l-4-2v-4L3 5z"/></svg>
+        Filter
+      </button>
+    </div>
+
+    <!-- LIVE RATE STRIP -->
+    <div class="live-rate-strip">
+      <div class="live-rate-left">
+        <span class="live-rate-dot"></span>
+        Live Market Rate: <strong id="liveRateValue">1 USDT ≈ $1.00</strong>
+      </div>
+      <button class="live-rate-refresh" id="liveRateRefresh" aria-label="Refresh rate">
+        <svg viewBox="0 0 24 24"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.5 9a9 9 0 0114.9-3.4L23 10"/><path d="M20.5 15a9 9 0 01-14.9 3.4L1 14"/></svg>
+      </button>
+    </div>
+
+    <!-- OFFER LIST -->
+    <div class="offer-list" id="offerList"></div>
+
+  </main>
+
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav" id="bottomNav">
+    <button class="bottom-nav-item active" data-bnav="p2p" aria-label="P2P">
+      <div class="bn-icon-wrap">
+        <svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M2.5 20c.8-3.5 3.2-5.5 6.5-5.5s5.7 2 6.5 5.5"/><circle cx="17.5" cy="8" r="2.8"/><path d="M15.5 14c2.5 0 4.8 1.5 5.5 4.5"/></svg>
+      </div>
+      <span>P2P</span>
+    </button>
+    <button class="bottom-nav-item" data-bnav="orders" aria-label="Orders">
+      <div class="bn-icon-wrap">
+        <svg viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>
+      </div>
+      <span>Orders</span>
+    </button>
+    <button class="bottom-nav-item" data-bnav="ads" aria-label="Ads">
+      <div class="bn-icon-wrap">
+        <svg viewBox="0 0 24 24"><path d="M20 12l-8-8H4v8l8 8 8-8z"/><circle cx="8.5" cy="8.5" r="1.2"/></svg>
+      </div>
+      <span>Ads</span>
+    </button>
+    <button class="bottom-nav-item" data-bnav="notifications" aria-label="Notifications">
+      <div class="bn-icon-wrap">
+        <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 10-12 0c0 7-3 8-3 8h18s-3-1-3-8"/><path d="M13.7 21a2 2 0 01-3.4 0"/></svg>
+      </div>
+      <span>Alerts</span>
+    </button>
+    <button class="bottom-nav-item" data-bnav="profile" aria-label="Profile">
+      <div class="bn-icon-wrap">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4.5 4.5-6.5 8-6.5s7 2 8 6.5"/></svg>
+      </div>
+      <span>Profile</span>
+    </button>
+  </nav>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    (function() {
+      'use strict';
+
+      // ============================================================
+      // STATE
+      // ============================================================
+      const state = {
+        p2pMode: 'buy',
+        fiat: 'USD',
+        crypto: 'USDT',
+        amountFilter: null,      // null = any; otherwise number
+        paymentFilter: 'any',    // 'any' | payment method name
+        page: 1,
+        pageSize: 4,
+        loading: false,
+        hasMore: true,
+        allOffers: [],
+        filteredOffers: [],
+      };
+
+      const liveRates = { USDT: 1, BTC: 0, ETH: 0, SOL: 0 };
+
+      const $ = (s) => document.querySelector(s);
+      const $$ = (s) => document.querySelectorAll(s);
+
+      const offerList = $('#offerList');
+      const toastEl = $('#toast');
+
+      // ============================================================
+      // CURRENCY DATA — full list, searchable
+      // ============================================================
+      const CURRENCIES = [
+        { code: 'USD', name: 'US Dollar', symbol: '$', flag: '🇺🇸' },
+        { code: 'EUR', name: 'Euro', symbol: '€', flag: '🇪🇺' },
+        { code: 'GBP', name: 'British Pound', symbol: '£', flag: '🇬🇧' },
+        { code: 'NGN', name: 'Nigerian Naira', symbol: '₦', flag: '🇳🇬' },
+        { code: 'KES', name: 'Kenyan Shilling', symbol: 'KSh', flag: '🇰🇪' },
+        { code: 'GHS', name: 'Ghanaian Cedi', symbol: 'GH₵', flag: '🇬🇭' },
+        { code: 'ZAR', name: 'South African Rand', symbol: 'R', flag: '🇿🇦' },
+        { code: 'TZS', name: 'Tanzanian Shilling', symbol: 'TSh', flag: '🇹🇿' },
+        { code: 'UGX', name: 'Ugandan Shilling', symbol: 'USh', flag: '🇺🇬' },
+        { code: 'XOF', name: 'West African CFA Franc', symbol: 'CFA', flag: '🌍' },
+        { code: 'XAF', name: 'Central African CFA Franc', symbol: 'FCFA', flag: '🌍' },
+        { code: 'MZN', name: 'Mozambican Metical', symbol: 'MT', flag: '🇲🇿' },
+        { code: 'ZMW', name: 'Zambian Kwacha', symbol: 'ZK', flag: '🇿🇲' },
+        { code: 'BWP', name: 'Botswana Pula', symbol: 'P', flag: '🇧🇼' },
+        { code: 'MWK', name: 'Malawian Kwacha', symbol: 'MK', flag: '🇲🇼' },
+        { code: 'RWF', name: 'Rwandan Franc', symbol: 'FRw', flag: '🇷🇼' },
+        { code: 'BRL', name: 'Brazilian Real', symbol: 'R$', flag: '🇧🇷' },
+        { code: 'INR', name: 'Indian Rupee', symbol: '₹', flag: '🇮🇳' },
+        { code: 'AED', name: 'UAE Dirham', symbol: 'د.إ', flag: '🇦🇪' },
+        { code: 'SAR', name: 'Saudi Riyal', symbol: '﷼', flag: '🇸🇦' },
+      ];
+
+      const FIAT_SYMBOLS = {};
+      CURRENCIES.forEach(c => FIAT_SYMBOLS[c.code] = c.symbol);
+      function fiatSym() { return FIAT_SYMBOLS[state.fiat] || '$'; }
+
+      // ============================================================
+      // PAYMENT METHODS — grouped by currency region
+      // ============================================================
+      const PAYMENT_METHODS = {
+        // Global / USD
+        global: [
+          { name: 'Bank Transfer', icon: '🏦', sub: 'Standard bank transfer' },
+          { name: 'Visa / Mastercard', icon: '💳', sub: 'Debit or credit card' },
+          { name: 'PayPal', icon: '🅿️', sub: 'PayPal balance' },
+          { name: 'Wise', icon: '🌐', sub: 'International transfer' },
+          { name: 'Revolut', icon: '💷', sub: 'Revolut transfer' },
+          { name: 'Skrill', icon: '💶', sub: 'Skrill wallet' },
+        ],
+        // African currencies
+        africa: [
+          { name: 'M-Pesa Kenya', icon: '📱', sub: 'Safaricom M-Pesa · Kenya' },
+          { name: 'M-Pesa Tanzania', icon: '📱', sub: 'Vodacom M-Pesa · Tanzania' },
+          { name: 'M-Pesa Lesotho', icon: '📱', sub: 'Vodacom M-Pesa · Lesotho' },
+          { name: 'M-Pesa Mozambique', icon: '📱', sub: 'M-Pesa · Mozambique' },
+          { name: 'MTN MoMo Ghana', icon: '📲', sub: 'MTN Mobile Money · Ghana' },
+          { name: 'MTN MoMo Uganda', icon: '📲', sub: 'MTN Mobile Money · Uganda' },
+          { name: 'MTN MoMo Nigeria', icon: '📲', sub: 'MTN MoMo · Nigeria' },
+          { name: 'Airtel Money Kenya', icon: '📶', sub: 'Airtel Money · Kenya' },
+          { name: 'Airtel Money Uganda', icon: '📶', sub: 'Airtel Money · Uganda' },
+          { name: 'Airtel Money Nigeria', icon: '📶', sub: 'Airtel Money · Nigeria' },
+          { name: 'Orange Money Senegal', icon: '🟠', sub: 'Orange Money · Senegal' },
+          { name: 'Wave Mobile Money', icon: '🌊', sub: 'Wave · Senegal, Côte d\'Ivoire' },
+          { name: 'Flutterwave', icon: '🌊', sub: 'Pan-African payments' },
+          { name: 'Paystack', icon: '💠', sub: 'Nigeria & Ghana' },
+          { name: 'OPay', icon: '🟢', sub: 'Nigeria' },
+          { name: 'PalmPay', icon: '🌴', sub: 'Nigeria' },
+          { name: 'Chipper Cash', icon: '🦅', sub: 'Ghana, Nigeria, Uganda' },
+          { name: 'Kuda Bank', icon: '🏦', sub: 'Nigeria' },
+          { name: 'Equity Bank', icon: '🏦', sub: 'Kenya' },
+          { name: 'KCB Bank', icon: '🏦', sub: 'Kenya' },
+          { name: 'Stanbic Bank', icon: '🏦', sub: 'Multiple African countries' },
+          { name: 'GTBank', icon: '🏦', sub: 'Nigeria' },
+          { name: 'Access Bank', icon: '🏦', sub: 'Nigeria' },
+          { name: 'Zenith Bank', icon: '🏦', sub: 'Nigeria' },
+          { name: 'FNB', icon: '🏦', sub: 'South Africa' },
+          { name: 'Capitec', icon: '🏦', sub: 'South Africa' },
+        ],
+        // Americas
+        americas: [
+          { name: 'ACH Transfer', icon: '🏦', sub: 'United States' },
+          { name: 'Zelle', icon: '⚡', sub: 'United States' },
+          { name: 'Venmo', icon: '💸', sub: 'United States' },
+          { name: 'Cash App', icon: '💵', sub: 'United States' },
+          { name: 'PIX', icon: '⚡', sub: 'Brazil' },
+          { name: 'Mercado Pago', icon: '💙', sub: 'Brazil / Argentina' },
+        ],
+        // Europe / Asia / Middle East
+        eurasia: [
+          { name: 'SEPA', icon: '🇪🇺', sub: 'Euro transfers' },
+          { name: 'Faster Payments', icon: '🇬🇧', sub: 'United Kingdom' },
+          { name: 'Alipay', icon: '🇨🇳', sub: 'China' },
+          { name: 'WeChat Pay', icon: '💬', sub: 'China' },
+          { name: 'UPI', icon: '🇮🇳', sub: 'India' },
+          { name: 'Paytm', icon: '💙', sub: 'India' },
+          { name: 'STC Pay', icon: '📱', sub: 'Saudi Arabia' },
+          { name: 'Emirates NBD', icon: '🏦', sub: 'UAE' },
+        ],
+      };
+
+      // Determine which payment groups to show for a given currency
+      function getPaymentGroupsForCurrency(code) {
+        const AFRICAN_CURRENCIES = ['NGN','KES','GHS','ZAR','TZS','UGX','XOF','XAF','MZN','ZMW','BWP','MWK','RWF'];
+        const AMERICAS_CURRENCIES = ['USD','BRL'];
+        const EURASIA_CURRENCIES = ['EUR','GBP','INR','AED','SAR'];
+
+        const groups = [];
+        // Global always shown first
+        groups.push({ label: 'Global', items: PAYMENT_METHODS.global });
+
+        if (AFRICAN_CURRENCIES.includes(code)) {
+          groups.push({ label: 'Africa — Mobile Money & Bank', items: PAYMENT_METHODS.africa });
+        }
+        if (AMERICAS_CURRENCIES.includes(code)) {
+          groups.push({ label: 'Americas', items: PAYMENT_METHODS.americas });
+        }
+        if (EURASIA_CURRENCIES.includes(code)) {
+          groups.push({ label: 'Europe / Asia / Middle East', items: PAYMENT_METHODS.eurasia });
+        }
+        // Always show a general "Other" group with Africa (for cross-border)
+        if (!AFRICAN_CURRENCIES.includes(code)) {
+          groups.push({ label: 'Other methods', items: PAYMENT_METHODS.africa });
+        }
+        return groups;
+      }
+
+      // ============================================================
+      // UTILITIES
+      // ============================================================
+      function showToast(msg) {
+        toastEl.textContent = msg;
+        toastEl.classList.add('show');
+        clearTimeout(toastEl._t);
+        toastEl._t = setTimeout(() => toastEl.classList.remove('show'), 2600);
+      }
+
+      function formatNum(n, decimals = 2) {
+        if (n >= 1e9) return (n / 1e9).toFixed(2) + 'B';
+        if (n >= 1e6) return (n / 1e6).toFixed(2) + 'M';
+        if (n >= 1e3) return n.toLocaleString('en-US', { maximumFractionDigits: 0 });
+        return n.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+      }
+
+      function formatPrice(n) {
+        if (n >= 1000) return n.toLocaleString('en-US', { maximumFractionDigits: 0 });
+        if (n >= 1) return n.toFixed(2);
+        return n.toFixed(4);
+      }
+
+      // ============================================================
+      // DEMO MERCHANTS
+      // ============================================================
+      const DEMO_MERCHANTS = [
+        { id:'m1', name:'Logan_avnq788', initial:'L', verified:true, lastActive:'1 hour ago', trades:5002, completion:98.6, positive:99, time:'30 min', paymentMethods:['Bank Transfer','Venmo','Wire Transfer'], paymentCategory:'bank' },
+        { id:'m2', name:'Kwame_P2P', initial:'K', verified:true, lastActive:'12 min ago', trades:12840, completion:99.2, positive:99, time:'15 min', paymentMethods:['M-Pesa Kenya','Airtel Money Kenya','Equity Bank'], paymentCategory:'mobile' },
+        { id:'m3', name:'AminaTrade', initial:'A', verified:true, lastActive:'4 min ago', trades:8721, completion:97.8, positive:98, time:'20 min', paymentMethods:['MTN MoMo Ghana','Paystack','GTBank'], paymentCategory:'mobile' },
+        { id:'m4', name:'ChidiSwift', initial:'C', verified:false, lastActive:'3 hours ago', trades:1204, completion:96.1, positive:95, time:'45 min', paymentMethods:['OPay','PalmPay','Access Bank'], paymentCategory:'bank' },
+        { id:'m5', name:'FatimaExchange', initial:'F', verified:true, lastActive:'8 min ago', trades:21450, completion:99.6, positive:100, time:'10 min', paymentMethods:['M-Pesa Tanzania','Tigo Pesa','Stanbic Bank'], paymentCategory:'mobile' },
+        { id:'m6', name:'SiphoMarkets', initial:'S', verified:true, lastActive:'22 min ago', trades:6930, completion:98.0, positive:97, time:'25 min', paymentMethods:['FNB','Capitec','Vodacom MPesa'], paymentCategory:'bank' },
+        { id:'m7', name:'Zara_BTC', initial:'Z', verified:true, lastActive:'6 min ago', trades:3310, completion:99.1, positive:99, time:'12 min', paymentMethods:['Wise','Revolut','SEPA'], paymentCategory:'bank' },
+        { id:'m8', name:'OluwaP2P', initial:'O', verified:false, lastActive:'1 day ago', trades:412, completion:94.5, positive:93, time:'60 min', paymentMethods:['Flutterwave','Kuda Bank','Moniepoint'], paymentCategory:'bank' },
+        { id:'m9', name:'GraceCash', initial:'G', verified:true, lastActive:'18 min ago', trades:15690, completion:99.4, positive:99, time:'8 min', paymentMethods:['Chipper Cash','MTN MoMo Uganda','Airtel Money Uganda'], paymentCategory:'mobile' },
+        { id:'m10', name:'DavidBTC', initial:'D', verified:true, lastActive:'35 min ago', trades:9840, completion:98.4, positive:98, time:'18 min', paymentMethods:['ACH Transfer','Zelle','Cash App'], paymentCategory:'bank' },
+      ];
+
+      function buildDemoOffers() {
+        const cryptoBase = {
+          USDT: { buy: 1.03, sell: 0.97, min: 250, max: 5500, avail: 4700 },
+          BTC:  { buy: 81250, sell: 79800, min: 0.0001, max: 2, avail: 1.8 },
+          ETH:  { buy: 3280, sell: 3210, min: 0.01, max: 20, avail: 14 },
+          SOL:  { buy: 152, sell: 148, min: 0.1, max: 200, avail: 160 },
+        };
+
+        const offers = [];
+        const total = 18;
+
+        for (let i = 0; i < total; i++) {
+          const merchant = DEMO_MERCHANTS[i % DEMO_MERCHANTS.length];
+          const c = state.crypto;
+          const base = cryptoBase[c] || cryptoBase.USDT;
+          const spread = (Math.random() * 0.02) - 0.01;
+          const price = state.p2pMode === 'buy'
+            ? base.buy * (1 + spread)
+            : base.sell * (1 - spread * 0.5);
+
+          const limitMin = base.min * (1 + Math.random() * 0.2);
+          const limitMax = base.max * (0.4 + Math.random() * 0.5);
+          const available = base.avail * (0.3 + Math.random() * 0.6);
+          const usdEquiv = c === 'USDT' ? available : available * (base.buy);
+
+          offers.push({
+            id: 'offer-' + i,
+            merchant,
+            price: Number(price.toFixed(c === 'BTC' ? 2 : c === 'USDT' ? 4 : 2)),
+            limitMin: Number(limitMin.toFixed(c === 'BTC' ? 6 : 2)),
+            limitMax: Number(limitMax.toFixed(c === 'BTC' ? 6 : 2)),
+            available: Number(available.toFixed(c === 'BTC' ? 4 : 2)),
+            usdEquiv,
+            paymentCategory: merchant.paymentCategory,
+            paymentMethods: merchant.paymentMethods,
+          });
+        }
+
+        offers.sort((a, b) => state.p2pMode === 'buy' ? a.price - b.price : b.price - a.price);
+        return offers;
+      }
+
+      // ============================================================
+      // FETCH LIVE RATES
+      // ============================================================
+      async function fetchLiveRates() {
+        try {
+          const res = await fetch(
+            'https://api.coingecko.com/api/v3/simple/price?ids=tether,bitcoin,ethereum,solana&vs_currencies=usd&include_24hr_change=true'
+          );
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          const d = await res.json();
+          liveRates.USDT = d.tether?.usd || 1;
+          liveRates.BTC  = d.bitcoin?.usd || 0;
+          liveRates.ETH  = d.ethereum?.usd || 0;
+          liveRates.SOL  = d.solana?.usd || 0;
+          updateLiveRateStrip();
+          renderCryptoPicker();
+        } catch (err) {
+          console.warn('Live rate fetch failed:', err);
+          updateLiveRateStrip(true);
+        }
+      }
+
+      function updateLiveRateStrip(isFallback) {
+        const sym = fiatSym();
+        const rate = liveRates[state.crypto] || 0;
+        const text = isFallback
+          ? `Indicative 1 ${state.crypto} ≈ ${sym}${formatPrice(rate || 1)}`
+          : `1 ${state.crypto} ≈ ${sym}${formatPrice(rate || 1)}`;
+        $('#liveRateValue').textContent = text;
+      }
+
+      // ============================================================
+      // RENDER OFFERS
+      // ============================================================
+      function applyFiltersAndRender(resetPage = true) {
+        let offers = buildDemoOffers();
+
+        // Amount filter
+        if (state.amountFilter !== null && state.amountFilter > 0) {
+          const amt = state.amountFilter;
+          offers = offers.filter(o => o.limitMax >= amt && o.limitMin <= amt);
+        }
+        // Payment filter
+        if (state.paymentFilter !== 'any') {
+          offers = offers.filter(o => o.paymentMethods.includes(state.paymentFilter));
+        }
+
+        state.filteredOffers = offers;
+        if (resetPage) state.page = 1;
+        state.hasMore = state.page * state.pageSize < offers.length;
+        renderOfferPage();
+      }
+
+      function renderOfferPage() {
+        if (state.loading) {
+          offerList.innerHTML = Array(2).fill(0).map(() => `
+            <div class="loading-skeleton">
+              <div class="skel-line" style="width:40%;"></div>
+              <div class="skel-line" style="width:70%;"></div>
+              <div class="skel-line" style="width:55%;"></div>
+              <div class="skel-line" style="width:35%;"></div>
+            </div>
+          `).join('');
+          return;
+        }
+
+        const end = state.page * state.pageSize;
+        const visible = state.filteredOffers.slice(0, end);
+
+        if (visible.length === 0) {
+          offerList.innerHTML = `
+            <div class="state-box">
+              <div class="state-emoji">🔍</div>
+              <div class="state-title">No offers match your filters</div>
+              <div class="state-sub">Try adjusting the amount, payment method, or cryptocurrency to see available offers.</div>
+            </div>
+          `;
+          return;
+        }
+
+        const actionLabel = state.p2pMode === 'buy' ? 'Buy' : 'Sell';
+        const btnClass = state.p2pMode === 'buy' ? 'buy-btn' : 'buy-btn sell-btn-style';
+        const sym = fiatSym();
+
+        offerList.innerHTML = visible.map(o => {
+          const verified = o.merchant.verified ? '<span class="verified-badge" title="Verified merchant">✓</span>' : '';
+          const paymentTags = o.paymentMethods.map(p => `<span class="payment-tag"><span class="tag-dot"></span>${p}</span>`).join('');
+          return `
+            <article class="offer-card" data-offer-id="${o.id}">
+              <div class="merchant-row">
+                <div class="merchant-identity">
+                  <div class="merchant-avatar">${o.merchant.initial}</div>
+                  <div class="merchant-name-block">
+                    <div class="merchant-name">${o.merchant.name}${verified}</div>
+                    <div class="merchant-meta">Last active ${o.merchant.lastActive}</div>
+                  </div>
+                </div>
+                <a class="view-profile" href="#" data-profile="${o.merchant.id}">View Profile →</a>
+              </div>
+              <div class="merchant-stats">
+                <span>Trades <strong>${formatNum(o.merchant.trades, 0)}</strong> (${o.merchant.completion}%)</span>
+                <span class="stat-good">👍 ${o.merchant.positive}%</span>
+                <span>⏱ ${o.merchant.time}</span>
+              </div>
+              <div class="offer-price">
+                <span class="price-amount">${sym}${o.price}</span>
+                <span class="price-unit">/${state.crypto}</span>
+              </div>
+              <div class="offer-divider"></div>
+              <div class="limit-row">
+                <div class="limit-line">Limit <strong>${sym}${formatNum(o.limitMin, state.crypto === 'BTC' ? 6 : 0)} – ${sym}${formatNum(o.limitMax, state.crypto === 'BTC' ? 6 : 0)}</strong></div>
+                <div class="limit-line">Available <strong>${formatNum(o.available, state.crypto === 'BTC' ? 4 : 2)} ${state.crypto}</strong></div>
+              </div>
+              <div class="payment-tags">${paymentTags}</div>
+              <div class="offer-action-row">
+                <button class="${btnClass}" data-offer-action="${o.id}">${actionLabel}</button>
+              </div>
+            </article>
+          `;
+        }).join('');
+
+        if (state.hasMore) {
+          const lm = document.createElement('button');
+          lm.className = 'load-more-btn';
+          lm.textContent = 'Load More Offers';
+          offerList.appendChild(lm);
+          lm.addEventListener('click', () => {
+            state.loading = true;
+            renderOfferPage();
+            setTimeout(() => {
+              state.page++;
+              state.hasMore = state.page * state.pageSize < state.filteredOffers.length;
+              state.loading = false;
+              renderOfferPage();
+            }, 400);
+          });
+        }
+
+        offerList.querySelectorAll('[data-offer-action]').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const offer = state.filteredOffers.find(o => o.id === btn.dataset.offerAction);
+            if (offer) openOrderFlow(offer);
+          });
+        });
+        offerList.querySelectorAll('[data-profile]').forEach(link => {
+          link.addEventListener('click', (e) => { e.preventDefault(); showToast('Merchant profile — integration point'); });
+        });
+      }
+
+      function openOrderFlow(offer) {
+        const sym = fiatSym();
+        const action = state.p2pMode === 'buy' ? 'BUY' : 'SELL';
+        const msg = `${action} order with ${offer.merchant.name}\n\n` +
+          `Rate: ${sym}${offer.price} / ${state.crypto}\n` +
+          `Limits: ${sym}${formatNum(offer.limitMin, 2)} – ${sym}${formatNum(offer.limitMax, 2)}\n` +
+          `Available: ${formatNum(offer.available, 2)} ${state.crypto}\n` +
+          `Payment: ${offer.paymentMethods.join(', ')}\n\n` +
+          `(Integration point: open real order creation form.)`;
+        alert(msg);
+      }
+
+      // ============================================================
+      // CURRENCY PICKER
+      // ============================================================
+      const currencyModal = $('#currencyModal');
+      const currencyModalOverlay = $('#currencyModalOverlay');
+      const currencyList = $('#currencyList');
+      const currencySearchInput = $('#currencySearchInput');
+
+      function openCurrencyPicker() {
+        currencyModal.classList.add('open');
+        currencyModalOverlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        currencySearchInput.value = '';
+        renderCurrencyList('');
+        setTimeout(() => currencySearchInput.focus(), 300);
+      }
+      function closeCurrencyPicker() {
+        currencyModal.classList.remove('open');
+        currencyModalOverlay.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+      function renderCurrencyList(filter) {
+        const q = filter.toLowerCase().trim();
+        const filtered = CURRENCIES.filter(c =>
+          !q || c.code.toLowerCase().includes(q) || c.name.toLowerCase().includes(q)
+        );
+        currencyList.innerHTML = filtered.map(c => `
+          <div class="currency-item ${c.code === state.fiat ? 'selected' : ''}" data-currency="${c.code}">
+            <div class="currency-flag">${c.flag}</div>
+            <div class="currency-info">
+              <div class="currency-code">${c.code}</div>
+              <div class="currency-name">${c.name}</div>
+            </div>
+            <div class="currency-symbol">${c.symbol}</div>
+          </div>
+        `).join('');
+        if (filtered.length === 0) {
+          currencyList.innerHTML = `<div class="state-box" style="border:none;padding:30px;"><div class="state-title">No currencies match "${filter}"</div></div>`;
+        }
+        currencyList.querySelectorAll('.currency-item').forEach(item => {
+          item.addEventListener('click', () => {
+            state.fiat = item.dataset.currency;
+            $('#fiatLabel').textContent = state.fiat;
+            // Reset payment filter since methods differ per currency
+            state.paymentFilter = 'any';
+            $('#paymentPillLabel').textContent = 'Payment';
+            $('#paymentPill').classList.remove('active-filter');
+            updateLiveRateStrip();
+            applyFiltersAndRender();
+            closeCurrencyPicker();
+            showToast(`Currency changed to ${state.fiat}`);
+          });
+        });
+      }
+      $('#fiatDropdown').addEventListener('click', openCurrencyPicker);
+      $('#currencyModalClose').addEventListener('click', closeCurrencyPicker);
+      currencyModalOverlay.addEventListener('click', closeCurrencyPicker);
+      currencySearchInput.addEventListener('input', (e) => renderCurrencyList(e.target.value));
+
+      // ============================================================
+      // CRYPTO PICKER
+      // ============================================================
+      const cryptoModal = $('#cryptoModal');
+      const cryptoModalOverlay = $('#cryptoModalOverlay');
+      const cryptoPickerList = $('#cryptoPickerList');
+
+      const CRYPTO_META = {
+        USDT: { name: 'Tether', icon: '₮', cls: 'usdt' },
+        BTC:  { name: 'Bitcoin', icon: '₿', cls: 'btc' },
+        ETH:  { name: 'Ethereum', icon: 'Ξ', cls: 'eth' },
+        SOL:  { name: 'Solana', icon: '◎', cls: 'sol' },
+      };
+
+      function openCryptoPicker() {
+        cryptoModal.classList.add('open');
+        cryptoModalOverlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        renderCryptoPicker();
+      }
+      function closeCryptoPicker() {
+        cryptoModal.classList.remove('open');
+        cryptoModalOverlay.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+      function renderCryptoPicker() {
+        cryptoPickerList.innerHTML = Object.keys(CRYPTO_META).map(sym => {
+          const meta = CRYPTO_META[sym];
+          const price = liveRates[sym] || 0;
+          return `
+            <div class="crypto-pick-item ${sym === state.crypto ? 'selected' : ''}" data-crypto="${sym}">
+              <div class="crypto-pick-icon ${meta.cls}">${meta.icon}</div>
+              <div class="crypto-pick-info">
+                <div class="crypto-pick-name">${meta.name}</div>
+                <div class="crypto-pick-symbol">${sym}</div>
+              </div>
+              <div class="crypto-pick-price">
+                <div class="cp-price">$${formatPrice(price || 1)}</div>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        cryptoPickerList.querySelectorAll('.crypto-pick-item').forEach(item => {
+          item.addEventListener('click', () => {
+            state.crypto = item.dataset.crypto;
+            $('#cryptoPillLabel').textContent = state.crypto;
+            $('#cryptoPillIcon').textContent = CRYPTO_META[state.crypto].icon;
+            updateLiveRateStrip();
+            applyFiltersAndRender();
+            closeCryptoPicker();
+            showToast(`Cryptocurrency changed to ${state.crypto}`);
+          });
+        });
+      }
+      $('#cryptoPill').addEventListener('click', openCryptoPicker);
+      $('#cryptoModalClose').addEventListener('click', closeCryptoPicker);
+      cryptoModalOverlay.addEventListener('click', closeCryptoPicker);
+
+      // ============================================================
+      // AMOUNT INPUT
+      // ============================================================
+      const amountModal = $('#amountModal');
+      const amountModalOverlay = $('#amountModalOverlay');
+      const amountInput = $('#amountInput');
+      const amountCurrencySym = $('#amountCurrencySym');
+      const amountHint = $('#amountHint');
+
+      function openAmountModal() {
+        amountModal.classList.add('open');
+        amountModalOverlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        amountCurrencySym.textContent = fiatSym();
+        amountInput.value = state.amountFilter !== null ? state.amountFilter : '';
+        updateAmountHint();
+        setTimeout(() => amountInput.focus(), 300);
+      }
+      function closeAmountModal() {
+        amountModal.classList.remove('open');
+        amountModalOverlay.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+      function updateAmountHint() {
+        const val = parseFloat(amountInput.value);
+        if (val && val > 0) {
+          amountHint.innerHTML = `Filtering offers where <strong>${fiatSym()}${formatNum(val, 0)}</strong> falls within the merchant's transaction limit.`;
+        } else {
+          amountHint.textContent = 'Enter any amount to filter offers by transaction limits.';
+        }
+      }
+      amountInput.addEventListener('input', () => {
+        updateAmountHint();
+        // Clear chip selection
+        $$('#amountQuickChips .amount-chip').forEach(c => c.classList.remove('selected'));
+      });
+      $('#amountQuickChips').addEventListener('click', (e) => {
+        const chip = e.target.closest('.amount-chip');
+        if (!chip) return;
+        amountInput.value = chip.dataset.amt;
+        $$('#amountQuickChips .amount-chip').forEach(c => c.classList.toggle('selected', c === chip));
+        updateAmountHint();
+      });
+      $('#amountApplyBtn').addEventListener('click', () => {
+        const val = parseFloat(amountInput.value);
+        if (val && val > 0) {
+          state.amountFilter = val;
+          $('#amountPillLabel').innerHTML = `Amount <span class="amount-value">${fiatSym()}${formatNum(val, 0)}</span>`;
+          $('#amountPill').classList.add('active-filter');
+        } else {
+          state.amountFilter = null;
+          $('#amountPillLabel').textContent = 'Amount';
+          $('#amountPill').classList.remove('active-filter');
+        }
+        applyFiltersAndRender();
+        closeAmountModal();
+        showToast(state.amountFilter ? `Amount filter: ${fiatSym()}${formatNum(state.amountFilter, 0)}` : 'Amount filter cleared');
+      });
+      $('#amountPill').addEventListener('click', openAmountModal);
+      $('#amountModalClose').addEventListener('click', closeAmountModal);
+      amountModalOverlay.addEventListener('click', closeAmountModal);
+
+      // ============================================================
+      // PAYMENT PICKER (depends on currency)
+      // ============================================================
+      const paymentModal = $('#paymentModal');
+      const paymentModalOverlay = $('#paymentModalOverlay');
+      const paymentPickList = $('#paymentPickList');
+
+      function openPaymentPicker() {
+        paymentModal.classList.add('open');
+        paymentModalOverlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        renderPaymentPicker();
+      }
+      function closePaymentPicker() {
+        paymentModal.classList.remove('open');
+        paymentModalOverlay.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+      function renderPaymentPicker() {
+        const groups = getPaymentGroupsForCurrency(state.fiat);
+        let html = `<div class="payment-pick-item ${state.paymentFilter === 'any' ? 'selected' : ''}" data-payment="any">
+          <div class="payment-pick-icon">✱</div>
+          <div class="payment-pick-info">
+            <div class="payment-pick-name">Any Payment Method</div>
+            <div class="payment-pick-sub">Show all offers regardless of payment</div>
+          </div>
+          <div class="payment-pick-check"></div>
+        </div>`;
+        groups.forEach(g => {
+          html += `<div class="payment-pick-group-label">${g.label}</div>`;
+          g.items.forEach(item => {
+            html += `
+              <div class="payment-pick-item ${state.paymentFilter === item.name ? 'selected' : ''}" data-payment="${item.name}">
+                <div class="payment-pick-icon">${item.icon}</div>
+                <div class="payment-pick-info">
+                  <div class="payment-pick-name">${item.name}</div>
+                  <div class="payment-pick-sub">${item.sub}</div>
+                </div>
+                <div class="payment-pick-check"></div>
+              </div>
+            `;
+          });
+        });
+        paymentPickList.innerHTML = html;
+
+        paymentPickList.querySelectorAll('.payment-pick-item').forEach(item => {
+          item.addEventListener('click', () => {
+            state.paymentFilter = item.dataset.payment;
+            if (state.paymentFilter === 'any') {
+              $('#paymentPillLabel').textContent = 'Payment';
+              $('#paymentPill').classList.remove('active-filter');
+            } else {
+              const short = state.paymentFilter.length > 14 ? state.paymentFilter.slice(0, 12) + '…' : state.paymentFilter;
+              $('#paymentPillLabel').textContent = short;
+              $('#paymentPill').classList.add('active-filter');
+            }
+            applyFiltersAndRender();
+            closePaymentPicker();
+            showToast(state.paymentFilter === 'any' ? 'Payment filter cleared' : `Payment: ${state.paymentFilter}`);
+          });
+        });
+      }
+      $('#paymentPill').addEventListener('click', openPaymentPicker);
+      $('#paymentModalClose').addEventListener('click', closePaymentPicker);
+      paymentModalOverlay.addEventListener('click', closePaymentPicker);
+
+      // ============================================================
+      // FILTER BUTTON (opens payment picker as the only filter)
+      // ============================================================
+      $('#filterPill').addEventListener('click', openPaymentPicker);
+
+      // ============================================================
+      // BUY / SELL
+      // ============================================================
+      const buySellToggle = $('#buySellToggle');
+      buySellToggle.addEventListener('click', (e) => {
+        const btn = e.target.closest('.bs-btn');
+        if (!btn) return;
+        state.p2pMode = btn.dataset.mode;
+        buySellToggle.querySelectorAll('.bs-btn').forEach(b => {
+          b.classList.toggle('active', b === btn);
+          b.classList.toggle('sell-active', b === btn && state.p2pMode === 'sell');
+        });
+        applyFiltersAndRender();
+      });
+
+      // ============================================================
+      // LIVE RATE REFRESH
+      // ============================================================
+      $('#liveRateRefresh').addEventListener('click', async () => {
+        const btn = $('#liveRateRefresh');
+        btn.classList.add('spinning');
+        await fetchLiveRates();
+        setTimeout(() => btn.classList.remove('spinning'), 600);
+      });
+
+      // ============================================================
+      // PROMO CAROUSEL + GUIDE
+      // ============================================================
+      let promoIndex = 0;
+      const slides = $$('.promo-slide');
+      const dots = $$('.promo-dot');
+      let promoInterval;
+
+      function goToSlide(i) {
+        promoIndex = i;
+        slides.forEach((s, idx) => s.classList.toggle('active', idx === i));
+        dots.forEach((d, idx) => d.classList.toggle('active', idx === i));
+      }
+      function startPromoAuto() {
+        clearInterval(promoInterval);
+        promoInterval = setInterval(() => goToSlide((promoIndex + 1) % slides.length), 5000);
+      }
+      dots.forEach((d, i) => d.addEventListener('click', () => { goToSlide(i); startPromoAuto(); }));
+      startPromoAuto();
+
+      // Guide page open
+      const guidePage = $('#guidePage');
+      function openGuide() {
+        guidePage.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeGuide() {
+        guidePage.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+      $('#guideCloseBtn').addEventListener('click', closeGuide);
+      $('#guideApplyBtn').addEventListener('click', () => {
+        closeGuide();
+        showToast('Merchant application — integration point');
+      });
+      // First slide + its icon both open the guide
+      document.querySelector('.promo-slide.active .promo-icon')?.addEventListener('click', openGuide);
+      document.querySelectorAll('.promo-slide .promo-icon').forEach(icon => {
+        if (icon.dataset.guide) icon.addEventListener('click', openGuide);
+      });
+
+      // ============================================================
+      // P2P / EXPRESS TABS
+      // ============================================================
+      $$('.p2p-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          if (tab.dataset.p2ptab === 'express') {
+            showToast('Express — coming soon');
+            return;
+          }
+          $$('.p2p-tab').forEach(tb => tb.classList.toggle('active', tb === tab));
+        });
+      });
+
+      // ============================================================
+      // SEARCH
+      // ============================================================
+      $('#searchBtn').addEventListener('click', () => {
+        const q = prompt('Search offers by merchant or payment method:');
+        if (q !== null && q.trim() !== '') {
+          const query = q.toLowerCase().trim();
+          state.filteredOffers = buildDemoOffers().filter(o =>
+            o.merchant.name.toLowerCase().includes(query) ||
+            o.paymentMethods.some(p => p.toLowerCase().includes(query))
+          );
+          state.page = 1;
+          state.hasMore = state.page * state.pageSize < state.filteredOffers.length;
+          renderOfferPage();
+          showToast(`Filtered by "${q}"`);
+        }
+      });
+
+      $('#backBtn').addEventListener('click', () => {
+        if (history.length > 1) history.back();
+        else window.location.href = 'index.html';
+      });
+
+      // ============================================================
+      // DRAWER
+      // ============================================================
+      const drawer = $('#drawer');
+      const drawerOverlay = $('#drawerOverlay');
+      function openDrawer() {
+        drawer.classList.add('open');
+        drawerOverlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeDrawer() {
+        drawer.classList.remove('open');
+        drawerOverlay.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+      $('#menuBtn').addEventListener('click', openDrawer);
+      $('#drawerCloseBtn').addEventListener('click', closeDrawer);
+      drawerOverlay.addEventListener('click', closeDrawer);
+
+      $('#drawerSearchBtn').addEventListener('click', () => {
+        const q = prompt('Search navigation:');
+        if (q) showToast(`Search: "${q}" — integration point`);
+      });
+
+      $('#langSelector').addEventListener('click', () => showToast('Language selector — integration point'));
+
+      function bindSection(headerId, bodyId) {
+        const header = document.getElementById(headerId);
+        const body = document.getElementById(bodyId);
+        header.addEventListener('click', () => {
+          const expanded = header.getAttribute('aria-expanded') === 'true';
+          header.setAttribute('aria-expanded', String(!expanded));
+          body.classList.toggle('open', !expanded);
+        });
+      }
+      bindSection('tradeSectionHeader', 'tradeSectionBody');
+      bindSection('walletSectionHeader', 'walletSectionBody');
+
+      $$('.nav-entry').forEach(entry => {
+        entry.addEventListener('click', (e) => {
+          e.preventDefault();
+          const dest = entry.dataset.entry;
+          if (dest === 'p2p') { closeDrawer(); return; }
+          if (dest === 'instant-swap') { closeDrawer(); window.location.href = 'index.html#swap'; return; }
+          closeDrawer();
+          showToast(`Navigate to "${dest}" — integration point`);
+        });
+      });
+
+      // ============================================================
+      // BOTTOM NAV
+      // ============================================================
+      $('#bottomNav').addEventListener('click', (e) => {
+        const btn = e.target.closest('.bottom-nav-item');
+        if (!btn) return;
+        const nav = btn.dataset.bnav;
+        if (nav === 'p2p') return;
+        const labels = { orders: 'P2P Orders', ads: 'My Ads', notifications: 'Notifications', profile: 'Profile' };
+        showToast(`${labels[nav]} — integration point`);
+      });
+
+      // ============================================================
+      // KEYBOARD: ESC closes all overlays
+      // ============================================================
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          closeDrawer(); closeCurrencyPicker(); closeCryptoPicker();
+          closeAmountModal(); closePaymentPicker(); closeGuide();
+        }
+      });
+
+      // ============================================================
+      // INIT
+      // ============================================================
+      updateLiveRateStrip();
+      applyFiltersAndRender();
+      fetchLiveRates();
+      setInterval(fetchLiveRates, 60000);
+
+    })();
+  </script>
+</body>
+</html>
