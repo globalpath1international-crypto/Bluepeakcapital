@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <style>
     /* ============================================================
-       BLUEPEAK CAPITAL — PROFESSIONAL P2P TRADING SYSTEM
+       BLUEPEAK CAPITAL — PROFESSIONAL P2P & EXPRESS SYSTEM
        ============================================================ */
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -213,7 +213,6 @@
     .sheet-close { background: var(--navy-50); border: none; width: 34px; height: 34px; border-radius: 50%; font-size: 16px; cursor: pointer; color: var(--navy-900); display: flex; align-items: center; justify-content: center; }
     .sheet-body { flex: 1; overflow-y: auto; padding: 16px 20px 24px; display: flex; flex-direction: column; gap: 18px; }
 
-    /* Order Detail Modals */
     .order-detail-row { display: flex; justify-content: space-between; font-size: 13px; padding: 6px 0; border-bottom: 1px solid var(--gray-100); }
     .order-detail-row:last-child { border-bottom: none; }
     .order-detail-row span:first-child { color: var(--gray-500); font-weight: 600; }
@@ -256,11 +255,50 @@
     .upload-icon { font-size: 28px; margin-bottom: 6px; }
 
     /* ============================================================
-       PROFILE / ORDERS / ADS / ALERTS VIEWS
+       ORDERS / ADS / PROFILE VIEWS
        ============================================================ */
     .view-header { padding: 16px; border-bottom: 1px solid var(--gray-200); background: var(--white); display: flex; align-items: center; justify-content: space-between; }
     .view-header h2 { font-size: 20px; font-weight: 800; color: var(--navy-900); }
-    
+    .order-tabs { display: flex; gap: 4px; background: var(--white); padding: 4px; border-radius: var(--radius-sm); border: 1px solid var(--gray-200); margin-bottom: 16px; }
+    .order-tab { flex: 1; padding: 10px 0; text-align: center; font-size: 13px; font-weight: 700; color: var(--gray-500); cursor: pointer; border-radius: var(--radius-xs); transition: all 0.2s; }
+    .order-tab.active { background: var(--navy-900); color: var(--white); }
+    .order-item-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 16px; margin-bottom: 12px; }
+    .order-item-header { display: flex; justify-content: space-between; margin-bottom: 8px; }
+    .order-item-id { font-size: 12px; font-weight: 700; color: var(--gray-500); }
+    .order-item-status { font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: var(--radius-pill); text-transform: uppercase; }
+    .order-item-status.completed { background: var(--green-100); color: var(--green-500); }
+    .order-item-status.pending { background: var(--gold-100); color: var(--gold-500); }
+    .order-item-status.disputed { background: var(--red-100); color: var(--red-500); }
+    .order-item-details { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 8px; }
+    .order-item-amount { font-size: 18px; font-weight: 800; color: var(--navy-900); }
+    .order-item-meta { font-size: 12px; font-weight: 600; color: var(--gray-500); text-align: right; }
+
+    .empty-state { text-align: center; padding: 40px 20px; background: var(--white); border: 1px dashed var(--gray-300); border-radius: var(--radius-lg); }
+    .empty-state-icon { font-size: 40px; margin-bottom: 12px; }
+    .empty-state h3 { font-size: 16px; font-weight: 800; color: var(--navy-900); margin-bottom: 4px; }
+    .empty-state p { font-size: 13px; font-weight: 500; color: var(--gray-500); margin-bottom: 16px; }
+    .btn-browse { background: linear-gradient(135deg, var(--green-500), #0B8A5E); color: #fff; border: none; padding: 12px 24px; border-radius: var(--radius-pill); font-weight: 800; font-size: 14px; cursor: pointer; box-shadow: 0 4px 14px rgba(15,157,110,0.3); }
+
+    /* Ads View */
+    .ad-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 16px; margin-bottom: 12px; }
+    .ad-header { display: flex; justify-content: space-between; margin-bottom: 8px; }
+    .ad-type { font-size: 12px; font-weight: 800; padding: 4px 10px; border-radius: var(--radius-pill); text-transform: uppercase; }
+    .ad-type.buy { background: var(--blue-100); color: var(--blue-500); }
+    .ad-type.sell { background: var(--red-100); color: var(--red-500); }
+    .ad-status { font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: var(--radius-pill); }
+    .ad-status.active { background: var(--green-100); color: var(--green-500); }
+    .ad-status.paused { background: var(--gray-200); color: var(--gray-500); }
+    .ad-price { font-size: 20px; font-weight: 800; color: var(--navy-900); }
+    .ad-details { display: flex; justify-content: space-between; font-size: 12px; color: var(--gray-500); margin-top: 8px; font-weight: 600; }
+    .ad-actions { display: flex; gap: 8px; margin-top: 12px; }
+    .ad-btn { flex: 1; padding: 8px; border-radius: var(--radius-xs); font-weight: 700; font-size: 12px; cursor: pointer; border: 1px solid var(--gray-200); background: var(--white); color: var(--navy-900); transition: all 0.2s; }
+    .ad-btn:hover { background: var(--navy-50); }
+    .ad-btn.danger { border-color: var(--red-100); color: var(--red-500); }
+    .ad-btn.danger:hover { background: var(--red-100); }
+    .btn-create-ad { position: fixed; bottom: 100px; right: 20px; width: 56px; height: 56px; border-radius: 50%; background: var(--navy-900); color: var(--gold-400); display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: var(--shadow-lg); cursor: pointer; z-index: 40; border: 2px solid var(--gold-500); transition: transform 0.2s; }
+    .btn-create-ad:hover { transform: scale(1.05); }
+
+    /* Profile View */
     .profile-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 20px; display: flex; flex-direction: column; gap: 16px; margin-bottom: 16px; }
     .profile-avatar-lg { width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, var(--navy-800), var(--navy-900)); color: var(--gold-400); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 28px; border: 3px solid var(--gold-500); margin: 0 auto; box-shadow: var(--shadow-md); }
     .profile-name-lg { font-size: 20px; font-weight: 800; color: var(--navy-900); text-align: center; display: flex; align-items: center; justify-content: center; gap: 6px; }
@@ -282,37 +320,26 @@
     .kyc-status.todo { background: var(--gray-200); color: var(--gray-500); }
     .kyc-status.review { background: var(--gold-100); color: var(--gold-500); }
 
-    /* Orders View */
-    .order-tabs { display: flex; gap: 4px; background: var(--white); padding: 4px; border-radius: var(--radius-sm); border: 1px solid var(--gray-200); margin-bottom: 16px; }
-    .order-tab { flex: 1; padding: 10px 0; text-align: center; font-size: 13px; font-weight: 700; color: var(--gray-500); cursor: pointer; border-radius: var(--radius-xs); transition: all 0.2s; }
-    .order-tab.active { background: var(--navy-900); color: var(--white); }
-    .order-item-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 16px; margin-bottom: 12px; }
-    .order-item-header { display: flex; justify-content: space-between; margin-bottom: 8px; }
-    .order-item-id { font-size: 12px; font-weight: 700; color: var(--gray-500); }
-    .order-item-status { font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: var(--radius-pill); text-transform: uppercase; }
-    .order-item-status.completed { background: var(--green-100); color: var(--green-500); }
-    .order-item-status.pending { background: var(--gold-100); color: var(--gold-500); }
-    .order-item-details { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 8px; }
-    .order-item-amount { font-size: 18px; font-weight: 800; color: var(--navy-900); }
-    .order-item-meta { font-size: 12px; font-weight: 600; color: var(--gray-500); text-align: right; }
+    .settings-list { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-md); overflow: hidden; margin-bottom: 16px; }
+    .settings-item { display: flex; align-items: center; justify-content: space-between; padding: 16px; border-bottom: 1px solid var(--gray-200); cursor: pointer; }
+    .settings-item:last-child { border-bottom: none; }
+    .settings-item:hover { background: var(--navy-50); }
+    .settings-item-left { display: flex; align-items: center; gap: 12px; }
+    .settings-icon { width: 32px; height: 32px; border-radius: 8px; background: var(--navy-50); display: flex; align-items: center; justify-content: center; font-size: 16px; }
+    .settings-label { font-size: 14px; font-weight: 700; color: var(--navy-900); }
+    .settings-arrow { color: var(--gray-400); font-size: 18px; }
 
-    /* Ads View */
-    .ad-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 16px; margin-bottom: 12px; }
-    .ad-header { display: flex; justify-content: space-between; margin-bottom: 8px; }
-    .ad-type { font-size: 12px; font-weight: 800; padding: 4px 10px; border-radius: var(--radius-pill); text-transform: uppercase; }
-    .ad-type.buy { background: var(--blue-100); color: var(--blue-500); }
-    .ad-type.sell { background: var(--red-100); color: var(--red-500); }
-    .ad-price { font-size: 20px; font-weight: 800; color: var(--navy-900); }
-    .ad-details { display: flex; justify-content: space-between; font-size: 12px; color: var(--gray-500); margin-top: 8px; }
-    .btn-create-ad { position: fixed; bottom: 100px; right: 20px; width: 56px; height: 56px; border-radius: 50%; background: var(--navy-900); color: var(--gold-400); display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: var(--shadow-lg); cursor: pointer; z-index: 40; border: 2px solid var(--gold-500); transition: transform 0.2s; }
-    .btn-create-ad:hover { transform: scale(1.05); }
-
-    /* Alerts View */
-    .alert-item { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 16px; margin-bottom: 12px; display: flex; gap: 12px; }
-    .alert-icon { width: 36px; height: 36px; border-radius: 50%; background: var(--navy-50); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
-    .alert-content h4 { font-size: 14px; font-weight: 800; color: var(--navy-900); margin-bottom: 2px; }
-    .alert-content p { font-size: 12.5px; font-weight: 500; color: var(--gray-500); line-height: 1.4; }
-    .alert-time { font-size: 10.5px; font-weight: 600; color: var(--gray-400); margin-top: 4px; }
+    /* Express View */
+    .express-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 20px; box-shadow: var(--shadow-md); }
+    .express-input-box { background: var(--navy-50); border: 1.5px solid var(--gray-200); border-radius: var(--radius-md); padding: 16px; margin-bottom: 10px; }
+    .express-input-box:focus-within { border-color: var(--gold-500); }
+    .express-label { font-size: 11px; font-weight: 700; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+    .express-row { display: flex; align-items: center; gap: 10px; }
+    .express-amount { flex: 1; border: none; background: transparent; font-family: var(--font); font-size: 24px; font-weight: 800; color: var(--navy-900); outline: none; min-width: 0; }
+    .express-selector { display: flex; align-items: center; gap: 6px; background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-pill); padding: 8px 12px; font-weight: 800; font-size: 14px; cursor: pointer; flex-shrink: 0; }
+    .express-selector img { width: 20px; height: 20px; }
+    .express-swap-btn { width: 100%; padding: 14px; border-radius: var(--radius-pill); background: linear-gradient(135deg, var(--green-500), #0B8A5E); color: white; border: none; font-weight: 800; font-size: 16px; cursor: pointer; margin-top: 16px; box-shadow: 0 4px 16px rgba(15,157,110,0.3); }
+    .express-swap-btn:hover { transform: translateY(-1px); }
 
     /* ============================================================
        BOTTOM NAV & UTILS
@@ -394,6 +421,14 @@
     <div class="sheet-body" id="profileModalBody"></div>
   </div>
 
+  <!-- SHEET: CREATE AD -->
+  <div class="bottom-sheet" id="createAdModal">
+    <div class="sheet-header"><h3>Create New Ad</h3><button class="sheet-close" onclick="closeSheet('createAdModal')">✕</button></div>
+    <div class="sheet-body" id="createAdBody">
+      <!-- Rendered by JS -->
+    </div>
+  </div>
+
   <!-- HEADER -->
   <header class="p2p-header">
     <div class="p2p-header-left">
@@ -456,6 +491,7 @@
       <div class="order-tabs">
         <div class="order-tab active" data-otab="pending">Pending</div>
         <div class="order-tab" data-otab="completed">Completed</div>
+        <div class="order-tab" data-otab="disputed">Disputed</div>
       </div>
       <div id="ordersList"></div>
     </div>
@@ -470,7 +506,7 @@
     <div class="p2p-main">
       <div id="adsList"></div>
     </div>
-    <div class="btn-create-ad" onclick="showToast('Create Ad — Integration Point')">+</div>
+    <div class="btn-create-ad" id="createAdBtn">+</div>
   </main>
 
   <!-- MAIN VIEW: ALERTS -->
@@ -526,8 +562,72 @@
         <div class="kyc-info"><h4>Level 3: Proof of Address</h4><p>Upload utility bill</p></div>
         <span class="kyc-status todo">Pending</span>
       </div>
+
+      <h3 style="font-size:15px;font-weight:800;margin:20px 0 12px;">Account Settings</h3>
+      
+      <div class="settings-list">
+        <div class="settings-item">
+          <div class="settings-item-left"><div class="settings-icon">🔒</div><span class="settings-label">Security & Password</span></div>
+          <span class="settings-arrow">›</span>
+        </div>
+        <div class="settings-item">
+          <div class="settings-item-left"><div class="settings-icon">🔔</div><span class="settings-label">Notifications</span></div>
+          <span class="settings-arrow">›</span>
+        </div>
+        <div class="settings-item">
+          <div class="settings-item-left"><div class="settings-icon">🌐</div><span class="settings-label">Language</span></div>
+          <span class="settings-arrow">›</span>
+        </div>
+        <div class="settings-item">
+          <div class="settings-item-left"><div class="settings-icon">💬</div><span class="settings-label">Help & Support</span></div>
+          <span class="settings-arrow">›</span>
+        </div>
+      </div>
       
       <div style="height:20px;"></div>
+    </div>
+  </main>
+
+  <!-- MAIN VIEW: EXPRESS -->
+  <main class="view-section" id="view-express">
+    <div class="view-header"><h2>Express Swap</h2></div>
+    <div class="p2p-main">
+      <div class="express-card">
+        <div class="express-input-box">
+          <div class="express-label">From</div>
+          <div class="express-row">
+            <input type="number" class="express-amount" placeholder="0.00" id="expressFromAmount">
+            <div class="express-selector" id="expressFromSelector">
+              <img src="https://essamamdani.github.io/open-crypto-icons/icons/colored/usdt.svg" id="expressFromIcon">
+              <span id="expressFromSymbol">USDT</span>
+              <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:var(--gray-500);fill:none;stroke-width:2;"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;justify-content:center;margin:-12px 0;position:relative;z-index:2;">
+          <button style="width:40px;height:40px;border-radius:50%;background:var(--white);border:2px solid var(--gray-200);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;" id="expressSwapBtn">⇅</button>
+        </div>
+
+        <div class="express-input-box">
+          <div class="express-label">To (Estimated)</div>
+          <div class="express-row">
+            <input type="number" class="express-amount" placeholder="0.00" id="expressToAmount" readonly style="color:var(--green-500);">
+            <div class="express-selector" id="expressToSelector">
+              <img src="https://blockchains.tatum.io/assets/img/bitcoin.svg" id="expressToIcon">
+              <span id="expressToSymbol">BTC</span>
+              <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:var(--gray-500);fill:none;stroke-width:2;"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:16px;">
+          <div class="order-detail-row"><span>Rate</span><span id="expressRate">—</span></div>
+          <div class="order-detail-row"><span>Network Fee</span><span id="expressFee">—</span></div>
+        </div>
+
+        <button class="express-swap-btn" id="executeExpressBtn">Swap Now</button>
+      </div>
     </div>
   </main>
 
@@ -800,7 +900,6 @@
       const baseMerchants = MERCHANTS[state.fiat] || MERCHANTS.USD;
       const offers = [];
       
-      // Create multiple offers per merchant
       baseMerchants.forEach((m, index) => {
         for (let i = 0; i < 3; i++) {
           const cryptoBase = {
@@ -1322,6 +1421,22 @@
         </div>
       `;
 
+      const disputedHtml = `
+        <div class="order-item-card">
+          <div class="order-item-header">
+            <span class="order-item-id">#ORD-990500</span>
+            <span class="order-item-status disputed">Disputed</span>
+          </div>
+          <div class="order-item-details">
+            <div>
+              <div class="order-item-amount">$200.00</div>
+              <div style="font-size:11px;color:var(--gray-500);font-weight:600;">Buy USDT · Cash App</div>
+            </div>
+            <div class="order-item-meta">Merchant: MikeCrypto<br>Disputed: Oct 22, 2024</div>
+          </div>
+        </div>
+      `;
+
       $('#ordersList').innerHTML = `
         <div id="orderTabContent">${pendingHtml}</div>
       `;
@@ -1331,7 +1446,7 @@
           $$('.order-tab').forEach(t => t.classList.remove('active'));
           tab.classList.add('active');
           const type = tab.dataset.otab;
-          $('#orderTabContent').innerHTML = type === 'pending' ? pendingHtml : completedHtml;
+          $('#orderTabContent').innerHTML = type === 'pending' ? pendingHtml : (type === 'completed' ? completedHtml : disputedHtml);
         });
       });
     }
@@ -1344,22 +1459,73 @@
         <div class="ad-card">
           <div class="ad-header">
             <span class="ad-type sell">Sell Ad</span>
-            <span style="font-size:12px;font-weight:800;color:var(--green-500);">Active</span>
+            <span class="ad-status active">Active</span>
           </div>
           <div class="ad-price">$1.03</div>
           <div class="ad-details"><span>USDT</span><span>Limit: $50 - $5,000</span></div>
           <div class="ad-details"><span>Zelle, Venmo</span><span>Posted 2 days ago</span></div>
+          <div class="ad-actions">
+            <button class="ad-btn" onclick="showToast('Edit ad — integration point')">Edit</button>
+            <button class="ad-btn danger" onclick="showToast('Pause ad — integration point')">Pause</button>
+          </div>
         </div>
         <div class="ad-card">
           <div class="ad-header">
             <span class="ad-type buy">Buy Ad</span>
-            <span style="font-size:12px;font-weight:800;color:var(--gray-500);">Paused</span>
+            <span class="ad-status paused">Paused</span>
           </div>
           <div class="ad-price">₦ 1,610.00</div>
           <div class="ad-details"><span>USDT</span><span>Limit: ₦10,000 - ₦500,000</span></div>
           <div class="ad-details"><span>OPay, Bank Transfer</span><span>Posted 1 week ago</span></div>
+          <div class="ad-actions">
+            <button class="ad-btn" onclick="showToast('Edit ad — integration point')">Edit</button>
+            <button class="ad-btn" onclick="showToast('Resume ad — integration point')">Resume</button>
+          </div>
         </div>
       `;
+    }
+
+    // ============================================================
+    // EXPRESS VIEW LOGIC
+    // ============================================================
+    function renderExpress() {
+      $('#expressFromAmount').value = '100';
+      $('#expressFromAmount').addEventListener('input', updateExpressEstimate);
+      $('#expressSwapBtn').addEventListener('click', () => {
+        const fromSym = $('#expressFromSymbol').textContent;
+        const toSym = $('#expressToSymbol').textContent;
+        $('#expressFromSymbol').textContent = toSym;
+        $('#expressToSymbol').textContent = fromSym;
+        $('#expressFromIcon').src = ASSETS.find(a => a.symbol === toSym)?.icon;
+        $('#expressToIcon').src = ASSETS.find(a => a.symbol === fromSym)?.icon;
+        updateExpressEstimate();
+      });
+      
+      $('#executeExpressBtn').addEventListener('click', () => {
+        showToast('Express Swap executed! Integration point.');
+      });
+
+      updateExpressEstimate();
+    }
+
+    function updateExpressEstimate() {
+      const fromSym = $('#expressFromSymbol').textContent;
+      const toSym = $('#expressToSymbol').textContent;
+      const fromAmt = parseFloat($('#expressFromAmount').value) || 0;
+      
+      const fromRate = liveRates[fromSym] || 1;
+      const toRate = liveRates[toSym] || 1;
+      
+      if (fromAmt > 0 && fromRate > 0 && toRate > 0) {
+        const toAmt = (fromAmt * fromRate) / toRate;
+        $('#expressToAmount').value = toAmt.toFixed(6);
+        $('#expressRate').textContent = `1 ${fromSym} ≈ ${(fromRate / toRate).toFixed(6)} ${toSym}`;
+        $('#expressFee').textContent = (toAmt * 0.005).toFixed(6) + ' ' + toSym;
+      } else {
+        $('#expressToAmount').value = '';
+        $('#expressRate').textContent = '—';
+        $('#expressFee').textContent = '—';
+      }
     }
 
     // ============================================================
@@ -1489,19 +1655,91 @@
     });
 
     $('#backBtn').addEventListener('click', () => { window.location.href = 'index.html'; });
-    
+
+    // Express Tab Toggle
+    $$('.p2p-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        const type = tab.dataset.p2ptab;
+        if (type === 'express') {
+          switchView('express');
+          renderExpress();
+        } else {
+          switchView('p2p');
+        }
+        $$('.p2p-tab').forEach(t => t.classList.toggle('active', t === tab));
+      });
+    });
+
+    // Create Ad
+    $('#createAdBtn').addEventListener('click', () => {
+      $('#createAdBody').innerHTML = `
+        <div class="field-group">
+          <label class="field-label">Ad Type</label>
+          <select class="select-field" id="adType">
+            <option value="buy">Buy (I want to buy crypto)</option>
+            <option value="sell">Sell (I want to sell crypto)</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Cryptocurrency</label>
+          <select class="select-field" id="adAsset">
+            ${ASSETS.map(a => `<option value="${a.symbol}">${a.name} (${a.symbol})</option>`).join('')}
+          </select>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Fiat Currency</label>
+          <select class="select-field" id="adFiat">
+            ${CURRENCIES.map(c => `<option value="${c.code}">${c.code} (${c.name})</option>`).join('')}
+          </select>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Price per Unit</label>
+          <input type="number" class="input-field" id="adPrice" placeholder="0.00">
+        </div>
+        <div class="field-row">
+          <div class="field-group" style="flex:1;"><label class="field-label">Min Limit</label><input type="number" class="input-field" id="adMin" placeholder="0.00"></div>
+          <div class="field-group" style="flex:1;"><label class="field-label">Max Limit</label><input type="number" class="input-field" id="adMax" placeholder="0.00"></div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Payment Methods</label>
+          <div id="adPaymentMethodsContainer" style="display:flex;flex-wrap:wrap;gap:8px;">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+        <button class="btn-solid-green" style="width:100%;padding:14px;margin-top:12px;" onclick="showToast('Ad posted successfully! Integration point.')">Publish Ad</button>
+      `;
+
+      // Dynamic Payment Methods based on Fiat selection
+      const updateAdPaymentMethods = () => {
+        const fiat = $('#adFiat').value;
+        const methods = getMethodsForCurrency(fiat);
+        $('#adPaymentMethodsContainer').innerHTML = methods.map(m => `
+          <label style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;background:var(--navy-50);padding:8px 12px;border-radius:var(--radius-xs);border:1px solid var(--gray-200);cursor:pointer;">
+            <input type="checkbox" value="${m.name}" style="accent-color:var(--green-500);"> ${m.icon} ${m.name}
+          </label>
+        `).join('');
+      };
+
+      $('#adFiat').addEventListener('change', updateAdPaymentMethods);
+      updateAdPaymentMethods(); // Initial render
+
+      openSheet('createAdModal');
+    });
+
+    // Expose functions
+    window.openProfileModal = openProfileModal;
+    window.openOrderModal = openOrderModal;
+    window.closeSheet = closeSheet;
+    window.applyAmount = applyAmount;
+    window.showToast = showToast;
+    window.switchView = switchView;
+
     // Initialize
     updateLiveRateStrip();
     applyFiltersAndRender();
     fetchLiveRates();
     setInterval(fetchLiveRates, 60000);
 
-    // Expose functions to global scope for inline onclick handlers
-    window.openProfileModal = openProfileModal;
-    window.openOrderModal = openOrderModal;
-    window.closeSheet = closeSheet;
-    window.applyAmount = applyAmount;
-    window.showToast = showToast;
   </script>
 </body>
 </html>
