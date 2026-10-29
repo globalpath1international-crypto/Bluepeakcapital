@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>Help Center — Bluepeak Capital</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy-900: #0A1A2F;
+      --navy-800: #10243E;
+      --navy-700: #1A3352;
+      --navy-100: #E8EDF4;
+      --navy-50:  #F2F5FA;
+      --gold-500: #C9A84C;
+      --gold-400: #DDBE6B;
+      --gold-100: #FBF5E6;
+      --green-500: #0F9D6E;
+      --green-100: #E6F7F1;
+      --red-500: #D14343;
+      --red-100: #FDECEC;
+      --blue-500: #2563EB;
+      --blue-100: #DBEAFE;
+      --purple-500: #7C3AED;
+      --purple-100: #EDE9FE;
+      --white: #FFFFFF;
+      --gray-100: #F1F4F9;
+      --gray-200: #E3E8EF;
+      --gray-300: #CDD5E0;
+      --gray-400: #94A3B8;
+      --gray-500: #64748B;
+      --gray-600: #475569;
+      --bg-main: #FAFBFD;
+      --shadow-xs: 0 1px 2px rgba(10, 26, 47, 0.04);
+      --shadow-sm: 0 2px 8px rgba(10, 26, 47, 0.05);
+      --shadow-md: 0 8px 24px rgba(10, 26, 47, 0.07);
+      --shadow-lg: 0 16px 48px rgba(10, 26, 47, 0.10);
+      --shadow-gold: 0 4px 16px rgba(201, 168, 76, 0.25);
+      --radius-xs: 8px;
+      --radius-sm: 12px;
+      --radius-md: 16px;
+      --radius-lg: 20px;
+      --radius-pill: 999px;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    html { height: 100%; scroll-behavior: smooth; }
+    body {
+      font-family: var(--font); background-color: var(--bg-main);
+      color: var(--navy-900); line-height: 1.45;
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+      padding-bottom: 92px; min-height: 100vh; display: flex;
+      flex-direction: column; overflow-x: hidden;
+    }
+
+    /* HEADER */
+    .help-header {
+      background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(12px);
+      padding: 10px 16px; display: flex; align-items: center;
+      justify-content: space-between; border-bottom: 1px solid var(--gray-200);
+      position: sticky; top: 0; z-index: 30; gap: 8px;
+    }
+    .help-header-left { display: flex; align-items: center; gap: 8px; flex-shrink: 1; min-width: 0; }
+    .icon-btn {
+      background: none; border: none; padding: 8px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: var(--radius-xs); color: var(--navy-900);
+      transition: background 0.2s; flex-shrink: 0;
+    }
+    .icon-btn:hover { background: var(--navy-50); }
+    .icon-btn svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .header-title { font-size: 17px; font-weight: 800; color: var(--navy-900); letter-spacing: -0.3px; }
+
+    /* MAIN */
+    .help-main {
+      flex: 1; padding: 16px 16px 0; max-width: 600px;
+      margin: 0 auto; width: 100%;
+      display: flex; flex-direction: column; gap: 16px;
+    }
+
+    /* HERO */
+    .help-hero {
+      background: linear-gradient(135deg, var(--navy-900), var(--navy-800));
+      border-radius: var(--radius-lg); padding: 26px 22px;
+      color: var(--white); text-align: center;
+      position: relative; overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+    .help-hero::before {
+      content: ''; position: absolute; top: -40%; right: -20%;
+      width: 240px; height: 240px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(201, 168, 76, 0.22), transparent 70%);
+      pointer-events: none;
+    }
+    .help-hero h1 {
+      font-size: 24px; font-weight: 800; letter-spacing: -0.8px;
+      line-height: 1.2; margin-bottom: 6px; position: relative; z-index: 1;
+    }
+    .help-hero h1 .gold { color: var(--gold-400); }
+    .help-hero p {
+      font-size: 13px; font-weight: 500; color: var(--gray-300);
+      line-height: 1.5; max-width: 380px; margin: 0 auto 18px;
+      position: relative; z-index: 1;
+    }
+
+    .help-search {
+      position: relative; max-width: 420px; margin: 0 auto;
+      position: relative; z-index: 1;
+    }
+    .help-search svg {
+      position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+      width: 18px; height: 18px; stroke: var(--gray-500); fill: none;
+      stroke-width: 2; pointer-events: none;
+    }
+    .help-search input {
+      width: 100%; padding: 14px 16px 14px 46px;
+      background: var(--white); border: none;
+      border-radius: var(--radius-pill); font-family: var(--font);
+      font-size: 13.5px; font-weight: 500; color: var(--navy-900);
+      outline: none;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    }
+    .help-search input::placeholder { color: var(--gray-400); }
+
+    /* QUICK HELP GRID */
+    .help-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+    }
+    .help-card {
+      background: var(--white); border: 1px solid var(--gray-200);
+      border-radius: var(--radius-md); padding: 18px 16px;
+      display: flex; flex-direction: column; gap: 8px;
+      cursor: pointer; transition: all 0.2s;
+      box-shadow: var(--shadow-xs);
+      position: relative;
+    }
+    .help-card:hover { border-color: var(--gold-500); box-shadow: var(--shadow-sm); transform: translateY(-1px); }
+    .help-card::after {
+      content: '→'; position: absolute; top: 16px; right: 16px;
+      color: var(--gray-300); font-size: 14px; font-weight: 700;
+      transition: color 0.2s, transform 0.2s;
+    }
+    .help-card:hover::after { color: var(--gold-500); transform: translateX(3px); }
+    .help-icon {
+      width: 42px; height: 42px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; flex-shrink: 0;
+    }
+    .help-icon.blue { background: var(--blue-100); color: var(--blue-500); }
+    .help-icon.gold { background: var(--gold-100); color: var(--gold-500); }
+    .help-icon.green { background: var(--green-100); color: var(--green-500); }
+    .help-icon.purple { background: var(--purple-100); color: var(--purple-500); }
+    .help-icon.red { background: var(--red-100); color: var(--red-500); }
+    .help-icon.navy { background: var(--navy-50); color: var(--navy-700); }
+    .help-card h4 {
+      font-size: 13.5px; font-weight: 800; color: var(--navy-900);
+      letter-spacing: -0.2px; padding-right: 20px;
+    }
+    .help-card p {
+      font-size: 11px; font-weight: 500; color: var(--gray-500);
+      line-height: 1.4;
+    }
+
+    /* FAQ */
+    .faq-section {
+      background: var(--white); border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg); padding: 18px 16px;
+      box-shadow: var(--shadow-sm);
+    }
+    .faq-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .faq-header h3 {
+      font-size: 15px; font-weight: 800; color: var(--navy-900);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .faq-header h3::before { content: ''; width: 3px; height: 16px; background: var(--gold-500); border-radius: 2px; }
+    .faq-header .faq-count { font-size: 10.5px; font-weight: 700; color: var(--gray-500); }
+
+    .faq-list { display: flex; flex-direction: column; gap: 8px; }
+    .faq-item {
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      overflow: hidden; transition: all 0.2s;
+      background: var(--white);
+    }
+    .faq-item.open { border-color: var(--gold-500); background: var(--gold-100); }
+    .faq-question {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 16px; cursor: pointer; gap: 12px;
+    }
+    .faq-question span {
+      font-size: 13px; font-weight: 700; color: var(--navy-900);
+      line-height: 1.4; flex: 1;
+    }
+    .faq-chevron {
+      width: 20px; height: 20px; flex-shrink: 0;
+      stroke: var(--gray-500); fill: none; stroke-width: 2.5;
+      stroke-linecap: round; stroke-linejoin: round;
+      transition: transform 0.25s;
+    }
+    .faq-item.open .faq-chevron { transform: rotate(180deg); stroke: var(--gold-500); }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+    .faq-item.open .faq-answer { max-height: 400px; }
+    .faq-answer-content {
+      padding: 0 16px 16px;
+      font-size: 12.5px; font-weight: 500; color: var(--gray-600);
+      line-height: 1.6;
+    }
+
+    /* CONTACT */
+    .contact-card {
+      background: linear-gradient(135deg, var(--navy-900), var(--navy-800));
+      border-radius: var(--radius-lg); padding: 22px 20px;
+      color: var(--white); position: relative; overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+    .contact-card::before {
+      content: ''; position: absolute; top: -40%; right: -20%;
+      width: 200px; height: 200px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(201, 168, 76, 0.2), transparent 70%);
+      pointer-events: none;
+    }
+    .contact-card h3 {
+      font-size: 16px; font-weight: 800; letter-spacing: -0.3px;
+      margin-bottom: 4px; position: relative; z-index: 1;
+    }
+    .contact-card h3 .gold { color: var(--gold-400); }
+    .contact-card p {
+      font-size: 12px; font-weight: 500; color: var(--gray-300);
+      margin-bottom: 14px; line-height: 1.5;
+      position: relative; z-index: 1;
+    }
+    .contact-actions {
+      display: flex; gap: 8px; position: relative; z-index: 1;
+    }
+    .contact-btn {
+      flex: 1; padding: 12px;
+      border-radius: var(--radius-pill); font-family: var(--font);
+      font-weight: 800; font-size: 13px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      transition: all 0.2s; border: none;
+      text-decoration: none;
+    }
+    .contact-btn.primary {
+      background: var(--gold-500); color: var(--navy-900);
+      box-shadow: 0 4px 14px rgba(201, 168, 76, 0.3);
+    }
+    .contact-btn.primary:hover { transform: translateY(-1px); }
+    .contact-btn.secondary {
+      background: rgba(255, 255, 255, 0.12); color: var(--white);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .contact-btn.secondary:hover { background: rgba(255, 255, 255, 0.2); }
+
+    /* STATUS */
+    .status-bar {
+      display: flex; align-items: center; justify-content: center;
+      gap: 6px; padding: 10px 0;
+      font-size: 11.5px; font-weight: 600; color: var(--gray-500);
+    }
+    .status-bar .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--green-500);
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+    /* ============================================================
+       CHAT WIDGET
+       ============================================================ */
+    .chat-overlay {
+      position: fixed; inset: 0; background: rgba(10, 26, 47, 0.5);
+      backdrop-filter: blur(4px); z-index: 80;
+      opacity: 0; pointer-events: none; transition: opacity 0.25s;
+    }
+    .chat-overlay.open { opacity: 1; pointer-events: auto; }
+
+    .chat-widget {
+      position: fixed; inset: auto 0 0 0; height: 85vh;
+      background: var(--white); z-index: 85;
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
+      display: flex; flex-direction: column;
+      box-shadow: 0 -8px 40px rgba(10, 26, 47, 0.2);
+    }
+    .chat-widget.open { transform: translateY(0); }
+    @media (min-width: 700px) {
+      .chat-widget {
+        inset: auto 20px 20px auto; right: 20px; bottom: 20px;
+        width: 380px; height: 600px;
+        border-radius: var(--radius-lg);
+        transform: translateY(20px); opacity: 0;
+      }
+      .chat-widget.open { transform: translateY(0); opacity: 1; }
+    }
+
+    .chat-header {
+      background: linear-gradient(135deg, var(--navy-900), var(--navy-800));
+      padding: 16px 18px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      flex-shrink: 0; color: var(--white);
+    }
+    .chat-header-left { display: flex; align-items: center; gap: 12px; }
+    .chat-avatar {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: var(--gold-500); color: var(--navy-900);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; font-weight: 800;
+      position: relative;
+    }
+    .chat-avatar .online {
+      position: absolute; bottom: -1px; right: -1px;
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--green-500); border: 2px solid var(--navy-800);
+    }
+    .chat-header-info h4 { font-size: 13.5px; font-weight: 800; }
+    .chat-header-info p { font-size: 10.5px; font-weight: 600; color: var(--green-400); margin-top: 1px; display: flex; align-items: center; gap: 4px; }
+    .chat-header-info p .dot {
+      width: 5px; height: 5px; border-radius: 50%; background: var(--green-500);
+    }
+    .chat-close {
+      background: rgba(255, 255, 255, 0.15); border: none;
+      width: 30px; height: 30px; border-radius: 50%;
+      font-size: 15px; cursor: pointer; color: var(--white);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .chat-close:hover { background: rgba(255, 255, 255, 0.25); }
+
+    .chat-body {
+      flex: 1; overflow-y: auto; padding: 18px;
+      background: var(--bg-main);
+      display: flex; flex-direction: column; gap: 10px;
+    }
+
+    .chat-msg {
+      max-width: 80%; padding: 10px 14px;
+      border-radius: 14px; font-size: 13px; line-height: 1.5;
+      font-weight: 500;
+    }
+    .chat-msg.bot {
+      background: var(--white); color: var(--navy-900);
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+      border: 1px solid var(--gray-200);
+    }
+    .chat-msg.user {
+      background: var(--navy-900); color: var(--white);
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+    .chat-msg.typing {
+      background: var(--white); color: var(--gray-500);
+      align-self: flex-start; border: 1px solid var(--gray-200);
+      font-style: italic;
+    }
+    .chat-msg .chat-time {
+      font-size: 9.5px; font-weight: 600; opacity: 0.6;
+      margin-top: 3px; display: block;
+    }
+
+    .chat-quick-replies {
+      display: flex; flex-wrap: wrap; gap: 6px; padding: 0 18px 10px;
+      flex-shrink: 0;
+    }
+    .chat-quick-reply {
+      padding: 6px 12px; border-radius: var(--radius-pill);
+      background: var(--white); border: 1px solid var(--gray-200);
+      font-family: var(--font); font-size: 11.5px; font-weight: 700;
+      color: var(--navy-700); cursor: pointer; transition: all 0.15s;
+    }
+    .chat-quick-reply:hover { background: var(--gold-100); border-color: var(--gold-500); }
+
+    .chat-input-wrap {
+      display: flex; gap: 8px; padding: 12px 14px;
+      background: var(--white); border-top: 1px solid var(--gray-200);
+      flex-shrink: 0;
+    }
+    .chat-input {
+      flex: 1; padding: 11px 14px;
+      border: 1.5px solid var(--gray-200); border-radius: var(--radius-pill);
+      font-family: var(--font); font-size: 13px; font-weight: 500;
+      color: var(--navy-900); outline: none;
+    }
+    .chat-input:focus { border-color: var(--gold-500); }
+    .chat-send-btn {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: var(--navy-900); color: var(--gold-400);
+      border: none; cursor: pointer; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .chat-send-btn:hover { background: var(--navy-800); }
+    .chat-send-btn svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* TOAST */
+    .toast {
+      position: fixed; bottom: 100px; left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--navy-900); color: var(--white);
+      padding: 12px 20px; border-radius: var(--radius-pill);
+      font-size: 13px; font-weight: 700; z-index: 200;
+      opacity: 0; pointer-events: none; transition: all 0.3s;
+      max-width: calc(100% - 40px); text-align: center;
+      box-shadow: 0 8px 24px rgba(10, 26, 47, 0.3);
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* BOTTOM NAV */
+    .bottom-nav {
+      position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 100%; max-width: 700px; background: rgba(255, 255, 255, 0.97);
+      backdrop-filter: blur(16px); border-top: 1px solid var(--gray-200);
+      display: flex; justify-content: space-around; align-items: center;
+      padding: 8px 8px calc(8px + env(safe-area-inset-bottom, 0px));
+      z-index: 40; box-shadow: 0 -4px 20px rgba(10, 26, 47, 0.06);
+    }
+    .bottom-nav-item {
+      display: flex; flex-direction: column; align-items: center; gap: 3px;
+      background: none; border: none; cursor: pointer;
+      padding: 6px 8px; border-radius: var(--radius-sm);
+      transition: all 0.2s; flex: 1; max-width: 80px;
+      color: var(--gray-500); font-family: var(--font);
+      font-size: 10px; font-weight: 600; letter-spacing: 0.2px;
+    }
+    .bottom-nav-item.active { color: var(--navy-900); font-weight: 800; }
+    .bottom-nav-item.active .bn-icon-wrap { background: var(--navy-900); }
+    .bottom-nav-item.active .bn-icon-wrap svg { stroke: var(--gold-400); }
+    .bn-icon-wrap {
+      width: 38px; height: 26px; border-radius: var(--radius-xs);
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .bottom-nav-item svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+
+    @media (max-width: 400px) {
+      .help-grid { grid-template-columns: 1fr; }
+    }
+    @media (min-width: 700px) {
+      body { padding-bottom: 100px; }
+      .help-main { max-width: 640px; padding: 20px 24px 0; }
+      .bottom-nav { max-width: 900px; border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- CHAT OVERLAY -->
+  <div class="chat-overlay" id="chatOverlay"></div>
+
+  <!-- CHAT WIDGET -->
+  <div class="chat-widget" id="chatWidget">
+    <div class="chat-header">
+      <div class="chat-header-left">
+        <div class="chat-avatar">
+          💬
+          <span class="online"></span>
+        </div>
+        <div class="chat-header-info">
+          <h4>Bluepeak Support</h4>
+          <p><span class="dot"></span>Online · Avg reply 2 min</p>
+        </div>
+      </div>
+      <button class="chat-close" id="chatClose">✕</button>
+    </div>
+    <div class="chat-body" id="chatBody">
+      <!-- Messages injected here -->
+    </div>
+    <div class="chat-quick-replies" id="chatQuickReplies">
+      <button class="chat-quick-reply" data-reply="How do I deposit crypto?">Deposit crypto</button>
+      <button class="chat-quick-reply" data-reply="My withdrawal is pending">Pending withdrawal</button>
+      <button class="chat-quick-reply" data-reply="How does P2P trading work?">P2P help</button>
+      <button class="chat-quick-reply" data-reply="How do I verify my identity?">KYC verification</button>
+    </div>
+    <div class="chat-input-wrap">
+      <input type="text" class="chat-input" id="chatInput" placeholder="Type your message…" autocomplete="off">
+      <button class="chat-send-btn" id="chatSendBtn" aria-label="Send">
+        <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <header class="help-header">
+    <div class="help-header-left">
+      <button class="icon-btn" id="backBtn" aria-label="Back">
+        <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <span class="header-title">Help Center</span>
+    </div>
+  </header>
+
+  <main class="help-main">
+
+    <div class="help-hero">
+      <h1>How can we <span class="gold">help you?</span></h1>
+      <p>Search our knowledge base or get in touch with our 24/7 support team.</p>
+      <div class="help-search">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input type="text" id="faqSearchInput" placeholder="Search FAQs — try 'deposit' or 'P2P'…" autocomplete="off">
+      </div>
+    </div>
+
+    <!-- QUICK HELP — now navigates to real pages -->
+    <div class="help-grid" id="helpGrid">
+      <div class="help-card" data-nav="deposit">
+        <div class="help-icon green">💰</div>
+        <h4>Deposits & Withdrawals</h4>
+        <p>How to fund and cash out</p>
+      </div>
+      <div class="help-card" data-nav="p2p">
+        <div class="help-icon purple">🤝</div>
+        <h4>P2P Trading</h4>
+        <p>Buy & sell with merchants</p>
+      </div>
+      <div class="help-card" data-nav="settings">
+        <div class="help-icon red">🔒</div>
+        <h4>Security & Account</h4>
+        <p>2FA, passwords, verification</p>
+      </div>
+      <div class="help-card" data-nav="trade">
+        <div class="help-icon blue">📈</div>
+        <h4>Trading & Swaps</h4>
+        <p>Spot, futures, and swap</p>
+      </div>
+      <div class="help-card" data-nav="swap">
+        <div class="help-icon gold">💵</div>
+        <h4>Fees & Limits</h4>
+        <p>Understand all charges</p>
+      </div>
+      <div class="help-card" data-nav="kyc">
+        <div class="help-icon navy">🪪</div>
+        <h4>Verification (KYC)</h4>
+        <p>Verify to unlock tiers</p>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="faq-section">
+      <div class="faq-header">
+        <h3>Frequently Asked Questions</h3>
+        <span class="faq-count" id="faqCount">15 articles</span>
+      </div>
+      <div class="faq-list" id="faqList"></div>
+    </div>
+
+    <!-- CONTACT — Live Chat now opens real widget -->
+    <div class="contact-card">
+      <h3>Still need <span class="gold">help?</span></h3>
+      <p>Our team is available 24/7. Reach out via live chat or email for personalized support.</p>
+      <div class="contact-actions">
+        <button class="contact-btn primary" id="liveChatBtn">
+          💬 Live Chat
+        </button>
+        <a class="contact-btn secondary" href="mailto:support@bluepeakcapital.com?subject=Support%20Request%20%E2%80%94%20Bluepeak%20Capital" id="emailBtn">
+          ✉️ Email Us
+        </a>
+      </div>
+    </div>
+
+    <div class="status-bar">
+      <span class="dot"></span>
+      All systems operational · Support team online
+    </div>
+
+  </main>
+
+  <nav class="bottom-nav">
+    <button class="bottom-nav-item" data-nav="home">
+      <div class="bn-icon-wrap"><svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9 21v-6h6v6"/></svg></div>
+      <span>Home</span>
+    </button>
+    <button class="bottom-nav-item" data-nav="p2p">
+      <div class="bn-icon-wrap"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M2.5 20c.8-3.5 3.2-5.5 6.5-5.5s5.7 2 6.5 5.5"/><circle cx="17.5" cy="8" r="2.8"/><path d="M15.5 14c2.5 0 4.8 1.5 5.5 4.5"/></svg></div>
+      <span>P2P</span>
+    </button>
+    <button class="bottom-nav-item" data-nav="trade">
+      <div class="bn-icon-wrap"><svg viewBox="0 0 24 24"><path d="M3 20L9 14l4 4 8-8"/><path d="M17 10h4v4"/></svg></div>
+      <span>Trade</span>
+    </button>
+    <button class="bottom-nav-item" data-nav="swap">
+      <div class="bn-icon-wrap"><svg viewBox="0 0 24 24"><path d="M7 4v13M7 17l-3-3M7 17l3-3"/><path d="M17 20V7M17 7l3 3M17 7l-3 3"/></svg></div>
+      <span>Swap</span>
+    </button>
+    <button class="bottom-nav-item active" data-nav="wallet">
+      <div class="bn-icon-wrap"><svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="14" rx="3"/><path d="M16 13h.01"/><path d="M2 9h20"/></svg></div>
+      <span>Wallet</span>
+    </button>
+  </nav>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    (function() {
+      'use strict';
+
+      const $ = (s) => document.querySelector(s);
+      const $$ = (s) => document.querySelectorAll(s);
+      const toastEl = $('#toast');
+
+      function showToast(msg) {
+        toastEl.textContent = msg;
+        toastEl.classList.add('show');
+        clearTimeout(toastEl._t);
+        toastEl._t = setTimeout(() => toastEl.classList.remove('show'), 2600);
+      }
+
+      // ============================================================
+      // QUICK HELP CARDS — direct navigation
+      // ============================================================
+      const PAGE_MAP = {
+        deposit: 'deposit.html',
+        p2p: 'p2p.html',
+        settings: 'settings.html',
+        trade: 'trade.html',
+        swap: 'swap.html',
+        kyc: 'kyc.html',
+      };
+
+      $$('.help-card').forEach(card => {
+        card.addEventListener('click', () => {
+          const nav = card.dataset.nav;
+          const dest = PAGE_MAP[nav];
+          if (dest) {
+            window.location.href = dest;
+          } else {
+            showToast('Page not available');
+          }
+        });
+      });
+
+      // ============================================================
+      // FAQ
+      // ============================================================
+      const FAQS = [
+        { q: 'How long does a crypto deposit take?', a: 'Deposit times vary by network. TRC20 USDT is usually instant, ERC20 takes 2–5 minutes, and Bitcoin takes 30–60 minutes. You can track the status in your Wallet.' },
+        { q: 'What is the minimum deposit amount?', a: 'There is no minimum crypto deposit. However, we recommend at least $10 equivalent to make trading worthwhile. Note that network fees are set by the blockchain, not by Bluepeak.' },
+        { q: 'How do I withdraw to my bank or mobile money?', a: 'Go to Wallet → Withdraw and choose your asset. For fiat off-ramp, use the P2P marketplace to sell crypto to a merchant who supports your local bank or mobile money provider.' },
+        { q: 'Why is my withdrawal still pending?', a: 'Withdrawals typically process within 30 minutes. Large amounts may require additional security verification. You can check the status in your Transaction History.' },
+        { q: 'How does P2P trading work?', a: 'P2P (peer-to-peer) lets you buy or sell crypto directly with verified merchants using local payment methods like bank transfer, M-Pesa, or MTN MoMo. All trades are escrow-protected.' },
+        { q: 'What happens if a merchant doesn\'t respond?', a: 'If a merchant doesn\'t respond within the order window, you can open a dispute. Our support team will review the case and release your funds if the merchant is at fault.' },
+        { q: 'Are P2P trades safe?', a: 'Yes. Bluepeak uses escrow protection on every P2P trade. Funds are held securely until both parties confirm completion. Never release crypto before receiving payment.' },
+        { q: 'How do I enable two-factor authentication (2FA)?', a: 'Go to Settings → Security → Two-Factor Authentication and follow the setup. We recommend using an authenticator app like Google Authenticator or Authy.' },
+        { q: 'What should I do if I notice suspicious activity?', a: 'Immediately change your password, enable 2FA, and contact support. Also review your Active Devices in Settings and revoke any unfamiliar sessions.' },
+        { q: 'Why do I need to verify my identity?', a: 'KYC verification is required once your account reaches Tier 2. It unlocks higher trading limits, faster withdrawals, and full platform access. Verification is usually completed within 24 hours.' },
+        { q: 'What documents are accepted for KYC?', a: 'We accept government-issued IDs: passports, national ID cards, and driver\'s licenses. You\'ll need both front and back, with all corners visible and no glare.' },
+        { q: 'What is the difference between Spot and Futures?', a: 'Spot trading means buying or selling crypto at current market price and owning it directly. Futures trading lets you speculate on price with leverage — higher risk, higher potential reward.' },
+        { q: 'How does the AI Trading Bot work?', a: 'The Bluepeak AI Bot scans markets 24/7 and trades automatically using adaptive strategies. You can start it from the Trade page after selecting assets and verifying your passkey.' },
+        { q: 'What are the trading fees?', a: 'Spot trading fees start at 0.1% per trade. Futures fees range from 0.02% to 0.05% depending on leverage. P2P has zero maker fees on most pairs.' },
+        { q: 'Are there hidden fees?', a: 'No. All fees — trading, withdrawal, and network — are shown clearly before you confirm any transaction. P2P fees are shown on each merchant offer.' },
+      ];
+
+      const faqList = $('#faqList');
+      const faqCount = $('#faqCount');
+      const faqSearch = $('#faqSearchInput');
+
+      function renderFAQs(filter) {
+        const q = (filter || '').toLowerCase().trim();
+        const filtered = q
+          ? FAQS.filter(f => f.q.toLowerCase().includes(q) || f.a.toLowerCase().includes(q))
+          : FAQS;
+
+        faqCount.textContent = filtered.length + ' article' + (filtered.length !== 1 ? 's' : '');
+
+        if (filtered.length === 0) {
+          faqList.innerHTML = `
+            <div style="text-align:center;padding:30px 20px;color:var(--gray-500);font-size:13px;font-weight:500;">
+              No articles match "${filter}".<br>
+              <span style="font-size:11.5px;">Try a different search or contact support below.</span>
+            </div>
+          `;
+          return;
+        }
+
+        faqList.innerHTML = filtered.map((f, i) => `
+          <div class="faq-item" data-faq-index="${i}">
+            <div class="faq-question">
+              <span>${f.q}</span>
+              <svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="faq-answer">
+              <div class="faq-answer-content">${f.a}</div>
+            </div>
+          </div>
+        `).join('');
+
+        faqList.querySelectorAll('.faq-question').forEach(el => {
+          el.addEventListener('click', () => el.parentElement.classList.toggle('open'));
+        });
+      }
+
+      faqSearch.addEventListener('input', (e) => renderFAQs(e.target.value));
+
+      // ============================================================
+      // LIVE CHAT WIDGET
+      // ============================================================
+      const chatWidget = $('#chatWidget');
+      const chatOverlay = $('#chatOverlay');
+      const chatBody = $('#chatBody');
+      const chatInput = $('#chatInput');
+      const chatSendBtn = $('#chatSendBtn');
+      const chatQuickReplies = $('#chatQuickReplies');
+
+      const QUICK_REPLIES = {
+        'How do I deposit crypto?': 'To deposit crypto:\n\n1. Go to Wallet → Deposit\n2. Choose your asset (e.g., USDT) and network (e.g., TRC20)\n3. Tap "Generate Deposit Address"\n4. Send crypto from your external wallet\n5. Wait for network confirmation\n\nThat\'s it! Your balance will update automatically.',
+        'My withdrawal is pending': 'Withdrawals typically complete within 30 minutes. If it\'s been longer:\n\n• Check Transaction History to see current status\n• Large withdrawals may need extra security verification\n• Make sure the destination address and network are correct\n\nIf it\'s been over 2 hours, our team can investigate. Would you like me to open a ticket?',
+        'How does P2P trading work?': 'P2P trading lets you buy/sell crypto with verified merchants:\n\n1. Open P2P from the bottom nav\n2. Choose Buy or Sell\n3. Pick a merchant with your preferred payment method (M-Pesa, bank transfer, Zelle, etc.)\n4. Enter amount and place order\n5. Pay the merchant and confirm\n\n🔒 All trades are escrow-protected — funds release only when both sides confirm.',
+        'How do I verify my identity?': 'Verification (KYC) is required when you reach Tier 2:\n\n1. Go to Profile → Account Tiers\n2. Tap Tier 2 → "Start"\n3. Upload a clear photo of your ID (front + back)\n4. Submit for review\n\n✅ Most verifications complete within 24 hours. Once approved, your limits increase immediately.',
+      };
+
+      function openChat() {
+        chatWidget.classList.add('open');
+        chatOverlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        chatBody.scrollTop = chatBody.scrollHeight;
+        setTimeout(() => chatInput.focus(), 300);
+
+        // Greeting on first open
+        if (chatBody.children.length === 0) {
+          addBotMessage('Hi there! 👋 I\'m the Bluepeak support assistant. How can I help you today?');
+        }
+      }
+      function closeChat() {
+        chatWidget.classList.remove('open');
+        chatOverlay.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+
+      $('#liveChatBtn').addEventListener('click', openChat);
+      $('#chatClose').addEventListener('click', closeChat);
+      chatOverlay.addEventListener('click', closeChat);
+
+      function timeNow() {
+        return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      }
+
+      function addBotMessage(text) {
+        const el = document.createElement('div');
+        el.className = 'chat-msg bot';
+        el.innerHTML = text.replace(/\n/g, '<br>') + `<span class="chat-time">${timeNow()}</span>`;
+        chatBody.appendChild(el);
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }
+
+      function addUserMessage(text) {
+        const el = document.createElement('div');
+        el.className = 'chat-msg user';
+        el.innerHTML = text.replace(/\n/g, '<br>') + `<span class="chat-time">${timeNow()}</span>`;
+        chatBody.appendChild(el);
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }
+
+      function addTyping() {
+        const el = document.createElement('div');
+        el.className = 'chat-msg typing';
+        el.id = 'typingIndicator';
+        el.textContent = 'Typing…';
+        chatBody.appendChild(el);
+        chatBody.scrollTop = chatBody.scrollHeight;
+        return el;
+      }
+
+      function sendMessage(text) {
+        if (!text || !text.trim()) return;
+        addUserMessage(text.trim());
+        chatInput.value = '';
+
+        // Check if it's a quick reply
+        const qr = QUICK_REPLIES[text.trim()];
+        const typing = addTyping();
+
+        setTimeout(() => {
+          typing.remove();
+          if (qr) {
+            addBotMessage(qr);
+          } else {
+            // Generic response
+            const responses = [
+              'Thanks for reaching out! A support agent will be with you in about 2 minutes. In the meantime, check our FAQ section above — most common questions are answered there.',
+              'I\'ve noted your message. Our team typically responds within 2–3 minutes during business hours. Would you like me to send this to a human agent?',
+              'Got it! While I look into that, here are some useful links:\n\n• Deposit: Wallet → Deposit\n• P2P: P2P tab in the bottom nav\n• Settings: Profile → Settings\n\nIs there anything specific you\'d like help with?',
+            ];
+            addBotMessage(responses[Math.floor(Math.random() * responses.length)]);
+          }
+        }, 1200);
+      }
+
+      chatSendBtn.addEventListener('click', () => sendMessage(chatInput.value));
+      chatInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') sendMessage(chatInput.value);
+      });
+
+      chatQuickReplies.querySelectorAll('.chat-quick-reply').forEach(btn => {
+        btn.addEventListener('click', () => {
+          sendMessage(btn.dataset.reply);
+        });
+      });
+
+      // ============================================================
+      // NAV
+      // ============================================================
+      $('#backBtn').addEventListener('click', () => window.location.href = 'settings.html');
+      $$('.bottom-nav-item').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const nav = btn.dataset.nav;
+          if (nav === 'home') window.location.href = 'index.html';
+          if (nav === 'p2p') window.location.href = 'p2p.html';
+          if (nav === 'trade') window.location.href = 'trade.html';
+          if (nav === 'swap') window.location.href = 'swap.html';
+          if (nav === 'wallet') window.location.href = 'wallet.html';
+        });
+      });
+
+      // ============================================================
+      // INIT
+      // ============================================================
+      renderFAQs('');
+
+    })();
+  </script>
+</body>
+</html>
