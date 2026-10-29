@@ -90,8 +90,9 @@
       padding: 5px 5px 5px 12px; border-radius: var(--radius-pill);
       font-size: 13.5px; font-weight: 700; color: var(--navy-900);
       white-space: nowrap; flex-shrink: 1; font-variant-numeric: tabular-nums;
-      box-shadow: var(--shadow-xs);
+      box-shadow: var(--shadow-xs); cursor: pointer; transition: all 0.2s;
     }
+    .balance-wrapper:hover { border-color: var(--gold-500); background: var(--gold-100); }
     .balance-wrapper .balance-amount { min-width: 54px; text-align: right; letter-spacing: -0.2px; }
     .balance-wrapper .balance-amount.masked { letter-spacing: 3px; color: var(--gray-500); }
 
@@ -133,9 +134,7 @@
     /* MAIN */
     .app-main { flex: 1; padding: 0 16px; max-width: 600px; margin: 0 auto; width: 100%; display: flex; flex-direction: column; gap: 20px; }
 
-    /* ============================================================
-       SIGNED OUT VIEW — marketing home
-       ============================================================ */
+    /* SIGNED OUT VIEW */
     #signedOutView { display: flex; flex-direction: column; gap: 22px; }
     #signedOutView.hidden { display: none; }
 
@@ -184,11 +183,11 @@
     .toggle-btn.active-toggle { background: var(--white); color: var(--navy-900); box-shadow: var(--shadow-xs); font-weight: 800; }
 
     .quick-p2p-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 4px; }
-    .qa-card { background: var(--navy-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 14px; display: flex; flex-direction: column; gap: 6px; cursor: pointer; transition: all 0.2s; position: relative; overflow: hidden; }
+    .qa-card { background: var(--navy-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 14px; display: flex; flex-direction: column; gap: 6px; cursor: pointer; transition: all 0.2s; }
     .qa-card:hover { border-color: var(--gold-500); background: var(--white); box-shadow: var(--shadow-sm); }
     .qa-card-top { display: flex; align-items: center; justify-content: space-between; }
     .qa-card-title { font-size: 13px; font-weight: 800; color: var(--navy-900); display: flex; align-items: center; gap: 6px; }
-    .qa-card-title .qa-icon { width: 22px; height: 22px; border-radius: 50%; background: var(--white); border: 1px solid var(--gray-200); display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; padding: 2px; }
+    .qa-card-title .qa-icon { width: 22px; height: 22px; border-radius: 50%; background: var(--white); border: 1px solid var(--gray-200); display: flex; align-items: center; justify-content: center; flex-shrink: 0; padding: 2px; }
     .qa-card-title .qa-icon img { width: 100%; height: 100%; object-fit: contain; }
     .qa-card-rate { font-size: 14px; font-weight: 800; color: var(--navy-900); font-variant-numeric: tabular-nums; letter-spacing: -0.3px; }
     .qa-card-sub { font-size: 10.5px; font-weight: 600; color: var(--gray-500); }
@@ -321,9 +320,7 @@
     .marketcap-cell-change.negative { color: var(--red-500); }
     .marketcap-cell-volume { font-size: 9.5px; font-weight: 600; color: var(--gray-500); font-variant-numeric: tabular-nums; }
 
-    /* ============================================================
-       SIGNED IN VIEW — dashboard
-       ============================================================ */
+    /* SIGNED IN VIEW — DASHBOARD */
     #signedInView { display: none; flex-direction: column; gap: 18px; }
     #signedInView.active { display: flex; }
 
@@ -338,18 +335,8 @@
       color: var(--white); position: relative; overflow: hidden;
       box-shadow: var(--shadow-md);
     }
-    .balance-card::after {
-      content: ''; position: absolute; bottom: -40%; right: -15%;
-      width: 240px; height: 240px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(201, 168, 76, 0.22), transparent 70%);
-      pointer-events: none;
-    }
-    .balance-card::before {
-      content: ''; position: absolute; top: -30%; left: -10%;
-      width: 180px; height: 180px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(37, 99, 235, 0.15), transparent 70%);
-      pointer-events: none;
-    }
+    .balance-card::after { content: ''; position: absolute; bottom: -40%; right: -15%; width: 240px; height: 240px; border-radius: 50%; background: radial-gradient(circle, rgba(201, 168, 76, 0.22), transparent 70%); pointer-events: none; }
+    .balance-card::before { content: ''; position: absolute; top: -30%; left: -10%; width: 180px; height: 180px; border-radius: 50%; background: radial-gradient(circle, rgba(37, 99, 235, 0.15), transparent 70%); pointer-events: none; }
     .balance-card-label { font-size: 10.5px; font-weight: 800; color: var(--gold-400); text-transform: uppercase; letter-spacing: 1px; position: relative; z-index: 1; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
     .balance-card-label .live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green-500); animation: pulse 1.6s ease-in-out infinite; }
     .balance-card-amount { font-size: 38px; font-weight: 800; letter-spacing: -1.5px; position: relative; z-index: 1; font-variant-numeric: tabular-nums; margin-bottom: 6px; line-height: 1.1; }
@@ -592,6 +579,7 @@
     </div>
     <button onclick="location.href='profile.html'">👤 Profile</button>
     <button onclick="location.href='transaction-history.html'">📜 Transactions</button>
+    <button onclick="location.href='wallet.html'">👛 Wallet</button>
     <button onclick="location.href='settings.html'">⚙️ Settings</button>
     <button onclick="location.href='kyc.html'">🪪 KYC Verification</button>
     <button class="danger" id="pmLogout">🚪 Logout</button>
@@ -639,7 +627,7 @@
         <button class="auth-btn-join" id="headerJoinBtn">Join us</button>
       </div>
 
-      <div class="balance-wrapper" id="headerBalanceWrap" style="display:none;">
+      <div class="balance-wrapper" id="headerBalanceWrap" style="display:none;" role="button" tabindex="0">
         <span class="balance-amount" id="balanceDisplay">$0.00</span>
         <button class="eye-toggle" id="eyeToggle" aria-label="Toggle balance visibility">
           <svg id="eyeIcon" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
@@ -656,7 +644,7 @@
   <main class="app-main">
 
     <!-- ============================================================
-         SIGNED OUT VIEW — marketing home
+         SIGNED OUT VIEW — marketing
          ============================================================ -->
     <div id="signedOutView">
       <section class="hero">
@@ -996,7 +984,6 @@
       const userCountry = user ? (user.country || '').toUpperCase() : '';
       const initial = (displayName.charAt(0) || 'U').toUpperCase();
 
-      // Redirect to auth before accessing any protected page
       function requireAuth() {
         if (isSignedIn) return true;
         window.location.href = 'auth.html#signin';
@@ -1100,8 +1087,8 @@
         selectedPayment = { name: c.name, icon: c.icon, sub: c.sub };
         selectedCountryMeta = c;
       }
-
       function applyCountryToPaymentUI() {
+        if (!$('#selectedPaymentLabel')) return;
         $('#selectedPaymentLabel').textContent = selectedPayment.name;
         $('#selectedPaymentSub').textContent = selectedCountryMeta
           ? `${selectedCountryMeta.flag} ${selectedCountryMeta.label} · ${selectedPayment.sub}`
@@ -1121,7 +1108,7 @@
       function setBalanceVisibility(visible) {
         balanceVisible = visible;
         if (visible) {
-          balanceDisplay.textContent = '$0.00';
+          balanceDisplay.textContent = currentHeaderBalance;
           balanceDisplay.classList.remove('masked');
           eyeIcon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
         } else {
@@ -1130,7 +1117,8 @@
           eyeIcon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
         }
       }
-      eyeToggle.addEventListener('click', () => setBalanceVisibility(!balanceVisible));
+      let currentHeaderBalance = '$0.00';
+      eyeToggle.addEventListener('click', (e) => { e.stopPropagation(); setBalanceVisibility(!balanceVisible); });
       setBalanceVisibility(true);
 
       // ============================================================
@@ -1160,6 +1148,13 @@
         if (!requireAuth()) return;
         closeAll();
         profileMenu.classList.toggle('open');
+      });
+
+      // Balance pill → wallet
+      $('#headerBalanceWrap').addEventListener('click', (e) => {
+        if (e.target.closest('#eyeToggle')) return;
+        if (!requireAuth()) return;
+        go('wallet.html');
       });
 
       function logout() {
@@ -1279,7 +1274,7 @@
       });
 
       // ============================================================
-      // VIEW SWITCH: signed out (marketing) vs signed in (dashboard)
+      // VIEW SWITCH
       // ============================================================
       const signedOutView = $('#signedOutView');
       const signedInView = $('#signedInView');
@@ -1316,10 +1311,11 @@
         let total = 0;
         Object.keys(balances).forEach(sym => { total += (parseFloat(balances[sym]) || 0) * priceOf(sym); });
         const display = total > 0 ? total : (user.balance != null ? parseFloat(user.balance) || 0 : 0);
+        currentHeaderBalance = fmtUsd(display);
+        if (balanceVisible) $('#balanceDisplay').textContent = currentHeaderBalance;
         const whole = Math.floor(display);
         const cents = Math.round((display - whole) * 100).toString().padStart(2, '0');
         $('#portfolioAmount').innerHTML = '$' + whole.toLocaleString('en-US') + '<span class="cents">.' + cents + '</span>';
-        if (balanceVisible) $('#balanceDisplay').textContent = fmtUsd(display);
       }
 
       function loadMyOrders() {
@@ -1590,7 +1586,6 @@
             const d = data[coin.id];
             if (d && d.usd !== undefined) tickerPrices[coin.id] = { price: d.usd, change: d.usd_24h_change || 0, volume: d.usd_24h_vol || 0, timestamp };
           });
-          // Store for other pages
           const priceMap = {};
           ASSETS.forEach(c => { if (tickerPrices[c.id]) priceMap[c.symbol] = tickerPrices[c.id].price; });
           localStorage.setItem('bp_market_prices', JSON.stringify(priceMap));
@@ -1599,6 +1594,8 @@
             renderTicker();
             renderMarketCap();
             renderQuickActions();
+          } else {
+            renderBalanceCard();
           }
           updateTradeInfo();
           updateSwapLiveRate();
@@ -1669,7 +1666,7 @@
           cell.addEventListener('click', () => {
             const sym = cell.dataset.assetSymbol;
             const asset = ASSETS.find(a => a.symbol === sym);
-            if (asset) { selectAsset(asset); saveP2PState(); requireAuth() && go('p2p.html'); }
+            if (asset) { selectAsset(asset); saveP2PState(); if (requireAuth()) go('p2p.html'); }
           });
         });
       }
@@ -1707,14 +1704,14 @@
               const tg = $('#p2pToggle');
               if (tg) tg.querySelectorAll('.toggle-btn').forEach(b => b.classList.toggle('active-toggle', b.dataset.p2pMode === mode));
               saveP2PState();
-              requireAuth() && go('p2p.html');
+              if (requireAuth()) go('p2p.html');
             }
           });
         });
       }
 
       // ============================================================
-      // ASSET SELECTOR (used on signed-out marketing view)
+      // ASSET SELECTOR
       // ============================================================
       const assetSelectorOverlay = $('#assetSelectorOverlay');
       const assetSelector = $('#assetSelector');
@@ -1836,7 +1833,7 @@
       if (paymentSearchInput) paymentSearchInput.addEventListener('input', (e) => renderPaymentOptions(e.target.value));
 
       // ============================================================
-      // P2P Continue + Buy/Sell toggle
+      // P2P Continue + toggle
       // ============================================================
       if ($('#p2pToggle')) {
         $('#p2pToggle').addEventListener('click', (e) => {
@@ -1867,7 +1864,7 @@
       }
 
       // ============================================================
-      // SWAP (signed-out)
+      // SWAP
       // ============================================================
       function updateSwapEstimate() {
         if (!$('#swapFromAmount')) return;
@@ -1920,7 +1917,7 @@
       }
 
       // ============================================================
-      // TRADE (signed-out)
+      // TRADE
       // ============================================================
       function updateTradeInfo() {
         if (!$('#tradePair')) return;
@@ -1982,7 +1979,7 @@
         });
       }
 
-      // Bottom nav — home works in both modes; others route to real pages
+      // Bottom nav
       $('#bottomNav').addEventListener('click', (e) => {
         const btn = e.target.closest('.nav-item');
         if (!btn) return;
@@ -2001,6 +1998,7 @@
       applyCountryToPaymentUI();
       updateTradeInfo();
       updateSwapEstimate();
+      renderNotifications();
       fetchTickerPrices();
       setInterval(fetchTickerPrices, 60000);
     })();
