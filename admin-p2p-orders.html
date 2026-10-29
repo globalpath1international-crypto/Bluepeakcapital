@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>P2P Orders — Admin — Bluepeak Capital</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy-900: #0A1A2F; --navy-800: #10243E; --navy-700: #1A3352;
+      --navy-100: #E8EDF4; --navy-50: #F2F5FA;
+      --gold-500: #C9A84C; --gold-400: #DDBE6B; --gold-100: #FBF5E6;
+      --green-500: #0F9D6E; --green-100: #E6F7F1;
+      --red-500: #D14343; --red-100: #FDECEC;
+      --blue-500: #2563EB; --blue-100: #DBEAFE;
+      --purple-500: #7C3AED; --purple-100: #EDE9FE;
+      --white: #FFFFFF; --gray-100: #F1F4F9; --gray-200: #E3E8EF;
+      --gray-300: #CDD5E0; --gray-400: #94A3B8; --gray-500: #64748B; --gray-600: #475569;
+      --shadow-xs: 0 1px 2px rgba(10, 26, 47, 0.04);
+      --shadow-sm: 0 2px 8px rgba(10, 26, 47, 0.05);
+      --shadow-md: 0 8px 24px rgba(10, 26, 47, 0.07);
+      --shadow-lg: 0 16px 48px rgba(10, 26, 47, 0.10);
+      --radius-xs: 8px; --radius-sm: 12px; --radius-md: 16px;
+      --radius-lg: 20px; --radius-pill: 999px;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    html { height: 100%; }
+    body {
+      font-family: var(--font); background-color: var(--navy-50);
+      color: var(--navy-900); line-height: 1.45;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh; display: flex;
+    }
+
+    /* SIDEBAR */
+    .sidebar { width: 250px; background: var(--navy-900); color: var(--white); display: flex; flex-direction: column; flex-shrink: 0; position: sticky; top: 0; height: 100vh; overflow-y: auto; z-index: 50; transition: transform 0.3s; }
+    .sidebar-header { padding: 20px 20px 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+    .sidebar-logo { display: flex; align-items: baseline; gap: 2px; margin-bottom: 4px; }
+    .sidebar-logo .blue { color: var(--white); font-size: 19px; font-weight: 800; letter-spacing: -0.6px; }
+    .sidebar-logo .peak { color: var(--gold-500); font-size: 19px; font-weight: 800; letter-spacing: -0.6px; }
+    .sidebar-logo .admin-badge { font-size: 8px; font-weight: 800; color: var(--gold-400); background: rgba(201, 168, 76, 0.15); border: 1px solid rgba(201, 168, 76, 0.3); padding: 2px 6px; border-radius: 3px; letter-spacing: 1px; margin-left: 6px; text-transform: uppercase; }
+    .sidebar-email { font-size: 11px; font-weight: 500; color: var(--gray-400); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .sidebar-nav { flex: 1; padding: 14px 12px; display: flex; flex-direction: column; gap: 2px; }
+    .nav-section-label { font-size: 9px; font-weight: 800; color: var(--gray-500); text-transform: uppercase; letter-spacing: 1.2px; padding: 14px 12px 6px; }
+    .nav-item { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: var(--radius-xs); background: none; border: none; cursor: pointer; color: var(--gray-300); font-family: var(--font); font-size: 13px; font-weight: 600; text-align: left; text-decoration: none; transition: all 0.15s; width: 100%; }
+    .nav-item:hover { background: rgba(255, 255, 255, 0.06); color: var(--white); }
+    .nav-item.active { background: rgba(201, 168, 76, 0.15); color: var(--gold-400); font-weight: 700; border-left: 2px solid var(--gold-500); padding-left: 10px; }
+    .nav-item .nav-ico { width: 18px; text-align: center; font-size: 15px; flex-shrink: 0; }
+    .nav-item .nav-badge { margin-left: auto; background: var(--red-500); color: var(--white); font-size: 9px; font-weight: 800; padding: 2px 6px; border-radius: var(--radius-pill); min-width: 18px; text-align: center; }
+    .sidebar-footer { padding: 16px 20px; border-top: 1px solid rgba(255, 255, 255, 0.08); }
+    .logout-btn { display: flex; align-items: center; gap: 10px; width: 100%; padding: 10px 12px; background: rgba(209, 67, 67, 0.12); border: 1px solid rgba(209, 67, 67, 0.25); border-radius: var(--radius-xs); color: #FCA5A5; font-family: var(--font); font-size: 12.5px; font-weight: 700; cursor: pointer; transition: all 0.15s; }
+    .logout-btn:hover { background: rgba(209, 67, 67, 0.2); }
+
+    /* MAIN */
+    .main-wrap { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+    .topbar { background: var(--white); border-bottom: 1px solid var(--gray-200); padding: 14px 28px; display: flex; align-items: center; justify-content: space-between; gap: 16px; position: sticky; top: 0; z-index: 40; }
+    .topbar-left { display: flex; align-items: center; gap: 16px; flex-shrink: 1; min-width: 0; }
+    .menu-toggle { display: none; background: none; border: none; padding: 6px; cursor: pointer; color: var(--navy-900); border-radius: var(--radius-xs); }
+    .menu-toggle:hover { background: var(--navy-50); }
+    .menu-toggle svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; }
+    .page-title-block h1 { font-size: 20px; font-weight: 800; color: var(--navy-900); letter-spacing: -0.5px; margin-bottom: 2px; }
+    .page-title-block p { font-size: 12px; font-weight: 500; color: var(--gray-500); }
+    .topbar-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .admin-chip { display: flex; align-items: center; gap: 10px; padding: 4px 14px 4px 4px; background: var(--navy-50); border: 1px solid var(--gray-200); border-radius: var(--radius-pill); cursor: pointer; transition: all 0.15s; }
+    .admin-chip:hover { background: var(--gold-100); border-color: var(--gold-500); }
+    .admin-avatar { width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg, var(--navy-900), var(--navy-700)); color: var(--gold-400); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; }
+    .admin-name { font-size: 12px; font-weight: 700; color: var(--navy-900); }
+    .admin-role { font-size: 9.5px; font-weight: 600; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.4px; }
+
+    /* CONTENT — 2 column layout: orders list + chat panel */
+    .content { flex: 1; padding: 20px 24px 32px; display: grid; grid-template-columns: 340px 1fr; gap: 16px; max-width: 1500px; width: 100%; margin: 0 auto; align-items: start; }
+
+    /* LEFT: ORDER LIST */
+    .orders-panel { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-xs); display: flex; flex-direction: column; max-height: calc(100vh - 120px); }
+    .orders-panel-header { padding: 14px 16px; border-bottom: 1px solid var(--gray-200); flex-shrink: 0; }
+    .orders-panel-header h2 { font-size: 13px; font-weight: 800; color: var(--navy-900); margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; }
+    .orders-panel-header h2 .count { font-size: 10px; font-weight: 700; color: var(--gray-500); background: var(--gray-100); padding: 2px 8px; border-radius: var(--radius-pill); }
+
+    .search-input-mini {
+      width: 100%; padding: 9px 12px 9px 34px;
+      border: 1.5px solid var(--gray-200); border-radius: var(--radius-pill);
+      font-family: var(--font); font-size: 12px; font-weight: 500;
+      color: var(--navy-900); outline: none; transition: border 0.2s;
+      background: var(--navy-50); position: relative;
+    }
+    .search-input-mini:focus { border-color: var(--gold-500); background: var(--white); }
+    .search-input-mini::placeholder { color: var(--gray-400); }
+
+    .search-wrap-mini { position: relative; }
+    .search-wrap-mini svg {
+      position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+      width: 14px; height: 14px; stroke: var(--gray-500); fill: none;
+      stroke-width: 2; pointer-events: none;
+    }
+
+    .order-filters {
+      display: flex; gap: 4px; margin-top: 10px;
+      overflow-x: auto; scrollbar-width: none; padding-bottom: 2px;
+    }
+    .order-filters::-webkit-scrollbar { display: none; }
+    .order-filter-btn {
+      padding: 5px 10px; border-radius: var(--radius-pill);
+      background: var(--white); border: 1px solid var(--gray-200);
+      font-family: var(--font); font-size: 10.5px; font-weight: 700;
+      color: var(--gray-500); cursor: pointer;
+      transition: all 0.15s; white-space: nowrap; flex-shrink: 0;
+    }
+    .order-filter-btn:hover { border-color: var(--gold-500); }
+    .order-filter-btn.active { background: var(--navy-900); color: var(--white); border-color: var(--navy-900); }
+
+    .order-list { flex: 1; overflow-y: auto; }
+    .order-item {
+      display: flex; gap: 10px; padding: 12px 14px;
+      border-bottom: 1px solid var(--gray-100);
+      cursor: pointer; transition: background 0.15s;
+      position: relative;
+    }
+    .order-item:hover { background: var(--navy-50); }
+    .order-item.active { background: var(--gold-100); border-left: 3px solid var(--gold-500); padding-left: 11px; }
+    .order-item.unread::after {
+      content: ''; position: absolute; top: 18px; right: 12px;
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--red-500);
+    }
+
+    .order-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--navy-800), var(--navy-900));
+      color: var(--gold-400); display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 800; flex-shrink: 0;
+    }
+    .order-info { flex: 1; min-width: 0; }
+    .order-title-row {
+      display: flex; align-items: center; gap: 6px;
+      margin-bottom: 2px;
+    }
+    .order-title {
+      font-size: 12.5px; font-weight: 800; color: var(--navy-900);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .order-preview {
+      font-size: 10.5px; font-weight: 500; color: var(--gray-500);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      margin-bottom: 2px;
+    }
+    .order-meta {
+      font-size: 9.5px; font-weight: 600; color: var(--gray-400);
+      display: flex; align-items: center; gap: 4px;
+    }
+    .order-meta .sep { width: 2px; height: 2px; border-radius: 50%; background: var(--gray-300); }
+
+    .order-status-pill {
+      font-size: 8.5px; font-weight: 800; padding: 2px 6px;
+      border-radius: var(--radius-pill); text-transform: uppercase;
+      letter-spacing: 0.3px; flex-shrink: 0;
+    }
+    .order-status-pill.active { background: var(--green-100); color: var(--green-500); }
+    .order-status-pill.disputed { background: var(--red-100); color: var(--red-500); }
+    .order-status-pill.completed { background: var(--blue-100); color: var(--blue-500); }
+    .order-status-pill.pending { background: var(--gold-100); color: var(--gold-500); }
+
+    /* RIGHT: CHAT + ORDER DETAILS */
+    .chat-panel { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-xs); display: flex; flex-direction: column; height: calc(100vh - 120px); min-height: 500px; }
+
+    .chat-empty-state {
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 40px 20px; text-align: center;
+    }
+    .chat-empty-state .icon { font-size: 48px; margin-bottom: 12px; opacity: 0.4; }
+    .chat-empty-state h3 { font-size: 15px; font-weight: 800; color: var(--navy-900); margin-bottom: 4px; }
+    .chat-empty-state p { font-size: 12.5px; font-weight: 500; color: var(--gray-500); max-width: 320px; line-height: 1.5; }
+
+    .chat-active { display: none; flex-direction: column; height: 100%; }
+    .chat-active.visible { display: flex; }
+
+    /* ORDER HEADER */
+    .order-header {
+      padding: 14px 18px; border-bottom: 1px solid var(--gray-200);
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; flex-shrink: 0; background: var(--white);
+    }
+    .order-header-left { display: flex; align-items: center; gap: 12px; min-width: 0; }
+    .order-header-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--navy-800), var(--navy-900));
+      color: var(--gold-400); display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 800;
+    }
+    .order-header-info { min-width: 0; }
+    .order-header-name { font-size: 14px; font-weight: 800; color: var(--navy-900); }
+    .order-header-sub { font-size: 11px; font-weight: 500; color: var(--gray-500); margin-top: 1px; }
+    .order-header-sub .ref { color: var(--navy-700); font-weight: 700; }
+
+    .order-header-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .order-amount-big { text-align: right; }
+    .order-amount-big .amt { font-size: 16px; font-weight: 800; color: var(--navy-900); font-variant-numeric: tabular-nums; }
+    .order-amount-big .usd { font-size: 11px; font-weight: 600; color: var(--gray-500); margin-top: 1px; }
+
+    .order-status-badge-large {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 10px; font-weight: 800; padding: 5px 12px;
+      border-radius: var(--radius-pill); text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+    .order-status-badge-large .dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+    .order-status-badge-large.active { background: var(--green-100); color: var(--green-500); }
+    .order-status-badge-large.disputed { background: var(--red-100); color: var(--red-500); }
+    .order-status-badge-large.completed { background: var(--blue-100); color: var(--blue-500); }
+    .order-status-badge-large.pending { background: var(--gold-100); color: var(--gold-500); }
+
+    /* ORDER INFO STRIP */
+    .order-info-strip {
+      padding: 10px 18px;
+      border-bottom: 1px solid var(--gray-200);
+      background: var(--navy-50);
+      display: flex; gap: 20px; flex-wrap: wrap;
+      font-size: 11px; flex-shrink: 0;
+    }
+    .order-info-strip .info-item { display: flex; gap: 4px; align-items: center; }
+    .order-info-strip .info-item .lbl { color: var(--gray-500); font-weight: 600; }
+    .order-info-strip .info-item .val { color: var(--navy-900); font-weight: 800; font-variant-numeric: tabular-nums; }
+
+    /* TELEGRAM STATUS */
+    .telegram-strip {
+      padding: 8px 18px;
+      background: linear-gradient(135deg, var(--blue-100), #EFF6FF);
+      border-bottom: 1px solid rgba(37, 99, 235, 0.15);
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 11px; gap: 8px; flex-shrink: 0;
+    }
+    .telegram-strip-left { display: flex; align-items: center; gap: 6px; color: var(--blue-500); font-weight: 700; }
+    .telegram-strip-left .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--blue-500); }
+    .telegram-strip-right { display: flex; align-items: center; gap: 6px; }
+    .telegram-thread-tag {
+      background: var(--white); color: var(--blue-500); font-weight: 800;
+      font-size: 10px; padding: 2px 8px; border-radius: var(--radius-pill);
+      border: 1px solid rgba(37, 99, 235, 0.2);
+    }
+
+    /* CHAT BODY */
+    .chat-body {
+      flex: 1; overflow-y: auto;
+      padding: 18px;
+      background: var(--navy-50);
+      display: flex; flex-direction: column; gap: 10px;
+    }
+
+    .chat-message {
+      max-width: 72%;
+      padding: 10px 14px;
+      border-radius: 14px;
+      font-size: 12.5px;
+      line-height: 1.5;
+      font-weight: 500;
+      position: relative;
+    }
+    .chat-message.customer {
+      background: var(--white);
+      color: var(--navy-900);
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+      border: 1px solid var(--gray-200);
+    }
+    .chat-message.merchant {
+      background: var(--navy-900);
+      color: var(--white);
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+    .chat-message.admin {
+      background: var(--gold-500);
+      color: var(--navy-900);
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+    .chat-message .msg-label {
+      font-size: 9px; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.5px; opacity: 0.7;
+      margin-bottom: 3px; display: block;
+    }
+    .chat-message .msg-time {
+      font-size: 9.5px; font-weight: 600; opacity: 0.6;
+      margin-top: 4px; display: block;
+    }
+
+    /* QUICK ACTIONS BAR */
+    .chat-actions-bar {
+      display: flex; gap: 6px; padding: 10px 18px;
+      border-top: 1px solid var(--gray-200);
+      background: var(--white);
+      flex-shrink: 0;
+      flex-wrap: wrap;
+    }
+    .chat-action-btn {
+      padding: 7px 14px; border-radius: var(--radius-pill);
+      background: var(--navy-50); border: 1px solid var(--gray-200);
+      font-family: var(--font); font-size: 11px; font-weight: 700;
+      color: var(--navy-700); cursor: pointer; transition: all 0.15s;
+      display: inline-flex; align-items: center; gap: 5px;
+    }
+    .chat-action-btn:hover { background: var(--gold-100); border-color: var(--gold-500); }
+    .chat-action-btn.primary { background: linear-gradient(135deg, var(--green-500), #0B8A5E); color: var(--white); border: none; box-shadow: 0 2px 8px rgba(15, 157, 110, 0.3); }
+    .chat-action-btn.primary:hover { transform: translateY(-1px); }
+    .chat-action-btn.danger { color: var(--red-500); border-color: rgba(209, 67, 67, 0.3); }
+    .chat-action-btn.danger:hover { background: var(--red-100); border-color: var(--red-500); }
+    .chat-action-btn.gold { background: var(--gold-500); color: var(--navy-900); border: none; }
+    .chat-action-btn.gold:hover { background: var(--gold-400); }
+
+    /* CHAT INPUT */
+    .chat-input-wrap {
+      display: flex; gap: 8px; padding: 12px 18px;
+      border-top: 1px solid var(--gray-200);
+      background: var(--white); flex-shrink: 0;
+      align-items: flex-end;
+    }
+    .chat-role-selector {
+      display: flex; gap: 2px; background: var(--navy-50);
+      border-radius: var(--radius-xs); padding: 3px;
+      flex-shrink: 0;
+    }
+    .chat-role-btn {
+      padding: 5px 8px; border-radius: 6px; background: transparent;
+      border: none; cursor: pointer; font-family: var(--font);
+      font-size: 10px; font-weight: 700; color: var(--gray-500);
+      transition: all 0.15s; white-space: nowrap;
+    }
+    .chat-role-btn.active { background: var(--white); color: var(--navy-900); box-shadow: var(--shadow-xs); }
+
+    .chat-input {
+      flex: 1; padding: 10px 14px;
+      border: 1.5px solid var(--gray-200); border-radius: var(--radius-pill);
+      font-family: var(--font); font-size: 12.5px; font-weight: 500;
+      color: var(--navy-900); outline: none; resize: none;
+      max-height: 80px; min-height: 38px;
+    }
+    .chat-input:focus { border-color: var(--gold-500); }
+
+    .chat-send-btn {
+      padding: 0 18px; height: 38px;
+      background: linear-gradient(135deg, var(--green-500), #0B8A5E);
+      color: var(--white); border: none;
+      border-radius: var(--radius-pill);
+      font-family: var(--font); font-weight: 800; font-size: 12px;
+      cursor: pointer; flex-shrink: 0;
+      display: flex; align-items: center; gap: 6px;
+      box-shadow: 0 2px 8px rgba(15, 157, 110, 0.3);
+    }
+    .chat-send-btn:hover { transform: translateY(-1px); }
+    .chat-send-btn svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2.2; }
+
+    /* TOAST */
+    .toast { position: fixed; bottom: 24px; right: 24px; background: var(--navy-900); color: var(--white); padding: 12px 20px; border-radius: var(--radius-pill); font-size: 13px; font-weight: 700; z-index: 200; opacity: 0; pointer-events: none; transition: all 0.3s; max-width: 380px; box-shadow: 0 8px 24px rgba(10, 26, 47, 0.3); }
+    .toast.show { opacity: 1; transform: translateY(-4px); }
+
+    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(10, 26, 47, 0.5); backdrop-filter: blur(4px); z-index: 45; }
+    .sidebar-overlay.open { display: block; }
+
+    /* RESPONSIVE */
+    @media (max-width: 1100px) {
+      .content { grid-template-columns: 300px 1fr; }
+    }
+    @media (max-width: 900px) {
+      .sidebar { position: fixed; transform: translateX(-100%); }
+      .sidebar.open { transform: translateX(0); }
+      .menu-toggle { display: flex; }
+      .content { padding: 12px; grid-template-columns: 1fr; }
+      .topbar { padding: 12px 16px; }
+      .page-title-block h1 { font-size: 17px; }
+      .admin-chip { padding: 4px; }
+      .admin-chip .admin-name, .admin-chip .admin-role { display: none; }
+      .orders-panel { max-height: 380px; }
+      .chat-panel { height: calc(100vh - 200px); min-height: 500px; }
+      .chat-panel.mobile-hidden { display: none; }
+      .orders-panel.mobile-hidden { display: none; }
+    }
+    @media (max-width: 500px) {
+      .chat-role-selector { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <span class="blue">BLUE</span><span class="peak">PEAK</span>
+        <span class="admin-badge">Admin</span>
+      </div>
+      <div class="sidebar-email" id="sidebarEmail">admin@bluepeak.com</div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Overview</div>
+      <a href="admin-dashboard.html" class="nav-item"><span class="nav-ico">📊</span> Dashboard</a>
+      <div class="nav-section-label">Management</div>
+      <a href="admin-users.html" class="nav-item"><span class="nav-ico">👥</span> Users</a>
+      <a href="admin-merchants.html" class="nav-item"><span class="nav-ico">🤝</span> P2P Merchants</a>
+      <a href="admin-kyc.html" class="nav-item"><span class="nav-ico">🪪</span> KYC Reviews <span class="nav-badge" id="kycBadge">0</span></a>
+      <a href="admin-transactions.html" class="nav-item"><span class="nav-ico">💸</span> Transactions</a>
+      <a href="admin-p2p-orders.html" class="nav-item active"><span class="nav-ico">📋</span> P2P Orders <span class="nav-badge" id="ordersBadge">0</span></a>
+      <div class="nav-section-label">System</div>
+      <a href="admin-bots.html" class="nav-item"><span class="nav-ico">🤖</span> Bot Manager</a>
+      <a href="admin-settings.html" class="nav-item"><span class="nav-ico">⚙️</span> Settings</a>
+      <a href="admin-audit.html" class="nav-item"><span class="nav-ico">📜</span> Audit Log</a>
+    </nav>
+    <div class="sidebar-footer">
+      <button class="logout-btn" id="logoutBtn"><span>🚪</span> Sign Out</button>
+    </div>
+  </aside>
+
+  <div class="main-wrap">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+          <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+        <div class="page-title-block">
+          <h1>P2P Orders</h1>
+          <p id="orderCountSub">Live order chats, dispute resolution, and escrow control</p>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <div class="admin-chip" id="adminChip">
+          <div class="admin-avatar" id="adminAvatar">A</div>
+          <div>
+            <div class="admin-name" id="adminName">Admin</div>
+            <div class="admin-role">Super Admin</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="content">
+
+      <!-- LEFT: Orders list -->
+      <div class="orders-panel" id="ordersPanel">
+        <div class="orders-panel-header">
+          <h2>Conversations <span class="count" id="orderCountLabel">0</span></h2>
+          <div class="search-wrap-mini">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+            <input type="text" class="search-input-mini" id="searchInput" placeholder="Search order or user…">
+          </div>
+          <div class="order-filters" id="orderFilters">
+            <button class="order-filter-btn active" data-filter="all">All</button>
+            <button class="order-filter-btn" data-filter="active">Active</button>
+            <button class="order-filter-btn" data-filter="disputed">Disputed</button>
+            <button class="order-filter-btn" data-filter="completed">Completed</button>
+          </div>
+        </div>
+        <div class="order-list" id="orderList"></div>
+      </div>
+
+      <!-- RIGHT: Chat panel -->
+      <div class="chat-panel" id="chatPanel">
+
+        <!-- Empty state -->
+        <div class="chat-empty-state" id="chatEmptyState">
+          <div class="icon">💬</div>
+          <h3>Select a conversation</h3>
+          <p>Pick an order from the left to read the chat and reply as the merchant, or resolve a dispute.</p>
+        </div>
+
+        <!-- Active chat -->
+        <div class="chat-active" id="chatActive">
+          <div class="order-header">
+            <div class="order-header-left">
+              <div class="order-header-avatar" id="activeAvatar">M</div>
+              <div class="order-header-info">
+                <div class="order-header-name" id="activeMerchant">—</div>
+                <div class="order-header-sub" id="activeSub">Order <span class="ref">#—</span></div>
+              </div>
+            </div>
+            <div class="order-header-right">
+              <div class="order-amount-big">
+                <div class="amt" id="activeAmount">—</div>
+                <div class="usd" id="activeAmountUsd">—</div>
+              </div>
+              <span class="order-status-badge-large" id="activeStatus"><span class="dot"></span>Active</span>
+            </div>
+          </div>
+
+          <div class="order-info-strip">
+            <div class="info-item"><span class="lbl">Buyer:</span><span class="val" id="activeBuyer">—</span></div>
+            <div class="info-item"><span class="lbl">Rate:</span><span class="val" id="activeRate">—</span></div>
+            <div class="info-item"><span class="lbl">Payment:</span><span class="val" id="activePayment">—</span></div>
+            <div class="info-item"><span class="lbl">Created:</span><span class="val" id="activeCreated">—</span></div>
+          </div>
+
+          <div class="telegram-strip" id="telegramStrip">
+            <div class="telegram-strip-left">
+              <span class="dot"></span>
+              <span>Telegram bridge connected</span>
+            </div>
+            <div class="telegram-strip-right">
+              <span class="telegram-thread-tag" id="telegramThreadTag">Thread #—</span>
+            </div>
+          </div>
+
+          <div class="chat-body" id="chatBody"></div>
+
+          <div class="chat-actions-bar">
+            <button class="chat-action-btn" data-action="confirm-payment">✓ Confirm Payment</button>
+            <button class="chat-action-btn primary" data-action="release">🔓 Release Escrow</button>
+            <button class="chat-action-btn danger" data-action="cancel">✕ Cancel Order</button>
+            <button class="chat-action-btn gold" data-action="dispute">⚖️ Open Dispute</button>
+          </div>
+
+          <div class="chat-input-wrap">
+            <div class="chat-role-selector" id="chatRoleSelector">
+              <button class="chat-role-btn active" data-role="merchant">As merchant</button>
+              <button class="chat-role-btn" data-role="admin">As admin</button>
+            </div>
+            <textarea class="chat-input" id="chatInput" placeholder="Type your message…" rows="1"></textarea>
+            <button class="chat-send-btn" id="chatSendBtn">
+              <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              Send
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    (function() {
+      'use strict';
+
+      const $ = (s) => document.querySelector(s);
+      const $$ = (s) => document.querySelectorAll(s);
+
+      function showToast(msg) {
+        const t = $('#toast');
+        t.textContent = msg;
+        t.classList.add('show');
+        clearTimeout(t._t);
+        t._t = setTimeout(() => t.classList.remove('show'), 2600);
+      }
+
+      // AUTH GUARD
+      const session = localStorage.getItem('bp_admin_session');
+      if (!session) { window.location.href = 'admin-login.html'; return; }
+      let admin;
+      try {
+        admin = JSON.parse(session);
+        const ageMin = (Date.now() - new Date(admin.loginTime).getTime()) / 60000;
+        if (ageMin > 30) { localStorage.removeItem('bp_admin_session'); window.location.href = 'admin-login.html'; return; }
+      } catch (e) { window.location.href = 'admin-login.html'; return; }
+
+      $('#adminName').textContent = admin.name || 'Admin';
+      $('#adminAvatar').textContent = (admin.name || 'Admin').charAt(0).toUpperCase();
+      $('#sidebarEmail').textContent = admin.email;
+
+      // SIDEBAR
+      $('#menuToggle').addEventListener('click', () => {
+        $('#sidebar').classList.add('open');
+        $('#sidebarOverlay').classList.add('open');
+      });
+      $('#sidebarOverlay').addEventListener('click', () => {
+        $('#sidebar').classList.remove('open');
+        $('#sidebarOverlay').classList.remove('open');
+      });
+      function logout() {
+        if (confirm('Sign out of admin console?')) {
+          localStorage.removeItem('bp_admin_session');
+          window.location.href = 'admin-login.html';
+        }
+      }
+      $('#logoutBtn').addEventListener('click', logout);
+      $('#adminChip').addEventListener('click', logout);
+
+      // ============================================================
+      // ORDERS DATA
+      // ============================================================
+      function loadOrders() {
+        let chats = JSON.parse(localStorage.getItem('bp_admin_chats') || '[]');
+
+        if (chats.length === 0) {
+          const now = Date.now();
+          chats = [
+            {
+              id: 'chat-1', order: 'ORD-8821', merchant: 'Kwame_P2P', merchantInitial: 'K',
+              buyer: 'Amina Okafor', buyerInitial: 'A', asset: 'USDT', amount: '100.00', usdAmount: 103,
+              side: 'Buy', rate: '$1.03 / USDT', payment: 'M-Pesa', status: 'active', unread: true,
+              created: new Date(now - 1800000).toISOString(),
+              telegramThread: '4521',
+              messages: [
+                { from: 'buyer', text: 'Hi, I sent 100 USD via M-Pesa. Reference MPX8842190.', time: '14:22', ts: now - 1800000 },
+                { from: 'merchant', text: 'Thanks! Confirming now, please give me a moment.', time: '14:23', ts: now - 1740000 },
+                { from: 'buyer', text: 'Sure, waiting.', time: '14:24', ts: now - 1680000 },
+              ],
+            },
+            {
+              id: 'chat-2', order: 'ORD-8834', merchant: 'ChidiSwift', merchantInitial: 'C',
+              buyer: 'Lerato Dlamini', buyerInitial: 'L', asset: 'BTC', amount: '0.0032', usdAmount: 259.20,
+              side: 'Sell', rate: '$81,000 / BTC', payment: 'GTBank', status: 'active', unread: true,
+              created: new Date(now - 900000).toISOString(),
+              telegramThread: '4522',
+              messages: [
+                { from: 'buyer', text: 'Payment sent to your GTBank account. Please confirm.', time: '15:10', ts: now - 900000 },
+              ],
+            },
+            {
+              id: 'chat-3', order: 'ORD-8845', merchant: 'FatimaExchange', merchantInitial: 'F',
+              buyer: 'Hassan Mwinyi', buyerInitial: 'H', asset: 'USDT', amount: '250.00', usdAmount: 257.50,
+              side: 'Buy', rate: '$1.03 / USDT', payment: 'M-Pesa Tanzania', status: 'disputed', unread: false,
+              created: new Date(now - 5400000).toISOString(),
+              telegramThread: '4523',
+              messages: [
+                { from: 'buyer', text: 'I sent the payment 30 minutes ago and still no release.', time: '13:45', ts: now - 5400000 },
+                { from: 'merchant', text: 'I need to verify with my bank first.', time: '13:52', ts: now - 5000000 },
+                { from: 'buyer', text: 'This is unacceptable, I am opening a dispute.', time: '13:58', ts: now - 4800000 },
+              ],
+            },
+            {
+              id: 'chat-4', order: 'ORD-8856', merchant: 'DavidSwift', merchantInitial: 'D',
+              buyer: 'Kelvin M.', buyerInitial: 'K', asset: 'USDT', amount: '50.00', usdAmount: 51.50,
+              side: 'Buy', rate: '$1.03 / USDT', payment: 'Zelle', status: 'completed', unread: false,
+              created: new Date(now - 10800000).toISOString(),
+              telegramThread: '4525',
+              messages: [
+                { from: 'buyer', text: 'Payment sent via Zelle.', time: '11:20', ts: now - 10800000 },
+                { from: 'merchant', text: 'Confirmed. Released. Thanks!', time: '11:22', ts: now - 10680000 },
+              ],
+            },
+            {
+              id: 'chat-5', order: 'ORD-8862', merchant: 'SiphoMarkets', merchantInitial: 'S',
+              buyer: 'Thabo Mokoena', buyerInitial: 'T', asset: 'USDT', amount: '500.00', usdAmount: 515,
+              side: 'Sell', rate: '$1.03 / USDT', payment: 'FNB', status: 'pending', unread: true,
+              created: new Date(now - 600000).toISOString(),
+              telegramThread: '4524',
+              messages: [
+                { from: 'buyer', text: 'Just placed the order, sending payment now.', time: '14:50', ts: now - 600000 },
+              ],
+            },
+          ];
+          localStorage.setItem('bp_admin_chats', JSON.stringify(chats));
+        }
+
+        return chats;
+      }
+
+      let orders = loadOrders();
+      let filtered = [...orders];
+      let activeFilter = 'all';
+      let activeOrderId = null;
+      let chatRole = 'merchant';
+
+      function saveOrders() {
+        localStorage.setItem('bp_admin_chats', JSON.stringify(orders));
+      }
+
+      function logAction(action, target, details) {
+        const log = JSON.parse(localStorage.getItem('bp_audit_log') || '[]');
+        log.push({ ts: Date.now(), admin: admin.email, action, target, details });
+        if (log.length > 500) log.splice(0, log.length - 500);
+        localStorage.setItem('bp_audit_log', JSON.stringify(log));
+      }
+
+      // ============================================================
+      // RENDER ORDER LIST
+      // ============================================================
+      function applyFilters() {
+        const q = ($('#searchInput').value || '').toLowerCase().trim();
+        filtered = orders.filter(o => {
+          if (activeFilter !== 'all' && o.status !== activeFilter) return false;
+          if (q && !(o.order.toLowerCase().includes(q) || o.buyer.toLowerCase().includes(q) || o.merchant.toLowerCase().includes(q))) return false;
+          return true;
+        });
+        // Sort: disputed first, then unread, then by created desc
+        filtered.sort((a, b) => {
+          if (a.status === 'disputed' && b.status !== 'disputed') return -1;
+          if (b.status === 'disputed' && a.status !== 'disputed') return 1;
+          if (a.unread && !b.unread) return -1;
+          if (b.unread && !a.unread) return 1;
+          return new Date(b.created) - new Date(a.created);
+        });
+        renderOrderList();
+        updateBadges();
+      }
+
+      function updateBadges() {
+        const unread = orders.filter(o => o.unread).length;
+        const disputed = orders.filter(o => o.status === 'disputed').length;
+        $('#ordersBadge').textContent = unread || '0';
+        $('#orderCountLabel').textContent = filtered.length;
+        $('#orderCountSub').textContent = `${orders.length} total orders · ${disputed} disputed · ${unread} unread`;
+      }
+
+      function renderOrderList() {
+        const list = $('#orderList');
+        if (filtered.length === 0) {
+          list.innerHTML = `<div style="padding:40px 20px;text-align:center;font-size:12.5px;color:var(--gray-500);font-weight:500;">No orders match your filter</div>`;
+          return;
+        }
+        list.innerHTML = filtered.map(o => {
+          const lastMsg = o.messages[o.messages.length - 1];
+          const preview = lastMsg ? lastMsg.text : 'No messages';
+          const isActive = o.id === activeOrderId;
+          return `
+            <div class="order-item ${isActive ? 'active' : ''} ${o.unread ? 'unread' : ''}" data-order-id="${o.id}">
+              <div class="order-avatar">${o.buyerInitial}</div>
+              <div class="order-info">
+                <div class="order-title-row">
+                  <span class="order-title">${escapeHtml(o.buyer)}</span>
+                  <span class="order-status-pill ${o.status}">${o.status}</span>
+                </div>
+                <div class="order-preview">${escapeHtml(preview)}</div>
+                <div class="order-meta">
+                  <span>${o.order}</span>
+                  <span class="sep"></span>
+                  <span>${o.side} ${o.asset}</span>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        list.querySelectorAll('.order-item').forEach(item => {
+          item.addEventListener('click', () => openOrder(item.dataset.orderId));
+        });
+      }
+
+      function escapeHtml(str) {
+        return (str || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+      }
+
+      // ============================================================
+      // OPEN ORDER
+      // ============================================================
+      function openOrder(id) {
+        const o = orders.find(x => x.id === id);
+        if (!o) return;
+        activeOrderId = id;
+        o.unread = false;
+        saveOrders();
+
+        // Update list
+        renderOrderList();
+
+        // Fill header
+        $('#activeAvatar').textContent = o.buyerInitial;
+        $('#activeMerchant').textContent = o.buyer;
+        $('#activeSub').innerHTML = `Order <span class="ref">${o.order}</span> · Merchant: ${escapeHtml(o.merchant)}`;
+        $('#activeAmount').textContent = o.amount + ' ' + o.asset;
+        $('#activeAmountUsd').textContent = '$' + o.usdAmount.toFixed(2) + ' USD';
+        $('#activeStatus').className = 'order-status-badge-large ' + o.status;
+        $('#activeStatus').innerHTML = `<span class="dot"></span>${o.status}`;
+        $('#activeBuyer').textContent = o.buyer;
+        $('#activeRate').textContent = o.rate;
+        $('#activePayment').textContent = o.payment;
+        $('#activeCreated').textContent = new Date(o.created).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+        // Telegram strip
+        if (o.telegramThread) {
+          $('#telegramStrip').style.display = 'flex';
+          $('#telegramThreadTag').textContent = 'Thread #' + o.telegramThread;
+        } else {
+          $('#telegramStrip').style.display = 'none';
+        }
+
+        // Show chat
+        $('#chatEmptyState').style.display = 'none';
+        $('#chatActive').classList.add('visible');
+
+        renderChat(o);
+      }
+
+      function renderChat(order) {
+        const body = $('#chatBody');
+        if (!order.messages || order.messages.length === 0) {
+          body.innerHTML = `<div style="text-align:center;padding:30px 20px;font-size:12px;color:var(--gray-500);font-weight:500;">No messages yet. Start the conversation below.</div>`;
+          return;
+        }
+        body.innerHTML = order.messages.map(m => {
+          const isMerchant = m.from === 'merchant';
+          const isAdmin = m.from === 'admin';
+          const label = isMerchant
+            ? escapeHtml(order.merchant) + ' (merchant)'
+            : (isAdmin ? 'Admin (you)' : escapeHtml(order.buyer) + ' (buyer)');
+          const cls = isAdmin ? 'admin' : (isMerchant ? 'merchant' : 'customer');
+          return `
+            <div class="chat-message ${cls}">
+              <span class="msg-label">${label}</span>
+              ${escapeHtml(m.text)}
+              <span class="msg-time">${m.time}</span>
+            </div>
+          `;
+        }).join('');
+        body.scrollTop = body.scrollHeight;
+      }
+
+      // ============================================================
+      // SEND MESSAGE
+      // ============================================================
+      function sendMessage() {
+        const input = $('#chatInput');
+        const text = input.value.trim();
+        if (!text || !activeOrderId) return;
+
+        const order = orders.find(x => x.id === activeOrderId);
+        if (!order) return;
+
+        const now = new Date();
+        const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+        order.messages.push({
+          from: chatRole,
+          text: text,
+          time: time,
+          ts: now.getTime(),
+        });
+        saveOrders();
+        input.value = '';
+        input.style.height = 'auto';
+
+        // Sync to user-side chat key
+        const userChats = JSON.parse(localStorage.getItem('bp_p2p_chat_' + order.order) || '[]');
+        userChats.push({
+          sender: chatRole === 'admin' ? 'admin' : 'merchant',
+          merchant: order.merchant,
+          text: text,
+          time: time,
+          ts: now.getTime(),
+        });
+        localStorage.setItem('bp_p2p_chat_' + order.order, JSON.stringify(userChats));
+
+        renderChat(order);
+        showToast(`Message sent as ${chatRole}`);
+
+        // Log if admin
+        if (chatRole === 'admin') {
+          logAction('admin_chat_message', order.order, { text: text.substring(0, 60), to: order.buyer });
+        }
+      }
+
+      $('#chatSendBtn').addEventListener('click', sendMessage);
+      $('#chatInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          sendMessage();
+        }
+      });
+
+      // Auto-grow textarea
+      $('#chatInput').addEventListener('input', function() {
+        this.style.height = 'auto';
+        this.style.height = Math.min(this.scrollHeight, 80) + 'px';
+      });
+
+      // Role selector
+      $$('#chatRoleSelector .chat-role-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          $$('#chatRoleSelector .chat-role-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          chatRole = btn.dataset.role;
+          showToast(chatRole === 'admin' ? 'Replying as admin' : 'Replying as merchant');
+        });
+      });
+
+      // ============================================================
+      // QUICK ACTIONS
+      // ============================================================
+      $$('.chat-action-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (!activeOrderId) return;
+          const order = orders.find(x => x.id === activeOrderId);
+          if (!order) return;
+
+          const action = btn.dataset.action;
+          const nowTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+          if (action === 'confirm-payment') {
+            order.messages.push({ from: 'merchant', text: 'Payment confirmed. Preparing to release escrow.', time: nowTime, ts: Date.now() });
+            saveOrders();
+            renderChat(order);
+            showToast('Payment confirmed');
+          } else if (action === 'release') {
+            if (!confirm(`Release escrow for ${order.order}?\n\nThis will release ${order.amount} ${order.asset} to ${order.buyer}.`)) return;
+            order.status = 'completed';
+            order.messages.push({ from: 'merchant', text: 'Escrow released. Thank you for trading!', time: nowTime, ts: Date.now() });
+            saveOrders();
+            logAction('escrow_released', order.order, { buyer: order.buyer, amount: order.amount, asset: order.asset });
+            renderChat(order);
+            $('#activeStatus').className = 'order-status-badge-large completed';
+            $('#activeStatus').innerHTML = `<span class="dot"></span>completed`;
+            applyFilters();
+            showToast('Escrow released');
+          } else if (action === 'cancel') {
+            const reason = prompt('Cancel order — reason (shown to both parties):', 'Cancelled by admin');
+            if (!reason) return;
+            order.status = 'completed';
+            order.messages.push({ from: 'admin', text: 'Order cancelled: ' + reason, time: nowTime, ts: Date.now() });
+            saveOrders();
+            logAction('order_cancelled', order.order, { reason, buyer: order.buyer });
+            renderChat(order);
+            showToast('Order cancelled');
+          } else if (action === 'dispute') {
+            order.status = 'disputed';
+            order.messages.push({ from: 'admin', text: 'Dispute opened. Both parties may submit evidence.', time: nowTime, ts: Date.now() });
+            saveOrders();
+            logAction('dispute_opened', order.order, { buyer: order.buyer });
+            renderChat(order);
+            $('#activeStatus').className = 'order-status-badge-large disputed';
+            $('#activeStatus').innerHTML = `<span class="dot"></span>disputed`;
+            applyFilters();
+            showToast('Dispute opened');
+          }
+        });
+      });
+
+      // ============================================================
+      // FILTERS
+      // ============================================================
+      $('#searchInput').addEventListener('input', applyFilters);
+      $$('.order-filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          $$('.order-filter-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          activeFilter = btn.dataset.filter;
+          applyFilters();
+        });
+      });
+
+      // INIT
+      applyFilters();
+
+    })();
+  </script>
+</body>
+</html>
