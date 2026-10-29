@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>Bot Manager — Admin — Bluepeak Capital</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy-900: #0A1A2F; --navy-800: #10243E; --navy-700: #1A3352;
+      --navy-100: #E8EDF4; --navy-50: #F2F5FA;
+      --gold-500: #C9A84C; --gold-400: #DDBE6B; --gold-100: #FBF5E6;
+      --green-500: #0F9D6E; --green-100: #E6F7F1;
+      --red-500: #D14343; --red-100: #FDECEC;
+      --blue-500: #2563EB; --blue-100: #DBEAFE;
+      --purple-500: #7C3AED; --purple-100: #EDE9FE;
+      --white: #FFFFFF; --gray-100: #F1F4F9; --gray-200: #E3E8EF;
+      --gray-300: #CDD5E0; --gray-400: #94A3B8; --gray-500: #64748B; --gray-600: #475569;
+      --shadow-xs: 0 1px 2px rgba(10, 26, 47, 0.04);
+      --shadow-sm: 0 2px 8px rgba(10, 26, 47, 0.05);
+      --shadow-md: 0 8px 24px rgba(10, 26, 47, 0.07);
+      --shadow-lg: 0 16px 48px rgba(10, 26, 47, 0.10);
+      --radius-xs: 8px; --radius-sm: 12px; --radius-md: 16px;
+      --radius-lg: 20px; --radius-pill: 999px;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    html { height: 100%; }
+    body {
+      font-family: var(--font); background-color: var(--navy-50);
+      color: var(--navy-900); line-height: 1.45;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh; display: flex;
+    }
+
+    /* SIDEBAR */
+    .sidebar { width: 250px; background: var(--navy-900); color: var(--white); display: flex; flex-direction: column; flex-shrink: 0; position: sticky; top: 0; height: 100vh; overflow-y: auto; z-index: 50; transition: transform 0.3s; }
+    .sidebar-header { padding: 20px 20px 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+    .sidebar-logo { display: flex; align-items: baseline; gap: 2px; margin-bottom: 4px; }
+    .sidebar-logo .blue { color: var(--white); font-size: 19px; font-weight: 800; letter-spacing: -0.6px; }
+    .sidebar-logo .peak { color: var(--gold-500); font-size: 19px; font-weight: 800; letter-spacing: -0.6px; }
+    .sidebar-logo .admin-badge { font-size: 8px; font-weight: 800; color: var(--gold-400); background: rgba(201, 168, 76, 0.15); border: 1px solid rgba(201, 168, 76, 0.3); padding: 2px 6px; border-radius: 3px; letter-spacing: 1px; margin-left: 6px; text-transform: uppercase; }
+    .sidebar-email { font-size: 11px; font-weight: 500; color: var(--gray-400); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .sidebar-nav { flex: 1; padding: 14px 12px; display: flex; flex-direction: column; gap: 2px; }
+    .nav-section-label { font-size: 9px; font-weight: 800; color: var(--gray-500); text-transform: uppercase; letter-spacing: 1.2px; padding: 14px 12px 6px; }
+    .nav-item { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: var(--radius-xs); background: none; border: none; cursor: pointer; color: var(--gray-300); font-family: var(--font); font-size: 13px; font-weight: 600; text-align: left; text-decoration: none; transition: all 0.15s; width: 100%; }
+    .nav-item:hover { background: rgba(255, 255, 255, 0.06); color: var(--white); }
+    .nav-item.active { background: rgba(201, 168, 76, 0.15); color: var(--gold-400); font-weight: 700; border-left: 2px solid var(--gold-500); padding-left: 10px; }
+    .nav-item .nav-ico { width: 18px; text-align: center; font-size: 15px; flex-shrink: 0; }
+    .nav-item .nav-badge { margin-left: auto; background: var(--red-500); color: var(--white); font-size: 9px; font-weight: 800; padding: 2px 6px; border-radius: var(--radius-pill); min-width: 18px; text-align: center; }
+    .sidebar-footer { padding: 16px 20px; border-top: 1px solid rgba(255, 255, 255, 0.08); }
+    .logout-btn { display: flex; align-items: center; gap: 10px; width: 100%; padding: 10px 12px; background: rgba(209, 67, 67, 0.12); border: 1px solid rgba(209, 67, 67, 0.25); border-radius: var(--radius-xs); color: #FCA5A5; font-family: var(--font); font-size: 12.5px; font-weight: 700; cursor: pointer; transition: all 0.15s; }
+    .logout-btn:hover { background: rgba(209, 67, 67, 0.2); }
+
+    /* MAIN */
+    .main-wrap { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+    .topbar { background: var(--white); border-bottom: 1px solid var(--gray-200); padding: 14px 28px; display: flex; align-items: center; justify-content: space-between; gap: 16px; position: sticky; top: 0; z-index: 40; }
+    .topbar-left { display: flex; align-items: center; gap: 16px; flex-shrink: 1; min-width: 0; }
+    .menu-toggle { display: none; background: none; border: none; padding: 6px; cursor: pointer; color: var(--navy-900); border-radius: var(--radius-xs); }
+    .menu-toggle:hover { background: var(--navy-50); }
+    .menu-toggle svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; }
+    .page-title-block h1 { font-size: 20px; font-weight: 800; color: var(--navy-900); letter-spacing: -0.5px; margin-bottom: 2px; }
+    .page-title-block p { font-size: 12px; font-weight: 500; color: var(--gray-500); }
+    .topbar-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .admin-chip { display: flex; align-items: center; gap: 10px; padding: 4px 14px 4px 4px; background: var(--navy-50); border: 1px solid var(--gray-200); border-radius: var(--radius-pill); cursor: pointer; transition: all 0.15s; }
+    .admin-chip:hover { background: var(--gold-100); border-color: var(--gold-500); }
+    .admin-avatar { width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg, var(--navy-900), var(--navy-700)); color: var(--gold-400); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; }
+    .admin-name { font-size: 12px; font-weight: 700; color: var(--navy-900); }
+    .admin-role { font-size: 9.5px; font-weight: 600; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.4px; }
+
+    /* CONTENT */
+    .content { flex: 1; padding: 20px 24px 32px; max-width: 1500px; width: 100%; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
+
+    /* STAT CARDS */
+    .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .stat-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 16px 18px; box-shadow: var(--shadow-xs); }
+    .stat-card .stat-label { font-size: 10.5px; font-weight: 700; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 6px; display: flex; align-items: center; gap: 5px; }
+    .stat-card .stat-value { font-size: 22px; font-weight: 800; color: var(--navy-900); font-variant-numeric: tabular-nums; letter-spacing: -0.5px; }
+    .stat-card .stat-sub { font-size: 11px; font-weight: 600; color: var(--gray-500); margin-top: 4px; display: flex; align-items: center; gap: 4px; }
+    .stat-card .stat-sub .up { color: var(--green-500); }
+    .stat-card .stat-sub .down { color: var(--red-500); }
+    .stat-card.green .stat-value { color: var(--green-500); }
+    .stat-card.red .stat-value { color: var(--red-500); }
+
+    /* LAYOUT: 2 columns */
+    .main-grid { display: grid; grid-template-columns: 1fr 380px; gap: 16px; align-items: start; }
+
+    /* PANELS */
+    .panel { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-xs); }
+    .panel-header { padding: 14px 18px; border-bottom: 1px solid var(--gray-200); display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+    .panel-header h2 { font-size: 13px; font-weight: 800; color: var(--navy-900); display: flex; align-items: center; gap: 8px; }
+    .panel-header h2 .count { font-size: 10px; font-weight: 700; color: var(--gray-500); background: var(--gray-100); padding: 2px 8px; border-radius: var(--radius-pill); }
+
+    /* BOT LIST */
+    .bot-toolbar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+    .search-wrap-mini { position: relative; }
+    .search-wrap-mini svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 14px; height: 14px; stroke: var(--gray-500); fill: none; stroke-width: 2; pointer-events: none; }
+    .search-input-mini { width: 220px; padding: 8px 12px 8px 34px; border: 1.5px solid var(--gray-200); border-radius: var(--radius-pill); font-family: var(--font); font-size: 12px; font-weight: 500; color: var(--navy-900); outline: none; transition: border 0.2s; background: var(--navy-50); }
+    .search-input-mini:focus { border-color: var(--gold-500); background: var(--white); }
+    .search-input-mini::placeholder { color: var(--gray-400); }
+
+    .bot-filters { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+    .bot-filters::-webkit-scrollbar { display: none; }
+    .filter-btn { padding: 5px 10px; border-radius: var(--radius-pill); background: var(--white); border: 1px solid var(--gray-200); font-family: var(--font); font-size: 10.5px; font-weight: 700; color: var(--gray-500); cursor: pointer; transition: all 0.15s; white-space: nowrap; flex-shrink: 0; }
+    .filter-btn:hover { border-color: var(--gold-500); }
+    .filter-btn.active { background: var(--navy-900); color: var(--white); border-color: var(--navy-900); }
+
+    .bot-list { max-height: 620px; overflow-y: auto; }
+    .bot-row { display: grid; grid-template-columns: 36px 1fr auto auto auto; gap: 12px; align-items: center; padding: 13px 18px; border-bottom: 1px solid var(--gray-100); cursor: pointer; transition: background 0.15s; }
+    .bot-row:hover { background: var(--navy-50); }
+    .bot-row.selected { background: var(--gold-100); border-left: 3px solid var(--gold-500); padding-left: 15px; }
+    .bot-avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--navy-800), var(--navy-900)); color: var(--gold-400); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; flex-shrink: 0; }
+    .bot-info { min-width: 0; }
+    .bot-name { font-size: 12.5px; font-weight: 800; color: var(--navy-900); display: flex; align-items: center; gap: 6px; }
+    .bot-owner { font-size: 10.5px; font-weight: 500; color: var(--gray-500); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .bot-strategy { font-size: 9.5px; font-weight: 600; color: var(--gray-400); margin-top: 1px; }
+
+    .bot-pnl { text-align: right; flex-shrink: 0; }
+    .bot-pnl .pnl-val { font-size: 12.5px; font-weight: 800; font-variant-numeric: tabular-nums; }
+    .bot-pnl .pnl-val.up { color: var(--green-500); }
+    .bot-pnl .pnl-val.down { color: var(--red-500); }
+    .bot-pnl .pnl-sub { font-size: 9.5px; font-weight: 600; color: var(--gray-400); }
+
+    .bot-status { display: inline-flex; align-items: center; gap: 5px; font-size: 9.5px; font-weight: 800; padding: 4px 10px; border-radius: var(--radius-pill); text-transform: uppercase; letter-spacing: 0.4px; flex-shrink: 0; }
+    .bot-status .dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+    .bot-status.running { background: var(--green-100); color: var(--green-500); }
+    .bot-status.paused { background: var(--gold-100); color: var(--gold-500); }
+    .bot-status.stopped { background: var(--gray-100); color: var(--gray-500); }
+    .bot-status.error { background: var(--red-100); color: var(--red-500); }
+
+    .bot-power { width: 34px; height: 34px; border-radius: 50%; border: 1.5px solid var(--gray-200); background: var(--white); cursor: pointer; font-size: 13px; display: flex; align-items: center; justify-content: center; transition: all 0.15s; flex-shrink: 0; }
+    .bot-power:hover { border-color: var(--gold-500); background: var(--gold-100); }
+    .bot-power.on { background: var(--green-100); border-color: rgba(15, 157, 110, 0.35); }
+
+    /* RIGHT COLUMN: DETAIL + PRICES + LOG */
+    .right-col { display: flex; flex-direction: column; gap: 16px; }
+
+    /* DETAIL CARD */
+    .detail-body { padding: 16px 18px; }
+    .detail-empty { padding: 36px 20px; text-align: center; color: var(--gray-500); font-size: 12.5px; font-weight: 500; }
+    .detail-empty .icon { font-size: 36px; opacity: 0.4; display: block; margin-bottom: 10px; }
+    .detail-name-row { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+    .detail-name { font-size: 15px; font-weight: 800; color: var(--navy-900); }
+    .detail-owner { font-size: 11.5px; font-weight: 500; color: var(--gray-500); margin-bottom: 14px; }
+
+    .detail-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
+    .detail-stat { background: var(--navy-50); border-radius: var(--radius-sm); padding: 10px 12px; }
+    .detail-stat .lbl { font-size: 9px; font-weight: 800; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
+    .detail-stat .val { font-size: 14px; font-weight: 800; color: var(--navy-900); font-variant-numeric: tabular-nums; }
+    .detail-stat .val.up { color: var(--green-500); }
+    .detail-stat .val.down { color: var(--red-500); }
+
+    .detail-section-label { font-size: 9.5px; font-weight: 800; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 7px; }
+    .detail-row { display: flex; justify-content: space-between; font-size: 11.5px; padding: 5px 0; border-bottom: 1px solid var(--gray-100); }
+    .detail-row:last-child { border-bottom: none; }
+    .detail-row .lbl { color: var(--gray-500); font-weight: 600; }
+    .detail-row .val { color: var(--navy-900); font-weight: 800; font-variant-numeric: tabular-nums; }
+
+    .detail-actions { display: flex; gap: 6px; margin-top: 14px; flex-wrap: wrap; }
+    .btn { padding: 8px 14px; border-radius: var(--radius-pill); font-family: var(--font); font-size: 11px; font-weight: 700; cursor: pointer; transition: all 0.15s; border: 1px solid transparent; display: inline-flex; align-items: center; gap: 5px; }
+    .btn:hover { transform: translateY(-1px); }
+    .btn.primary { background: linear-gradient(135deg, var(--green-500), #0B8A5E); color: var(--white); box-shadow: 0 2px 8px rgba(15, 157, 110, 0.3); }
+    .btn.gold { background: var(--gold-500); color: var(--navy-900); }
+    .btn.gold:hover { background: var(--gold-400); }
+    .btn.outline { background: var(--white); border-color: var(--gray-200); color: var(--navy-700); }
+    .btn.outline:hover { border-color: var(--gold-500); background: var(--gold-100); }
+    .btn.danger { background: var(--red-100); color: var(--red-500); border-color: rgba(209, 67, 67, 0.3); }
+    .btn.danger:hover { background: var(--red-500); color: var(--white); }
+
+    /* PRICES */
+    .price-list { padding: 6px 0; }
+    .price-row { display: flex; align-items: center; justify-content: space-between; padding: 9px 18px; border-bottom: 1px solid var(--gray-100); }
+    .price-row:last-child { border-bottom: none; }
+    .price-left { display: flex; align-items: center; gap: 10px; }
+    .price-icon { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; flex-shrink: 0; }
+    .price-icon.btc { background: #FEF3C7; color: #B45309; }
+    .price-icon.eth { background: var(--purple-100); color: var(--purple-500); }
+    .price-icon.usdt { background: var(--green-100); color: var(--green-500); }
+    .price-icon.sol { background: var(--blue-100); color: var(--blue-500); }
+    .price-sym { font-size: 12px; font-weight: 800; color: var(--navy-900); }
+    .price-name { font-size: 10px; font-weight: 500; color: var(--gray-500); }
+    .price-right { text-align: right; }
+    .price-val { font-size: 12.5px; font-weight: 800; color: var(--navy-900); font-variant-numeric: tabular-nums; }
+    .price-chg { font-size: 10px; font-weight: 700; }
+    .price-chg.up { color: var(--green-500); }
+    .price-chg.down { color: var(--red-500); }
+    .price-live { display: inline-flex; align-items: center; gap: 4px; font-size: 9px; font-weight: 800; color: var(--green-500); text-transform: uppercase; letter-spacing: 0.5px; }
+    .price-live .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green-500); animation: pulse 1.6s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+    /* LOG */
+    .log-list { max-height: 260px; overflow-y: auto; padding: 6px 0; font-family: 'SF Mono', 'Fira Code', monospace; }
+    .log-line { padding: 6px 18px; font-size: 10.5px; line-height: 1.5; border-bottom: 1px solid var(--gray-100); display: flex; gap: 8px; }
+    .log-line:last-child { border-bottom: none; }
+    .log-ts { color: var(--gray-400); flex-shrink: 0; }
+    .log-tag { font-weight: 800; flex-shrink: 0; }
+    .log-tag.buy { color: var(--green-500); }
+    .log-tag.sell { color: var(--red-500); }
+    .log-tag.sys { color: var(--blue-500); }
+    .log-msg { color: var(--gray-600); font-weight: 500; }
+
+    /* TOAST */
+    .toast { position: fixed; bottom: 24px; right: 24px; background: var(--navy-900); color: var(--white); padding: 12px 20px; border-radius: var(--radius-pill); font-size: 13px; font-weight: 700; z-index: 200; opacity: 0; pointer-events: none; transition: all 0.3s; max-width: 380px; box-shadow: 0 8px 24px rgba(10, 26, 47, 0.3); }
+    .toast.show { opacity: 1; transform: translateY(-4px); }
+
+    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(10, 26, 47, 0.5); backdrop-filter: blur(4px); z-index: 45; }
+    .sidebar-overlay.open { display: block; }
+
+    /* RESPONSIVE */
+    @media (max-width: 1200px) {
+      .main-grid { grid-template-columns: 1fr 340px; }
+    }
+    @media (max-width: 1000px) {
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .main-grid { grid-template-columns: 1fr; }
+      .right-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    }
+    @media (max-width: 900px) {
+      .sidebar { position: fixed; transform: translateX(-100%); }
+      .sidebar.open { transform: translateX(0); }
+      .menu-toggle { display: flex; }
+      .content { padding: 12px; }
+      .topbar { padding: 12px 16px; }
+      .page-title-block h1 { font-size: 17px; }
+      .admin-chip { padding: 4px; }
+      .admin-chip .admin-name, .admin-chip .admin-role { display: none; }
+      .bot-row { grid-template-columns: 36px 1fr auto auto; }
+      .bot-strategy { display: none; }
+    }
+    @media (max-width: 600px) {
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .right-col { grid-template-columns: 1fr; }
+      .bot-row { grid-template-columns: 36px 1fr auto; gap: 8px; padding: 11px 14px; }
+      .bot-power { display: none; }
+      .search-input-mini { width: 100%; }
+      .bot-toolbar { width: 100%; }
+      .search-wrap-mini { flex: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <span class="blue">BLUE</span><span class="peak">PEAK</span>
+        <span class="admin-badge">Admin</span>
+      </div>
+      <div class="sidebar-email" id="sidebarEmail">admin@bluepeak.com</div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Overview</div>
+      <a href="admin-dashboard.html" class="nav-item"><span class="nav-ico">📊</span> Dashboard</a>
+      <div class="nav-section-label">Management</div>
+      <a href="admin-users.html" class="nav-item"><span class="nav-ico">👥</span> Users</a>
+      <a href="admin-merchants.html" class="nav-item"><span class="nav-ico">🤝</span> P2P Merchants</a>
+      <a href="admin-kyc.html" class="nav-item"><span class="nav-ico">🪪</span> KYC Reviews <span class="nav-badge" id="kycBadge">0</span></a>
+      <a href="admin-transactions.html" class="nav-item"><span class="nav-ico">💸</span> Transactions</a>
+      <a href="admin-p2p-orders.html" class="nav-item"><span class="nav-ico">📋</span> P2P Orders <span class="nav-badge" id="ordersBadge">0</span></a>
+      <div class="nav-section-label">System</div>
+      <a href="admin-bots.html" class="nav-item active"><span class="nav-ico">🤖</span> Bot Manager <span class="nav-badge" id="botsBadge">0</span></a>
+      <a href="admin-settings.html" class="nav-item"><span class="nav-ico">⚙️</span> Settings</a>
+      <a href="admin-audit.html" class="nav-item"><span class="nav-ico">📜</span> Audit Log</a>
+    </nav>
+    <div class="sidebar-footer">
+      <button class="logout-btn" id="logoutBtn"><span>🚪</span> Sign Out</button>
+    </div>
+  </aside>
+
+  <div class="main-wrap">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+          <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+        <div class="page-title-block">
+          <h1>Bot Manager</h1>
+          <p id="botCountSub">Live trading bots, P&L, asset prices, and trade log</p>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <div class="admin-chip" id="adminChip">
+          <div class="admin-avatar" id="adminAvatar">A</div>
+          <div>
+            <div class="admin-name" id="adminName">Admin</div>
+            <div class="admin-role">Super Admin</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="content">
+
+      <!-- STATS -->
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-label">🟢 Running Bots</div>
+          <div class="stat-value" id="statRunning">0</div>
+          <div class="stat-sub" id="statRunningSub">—</div>
+        </div>
+        <div class="stat-card green">
+          <div class="stat-label">💰 Total P&L (24h)</div>
+          <div class="stat-value" id="statPnl">$0.00</div>
+          <div class="stat-sub" id="statPnlSub">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">📈 Trades (24h)</div>
+          <div class="stat-value" id="statTrades">0</div>
+          <div class="stat-sub" id="statTradesSub">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">👥 Active Owners</div>
+          <div class="stat-value" id="statOwners">0</div>
+          <div class="stat-sub" id="statOwnersSub">—</div>
+        </div>
+      </div>
+
+      <div class="main-grid">
+
+        <!-- LEFT: BOT LIST -->
+        <div class="panel">
+          <div class="panel-header">
+            <h2>All Bots <span class="count" id="botCountLabel">0</span></h2>
+            <div class="bot-toolbar">
+              <div class="search-wrap-mini">
+                <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+                <input type="text" class="search-input-mini" id="searchInput" placeholder="Search bot or owner…">
+              </div>
+              <div class="bot-filters" id="botFilters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="running">Running</button>
+                <button class="filter-btn" data-filter="paused">Paused</button>
+                <button class="filter-btn" data-filter="stopped">Stopped</button>
+                <button class="filter-btn" data-filter="error">Error</button>
+              </div>
+            </div>
+          </div>
+          <div class="bot-list" id="botList"></div>
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="right-col">
+
+          <!-- DETAIL -->
+          <div class="panel">
+            <div class="panel-header"><h2>Bot Detail</h2></div>
+            <div class="detail-body" id="detailBody">
+              <div class="detail-empty" id="detailEmpty">
+                <span class="icon">🤖</span>
+                Select a bot to view strategy, P&L, and controls
+              </div>
+            </div>
+          </div>
+
+          <!-- PRICES -->
+          <div class="panel">
+            <div class="panel-header">
+              <h2>Live Prices</h2>
+              <span class="price-live"><span class="dot"></span>LIVE</span>
+            </div>
+            <div class="price-list" id="priceList"></div>
+          </div>
+
+          <!-- TRADE LOG -->
+          <div class="panel">
+            <div class="panel-header">
+              <h2>Live Trade Log</h2>
+              <span class="price-live"><span class="dot"></span>STREAMING</span>
+            </div>
+            <div class="log-list" id="logList"></div>
+          </div>
+
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    (function() {
+      'use strict';
+
+      const $ = (s) => document.querySelector(s);
+      const $$ = (s) => document.querySelectorAll(s);
+
+      function showToast(msg) {
+        const t = $('#toast');
+        t.textContent = msg;
+        t.classList.add('show');
+        clearTimeout(t._t);
+        t._t = setTimeout(() => t.classList.remove('show'), 2600);
+      }
+
+      // AUTH GUARD
+      const session = localStorage.getItem('bp_admin_session');
+      if (!session) { window.location.href = 'admin-login.html'; return; }
+      let admin;
+      try {
+        admin = JSON.parse(session);
+        const ageMin = (Date.now() - new Date(admin.loginTime).getTime()) / 60000;
+        if (ageMin > 30) { localStorage.removeItem('bp_admin_session'); window.location.href = 'admin-login.html'; return; }
+      } catch (e) { window.location.href = 'admin-login.html'; return; }
+
+      $('#adminName').textContent = admin.name || 'Admin';
+      $('#adminAvatar').textContent = (admin.name || 'Admin').charAt(0).toUpperCase();
+      $('#sidebarEmail').textContent = admin.email;
+
+      // SIDEBAR
+      $('#menuToggle').addEventListener('click', () => {
+        $('#sidebar').classList.add('open');
+        $('#sidebarOverlay').classList.add('open');
+      });
+      $('#sidebarOverlay').addEventListener('click', () => {
+        $('#sidebar').classList.remove('open');
+        $('#sidebarOverlay').classList.remove('open');
+      });
+      function logout() {
+        if (confirm('Sign out of admin console?')) {
+          localStorage.removeItem('bp_admin_session');
+          window.location.href = 'admin-login.html';
+        }
+      }
+      $('#logoutBtn').addEventListener('click', logout);
+      $('#adminChip').addEventListener('click', logout);
+
+      // ============================================================
+      // DATA
+      // ============================================================
+      function loadBots() {
+        let bots = JSON.parse(localStorage.getItem('bp_admin_bots') || '[]');
+
+        if (bots.length === 0) {
+          const now = Date.now();
+          bots = [
+            {
+              id: 'bot-1',
+              name: 'Alpha Momentum',
+              owner: 'Tunde A.',
+              ownerEmail: 'tunde@example.com',
+              strategy: 'Momentum · BTC/USDT',
+              asset: 'BTC', quote: 'USDT',
+              status: 'running',
+              pnl24h: 1842.55,
+              pnlPct: 4.21,
+              balance: 43750,
+              trades24h: 48,
+              winRate: 62,
+              uptime: '14d 6h',
+              created: now - 1209600000,
+              telegramThread: '5001',
+            },
+            {
+              id: 'bot-2',
+              name: 'Delta Grid',
+              owner: 'Amara N.',
+              ownerEmail: 'amara@example.com',
+              strategy: 'Grid · ETH/USDT',
+              asset: 'ETH', quote: 'USDT',
+              status: 'running',
+              pnl24h: 623.10,
+              pnlPct: 2.87,
+              balance: 21700,
+              trades24h: 132,
+              winRate: 71,
+              uptime: '6d 2h',
+              created: now - 518400000,
+              telegramThread: '5002',
+            },
+            {
+              id: 'bot-3',
+              name: 'Sigma Scalper',
+              owner: 'Kwame P.',
+              ownerEmail: 'kwame@example.com',
+              strategy: 'Scalp · SOL/USDT',
+              asset: 'SOL', quote: 'USDT',
+              status: 'paused',
+              pnl24h: -142.80,
+              pnlPct: -0.68,
+              balance: 20988,
+              trades24h: 214,
+              winRate: 54,
+              uptime: '2d 11h',
+              created: now - 216000000,
+              telegramThread: '5003',
+            },
+            {
+              id: 'bot-4',
+              name: 'Omega DCA',
+              owner: 'Naledi M.',
+              ownerEmail: 'naledi@example.com',
+              strategy: 'DCA · BTC/USDT',
+              asset: 'BTC', quote: 'USDT',
+              status: 'running',
+              pnl24h: 947.20,
+              pnlPct: 1.94,
+              balance: 48790,
+              trades24h: 12,
+              winRate: 83,
+              uptime: '31d 18h',
+              created: now - 2678400000,
+              telegramThread: '5004',
+            },
+            {
+              id: 'bot-5',
+              name: 'Test Bot — dev',
+              owner: 'Admin (internal)',
+              ownerEmail: 'admin@bluepeak.com',
+              strategy: 'Manual · USDT/USDT',
+              asset: 'USDT', quote: 'USDT',
+              status: 'stopped',
+              pnl24h: 0,
+              pnlPct: 0,
+              balance: 1000,
+              trades24h: 0,
+              winRate: 0,
+              uptime: '—',
+              created: now - 86400000,
+              telegramThread: '5005',
+            },
+            {
+              id: 'bot-6',
+              name: 'Gamma Breakout',
+              owner: 'Chidi S.',
+              ownerEmail: 'chidi@example.com',
+              strategy: 'Breakout · ETH/USDT',
+              asset: 'ETH', quote: 'USDT',
+              status: 'error',
+              pnl24h: -389.50,
+              pnlPct: -1.87,
+              balance: 20850,
+              trades24h: 31,
+              winRate: 45,
+              uptime: '0d 4h',
+              created: now - 172800000,
+              telegramThread: '5006',
+            },
+          ];
+          localStorage.setItem('bp_admin_bots', JSON.stringify(bots));
+        }
+        return bots;
+      }
+
+      let bots = loadBots();
+      let filtered = [...bots];
+      let activeFilter = 'all';
+      let selectedBotId = null;
+
+      function saveBots() {
+        localStorage.setItem('bp_admin_bots', JSON.stringify(bots));
+      }
+
+      function logAction(action, target, details) {
+        const log = JSON.parse(localStorage.getItem('bp_audit_log') || '[]');
+        log.push({ ts: Date.now(), admin: admin.email, action, target, details });
+        if (log.length > 500) log.splice(0, log.length - 500);
+        localStorage.setItem('bp_audit_log', JSON.stringify(log));
+      }
+
+      // ============================================================
+      // RENDER BOT LIST
+      // ============================================================
+      function applyFilters() {
+        const q = ($('#searchInput').value || '').toLowerCase().trim();
+        filtered = bots.filter(b => {
+          if (activeFilter !== 'all' && b.status !== activeFilter) return false;
+          if (q && !(b.name.toLowerCase().includes(q) || b.owner.toLowerCase().includes(q) || b.strategy.toLowerCase().includes(q))) return false;
+          return true;
+        });
+        filtered.sort((a, b) => {
+          const order = { running: 0, error: 1, paused: 2, stopped: 3 };
+          return (order[a.status] ?? 4) - (order[b.status] ?? 4) || b.pnl24h - a.pnl24h;
+        });
+        renderBotList();
+        updateStats();
+      }
+
+      function updateStats() {
+        const running = bots.filter(b => b.status === 'running').length;
+        const totalPnl = bots.reduce((s, b) => s + b.pnl24h, 0);
+        const totalTrades = bots.reduce((s, b) => s + b.trades24h, 0);
+        const owners = new Set(bots.filter(b => b.status === 'running').map(b => b.ownerEmail)).size;
+
+        $('#statRunning').textContent = running;
+        $('#statRunningSub').textContent = `${bots.length} bots total · ${bots.filter(b => b.status === 'paused').length} paused · ${bots.filter(b => b.status === 'error').length} errors`;
+
+        const pnlEl = $('#statPnl');
+        pnlEl.textContent = (totalPnl >= 0 ? '+$' : '-$') + Math.abs(totalPnl).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        pnlEl.style.color = totalPnl >= 0 ? 'var(--green-500)' : 'var(--red-500)';
+        const pct = (totalPnl / bots.reduce((s, b) => s + b.balance, 0)) * 100;
+        $('#statPnlSub').innerHTML = `<span class="${totalPnl >= 0 ? 'up' : 'down'}">${totalPnl >= 0 ? '▲' : '▼'} ${Math.abs(pct).toFixed(2)}%</span> vs yesterday`;
+
+        $('#statTrades').textContent = totalTrades.toLocaleString();
+        $('#statTradesSub').textContent = `avg ${Math.round(totalTrades / Math.max(running, 1))} / bot`;
+
+        $('#statOwners').textContent = owners;
+        $('#statOwnersSub').textContent = `${new Set(bots.map(b => b.ownerEmail)).size} unique owners`;
+
+        $('#botCountLabel').textContent = filtered.length;
+        $('#botCountSub').textContent = `${bots.length} bots · ${running} running · ${bots.filter(b => b.status === 'disputed' || b.status === 'error').length} needs attention`;
+        $('#botsBadge').textContent = bots.filter(b => b.status === 'error').length || '0';
+      }
+
+      function renderBotList() {
+        const list = $('#botList');
+        if (filtered.length === 0) {
+          list.innerHTML = `<div style="padding:40px 20px;text-align:center;font-size:12.5px;color:var(--gray-500);font-weight:500;">No bots match your filter</div>`;
+          return;
+        }
+        list.innerHTML = filtered.map(b => {
+          const pnlClass = b.pnl24h >= 0 ? 'up' : 'down';
+          const pnlSign = b.pnl24h >= 0 ? '+' : '-';
+          const isSel = b.id === selectedBotId;
+          return `
+            <div class="bot-row ${isSel ? 'selected' : ''}" data-bot-id="${b.id}">
+              <div class="bot-avatar">${escapeHtml(b.name.charAt(0).toUpperCase())}</div>
+              <div class="bot-info">
+                <div class="bot-name">${escapeHtml(b.name)}</div>
+                <div class="bot-owner">${escapeHtml(b.owner)} · ${escapeHtml(b.ownerEmail)}</div>
+                <div class="bot-strategy">${escapeHtml(b.strategy)}</div>
+              </div>
+              <div class="bot-pnl">
+                <div class="pnl-val ${pnlClass}">${pnlSign}$${Math.abs(b.pnl24h).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+                <div class="pnl-sub">${b.pnlPct >= 0 ? '▲' : '▼'} ${Math.abs(b.pnlPct).toFixed(2)}% · ${b.trades24h} trades</div>
+              </div>
+              <span class="bot-status ${b.status}"><span class="dot"></span>${b.status}</span>
+              <button class="bot-power ${b.status === 'running' ? 'on' : ''}" data-power="${b.id}" title="${b.status === 'running' ? 'Stop bot' : 'Start bot'}">
+                ${b.status === 'running' ? '⏹' : '▶'}
+              </button>
+            </div>
+          `;
+        }).join('');
+
+        list.querySelectorAll('.bot-row').forEach(row => {
+          row.addEventListener('click', (e) => {
+            if (e.target.closest('.bot-power')) return;
+            selectBot(row.dataset.botId);
+          });
+        });
+
+        list.querySelectorAll('.bot-power').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleBot(btn.dataset.power);
+          });
+        });
+      }
+
+      function escapeHtml(str) {
+        return (str || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+      }
+
+      // ============================================================
+      // SELECT BOT
+      // ============================================================
+      function selectBot(id) {
+        selectedBotId = id;
+        renderBotList();
+        const b = bots.find(x => x.id === id);
+        if (!b) return;
+        renderDetail(b);
+      }
+
+      function renderDetail(b) {
+        const pnlSign = b.pnl24h >= 0 ? '+' : '-';
+        const pnlClass = b.pnl24h >= 0 ? 'up' : 'down';
+        $('#detailBody').innerHTML = `
+          <div class="detail-name-row">
+            <div class="bot-avatar" style="width:34px;height:34px;font-size:12px;">${escapeHtml(b.name.charAt(0))}</div>
+            <div class="detail-name">${escapeHtml(b.name)}</div>
+            <span class="bot-status ${b.status}" style="margin-left:auto;"><span class="dot"></span>${b.status}</span>
+          </div>
+          <div class="detail-owner">${escapeHtml(b.owner)} · ${escapeHtml(b.ownerEmail)}</div>
+
+          <div class="detail-stats">
+            <div class="detail-stat">
+              <div class="lbl">24h P&L</div>
+              <div class="val ${pnlClass}">${pnlSign}$${Math.abs(b.pnl24h).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+            </div>
+            <div class="detail-stat">
+              <div class="lbl">Return</div>
+              <div class="val ${pnlClass}">${b.pnlPct >= 0 ? '+' : ''}${b.pnlPct.toFixed(2)}%</div>
+            </div>
+            <div class="detail-stat">
+              <div class="lbl">Balance</div>
+              <div class="val">$${b.balance.toLocaleString()}</div>
+            </div>
+            <div class="detail-stat">
+              <div class="lbl">Trades (24h)</div>
+              <div class="val">${b.trades24h}</div>
+            </div>
+          </div>
+
+          <div class="detail-section-label">Configuration</div>
+          <div class="detail-row"><span class="lbl">Strategy</span><span class="val">${escapeHtml(b.strategy)}</span></div>
+          <div class="detail-row"><span class="lbl">Pair</span><span class="val">${b.asset}/${b.quote}</span></div>
+          <div class="detail-row"><span class="lbl">Win rate</span><span class="val">${b.winRate}%</span></div>
+          <div class="detail-row"><span class="lbl">Uptime</span><span class="val">${b.uptime}</span></div>
+          <div class="detail-row"><span class="lbl">Telegram thread</span><span class="val">#${b.telegramThread}</span></div>
+          <div class="detail-row"><span class="lbl">Created</span><span class="val">${new Date(b.created).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span></div>
+
+          <div class="detail-actions">
+            ${b.status === 'running'
+              ? `<button class="btn danger" data-detail-action="stop">⏹ Stop</button>`
+              : `<button class="btn primary" data-detail-action="start">▶ Start</button>`}
+            ${b.status === 'running'
+              ? `<button class="btn outline" data-detail-action="pause">⏸ Pause</button>`
+              : ''}
+            <button class="btn outline" data-detail-action="configure">⚙ Configure</button>
+            <button class="btn outline" data-detail-action="logs">📋 Logs</button>
+          </div>
+        `;
+
+        $$('#detailBody [data-detail-action]').forEach(btn => {
+          btn.addEventListener('click', () => handleDetailAction(b.id, btn.dataset.detailAction));
+        });
+      }
+
+      function handleDetailAction(botId, action) {
+        const b = bots.find(x => x.id === botId);
+        if (!b) return;
+
+        if (action === 'start') {
+          b.status = 'running';
+          b.uptime = '0d 0h';
+          saveBots();
+          logAction('bot_started', b.name, { owner: b.owner, strategy: b.strategy });
+          showToast(`Started ${b.name}`);
+        } else if (action === 'stop') {
+          if (!confirm(`Stop ${b.name}? Open positions may remain.`)) return;
+          b.status = 'stopped';
+          saveBots();
+          logAction('bot_stopped', b.name, { owner: b.owner });
+          showToast(`Stopped ${b.name}`);
+        } else if (action === 'pause') {
+          b.status = 'paused';
+          saveBots();
+          logAction('bot_paused', b.name, { owner: b.owner });
+          showToast(`Paused ${b.name}`);
+        } else if (action === 'configure') {
+          showToast(`Configure form would open for ${b.name}`);
+        } else if (action === 'logs') {
+          showToast(`Showing trade logs for ${b.name}`);
+        }
+
+        applyFilters();
+        const updated = bots.find(x => x.id === botId);
+        if (updated) renderDetail(updated);
+      }
+
+      // ============================================================
+      // TOGGLE BOT POWER (from list)
+      // ============================================================
+      function toggleBot(id) {
+        const b = bots.find(x => x.id === id);
+        if (!b) return;
+
+        if (b.status === 'running') {
+          if (!confirm(`Stop ${b.name}?`)) return;
+          b.status = 'stopped';
+          logAction('bot_stopped', b.name, { owner: b.owner });
+          showToast(`Stopped ${b.name}`);
+        } else {
+          b.status = 'running';
+          b.uptime = '0d 0h';
+          logAction('bot_started', b.name, { owner: b.owner, strategy: b.strategy });
+          showToast(`Started ${b.name}`);
+        }
+        saveBots();
+        applyFilters();
+        if (selectedBotId === id) {
+          const updated = bots.find(x => x.id === id);
+          if (updated) renderDetail(updated);
+        }
+      }
+
+      // ============================================================
+      // LIVE PRICES (simulated ticker)
+      // ============================================================
+      const prices = {
+        BTC: { name: 'Bitcoin', price: 81250.00, chg: 2.14, cls: 'btc' },
+        ETH: { name: 'Ethereum', price: 3218.45, chg: 1.87, cls: 'eth' },
+        USDT: { name: 'Tether', price: 1.00, chg: 0.01, cls: 'usdt' },
+        SOL: { name: 'Solana', price: 128.70, chg: -0.92, cls: 'sol' },
+      };
+
+      function renderPrices() {
+        const list = $('#priceList');
+        list.innerHTML = Object.entries(prices).map(([sym, p]) => {
+          const chgClass = p.chg >= 0 ? 'up' : 'down';
+          const arrow = p.chg >= 0 ? '▲' : '▼';
+          return `
+            <div class="price-row">
+              <div class="price-left">
+                <div class="price-icon ${p.cls}">${sym.slice(0, 3)}</div>
+                <div>
+                  <div class="price-sym">${sym}</div>
+                  <div class="price-name">${p.name}</div>
+                </div>
+              </div>
+              <div class="price-right">
+                <div class="price-val">$${p.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+                <div class="price-chg ${chgClass}">${arrow} ${Math.abs(p.chg).toFixed(2)}%</div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      function tickPrices() {
+        Object.values(prices).forEach(p => {
+          if (p.name === 'Tether') return;
+          const drift = (Math.random() - 0.5) * 0.0015;
+          p.price = +(p.price * (1 + drift)).toFixed(2);
+          p.chg = +(p.chg + drift * 100).toFixed(2);
+        });
+        renderPrices();
+      }
+
+      // ============================================================
+      // LIVE TRADE LOG
+      // ============================================================
+      const tradeLog = [];
+
+      function seedLog() {
+        const now = Date.now();
+        const runningBots = bots.filter(b => b.status === 'running');
+        if (runningBots.length === 0) {
+          tradeLog.push({ ts: now, tag: 'sys', msg: 'No running bots — idle' });
+          renderLog();
+          return;
+        }
+        for (let i = 0; i < 6; i++) {
+          const b = runningBots[Math.floor(Math.random() * runningBots.length)];
+          const side = Math.random() > 0.5 ? 'buy' : 'sell';
+          const qty = (Math.random() * 0.5 + 0.01).toFixed(4);
+          const px = prices[b.asset] ? prices[b.asset].price : 1;
+          tradeLog.push({
+            ts: now - (6 - i) * 12000,
+            tag: side,
+            msg: `${b.name}: ${side.toUpperCase()} ${qty} ${b.asset} @ $${px.toLocaleString()}`,
+          });
+        }
+        renderLog();
+      }
+
+      function appendRandomTrade() {
+        const runningBots = bots.filter(b => b.status === 'running');
+        if (runningBots.length === 0) {
+          tradeLog.push({ ts: Date.now(), tag: 'sys', msg: 'Heartbeat — no active bots' });
+        } else {
+          const b = runningBots[Math.floor(Math.random() * runningBots.length)];
+          const side = Math.random() > 0.5 ? 'buy' : 'sell';
+          const qty = (Math.random() * 0.5 + 0.01).toFixed(4);
+          const px = prices[b.asset] ? prices[b.asset].price : 1;
+          tradeLog.push({
+            ts: Date.now(),
+            tag: side,
+            msg: `${b.name}: ${side.toUpperCase()} ${qty} ${b.asset} @ $${px.toLocaleString()}`,
+          });
+          // Simulate small P&L drift
+          b.pnl24h = +(b.pnl24h + (Math.random() - 0.45) * 8).toFixed(2);
+          b.trades24h += 1;
+          saveBots();
+        }
+        if (tradeLog.length > 60) tradeLog.splice(0, tradeLog.length - 60);
+        renderLog();
+        updateStats();
+      }
+
+      function renderLog() {
+        const list = $('#logList');
+        const last = tradeLog.slice(-14).reverse();
+        list.innerHTML = last.map(l => `
+          <div class="log-line">
+            <span class="log-ts">${new Date(l.ts).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}</span>
+            <span class="log-tag ${l.tag}">${l.tag.toUpperCase()}</span>
+            <span class="log-msg">${escapeHtml(l.msg)}</span>
+          </div>
+        `).join('');
+      }
+
+      // ============================================================
+      // FILTERS + INIT
+      // ============================================================
+      $('#searchInput').addEventListener('input', applyFilters);
+      $$('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          $$('.filter-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          activeFilter = btn.dataset.filter;
+          applyFilters();
+        });
+      });
+
+      applyFilters();
+      renderPrices();
+      seedLog();
+
+      // Live tickers
+      setInterval(tickPrices, 4000);
+      setInterval(appendRandomTrade, 7000);
+
+    })();
+  </script>
+</body>
+</html>
