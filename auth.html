@@ -42,7 +42,6 @@
       min-height: 600px; border: 1px solid var(--gray-200);
     }
 
-    /* Left Branding */
     .auth-left {
       flex: 1; background: linear-gradient(135deg, var(--navy-900), var(--navy-800));
       padding: 40px; display: flex; flex-direction: column;
@@ -65,7 +64,6 @@
     .auth-feature { display: flex; align-items: center; gap: 12px; color: var(--white); font-size: 14px; font-weight: 600; }
     .auth-feature .icon { width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; font-size: 16px; }
 
-    /* Right Form */
     .auth-right { flex: 1; padding: 40px; display: flex; flex-direction: column; justify-content: center; position: relative; overflow-y: auto; }
 
     .auth-tabs { display: flex; background: var(--navy-50); border-radius: var(--radius-sm); padding: 4px; margin-bottom: 28px; border: 1px solid var(--gray-200); flex-shrink: 0; }
@@ -125,7 +123,6 @@
 <body>
 
   <div class="auth-container">
-    <!-- Left Branding -->
     <div class="auth-left">
       <div class="auth-logo">
         <span class="blue">BLUE</span><span class="peak">PEAK</span>
@@ -140,14 +137,12 @@
       </div>
     </div>
 
-    <!-- Right Form -->
     <div class="auth-right">
       <div class="auth-tabs">
         <div class="auth-tab active" id="tabLogin">Log In</div>
         <div class="auth-tab" id="tabSignup">Create Account</div>
       </div>
 
-      <!-- LOGIN -->
       <form id="loginForm" autocomplete="on">
         <div class="form-group">
           <label class="form-label" for="loginEmail">Email Address</label>
@@ -166,7 +161,6 @@
         <button type="submit" class="auth-btn">Log In to Account</button>
       </form>
 
-      <!-- CREATE ACCOUNT -->
       <form id="signupForm" style="display:none;" autocomplete="on">
         <div class="form-row">
           <div class="form-group">
@@ -237,15 +231,11 @@
 
       const $ = (s) => document.querySelector(s);
 
-      // If already signed in, go straight to the dashboard.
       if (localStorage.getItem('bp_user_session')) {
         window.location.replace('index.html');
         return;
       }
 
-      // ============================================================
-      // TABS
-      // ============================================================
       const tabLogin = $('#tabLogin');
       const tabSignup = $('#tabSignup');
       const loginForm = $('#loginForm');
@@ -258,13 +248,13 @@
           tabSignup.classList.remove('active');
           loginForm.style.display = 'block';
           signupForm.style.display = 'none';
-          footerText.innerHTML = `Don't have an account? <a href="#" id="footerLink" style="color:var(--gold-500);text-decoration:none;font-weight:700;">Create Account</a>`;
+          footerText.innerHTML = 'Don\'t have an account? <a href="#" id="footerLink" style="color:var(--gold-500);text-decoration:none;font-weight:700;">Create Account</a>';
         } else {
           tabSignup.classList.add('active');
           tabLogin.classList.remove('active');
           loginForm.style.display = 'none';
           signupForm.style.display = 'block';
-          footerText.innerHTML = `Already have an account? <a href="#" id="footerLink" style="color:var(--gold-500);text-decoration:none;font-weight:700;">Log In</a>`;
+          footerText.innerHTML = 'Already have an account? <a href="#" id="footerLink" style="color:var(--gold-500);text-decoration:none;font-weight:700;">Log In</a>';
         }
         attachFooterLink();
         history.replaceState(null, '', '#' + mode);
@@ -290,27 +280,21 @@
         else if (window.location.hash === '#signin' || window.location.hash === '#login') setMode('login');
       });
 
-      // ============================================================
-      // COUNTRY → dial code display
-      // ============================================================
       const countrySelect = $('#countrySelect');
       const dialCodeDisplay = $('#dialCodeDisplay');
       countrySelect.addEventListener('change', () => {
         const opt = countrySelect.options[countrySelect.selectedIndex];
         const dial = opt.getAttribute('data-dial') || '+--';
         const flag = opt.getAttribute('data-flag') || '';
-        dialCodeDisplay.textContent = `${flag} ${dial}`.trim();
+        dialCodeDisplay.textContent = (flag + ' ' + dial).trim();
       });
 
-      // ============================================================
-      // SESSION WRITE + REDIRECT
-      // ============================================================
       function writeSession(payload) {
         const session = Object.assign({
           loginTime: new Date().toISOString(),
           country: '',
           name: '',
-          email: '',
+          email: ''
         }, payload);
         localStorage.setItem('bp_user_session', JSON.stringify(session));
         sessionStorage.removeItem('bp_redirect_after_auth');
@@ -335,27 +319,20 @@
         } catch (e) {}
       }
 
-      // ============================================================
-      // LOGIN
-      // ============================================================
       loginForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const email = $('#loginEmail').value.trim().toLowerCase();
         const password = $('#loginPassword').value;
         if (!email || !password) return;
-
         const known = lookupAccount(email);
         writeSession({
-          email,
+          email: email,
           name: known ? known.name : '',
-          country: known ? known.country : '',
+          country: known ? known.country : ''
         });
         goToDashboard();
       });
 
-      // ============================================================
-      // CREATE ACCOUNT
-      // ============================================================
       signupForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const firstName = $('#firstName').value.trim();
@@ -370,20 +347,19 @@
           return;
         }
 
-        const fullName = `${firstName} ${lastName}`.trim();
+        const fullName = (firstName + ' ' + lastName).trim();
         const dial = countrySelect.options[countrySelect.selectedIndex].getAttribute('data-dial') || '';
         const account = {
           name: fullName,
-          email,
-          country,
-          phone: dial + phone,
+          email: email,
+          country: country,
+          phone: dial + phone
         };
         rememberAccount(email, account);
         writeSession(account);
         goToDashboard();
       });
 
-      // Quietly remove invalid outlines once the user types
       document.querySelectorAll('.form-input').forEach(input => {
         input.addEventListener('input', () => input.classList.remove('invalid'));
       });
