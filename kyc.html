@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>Identity Verification — Bluepeak Capital</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --navy-900: #0A1A2F; --navy-800: #10243E; --navy-700: #1A3352;
+      --navy-100: #E8EDF4; --navy-50: #F2F5FA;
+      --gold-500: #C9A84C; --gold-400: #DDBE6B; --gold-100: #FBF5E6;
+      --green-500: #0F9D6E; --green-100: #E6F7F1;
+      --red-500: #D14343; --red-100: #FDECEC;
+      --white: #FFFFFF; --gray-100: #F1F4F9; --gray-200: #E3E8EF;
+      --gray-300: #CDD5E0; --gray-400: #94A3B8; --gray-500: #64748B;
+      --gray-600: #475569; --bg-main: #FAFBFD;
+      --shadow-sm: 0 2px 8px rgba(10, 26, 47, 0.05);
+      --shadow-md: 0 8px 24px rgba(10, 26, 47, 0.07);
+      --radius-xs: 8px; --radius-sm: 12px; --radius-md: 16px;
+      --radius-lg: 20px; --radius-pill: 999px;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    html { height: 100%; }
+    body {
+      font-family: var(--font); background-color: var(--bg-main);
+      color: var(--navy-900); line-height: 1.45;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 92px; min-height: 100vh;
+      display: flex; flex-direction: column; overflow-x: hidden;
+    }
+
+    /* HEADER */
+    .kyc-header {
+      background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(12px);
+      padding: 10px 16px; display: flex; align-items: center;
+      justify-content: space-between; border-bottom: 1px solid var(--gray-200);
+      position: sticky; top: 0; z-index: 30; gap: 8px;
+    }
+    .kyc-header-left { display: flex; align-items: center; gap: 8px; flex-shrink: 1; min-width: 0; }
+    .icon-btn {
+      background: none; border: none; padding: 8px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: var(--radius-xs); color: var(--navy-900);
+      transition: background 0.2s; flex-shrink: 0;
+    }
+    .icon-btn:hover { background: var(--navy-50); }
+    .icon-btn svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .header-title { font-size: 17px; font-weight: 800; color: var(--navy-900); letter-spacing: -0.3px; }
+
+    /* MAIN */
+    .kyc-main {
+      flex: 1; padding: 16px 16px 0; max-width: 600px;
+      margin: 0 auto; width: 100%;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+
+    /* HERO */
+    .kyc-hero {
+      background: linear-gradient(135deg, var(--navy-900), var(--navy-800));
+      border-radius: var(--radius-lg); padding: 22px 20px;
+      color: var(--white); position: relative; overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+    .kyc-hero::before {
+      content: ''; position: absolute; top: -40%; right: -20%;
+      width: 200px; height: 200px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(201, 168, 76, 0.2), transparent 70%);
+      pointer-events: none;
+    }
+    .kyc-hero .tag {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 10px; font-weight: 800; letter-spacing: 0.8px;
+      text-transform: uppercase; color: var(--gold-400); margin-bottom: 8px;
+      position: relative; z-index: 1;
+    }
+    .kyc-hero .tag .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--green-500); animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+    .kyc-hero h2 {
+      font-size: 22px; font-weight: 800; letter-spacing: -0.6px;
+      line-height: 1.15; margin-bottom: 6px; position: relative; z-index: 1;
+    }
+    .kyc-hero h2 .gold { color: var(--gold-400); }
+    .kyc-hero p {
+      font-size: 12.5px; font-weight: 500; color: var(--gray-300);
+      line-height: 1.55; position: relative; z-index: 1;
+    }
+
+    /* PROGRESS */
+    .kyc-progress-row {
+      display: flex; align-items: center; gap: 4px;
+      margin-top: 14px; position: relative; z-index: 1;
+    }
+    .kyc-prog-step {
+      flex: 1; height: 5px; border-radius: 3px;
+      background: rgba(255, 255, 255, 0.15);
+    }
+    .kyc-prog-step.done { background: var(--green-500); }
+    .kyc-prog-step.current { background: var(--gold-500); }
+
+    /* CARD */
+    .kyc-card {
+      background: var(--white); border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg); padding: 20px 18px;
+      display: flex; flex-direction: column; gap: 14px;
+      box-shadow: var(--shadow-sm);
+    }
+    .kyc-card h3 {
+      font-size: 15px; font-weight: 800; color: var(--navy-900);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .kyc-card h3::before { content: ''; width: 3px; height: 16px; background: var(--gold-500); border-radius: 2px; }
+    .kyc-card .desc {
+      font-size: 12.5px; font-weight: 500; color: var(--gray-500); line-height: 1.55;
+    }
+
+    /* UPLOAD BOXES */
+    .upload-box {
+      border: 2px dashed var(--gray-300); border-radius: var(--radius-md);
+      padding: 20px 16px; text-align: center; cursor: pointer;
+      background: var(--navy-50); transition: all 0.2s;
+      position: relative;
+    }
+    .upload-box:hover { border-color: var(--gold-500); background: var(--gold-100); }
+    .upload-box.filled { border-color: var(--green-500); background: var(--green-100); border-style: solid; }
+    .upload-box input { display: none; }
+    .upload-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: var(--white); color: var(--navy-700);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; margin: 0 auto 8px;
+      border: 1px solid var(--gray-200);
+    }
+    .upload-box.filled .upload-icon { background: var(--green-500); color: var(--white); border-color: var(--green-500); }
+    .upload-title { font-size: 13px; font-weight: 800; color: var(--navy-900); margin-bottom: 2px; }
+    .upload-sub { font-size: 11px; font-weight: 500; color: var(--gray-500); line-height: 1.5; }
+    .upload-filename {
+      font-size: 11px; font-weight: 700; color: var(--green-500);
+      margin-top: 6px; word-break: break-all;
+    }
+
+    /* TIPS */
+    .tips-box {
+      background: var(--gold-100); border: 1px solid rgba(201, 168, 76, 0.3);
+      border-radius: var(--radius-sm); padding: 12px 14px;
+      display: flex; gap: 10px; align-items: flex-start;
+    }
+    .tips-box .icon { font-size: 16px; flex-shrink: 0; line-height: 1.2; }
+    .tips-box ul { margin: 0; padding-left: 16px; font-size: 11.5px; font-weight: 500; color: var(--navy-800); line-height: 1.6; }
+    .tips-box ul li { margin-bottom: 3px; }
+
+    /* BUTTON */
+    .btn-submit {
+      padding: 15px; border-radius: var(--radius-pill);
+      background: linear-gradient(135deg, var(--green-500), #0B8A5E);
+      color: var(--white); border: none; font-family: var(--font);
+      font-weight: 800; font-size: 15px; cursor: pointer;
+      transition: all 0.2s; box-shadow: 0 4px 16px rgba(15, 157, 110, 0.3);
+      letter-spacing: -0.2px;
+    }
+    .btn-submit:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(15, 157, 110, 0.42); }
+    .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+
+    /* SUCCESS SCREEN */
+    .success-screen {
+      display: none; flex-direction: column; align-items: center;
+      text-align: center; padding: 40px 20px;
+    }
+    .success-screen.visible { display: flex; }
+    .success-icon {
+      width: 80px; height: 80px; border-radius: 50%;
+      background: var(--green-100); color: var(--green-500);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 40px; font-weight: 800; margin-bottom: 20px;
+      animation: pop 0.5s ease;
+    }
+    @keyframes pop {
+      0% { transform: scale(0); } 60% { transform: scale(1.15); } 100% { transform: scale(1); }
+    }
+    .success-screen h3 {
+      font-size: 20px; font-weight: 800; color: var(--navy-900);
+      margin-bottom: 8px; letter-spacing: -0.3px;
+    }
+    .success-screen p {
+      font-size: 13px; font-weight: 500; color: var(--gray-500);
+      line-height: 1.55; max-width: 300px; margin: 0 auto 20px;
+    }
+    .success-ref {
+      background: var(--navy-50); border-radius: var(--radius-sm);
+      padding: 12px 16px; font-family: 'SF Mono', 'Consolas', monospace;
+      font-size: 13px; font-weight: 700; color: var(--navy-900);
+      margin-bottom: 20px;
+    }
+    .btn-done {
+      padding: 13px 32px; border-radius: var(--radius-pill);
+      background: var(--navy-900); color: var(--white);
+      border: none; font-family: var(--font); font-weight: 800;
+      font-size: 14px; cursor: pointer;
+    }
+
+    /* TOAST */
+    .toast {
+      position: fixed; bottom: 100px; left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--navy-900); color: var(--white);
+      padding: 12px 20px; border-radius: var(--radius-pill);
+      font-size: 13px; font-weight: 700; z-index: 200;
+      opacity: 0; pointer-events: none; transition: all 0.3s;
+      max-width: calc(100% - 40px); text-align: center;
+      box-shadow: 0 8px 24px rgba(10, 26, 47, 0.3);
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  </style>
+</head>
+<body>
+
+  <header class="kyc-header">
+    <div class="kyc-header-left">
+      <button class="icon-btn" id="backBtn" aria-label="Back">
+        <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <span class="header-title">Identity Verification</span>
+    </div>
+  </header>
+
+  <main class="kyc-main">
+
+    <div class="kyc-hero">
+      <div class="tag"><span class="dot"></span>KYC · Tier 2</div>
+      <h2>Verify your <span class="gold">identity</span> to unlock Tier 2</h2>
+      <p>Upload a clear photo of your government-issued ID. We'll securely verify it in minutes.</p>
+      <div class="kyc-progress-row">
+        <div class="kyc-prog-step done"></div>
+        <div class="kyc-prog-step current"></div>
+        <div class="kyc-prog-step"></div>
+        <div class="kyc-prog-step"></div>
+      </div>
+    </div>
+
+    <!-- FORM -->
+    <div id="kycForm">
+      <div class="kyc-card">
+        <h3>Upload ID</h3>
+        <p class="desc">Choose a passport, national ID, or driver's license. Both front and back are required.</p>
+
+        <div class="upload-box" id="frontUploadBox">
+          <input type="file" accept="image/*" id="frontInput" capture="environment">
+          <div class="upload-icon">📷</div>
+          <div class="upload-title">Upload ID Front</div>
+          <div class="upload-sub">Photo of the front of your ID</div>
+          <div class="upload-filename" id="frontFilename"></div>
+        </div>
+
+        <div class="upload-box" id="backUploadBox">
+          <input type="file" accept="image/*" id="backInput" capture="environment">
+          <div class="upload-icon">📷</div>
+          <div class="upload-title">Upload ID Back</div>
+          <div class="upload-sub">Photo of the back of your ID</div>
+          <div class="upload-filename" id="backFilename"></div>
+        </div>
+
+        <div class="tips-box">
+          <div class="icon">💡</div>
+          <ul>
+            <li>Make sure your ID is fully visible and in focus</li>
+            <li>No glare, shadows, or reflections</li>
+            <li>All four corners visible</li>
+            <li>Use a well-lit area with a plain background</li>
+          </ul>
+        </div>
+
+        <button class="btn-submit" id="submitBtn" disabled>Submit for Verification</button>
+      </div>
+    </div>
+
+    <!-- SUCCESS -->
+    <div class="success-screen" id="successScreen">
+      <div class="success-icon">✓</div>
+      <h3>Submitted for Verification</h3>
+      <p>Your documents have been securely uploaded. We'll review them shortly — you'll be notified once Tier 2 is active.</p>
+      <div class="success-ref" id="successRef">REF: KYC-2026-XXXX</div>
+      <button class="btn-done" id="doneBtn">Back to Profile</button>
+    </div>
+
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    (function() {
+      'use strict';
+
+      const $ = (s) => document.querySelector(s);
+      const toastEl = $('#toast');
+
+      function showToast(msg) {
+        toastEl.textContent = msg;
+        toastEl.classList.add('show');
+        clearTimeout(toastEl._t);
+        toastEl._t = setTimeout(() => toastEl.classList.remove('show'), 2600);
+      }
+
+      const state = {
+        frontFile: null,
+        backFile: null,
+      };
+
+      // ============================================================
+      // FILE UPLOAD HANDLERS
+      // ============================================================
+      function handleFile(input, boxEl, filenameEl, key) {
+        const file = input.files[0];
+        if (!file) return;
+
+        // Validate type
+        if (!file.type.startsWith('image/')) {
+          showToast('Please upload an image file');
+          input.value = '';
+          return;
+        }
+
+        // Validate size (max 8MB)
+        if (file.size > 8 * 1024 * 1024) {
+          showToast('File too large — max 8MB');
+          input.value = '';
+          return;
+        }
+
+        state[key] = file;
+        boxEl.classList.add('filled');
+        filenameEl.textContent = '✓ ' + file.name;
+        filenameEl.style.color = 'var(--green-500)';
+
+        // Quietly analyse the image (no user-facing feedback)
+        analyzeImage(file);
+
+        updateSubmitState();
+      }
+
+      function analyzeImage(file) {
+        // Background verification — reads the image to confirm it looks like an ID.
+        // Never shows any feedback to the user.
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = new Image();
+          img.onload = () => {
+            // Check aspect ratio — IDs are typically landscape
+            const ratio = img.width / img.height;
+            const looksLikeID = ratio > 1.2 && ratio < 2.0;
+
+            // Check if image has reasonable resolution
+            const hasResolution = img.width >= 400 && img.height >= 250;
+
+            // Store flag for submission (silent)
+            if (looksLikeID && hasResolution) {
+              try {
+                const existing = JSON.parse(localStorage.getItem('bp_kyc_meta') || '{}');
+                existing[key] = { detected: true, ts: Date.now() };
+                localStorage.setItem('bp_kyc_meta', JSON.stringify(existing));
+              } catch (err) {}
+            }
+          };
+          img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+
+      $('#frontInput').addEventListener('change', (e) => {
+        handleFile(e.target, $('#frontUploadBox'), $('#frontFilename'), 'frontFile');
+      });
+      $('#backInput').addEventListener('change', (e) => {
+        handleFile(e.target, $('#backUploadBox'), $('#backFilename'), 'backFile');
+      });
+
+      $('#frontUploadBox').addEventListener('click', () => {
+        $('#frontInput').click();
+      });
+      $('#backUploadBox').addEventListener('click', () => {
+        $('#backInput').click();
+      });
+
+      function updateSubmitState() {
+        const ready = state.frontFile && state.backFile;
+        $('#submitBtn').disabled = !ready;
+      }
+
+      // ============================================================
+      // SUBMIT
+      // ============================================================
+      $('#submitBtn').addEventListener('click', () => {
+        if (!state.frontFile || !state.backFile) return;
+
+        const btn = $('#submitBtn');
+        btn.disabled = true;
+        btn.textContent = 'Uploading securely…';
+
+        // Simulate upload
+        setTimeout(() => {
+          const ref = 'KYC-2026-' + Math.floor(1000 + Math.random() * 9000);
+          $('#successRef').textContent = 'REF: ' + ref;
+
+          // Store KYC submission
+          try {
+            localStorage.setItem('bp_kyc_status', 'pending');
+            localStorage.setItem('bp_kyc_ref', ref);
+            localStorage.setItem('bp_kyc_time', new Date().toISOString());
+          } catch (e) {}
+
+          // Show success
+          $('#kycForm').style.display = 'none';
+          $('#successScreen').classList.add('visible');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 1400);
+      });
+
+      // ============================================================
+      // DONE
+      // ============================================================
+      $('#doneBtn').addEventListener('click', () => {
+        window.location.href = 'profile.html';
+      });
+
+      $('#backBtn').addEventListener('click', () => {
+        window.location.href = 'profile.html';
+      });
+
+    })();
+  </script>
+</body>
+</html>
