@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>Swap — Bluepeak Capital</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy-900: #0A1A2F;
+      --navy-800: #10243E;
+      --navy-700: #1A3352;
+      --navy-100: #E8EDF4;
+      --navy-50:  #F2F5FA;
+      --gold-500: #C9A84C;
+      --gold-400: #DDBE6B;
+      --gold-100: #FBF5E6;
+      --green-500: #0F9D6E;
+      --green-100: #E6F7F1;
+      --red-500: #D14343;
+      --red-100: #FDECEC;
+      --white: #FFFFFF;
+      --gray-100: #F1F4F9;
+      --gray-200: #E3E8EF;
+      --gray-300: #CDD5E0;
+      --gray-400: #94A3B8;
+      --gray-500: #64748B;
+      --gray-600: #475569;
+      --bg-main: #FAFBFD;
+      --shadow-xs: 0 1px 2px rgba(10, 26, 47, 0.04);
+      --shadow-sm: 0 2px 8px rgba(10, 26, 47, 0.05);
+      --shadow-md: 0 8px 24px rgba(10, 26, 47, 0.07);
+      --shadow-lg: 0 16px 48px rgba(10, 26, 47, 0.10);
+      --shadow-gold: 0 4px 16px rgba(201, 168, 76, 0.25);
+      --radius-xs: 8px;
+      --radius-sm: 12px;
+      --radius-md: 16px;
+      --radius-lg: 20px;
+      --radius-pill: 999px;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    html { height: 100%; scroll-behavior: smooth; }
+    body {
+      font-family: var(--font); background-color: var(--bg-main);
+      color: var(--navy-900); line-height: 1.45;
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+      padding-bottom: 92px; min-height: 100vh; display: flex;
+      flex-direction: column; overflow-x: hidden;
+    }
+
+    /* HEADER */
+    .swap-header {
+      background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(12px);
+      padding: 10px 16px; display: flex; align-items: center;
+      justify-content: space-between; border-bottom: 1px solid var(--gray-200);
+      position: sticky; top: 0; z-index: 30; gap: 8px;
+    }
+    .swap-header-left { display: flex; align-items: center; gap: 8px; flex-shrink: 1; min-width: 0; }
+    .icon-btn {
+      background: none; border: none; padding: 8px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: var(--radius-xs); color: var(--navy-900);
+      transition: background 0.2s; flex-shrink: 0;
+    }
+    .icon-btn:hover { background: var(--navy-50); }
+    .icon-btn svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .header-title { font-size: 17px; font-weight: 800; color: var(--navy-900); letter-spacing: -0.3px; }
+    .header-balance { display: flex; flex-direction: column; align-items: flex-end; gap: 1px; }
+    .header-balance .bal-label { font-size: 10px; font-weight: 700; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.4px; }
+    .header-balance .bal-value { font-size: 15px; font-weight: 800; color: var(--navy-900); font-variant-numeric: tabular-nums; letter-spacing: -0.3px; }
+
+    /* MAIN */
+    .swap-main {
+      flex: 1; padding: 16px 16px 0; max-width: 480px;
+      margin: 0 auto; width: 100%;
+      display: flex; flex-direction: column; gap: 16px;
+    }
+
+    /* SWAP CARD */
+    .swap-card {
+      background: var(--white); border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg); box-shadow: var(--shadow-md);
+      padding: 20px 18px; display: flex; flex-direction: column; gap: 12px;
+      position: relative;
+    }
+
+    /* LIVE RATE BANNER */
+    .rate-banner {
+      display: flex; align-items: center; justify-content: space-between;
+      background: linear-gradient(135deg, var(--navy-900), var(--navy-800));
+      border-radius: var(--radius-md); padding: 14px 16px;
+      color: var(--white); position: relative; overflow: hidden;
+      margin-bottom: 4px;
+    }
+    .rate-banner::after {
+      content: ''; position: absolute; bottom: -40%; right: -10%;
+      width: 160px; height: 160px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(201, 168, 76, 0.2), transparent 70%);
+      pointer-events: none;
+    }
+    .rate-banner-left { position: relative; z-index: 1; }
+    .rate-banner-tag {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 9.5px; font-weight: 800; letter-spacing: 0.8px;
+      text-transform: uppercase; color: var(--gold-400); margin-bottom: 4px;
+    }
+    .rate-banner-tag .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--green-500); animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+    .rate-banner-rate {
+      font-size: 18px; font-weight: 800; letter-spacing: -0.4px;
+      font-variant-numeric: tabular-nums;
+    }
+    .rate-banner-rate .unit { font-size: 12px; font-weight: 600; color: var(--gray-300); margin-left: 3px; }
+    .rate-banner-right { position: relative; z-index: 1; text-align: right; }
+    .rate-banner-right .lbl { font-size: 9.5px; font-weight: 700; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.4px; }
+    .rate-banner-right .val { font-size: 13px; font-weight: 800; color: var(--white); margin-top: 1px; }
+    .rate-banner-right .val.positive { color: var(--green-500); }
+    .rate-banner-right .val.negative { color: #FF8080; }
+
+    /* FROM / TO BOXES */
+    .swap-box {
+      background: var(--navy-50); border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-md); padding: 14px 16px;
+      display: flex; flex-direction: column; gap: 10px;
+      transition: border-color 0.2s;
+    }
+    .swap-box:focus-within { border-color: var(--gold-500); }
+    .swap-box-label {
+      font-size: 11px; font-weight: 700; color: var(--gray-500);
+      text-transform: uppercase; letter-spacing: 0.6px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .swap-box-label .bal {
+      font-size: 11px; font-weight: 700; color: var(--gray-600);
+      text-transform: none; letter-spacing: 0;
+    }
+    .swap-box-label .bal strong { color: var(--navy-900); font-weight: 800; }
+    .swap-row { display: flex; align-items: center; gap: 10px; }
+    .swap-amount-input {
+      flex: 1; border: none; background: transparent;
+      font-family: var(--font); font-size: 26px; font-weight: 800;
+      color: var(--navy-900); outline: none; min-width: 0;
+      font-variant-numeric: tabular-nums;
+    }
+    .swap-amount-input::placeholder { color: var(--gray-300); font-weight: 600; }
+    .swap-amount-input[readonly] { color: var(--green-500); }
+
+    .asset-picker-btn {
+      display: flex; align-items: center; gap: 6px;
+      background: var(--white); border: 1px solid var(--gray-200);
+      border-radius: var(--radius-pill); padding: 6px 12px 6px 6px;
+      font-family: var(--font); font-size: 14px; font-weight: 800;
+      color: var(--navy-900); cursor: pointer; flex-shrink: 0;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .asset-picker-btn:hover { border-color: var(--gold-500); background: var(--gold-100); }
+    .asset-picker-btn img { width: 26px; height: 26px; border-radius: 50%; }
+    .asset-picker-btn svg { width: 12px; height: 12px; stroke: var(--gray-500); fill: none; stroke-width: 2.5; }
+
+    /* SWAP DIRECTION */
+    .swap-direction-wrap {
+      display: flex; justify-content: center;
+      margin: -10px 0; position: relative; z-index: 2;
+    }
+    .swap-direction-btn {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--white); border: 2px solid var(--gray-200);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: var(--navy-900);
+      transition: transform 0.3s, border-color 0.2s, box-shadow 0.2s;
+      box-shadow: var(--shadow-sm);
+    }
+    .swap-direction-btn:hover { border-color: var(--gold-500); box-shadow: var(--shadow-gold); }
+    .swap-direction-btn:active { transform: rotate(180deg); }
+    .swap-direction-btn svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* QUICK % */
+    .quick-pct-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+    .quick-pct-btn {
+      padding: 8px; border-radius: var(--radius-xs);
+      background: var(--navy-50); border: 1px solid var(--gray-200);
+      font-family: var(--font); font-size: 11.5px; font-weight: 700;
+      color: var(--navy-700); cursor: pointer;
+      transition: all 0.15s;
+    }
+    .quick-pct-btn:hover { background: var(--gold-100); border-color: var(--gold-500); color: var(--navy-900); }
+
+    /* ADVANCED DETAILS */
+    .advanced-toggle {
+      display: flex; align-items: center; justify-content: space-between;
+      background: transparent; border: none; cursor: pointer;
+      font-family: var(--font); font-size: 12px; font-weight: 700;
+      color: var(--gray-500); padding: 6px 0;
+    }
+    .advanced-toggle:hover { color: var(--navy-900); }
+    .advanced-toggle svg {
+      width: 14px; height: 14px; stroke: currentColor; fill: none;
+      stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;
+      transition: transform 0.2s;
+    }
+    .advanced-toggle.open svg { transform: rotate(180deg); }
+    .advanced-panel {
+      background: var(--navy-50); border-radius: var(--radius-sm);
+      padding: 12px 14px; display: none; flex-direction: column; gap: 8px;
+      animation: fadeSlide 0.2s ease;
+    }
+    .advanced-panel.open { display: flex; }
+    @keyframes fadeSlide { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+    .advanced-row {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 12px; font-weight: 600; color: var(--gray-500);
+    }
+    .advanced-row strong { color: var(--navy-900); font-weight: 800; font-variant-numeric: tabular-nums; }
+    .advanced-row strong.positive { color: var(--green-500); }
+    .advanced-row strong.negative { color: var(--red-500); }
+
+    .slippage-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 8px 0; border-top: 1px solid var(--gray-200);
+    }
+    .slippage-label {
+      font-size: 11.5px; font-weight: 700; color: var(--gray-500);
+      text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .slippage-options { display: flex; gap: 6px; }
+    .slippage-opt {
+      padding: 5px 10px; border-radius: var(--radius-xs);
+      background: var(--white); border: 1px solid var(--gray-200);
+      font-family: var(--font); font-size: 11px; font-weight: 700;
+      color: var(--navy-700); cursor: pointer; transition: all 0.15s;
+    }
+    .slippage-opt:hover { border-color: var(--gold-500); }
+    .slippage-opt.active { background: var(--navy-900); border-color: var(--navy-900); color: var(--white); }
+
+    /* WARNING BOX */
+    .warning-box {
+      background: var(--red-100); border: 1px solid rgba(209, 67, 67, 0.2);
+      border-radius: var(--radius-sm); padding: 12px 14px;
+      font-size: 12px; font-weight: 600; color: var(--red-500);
+      display: none; align-items: flex-start; gap: 8px;
+      line-height: 1.5;
+    }
+    .warning-box.visible { display: flex; }
+    .warning-box .icon { font-size: 16px; flex-shrink: 0; line-height: 1; }
+    .warning-box.info {
+      background: var(--gold-100); border-color: rgba(201, 168, 76, 0.3);
+      color: var(--navy-800);
+    }
+
+    /* BUTTON */
+    .btn-swap {
+      padding: 16px; border-radius: var(--radius-pill);
+      background: linear-gradient(135deg, var(--green-500), #0B8A5E);
+      color: var(--white); border: none; font-family: var(--font);
+      font-weight: 800; font-size: 16px; cursor: pointer;
+      transition: all 0.2s; box-shadow: 0 4px 16px rgba(15, 157, 110, 0.3);
+      letter-spacing: -0.2px;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .btn-swap:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(15, 157, 110, 0.42); }
+    .btn-swap:active { transform: translateY(0); }
+    .btn-swap:disabled { opacity: 0.55; cursor: not-allowed; transform: none; box-shadow: none; }
+
+    /* RECENT */
+    .recent-card {
+      background: var(--white); border: 1px solid var(--gray-200);
+      border-radius: var(--radius-md); padding: 16px;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .recent-header { display: flex; justify-content: space-between; align-items: center; }
+    .recent-header h3 {
+      font-size: 14px; font-weight: 800; color: var(--navy-900);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .recent-header h3::before { content: ''; width: 3px; height: 14px; background: var(--gold-500); border-radius: 2px; }
+    .recent-header .sub { font-size: 11px; font-weight: 600; color: var(--gray-500); }
+    .recent-list { display: flex; flex-direction: column; gap: 2px; }
+    .recent-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 0; border-bottom: 1px solid var(--gray-100);
+      font-size: 13px;
+    }
+    .recent-item:last-child { border-bottom: none; }
+    .recent-item-left { display: flex; align-items: center; gap: 10px; }
+    .recent-icon {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--navy-50); display: flex; align-items: center; justify-content: center;
+      font-size: 14px; flex-shrink: 0;
+    }
+    .recent-info .from-to { font-weight: 800; color: var(--navy-900); font-size: 12.5px; }
+    .recent-info .time { font-size: 11px; font-weight: 600; color: var(--gray-500); margin-top: 1px; }
+    .recent-right { text-align: right; }
+    .recent-right .amount { font-weight: 800; color: var(--green-500); font-size: 12.5px; font-variant-numeric: tabular-nums; }
+    .recent-right .rate { font-size: 10.5px; color: var(--gray-500); font-weight: 600; margin-top: 1px; }
+    .recent-empty {
+      text-align: center; padding: 30px 12px;
+      font-size: 12.5px; font-weight: 500; color: var(--gray-500);
+    }
+    .recent-empty .icon { font-size: 28px; margin-bottom: 6px; display: block; }
+
+    /* MODAL */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(10, 26, 47, 0.6);
+      backdrop-filter: blur(4px); z-index: 70;
+      opacity: 0; pointer-events: none; transition: opacity 0.25s;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: auto; }
+    .bottom-sheet {
+      position: fixed; bottom: 0; left: 0; width: 100%; max-height: 88vh;
+      background: var(--white); z-index: 75;
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
+      display: flex; flex-direction: column; overflow: hidden;
+    }
+    .bottom-sheet.open { transform: translateY(0); }
+    .sheet-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 20px; border-bottom: 1px solid var(--gray-200);
+      flex-shrink: 0;
+    }
+    .sheet-header h3 { font-size: 17px; font-weight: 800; color: var(--navy-900); }
+    .sheet-close {
+      background: var(--navy-50); border: none; width: 34px; height: 34px;
+      border-radius: 50%; font-size: 16px; cursor: pointer; color: var(--navy-900);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .sheet-search {
+      padding: 12px 20px; flex-shrink: 0;
+      position: relative;
+    }
+    .sheet-search svg {
+      position: absolute; left: 32px; top: 50%; transform: translateY(-50%);
+      width: 16px; height: 16px; stroke: var(--gray-500); fill: none;
+      stroke-width: 2; pointer-events: none;
+    }
+    .sheet-search input {
+      width: 100%; padding: 12px 16px 12px 38px; border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-sm); font-family: var(--font);
+      font-size: 14px; font-weight: 500; background: var(--navy-50);
+      color: var(--navy-900); outline: none;
+    }
+    .sheet-search input:focus { border-color: var(--gold-500); }
+
+    /* CATEGORIES */
+    .sheet-categories {
+      display: flex; gap: 6px; overflow-x: auto;
+      padding: 0 20px 12px; scrollbar-width: none; flex-shrink: 0;
+    }
+    .sheet-categories::-webkit-scrollbar { display: none; }
+    .sheet-cat {
+      padding: 6px 12px; border-radius: var(--radius-pill);
+      background: var(--navy-50); border: 1px solid var(--gray-200);
+      font-family: var(--font); font-size: 11.5px; font-weight: 700;
+      color: var(--gray-600); cursor: pointer;
+      transition: all 0.15s; flex-shrink: 0; white-space: nowrap;
+    }
+    .sheet-cat:hover { border-color: var(--gold-500); }
+    .sheet-cat.active { background: var(--navy-900); border-color: var(--navy-900); color: var(--white); }
+
+    .sheet-list { flex: 1; overflow-y: auto; padding: 0 20px 24px; }
+    .coin-option {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 12px; border-radius: var(--radius-sm);
+      cursor: pointer; transition: background 0.15s;
+      border-bottom: 1px solid var(--gray-200);
+      position: relative;
+    }
+    .coin-option:last-child { border-bottom: none; }
+    .coin-option:hover { background: var(--navy-50); }
+    .coin-option.selected { background: var(--gold-100); }
+    .coin-option.selected::before {
+      content: '✓'; position: absolute; right: 12px; top: 50%;
+      transform: translateY(-50%); font-weight: 800; color: var(--gold-500);
+      font-size: 16px;
+    }
+    .coin-option img { width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0; }
+    .coin-option-info { flex: 1; min-width: 0; }
+    .coin-option-name-row {
+      display: flex; align-items: center; gap: 6px;
+    }
+    .coin-option-name { font-size: 15px; font-weight: 800; color: var(--navy-900); }
+    .coin-verified {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 14px; height: 14px; border-radius: 50%;
+      background: var(--blue-500, #2563EB); color: var(--white);
+      font-size: 8px; font-weight: 800; flex-shrink: 0;
+    }
+    .coin-option-symbol { font-size: 11.5px; font-weight: 600; color: var(--gray-500); text-transform: uppercase; margin-top: 1px; }
+    .coin-option-balance { font-size: 13px; font-weight: 800; color: var(--navy-900); font-variant-numeric: tabular-nums; text-align: right; }
+    .coin-option-balance .usd { font-size: 10.5px; color: var(--gray-500); font-weight: 600; margin-top: 1px; }
+
+    .empty-tokens {
+      text-align: center; padding: 40px 20px;
+      font-size: 13px; color: var(--gray-500); font-weight: 500;
+    }
+
+    /* SUCCESS MODAL */
+    .success-overlay {
+      position: fixed; inset: 0; background: rgba(10, 26, 47, 0.75);
+      backdrop-filter: blur(6px); z-index: 100;
+      display: none; align-items: center; justify-content: center;
+      padding: 20px;
+    }
+    .success-overlay.open { display: flex; }
+    .success-card {
+      background: var(--white); border-radius: var(--radius-lg);
+      max-width: 380px; width: 100%; padding: 32px 24px;
+      text-align: center; animation: popIn 0.4s ease;
+      box-shadow: var(--shadow-lg);
+    }
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.9) translateY(20px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .success-icon {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: var(--green-100); color: var(--green-500);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 18px; font-size: 36px; font-weight: 800;
+      animation: bounceIn 0.5s ease;
+    }
+    @keyframes bounceIn {
+      0% { transform: scale(0); }
+      60% { transform: scale(1.15); }
+      100% { transform: scale(1); }
+    }
+    .success-card h3 {
+      font-size: 20px; font-weight: 800; color: var(--navy-900);
+      letter-spacing: -0.4px; margin-bottom: 8px;
+    }
+    .success-card p {
+      font-size: 13px; font-weight: 500; color: var(--gray-500);
+      line-height: 1.5; margin-bottom: 20px;
+    }
+    .success-details {
+      background: var(--navy-50); border-radius: var(--radius-sm);
+      padding: 14px 16px; margin-bottom: 20px;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .success-detail-row {
+      display: flex; justify-content: space-between;
+      font-size: 12.5px; font-weight: 600; color: var(--gray-500);
+    }
+    .success-detail-row strong { color: var(--navy-900); font-weight: 800; font-variant-numeric: tabular-nums; }
+    .success-close {
+      width: 100%; padding: 14px; border-radius: var(--radius-pill);
+      background: linear-gradient(135deg, var(--green-500), #0B8A5E);
+      color: var(--white); border: none; font-family: var(--font);
+      font-weight: 800; font-size: 15px; cursor: pointer;
+      transition: all 0.2s;
+    }
+    .success-close:hover { transform: translateY(-1px); }
+
+    /* TOAST */
+    .toast {
+      position: fixed; bottom: 100px; left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--navy-900); color: var(--white);
+      padding: 12px 20px; border-radius: var(--radius-pill);
+      font-size: 13px; font-weight: 700; z-index: 200;
+      opacity: 0; pointer-events: none; transition: all 0.3s;
+      max-width: calc(100% - 40px); text-align: center;
+      box-shadow: 0 8px 24px rgba(10, 26, 47, 0.3);
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* BOTTOM NAV */
+    .bottom-nav {
+      position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 100%; max-width: 700px; background: rgba(255, 255, 255, 0.97);
+      backdrop-filter: blur(16px); border-top: 1px solid var(--gray-200);
+      display: flex; justify-content: space-around; align-items: center;
+      padding: 8px 8px calc(8px + env(safe-area-inset-bottom, 0px));
+      z-index: 40; box-shadow: 0 -4px 20px rgba(10, 26, 47, 0.06);
+    }
+    .bottom-nav-item {
+      display: flex; flex-direction: column; align-items: center; gap: 3px;
+      background: none; border: none; cursor: pointer;
+      padding: 6px 8px; border-radius: var(--radius-sm);
+      transition: all 0.2s; flex: 1; max-width: 80px;
+      color: var(--gray-500); font-family: var(--font);
+      font-size: 10px; font-weight: 600; letter-spacing: 0.2px;
+    }
+    .bottom-nav-item.active { color: var(--navy-900); font-weight: 800; }
+    .bottom-nav-item.active .bn-icon-wrap { background: var(--navy-900); }
+    .bottom-nav-item.active .bn-icon-wrap svg { stroke: var(--gold-400); }
+    .bn-icon-wrap {
+      width: 38px; height: 26px; border-radius: var(--radius-xs);
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .bottom-nav-item svg {
+      width: 20px; height: 20px; stroke: currentColor; fill: none;
+      stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    @media (min-width: 700px) {
+      body { padding-bottom: 100px; }
+      .swap-main { max-width: 520px; padding: 24px 24px 0; }
+      .bottom-nav { max-width: 900px; border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- OVERLAYS -->
+  <div class="modal-overlay" id="coinModalOverlay"></div>
+  <div class="bottom-sheet" id="coinModal">
+    <div class="sheet-header">
+      <h3 id="coinModalTitle">Select Token</h3>
+      <button class="sheet-close" id="coinModalClose">✕</button>
+    </div>
+    <div class="sheet-search">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <input type="text" id="coinSearchInput" placeholder="Search by name or symbol…" autocomplete="off">
+    </div>
+    <div class="sheet-categories" id="sheetCategories">
+      <button class="sheet-cat active" data-cat="all">All Tokens</button>
+      <button class="sheet-cat" data-cat="verified">✓ Verified</button>
+      <button class="sheet-cat" data-cat="popular">🔥 Popular</button>
+      <button class="sheet-cat" data-cat="holding">💰 Holding</button>
+    </div>
+    <div class="sheet-list" id="coinModalList"></div>
+  </div>
+
+  <!-- SUCCESS MODAL -->
+  <div class="success-overlay" id="successOverlay">
+    <div class="success-card">
+      <div class="success-icon">✓</div>
+      <h3>Swap Successful</h3>
+      <p>Your swap has been executed and your wallet balance has been updated.</p>
+      <div class="success-details" id="successDetails"></div>
+      <button class="success-close" id="successClose">Done</button>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="swap-header">
+    <div class="swap-header-left">
+      <button class="icon-btn" id="backBtn" aria-label="Back">
+        <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <span class="header-title">Swap</span>
+    </div>
+    <div class="header-balance">
+      <div class="bal-label">Balance</div>
+      <div class="bal-value" id="headerBalance">$0.00</div>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="swap-main">
+
+    <div class="swap-card">
+
+      <!-- LIVE RATE -->
+      <div class="rate-banner">
+        <div class="rate-banner-left">
+          <div class="rate-banner-tag"><span class="dot"></span>Live Rate</div>
+          <div class="rate-banner-rate" id="liveRate">—</div>
+        </div>
+        <div class="rate-banner-right">
+          <div class="lbl">24h Change</div>
+          <div class="val" id="liveChange">—</div>
+        </div>
+      </div>
+
+      <!-- FROM -->
+      <div class="swap-box">
+        <div class="swap-box-label">
+          <span>You Pay</span>
+          <span class="bal">Bal: <strong id="fromBalance">0.00</strong></span>
+        </div>
+        <div class="swap-row">
+          <input type="number" class="swap-amount-input" id="fromAmount" placeholder="0.00" inputmode="decimal">
+          <button class="asset-picker-btn" id="fromAssetBtn">
+            <img src="https://essamamdani.github.io/open-crypto-icons/icons/colored/usdt.svg" id="fromIcon">
+            <span id="fromSymbol">USDT</span>
+            <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- DIRECTION -->
+      <div class="swap-direction-wrap">
+        <button class="swap-direction-btn" id="swapDirectionBtn" aria-label="Reverse swap">
+          <svg viewBox="0 0 24 24"><path d="M7 4v16M7 20l-3-3M7 20l3-3"/><path d="M17 20V4M17 4l3 3M17 4l-3 3"/></svg>
+        </button>
+      </div>
+
+      <!-- TO -->
+      <div class="swap-box">
+        <div class="swap-box-label">
+          <span>You Receive</span>
+          <span class="bal">Bal: <strong id="toBalance">0.00</strong></span>
+        </div>
+        <div class="swap-row">
+          <input type="number" class="swap-amount-input" id="toAmount" placeholder="0.00" readonly>
+          <button class="asset-picker-btn" id="toAssetBtn">
+            <img src="https://blockchains.tatum.io/assets/img/bitcoin.svg" id="toIcon">
+            <span id="toSymbol">BTC</span>
+            <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- QUICK % -->
+      <div class="quick-pct-row">
+        <button class="quick-pct-btn" data-pct="25">25%</button>
+        <button class="quick-pct-btn" data-pct="50">50%</button>
+        <button class="quick-pct-btn" data-pct="75">75%</button>
+        <button class="quick-pct-btn" data-pct="100">Max</button>
+      </div>
+
+      <!-- ADVANCED -->
+      <button class="advanced-toggle" id="advancedToggle">
+        <span>Swap Details</span>
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="advanced-panel" id="advancedPanel">
+        <div class="advanced-row"><span>Rate</span><strong id="detailRate">—</strong></div>
+        <div class="advanced-row"><span>Network Fee (0.5%)</span><strong id="detailFee">—</strong></div>
+        <div class="advanced-row"><span>Price Impact</span><strong id="detailImpact">—</strong></div>
+        <div class="advanced-row"><span>Minimum Received</span><strong class="positive" id="detailMinReceived">—</strong></div>
+        <div class="slippage-row">
+          <span class="slippage-label">Slippage</span>
+          <div class="slippage-options" id="slippageOptions">
+            <button class="slippage-opt" data-slip="0.1">0.1%</button>
+            <button class="slippage-opt active" data-slip="0.5">0.5%</button>
+            <button class="slippage-opt" data-slip="1">1%</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- WARNING -->
+      <div class="warning-box" id="warningBox">
+        <span class="icon">⚠️</span>
+        <span id="warningText">—</span>
+      </div>
+
+      <!-- BUTTON -->
+      <button class="btn-swap" id="swapBtn">Swap Now</button>
+
+    </div>
+
+    <!-- RECENT -->
+    <div class="recent-card">
+      <div class="recent-header">
+        <h3>Recent Swaps</h3>
+        <span class="sub" id="recentCount">0</span>
+      </div>
+      <div class="recent-list" id="recentList">
+        <div class="recent-empty">
+          <span class="icon">⇅</span>
+          No swaps yet.<br>
+          <span style="font-size:11.5px;color:var(--gray-400);">Your swap history will appear here.</span>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav">
+    <button class="bottom-nav-item" data-nav="home">
+      <div class="bn-icon-wrap"><svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9 21v-6h6v6"/></svg></div>
+      <span>Home</span>
+    </button>
+    <button class="bottom-nav-item" data-nav="p2p">
+      <div class="bn-icon-wrap"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M2.5 20c.8-3.5 3.2-5.5 6.5-5.5s5.7 2 6.5 5.5"/><circle cx="17.5" cy="8" r="2.8"/><path d="M15.5 14c2.5 0 4.8 1.5 5.5 4.5"/></svg></div>
+      <span>P2P</span>
+    </button>
+    <button class="bottom-nav-item" data-nav="trade">
+      <div class="bn-icon-wrap"><svg viewBox="0 0 24 24"><path d="M3 20L9 14l4 4 8-8"/><path d="M17 10h4v4"/></svg></div>
+      <span>Trade</span>
+    </button>
+    <button class="bottom-nav-item active" data-nav="swap">
+      <div class="bn-icon-wrap"><svg viewBox="0 0 24 24"><path d="M7 4v13M7 17l-3-3M7 17l3-3"/><path d="M17 20V7M17 7l3 3M17 7l-3 3"/></svg></div>
+      <span>Swap</span>
+    </button>
+    <button class="bottom-nav-item" data-nav="wallet">
+      <div class="bn-icon-wrap"><svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="14" rx="3"/><path d="M16 13h.01"/><path d="M2 9h20"/></svg></div>
+      <span>Wallet</span>
+    </button>
+  </nav>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    (function() {
+      'use strict';
+
+      const $ = (s) => document.querySelector(s);
+      const $$ = (s) => document.querySelectorAll(s);
+      const toastEl = $('#toast');
+
+      function showToast(msg) {
+        toastEl.textContent = msg;
+        toastEl.classList.add('show');
+        clearTimeout(toastEl._t);
+        toastEl._t = setTimeout(() => toastEl.classList.remove('show'), 2600);
+      }
+
+      function getWalletBalance() {
+        const saved = localStorage.getItem('bp_wallet_balance');
+        return saved ? parseFloat(saved) : 0;
+      }
+      function setWalletBalance(v) {
+        localStorage.setItem('bp_wallet_balance', String(Math.max(0, v)));
+        updateHeaderBalance();
+      }
+      function updateHeaderBalance() {
+        $('#headerBalance').textContent = '$' + getWalletBalance().toFixed(2);
+      }
+
+      const COINS = [
+        { id: 'tether', symbol: 'USDT', name: 'Tether', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/usdt.svg', verified: true, popular: true },
+        { id: 'bitcoin', symbol: 'BTC', name: 'Bitcoin', icon: 'https://blockchains.tatum.io/assets/img/bitcoin.svg', verified: true, popular: true },
+        { id: 'ethereum', symbol: 'ETH', name: 'Ethereum', icon: 'https://blockchains.tatum.io/assets/img/ethereum.svg', verified: true, popular: true },
+        { id: 'binancecoin', symbol: 'BNB', name: 'BNB', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/bnb.svg', verified: true, popular: true },
+        { id: 'solana', symbol: 'SOL', name: 'Solana', icon: 'https://blockchains.tatum.io/assets/img/solana.svg', verified: true, popular: true },
+        { id: 'ripple', symbol: 'XRP', name: 'XRP', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/xrp.svg', verified: true, popular: false },
+        { id: 'usd-coin', symbol: 'USDC', name: 'USD Coin', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/usdc.svg', verified: true, popular: true },
+        { id: 'cardano', symbol: 'ADA', name: 'Cardano', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/ada.svg', verified: true, popular: false },
+        { id: 'dogecoin', symbol: 'DOGE', name: 'Dogecoin', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/doge.svg', verified: true, popular: true },
+        { id: 'avalanche-2', symbol: 'AVAX', name: 'Avalanche', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/avax.svg', verified: true, popular: false },
+        { id: 'tron', symbol: 'TRX', name: 'TRON', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/trx.svg', verified: true, popular: false },
+        { id: 'polkadot', symbol: 'DOT', name: 'Polkadot', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/dot.svg', verified: true, popular: false },
+        { id: 'chainlink', symbol: 'LINK', name: 'Chainlink', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/link.svg', verified: true, popular: false },
+        { id: 'polygon-ecosystem-token', symbol: 'POL', name: 'Polygon', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/pol.svg', verified: true, popular: false },
+        { id: 'litecoin', symbol: 'LTC', name: 'Litecoin', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/ltc.svg', verified: true, popular: false },
+        { id: 'uniswap', symbol: 'UNI', name: 'Uniswap', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/uni.svg', verified: true, popular: false },
+        { id: 'stellar', symbol: 'XLM', name: 'Stellar', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/xlm.svg', verified: true, popular: false },
+        { id: 'cosmos', symbol: 'ATOM', name: 'Cosmos', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/atom.svg', verified: true, popular: false },
+        { id: 'near', symbol: 'NEAR', name: 'NEAR Protocol', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/near.svg', verified: true, popular: false },
+        { id: 'aptos', symbol: 'APT', name: 'Aptos', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/apt.svg', verified: true, popular: false },
+      ];
+
+      const state = {
+        prices: {},
+        changes: {},
+        fromSymbol: 'USDT',
+        toSymbol: 'BTC',
+        pickerContext: 'from',
+        pickerCategory: 'all',
+        slippage: 0.5,
+        recentSwaps: JSON.parse(localStorage.getItem('bp_recent_swaps') || '[]'),
+      };
+
+      const FEE_PERCENT = 0.5;
+
+      async function fetchPrices() {
+        try {
+          const ids = COINS.map(c => c.id).join(',');
+          const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd&include_24hr_change=true`);
+          const data = await res.json();
+          COINS.forEach(c => {
+            const d = data[c.id];
+            if (d) {
+              state.prices[c.symbol] = d.usd || 0;
+              state.changes[c.symbol] = d.usd_24h_change || 0;
+            }
+          });
+          updateRateBanner();
+          calculateSwap();
+          renderCoinPicker();
+        } catch (e) {
+          console.warn('Price fetch failed:', e);
+        }
+      }
+
+      function tickPrices() {
+        if (Object.keys(state.prices).length === 0) return;
+        Object.keys(state.prices).forEach(sym => {
+          const drift = (Math.random() - 0.5) * 0.001;
+          state.prices[sym] = state.prices[sym] * (1 + drift);
+          state.changes[sym] = (state.changes[sym] || 0) + drift * 100;
+        });
+        updateRateBanner();
+        calculateSwap();
+      }
+
+      function updateRateBanner() {
+        const fromPrice = state.prices[state.fromSymbol] || 0;
+        const toPrice = state.prices[state.toSymbol] || 0;
+        if (fromPrice && toPrice) {
+          const rate = fromPrice / toPrice;
+          $('#liveRate').innerHTML = `1 ${state.fromSymbol} ≈ ${formatPrice(rate)} ${state.toSymbol}<span class="unit"></span>`;
+        }
+        const change = state.changes[state.toSymbol] || 0;
+        const changeEl = $('#liveChange');
+        changeEl.textContent = (change >= 0 ? '+' : '') + change.toFixed(2) + '%';
+        changeEl.className = 'val ' + (change >= 0 ? 'positive' : 'negative');
+      }
+
+      function calculateSwap() {
+        const fromAmt = parseFloat($('#fromAmount').value) || 0;
+        const fromPrice = state.prices[state.fromSymbol] || 0;
+        const toPrice = state.prices[state.toSymbol] || 0;
+        const walletBal = getWalletBalance();
+
+        const fromBalance = walletBal / (fromPrice || 1);
+        $('#fromBalance').textContent = fromBalance.toFixed(6);
+        const toBalance = walletBal / (toPrice || 1);
+        $('#toBalance').textContent = toBalance.toFixed(6);
+
+        if (fromAmt <= 0 || !fromPrice || !toPrice) {
+          $('#toAmount').value = '';
+          $('#detailRate').textContent = '—';
+          $('#detailFee').textContent = '—';
+          $('#detailImpact').textContent = '—';
+          $('#detailMinReceived').textContent = '—';
+          $('#warningBox').classList.remove('visible');
+          $('#swapBtn').disabled = false;
+          return;
+        }
+
+        const grossReceive = (fromAmt * fromPrice) / toPrice;
+        const fee = grossReceive * (FEE_PERCENT / 100);
+        const netReceive = grossReceive - fee;
+        const minReceived = netReceive * (1 - state.slippage / 100);
+
+        // Price impact heuristic (based on amount vs balance)
+        const amountInUSD = fromAmt * fromPrice;
+        const impact = Math.min(15, (amountInUSD / Math.max(100, walletBal * 10)) * 100);
+
+        $('#toAmount').value = netReceive.toFixed(8);
+        $('#detailRate').textContent = `1 ${state.fromSymbol} ≈ ${formatPrice(fromPrice / toPrice)} ${state.toSymbol}`;
+        $('#detailFee').textContent = fee.toFixed(6) + ' ' + state.toSymbol;
+        $('#detailImpact').textContent = impact.toFixed(2) + '%';
+        $('#detailImpact').className = impact > 2 ? 'negative' : (impact > 0.5 ? '' : 'positive');
+        $('#detailMinReceived').textContent = minReceived.toFixed(6) + ' ' + state.toSymbol;
+
+        if (amountInUSD > walletBal) {
+          $('#warningBox').classList.add('visible');
+          $('#warningBox').classList.remove('info');
+          $('#warningText').textContent = `Insufficient balance. You need $${amountInUSD.toFixed(2)} but have $${walletBal.toFixed(2)}.`;
+          $('#swapBtn').disabled = true;
+        } else if (fromAmt < 0.0001) {
+          $('#warningBox').classList.add('visible');
+          $('#warningBox').classList.remove('info');
+          $('#warningText').textContent = 'Amount is too small to swap. Minimum is 0.0001.';
+          $('#swapBtn').disabled = true;
+        } else if (impact > 5) {
+          $('#warningBox').classList.add('visible', 'info');
+          $('#warningText').textContent = `High price impact (${impact.toFixed(2)}%). You may receive significantly less than expected.`;
+          $('#swapBtn').disabled = false;
+        } else {
+          $('#warningBox').classList.remove('visible');
+          $('#swapBtn').disabled = false;
+        }
+      }
+
+      function formatPrice(p) {
+        if (p >= 1000) return p.toLocaleString('en-US', { maximumFractionDigits: 2 });
+        if (p >= 1) return p.toFixed(4);
+        if (p >= 0.01) return p.toFixed(6);
+        return p.toFixed(8);
+      }
+
+      /* ============================================================
+         TOKEN PICKER MODAL
+         ============================================================ */
+      const coinModal = $('#coinModal');
+      const coinModalOverlay = $('#coinModalOverlay');
+      const coinModalList = $('#coinModalList');
+      const coinSearchInput = $('#coinSearchInput');
+
+      function openCoinModal(context) {
+        state.pickerContext = context;
+        state.pickerCategory = 'all';
+        $('#coinModalTitle').textContent = context === 'from' ? 'Pay With' : 'Receive';
+        $$('.sheet-cat').forEach(c => c.classList.toggle('active', c.dataset.cat === 'all'));
+        coinSearchInput.value = '';
+        renderCoinPicker();
+        coinModalOverlay.classList.add('open');
+        coinModal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        setTimeout(() => coinSearchInput.focus(), 300);
+      }
+      function closeCoinModal() {
+        coinModalOverlay.classList.remove('open');
+        coinModal.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+
+      function renderCoinPicker() {
+        const q = (coinSearchInput.value || '').toLowerCase().trim();
+        const walletBal = getWalletBalance();
+        let filtered = COINS.slice();
+        if (q) {
+          filtered = filtered.filter(c =>
+            c.name.toLowerCase().includes(q) || c.symbol.toLowerCase().includes(q)
+          );
+        }
+        if (state.pickerCategory === 'verified') filtered = filtered.filter(c => c.verified);
+        if (state.pickerCategory === 'popular') filtered = filtered.filter(c => c.popular);
+        if (state.pickerCategory === 'holding') {
+          filtered = filtered.filter(c => {
+            const p = state.prices[c.symbol] || 0;
+            return p > 0 && walletBal / p > 0;
+          });
+        }
+
+        if (filtered.length === 0) {
+          coinModalList.innerHTML = `<div class="empty-tokens">No tokens match your filter.</div>`;
+          return;
+        }
+
+        coinModalList.innerHTML = filtered.map(c => {
+          const price = state.prices[c.symbol] || 0;
+          const bal = price > 0 ? (walletBal / price) : 0;
+          const isSelected = (state.pickerContext === 'from' && c.symbol === state.fromSymbol) ||
+                             (state.pickerContext === 'to' && c.symbol === state.toSymbol);
+          return `
+            <div class="coin-option ${isSelected ? 'selected' : ''}" data-symbol="${c.symbol}">
+              <img src="${c.icon}" alt="${c.symbol}">
+              <div class="coin-option-info">
+                <div class="coin-option-name-row">
+                  <div class="coin-option-name">${c.name}</div>
+                  ${c.verified ? '<span class="coin-verified">✓</span>' : ''}
+                </div>
+                <div class="coin-option-symbol">${c.symbol}</div>
+              </div>
+              <div class="coin-option-balance">
+                ${bal.toFixed(6)}
+                <div class="usd">${price ? '$' + bal.toFixed(2) : '—'}</div>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        coinModalList.querySelectorAll('.coin-option').forEach(el => {
+          el.addEventListener('click', () => {
+            const symbol = el.dataset.symbol;
+            if (state.pickerContext === 'from') {
+              if (symbol === state.toSymbol) state.toSymbol = state.fromSymbol;
+              state.fromSymbol = symbol;
+            } else {
+              if (symbol === state.fromSymbol) state.fromSymbol = state.toSymbol;
+              state.toSymbol = symbol;
+            }
+            updateAssetUI();
+            closeCoinModal();
+            calculateSwap();
+            updateRateBanner();
+          });
+        });
+      }
+
+      coinModalOverlay.addEventListener('click', closeCoinModal);
+      $('#coinModalClose').addEventListener('click', closeCoinModal);
+      coinSearchInput.addEventListener('input', renderCoinPicker);
+      $('#fromAssetBtn').addEventListener('click', () => openCoinModal('from'));
+      $('#toAssetBtn').addEventListener('click', () => openCoinModal('to'));
+
+      $$('.sheet-cat').forEach(cat => {
+        cat.addEventListener('click', () => {
+          $$('.sheet-cat').forEach(c => c.classList.remove('active'));
+          cat.classList.add('active');
+          state.pickerCategory = cat.dataset.cat;
+          renderCoinPicker();
+        });
+      });
+
+      function updateAssetUI() {
+        const fromCoin = COINS.find(c => c.symbol === state.fromSymbol);
+        const toCoin = COINS.find(c => c.symbol === state.toSymbol);
+        if (fromCoin) {
+          $('#fromIcon').src = fromCoin.icon;
+          $('#fromSymbol').textContent = fromCoin.symbol;
+        }
+        if (toCoin) {
+          $('#toIcon').src = toCoin.icon;
+          $('#toSymbol').textContent = toCoin.symbol;
+        }
+      }
+
+      $('#swapDirectionBtn').addEventListener('click', () => {
+        const tmp = state.fromSymbol;
+        state.fromSymbol = state.toSymbol;
+        state.toSymbol = tmp;
+        updateAssetUI();
+        calculateSwap();
+        updateRateBanner();
+      });
+
+      $$('.quick-pct-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const pct = parseFloat(btn.dataset.pct) / 100;
+          const walletBal = getWalletBalance();
+          const fromPrice = state.prices[state.fromSymbol] || 1;
+          const fromBalance = walletBal / fromPrice;
+          $('#fromAmount').value = (fromBalance * pct).toFixed(6);
+          calculateSwap();
+        });
+      });
+
+      $('#fromAmount').addEventListener('input', calculateSwap);
+
+      /* ============================================================
+         ADVANCED & SLIPPAGE
+         ============================================================ */
+      $('#advancedToggle').addEventListener('click', () => {
+        $('#advancedToggle').classList.toggle('open');
+        $('#advancedPanel').classList.toggle('open');
+      });
+
+      $$('.slippage-opt').forEach(opt => {
+        opt.addEventListener('click', () => {
+          $$('.slippage-opt').forEach(o => o.classList.remove('active'));
+          opt.classList.add('active');
+          state.slippage = parseFloat(opt.dataset.slip);
+          calculateSwap();
+        });
+      });
+
+      /* ============================================================
+         EXECUTE SWAP
+         ============================================================ */
+      $('#swapBtn').addEventListener('click', () => {
+        const fromAmt = parseFloat($('#fromAmount').value) || 0;
+        if (fromAmt <= 0) { showToast('Enter a valid amount'); return; }
+
+        const fromPrice = state.prices[state.fromSymbol] || 0;
+        const toPrice = state.prices[state.toSymbol] || 0;
+        const amountInUSD = fromAmt * fromPrice;
+        const walletBal = getWalletBalance();
+        if (amountInUSD > walletBal) { showToast('Insufficient balance'); return; }
+
+        const toAmt = parseFloat($('#toAmount').value) || 0;
+        const newBal = walletBal - amountInUSD + (toAmt * toPrice);
+        setWalletBalance(newBal);
+
+        const now = new Date();
+        const swap = {
+          from: fromAmt.toFixed(6) + ' ' + state.fromSymbol,
+          to: toAmt.toFixed(6) + ' ' + state.toSymbol,
+          rate: '1 ' + state.fromSymbol + ' = ' + formatPrice(fromPrice / toPrice) + ' ' + state.toSymbol,
+          time: now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          date: now.toLocaleDateString(),
+        };
+        state.recentSwaps.unshift(swap);
+        if (state.recentSwaps.length > 10) state.recentSwaps = state.recentSwaps.slice(0, 10);
+        localStorage.setItem('bp_recent_swaps', JSON.stringify(state.recentSwaps));
+
+        // Show success modal
+        $('#successDetails').innerHTML = `
+          <div class="success-detail-row"><span>Swapped</span><strong>${swap.from}</strong></div>
+          <div class="success-detail-row"><span>Received</span><strong>${swap.to}</strong></div>
+          <div class="success-detail-row"><span>Rate</span><strong>${swap.rate}</strong></div>
+          <div class="success-detail-row"><span>Time</span><strong>${swap.time}</strong></div>
+        `;
+        $('#successOverlay').classList.add('open');
+
+        renderRecentSwaps();
+        $('#fromAmount').value = '';
+        $('#toAmount').value = '';
+        calculateSwap();
+      });
+
+      $('#successClose').addEventListener('click', () => {
+        $('#successOverlay').classList.remove('open');
+      });
+      $('#successOverlay').addEventListener('click', (e) => {
+        if (e.target.id === 'successOverlay') $('#successOverlay').classList.remove('open');
+      });
+
+      function renderRecentSwaps() {
+        const list = $('#recentList');
+        $('#recentCount').textContent = state.recentSwaps.length + ' swaps';
+        if (state.recentSwaps.length === 0) {
+          list.innerHTML = `
+            <div class="recent-empty">
+              <span class="icon">⇅</span>
+              No swaps yet.<br>
+              <span style="font-size:11.5px;color:var(--gray-400);">Your swap history will appear here.</span>
+            </div>
+          `;
+          return;
+        }
+        list.innerHTML = state.recentSwaps.map(s => `
+          <div class="recent-item">
+            <div class="recent-item-left">
+              <div class="recent-icon">⇅</div>
+              <div class="recent-info">
+                <div class="from-to">${s.from} → ${s.to}</div>
+                <div class="time">${s.date} · ${s.time}</div>
+              </div>
+            </div>
+            <div class="recent-right">
+              <div class="amount">${s.to}</div>
+              <div class="rate">${s.rate}</div>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      $('#backBtn').addEventListener('click', () => window.location.href = 'index.html');
+      $$('.bottom-nav-item').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const nav = btn.dataset.nav;
+          if (nav === 'swap') return;
+          if (nav === 'home') window.location.href = 'index.html';
+          if (nav === 'p2p') window.location.href = 'p2p.html';
+          if (nav === 'trade') window.location.href = 'trade.html';
+          if (nav === 'wallet') window.location.href = 'wallet.html';
+        });
+      });
+
+      // INIT
+      updateHeaderBalance();
+      updateAssetUI();
+      renderRecentSwaps();
+      fetchPrices();
+      setInterval(fetchPrices, 30000);
+      setInterval(tickPrices, 2000);
+
+    })();
+  </script>
+</body>
+</html>
