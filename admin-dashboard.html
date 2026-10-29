@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>Admin Dashboard — Bluepeak Capital</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy-900: #0A1A2F;
+      --navy-800: #10243E;
+      --navy-700: #1A3352;
+      --navy-100: #E8EDF4;
+      --navy-50:  #F2F5FA;
+      --gold-500: #C9A84C;
+      --gold-400: #DDBE6B;
+      --gold-100: #FBF5E6;
+      --green-500: #0F9D6E;
+      --green-100: #E6F7F1;
+      --red-500: #D14343;
+      --red-100: #FDECEC;
+      --blue-500: #2563EB;
+      --blue-100: #DBEAFE;
+      --purple-500: #7C3AED;
+      --purple-100: #EDE9FE;
+      --white: #FFFFFF;
+      --gray-100: #F1F4F9;
+      --gray-200: #E3E8EF;
+      --gray-300: #CDD5E0;
+      --gray-400: #94A3B8;
+      --gray-500: #64748B;
+      --gray-600: #475569;
+      --shadow-xs: 0 1px 2px rgba(10, 26, 47, 0.04);
+      --shadow-sm: 0 2px 8px rgba(10, 26, 47, 0.05);
+      --shadow-md: 0 8px 24px rgba(10, 26, 47, 0.07);
+      --shadow-lg: 0 16px 48px rgba(10, 26, 47, 0.10);
+      --radius-xs: 8px;
+      --radius-sm: 12px;
+      --radius-md: 16px;
+      --radius-lg: 20px;
+      --radius-pill: 999px;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    html { height: 100%; }
+    body {
+      font-family: var(--font); background-color: var(--navy-50);
+      color: var(--navy-900); line-height: 1.45;
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+      min-height: 100vh; display: flex;
+    }
+
+    /* SIDEBAR (same as before) */
+    .sidebar {
+      width: 250px;
+      background: var(--navy-900);
+      color: var(--white);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      z-index: 50;
+      transition: transform 0.3s;
+    }
+    .sidebar-header { padding: 20px 20px 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+    .sidebar-logo { display: flex; align-items: baseline; gap: 2px; margin-bottom: 4px; }
+    .sidebar-logo .blue { color: var(--white); font-size: 19px; font-weight: 800; letter-spacing: -0.6px; }
+    .sidebar-logo .peak { color: var(--gold-500); font-size: 19px; font-weight: 800; letter-spacing: -0.6px; }
+    .sidebar-logo .admin-badge {
+      font-size: 8px; font-weight: 800; color: var(--gold-400);
+      background: rgba(201, 168, 76, 0.15);
+      border: 1px solid rgba(201, 168, 76, 0.3);
+      padding: 2px 6px; border-radius: 3px;
+      letter-spacing: 1px; margin-left: 6px; text-transform: uppercase;
+    }
+    .sidebar-email { font-size: 11px; font-weight: 500; color: var(--gray-400); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .sidebar-nav { flex: 1; padding: 14px 12px; display: flex; flex-direction: column; gap: 2px; }
+    .nav-section-label { font-size: 9px; font-weight: 800; color: var(--gray-500); text-transform: uppercase; letter-spacing: 1.2px; padding: 14px 12px 6px; }
+    .nav-item {
+      display: flex; align-items: center; gap: 12px; padding: 10px 12px;
+      border-radius: var(--radius-xs); background: none; border: none;
+      cursor: pointer; color: var(--gray-300); font-family: var(--font);
+      font-size: 13px; font-weight: 600; text-align: left; text-decoration: none;
+      transition: all 0.15s; width: 100%;
+    }
+    .nav-item:hover { background: rgba(255, 255, 255, 0.06); color: var(--white); }
+    .nav-item.active { background: rgba(201, 168, 76, 0.15); color: var(--gold-400); font-weight: 700; border-left: 2px solid var(--gold-500); padding-left: 10px; }
+    .nav-item .nav-ico { width: 18px; text-align: center; font-size: 15px; flex-shrink: 0; }
+    .nav-item .nav-badge { margin-left: auto; background: var(--red-500); color: var(--white); font-size: 9px; font-weight: 800; padding: 2px 6px; border-radius: var(--radius-pill); min-width: 18px; text-align: center; }
+    .sidebar-footer { padding: 16px 20px; border-top: 1px solid rgba(255, 255, 255, 0.08); }
+    .logout-btn {
+      display: flex; align-items: center; gap: 10px; width: 100%;
+      padding: 10px 12px; background: rgba(209, 67, 67, 0.12);
+      border: 1px solid rgba(209, 67, 67, 0.25); border-radius: var(--radius-xs);
+      color: #FCA5A5; font-family: var(--font); font-size: 12.5px; font-weight: 700;
+      cursor: pointer; transition: all 0.15s;
+    }
+    .logout-btn:hover { background: rgba(209, 67, 67, 0.2); }
+
+    /* MAIN */
+    .main-wrap { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+    .topbar {
+      background: var(--white); border-bottom: 1px solid var(--gray-200);
+      padding: 14px 28px; display: flex; align-items: center;
+      justify-content: space-between; gap: 16px;
+      position: sticky; top: 0; z-index: 40;
+    }
+    .topbar-left { display: flex; align-items: center; gap: 16px; flex-shrink: 1; min-width: 0; }
+    .menu-toggle { display: none; background: none; border: none; padding: 6px; cursor: pointer; color: var(--navy-900); border-radius: var(--radius-xs); }
+    .menu-toggle:hover { background: var(--navy-50); }
+    .menu-toggle svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; }
+    .page-title-block h1 { font-size: 20px; font-weight: 800; color: var(--navy-900); letter-spacing: -0.5px; margin-bottom: 2px; }
+    .page-title-block p { font-size: 12px; font-weight: 500; color: var(--gray-500); }
+    .topbar-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .live-pill { display: inline-flex; align-items: center; gap: 5px; background: var(--green-100); color: var(--green-500); font-size: 10.5px; font-weight: 800; padding: 6px 11px; border-radius: var(--radius-pill); letter-spacing: 0.5px; text-transform: uppercase; }
+    .live-pill .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green-500); animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+    .topbar-icon-btn {
+      background: var(--navy-50); border: 1px solid var(--gray-200);
+      width: 36px; height: 36px; border-radius: var(--radius-xs);
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      color: var(--navy-700); position: relative; transition: all 0.15s;
+    }
+    .topbar-icon-btn:hover { background: var(--gold-100); border-color: var(--gold-500); }
+    .topbar-icon-btn svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; }
+    .topbar-icon-btn .mini-badge { position: absolute; top: 4px; right: 4px; width: 8px; height: 8px; border-radius: 50%; background: var(--red-500); border: 2px solid var(--white); }
+    .admin-chip {
+      display: flex; align-items: center; gap: 10px; padding: 4px 14px 4px 4px;
+      background: var(--navy-50); border: 1px solid var(--gray-200);
+      border-radius: var(--radius-pill); cursor: pointer; transition: all 0.15s;
+    }
+    .admin-chip:hover { background: var(--gold-100); border-color: var(--gold-500); }
+    .admin-avatar {
+      width: 30px; height: 30px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--navy-900), var(--navy-700));
+      color: var(--gold-400); display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 800;
+    }
+    .admin-name { font-size: 12px; font-weight: 700; color: var(--navy-900); }
+    .admin-role { font-size: 9.5px; font-weight: 600; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.4px; }
+
+    /* CONTENT */
+    .content { flex: 1; padding: 24px 28px 40px; display: flex; flex-direction: column; gap: 20px; max-width: 1500px; width: 100%; margin: 0 auto; }
+
+    /* KPI ROW */
+    .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .kpi-card {
+      background: var(--white); border: 1px solid var(--gray-200);
+      border-radius: var(--radius-md); padding: 18px;
+      display: flex; flex-direction: column; gap: 10px; box-shadow: var(--shadow-xs);
+      position: relative; overflow: hidden;
+    }
+    .kpi-card::after { content: ''; position: absolute; top: 0; right: 0; width: 80px; height: 80px; border-radius: 50%; background: radial-gradient(circle, var(--kpi-tint, rgba(201, 168, 76, 0.1)), transparent 70%); pointer-events: none; }
+    .kpi-top { display: flex; justify-content: space-between; align-items: flex-start; position: relative; z-index: 1; }
+    .kpi-label { font-size: 11px; font-weight: 700; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.5px; }
+    .kpi-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+    .kpi-icon.gold { background: var(--gold-100); color: var(--gold-500); }
+    .kpi-icon.green { background: var(--green-100); color: var(--green-500); }
+    .kpi-icon.blue { background: var(--blue-100); color: var(--blue-500); }
+    .kpi-icon.purple { background: var(--purple-100); color: var(--purple-500); }
+    .kpi-value { font-size: 24px; font-weight: 800; color: var(--navy-900); letter-spacing: -0.6px; font-variant-numeric: tabular-nums; position: relative; z-index: 1; }
+    .kpi-change { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 700; position: relative; z-index: 1; }
+    .kpi-change.positive { color: var(--green-500); }
+    .kpi-change.negative { color: var(--red-500); }
+
+    /* MAIN GRID */
+    .main-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 18px; }
+    .card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); box-shadow: var(--shadow-xs); overflow: hidden; display: flex; flex-direction: column; }
+    .card-header { padding: 16px 20px; border-bottom: 1px solid var(--gray-100); display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .card-header h3 { font-size: 14px; font-weight: 800; color: var(--navy-900); letter-spacing: -0.3px; display: flex; align-items: center; gap: 8px; }
+    .card-header h3::before { content: ''; width: 3px; height: 14px; background: var(--gold-500); border-radius: 2px; }
+    .card-header .card-link { font-size: 11.5px; font-weight: 700; color: var(--gold-500); text-decoration: none; cursor: pointer; display: flex; align-items: center; gap: 3px; }
+    .card-header .card-link:hover { text-decoration: underline; }
+    .card-body { padding: 16px 20px; }
+
+    /* ============================================================
+       MERCHANT CHAT INBOX — biggest addition
+       ============================================================ */
+    .chat-layout {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      height: 560px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--gray-200);
+      background: var(--white);
+      box-shadow: var(--shadow-xs);
+    }
+    .chat-sidebar {
+      background: var(--navy-50);
+      border-right: 1px solid var(--gray-200);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+    .chat-sidebar-header {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--gray-200);
+      background: var(--white);
+      font-size: 12.5px;
+      font-weight: 800;
+      color: var(--navy-900);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .chat-sidebar-header .count {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--gray-500);
+      background: var(--gray-200);
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+    }
+    .chat-thread-item {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 12px 16px; cursor: pointer;
+      border-bottom: 1px solid var(--gray-200);
+      transition: background 0.15s;
+      position: relative;
+    }
+    .chat-thread-item:hover { background: var(--white); }
+    .chat-thread-item.active { background: var(--white); border-left: 3px solid var(--gold-500); padding-left: 13px; }
+    .chat-thread-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--navy-800), var(--navy-900));
+      color: var(--gold-400); display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 800; flex-shrink: 0;
+    }
+    .chat-thread-info { flex: 1; min-width: 0; }
+    .chat-thread-name {
+      font-size: 12.5px; font-weight: 800; color: var(--navy-900);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .chat-thread-preview {
+      font-size: 11px; font-weight: 500; color: var(--gray-500);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      margin-top: 2px;
+    }
+    .chat-thread-meta {
+      font-size: 9.5px; font-weight: 600; color: var(--gray-400);
+      margin-top: 2px;
+    }
+    .chat-thread-unread {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--red-500); flex-shrink: 0;
+      margin-top: 4px;
+    }
+
+    .chat-main { display: flex; flex-direction: column; min-width: 0; }
+    .chat-main-header {
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--gray-200);
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; flex-shrink: 0;
+    }
+    .chat-main-info { display: flex; align-items: center; gap: 10px; }
+    .chat-main-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--navy-800), var(--navy-900));
+      color: var(--gold-400); display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 800;
+    }
+    .chat-main-name { font-size: 13px; font-weight: 800; color: var(--navy-900); }
+    .chat-main-sub { font-size: 10.5px; font-weight: 600; color: var(--gray-500); margin-top: 1px; }
+    .chat-main-sub .online { color: var(--green-500); }
+
+    .chat-order-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: var(--gold-100); color: var(--gold-500);
+      font-size: 10px; font-weight: 800;
+      padding: 4px 10px; border-radius: var(--radius-pill);
+      text-transform: uppercase; letter-spacing: 0.4px;
+    }
+
+    .chat-main-body {
+      flex: 1; overflow-y: auto;
+      padding: 18px;
+      background: var(--navy-50);
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .chat-bubble {
+      max-width: 72%;
+      padding: 10px 14px;
+      border-radius: 14px;
+      font-size: 12.5px;
+      line-height: 1.5;
+      font-weight: 500;
+    }
+    .chat-bubble.customer {
+      background: var(--white);
+      color: var(--navy-900);
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+      border: 1px solid var(--gray-200);
+    }
+    .chat-bubble.merchant {
+      background: var(--navy-900);
+      color: var(--white);
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+    .chat-bubble-time {
+      font-size: 9.5px; font-weight: 600; opacity: 0.6;
+      margin-top: 4px; display: block;
+    }
+    .chat-bubble-label {
+      font-size: 9px; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.5px; opacity: 0.7; margin-bottom: 3px; display: block;
+    }
+
+    .chat-actions-bar {
+      display: flex; gap: 6px; padding: 10px 18px;
+      border-top: 1px solid var(--gray-200);
+      background: var(--white);
+      flex-shrink: 0;
+      flex-wrap: wrap;
+    }
+    .chat-action-btn {
+      padding: 6px 12px; border-radius: var(--radius-pill);
+      background: var(--navy-50); border: 1px solid var(--gray-200);
+      font-family: var(--font); font-size: 11px; font-weight: 700;
+      color: var(--navy-700); cursor: pointer; transition: all 0.15s;
+    }
+    .chat-action-btn:hover { background: var(--gold-100); border-color: var(--gold-500); }
+    .chat-action-btn.danger { color: var(--red-500); border-color: rgba(209,67,67,0.3); }
+    .chat-action-btn.danger:hover { background: var(--red-100); }
+
+    .chat-input-row {
+      display: flex; gap: 8px; padding: 12px 18px;
+      border-top: 1px solid var(--gray-200);
+      background: var(--white); flex-shrink: 0;
+    }
+    .chat-input {
+      flex: 1; padding: 11px 14px;
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-pill);
+      font-family: var(--font); font-size: 12.5px; font-weight: 500;
+      color: var(--navy-900); outline: none;
+    }
+    .chat-input:focus { border-color: var(--gold-500); }
+    .chat-send {
+      padding: 0 20px;
+      background: linear-gradient(135deg, var(--green-500), #0B8A5E);
+      color: var(--white); border: none;
+      border-radius: var(--radius-pill);
+      font-family: var(--font); font-weight: 800; font-size: 12px;
+      cursor: pointer; display: flex; align-items: center; gap: 6px;
+    }
+    .chat-send:hover { transform: translateY(-1px); }
+    .chat-send svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2.2; }
+
+    .chat-empty {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      flex: 1; padding: 40px 20px; text-align: center; color: var(--gray-500);
+    }
+    .chat-empty .icon { font-size: 42px; margin-bottom: 10px; opacity: 0.5; }
+    .chat-empty h4 { font-size: 13.5px; font-weight: 800; color: var(--navy-900); margin-bottom: 4px; }
+    .chat-empty p { font-size: 12px; font-weight: 500; }
+
+    /* ============================================================
+       BOT CONTROL PANEL
+       ============================================================ */
+    .bot-list { display: flex; flex-direction: column; gap: 10px; }
+    .bot-row {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 14px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--gray-200);
+      background: var(--white);
+      transition: all 0.15s;
+    }
+    .bot-row:hover { border-color: var(--gold-500); }
+    .bot-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--navy-50); border: 1px solid var(--gray-200);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; flex-shrink: 0;
+    }
+    .bot-info { flex: 1; min-width: 0; }
+    .bot-name-row { display: flex; align-items: center; gap: 6px; }
+    .bot-name { font-size: 12.5px; font-weight: 800; color: var(--navy-900); }
+    .bot-status-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+    .bot-status-dot.running { background: var(--green-500); animation: pulse 1.5s infinite; }
+    .bot-status-dot.idle { background: var(--gray-400); }
+    .bot-meta { font-size: 10.5px; font-weight: 600; color: var(--gray-500); margin-top: 2px; }
+    .bot-pnl { text-align: right; flex-shrink: 0; }
+    .bot-pnl .val { font-size: 13px; font-weight: 800; font-variant-numeric: tabular-nums; }
+    .bot-pnl .val.positive { color: var(--green-500); }
+    .bot-pnl .val.negative { color: var(--red-500); }
+    .bot-pnl .lbl { font-size: 9.5px; font-weight: 600; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.3px; margin-top: 1px; }
+
+    .bot-live-price {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 11px; font-weight: 800;
+      color: var(--green-500);
+      margin-left: auto;
+    }
+    .bot-live-price .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green-500); animation: pulse 1.5s infinite; }
+
+    .bot-controls { display: flex; gap: 6px; }
+    .bot-control-btn {
+      width: 30px; height: 30px; border-radius: 50%;
+      background: var(--navy-50); border: 1px solid var(--gray-200);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: var(--navy-700);
+      transition: all 0.15s;
+    }
+    .bot-control-btn:hover { background: var(--gold-100); border-color: var(--gold-500); }
+    .bot-control-btn svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2.2; }
+
+    /* ============================================================
+       INTEGRATION MAP
+       ============================================================ */
+    .integration-list {
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .integration-row {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      background: var(--navy-50);
+      border: 1px solid var(--gray-200);
+    }
+    .integration-icon {
+      width: 30px; height: 30px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; flex-shrink: 0;
+      background: var(--white); border: 1px solid var(--gray-200);
+    }
+    .integration-info { flex: 1; min-width: 0; }
+    .integration-name { font-size: 12px; font-weight: 800; color: var(--navy-900); }
+    .integration-desc { font-size: 10.5px; font-weight: 500; color: var(--gray-500); margin-top: 1px; }
+    .integration-status {
+      font-size: 9px; font-weight: 800; padding: 3px 8px;
+      border-radius: var(--radius-pill); letter-spacing: 0.4px;
+      text-transform: uppercase; flex-shrink: 0;
+    }
+    .integration-status.live { background: var(--green-100); color: var(--green-500); }
+    .integration-status.demo { background: var(--gold-100); color: var(--gold-500); }
+    .integration-status.backend { background: var(--blue-100); color: var(--blue-500); }
+
+    /* ============================================================
+       ACTIVITY, ALERTS, CHART (from before)
+       ============================================================ */
+    .activity-list { display: flex; flex-direction: column; }
+    .activity-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--gray-100); }
+    .activity-item:last-child { border-bottom: none; }
+    .activity-icon {
+      width: 34px; height: 34px; border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; flex-shrink: 0;
+    }
+    .activity-icon.deposit { background: var(--green-100); color: var(--green-500); }
+    .activity-icon.withdraw { background: var(--red-100); color: var(--red-500); }
+    .activity-icon.swap { background: var(--gold-100); color: var(--gold-500); }
+    .activity-icon.p2p { background: var(--purple-100); color: var(--purple-500); }
+    .activity-icon.kyc { background: var(--blue-100); color: var(--blue-500); }
+    .activity-icon.user { background: var(--navy-50); color: var(--navy-700); }
+    .activity-content { flex: 1; min-width: 0; }
+    .activity-title { font-size: 12.5px; font-weight: 700; color: var(--navy-900); line-height: 1.4; }
+    .activity-title strong { font-weight: 800; }
+    .activity-meta { font-size: 10.5px; font-weight: 500; color: var(--gray-500); margin-top: 2px; display: flex; align-items: center; gap: 6px; }
+    .activity-meta .sep { width: 2px; height: 2px; border-radius: 50%; background: var(--gray-300); }
+    .activity-amount { font-size: 12px; font-weight: 800; color: var(--navy-900); font-variant-numeric: tabular-nums; flex-shrink: 0; align-self: center; }
+    .activity-amount.positive { color: var(--green-500); }
+    .activity-amount.negative { color: var(--red-500); }
+
+    .alerts-list { display: flex; flex-direction: column; gap: 8px; }
+    .alert-item { display: flex; gap: 12px; padding: 12px 14px; border-radius: var(--radius-sm); border: 1px solid; align-items: flex-start; }
+    .alert-item.critical { background: var(--red-100); border-color: rgba(209, 67, 67, 0.2); }
+    .alert-item.warning { background: var(--gold-100); border-color: rgba(201, 168, 76, 0.3); }
+    .alert-item.info { background: var(--blue-100); border-color: rgba(37, 99, 235, 0.2); }
+    .alert-icon { font-size: 16px; flex-shrink: 0; line-height: 1.2; }
+    .alert-content { flex: 1; min-width: 0; }
+    .alert-title { font-size: 12.5px; font-weight: 800; margin-bottom: 2px; }
+    .alert-item.critical .alert-title { color: var(--red-500); }
+    .alert-item.warning .alert-title { color: var(--gold-500); }
+    .alert-item.info .alert-title { color: var(--blue-500); }
+    .alert-desc { font-size: 11px; font-weight: 500; color: var(--gray-600); line-height: 1.4; }
+    .alert-action { font-size: 10.5px; font-weight: 800; color: var(--navy-900); background: none; border: none; cursor: pointer; padding: 4px 0; margin-top: 4px; text-decoration: underline; }
+
+    .chart-wrap { padding: 6px 0 4px; height: 200px; display: flex; align-items: flex-end; gap: 4px; position: relative; }
+    .chart-bar { flex: 1; background: linear-gradient(180deg, var(--gold-500), var(--gold-400)); border-radius: 3px 3px 0 0; transition: all 0.4s ease; position: relative; cursor: pointer; min-height: 4px; }
+    .chart-bar:hover { background: linear-gradient(180deg, var(--gold-400), var(--gold-500)); }
+    .chart-bar-tooltip { position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: var(--navy-900); color: var(--white); font-size: 10.5px; font-weight: 700; padding: 4px 8px; border-radius: 4px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.15s; margin-bottom: 4px; }
+    .chart-bar:hover .chart-bar-tooltip { opacity: 1; }
+    .chart-labels { display: flex; gap: 4px; margin-top: 6px; }
+    .chart-label { flex: 1; text-align: center; font-size: 9.5px; font-weight: 600; color: var(--gray-500); }
+
+    .quick-actions-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .qa-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 16px 14px; display: flex; flex-direction: column; gap: 8px; cursor: pointer; transition: all 0.15s; position: relative; }
+    .qa-card:hover { border-color: var(--gold-500); box-shadow: var(--shadow-sm); transform: translateY(-1px); }
+    .qa-card::after { content: '→'; position: absolute; top: 14px; right: 14px; color: var(--gray-300); font-size: 14px; font-weight: 700; transition: all 0.15s; }
+    .qa-card:hover::after { color: var(--gold-500); transform: translateX(3px); }
+    .qa-icon { width: 36px; height: 36px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+    .qa-icon.gold { background: var(--gold-100); color: var(--gold-500); }
+    .qa-icon.green { background: var(--green-100); color: var(--green-500); }
+    .qa-icon.blue { background: var(--blue-100); color: var(--blue-500); }
+    .qa-icon.red { background: var(--red-100); color: var(--red-500); }
+    .qa-title { font-size: 12.5px; font-weight: 800; color: var(--navy-900); padding-right: 16px; }
+    .qa-sub { font-size: 10.5px; font-weight: 500; color: var(--gray-500); line-height: 1.4; }
+
+    /* FULL-WIDTH CARD */
+    .full-width { grid-column: 1 / -1; }
+
+    /* TOAST */
+    .toast { position: fixed; bottom: 24px; right: 24px; background: var(--navy-900); color: var(--white); padding: 12px 20px; border-radius: var(--radius-pill); font-size: 13px; font-weight: 700; z-index: 200; opacity: 0; pointer-events: none; transition: all 0.3s; max-width: 380px; box-shadow: 0 8px 24px rgba(10, 26, 47, 0.3); }
+    .toast.show { opacity: 1; transform: translateY(-4px); }
+
+    /* SIDEBAR OVERLAY */
+    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(10, 26, 47, 0.5); backdrop-filter: blur(4px); z-index: 45; }
+    .sidebar-overlay.open { display: block; }
+
+    /* RESPONSIVE */
+    @media (max-width: 1200px) {
+      .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+      .main-grid { grid-template-columns: 1fr; }
+      .chat-layout { grid-template-columns: 240px 1fr; height: 520px; }
+    }
+    @media (max-width: 900px) {
+      .sidebar { position: fixed; transform: translateX(-100%); }
+      .sidebar.open { transform: translateX(0); }
+      .menu-toggle { display: flex; }
+      .content { padding: 16px; }
+      .topbar { padding: 12px 16px; }
+      .page-title-block h1 { font-size: 17px; }
+      .admin-chip { padding: 4px; }
+      .admin-chip .admin-name, .admin-chip .admin-role { display: none; }
+      .chat-layout { grid-template-columns: 1fr; height: 480px; }
+      .chat-sidebar { display: none; }
+      .chat-layout.mobile-thread-open .chat-sidebar { display: none; }
+      .chat-layout.mobile-list-open .chat-sidebar { display: flex; }
+      .chat-layout.mobile-list-open .chat-main { display: none; }
+    }
+    @media (max-width: 500px) {
+      .kpi-grid { grid-template-columns: 1fr; }
+      .quick-actions-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <span class="blue">BLUE</span><span class="peak">PEAK</span>
+        <span class="admin-badge">Admin</span>
+      </div>
+      <div class="sidebar-email" id="sidebarEmail">admin@bluepeak.com</div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Overview</div>
+      <a href="admin-dashboard.html" class="nav-item active">
+        <span class="nav-ico">📊</span> Dashboard
+      </a>
+
+      <div class="nav-section-label">Management</div>
+      <a href="admin-users.html" class="nav-item">
+        <span class="nav-ico">👥</span> Users
+      </a>
+      <a href="admin-merchants.html" class="nav-item">
+        <span class="nav-ico">🤝</span> P2P Merchants
+      </a>
+      <a href="admin-kyc.html" class="nav-item">
+        <span class="nav-ico">🪪</span> KYC Reviews
+        <span class="nav-badge" id="kycBadge">0</span>
+      </a>
+      <a href="admin-transactions.html" class="nav-item">
+        <span class="nav-ico">💸</span> Transactions
+      </a>
+      <a href="admin-p2p-orders.html" class="nav-item">
+        <span class="nav-ico">📋</span> P2P Orders
+      </a>
+
+      <div class="nav-section-label">System</div>
+      <a href="admin-bots.html" class="nav-item">
+        <span class="nav-ico">🤖</span> Bot Manager
+      </a>
+      <a href="admin-settings.html" class="nav-item">
+        <span class="nav-ico">⚙️</span> Settings
+      </a>
+      <a href="admin-audit.html" class="nav-item">
+        <span class="nav-ico">📜</span> Audit Log
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <button class="logout-btn" id="logoutBtn">
+        <span>🚪</span> Sign Out
+      </button>
+    </div>
+  </aside>
+
+  <div class="main-wrap">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+          <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+        <div class="page-title-block">
+          <h1>Dashboard</h1>
+          <p>Platform overview · <span id="currentTime"></span></p>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <span class="live-pill"><span class="dot"></span> Live</span>
+        <button class="topbar-icon-btn" id="refreshBtn" title="Refresh data">
+          <svg viewBox="0 0 24 24"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.5 9a9 9 0 0114.9-3.4L23 10"/><path d="M20.5 15a9 9 0 01-14.9 3.4L1 14"/></svg>
+        </button>
+        <button class="topbar-icon-btn" id="notifBtn" title="Notifications">
+          <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 10-12 0c0 7-3 8-3 8h18s-3-1-3-8"/><path d="M13.7 21a2 2 0 01-3.4 0"/></svg>
+          <span class="mini-badge" id="notifMini"></span>
+        </button>
+        <div class="admin-chip" id="adminChip">
+          <div class="admin-avatar" id="adminAvatar">A</div>
+          <div>
+            <div class="admin-name" id="adminName">Admin</div>
+            <div class="admin-role">Super Admin</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="content">
+
+      <!-- KPIs -->
+      <div class="kpi-grid">
+        <div class="kpi-card" style="--kpi-tint: rgba(37, 99, 235, 0.12);">
+          <div class="kpi-top">
+            <div class="kpi-label">Total Users</div>
+            <div class="kpi-icon blue">👥</div>
+          </div>
+          <div class="kpi-value" id="kpiUsers">0</div>
+          <div class="kpi-change positive"><span id="kpiUsersChange">0 today</span></div>
+        </div>
+
+        <div class="kpi-card" style="--kpi-tint: rgba(15, 157, 110, 0.12);">
+          <div class="kpi-top">
+            <div class="kpi-label">24h Volume</div>
+            <div class="kpi-icon green">📈</div>
+          </div>
+          <div class="kpi-value" id="kpiVolume">$0.00</div>
+          <div class="kpi-change positive"><span id="kpiVolumeChange">+0%</span></div>
+        </div>
+
+        <div class="kpi-card" style="--kpi-tint: rgba(201, 168, 76, 0.15);">
+          <div class="kpi-top">
+            <div class="kpi-label">Total Deposits</div>
+            <div class="kpi-icon gold">💰</div>
+          </div>
+          <div class="kpi-value" id="kpiDeposits">$0.00</div>
+          <div class="kpi-change positive"><span id="kpiDepositsChange">All-time</span></div>
+        </div>
+
+        <div class="kpi-card" style="--kpi-tint: rgba(124, 58, 237, 0.12);">
+          <div class="kpi-top">
+            <div class="kpi-label">Pending Actions</div>
+            <div class="kpi-icon purple">⏳</div>
+          </div>
+          <div class="kpi-value" id="kpiPending">0</div>
+          <div class="kpi-change negative"><span>Needs review</span></div>
+        </div>
+      </div>
+
+      <!-- MAIN GRID -->
+      <div class="main-grid">
+
+        <!-- LEFT -->
+        <div style="display: flex; flex-direction: column; gap: 18px;">
+
+          <!-- CHAT INBOX -->
+          <div class="card">
+            <div class="card-header">
+              <h3>Merchant Chat Inbox</h3>
+              <span class="card-link" id="viewAllChats">All conversations →</span>
+            </div>
+            <div class="card-body" style="padding: 0;">
+              <div class="chat-layout" id="chatLayout">
+                <div class="chat-sidebar" id="chatSidebar">
+                  <div class="chat-sidebar-header">
+                    <span>Active Chats</span>
+                    <span class="count" id="chatCount">0</span>
+                  </div>
+                  <div id="chatThreadList"></div>
+                </div>
+                <div class="chat-main" id="chatMain">
+                  <div class="chat-empty" id="chatEmpty">
+                    <div class="icon">💬</div>
+                    <h4>Select a conversation</h4>
+                    <p>Pick a chat on the left to read and reply as the merchant.</p>
+                  </div>
+                  <div id="chatActive" style="display: none; flex-direction: column; height: 100%;">
+                    <div class="chat-main-header">
+                      <div class="chat-main-info">
+                        <div class="chat-main-avatar" id="chatActiveAvatar">K</div>
+                        <div>
+                          <div class="chat-main-name" id="chatActiveName">Kwame_P2P</div>
+                          <div class="chat-main-sub" id="chatActiveSub">Order #8821 · <span class="online">Online</span></div>
+                        </div>
+                      </div>
+                      <div class="chat-order-badge">Buy USDT</div>
+                    </div>
+                    <div class="chat-main-body" id="chatBody"></div>
+                    <div class="chat-actions-bar">
+                      <button class="chat-action-btn" data-chat-action="release">✓ Release Escrow</button>
+                      <button class="chat-action-btn" data-chat-action="confirm">Confirm Payment</button>
+                      <button class="chat-action-btn danger" data-chat-action="cancel">Cancel Order</button>
+                    </div>
+                    <div class="chat-input-row">
+                      <input type="text" class="chat-input" id="chatInput" placeholder="Reply as merchant…">
+                      <button class="chat-send" id="chatSendBtn">
+                        <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                        Send
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CHART -->
+          <div class="card">
+            <div class="card-header">
+              <h3>Platform Volume · Last 7 Days</h3>
+              <span class="card-link">USD →</span>
+            </div>
+            <div class="card-body">
+              <div class="chart-wrap" id="chartWrap"></div>
+              <div class="chart-labels" id="chartLabels"></div>
+            </div>
+          </div>
+
+          <!-- ACTIVITY -->
+          <div class="card">
+            <div class="card-header">
+              <h3>Live Activity</h3>
+            </div>
+            <div class="card-body" style="padding: 6px 20px;">
+              <div class="activity-list" id="activityList"></div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- RIGHT -->
+        <div style="display: flex; flex-direction: column; gap: 18px;">
+
+          <!-- ALERTS -->
+          <div class="card">
+            <div class="card-header"><h3>Alerts</h3></div>
+            <div class="card-body">
+              <div class="alerts-list" id="alertsList"></div>
+            </div>
+          </div>
+
+          <!-- BOT CONTROL -->
+          <div class="card">
+            <div class="card-header">
+              <h3>Running Bots</h3>
+              <span class="card-link" data-nav="admin-bots.html">Manage →</span>
+            </div>
+            <div class="card-body">
+              <div class="bot-list" id="botList"></div>
+            </div>
+          </div>
+
+          <!-- INTEGRATION MAP -->
+          <div class="card">
+            <div class="card-header"><h3>Integration Map</h3></div>
+            <div class="card-body">
+              <div class="integration-list">
+                <div class="integration-row">
+                  <div class="integration-icon">📱</div>
+                  <div class="integration-info">
+                    <div class="integration-name">Telegram Merchant Bridge</div>
+                    <div class="integration-desc">Reply as merchant from your phone</div>
+                  </div>
+                  <span class="integration-status backend">Backend</span>
+                </div>
+                <div class="integration-row">
+                  <div class="integration-icon">⛓️</div>
+                  <div class="integration-info">
+                    <div class="integration-name">Blockchain Deposit Watcher</div>
+                    <div class="integration-desc">Auto-credit on confirmation</div>
+                  </div>
+                  <span class="integration-status backend">Backend</span>
+                </div>
+                <div class="integration-row">
+                  <div class="integration-icon">🤖</div>
+                  <div class="integration-info">
+                    <div class="integration-name">AI Trading Bot Engine</div>
+                    <div class="integration-desc">Live P&L with real wallet balance</div>
+                  </div>
+                  <span class="integration-status demo">Demo</span>
+                </div>
+                <div class="integration-row">
+                  <div class="integration-icon">💬</div>
+                  <div class="integration-info">
+                    <div class="integration-name">User ↔ Merchant Chat</div>
+                    <div class="integration-desc">Shared via localStorage</div>
+                  </div>
+                  <span class="integration-status live">Live</span>
+                </div>
+                <div class="integration-row">
+                  <div class="integration-icon">📊</div>
+                  <div class="integration-info">
+                    <div class="integration-name">CoinGecko Price Feed</div>
+                    <div class="integration-desc">Live asset prices for logs</div>
+                  </div>
+                  <span class="integration-status live">Live</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    (function() {
+      'use strict';
+
+      const $ = (s) => document.querySelector(s);
+      const $$ = (s) => document.querySelectorAll(s);
+
+      function showToast(msg) {
+        const t = $('#toast');
+        t.textContent = msg;
+        t.classList.add('show');
+        clearTimeout(t._t);
+        t._t = setTimeout(() => t.classList.remove('show'), 2600);
+      }
+
+      // AUTH GUARD
+      const session = localStorage.getItem('bp_admin_session');
+      if (!session) { window.location.href = 'admin-login.html'; return; }
+      let admin;
+      try {
+        admin = JSON.parse(session);
+        const ageMin = (Date.now() - new Date(admin.loginTime).getTime()) / 60000;
+        if (ageMin > 30) { localStorage.removeItem('bp_admin_session'); window.location.href = 'admin-login.html'; return; }
+      } catch (e) { window.location.href = 'admin-login.html'; return; }
+
+      const adminName = admin.name || 'Admin';
+      $('#adminName').textContent = adminName;
+      $('#adminAvatar').textContent = adminName.charAt(0).toUpperCase();
+      $('#sidebarEmail').textContent = admin.email;
+
+      // SIDEBAR MOBILE
+      const sidebar = $('#sidebar');
+      const sidebarOverlay = $('#sidebarOverlay');
+      $('#menuToggle').addEventListener('click', () => { sidebar.classList.add('open'); sidebarOverlay.classList.add('open'); });
+      sidebarOverlay.addEventListener('click', () => { sidebar.classList.remove('open'); sidebarOverlay.classList.remove('open'); });
+
+      // LOGOUT
+      function logout() { if (confirm('Sign out of admin console?')) { localStorage.removeItem('bp_admin_session'); window.location.href = 'admin-login.html'; } }
+      $('#logoutBtn').addEventListener('click', logout);
+      $('#adminChip').addEventListener('click', logout);
+
+      // NAV
+      $$('[data-nav]').forEach(el => el.addEventListener('click', () => { window.location.href = el.dataset.nav; }));
+
+      // CLOCK
+      function updateClock() {
+        $('#currentTime').textContent = new Date().toLocaleString('en-US', { weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+      }
+      updateClock();
+      setInterval(updateClock, 30000);
+
+      // ============================================================
+      // CHAT DATA — real user messages + demo merchant replies
+      // ============================================================
+      function loadChatThreads() {
+        const chats = JSON.parse(localStorage.getItem('bp_admin_chats') || '[]');
+
+        // Seed demo threads if empty
+        if (chats.length === 0) {
+          const demo = [
+            {
+              id: 'chat-1',
+              order: 'ORD-8821',
+              merchant: 'Kwame_P2P',
+              merchantInitial: 'K',
+              buyer: 'Amina O.',
+              asset: 'USDT',
+              amount: '100.00',
+              side: 'Buy',
+              status: 'active',
+              unread: true,
+              messages: [
+                { from: 'buyer', text: 'Hi, I sent 100 USD via M-Pesa. Reference MPX8842190.', time: '14:22', ts: Date.now() - 1800000 },
+                { from: 'merchant', text: 'Thanks! Confirming now, please give me a moment.', time: '14:23', ts: Date.now() - 1740000 },
+                { from: 'buyer', text: 'Sure, waiting.', time: '14:24', ts: Date.now() - 1680000 },
+              ],
+            },
+            {
+              id: 'chat-2',
+              order: 'ORD-8834',
+              merchant: 'ChidiSwift',
+              merchantInitial: 'C',
+              buyer: 'Lerato D.',
+              asset: 'BTC',
+              amount: '0.0032',
+              side: 'Sell',
+              status: 'active',
+              unread: true,
+              messages: [
+                { from: 'buyer', text: 'Payment sent to your GTBank account. Please confirm.', time: '15:10', ts: Date.now() - 900000 },
+              ],
+            },
+            {
+              id: 'chat-3',
+              order: 'ORD-8845',
+              merchant: 'FatimaExchange',
+              merchantInitial: 'F',
+              buyer: 'Hassan M.',
+              asset: 'USDT',
+              amount: '250.00',
+              side: 'Buy',
+              status: 'disputed',
+              unread: false,
+              messages: [
+                { from: 'buyer', text: 'I sent the payment 30 minutes ago and still no release.', time: '13:45', ts: Date.now() - 5400000 },
+                { from: 'merchant', text: 'I need to verify with my bank first.', time: '13:52', ts: Date.now() - 5000000 },
+                { from: 'buyer', text: 'This is unacceptable, I am opening a dispute.', time: '13:58', ts: Date.now() - 4800000 },
+              ],
+            },
+            {
+              id: 'chat-4',
+              order: 'ORD-8856',
+              merchant: 'DavidSwift',
+              merchantInitial: 'D',
+              buyer: 'Kelvin M.',
+              asset: 'USDT',
+              amount: '50.00',
+              side: 'Buy',
+              status: 'completed',
+              unread: false,
+              messages: [
+                { from: 'buyer', text: 'Payment sent via Zelle.', time: '11:20', ts: Date.now() - 10800000 },
+                { from: 'merchant', text: 'Confirmed. Released. Thanks!', time: '11:22', ts: Date.now() - 10680000 },
+              ],
+            },
+          ];
+          localStorage.setItem('bp_admin_chats', JSON.stringify(demo));
+          return demo;
+        }
+
+        return chats;
+      }
+
+      let chatThreads = loadChatThreads();
+      let activeChatId = null;
+
+      function saveChats() {
+        localStorage.setItem('bp_admin_chats', JSON.stringify(chatThreads));
+      }
+
+      function renderThreadList() {
+        const list = $('#chatThreadList');
+        const unreadTotal = chatThreads.filter(c => c.unread).length;
+        $('#chatCount').textContent = chatThreads.length;
+        $('#notifMini').style.display = unreadTotal > 0 ? 'block' : 'none';
+
+        list.innerHTML = chatThreads.map(c => {
+          const lastMsg = c.messages[c.messages.length - 1];
+          const preview = lastMsg ? lastMsg.text : 'No messages yet';
+          const isActive = c.id === activeChatId;
+          return `
+            <div class="chat-thread-item ${isActive ? 'active' : ''}" data-chat-id="${c.id}">
+              <div class="chat-thread-avatar">${c.merchantInitial}</div>
+              <div class="chat-thread-info">
+                <div class="chat-thread-name">${c.buyer}</div>
+                <div class="chat-thread-preview">${preview}</div>
+                <div class="chat-thread-meta">${c.order} · ${c.merchant}</div>
+              </div>
+              ${c.unread ? '<div class="chat-thread-unread"></div>' : ''}
+            </div>
+          `;
+        }).join('');
+
+        list.querySelectorAll('.chat-thread-item').forEach(el => {
+          el.addEventListener('click', () => {
+            activeChatId = el.dataset.chatId;
+            const thread = chatThreads.find(t => t.id === activeChatId);
+            if (thread) {
+              thread.unread = false;
+              saveChats();
+            }
+            renderThreadList();
+            renderActiveChat();
+          });
+        });
+      }
+
+      function renderActiveChat() {
+        const thread = chatThreads.find(t => t.id === activeChatId);
+        if (!thread) {
+          $('#chatEmpty').style.display = 'flex';
+          $('#chatActive').style.display = 'none';
+          return;
+        }
+
+        $('#chatEmpty').style.display = 'none';
+        $('#chatActive').style.display = 'flex';
+        $('#chatActiveAvatar').textContent = thread.merchantInitial;
+        $('#chatActiveName').textContent = thread.merchant;
+        $('#chatActiveSub').innerHTML = `${thread.order} · <span class="online">● Online</span>`;
+        $('.chat-order-badge').textContent = `${thread.side} ${thread.asset}`;
+
+        const body = $('#chatBody');
+        body.innerHTML = thread.messages.map(m => {
+          const isMerchant = m.from === 'merchant';
+          return `
+            <div class="chat-bubble ${isMerchant ? 'merchant' : 'customer'}">
+              <span class="chat-bubble-label">${isMerchant ? thread.merchant + ' (merchant)' : thread.buyer + ' (buyer)'}</span>
+              ${escapeHtml(m.text)}
+              <span class="chat-bubble-time">${m.time}</span>
+            </div>
+          `;
+        }).join('');
+
+        setTimeout(() => { body.scrollTop = body.scrollHeight; }, 50);
+      }
+
+      function escapeHtml(str) {
+        return (str || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+      }
+
+      function sendMerchantReply() {
+        const input = $('#chatInput');
+        const text = input.value.trim();
+        if (!text || !activeChatId) return;
+
+        const thread = chatThreads.find(t => t.id === activeChatId);
+        if (!thread) return;
+
+        const now = new Date();
+        const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        thread.messages.push({
+          from: 'merchant',
+          text: text,
+          time: time,
+          ts: now.getTime(),
+        });
+        thread.unread = false;
+        saveChats();
+        input.value = '';
+        renderActiveChat();
+
+        // Sync to user-side P2P chat
+        syncToUserSide(thread);
+
+        showToast('Reply sent as merchant');
+      }
+
+      // Write merchant reply to the user-side chat key so the user's p2p.html sees it
+      function syncToUserSide(thread) {
+        const userChats = JSON.parse(localStorage.getItem('bp_p2p_chat_' + thread.order) || '[]');
+        const last = thread.messages[thread.messages.length - 1];
+        userChats.push({
+          sender: 'merchant',
+          merchant: thread.merchant,
+          text: last.text,
+          time: last.time,
+          ts: last.ts,
+        });
+        localStorage.setItem('bp_p2p_chat_' + thread.order, JSON.stringify(userChats));
+      }
+
+      $('#chatSendBtn').addEventListener('click', sendMerchantReply);
+      $('#chatInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') sendMerchantReply();
+      });
+
+      // Chat action buttons
+      $$('[data-chat-action]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const action = btn.dataset.chatAction;
+          if (!activeChatId) return;
+          const thread = chatThreads.find(t => t.id === activeChatId);
+          if (!thread) return;
+
+          if (action === 'release') {
+            if (confirm(`Release escrow for order ${thread.order}?\n\nThis will credit ${thread.amount} ${thread.asset} to ${thread.buyer}.`)) {
+              thread.status = 'completed';
+              thread.messages.push({ from: 'merchant', text: 'Escrow released. Thank you for trading!', time: nowTime(), ts: Date.now() });
+              saveChats();
+              syncToUserSide(thread);
+              renderActiveChat();
+              showToast('Escrow released');
+            }
+          } else if (action === 'confirm') {
+            thread.messages.push({ from: 'merchant', text: 'Payment confirmed. Preparing release.', time: nowTime(), ts: Date.now() });
+            saveChats();
+            syncToUserSide(thread);
+            renderActiveChat();
+            showToast('Payment confirmed');
+          } else if (action === 'cancel') {
+            if (confirm(`Cancel order ${thread.order}?`)) {
+              thread.status = 'cancelled';
+              thread.messages.push({ from: 'merchant', text: 'Order cancelled by admin.', time: nowTime(), ts: Date.now() });
+              saveChats();
+              syncToUserSide(thread);
+              renderActiveChat();
+              showToast('Order cancelled');
+            }
+          }
+        });
+      });
+
+      function nowTime() {
+        return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      }
+
+      // ============================================================
+      // BOT LIST
+      // ============================================================
+      function loadBots() {
+        // Read bot state from localStorage (written by trade.html)
+        const botRunning = localStorage.getItem('bp_bot_running') === '1';
+        const botPnl = parseFloat(localStorage.getItem('bp_bot_pnl') || '0');
+        const botTrades = parseInt(localStorage.getItem('bp_bot_trades') || '0');
+        const botWinRate = parseFloat(localStorage.getItem('bp_bot_winrate') || '0');
+
+        const bots = [
+          {
+            id: 'bot-1',
+            user: 'Amina O.',
+            asset: 'BTC',
+            running: botRunning,
+            pnl: botPnl,
+            trades: botTrades,
+            winRate: botWinRate,
+          },
+          {
+            id: 'bot-2',
+            user: 'Kwame M.',
+            asset: 'ETH',
+            running: false,
+            pnl: 12.40,
+            trades: 18,
+            winRate: 72.2,
+          },
+          {
+            id: 'bot-3',
+            user: 'Lerato D.',
+            asset: 'SOL',
+            running: true,
+            pnl: 4.85,
+            trades: 9,
+            winRate: 66.7,
+          },
+        ];
+
+        const list = $('#botList');
+        list.innerHTML = bots.map(b => {
+          const pnlClass = b.pnl >= 0 ? 'positive' : 'negative';
+          const statusClass = b.running ? 'running' : 'idle';
+          return `
+            <div class="bot-row">
+              <div class="bot-avatar">🤖</div>
+              <div class="bot-info">
+                <div class="bot-name-row">
+                  <div class="bot-name">${b.user}</div>
+                  <div class="bot-status-dot ${statusClass}" title="${b.running ? 'Running' : 'Idle'}"></div>
+                </div>
+                <div class="bot-meta">${b.asset} · ${b.trades} trades · ${b.trades > 0 ? b.winRate.toFixed(0) + '% win' : '—'}</div>
+                <div class="bot-live-price" id="bot-price-${b.asset}">
+                  <span class="dot"></span>
+                  <span class="bot-price-value">Loading…</span>
+                </div>
+              </div>
+              <div class="bot-pnl">
+                <div class="val ${pnlClass}">${b.pnl >= 0 ? '+' : '-'}$${Math.abs(b.pnl).toFixed(2)}</div>
+                <div class="lbl">P&L</div>
+              </div>
+              <div class="bot-controls">
+                <button class="bot-control-btn" title="${b.running ? 'Pause' : 'Start'}" data-bot-toggle="${b.id}">
+                  ${b.running
+                    ? '<svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>'
+                    : '<svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>'}
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        // Bot toggle handlers
+        list.querySelectorAll('[data-bot-toggle]').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const id = btn.dataset.botToggle;
+            const bot = bots.find(b => b.id === id);
+            if (!bot) return;
+            bot.running = !bot.running;
+            // Persist for bot-1 (the one linked to actual user)
+            if (id === 'bot-1') {
+              localStorage.setItem('bp_bot_running', bot.running ? '1' : '0');
+            }
+            showToast(`Bot for ${bot.user} ${bot.running ? 'started' : 'paused'}`);
+            loadBots();
+          });
+        });
+
+        // Fetch live prices for each asset
+        fetchLivePrices(bots);
+      }
+
+      async function fetchLivePrices(bots) {
+        const assets = [...new Set(bots.map(b => b.asset))];
+        const idMap = { BTC: 'bitcoin', ETH: 'ethereum', SOL: 'solana', USDT: 'tether' };
+        const ids = assets.map(a => idMap[a]).filter(Boolean).join(',');
+        if (!ids) return;
+
+        try {
+          const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd&include_24hr_change=true`);
+          const data = await res.json();
+          assets.forEach(sym => {
+            const d = data[idMap[sym]];
+            const el = $('#bot-price-' + sym + ' .bot-price-value');
+            if (el && d) {
+              const change = d.usd_24h_change || 0;
+              el.textContent = `$${d.usd.toLocaleString('en-US', { maximumFractionDigits: 2 })} ${change >= 0 ? '▲' : '▼'} ${Math.abs(change).toFixed(1)}%`;
+              el.style.color = change >= 0 ? 'var(--green-500)' : 'var(--red-500)';
+            }
+          });
+        } catch (e) {
+          console.warn('Live price fetch failed:', e);
+        }
+      }
+
+      // ============================================================
+      // KPI + ALERTS + ACTIVITY + CHART
+      // ============================================================
+      function loadData() {
+        const walletBalance = parseFloat(localStorage.getItem('bp_wallet_balance') || '0');
+        const userEmail = localStorage.getItem('bp_user_email') || 'user@example.com';
+        const userName = localStorage.getItem('bp_user_name') || 'Bluepeak User';
+        const userCountry = localStorage.getItem('bp_user_country') || 'Kenya';
+        const userPhone = localStorage.getItem('bp_user_phone') || '+254 712 345 678';
+        const withdrawals = JSON.parse(localStorage.getItem('bp_withdrawals') || '[]');
+        const swaps = JSON.parse(localStorage.getItem('bp_recent_swaps') || '[]');
+        const deposits = JSON.parse(localStorage.getItem('bp_deposits') || '[]');
+        const p2pOrders = JSON.parse(localStorage.getItem('bp_p2p_orders') || '[]');
+        const kycStatus = localStorage.getItem('bp_kyc_status') || 'not_started';
+        const kycRef = localStorage.getItem('bp_kyc_ref') || '';
+
+        const users = [
+          { id: 8829103, name: userName, email: userEmail, phone: userPhone, country: userCountry, balance: walletBalance, tier: 1, status: 'active', joined: '2024-01-15' },
+          { id: 8829104, name: 'Kwame Mensah', email: 'kwame@example.com', phone: '+233 20 123 4567', country: 'Ghana', balance: 425.80, tier: 2, status: 'active', joined: '2024-03-08' },
+          { id: 8829105, name: 'Amina Okafor', email: 'amina@example.com', phone: '+234 803 555 1234', country: 'Nigeria', balance: 1250.00, tier: 2, status: 'active', joined: '2024-02-20' },
+          { id: 8829106, name: 'Lerato Dlamini', email: 'lerato@example.com', phone: '+27 82 555 0199', country: 'South Africa', balance: 88.40, tier: 1, status: 'active', joined: '2024-04-12' },
+          { id: 8829107, name: 'Hassan Mwinyi', email: 'hassan@example.com', phone: '+255 712 345 678', country: 'Tanzania', balance: 0, tier: 1, status: 'flagged', joined: '2024-04-28' },
+        ];
+        localStorage.setItem('bp_admin_users', JSON.stringify(users));
+
+        const totalVolume = users.reduce((s, u) => s + u.balance, 0);
+        const totalDeposits = deposits.reduce((s, d) => s + (parseFloat(d.amountUSD) || 0), 0) + 2000;
+        const pendingKYC = kycStatus === 'pending' ? 1 : 0;
+        const pendingWithdrawals = withdrawals.filter(w => w.status === 'pending').length;
+        const pendingDisputes = chatThreads.filter(c => c.status === 'disputed').length;
+        const pendingActions = pendingKYC + pendingWithdrawals + pendingDisputes;
+
+        $('#kpiUsers').textContent = users.length;
+        $('#kpiUsersChange').textContent = users.filter(u => u.status === 'active').length + ' active today';
+        $('#kpiVolume').textContent = '$' + totalVolume.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        $('#kpiVolumeChange').textContent = '+12.4% vs yesterday';
+        $('#kpiDeposits').textContent = '$' + totalDeposits.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        $('#kpiDepositsChange').textContent = deposits.length + ' deposits';
+        $('#kpiPending').textContent = pendingActions;
+        $('#kycBadge').textContent = pendingKYC;
+
+        // ALERTS
+        const alerts = [];
+        if (kycStatus === 'pending') alerts.push({ type: 'warning', icon: '🪪', title: 'KYC submission pending', desc: `Reference ${kycRef} awaiting review.`, action: 'Review KYC', nav: 'admin-kyc.html' });
+        if (pendingWithdrawals > 0) alerts.push({ type: 'critical', icon: '💸', title: `${pendingWithdrawals} withdrawal${pendingWithdrawals > 1 ? 's' : ''} pending`, desc: 'Requires admin approval.', action: 'Review withdrawals', nav: 'admin-transactions.html' });
+        if (pendingDisputes > 0) alerts.push({ type: 'critical', icon: '⚖️', title: `${pendingDisputes} P2P dispute${pendingDisputes > 1 ? 's' : ''} open`, desc: 'Escrow funds frozen.', action: 'Resolve disputes', nav: 'admin-p2p-orders.html' });
+        if (users.some(u => u.status === 'flagged')) alerts.push({ type: 'warning', icon: '🚩', title: 'Flagged user', desc: 'Under manual review.', action: 'Review users', nav: 'admin-users.html' });
+        if (chatThreads.some(c => c.unread)) alerts.push({ type: 'info', icon: '💬', title: 'Unread merchant chats', desc: 'Users waiting on merchant replies.', action: 'Open inbox', nav: '#chat' });
+
+        if (alerts.length === 0) {
+          $('#alertsList').innerHTML = `<div style="text-align:center;padding:20px;font-size:12.5px;color:var(--gray-500);font-weight:500;">✅ All clear</div>`;
+        } else {
+          $('#alertsList').innerHTML = alerts.map(a => `
+            <div class="alert-item ${a.type}">
+              <div class="alert-icon">${a.icon}</div>
+              <div class="alert-content">
+                <div class="alert-title">${a.title}</div>
+                <div class="alert-desc">${a.desc}</div>
+                <button class="alert-action" data-nav="${a.nav}">${a.action} →</button>
+              </div>
+            </div>
+          `).join('');
+          $$('.alert-action').forEach(b => b.addEventListener('click', () => { if (b.dataset.nav.startsWith('#')) window.scrollTo({ top: 0, behavior: 'smooth' }); else window.location.href = b.dataset.nav; }));
+        }
+
+        // ACTIVITY
+        const acts = [];
+        users.slice(0, 3).forEach(u => acts.push({ type: 'user', title: `New user <strong>${u.name}</strong> joined`, meta: u.country, time: u.joined, amount: '' }));
+        deposits.slice(0, 3).forEach(d => acts.push({ type: 'deposit', title: `Deposit <strong>${d.amount || '—'} ${d.asset || 'USDT'}</strong>`, meta: d.network || 'TRC20', time: timeAgo(d.time), amount: d.amountUSD ? '+$' + d.amountUSD : '', amountClass: 'positive' }));
+        withdrawals.slice(0, 2).forEach(w => acts.push({ type: 'withdraw', title: `Withdrawal <strong>${w.amount} ${w.asset}</strong>`, meta: w.network || 'TRC20', time: timeAgo(w.time), amount: '-' + w.amount + ' ' + w.asset, amountClass: 'negative' }));
+        chatThreads.slice(0, 2).forEach(c => acts.push({ type: 'p2p', title: `P2P chat · <strong>${c.merchant}</strong>`, meta: c.order, time: 'Active', amount: '', amountClass: '' }));
+
+        acts.sort(() => Math.random() - 0.5);
+        $('#activityList').innerHTML = acts.slice(0, 8).map(a => `
+          <div class="activity-item">
+            <div class="activity-icon ${a.type}">${({ user: '👤', deposit: '↓', withdraw: '↑', swap: '⇄', p2p: '🤝', kyc: '🪪' })[a.type] || '•'}</div>
+            <div class="activity-content">
+              <div class="activity-title">${a.title}</div>
+              <div class="activity-meta"><span>${a.meta}</span><span class="sep"></span><span>${a.time}</span></div>
+            </div>
+            ${a.amount ? `<div class="activity-amount ${a.amountClass || ''}">${a.amount}</div>` : ''}
+          </div>
+        `).join('');
+
+        // CHART
+        const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+        const vals = [1200, 1850, 1420, 2600, 3100, 2450, 3800];
+        const max = Math.max(...vals);
+        $('#chartLabels').innerHTML = days.map(d => `<div class="chart-label">${d}</div>`).join('');
+        $('#chartWrap').innerHTML = vals.map(v => `<div class="chart-bar" style="height:${(v / max) * 100}%;"><span class="chart-bar-tooltip">$${v.toLocaleString()}</span></div>`).join('');
+      }
+
+      function timeAgo(d) {
+        if (!d) return 'just now';
+        try {
+          const diff = (Date.now() - new Date(d).getTime()) / 1000;
+          if (diff < 60) return 'Just now';
+          if (diff < 3600) return Math.floor(diff / 60) + ' min ago';
+          if (diff < 86400) return Math.floor(diff / 3600) + ' hr ago';
+          return Math.floor(diff / 86400) + ' days ago';
+        } catch (e) { return '—'; }
+      }
+
+      // REFRESH
+      $('#refreshBtn').addEventListener('click', () => {
+        chatThreads = loadChatThreads();
+        renderThreadList();
+        if (activeChatId) renderActiveChat();
+        loadData();
+        loadBots();
+        showToast('Dashboard refreshed');
+      });
+
+      $('#notifBtn').addEventListener('click', () => {
+        const unread = chatThreads.filter(c => c.unread).length;
+        showToast(unread > 0 ? `${unread} unread chat${unread > 1 ? 's' : ''}` : 'No new notifications');
+      });
+      $('#viewAllChats').addEventListener('click', () => {
+        showToast('Full merchant inbox — coming in admin-p2p-orders.html');
+      });
+
+      // INIT
+      renderThreadList();
+      loadData();
+      loadBots();
+
+      // Refresh live prices every 15s
+      setInterval(() => {
+        fetchLivePrices([{ asset: 'BTC' }, { asset: 'ETH' }, { asset: 'SOL' }]);
+      }, 15000);
+
+      // Auto-sync chats every 20s
+      setInterval(() => {
+        chatThreads = loadChatThreads();
+        renderThreadList();
+      }, 20000);
+
+    })();
+  </script>
+</body>
+</html>
