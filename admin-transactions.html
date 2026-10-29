@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>Transactions — Admin — Bluepeak Capital</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy-900: #0A1A2F; --navy-800: #10243E; --navy-700: #1A3352;
+      --navy-100: #E8EDF4; --navy-50: #F2F5FA;
+      --gold-500: #C9A84C; --gold-400: #DDBE6B; --gold-100: #FBF5E6;
+      --green-500: #0F9D6E; --green-100: #E6F7F1;
+      --red-500: #D14343; --red-100: #FDECEC;
+      --blue-500: #2563EB; --blue-100: #DBEAFE;
+      --purple-500: #7C3AED; --purple-100: #EDE9FE;
+      --white: #FFFFFF; --gray-100: #F1F4F9; --gray-200: #E3E8EF;
+      --gray-300: #CDD5E0; --gray-400: #94A3B8; --gray-500: #64748B; --gray-600: #475569;
+      --shadow-xs: 0 1px 2px rgba(10, 26, 47, 0.04);
+      --shadow-sm: 0 2px 8px rgba(10, 26, 47, 0.05);
+      --shadow-md: 0 8px 24px rgba(10, 26, 47, 0.07);
+      --shadow-lg: 0 16px 48px rgba(10, 26, 47, 0.10);
+      --radius-xs: 8px; --radius-sm: 12px; --radius-md: 16px;
+      --radius-lg: 20px; --radius-pill: 999px;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    html { height: 100%; }
+    body {
+      font-family: var(--font); background-color: var(--navy-50);
+      color: var(--navy-900); line-height: 1.45;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh; display: flex;
+    }
+
+    /* SIDEBAR */
+    .sidebar { width: 250px; background: var(--navy-900); color: var(--white); display: flex; flex-direction: column; flex-shrink: 0; position: sticky; top: 0; height: 100vh; overflow-y: auto; z-index: 50; transition: transform 0.3s; }
+    .sidebar-header { padding: 20px 20px 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+    .sidebar-logo { display: flex; align-items: baseline; gap: 2px; margin-bottom: 4px; }
+    .sidebar-logo .blue { color: var(--white); font-size: 19px; font-weight: 800; letter-spacing: -0.6px; }
+    .sidebar-logo .peak { color: var(--gold-500); font-size: 19px; font-weight: 800; letter-spacing: -0.6px; }
+    .sidebar-logo .admin-badge { font-size: 8px; font-weight: 800; color: var(--gold-400); background: rgba(201, 168, 76, 0.15); border: 1px solid rgba(201, 168, 76, 0.3); padding: 2px 6px; border-radius: 3px; letter-spacing: 1px; margin-left: 6px; text-transform: uppercase; }
+    .sidebar-email { font-size: 11px; font-weight: 500; color: var(--gray-400); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .sidebar-nav { flex: 1; padding: 14px 12px; display: flex; flex-direction: column; gap: 2px; }
+    .nav-section-label { font-size: 9px; font-weight: 800; color: var(--gray-500); text-transform: uppercase; letter-spacing: 1.2px; padding: 14px 12px 6px; }
+    .nav-item { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: var(--radius-xs); background: none; border: none; cursor: pointer; color: var(--gray-300); font-family: var(--font); font-size: 13px; font-weight: 600; text-align: left; text-decoration: none; transition: all 0.15s; width: 100%; }
+    .nav-item:hover { background: rgba(255, 255, 255, 0.06); color: var(--white); }
+    .nav-item.active { background: rgba(201, 168, 76, 0.15); color: var(--gold-400); font-weight: 700; border-left: 2px solid var(--gold-500); padding-left: 10px; }
+    .nav-item .nav-ico { width: 18px; text-align: center; font-size: 15px; flex-shrink: 0; }
+    .nav-item .nav-badge { margin-left: auto; background: var(--red-500); color: var(--white); font-size: 9px; font-weight: 800; padding: 2px 6px; border-radius: var(--radius-pill); min-width: 18px; text-align: center; }
+    .sidebar-footer { padding: 16px 20px; border-top: 1px solid rgba(255, 255, 255, 0.08); }
+    .logout-btn { display: flex; align-items: center; gap: 10px; width: 100%; padding: 10px 12px; background: rgba(209, 67, 67, 0.12); border: 1px solid rgba(209, 67, 67, 0.25); border-radius: var(--radius-xs); color: #FCA5A5; font-family: var(--font); font-size: 12.5px; font-weight: 700; cursor: pointer; transition: all 0.15s; }
+    .logout-btn:hover { background: rgba(209, 67, 67, 0.2); }
+
+    /* MAIN */
+    .main-wrap { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+    .topbar { background: var(--white); border-bottom: 1px solid var(--gray-200); padding: 14px 28px; display: flex; align-items: center; justify-content: space-between; gap: 16px; position: sticky; top: 0; z-index: 40; }
+    .topbar-left { display: flex; align-items: center; gap: 16px; flex-shrink: 1; min-width: 0; }
+    .menu-toggle { display: none; background: none; border: none; padding: 6px; cursor: pointer; color: var(--navy-900); border-radius: var(--radius-xs); }
+    .menu-toggle:hover { background: var(--navy-50); }
+    .menu-toggle svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; }
+    .page-title-block h1 { font-size: 20px; font-weight: 800; color: var(--navy-900); letter-spacing: -0.5px; margin-bottom: 2px; }
+    .page-title-block p { font-size: 12px; font-weight: 500; color: var(--gray-500); }
+    .topbar-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .admin-chip { display: flex; align-items: center; gap: 10px; padding: 4px 14px 4px 4px; background: var(--navy-50); border: 1px solid var(--gray-200); border-radius: var(--radius-pill); cursor: pointer; transition: all 0.15s; }
+    .admin-chip:hover { background: var(--gold-100); border-color: var(--gold-500); }
+    .admin-avatar { width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg, var(--navy-900), var(--navy-700)); color: var(--gold-400); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; }
+    .admin-name { font-size: 12px; font-weight: 700; color: var(--navy-900); }
+    .admin-role { font-size: 9.5px; font-weight: 600; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.4px; }
+
+    /* CONTENT */
+    .content { flex: 1; padding: 24px 28px 40px; display: flex; flex-direction: column; gap: 16px; max-width: 1500px; width: 100%; margin: 0 auto; }
+
+    /* STATS */
+    .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .stat-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 16px 18px; display: flex; flex-direction: column; gap: 4px; box-shadow: var(--shadow-xs); }
+    .stat-label { font-size: 10.5px; font-weight: 800; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.5px; }
+    .stat-value { font-size: 22px; font-weight: 800; color: var(--navy-900); letter-spacing: -0.6px; font-variant-numeric: tabular-nums; }
+    .stat-value.gold { color: var(--gold-500); }
+    .stat-value.green { color: var(--green-500); }
+    .stat-value.red { color: var(--red-500); }
+
+    /* TOOLBAR */
+    .toolbar { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 16px 18px; display: flex; flex-direction: column; gap: 12px; box-shadow: var(--shadow-xs); }
+    .toolbar-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+    .search-wrap { position: relative; flex: 1; min-width: 220px; }
+    .search-wrap svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; stroke: var(--gray-500); fill: none; stroke-width: 2; pointer-events: none; }
+    .search-input { width: 100%; padding: 10px 14px 10px 40px; border: 1.5px solid var(--gray-200); border-radius: var(--radius-pill); font-family: var(--font); font-size: 13px; font-weight: 500; color: var(--navy-900); outline: none; transition: border 0.2s; background: var(--navy-50); }
+    .search-input:focus { border-color: var(--gold-500); background: var(--white); }
+    .search-input::placeholder { color: var(--gray-400); }
+
+    .filter-select { padding: 10px 14px; border-radius: var(--radius-pill); border: 1.5px solid var(--gray-200); background: var(--white); font-family: var(--font); font-size: 12.5px; font-weight: 700; color: var(--navy-900); cursor: pointer; outline: none; transition: border 0.2s; }
+    .filter-select:focus { border-color: var(--gold-500); }
+
+    .filter-pill-group { display: flex; gap: 6px; flex-wrap: wrap; }
+    .filter-pill { padding: 8px 14px; border-radius: var(--radius-pill); background: var(--white); border: 1px solid var(--gray-200); font-family: var(--font); font-size: 12px; font-weight: 700; color: var(--gray-500); cursor: pointer; transition: all 0.15s; white-space: nowrap; display: flex; align-items: center; gap: 6px; }
+    .filter-pill:hover { border-color: var(--gold-500); color: var(--navy-900); }
+    .filter-pill.active { background: var(--navy-900); border-color: var(--navy-900); color: var(--white); }
+    .filter-pill .pill-icon { font-size: 13px; }
+    .filter-pill .count { display: inline-flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.15); color: inherit; font-size: 9.5px; font-weight: 800; padding: 1px 6px; border-radius: var(--radius-pill); min-width: 18px; }
+    .filter-pill.active .count { background: var(--gold-500); color: var(--navy-900); }
+
+    /* TABLE */
+    .table-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-xs); }
+    .table-header { display: grid; grid-template-columns: 40px 1fr 120px 140px 130px 100px 130px 60px; gap: 12px; padding: 12px 20px; background: var(--navy-50); border-bottom: 1px solid var(--gray-200); font-size: 10.5px; font-weight: 800; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.6px; align-items: center; }
+    .table-row { display: grid; grid-template-columns: 40px 1fr 120px 140px 130px 100px 130px 60px; gap: 12px; padding: 14px 20px; align-items: center; border-bottom: 1px solid var(--gray-100); transition: background 0.15s; cursor: pointer; }
+    .table-row:last-child { border-bottom: none; }
+    .table-row:hover { background: var(--navy-50); }
+
+    .tx-icon-cell { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+    .tx-icon-cell.deposit { background: var(--green-100); color: var(--green-500); }
+    .tx-icon-cell.withdraw { background: var(--red-100); color: var(--red-500); }
+    .tx-icon-cell.swap { background: var(--gold-100); color: var(--gold-500); }
+    .tx-icon-cell.p2p { background: var(--purple-100); color: var(--purple-500); }
+
+    .tx-user { min-width: 0; }
+    .tx-user-name { font-size: 13px; font-weight: 700; color: var(--navy-900); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .tx-user-sub { font-size: 10.5px; font-weight: 500; color: var(--gray-500); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 1px; }
+
+    .tx-amount-cell { font-size: 13px; font-weight: 800; color: var(--navy-900); font-variant-numeric: tabular-nums; }
+    .tx-amount-cell .usd { font-size: 10.5px; font-weight: 600; color: var(--gray-500); margin-top: 1px; }
+
+    .tx-type-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; font-weight: 800; padding: 3px 9px; border-radius: var(--radius-pill); text-transform: uppercase; letter-spacing: 0.4px; }
+    .tx-type-badge.deposit { background: var(--green-100); color: var(--green-500); }
+    .tx-type-badge.withdraw { background: var(--red-100); color: var(--red-500); }
+    .tx-type-badge.swap { background: var(--gold-100); color: var(--gold-500); }
+    .tx-type-badge.p2p { background: var(--purple-100); color: var(--purple-500); }
+
+    .status-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 10px; font-weight: 800; padding: 3px 10px; border-radius: var(--radius-pill); text-transform: uppercase; letter-spacing: 0.4px; }
+    .status-badge .dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+    .status-badge.completed { background: var(--green-100); color: var(--green-500); }
+    .status-badge.pending { background: var(--gold-100); color: var(--gold-500); }
+    .status-badge.confirming { background: var(--blue-100); color: var(--blue-500); }
+    .status-badge.failed { background: var(--red-100); color: var(--red-500); }
+
+    .tx-time { font-size: 11px; font-weight: 600; color: var(--gray-500); }
+
+    .actions-cell { display: flex; gap: 4px; justify-content: flex-end; }
+    .icon-action { width: 30px; height: 30px; border-radius: 50%; background: var(--navy-50); border: 1px solid var(--gray-200); display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--navy-700); transition: all 0.15s; }
+    .icon-action:hover { background: var(--gold-100); border-color: var(--gold-500); color: var(--gold-500); }
+    .icon-action svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+
+    .empty-state { text-align: center; padding: 60px 20px; font-size: 13px; color: var(--gray-500); font-weight: 500; }
+
+    /* DETAIL MODAL */
+    .detail-overlay { position: fixed; inset: 0; background: rgba(10, 26, 47, 0.6); backdrop-filter: blur(4px); z-index: 90; display: none; align-items: center; justify-content: center; padding: 20px; overflow-y: auto; }
+    .detail-overlay.open { display: flex; }
+    .detail-modal { background: var(--white); border-radius: var(--radius-lg); width: 100%; max-width: 560px; max-height: 92vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: var(--shadow-lg); }
+    .detail-header { padding: 20px 24px; border-bottom: 1px solid var(--gray-200); display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-shrink: 0; }
+    .detail-header-left { display: flex; align-items: center; gap: 12px; }
+    .detail-icon-big { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+    .detail-icon-big.deposit { background: var(--green-100); color: var(--green-500); }
+    .detail-icon-big.withdraw { background: var(--red-100); color: var(--red-500); }
+    .detail-icon-big.swap { background: var(--gold-100); color: var(--gold-500); }
+    .detail-icon-big.p2p { background: var(--purple-100); color: var(--purple-500); }
+    .detail-title { font-size: 16px; font-weight: 800; color: var(--navy-900); }
+    .detail-subtitle { font-size: 11.5px; font-weight: 500; color: var(--gray-500); margin-top: 1px; }
+    .detail-close { background: var(--navy-50); border: none; width: 34px; height: 34px; border-radius: 50%; cursor: pointer; color: var(--navy-900); display: flex; align-items: center; justify-content: center; }
+    .detail-close:hover { background: var(--gray-200); }
+
+    .detail-body { flex: 1; overflow-y: auto; padding: 20px 24px; display: flex; flex-direction: column; gap: 16px; }
+
+    .detail-amount-banner { background: var(--navy-50); border-radius: var(--radius-md); padding: 18px; text-align: center; }
+    .detail-amount-banner .big-amt { font-size: 26px; font-weight: 800; letter-spacing: -0.8px; font-variant-numeric: tabular-nums; }
+    .detail-amount-banner .big-amt.positive { color: var(--green-500); }
+    .detail-amount-banner .big-amt.negative { color: var(--red-500); }
+    .detail-amount-banner .usd-amt { font-size: 13px; font-weight: 600; color: var(--gray-500); margin-top: 4px; }
+    .detail-amount-banner .status-badge { margin-top: 10px; }
+
+    .detail-section { border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 14px 16px; }
+    .detail-section h4 { font-size: 11px; font-weight: 800; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 10px; }
+    .detail-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 12.5px; gap: 12px; border-bottom: 1px solid var(--gray-100); }
+    .detail-row:last-child { border-bottom: none; }
+    .detail-row .lbl { font-weight: 600; color: var(--gray-500); flex-shrink: 0; }
+    .detail-row .val { font-weight: 800; color: var(--navy-900); text-align: right; word-break: break-all; font-variant-numeric: tabular-nums; }
+    .detail-row .val code { font-family: 'SF Mono', 'Consolas', monospace; font-size: 11px; font-weight: 600; color: var(--navy-800); }
+    .copy-mini { background: var(--navy-50); border: none; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 700; color: var(--navy-700); cursor: pointer; margin-left: 4px; }
+    .copy-mini:hover { background: var(--gold-100); }
+
+    .detail-footer { padding: 16px 24px; border-top: 1px solid var(--gray-200); display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; flex-shrink: 0; }
+    .btn-detail { padding: 10px 18px; border-radius: var(--radius-pill); background: var(--white); border: 1.5px solid var(--gray-200); font-family: var(--font); font-weight: 700; font-size: 12.5px; color: var(--navy-900); cursor: pointer; transition: all 0.15s; }
+    .btn-detail:hover { background: var(--navy-50); }
+    .btn-detail.danger { color: var(--red-500); border-color: rgba(209, 67, 67, 0.35); }
+    .btn-detail.danger:hover { background: var(--red-100); border-color: var(--red-500); }
+    .btn-detail.primary { background: linear-gradient(135deg, var(--green-500), #0B8A5E); color: var(--white); border: none; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 12px rgba(15, 157, 110, 0.3); }
+    .btn-detail.primary:hover { transform: translateY(-1px); }
+    .btn-detail.primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    /* TOAST */
+    .toast { position: fixed; bottom: 24px; right: 24px; background: var(--navy-900); color: var(--white); padding: 12px 20px; border-radius: var(--radius-pill); font-size: 13px; font-weight: 700; z-index: 200; opacity: 0; pointer-events: none; transition: all 0.3s; max-width: 380px; box-shadow: 0 8px 24px rgba(10, 26, 47, 0.3); }
+    .toast.show { opacity: 1; transform: translateY(-4px); }
+
+    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(10, 26, 47, 0.5); backdrop-filter: blur(4px); z-index: 45; }
+    .sidebar-overlay.open { display: block; }
+
+    @media (max-width: 1200px) {
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .table-header, .table-row { grid-template-columns: 40px 1fr 120px 120px 100px 60px; }
+      .table-header > .col-type, .table-row > .type-cell,
+      .table-header > .col-time, .table-row > .time-cell { display: none; }
+    }
+    @media (max-width: 900px) {
+      .sidebar { position: fixed; transform: translateX(-100%); }
+      .sidebar.open { transform: translateX(0); }
+      .menu-toggle { display: flex; }
+      .content { padding: 16px; }
+      .topbar { padding: 12px 16px; }
+      .page-title-block h1 { font-size: 17px; }
+      .admin-chip { padding: 4px; }
+      .admin-chip .admin-name, .admin-chip .admin-role { display: none; }
+      .table-header { display: none; }
+      .table-row { grid-template-columns: 1fr auto auto; gap: 8px; padding: 14px 16px; }
+      .table-row .tx-icon-cell, .table-row .cell-type, .table-row .cell-time, .table-row .actions-cell { display: none; }
+      .table-row > .tx-user { grid-column: 1; }
+      .table-row > .tx-amount-cell { grid-column: 2; text-align: right; }
+      .table-row > .cell-status { grid-column: 3; }
+      .detail-modal { max-width: 100%; }
+    }
+    @media (max-width: 500px) {
+      .stats-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <span class="blue">BLUE</span><span class="peak">PEAK</span>
+        <span class="admin-badge">Admin</span>
+      </div>
+      <div class="sidebar-email" id="sidebarEmail">admin@bluepeak.com</div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Overview</div>
+      <a href="admin-dashboard.html" class="nav-item"><span class="nav-ico">📊</span> Dashboard</a>
+      <div class="nav-section-label">Management</div>
+      <a href="admin-users.html" class="nav-item"><span class="nav-ico">👥</span> Users</a>
+      <a href="admin-merchants.html" class="nav-item"><span class="nav-ico">🤝</span> P2P Merchants</a>
+      <a href="admin-kyc.html" class="nav-item"><span class="nav-ico">🪪</span> KYC Reviews <span class="nav-badge" id="kycBadge">0</span></a>
+      <a href="admin-transactions.html" class="nav-item active"><span class="nav-ico">💸</span> Transactions</a>
+      <a href="admin-p2p-orders.html" class="nav-item"><span class="nav-ico">📋</span> P2P Orders</a>
+      <div class="nav-section-label">System</div>
+      <a href="admin-bots.html" class="nav-item"><span class="nav-ico">🤖</span> Bot Manager</a>
+      <a href="admin-settings.html" class="nav-item"><span class="nav-ico">⚙️</span> Settings</a>
+      <a href="admin-audit.html" class="nav-item"><span class="nav-ico">📜</span> Audit Log</a>
+    </nav>
+    <div class="sidebar-footer">
+      <button class="logout-btn" id="logoutBtn"><span>🚪</span> Sign Out</button>
+    </div>
+  </aside>
+
+  <div class="main-wrap">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+          <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+        <div class="page-title-block">
+          <h1>Transactions</h1>
+          <p id="txCountSub">All deposits, withdrawals, swaps, and P2P orders</p>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <div class="admin-chip" id="adminChip">
+          <div class="admin-avatar" id="adminAvatar">A</div>
+          <div>
+            <div class="admin-name" id="adminName">Admin</div>
+            <div class="admin-role">Super Admin</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="content">
+
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-label">Total Deposits</div>
+          <div class="stat-value green" id="statDeposits">$0.00</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Total Withdrawals</div>
+          <div class="stat-value red" id="statWithdrawals">$0.00</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Pending Actions</div>
+          <div class="stat-value gold" id="statPending">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Total Transactions</div>
+          <div class="stat-value" id="statTotal">0</div>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <div class="toolbar-row">
+          <div class="search-wrap">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+            <input type="text" class="search-input" id="searchInput" placeholder="Search by user, asset, address, or transaction ID…">
+          </div>
+          <select class="filter-select" id="assetFilter">
+            <option value="">All assets</option>
+            <option value="USDT">USDT</option>
+            <option value="BTC">BTC</option>
+            <option value="ETH">ETH</option>
+            <option value="SOL">SOL</option>
+            <option value="USDC">USDC</option>
+            <option value="BNB">BNB</option>
+          </select>
+          <select class="filter-select" id="statusFilter">
+            <option value="">All statuses</option>
+            <option value="completed">Completed</option>
+            <option value="pending">Pending</option>
+            <option value="confirming">Confirming</option>
+            <option value="failed">Failed</option>
+          </select>
+        </div>
+        <div class="toolbar-row">
+          <div class="filter-pill-group" id="typeFilterGroup">
+            <button class="filter-pill active" data-type="all">All</button>
+            <button class="filter-pill" data-type="deposit"><span class="pill-icon">↓</span> Deposits <span class="count" id="cntDeposit">0</span></button>
+            <button class="filter-pill" data-type="withdraw"><span class="pill-icon">↑</span> Withdrawals <span class="count" id="cntWithdraw">0</span></button>
+            <button class="filter-pill" data-type="swap"><span class="pill-icon">⇄</span> Swaps <span class="count" id="cntSwap">0</span></button>
+            <button class="filter-pill" data-type="p2p"><span class="pill-icon">🤝</span> P2P <span class="count" id="cntP2P">0</span></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="table-card">
+        <div class="table-header">
+          <div></div>
+          <div>User</div>
+          <div>Amount</div>
+          <div class="col-type">Type</div>
+          <div>Status</div>
+          <div class="col-time">Time</div>
+          <div>Details</div>
+          <div></div>
+        </div>
+        <div id="txTableBody"></div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- DETAIL MODAL -->
+  <div class="detail-overlay" id="detailOverlay">
+    <div class="detail-modal">
+      <div class="detail-header">
+        <div class="detail-header-left">
+          <div class="detail-icon-big" id="detailIcon">↓</div>
+          <div>
+            <div class="detail-title" id="detailTitle">Transaction</div>
+            <div class="detail-subtitle" id="detailSubtitle">—</div>
+          </div>
+        </div>
+        <button class="detail-close" id="detailClose">✕</button>
+      </div>
+      <div class="detail-body" id="detailBody"></div>
+      <div class="detail-footer" id="detailFooter"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    (function() {
+      'use strict';
+
+      const $ = (s) => document.querySelector(s);
+      const $$ = (s) => document.querySelectorAll(s);
+
+      function showToast(msg) {
+        const t = $('#toast');
+        t.textContent = msg;
+        t.classList.add('show');
+        clearTimeout(t._t);
+        t._t = setTimeout(() => t.classList.remove('show'), 2600);
+      }
+
+      // AUTH GUARD
+      const session = localStorage.getItem('bp_admin_session');
+      if (!session) { window.location.href = 'admin-login.html'; return; }
+      let admin;
+      try {
+        admin = JSON.parse(session);
+        const ageMin = (Date.now() - new Date(admin.loginTime).getTime()) / 60000;
+        if (ageMin > 30) { localStorage.removeItem('bp_admin_session'); window.location.href = 'admin-login.html'; return; }
+      } catch (e) { window.location.href = 'admin-login.html'; return; }
+
+      $('#adminName').textContent = admin.name || 'Admin';
+      $('#adminAvatar').textContent = (admin.name || 'Admin').charAt(0).toUpperCase();
+      $('#sidebarEmail').textContent = admin.email;
+
+      // SIDEBAR
+      $('#menuToggle').addEventListener('click', () => {
+        $('#sidebar').classList.add('open');
+        $('#sidebarOverlay').classList.add('open');
+      });
+      $('#sidebarOverlay').addEventListener('click', () => {
+        $('#sidebar').classList.remove('open');
+        $('#sidebarOverlay').classList.remove('open');
+      });
+      function logout() {
+        if (confirm('Sign out of admin console?')) {
+          localStorage.removeItem('bp_admin_session');
+          window.location.href = 'admin-login.html';
+        }
+      }
+      $('#logoutBtn').addEventListener('click', logout);
+      $('#adminChip').addEventListener('click', logout);
+
+      // ============================================================
+      // LOAD TRANSACTIONS
+      // ============================================================
+      function loadTransactions() {
+        const txs = [];
+
+        // Deposits
+        const deposits = JSON.parse(localStorage.getItem('bp_deposits') || '[]');
+        deposits.forEach((d, i) => {
+          txs.push({
+            id: 'dep-' + i,
+            ref: 'DEP-' + (1000 + i),
+            type: 'deposit',
+            user: localStorage.getItem('bp_user_name') || 'Bluepeak User',
+            email: localStorage.getItem('bp_user_email') || 'user@example.com',
+            asset: d.asset || 'USDT',
+            amount: parseFloat(d.amount) || 0,
+            usd: parseFloat(d.amountUSD) || (parseFloat(d.amount) || 0),
+            network: d.network || 'TRC20',
+            address: d.address || '—',
+            txHash: d.txHash || '—',
+            status: d.status || 'completed',
+            time: d.time || new Date().toISOString(),
+            fee: 0,
+          });
+        });
+
+        // Withdrawals
+        const withdrawals = JSON.parse(localStorage.getItem('bp_withdrawals') || '[]');
+        withdrawals.forEach((w, i) => {
+          txs.push({
+            id: 'wit-' + i,
+            ref: 'WIT-' + (2000 + i),
+            type: 'withdraw',
+            user: localStorage.getItem('bp_user_name') || 'Bluepeak User',
+            email: localStorage.getItem('bp_user_email') || 'user@example.com',
+            asset: w.asset || 'USDT',
+            amount: parseFloat(w.amount) || 0,
+            usd: parseFloat(w.amount) || 0,
+            network: w.network || 'TRC20',
+            address: w.address || '—',
+            txHash: '—',
+            status: w.status || 'pending',
+            time: w.time || new Date().toISOString(),
+            fee: w.fee || 1,
+          });
+        });
+
+        // Swaps
+        const swaps = JSON.parse(localStorage.getItem('bp_recent_swaps') || '[]');
+        swaps.forEach((s, i) => {
+          txs.push({
+            id: 'swp-' + i,
+            ref: 'SWP-' + (3000 + i),
+            type: 'swap',
+            user: localStorage.getItem('bp_user_name') || 'Bluepeak User',
+            email: localStorage.getItem('bp_user_email') || 'user@example.com',
+            asset: (s.from || '').split(' ')[1] || 'USDT',
+            amount: 0,
+            usd: 0,
+            network: '—',
+            address: '—',
+            txHash: '—',
+            status: 'completed',
+            time: (s.date && s.time) ? (s.date + ' ' + s.time) : new Date().toISOString(),
+            fee: 0,
+            swapDetail: s.from + ' → ' + s.to,
+            rate: s.rate || '—',
+          });
+        });
+
+        // P2P orders
+        const p2pOrders = JSON.parse(localStorage.getItem('bp_p2p_orders') || '[]');
+        p2pOrders.forEach((o, i) => {
+          txs.push({
+            id: 'p2p-' + i,
+            ref: 'P2P-' + (4000 + i),
+            type: 'p2p',
+            user: o.buyer || localStorage.getItem('bp_user_name') || 'Bluepeak User',
+            email: localStorage.getItem('bp_user_email') || 'user@example.com',
+            asset: o.asset || 'USDT',
+            amount: parseFloat(o.amount) || 0,
+            usd: parseFloat(o.amountUSD) || 0,
+            network: o.network || '—',
+            address: '—',
+            txHash: '—',
+            status: o.status || 'completed',
+            time: o.time || new Date().toISOString(),
+            fee: 0,
+            counterparty: o.counterparty || '—',
+            side: o.side || 'buy',
+          });
+        });
+
+        // Demo data if empty
+        if (txs.length === 0) {
+          const now = Date.now();
+          const users = JSON.parse(localStorage.getItem('bp_admin_users') || '[]');
+          const pickUser = (i) => users[i % users.length] || { name: 'Bluepeak User', email: 'user@example.com' };
+
+          txs.push(
+            { id: 'demo-1', ref: 'DEP-1001', type: 'deposit', user: pickUser(0).name, email: pickUser(0).email, asset: 'USDT', amount: 500, usd: 500, network: 'TRC20', address: 'TXk7bF9m2Kp4qWnE8v3Ls6HjR5tYcB2pQd', txHash: '0x3a7f...9d2e', status: 'completed', time: new Date(now - 3600000).toISOString(), fee: 0 },
+            { id: 'demo-2', ref: 'WIT-2001', type: 'withdraw', user: pickUser(1).name, email: pickUser(1).email, asset: 'USDT', amount: 200, usd: 200, network: 'TRC20', address: 'TKy8cG0n...', txHash: '—', status: 'pending', time: new Date(now - 7200000).toISOString(), fee: 1 },
+            { id: 'demo-3', ref: 'SWP-3001', type: 'swap', user: pickUser(2).name, email: pickUser(2).email, asset: 'BTC', amount: 0.0061, usd: 500, network: '—', address: '—', txHash: '—', status: 'completed', time: new Date(now - 10800000).toISOString(), fee: 0, swapDetail: '500 USDT → 0.0061 BTC', rate: '1 USDT ≈ 0.0000123 BTC' },
+            { id: 'demo-4', ref: 'P2P-4001', type: 'p2p', user: pickUser(3).name, email: pickUser(3).email, asset: 'USDT', amount: 100, usd: 103, network: 'M-Pesa', address: '—', txHash: '—', status: 'completed', time: new Date(now - 14400000).toISOString(), fee: 0, counterparty: 'Kwame_P2P', side: 'buy' },
+            { id: 'demo-5', ref: 'WIT-2002', type: 'withdraw', user: pickUser(4).name, email: pickUser(4).email, asset: 'BTC', amount: 0.0012, usd: 97.20, network: 'Bitcoin', address: 'bc1qxy2...', txHash: '—', status: 'confirming', time: new Date(now - 18000000).toISOString(), fee: 0.00005 },
+            { id: 'demo-6', ref: 'DEP-1002', type: 'deposit', user: pickUser(5).name, email: pickUser(5).email, asset: 'ETH', amount: 0.5, usd: 1600, network: 'ERC20', address: '0x71C7...', txHash: '0x9c3a...', status: 'completed', time: new Date(now - 21600000).toISOString(), fee: 0 },
+          );
+        }
+
+        return txs;
+      }
+
+      let transactions = loadTransactions();
+      let filtered = [...transactions];
+      let activeType = 'all';
+      let activeTx = null;
+
+      function logAction(action, target, details) {
+        const log = JSON.parse(localStorage.getItem('bp_audit_log') || '[]');
+        log.push({ ts: Date.now(), admin: admin.email, action, target, details });
+        if (log.length > 500) log.splice(0, log.length - 500);
+        localStorage.setItem('bp_audit_log', JSON.stringify(log));
+      }
+
+      // ============================================================
+      // FILTERS + STATS
+      // ============================================================
+      function applyFilters() {
+        const q = ($('#searchInput').value || '').toLowerCase().trim();
+        const assetFilter = $('#assetFilter').value;
+        const statusFilter = $('#statusFilter').value;
+
+        filtered = transactions.filter(t => {
+          if (activeType !== 'all' && t.type !== activeType) return false;
+          if (assetFilter && t.asset !== assetFilter) return false;
+          if (statusFilter && t.status !== statusFilter) return false;
+          if (q) {
+            const hay = (t.user + ' ' + t.email + ' ' + t.ref + ' ' + t.asset + ' ' + (t.address || '') + ' ' + (t.txHash || '')).toLowerCase();
+            if (!hay.includes(q)) return false;
+          }
+          return true;
+        });
+
+        filtered.sort((a, b) => new Date(b.time) - new Date(a.time));
+
+        updateStats();
+        renderTable();
+      }
+
+      function updateStats() {
+        const deposits = transactions.filter(t => t.type === 'deposit');
+        const withdrawals = transactions.filter(t => t.type === 'withdraw');
+        const pending = transactions.filter(t => t.status === 'pending' || t.status === 'confirming');
+
+        const totalDep = deposits.reduce((s, t) => s + t.usd, 0);
+        const totalWit = withdrawals.reduce((s, t) => s + t.usd, 0);
+
+        $('#statDeposits').textContent = '$' + totalDep.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        $('#statWithdrawals').textContent = '$' + totalWit.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        $('#statPending').textContent = pending.length;
+        $('#statTotal').textContent = transactions.length;
+
+        $('#cntDeposit').textContent = deposits.length;
+        $('#cntWithdraw').textContent = withdrawals.length;
+        $('#cntSwap').textContent = transactions.filter(t => t.type === 'swap').length;
+        $('#cntP2P').textContent = transactions.filter(t => t.type === 'p2p').length;
+        $('#txCountSub').textContent = `${filtered.length} of ${transactions.length} transactions`;
+      }
+
+      // ============================================================
+      // RENDER TABLE
+      // ============================================================
+      function renderTable() {
+        const body = $('#txTableBody');
+        if (filtered.length === 0) {
+          body.innerHTML = `<div class="empty-state">No transactions match your filters</div>`;
+          return;
+        }
+
+        body.innerHTML = filtered.map(t => {
+          const icons = { deposit: '↓', withdraw: '↑', swap: '⇄', p2p: '🤝' };
+          const typeLabel = { deposit: 'Deposit', withdraw: 'Withdrawal', swap: 'Swap', p2p: 'P2P' }[t.type];
+          const amountClass = t.type === 'deposit' ? 'positive' : (t.type === 'withdraw' ? 'negative' : '');
+          return `
+            <div class="table-row" data-tx-id="${t.id}">
+              <div class="tx-icon-cell ${t.type}">${icons[t.type]}</div>
+              <div class="tx-user">
+                <div class="tx-user-name">${escapeHtml(t.user)}</div>
+                <div class="tx-user-sub">${escapeHtml(t.ref)} · ${t.network}</div>
+              </div>
+              <div class="tx-amount-cell ${amountClass}">
+                ${t.amount > 0 ? t.amount.toLocaleString('en-US', { maximumFractionDigits: 6 }) + ' ' + t.asset : '—'}
+                <div class="usd">${t.usd > 0 ? '$' + t.usd.toFixed(2) : '—'}</div>
+              </div>
+              <div class="cell-type"><span class="tx-type-badge ${t.type}">${typeLabel}</span></div>
+              <div class="cell-status"><span class="status-badge ${t.status}"><span class="dot"></span>${t.status}</span></div>
+              <div class="cell-time tx-time">${formatRelativeTime(t.time)}</div>
+              <div style="font-size:11px;font-weight:600;color:var(--gray-500);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml((t.swapDetail || t.counterparty || t.address || '—').substring(0, 22))}</div>
+              <div class="actions-cell">
+                <button class="icon-action" data-open-tx="${t.id}" title="View details">
+                  <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        body.querySelectorAll('.table-row').forEach(row => {
+          row.addEventListener('click', (e) => {
+            if (e.target.closest('.icon-action')) return;
+            openDetail(row.dataset.txId);
+          });
+        });
+        body.querySelectorAll('[data-open-tx]').forEach(btn => {
+          btn.addEventListener('click', (e) => { e.stopPropagation(); openDetail(btn.dataset.openTx); });
+        });
+      }
+
+      function escapeHtml(str) {
+        return (str || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+      }
+
+      function formatRelativeTime(t) {
+        try {
+          const diff = (Date.now() - new Date(t).getTime()) / 1000;
+          if (diff < 60) return 'Just now';
+          if (diff < 3600) return Math.floor(diff / 60) + 'm ago';
+          if (diff < 86400) return Math.floor(diff / 3600) + 'h ago';
+          return Math.floor(diff / 86400) + 'd ago';
+        } catch (e) { return '—'; }
+      }
+
+      // ============================================================
+      // DETAIL MODAL
+      // ============================================================
+      function openDetail(id) {
+        const t = transactions.find(x => x.id === id);
+        if (!t) return;
+        activeTx = t;
+
+        const icons = { deposit: '↓', withdraw: '↑', swap: '⇄', p2p: '🤝' };
+        $('#detailIcon').className = 'detail-icon-big ' + t.type;
+        $('#detailIcon').textContent = icons[t.type];
+        $('#detailTitle').textContent = { deposit: 'Deposit', withdraw: 'Withdrawal', swap: 'Swap', p2p: 'P2P Order' }[t.type];
+        $('#detailSubtitle').textContent = t.ref + ' · ' + t.user;
+
+        const isPositive = t.type === 'deposit';
+        const isNegative = t.type === 'withdraw';
+
+        let extraRows = '';
+        if (t.address && t.address !== '—') {
+          extraRows += `<div class="detail-row"><span class="lbl">Address</span><span class="val"><code>${escapeHtml(t.address)}</code></span></div>`;
+        }
+        if (t.txHash && t.txHash !== '—') {
+          extraRows += `<div class="detail-row"><span class="lbl">Transaction hash</span><span class="val"><code>${escapeHtml(t.txHash)}</code><button class="copy-mini" data-copy="${escapeHtml(t.txHash)}">Copy</button></span></div>`;
+        }
+        if (t.network && t.network !== '—') {
+          extraRows += `<div class="detail-row"><span class="lbl">Network</span><span class="val">${escapeHtml(t.network)}</span></div>`;
+        }
+        if (t.fee) {
+          extraRows += `<div class="detail-row"><span class="lbl">Network fee</span><span class="val">${t.fee} ${t.asset}</span></div>`;
+        }
+        if (t.counterparty && t.counterparty !== '—') {
+          extraRows += `<div class="detail-row"><span class="lbl">Counterparty</span><span class="val">${escapeHtml(t.counterparty)}</span></div>`;
+        }
+        if (t.side) {
+          extraRows += `<div class="detail-row"><span class="lbl">Side</span><span class="val" style="text-transform:capitalize;">${t.side}</span></div>`;
+        }
+        if (t.rate) {
+          extraRows += `<div class="detail-row"><span class="lbl">Rate</span><span class="val">${escapeHtml(t.rate)}</span></div>`;
+        }
+        if (t.swapDetail) {
+          extraRows += `<div class="detail-row"><span class="lbl">Swap</span><span class="val">${escapeHtml(t.swapDetail)}</span></div>`;
+        }
+
+        $('#detailBody').innerHTML = `
+          <div class="detail-amount-banner">
+            <div class="big-amt ${isPositive ? 'positive' : (isNegative ? 'negative' : '')}">
+              ${isPositive ? '+' : (isNegative ? '−' : '')}${t.amount.toLocaleString('en-US', { maximumFractionDigits: 6 })} ${t.asset}
+            </div>
+            <div class="usd-amt">${t.usd > 0 ? '$' + t.usd.toFixed(2) + ' USD' : '—'}</div>
+            <span class="status-badge ${t.status}"><span class="dot"></span>${t.status}</span>
+          </div>
+
+          <div class="detail-section">
+            <h4>User</h4>
+            <div class="detail-row"><span class="lbl">Name</span><span class="val">${escapeHtml(t.user)}</span></div>
+            <div class="detail-row"><span class="lbl">Email</span><span class="val">${escapeHtml(t.email)}</span></div>
+          </div>
+
+          <div class="detail-section">
+            <h4>Transaction Details</h4>
+            <div class="detail-row"><span class="lbl">Reference</span><span class="val"><code>${escapeHtml(t.ref)}</code></span></div>
+            <div class="detail-row"><span class="lbl">Asset</span><span class="val">${escapeHtml(t.asset)}</span></div>
+            <div class="detail-row"><span class="lbl">Submitted</span><span class="val">${new Date(t.time).toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</span></div>
+            ${extraRows}
+          </div>
+        `;
+
+        // Bind copy buttons
+        $('#detailBody').querySelectorAll('[data-copy]').forEach(btn => {
+          btn.addEventListener('click', () => {
+            if (navigator.clipboard) {
+              navigator.clipboard.writeText(btn.dataset.copy).then(() => showToast('Copied'));
+            }
+          });
+        });
+
+        // Build footer with actions based on type/status
+        const footer = $('#detailFooter');
+        footer.innerHTML = '';
+
+        // Close button (always)
+        const closeBtn = document.createElement('button');
+        closeBtn.className = 'btn-detail';
+        closeBtn.textContent = 'Close';
+        closeBtn.addEventListener('click', closeDetail);
+        footer.appendChild(closeBtn);
+
+        // Actions for pending withdrawals
+        if (t.type === 'withdraw' && (t.status === 'pending' || t.status === 'confirming')) {
+          const rejectBtn = document.createElement('button');
+          rejectBtn.className = 'btn-detail danger';
+          rejectBtn.textContent = 'Reject';
+          rejectBtn.addEventListener('click', () => {
+            const reason = prompt('Reason for rejection:', 'Suspicious activity');
+            if (!reason) return;
+            t.status = 'failed';
+            logAction('withdrawal_rejected', t.ref, { user: t.user, amount: t.amount, asset: t.asset, reason });
+            showToast('Withdrawal rejected');
+            closeDetail();
+            applyFilters();
+          });
+          footer.appendChild(rejectBtn);
+
+          const approveBtn = document.createElement('button');
+          approveBtn.className = 'btn-detail primary';
+          approveBtn.innerHTML = '<svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;"><polyline points="20 6 9 17 4 12"/></svg> Approve & Send';
+          approveBtn.addEventListener('click', () => {
+            if (!confirm(`Approve withdrawal of ${t.amount} ${t.asset} for ${t.user}?`)) return;
+            t.status = 'completed';
+            t.txHash = '0x' + Math.random().toString(16).slice(2, 10) + '...' + Math.random().toString(16).slice(2, 6);
+            logAction('withdrawal_approved', t.ref, { user: t.user, amount: t.amount, asset: t.asset });
+            showToast('Withdrawal approved — processing');
+            closeDetail();
+            applyFilters();
+          });
+          footer.appendChild(approveBtn);
+        }
+
+        // Actions for pending deposits
+        if (t.type === 'deposit' && t.status !== 'completed') {
+          const manualBtn = document.createElement('button');
+          manualBtn.className = 'btn-detail primary';
+          manualBtn.innerHTML = '<svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;"><polyline points="20 6 9 17 4 12"/></svg> Credit Manually';
+          manualBtn.addEventListener('click', () => {
+            if (!confirm(`Manually credit ${t.amount} ${t.asset} to ${t.user}?\n\nThis bypasses blockchain confirmation and will be logged.`)) return;
+            t.status = 'completed';
+            logAction('deposit_credited_manually', t.ref, { user: t.user, amount: t.amount, asset: t.asset });
+            showToast('Deposit credited');
+            closeDetail();
+            applyFilters();
+          });
+          footer.appendChild(manualBtn);
+        }
+
+        $('#detailOverlay').classList.add('open');
+      }
+
+      function closeDetail() {
+        $('#detailOverlay').classList.remove('open');
+        activeTx = null;
+      }
+
+      $('#detailClose').addEventListener('click', closeDetail);
+      $('#detailOverlay').addEventListener('click', (e) => { if (e.target === $('#detailOverlay')) closeDetail(); });
+
+      // ============================================================
+      // TOOLBAR
+      // ============================================================
+      $('#searchInput').addEventListener('input', applyFilters);
+      $('#assetFilter').addEventListener('change', applyFilters);
+      $('#statusFilter').addEventListener('change', applyFilters);
+
+      $$('#typeFilterGroup .filter-pill').forEach(btn => {
+        btn.addEventListener('click', () => {
+          $$('#typeFilterGroup .filter-pill').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          activeType = btn.dataset.type;
+          applyFilters();
+        });
+      });
+
+      // INIT
+      applyFilters();
+
+    })();
+  </script>
+</body>
+</html>
