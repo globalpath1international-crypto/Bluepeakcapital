@@ -26,6 +26,8 @@
       --green-100: #E6F7F1;
       --red-500: #D14343;
       --red-100: #FDECEC;
+      --blue-500: #2563EB;
+      --blue-100: #DBEAFE;
       --white: #FFFFFF;
       --gray-100: #F1F4F9;
       --gray-200: #E3E8EF;
@@ -89,6 +91,27 @@
     .logo .tagline { font-size: 8.5px; font-weight: 700; color: var(--gray-500); letter-spacing: 1.6px; text-transform: uppercase; padding: 3px 7px; border-left: 1.5px solid var(--gold-500); line-height: 1; }
 
     .header-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+
+    /* Auth buttons (signed out) */
+    .header-auth-group { display: flex; align-items: center; gap: 8px; }
+    .header-auth-group.hidden { display: none; }
+    .auth-btn-signin {
+      background: transparent; border: 1.5px solid var(--gray-200);
+      color: var(--navy-900); padding: 8px 16px;
+      border-radius: var(--radius-pill); font-family: var(--font);
+      font-size: 12.5px; font-weight: 700; cursor: pointer;
+      transition: all 0.2s; white-space: nowrap;
+    }
+    .auth-btn-signin:hover { border-color: var(--gold-500); background: var(--gold-100); }
+    .auth-btn-join {
+      background: linear-gradient(135deg, var(--gold-500), var(--gold-400));
+      color: var(--navy-900); border: none; padding: 9px 18px;
+      border-radius: var(--radius-pill); font-family: var(--font);
+      font-size: 12.5px; font-weight: 800; cursor: pointer;
+      transition: all 0.2s; white-space: nowrap;
+      box-shadow: var(--shadow-gold);
+    }
+    .auth-btn-join:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(201,168,76,0.45); }
 
     .balance-wrapper {
       display: flex; align-items: center; gap: 4px;
@@ -237,6 +260,13 @@
     .panel-desc { font-size: 13.5px; color: var(--gray-500); line-height: 1.55; padding-bottom: 4px; border-bottom: 1px solid var(--gray-200); margin-bottom: 2px; }
     .section-label { font-size: 15px; font-weight: 800; color: var(--navy-900); letter-spacing: -0.3px; display: flex; align-items: center; gap: 8px; }
     .section-label::before { content: ''; width: 3px; height: 16px; background: var(--gold-500); border-radius: 2px; }
+
+    /* ============================================================
+       TOGGLE GROUP (Buy / Sell)
+       ============================================================ */
+    .toggle-group { display: flex; gap: 6px; background: var(--navy-50); border: 1px solid var(--gray-200); border-radius: var(--radius-sm); padding: 4px; }
+    .toggle-btn { flex: 1; padding: 10px; border: none; background: transparent; border-radius: var(--radius-xs); font-family: var(--font); font-size: 13px; font-weight: 700; color: var(--gray-500); cursor: pointer; transition: all 0.2s; }
+    .toggle-btn.active-toggle { background: var(--white); color: var(--navy-900); box-shadow: var(--shadow-xs); font-weight: 800; }
 
     /* ============================================================
        QUICK P2P ACTIONS
@@ -456,30 +486,58 @@
     .drawer-close { background: var(--navy-50); border: none; width: 32px; height: 32px; border-radius: 50%; font-size: 16px; cursor: pointer; color: var(--navy-900); display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
     .drawer-close:hover { background: var(--gray-200); }
     .drawer-section-label { font-size: 10px; font-weight: 700; color: var(--gray-500); text-transform: uppercase; letter-spacing: 1px; padding: 12px 10px 6px; }
-    .drawer-link { padding: 12px 12px; border-radius: var(--radius-sm); font-size: 14.5px; font-weight: 600; color: var(--navy-900); cursor: pointer; transition: background 0.2s; border: none; background: transparent; text-align: left; font-family: var(--font); display: flex; align-items: center; gap: 12px; }
+    .drawer-link { padding: 12px; border-radius: var(--radius-sm); font-size: 14.5px; font-weight: 600; color: var(--navy-900); cursor: pointer; transition: background 0.2s; border: none; background: transparent; text-align: left; font-family: var(--font); display: flex; align-items: center; gap: 12px; text-decoration: none; }
     .drawer-link:hover { background: var(--navy-50); }
     .drawer-link .nav-ico { width: 18px; text-align: center; opacity: 0.7; }
     .drawer-link.danger { color: var(--red-500); }
     .drawer-divider { height: 1px; background: var(--gray-200); margin: 8px 10px; }
 
+    .drawer-auth-block { display: flex; flex-direction: column; gap: 8px; padding: 8px 0 4px; }
+    .drawer-auth-block.hidden { display: none; }
+    .drawer-auth-block button {
+      padding: 12px; border-radius: var(--radius-sm); border: none;
+      font-family: var(--font); font-size: 13.5px; font-weight: 800;
+      cursor: pointer; width: 100%;
+    }
+    .drawer-auth-block .da-join {
+      background: linear-gradient(135deg, var(--gold-500), var(--gold-400));
+      color: var(--navy-900);
+    }
+    .drawer-auth-block .da-signin {
+      background: var(--navy-50); color: var(--navy-900);
+      border: 1.5px solid var(--gray-200);
+    }
+
     /* ============================================================
        POPUPS
        ============================================================ */
-    .notification-panel { position: fixed; top: 64px; right: 16px; width: 300px; max-width: calc(100vw - 32px); background: var(--white); border-radius: var(--radius-md); box-shadow: var(--shadow-lg); border: 1px solid var(--gray-200); padding: 16px; z-index: 60; display: none; flex-direction: column; gap: 8px; }
+    .notification-panel { position: fixed; top: 64px; right: 16px; width: 320px; max-width: calc(100vw - 32px); background: var(--white); border-radius: var(--radius-md); box-shadow: var(--shadow-lg); border: 1px solid var(--gray-200); padding: 16px; z-index: 60; display: none; flex-direction: column; gap: 8px; max-height: 440px; overflow-y: auto; }
     .notification-panel.open { display: flex; }
-    .notification-panel .panel-title { font-weight: 800; font-size: 14px; margin-bottom: 4px; display: flex; justify-content: space-between; align-items: center; }
-    .notification-item { font-size: 13px; color: var(--gray-500); padding: 10px 0; border-bottom: 1px solid var(--gray-200); line-height: 1.45; }
+    .notification-panel .panel-title { font-weight: 800; font-size: 14px; margin-bottom: 4px; display: flex; justify-content: space-between; align-items: center; color: var(--navy-900); }
+    .notification-panel .clear-btn { font-size: 11px; font-weight: 700; color: var(--gold-500); background: none; border: none; cursor: pointer; padding: 2px 6px; border-radius: 6px; }
+    .notification-panel .clear-btn:hover { background: var(--gold-100); }
+    .notification-item { font-size: 12.5px; color: var(--gray-600); padding: 10px 0; border-bottom: 1px solid var(--gray-200); line-height: 1.45; cursor: pointer; }
     .notification-item:last-child { border-bottom: none; }
-    .notification-empty { font-size: 13px; color: var(--gray-500); text-align: center; padding: 20px 0; font-weight: 500; }
-    .profile-menu { position: fixed; top: 64px; right: 16px; width: 210px; background: var(--white); border-radius: var(--radius-md); box-shadow: var(--shadow-lg); border: 1px solid var(--gray-200); padding: 8px; z-index: 60; display: none; flex-direction: column; }
+    .notification-item:hover { color: var(--navy-900); }
+    .notification-item .n-title { font-weight: 800; color: var(--navy-900); font-size: 12px; margin-bottom: 2px; }
+    .notification-item .n-time { font-size: 10px; color: var(--gray-400); font-weight: 600; margin-top: 3px; }
+    .notification-empty { font-size: 13px; color: var(--gray-500); text-align: center; padding: 22px 0; font-weight: 500; }
+
+    .profile-menu { position: fixed; top: 64px; right: 16px; width: 230px; background: var(--white); border-radius: var(--radius-md); box-shadow: var(--shadow-lg); border: 1px solid var(--gray-200); padding: 8px; z-index: 60; display: none; flex-direction: column; }
     .profile-menu.open { display: flex; }
-    .profile-menu button { padding: 11px 14px; border-radius: var(--radius-xs); border: none; background: transparent; text-align: left; font-family: var(--font); font-size: 14px; font-weight: 600; color: var(--navy-900); cursor: pointer; transition: background 0.15s; }
+    .profile-menu .pm-head { padding: 8px 12px 10px; border-bottom: 1px solid var(--gray-100); margin-bottom: 4px; }
+    .profile-menu .pm-name { font-size: 13px; font-weight: 800; color: var(--navy-900); }
+    .profile-menu .pm-email { font-size: 11px; font-weight: 500; color: var(--gray-500); margin-top: 1px; word-break: break-all; }
+    .profile-menu button { padding: 11px 14px; border-radius: var(--radius-xs); border: none; background: transparent; text-align: left; font-family: var(--font); font-size: 13.5px; font-weight: 600; color: var(--navy-900); cursor: pointer; transition: background 0.15s; display: flex; align-items: center; gap: 8px; }
     .profile-menu button:hover { background: var(--navy-50); }
     .profile-menu button.danger { color: var(--red-500); }
 
     /* ============================================================
        RESPONSIVE
        ============================================================ */
+    @media (max-width: 480px) {
+      .auth-btn-signin, .auth-btn-join { padding: 7px 12px; font-size: 11.5px; }
+    }
     @media (max-width: 400px) {
       .hero h1 { font-size: 33px; letter-spacing: -1px; }
       .hero p { font-size: 14px; }
@@ -520,10 +578,11 @@
 </head>
 <body>
 
-  <!-- DRAWER OVERLAY -->
+  <!-- ============================================================
+       DRAWER OVERLAY + DRAWER
+       ============================================================ -->
   <div class="drawer-overlay" id="drawerOverlay"></div>
 
-  <!-- DRAWER -->
   <aside class="drawer" id="drawer">
     <div class="drawer-header">
       <div class="drawer-logo">
@@ -532,42 +591,63 @@
       </div>
       <button class="drawer-close" id="drawerClose" aria-label="Close menu">✕</button>
     </div>
+
+    <div class="drawer-auth-block" id="drawerAuthBlock">
+      <button class="da-join" id="drawerJoinBtn">Join us</button>
+      <button class="da-signin" id="drawerSignInBtn">Sign in</button>
+    </div>
+
     <div class="drawer-section-label">Main</div>
-    <button class="drawer-link" data-nav="home"><span class="nav-ico">🏠</span>Home</button>
-    <button class="drawer-link" data-nav="p2p"><span class="nav-ico">🤝</span>P2P Trading</button>
-    <button class="drawer-link" data-nav="swap"><span class="nav-ico">⇄</span>Swap</button>
-    <button class="drawer-link" data-nav="trade"><span class="nav-ico">📈</span>Trade</button>
-    <button class="drawer-link" data-nav="wallet"><span class="nav-ico">👛</span>Wallet</button>
+    <a class="drawer-link" href="index.html"><span class="nav-ico">🏠</span>Home</a>
+    <a class="drawer-link" href="p2p.html"><span class="nav-ico">🤝</span>P2P Trading</a>
+    <a class="drawer-link" href="swap.html"><span class="nav-ico">⇄</span>Swap</a>
+    <a class="drawer-link" href="trade.html"><span class="nav-ico">📈</span>Trade</a>
+    <a class="drawer-link" href="wallet.html" data-requires-auth><span class="nav-ico">👛</span>Wallet</a>
+    <a class="drawer-link" href="markets.html"><span class="nav-ico">📊</span>Markets</a>
+
     <div class="drawer-divider"></div>
     <div class="drawer-section-label">Account</div>
-    <button class="drawer-link"><span class="nav-ico">📜</span>Transaction History</button>
-    <button class="drawer-link"><span class="nav-ico">👤</span>Profile</button>
-    <button class="drawer-link"><span class="nav-ico">⚙️</span>Settings</button>
-    <button class="drawer-link"><span class="nav-ico">💬</span>Help Center</button>
+    <a class="drawer-link" href="dashboard.html" data-requires-auth><span class="nav-ico">📊</span>Dashboard</a>
+    <a class="drawer-link" href="transaction-history.html" data-requires-auth><span class="nav-ico">📜</span>Transactions</a>
+    <a class="drawer-link" href="profile.html" data-requires-auth><span class="nav-ico">👤</span>Profile</a>
+    <a class="drawer-link" href="kyc.html" data-requires-auth><span class="nav-ico">🪪</span>KYC Verification</a>
+    <a class="drawer-link" href="settings.html" data-requires-auth><span class="nav-ico">⚙️</span>Settings</a>
+    <a class="drawer-link" href="help.html"><span class="nav-ico">💬</span>Help Center</a>
+
     <div class="drawer-divider"></div>
-    <button class="drawer-link danger"><span class="nav-ico">🚪</span>Logout</button>
+    <button class="drawer-link danger" id="drawerLogout" style="display:none;"><span class="nav-ico">🚪</span>Logout</button>
   </aside>
 
-  <!-- NOTIFICATION PANEL -->
+  <!-- ============================================================
+       NOTIFICATION PANEL
+       ============================================================ -->
   <div class="notification-panel" id="notificationPanel">
     <div class="panel-title">
       <span>Notifications</span>
-      <span style="font-size:10px;font-weight:600;color:var(--gray-500);" id="notifCountLabel">0 new</span>
+      <button class="clear-btn" id="clearNotifBtn">Mark all read</button>
     </div>
-    <div id="notificationList">
-      <div class="notification-empty">No new notifications</div>
-    </div>
+    <div id="notificationList"><div class="notification-empty">No new notifications</div></div>
   </div>
 
-  <!-- PROFILE MENU -->
+  <!-- ============================================================
+       PROFILE MENU
+       ============================================================ -->
   <div class="profile-menu" id="profileMenu">
-    <button>Profile</button>
-    <button>Settings</button>
-    <button>Security</button>
-    <button class="danger">Logout</button>
+    <div class="pm-head">
+      <div class="pm-name" id="pmName">User</div>
+      <div class="pm-email" id="pmEmail">user@bluepeak.com</div>
+    </div>
+    <button onclick="location.href='dashboard.html'">🏠 Dashboard</button>
+    <button onclick="location.href='profile.html'">👤 Profile</button>
+    <button onclick="location.href='transaction-history.html'">📜 Transactions</button>
+    <button onclick="location.href='settings.html'">⚙️ Settings</button>
+    <button onclick="location.href='kyc.html'">🪪 KYC Verification</button>
+    <button class="danger" id="pmLogout">🚪 Logout</button>
   </div>
 
-  <!-- ASSET SELECTOR -->
+  <!-- ============================================================
+       ASSET SELECTOR
+       ============================================================ -->
   <div class="selector-overlay" id="assetSelectorOverlay"></div>
   <div class="selector-modal" id="assetSelector">
     <div class="selector-header">
@@ -580,7 +660,9 @@
     <div class="selector-list" id="assetSelectorList"></div>
   </div>
 
-  <!-- PAYMENT SELECTOR -->
+  <!-- ============================================================
+       PAYMENT SELECTOR
+       ============================================================ -->
   <div class="selector-overlay" id="paymentSelectorOverlay"></div>
   <div class="selector-modal" id="paymentSelector">
     <div class="selector-header">
@@ -593,7 +675,9 @@
     <div class="selector-list" id="paymentSelectorList"></div>
   </div>
 
-  <!-- HEADER -->
+  <!-- ============================================================
+       HEADER
+       ============================================================ -->
   <header class="app-header">
     <div class="header-left">
       <button class="menu-icon" id="menuBtn" aria-label="Open menu">
@@ -607,24 +691,32 @@
       </div>
     </div>
     <div class="header-right">
-      <div class="balance-wrapper">
+      <!-- Signed out -->
+      <div class="header-auth-group" id="headerAuthGroup">
+        <button class="auth-btn-signin" id="headerSignInBtn">Sign in</button>
+        <button class="auth-btn-join" id="headerJoinBtn">Join us</button>
+      </div>
+
+      <!-- Signed in -->
+      <div class="balance-wrapper" id="headerBalanceWrap" style="display:none;">
         <span class="balance-amount" id="balanceDisplay">$0.00</span>
         <button class="eye-toggle" id="eyeToggle" aria-label="Toggle balance visibility">
           <svg id="eyeIcon" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
         </button>
       </div>
-      <div class="avatar" id="avatarBtn" role="button" tabindex="0">U</div>
-      <button class="bell" id="bellBtn" aria-label="Notifications">
+      <div class="avatar" id="avatarBtn" role="button" tabindex="0" style="display:none;">U</div>
+      <button class="bell" id="bellBtn" aria-label="Notifications" style="display:none;">
         🔔
         <span class="badge" id="notifBadge"></span>
       </button>
     </div>
   </header>
 
-  <!-- MAIN -->
+  <!-- ============================================================
+       MAIN — unchanged marketing / trading shell
+       ============================================================ -->
   <main class="app-main">
 
-    <!-- HERO -->
     <section class="hero">
       <h1>Buy, Sell, Swap &amp;<br><span class="gold">Cash Out</span> Crypto</h1>
       <p>Trade Bitcoin, Tether (TRC20), Ethereum, and Solana with local payment methods, bank transfers, and institutional-grade security.</p>
@@ -635,19 +727,16 @@
       </div>
     </section>
 
-    <!-- MARKET TICKER -->
     <div class="market-ticker-wrapper" id="marketTickerWrapper">
       <div class="ticker-loading" id="tickerLoading">Loading market data…</div>
     </div>
 
-    <!-- TAB SELECTOR -->
     <div class="tab-selector" id="tabSelector" role="tablist">
       <button class="tab-btn active" data-tab="p2p" role="tab" aria-selected="true">P2P Trading <span class="hot-badge">HOT</span></button>
       <button class="tab-btn" data-tab="swap" role="tab" aria-selected="false">Swap</button>
       <button class="tab-btn" data-tab="trade" role="tab" aria-selected="false">Trade</button>
     </div>
 
-    <!-- PANEL CONTAINER -->
     <div class="panel-container">
 
       <!-- P2P PANEL -->
@@ -691,9 +780,7 @@
           </div>
         </div>
 
-        <div class="quick-p2p-grid" id="quickP2PGrid">
-          <!-- Rendered by JS -->
-        </div>
+        <div class="quick-p2p-grid" id="quickP2PGrid"></div>
 
         <div class="explore-p2p-banner" id="exploreP2PBanner" style="background:linear-gradient(135deg,var(--gold-500),var(--gold-400));border-radius:var(--radius-lg);padding:22px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;cursor:pointer;box-shadow:var(--shadow-gold);transition:transform 0.2s,box-shadow 0.2s;">
           <div class="explore-p2p-banner-text">
@@ -865,36 +952,28 @@
 
   </main>
 
-  <!-- BOTTOM NAVIGATION -->
+  <!-- ============================================================
+       BOTTOM NAV
+       ============================================================ -->
   <nav class="bottom-nav" id="bottomNav">
     <button class="nav-item active" data-nav="home" aria-label="Home">
-      <div class="nav-icon-wrap">
-        <svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9 21v-6h6v6"/></svg>
-      </div>
+      <div class="nav-icon-wrap"><svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9 21v-6h6v6"/></svg></div>
       <span>Home</span>
     </button>
     <button class="nav-item" data-nav="p2p" aria-label="P2P Trading">
-      <div class="nav-icon-wrap">
-        <svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M2.5 20c.8-3.5 3.2-5.5 6.5-5.5s5.7 2 6.5 5.5"/><circle cx="17.5" cy="8" r="2.8"/><path d="M15.5 14c2.5 0 4.8 1.5 5.5 4.5"/></svg>
-      </div>
+      <div class="nav-icon-wrap"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M2.5 20c.8-3.5 3.2-5.5 6.5-5.5s5.7 2 6.5 5.5"/><circle cx="17.5" cy="8" r="2.8"/><path d="M15.5 14c2.5 0 4.8 1.5 5.5 4.5"/></svg></div>
       <span>P2P</span>
     </button>
     <button class="nav-item" data-nav="trade" aria-label="Trade">
-      <div class="nav-icon-wrap">
-        <svg viewBox="0 0 24 24"><path d="M3 20L9 14l4 4 8-8"/><path d="M17 10h4v4"/></svg>
-      </div>
+      <div class="nav-icon-wrap"><svg viewBox="0 0 24 24"><path d="M3 20L9 14l4 4 8-8"/><path d="M17 10h4v4"/></svg></div>
       <span>Trade</span>
     </button>
     <button class="nav-item" data-nav="swap" aria-label="Swap">
-      <div class="nav-icon-wrap">
-        <svg viewBox="0 0 24 24"><path d="M7 4v13M7 17l-3-3M7 17l3-3"/><path d="M17 20V7M17 7l3 3M17 7l-3 3"/></svg>
-      </div>
+      <div class="nav-icon-wrap"><svg viewBox="0 0 24 24"><path d="M7 4v13M7 17l-3-3M7 17l3-3"/><path d="M17 20V7M17 7l3 3M17 7l-3 3"/></svg></div>
       <span>Swap</span>
     </button>
     <button class="nav-item" data-nav="wallet" aria-label="Wallet">
-      <div class="nav-icon-wrap">
-        <svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="14" rx="3"/><path d="M16 13h.01"/><path d="M2 9h20"/></svg>
-      </div>
+      <div class="nav-icon-wrap"><svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="14" rx="3"/><path d="M16 13h.01"/><path d="M2 9h20"/></svg></div>
       <span>Wallet</span>
     </button>
   </nav>
@@ -903,86 +982,313 @@
     (function() {
       'use strict';
 
+      const $ = (s) => document.querySelector(s);
+      const $$ = (s) => document.querySelectorAll(s);
+
       // ============================================================
-      // STATE
+      // AUTH STATE
+      // ============================================================
+      let user = null;
+      try { user = JSON.parse(localStorage.getItem('bp_user_session') || 'null'); } catch (e) {}
+      const isSignedIn = !!user;
+      const displayName = user ? (user.name || (user.email ? user.email.split('@')[0] : 'User')) : 'User';
+      const userEmail = user ? (user.email || 'user@bluepeak.com') : '';
+      const initial = (displayName.charAt(0) || 'U').toUpperCase();
+
+      function requireAuth() {
+        if (!isSignedIn) {
+          if (confirm('Please sign in to continue.')) {
+            window.location.href = 'auth.html#signin';
+          }
+          return false;
+        }
+        return true;
+      }
+      function go(url) { window.location.href = url; }
+
+      // ============================================================
+      // HEADER AUTH STATE
+      // ============================================================
+      (function() {
+        const authGroup = $('#headerAuthGroup');
+        const balanceWrap = $('#headerBalanceWrap');
+        const avatarBtn = $('#avatarBtn');
+        const bellBtn = $('#bellBtn');
+        const drawerAuth = $('#drawerAuthBlock');
+        const drawerLogout = $('#drawerLogout');
+        const accountLinks = $$('.drawer-link[data-requires-auth]');
+
+        if (isSignedIn) {
+          authGroup.classList.add('hidden');
+          balanceWrap.style.display = '';
+          avatarBtn.style.display = '';
+          bellBtn.style.display = '';
+          avatarBtn.textContent = initial;
+          $('#pmName').textContent = displayName;
+          $('#pmEmail').textContent = userEmail;
+          if (drawerAuth) drawerAuth.classList.add('hidden');
+          if (drawerLogout) drawerLogout.style.display = '';
+          accountLinks.forEach(el => el.style.display = '');
+        } else {
+          authGroup.classList.remove('hidden');
+          balanceWrap.style.display = 'none';
+          avatarBtn.style.display = 'none';
+          bellBtn.style.display = 'none';
+          if (drawerAuth) drawerAuth.classList.remove('hidden');
+          if (drawerLogout) drawerLogout.style.display = 'none';
+          accountLinks.forEach(el => el.style.display = 'none');
+        }
+      })();
+
+      $('#headerSignInBtn').addEventListener('click', () => go('auth.html#signin'));
+      $('#headerJoinBtn').addEventListener('click', () => go('auth.html#signup'));
+      $('#drawerSignInBtn').addEventListener('click', () => go('auth.html#signin'));
+      $('#drawerJoinBtn').addEventListener('click', () => go('auth.html#signup'));
+
+      // ============================================================
+      // BALANCE VISIBILITY
       // ============================================================
       let balanceVisible = true;
-      let currentTab = 'p2p';
-      let unreadNotifications = 0;
-      let p2pMode = 'buy';
-      let tradeMode = 'buy';
-      let tickerPrices = {};
-      let selectedAsset = { id: 'tether', symbol: 'USDT', name: 'Tether', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/usdt.svg' };
-      let selectedPayment = { name: 'Bank Transfer', icon: '🏦', sub: 'Bank transfer payment' };
-
-      // ============================================================
-      // DOM CACHE
-      // ============================================================
-      const $ = (sel) => document.querySelector(sel);
-      const $$ = (sel) => document.querySelectorAll(sel);
-
       const balanceDisplay = $('#balanceDisplay');
       const eyeToggle = $('#eyeToggle');
       const eyeIcon = $('#eyeIcon');
-      const menuBtn = $('#menuBtn');
+
+      function setBalanceVisibility(visible) {
+        balanceVisible = visible;
+        if (visible) {
+          balanceDisplay.textContent = '$0.00';
+          balanceDisplay.classList.remove('masked');
+          eyeIcon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+        } else {
+          balanceDisplay.textContent = '••••••';
+          balanceDisplay.classList.add('masked');
+          eyeIcon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
+        }
+      }
+      eyeToggle.addEventListener('click', () => setBalanceVisibility(!balanceVisible));
+      setBalanceVisibility(true);
+
+      // ============================================================
+      // DRAWER + POPUPS
+      // ============================================================
       const drawer = $('#drawer');
       const drawerOverlay = $('#drawerOverlay');
-      const drawerClose = $('#drawerClose');
-      const avatarBtn = $('#avatarBtn');
       const profileMenu = $('#profileMenu');
-      const bellBtn = $('#bellBtn');
-      const notifBadge = $('#notifBadge');
       const notificationPanel = $('#notificationPanel');
-      const notificationList = $('#notificationList');
-      const notifCountLabel = $('#notifCountLabel');
-      const tabSelector = $('#tabSelector');
-      const marketTickerWrapper = $('#marketTickerWrapper');
 
+      function closeAll() {
+        drawer.classList.remove('open');
+        drawerOverlay.classList.remove('open');
+        profileMenu.classList.remove('open');
+        notificationPanel.classList.remove('open');
+      }
+
+      $('#menuBtn').addEventListener('click', (e) => {
+        e.stopPropagation(); closeAll();
+        drawer.classList.add('open');
+        drawerOverlay.classList.add('open');
+      });
+      $('#drawerClose').addEventListener('click', closeAll);
+      drawerOverlay.addEventListener('click', closeAll);
+
+      $('#avatarBtn').addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (!requireAuth()) return;
+        closeAll();
+        profileMenu.classList.toggle('open');
+      });
+
+      function logout() {
+        if (confirm('Sign out of Bluepeak Capital?')) {
+          localStorage.removeItem('bp_user_session');
+          go('auth.html#signin');
+        }
+      }
+      $('#pmLogout').addEventListener('click', logout);
+      $('#drawerLogout').addEventListener('click', logout);
+
+      // ============================================================
+      // NOTIFICATIONS
+      // ============================================================
+      function relTime(ts) {
+        const diff = Date.now() - ts;
+        if (diff < 60000) return 'just now';
+        if (diff < 3600000) return Math.floor(diff / 60000) + 'm ago';
+        if (diff < 86400000) return Math.floor(diff / 3600000) + 'h ago';
+        return Math.floor(diff / 86400000) + 'd ago';
+      }
+      function escapeHtml(str) {
+        return String(str == null ? '' : str).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+      }
+
+      function buildNotifications() {
+        if (!isSignedIn) return [];
+        const items = [];
+        const myName = (user.name || '').toLowerCase();
+        const myEmail = (user.email || '').toLowerCase();
+
+        let chats = [];
+        try { chats = JSON.parse(localStorage.getItem('bp_admin_chats') || '[]'); } catch (e) {}
+        const myOrders = chats.filter(c => {
+          const buyer = (c.buyer || '').toLowerCase();
+          return (myName && buyer.includes(myName)) ||
+                 (c.buyerEmail && c.buyerEmail.toLowerCase() === myEmail);
+        });
+        myOrders.forEach(o => {
+          if (o.unread && o.messages && o.messages.length) {
+            const last = o.messages[o.messages.length - 1];
+            if (last.from === 'merchant' || last.from === 'admin') {
+              items.push({
+                title: last.from === 'admin' ? 'Admin replied to your order' : 'New merchant message',
+                body: `Order ${o.order}: ${last.text}`,
+                ts: last.ts || o.created,
+                link: 'p2p.html',
+              });
+            }
+          }
+          if (o.status === 'disputed') {
+            items.push({ title: 'Dispute open', body: `Order ${o.order} is in dispute.`, ts: o.created, link: 'p2p.html' });
+          }
+        });
+
+        let bots = [];
+        try { bots = JSON.parse(localStorage.getItem('bp_admin_bots') || '[]'); } catch (e) {}
+        bots.filter(b => (b.ownerEmail || '').toLowerCase() === myEmail && b.status === 'error').forEach(b => {
+          items.push({ title: 'Bot needs attention', body: `${b.name} stopped with an error.`, ts: b.created || Date.now(), link: 'bots.html' });
+        });
+
+        items.sort((a, b) => (b.ts || 0) - (a.ts || 0));
+        return items;
+      }
+
+      function renderNotifications() {
+        const items = buildNotifications();
+        const badge = $('#notifBadge');
+        const list = $('#notificationList');
+        if (items.length === 0) {
+          badge.classList.remove('visible');
+          list.innerHTML = '<div class="notification-empty">No new notifications</div>';
+          return;
+        }
+        badge.textContent = items.length > 9 ? '9+' : items.length;
+        badge.classList.add('visible');
+        list.innerHTML = items.slice(0, 6).map(n => `
+          <div class="notification-item" data-link="${escapeHtml(n.link || '')}">
+            <div class="n-title">${escapeHtml(n.title)}</div>
+            <div>${escapeHtml(n.body)}</div>
+            <div class="n-time">${relTime(n.ts)}</div>
+          </div>`).join('');
+        list.querySelectorAll('.notification-item').forEach(el => {
+          el.addEventListener('click', () => { if (el.dataset.link) go(el.dataset.link); });
+        });
+      }
+
+      $('#bellBtn').addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (!requireAuth()) return;
+        closeAll();
+        renderNotifications();
+        notificationPanel.classList.toggle('open');
+      });
+
+      $('#clearNotifBtn').addEventListener('click', () => {
+        try {
+          const chats = JSON.parse(localStorage.getItem('bp_admin_chats') || '[]');
+          const myName = (user.name || '').toLowerCase();
+          const myEmail = (user.email || '').toLowerCase();
+          chats.forEach(c => {
+            const buyer = (c.buyer || '').toLowerCase();
+            if ((myName && buyer.includes(myName)) || (c.buyerEmail && c.buyerEmail.toLowerCase() === myEmail)) c.unread = false;
+          });
+          localStorage.setItem('bp_admin_chats', JSON.stringify(chats));
+        } catch (e) {}
+        renderNotifications();
+      });
+
+      // Outside click
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('#menuBtn') && !e.target.closest('#drawer') && !e.target.closest('#drawerOverlay')) {
+          drawer.classList.remove('open'); drawerOverlay.classList.remove('open');
+        }
+        if (!e.target.closest('#avatarBtn') && !e.target.closest('#profileMenu')) profileMenu.classList.remove('open');
+        if (!e.target.closest('#bellBtn') && !e.target.closest('#notificationPanel')) notificationPanel.classList.remove('open');
+      });
+
+      // Guard on auth-required drawer links
+      $$('.drawer-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+          const href = link.getAttribute('href');
+          if (!href || href === '#') { e.preventDefault(); return; }
+          if (link.hasAttribute('data-requires-auth') && !isSignedIn) {
+            e.preventDefault();
+            requireAuth();
+          }
+        });
+      });
+
+      // ============================================================
+      // TABS + BOTTOM NAV
+      // ============================================================
+      let currentTab = 'p2p';
       const panels = { p2p: $('#panel-p2p'), swap: $('#panel-swap'), trade: $('#panel-trade') };
 
-      const p2pToggle = $('#p2pToggle');
-      const p2pAmount = $('#p2pAmount');
-      const p2pCurrency = $('#p2pCurrency');
-      const p2pContinueBtn = $('#p2pContinueBtn');
-      const p2pAmountError = $('#p2pAmountError');
-      const selectedAssetLabel = $('#selectedAssetLabel');
-      const selectedAssetSub = $('#selectedAssetSub');
-      const selectedAssetIcon = $('#selectedAssetIcon');
-      const selectedPaymentLabel = $('#selectedPaymentLabel');
-      const selectedPaymentSub = $('#selectedPaymentSub');
-      const selectedPaymentIcon = $('#selectedPaymentIcon');
-      const quickP2PGrid = $('#quickP2PGrid');
+      function switchTab(tab) {
+        currentTab = tab;
+        $$('.tab-btn').forEach(btn => {
+          const isActive = btn.dataset.tab === tab;
+          btn.classList.toggle('active', isActive);
+          btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+        Object.keys(panels).forEach(key => panels[key].classList.toggle('active-panel', key === tab));
+        $$('.nav-item').forEach(btn => {
+          const nav = btn.dataset.nav;
+          const active = (tab === 'p2p' && nav === 'p2p') ||
+                         (tab === 'swap' && nav === 'swap') ||
+                         (tab === 'trade' && nav === 'trade') ||
+                         (nav === 'home' && tab === 'p2p');
+          btn.classList.toggle('active', active);
+        });
+        history.replaceState(null, null, '#' + tab);
+      }
 
-      const swapFromAsset = $('#swapFromAsset');
-      const swapToAsset = $('#swapToAsset');
-      const swapFromAmount = $('#swapFromAmount');
-      const swapToAmount = $('#swapToAmount');
-      const swapFromBalance = $('#swapFromBalance');
-      const swapRate = $('#swapRate');
-      const swapNetworkFee = $('#swapNetworkFee');
-      const swapMinReceived = $('#swapMinReceived');
-      const swapReviewBtn = $('#swapReviewBtn');
-      const swapDirectionBtn = $('#swapDirectionBtn');
-      const swapError = $('#swapError');
-      const swapLiveRate = $('#swapLiveRate');
-      const swapLiveRateUnit = $('#swapLiveRateUnit');
-      const swapLiveRateSub = $('#swapLiveRateSub');
+      $('#tabSelector').addEventListener('click', (e) => {
+        const btn = e.target.closest('.tab-btn');
+        if (!btn) return;
+        if (btn.dataset.tab === 'p2p') {
+          saveP2PState();
+          go('p2p.html');
+        } else {
+          switchTab(btn.dataset.tab);
+        }
+      });
 
-      const tradePair = $('#tradePair');
-      const tradePrice = $('#tradePrice');
-      const tradeChange = $('#tradeChange');
-      const tradeBuySellToggle = $('#tradeBuySellToggle');
-      const tradeOrderType = $('#tradeOrderType');
-      const tradeAmount = $('#tradeAmount');
-      const tradeAvailableBalance = $('#tradeAvailableBalance');
-      const tradeFees = $('#tradeFees');
-      const tradeReviewBtn = $('#tradeReviewBtn');
-      const tradeAmountError = $('#tradeAmountError');
-      const botPasskey = $('#botPasskey');
-      const copyPasskeyBtn = $('#copyPasskeyBtn');
+      $('#bottomNav').addEventListener('click', (e) => {
+        const btn = e.target.closest('.nav-item');
+        if (!btn) return;
+        const nav = btn.dataset.nav;
+        if (nav === 'home') { switchTab('p2p'); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+        else if (nav === 'p2p') { saveP2PState(); go('p2p.html'); }
+        else if (nav === 'trade') { switchTab('trade'); }
+        else if (nav === 'swap') { switchTab('swap'); }
+        else if (nav === 'wallet') { if (!requireAuth()) return; go('wallet.html'); }
+      });
 
-      const marketcapGrid = $('#marketcapGrid');
-      const marketcapUpdated = $('#marketcapUpdated');
+      // ============================================================
+      // P2P STATE
+      // ============================================================
+      let selectedAsset = { id: 'tether', symbol: 'USDT', name: 'Tether', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/usdt.svg' };
+      let selectedPayment = { name: 'Bank Transfer', icon: '🏦', sub: 'Bank transfer payment' };
+      let p2pMode = 'buy';
+      let tradeMode = 'buy';
+      let tickerPrices = {};
+
+      function saveP2PState() {
+        localStorage.setItem('bluepeak_p2p_state', JSON.stringify({
+          assetId: selectedAsset ? selectedAsset.id : null,
+          paymentName: selectedPayment ? selectedPayment.name : null,
+          mode: p2pMode,
+        }));
+      }
 
       // ============================================================
       // ASSETS DATA
@@ -1035,59 +1341,6 @@
       ];
 
       // ============================================================
-      // UTILS
-      // ============================================================
-      function setBalanceVisibility(visible) {
-        balanceVisible = visible;
-        if (visible) {
-          balanceDisplay.textContent = '$0.00';
-          balanceDisplay.classList.remove('masked');
-          eyeIcon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
-        } else {
-          balanceDisplay.textContent = '••••••';
-          balanceDisplay.classList.add('masked');
-          eyeIcon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
-        }
-      }
-
-      function closeAllPopups() {
-        drawer.classList.remove('open');
-        drawerOverlay.classList.remove('open');
-        profileMenu.classList.remove('open');
-        notificationPanel.classList.remove('open');
-      }
-
-      function switchTab(tab) {
-        currentTab = tab;
-        $$('.tab-btn').forEach(btn => {
-          const isActive = btn.dataset.tab === tab;
-          btn.classList.toggle('active', isActive);
-          btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
-        });
-        Object.keys(panels).forEach(key => {
-          panels[key].classList.toggle('active-panel', key === tab);
-        });
-        $$('.nav-item').forEach(btn => {
-          const nav = btn.dataset.nav;
-          const active = (tab === 'p2p' && nav === 'p2p') ||
-                         (tab === 'swap' && nav === 'swap') ||
-                         (tab === 'trade' && nav === 'trade') ||
-                         (nav === 'home' && tab === 'p2p');
-          btn.classList.toggle('active', active);
-        });
-        history.replaceState(null, null, '#' + tab);
-      }
-
-      function saveP2PState() {
-        const state = {
-          assetId: selectedAsset ? selectedAsset.id : null,
-          paymentName: selectedPayment ? selectedPayment.name : null,
-          mode: p2pMode
-        };
-        localStorage.setItem('bluepeak_p2p_state', JSON.stringify(state));
-      }
-
-      // ============================================================
       // MARKET DATA
       // ============================================================
       async function fetchTickerPrices() {
@@ -1101,9 +1354,7 @@
           tickerPrices = {};
           ASSETS.forEach(coin => {
             const d = data[coin.id];
-            if (d && d.usd !== undefined) {
-              tickerPrices[coin.id] = { price: d.usd, change: d.usd_24h_change || 0, volume: d.usd_24h_vol || 0, timestamp };
-            }
+            if (d && d.usd !== undefined) tickerPrices[coin.id] = { price: d.usd, change: d.usd_24h_change || 0, volume: d.usd_24h_vol || 0, timestamp };
           });
           renderTicker();
           renderMarketCap();
@@ -1111,10 +1362,9 @@
           updateTradeInfo();
           updateSwapLiveRate();
         } catch (err) {
-          console.warn('Market data error:', err);
           if (Object.keys(tickerPrices).length === 0) {
-            marketTickerWrapper.innerHTML = `<div class="ticker-loading">Market data unavailable.</div>`;
-            marketcapGrid.innerHTML = `<div class="ticker-loading" style="padding:14px;grid-column:1/-1;">Market data unavailable.</div>`;
+            $('#marketTickerWrapper').innerHTML = `<div class="ticker-loading">Market data unavailable.</div>`;
+            $('#marketcapGrid').innerHTML = `<div class="ticker-loading" style="padding:14px;grid-column:1/-1;">Market data unavailable.</div>`;
           }
         }
       }
@@ -1124,7 +1374,6 @@
         if (p >= 1) return '$' + p.toFixed(2);
         return '$' + p.toFixed(4);
       }
-
       function formatVolume(v) {
         if (v >= 1e9) return '$' + (v / 1e9).toFixed(1) + 'B';
         if (v >= 1e6) return '$' + (v / 1e6).toFixed(1) + 'M';
@@ -1134,7 +1383,7 @@
 
       function renderTicker() {
         if (Object.keys(tickerPrices).length === 0) return;
-        const items = ASSETS.filter(coin => tickerPrices[coin.id]).map(coin => {
+        const items = ASSETS.filter(c => tickerPrices[c.id]).map(coin => {
           const d = tickerPrices[coin.id];
           const cls = d.change >= 0 ? 'positive' : 'negative';
           const sign = d.change >= 0 ? '+' : '';
@@ -1148,15 +1397,14 @@
               </div>
             </div>`;
         }).join('');
-        marketTickerWrapper.innerHTML = `<div class="ticker-track">${items}${items}</div>`;
+        $('#marketTickerWrapper').innerHTML = `<div class="ticker-track">${items}${items}</div>`;
       }
 
       function renderMarketCap() {
         if (Object.keys(tickerPrices).length === 0) return;
         const sorted = [...ASSETS].filter(a => tickerPrices[a.id]).sort((a, b) => tickerPrices[b.id].price - tickerPrices[a.id].price);
-        const now = new Date();
-        marketcapUpdated.textContent = 'Updated ' + now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        marketcapGrid.innerHTML = sorted.map((coin) => {
+        $('#marketcapUpdated').textContent = 'Updated ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        $('#marketcapGrid').innerHTML = sorted.map(coin => {
           const d = tickerPrices[coin.id];
           const cls = d.change >= 0 ? 'positive' : 'negative';
           const sign = d.change >= 0 ? '+' : '';
@@ -1174,14 +1422,13 @@
               <div class="marketcap-cell-volume">Vol ${formatVolume(d.volume)}</div>
             </div>`;
         }).join('');
-        marketcapGrid.querySelectorAll('.marketcap-cell').forEach(cell => {
+        $$('#marketcapGrid .marketcap-cell').forEach(cell => {
           cell.addEventListener('click', () => {
-            const symbol = cell.dataset.assetSymbol;
-            const asset = ASSETS.find(a => a.symbol === symbol);
+            const asset = ASSETS.find(a => a.symbol === cell.dataset.assetSymbol);
             if (asset) {
               selectAsset(asset);
               switchTab('p2p');
-              p2pAmount.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              $('#p2pAmount').scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
           });
         });
@@ -1194,7 +1441,8 @@
           { symbol: 'BTC', mode: 'buy', label: 'Buy BTC' },
           { symbol: 'BTC', mode: 'sell', label: 'Sell BTC' },
         ];
-        quickP2PGrid.innerHTML = actions.map(act => {
+        const grid = $('#quickP2PGrid');
+        grid.innerHTML = actions.map(act => {
           const asset = ASSETS.find(a => a.symbol === act.symbol);
           const price = tickerPrices[asset.id]?.price || 0;
           return `
@@ -1205,22 +1453,20 @@
                   ${act.label}
                 </div>
               </div>
-              <div class="qa-card-rate">${formatPrice(price)}</div>
+              <div class="qa-card-rate">${price ? formatPrice(price) : '—'}</div>
               <div class="qa-card-sub">${act.mode === 'buy' ? 'Instant buy rate' : 'Instant sell rate'}</div>
             </div>`;
         }).join('');
-        quickP2PGrid.querySelectorAll('.qa-card').forEach(card => {
+        grid.querySelectorAll('.qa-card').forEach(card => {
           card.addEventListener('click', () => {
             const [mode, symbol] = card.dataset.quick.split('-');
             const asset = ASSETS.find(a => a.symbol === symbol);
             if (asset) {
               selectAsset(asset);
               p2pMode = mode;
-              p2pToggle.querySelectorAll('.toggle-btn').forEach(b => {
-                b.classList.toggle('active-toggle', b.dataset.p2pMode === mode);
-              });
+              $('#p2pToggle').querySelectorAll('.toggle-btn').forEach(b => b.classList.toggle('active-toggle', b.dataset.p2pMode === mode));
               saveP2PState();
-              p2pAmount.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              $('#p2pAmount').scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
           });
         });
@@ -1261,8 +1507,7 @@
             ${priceHtml}
             <div class="sel-check"></div>
           </div>`;
-        }).join('');
-        if (filtered.length === 0) assetSelectorList.innerHTML = `<div class="ticker-loading" style="padding:20px;">No assets match "${filter}"</div>`;
+        }).join('') || `<div class="ticker-loading" style="padding:20px;">No assets match "${filter}"</div>`;
         assetSelectorList.querySelectorAll('.sel-item').forEach(el => {
           el.addEventListener('click', () => {
             const asset = ASSETS.find(a => a.id === el.dataset.assetId);
@@ -1270,15 +1515,13 @@
           });
         });
       }
-
       function selectAsset(asset) {
         selectedAsset = asset;
-        selectedAssetLabel.textContent = asset.name + ' (' + asset.symbol + ')';
-        selectedAssetSub.textContent = 'Verified ' + asset.symbol + ' available';
-        selectedAssetIcon.innerHTML = `<img src="${asset.icon}" alt="${asset.symbol}">`;
+        $('#selectedAssetLabel').textContent = asset.name + ' (' + asset.symbol + ')';
+        $('#selectedAssetSub').textContent = 'Verified ' + asset.symbol + ' available';
+        $('#selectedAssetIcon').innerHTML = `<img src="${asset.icon}" alt="${asset.symbol}">`;
         saveP2PState();
       }
-
       $('#assetSelectCard').addEventListener('click', openAssetSelector);
       assetSelectorClose.addEventListener('click', closeAssetSelector);
       assetSelectorOverlay.addEventListener('click', closeAssetSelector);
@@ -1322,18 +1565,16 @@
             </div>`;
           });
         });
-        if (!html) html = `<div class="ticker-loading" style="padding:20px;">No payment methods match "${filter}"</div>`;
-        paymentSelectorList.innerHTML = html;
+        paymentSelectorList.innerHTML = html || `<div class="ticker-loading" style="padding:20px;">No payment methods match "${filter}"</div>`;
         paymentSelectorList.querySelectorAll('.sel-item').forEach(el => {
           el.addEventListener('click', () => {
-            const name = el.dataset.paymentName;
             let found = null;
-            PAYMENT_METHODS.forEach(g => g.items.forEach(i => { if (i.name === name) found = i; }));
+            PAYMENT_METHODS.forEach(g => g.items.forEach(i => { if (i.name === el.dataset.paymentName) found = i; }));
             if (found) {
               selectedPayment = found;
-              selectedPaymentLabel.textContent = found.name;
-              selectedPaymentSub.textContent = found.sub;
-              selectedPaymentIcon.textContent = found.icon;
+              $('#selectedPaymentLabel').textContent = found.name;
+              $('#selectedPaymentSub').textContent = found.sub;
+              $('#selectedPaymentIcon').textContent = found.icon;
               saveP2PState();
               closePaymentSelector();
             }
@@ -1346,11 +1587,29 @@
       paymentSearchInput.addEventListener('input', (e) => renderPaymentOptions(e.target.value));
 
       // ============================================================
-      // EXPLORE P2P
+      // P2P Buy/Sell toggle + Continue
       // ============================================================
+      $('#p2pToggle').addEventListener('click', (e) => {
+        const btn = e.target.closest('.toggle-btn');
+        if (!btn) return;
+        p2pMode = btn.dataset.p2pMode;
+        $$('#p2pToggle .toggle-btn').forEach(b => b.classList.toggle('active-toggle', b === btn));
+        saveP2PState();
+      });
+
+      $('#p2pContinueBtn').addEventListener('click', () => {
+        const amt = parseFloat($('#p2pAmount').value);
+        const errEl = $('#p2pAmountError');
+        errEl.classList.remove('visible');
+        if (!amt || amt <= 0) { errEl.classList.add('visible'); return; }
+        saveP2PState();
+        go('p2p.html');
+      });
+
+      // Explore P2P banner
       $('#exploreP2PBanner').addEventListener('click', () => {
         saveP2PState();
-        window.location.href = 'p2p.html';
+        go('p2p.html');
       });
 
       // ============================================================
@@ -1360,182 +1619,118 @@
       let swapTo = 'ETH';
 
       function updateSwapEstimate() {
-        const fromAmt = parseFloat(swapFromAmount.value) || 0;
+        const fromAmt = parseFloat($('#swapFromAmount').value) || 0;
         const fromAsset = ASSETS.find(a => a.symbol === swapFrom || (swapFrom === 'USDT_TRC20' && a.symbol === 'USDT'));
         const toAsset = ASSETS.find(a => a.symbol === swapTo || (swapTo === 'USDT_TRC20' && a.symbol === 'USDT'));
         if (!fromAsset || !toAsset) return;
         const fromPrice = tickerPrices[fromAsset.id]?.price || 0;
         const toPrice = tickerPrices[toAsset.id]?.price || 0;
         if (fromAmt <= 0 || !fromPrice || !toPrice) {
-          swapToAmount.value = ''; swapRate.textContent = '—'; swapNetworkFee.textContent = '—'; swapMinReceived.textContent = '—';
+          $('#swapToAmount').value = '';
+          $('#swapRate').textContent = '—';
+          $('#swapNetworkFee').textContent = '—';
+          $('#swapMinReceived').textContent = '—';
           return;
         }
         const grossTo = (fromAmt * fromPrice) / toPrice;
         const fee = grossTo * 0.005;
         const netTo = grossTo - fee;
-        swapToAmount.value = netTo.toFixed(6);
-        swapRate.textContent = `1 ${swapFrom === 'USDT_TRC20' ? 'USDT' : swapFrom} ≈ ${(fromPrice / toPrice).toFixed(6)} ${swapTo === 'USDT_TRC20' ? 'USDT' : swapTo}`;
-        swapNetworkFee.textContent = fee.toFixed(6) + ' ' + (swapTo === 'USDT_TRC20' ? 'USDT' : swapTo);
-        swapMinReceived.textContent = (netTo * 0.995).toFixed(6) + ' ' + (swapTo === 'USDT_TRC20' ? 'USDT' : swapTo);
+        $('#swapToAmount').value = netTo.toFixed(6);
+        $('#swapRate').textContent = `1 ${swapFrom === 'USDT_TRC20' ? 'USDT' : swapFrom} ≈ ${(fromPrice / toPrice).toFixed(6)} ${swapTo === 'USDT_TRC20' ? 'USDT' : swapTo}`;
+        $('#swapNetworkFee').textContent = fee.toFixed(6) + ' ' + (swapTo === 'USDT_TRC20' ? 'USDT' : swapTo);
+        $('#swapMinReceived').textContent = (netTo * 0.995).toFixed(6) + ' ' + (swapTo === 'USDT_TRC20' ? 'USDT' : swapTo);
       }
 
       function updateSwapLiveRate() {
         const btcAsset = ASSETS.find(a => a.symbol === 'BTC');
         const d = btcAsset ? tickerPrices[btcAsset.id] : null;
         if (d) {
-          swapLiveRate.innerHTML = formatPrice(d.price) + '<span class="unit">/ BTC</span>';
-          swapLiveRateUnit.textContent = '';
+          $('#swapLiveRate').innerHTML = formatPrice(d.price) + '<span class="unit">/ BTC</span>';
           const sign = d.change >= 0 ? '+' : '';
-          swapLiveRateSub.innerHTML = `<span style="color:${d.change >= 0 ? 'var(--green-500)' : 'var(--red-500)'}">${sign}${d.change.toFixed(2)}%</span> · Updated ${d.timestamp}`;
+          $('#swapLiveRateSub').innerHTML = `<span style="color:${d.change >= 0 ? 'var(--green-500)' : 'var(--red-500)'}">${sign}${d.change.toFixed(2)}%</span> · Updated ${d.timestamp}`;
         }
       }
 
-      swapFromAmount.addEventListener('input', updateSwapEstimate);
-      swapFromAsset.addEventListener('change', () => { swapFrom = swapFromAsset.value; updateSwapEstimate(); });
-      swapToAsset.addEventListener('change', () => { swapTo = swapToAsset.value; updateSwapEstimate(); });
-      swapDirectionBtn.addEventListener('click', () => {
+      $('#swapFromAmount').addEventListener('input', updateSwapEstimate);
+      $('#swapFromAsset').addEventListener('change', (e) => { swapFrom = e.target.value; updateSwapEstimate(); });
+      $('#swapToAsset').addEventListener('change', (e) => { swapTo = e.target.value; updateSwapEstimate(); });
+      $('#swapDirectionBtn').addEventListener('click', () => {
         const tmp = swapFrom; swapFrom = swapTo; swapTo = tmp;
-        swapFromAsset.value = swapFrom; swapToAsset.value = swapTo;
+        $('#swapFromAsset').value = swapFrom; $('#swapToAsset').value = swapTo;
         updateSwapEstimate();
       });
-      swapReviewBtn.addEventListener('click', (e) => {
+      $('#swapReviewBtn').addEventListener('click', (e) => {
         e.preventDefault();
-        swapError.classList.remove('visible');
-        const fromAmt = parseFloat(swapFromAmount.value);
-        if (!fromAmt || fromAmt <= 0) {
-          swapError.textContent = 'Please enter a valid amount';
-          swapError.classList.add('visible');
-          return;
-        }
-        alert(`Swap executed instantly\n\nFrom: ${fromAmt} ${swapFrom === 'USDT_TRC20' ? 'USDT' : swapFrom}\nTo: ${swapToAmount.value} ${swapTo === 'USDT_TRC20' ? 'USDT' : swapTo}\n\n(Integration point: connect to backend swap service.)`);
+        const errEl = $('#swapError');
+        errEl.classList.remove('visible');
+        if (!requireAuth()) return;
+        const fromAmt = parseFloat($('#swapFromAmount').value);
+        if (!fromAmt || fromAmt <= 0) { errEl.classList.add('visible'); return; }
+        go('swap.html');
       });
 
       // ============================================================
       // TRADE
       // ============================================================
       function updateTradeInfo() {
-        const pair = tradePair.value;
-        let symbol = 'BTC';
-        if (pair === 'BTCUSDT') symbol = 'BTC';
-        else if (pair === 'ETHUSDT') symbol = 'ETH';
-        else if (pair === 'SOLUSDT') symbol = 'SOL';
-        const asset = ASSETS.find(a => a.symbol === symbol);
+        const pair = $('#tradePair').value;
+        const sym = pair === 'BTCUSDT' ? 'BTC' : pair === 'ETHUSDT' ? 'ETH' : 'SOL';
+        const asset = ASSETS.find(a => a.symbol === sym);
         const d = asset ? tickerPrices[asset.id] : null;
         if (!d) return;
-        tradePrice.textContent = '$' + d.price.toFixed(2);
-        tradeChange.textContent = (d.change >= 0 ? '+' : '') + d.change.toFixed(2) + '%';
-        tradeChange.style.color = d.change >= 0 ? 'var(--green-500)' : 'var(--red-500)';
-        tradeFees.textContent = '$' + (d.price * 0.001).toFixed(2);
+        $('#tradePrice').textContent = '$' + d.price.toFixed(2);
+        const chg = $('#tradeChange');
+        chg.textContent = (d.change >= 0 ? '+' : '') + d.change.toFixed(2) + '%';
+        chg.style.color = d.change >= 0 ? 'var(--green-500)' : 'var(--red-500)';
+        $('#tradeFees').textContent = '$' + (d.price * 0.001).toFixed(2);
       }
 
-      tradePair.addEventListener('change', updateTradeInfo);
-      tradeBuySellToggle.addEventListener('click', (e) => {
+      $('#tradePair').addEventListener('change', updateTradeInfo);
+      $('#tradeBuySellToggle').addEventListener('click', (e) => {
         const btn = e.target.closest('.toggle-btn');
         if (!btn) return;
         tradeMode = btn.dataset.tradeMode;
-        tradeBuySellToggle.querySelectorAll('.toggle-btn').forEach(b => b.classList.toggle('active-toggle', b === btn));
+        $$('#tradeBuySellToggle .toggle-btn').forEach(b => b.classList.toggle('active-toggle', b === btn));
       });
-      tradeReviewBtn.addEventListener('click', (e) => {
+      $('#tradeReviewBtn').addEventListener('click', (e) => {
         e.preventDefault();
-        tradeAmountError.classList.remove('visible');
-        const amt = parseFloat(tradeAmount.value);
-        if (!amt || amt <= 0) {
-          tradeAmountError.textContent = 'Enter a valid amount';
-          tradeAmountError.classList.add('visible');
-          return;
-        }
-        alert(`Order review\n\n${tradeMode.toUpperCase()} ${amt} of ${tradePair.value}\n\n(Integration point: connect to trading engine.)`);
+        const errEl = $('#tradeAmountError');
+        errEl.classList.remove('visible');
+        if (!requireAuth()) return;
+        const amt = parseFloat($('#tradeAmount').value);
+        if (!amt || amt <= 0) { errEl.classList.add('visible'); return; }
+        go('trade.html');
       });
       $('#tradeBotCard').addEventListener('click', () => { $('#botPanel').scrollIntoView({ behavior: 'smooth', block: 'center' }); });
-      $('#tradeChartCard').addEventListener('click', () => { alert('Live Candles\n\nProfessional charting interface.\n\n(Integration point: embed charting library.)'); });
-      copyPasskeyBtn.addEventListener('click', () => {
-        const text = botPasskey.textContent;
+      $('#tradeChartCard').addEventListener('click', () => go('markets.html'));
+      $('#copyPasskeyBtn').addEventListener('click', () => {
         if (navigator.clipboard) {
-          navigator.clipboard.writeText(text).then(() => {
-            copyPasskeyBtn.textContent = 'Copied!';
-            setTimeout(() => { copyPasskeyBtn.textContent = 'Copy'; }, 1500);
+          navigator.clipboard.writeText($('#botPasskey').textContent).then(() => {
+            const btn = $('#copyPasskeyBtn');
+            btn.textContent = 'Copied!';
+            setTimeout(() => btn.textContent = 'Copy', 1500);
           });
         }
       });
-      $('#upgradeBotBanner').addEventListener('click', () => {
-        alert('Upgrade to Sniper Quantum Bot\n\nLightning execution · MEV protection · Advanced signals\n\n(Integration point: navigate to upgrade page.)');
-      });
+      $('#upgradeBotBanner').addEventListener('click', () => go('bots.html'));
 
-      // ============================================================
-      // HEADER INTERACTIONS
-      // ============================================================
-      eyeToggle.addEventListener('click', () => setBalanceVisibility(!balanceVisible));
-      menuBtn.addEventListener('click', (e) => { e.stopPropagation(); closeAllPopups(); drawer.classList.add('open'); drawerOverlay.classList.add('open'); });
-      drawerClose.addEventListener('click', closeAllPopups);
-      drawerOverlay.addEventListener('click', closeAllPopups);
-      avatarBtn.addEventListener('click', (e) => { e.stopPropagation(); closeAllPopups(); profileMenu.classList.toggle('open'); });
-      bellBtn.addEventListener('click', (e) => {
-        e.stopPropagation(); closeAllPopups();
-        if (unreadNotifications > 0) {
-          notificationList.innerHTML = `<div class="notification-item">You have ${unreadNotifications} unread notification(s).</div>`;
-        } else {
-          notificationList.innerHTML = '<div class="notification-empty">No new notifications</div>';
-        }
-        notifCountLabel.textContent = unreadNotifications + ' new';
-        notificationPanel.classList.toggle('open');
-      });
-      document.addEventListener('click', (e) => {
-        if (!e.target.closest('#menuBtn') && !e.target.closest('#drawer') && !e.target.closest('#drawerOverlay')) {
-          drawer.classList.remove('open'); drawerOverlay.classList.remove('open');
-        }
-        if (!e.target.closest('#avatarBtn') && !e.target.closest('#profileMenu')) profileMenu.classList.remove('open');
-        if (!e.target.closest('#bellBtn') && !e.target.closest('#notificationPanel')) notificationPanel.classList.remove('open');
-      });
-
-      $$('.drawer-link[data-nav]').forEach(link => {
-        link.addEventListener('click', () => {
-          closeAllPopups();
-          if (link.dataset.nav === 'p2p') {
-            saveP2PState();
-            window.location.href = 'p2p.html';
-          } else {
-            switchTab(link.dataset.nav);
-          }
-        });
-      });
-
-      tabSelector.addEventListener('click', (e) => {
-        const btn = e.target.closest('.tab-btn');
-        if (!btn) return;
-        if (btn.dataset.tab === 'p2p') {
-          saveP2PState();
-          window.location.href = 'p2p.html';
-        } else {
-          switchTab(btn.dataset.tab);
-        }
-      });
-
-      $('#bottomNav').addEventListener('click', (e) => {
-        const btn = e.target.closest('.nav-item');
-        if (!btn) return;
-        const nav = btn.dataset.nav;
-        if (nav === 'home') { switchTab('p2p'); window.scrollTo({ top: 0, behavior: 'smooth' }); }
-        else if (nav === 'p2p') { saveP2PState(); window.location.href = 'p2p.html'; }
-        else if (nav === 'trade') { switchTab('trade'); }
-        else if (nav === 'swap') { switchTab('swap'); }
-        else if (nav === 'wallet') { alert('Wallet dashboard is connected to your authenticated account.\n\n(No balance data available in demo mode.)'); }
+      // Deposit CTA
+      $('#depositBtn').addEventListener('click', () => {
+        if (!requireAuth()) return;
+        go('deposit.html');
       });
 
       // ============================================================
       // INIT
       // ============================================================
-      setBalanceVisibility(true);
       selectAsset(selectedAsset);
-      selectedPaymentLabel.textContent = 'Bank Transfer';
-      selectedPaymentSub.textContent = 'Bank transfer payment';
-      selectedPaymentIcon.textContent = '🏦';
-
+      $('#selectedPaymentLabel').textContent = 'Bank Transfer';
+      $('#selectedPaymentSub').textContent = 'Bank transfer payment';
+      $('#selectedPaymentIcon').textContent = '🏦';
       updateTradeInfo();
       updateSwapEstimate();
-      swapFromBalance.textContent = '$0.00';
-      tradeAvailableBalance.textContent = '$0.00';
-      notifBadge.classList.remove('visible');
-      notifCountLabel.textContent = '0 new';
+      $('#swapFromBalance').textContent = '$0.00';
+      $('#tradeAvailableBalance').textContent = '$0.00';
 
       fetchTickerPrices();
       setInterval(fetchTickerPrices, 60000);
