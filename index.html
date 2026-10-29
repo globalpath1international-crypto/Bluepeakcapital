@@ -8,45 +8,26 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <style>
-    /* ============================================================
-       BLUEPEAK CAPITAL — PROFESSIONAL HOME
-       ============================================================ */
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --navy-900: #0A1A2F;
-      --navy-800: #10243E;
-      --navy-700: #1A3352;
-      --navy-100: #E8EDF4;
-      --navy-50:  #F2F5FA;
-      --gold-500: #C9A84C;
-      --gold-400: #DDBE6B;
-      --gold-100: #FBF5E6;
-      --green-500: #0F9D6E;
-      --green-100: #E6F7F1;
-      --red-500: #D14343;
-      --red-100: #FDECEC;
-      --blue-500: #2563EB;
-      --blue-100: #DBEAFE;
+      --navy-900: #0A1A2F; --navy-800: #10243E; --navy-700: #1A3352;
+      --navy-100: #E8EDF4; --navy-50:  #F2F5FA;
+      --gold-500: #C9A84C; --gold-400: #DDBE6B; --gold-100: #FBF5E6;
+      --green-500: #0F9D6E; --green-100: #E6F7F1;
+      --red-500: #D14343; --red-100: #FDECEC;
+      --blue-500: #2563EB; --blue-100: #DBEAFE;
       --white: #FFFFFF;
-      --gray-100: #F1F4F9;
-      --gray-200: #E3E8EF;
-      --gray-300: #CDD5E0;
-      --gray-400: #94A3B8;
-      --gray-500: #64748B;
-      --gray-600: #475569;
+      --gray-100: #F1F4F9; --gray-200: #E3E8EF; --gray-300: #CDD5E0;
+      --gray-400: #94A3B8; --gray-500: #64748B; --gray-600: #475569;
       --bg-main: #FAFBFD;
       --shadow-xs: 0 1px 2px rgba(10, 26, 47, 0.04);
       --shadow-sm: 0 2px 8px rgba(10, 26, 47, 0.05);
       --shadow-md: 0 8px 24px rgba(10, 26, 47, 0.07);
       --shadow-lg: 0 16px 48px rgba(10, 26, 47, 0.10);
       --shadow-gold: 0 4px 16px rgba(201, 168, 76, 0.25);
-      --radius-xs: 8px;
-      --radius-sm: 12px;
-      --radius-md: 16px;
-      --radius-lg: 20px;
-      --radius-xl: 28px;
-      --radius-pill: 999px;
+      --radius-xs: 8px; --radius-sm: 12px; --radius-md: 16px;
+      --radius-lg: 20px; --radius-xl: 28px; --radius-pill: 999px;
       --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     }
 
@@ -60,29 +41,19 @@
       flex-direction: column; overflow-x: hidden;
     }
 
-    /* ============================================================
-       HEADER
-       ============================================================ */
+    /* HEADER */
     .app-header {
       background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(12px);
       padding: 12px 20px;
       display: flex; align-items: center; justify-content: space-between;
       border-bottom: 1px solid var(--gray-200);
-      position: sticky; top: 0; z-index: 30;
-      gap: 8px;
+      position: sticky; top: 0; z-index: 30; gap: 8px;
     }
-
     .header-left { display: flex; align-items: center; gap: 12px; flex-shrink: 1; min-width: 0; }
-
-    .menu-icon {
-      background: none; border: none; padding: 4px; cursor: pointer;
-      display: flex; flex-direction: column; gap: 4px; flex-shrink: 0;
-      border-radius: var(--radius-xs); transition: background 0.2s;
-    }
+    .menu-icon { background: none; border: none; padding: 4px; cursor: pointer; display: flex; flex-direction: column; gap: 4px; flex-shrink: 0; border-radius: var(--radius-xs); transition: background 0.2s; }
     .menu-icon:hover { background: var(--navy-50); }
     .menu-icon span { display: block; width: 20px; height: 2px; background-color: var(--navy-900); border-radius: 2px; }
-
     .logo { display: flex; align-items: center; gap: 6px; line-height: 1; flex-shrink: 1; min-width: 0; }
     .logo .wordmark { font-size: 22px; font-weight: 800; letter-spacing: -0.8px; white-space: nowrap; }
     .logo .wordmark .blue { color: var(--navy-900); }
@@ -92,7 +63,6 @@
 
     .header-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
 
-    /* Auth buttons (signed out) */
     .header-auth-group { display: flex; align-items: center; gap: 8px; }
     .header-auth-group.hidden { display: none; }
     .auth-btn-signin {
@@ -159,61 +129,28 @@
     }
     .bell .badge.visible { display: flex; }
 
-    /* ============================================================
-       MAIN
-       ============================================================ */
-    .app-main {
-      flex: 1; padding: 0 16px; max-width: 600px;
-      margin: 0 auto; width: 100%;
-      display: flex; flex-direction: column; gap: 22px;
-    }
+    /* MAIN */
+    .app-main { flex: 1; padding: 0 16px; max-width: 600px; margin: 0 auto; width: 100%; display: flex; flex-direction: column; gap: 22px; }
 
-    /* ============================================================
-       HERO
-       ============================================================ */
+    /* HERO */
     .hero { text-align: center; padding: 24px 0 4px; position: relative; }
-    .hero h1 {
-      font-size: 40px; font-weight: 800; line-height: 1.1;
-      letter-spacing: -1.4px; color: var(--navy-900); margin-bottom: 14px;
-    }
+    .hero h1 { font-size: 40px; font-weight: 800; line-height: 1.1; letter-spacing: -1.4px; color: var(--navy-900); margin-bottom: 14px; }
     .hero h1 .gold { color: var(--gold-500); }
-    .hero p {
-      font-size: 16px; color: var(--gray-500); line-height: 1.55;
-      max-width: 480px; margin: 0 auto; padding: 0 4px;
-    }
+    .hero p { font-size: 16px; color: var(--gray-500); line-height: 1.55; max-width: 480px; margin: 0 auto; padding: 0 4px; }
     .hero-stats { display: flex; justify-content: center; gap: 28px; margin-top: 22px; flex-wrap: wrap; }
     .hero-stat { text-align: center; }
     .hero-stat .value { font-size: 18px; font-weight: 800; color: var(--navy-900); letter-spacing: -0.3px; }
     .hero-stat .label { font-size: 11px; font-weight: 600; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.6px; margin-top: 2px; }
     .hero-stat .value.green { color: var(--green-500); }
 
-    /* ============================================================
-       MARKET TICKER
-       ============================================================ */
-    .market-ticker-wrapper {
-      background: var(--white); border: 1px solid var(--gray-200);
-      border-radius: var(--radius-lg); box-shadow: var(--shadow-sm);
-      overflow: hidden; position: relative; width: 100%;
-    }
-    .ticker-track {
-      display: flex; gap: 0; width: max-content;
-      animation: tickerScroll 60s linear infinite; will-change: transform;
-    }
+    /* TICKER */
+    .market-ticker-wrapper { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); overflow: hidden; position: relative; width: 100%; }
+    .ticker-track { display: flex; gap: 0; width: max-content; animation: tickerScroll 60s linear infinite; will-change: transform; }
     .ticker-track:hover { animation-play-state: paused; }
     @keyframes tickerScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-
-    .ticker-item {
-      display: flex; align-items: center; gap: 12px;
-      padding: 16px 24px; flex-shrink: 0;
-      border-right: 1px solid var(--gray-200); min-width: fit-content;
-    }
+    .ticker-item { display: flex; align-items: center; gap: 12px; padding: 16px 24px; flex-shrink: 0; border-right: 1px solid var(--gray-200); min-width: fit-content; }
     .ticker-item:last-child { border-right: none; }
-    .ticker-icon {
-      width: 32px; height: 32px; border-radius: 50%;
-      background: var(--navy-50); border: 1px solid var(--gray-200);
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; overflow: hidden; padding: 4px;
-    }
+    .ticker-icon { width: 32px; height: 32px; border-radius: 50%; background: var(--navy-50); border: 1px solid var(--gray-200); display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; padding: 4px; }
     .ticker-icon img { width: 100%; height: 100%; object-fit: contain; }
     .ticker-info { display: flex; flex-direction: column; gap: 1px; }
     .ticker-symbol { font-size: 12px; font-weight: 700; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.5px; }
@@ -223,61 +160,28 @@
     .ticker-change.negative { color: var(--red-500); }
     .ticker-loading { padding: 20px; text-align: center; font-size: 13px; color: var(--gray-500); font-weight: 500; }
 
-    /* ============================================================
-       TAB SELECTOR
-       ============================================================ */
-    .tab-selector {
-      background: var(--white); border: 1px solid var(--gray-200);
-      border-radius: var(--radius-md); padding: 6px;
-      display: flex; gap: 6px; box-shadow: var(--shadow-xs);
-    }
-    .tab-btn {
-      flex: 1; border: none; background: transparent;
-      padding: 13px 6px; border-radius: var(--radius-sm);
-      font-family: var(--font); font-weight: 700; font-size: 13.5px;
-      color: var(--gray-500); cursor: pointer;
-      transition: all 0.22s ease; display: flex;
-      align-items: center; justify-content: center; gap: 5px;
-      white-space: nowrap; letter-spacing: -0.1px;
-    }
+    /* TABS */
+    .tab-selector { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 6px; display: flex; gap: 6px; box-shadow: var(--shadow-xs); }
+    .tab-btn { flex: 1; border: none; background: transparent; padding: 13px 6px; border-radius: var(--radius-sm); font-family: var(--font); font-weight: 700; font-size: 13.5px; color: var(--gray-500); cursor: pointer; transition: all 0.22s ease; display: flex; align-items: center; justify-content: center; gap: 5px; white-space: nowrap; letter-spacing: -0.1px; }
     .tab-btn:hover { color: var(--navy-800); }
     .tab-btn.active { background: var(--navy-900); color: var(--white); box-shadow: 0 4px 12px rgba(10, 26, 47, 0.22); }
     .tab-btn .hot-badge { background: var(--gold-500); color: var(--navy-900); font-size: 8.5px; font-weight: 800; padding: 2px 6px; border-radius: var(--radius-pill); letter-spacing: 0.5px; line-height: 1; }
 
-    /* ============================================================
-       PANELS
-       ============================================================ */
+    /* PANELS */
     .panel-container { display: flex; flex-direction: column; gap: 16px; }
-    .panel {
-      display: none; background: var(--white); border: 1px solid var(--gray-200);
-      border-radius: var(--radius-lg); box-shadow: var(--shadow-md);
-      padding: 20px 18px; flex-direction: column; gap: 16px;
-      animation: fade 0.25s ease;
-    }
+    .panel { display: none; background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); padding: 20px 18px; flex-direction: column; gap: 16px; animation: fade 0.25s ease; }
     .panel.active-panel { display: flex; }
     @keyframes fade { from { opacity: 0.5; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-
     .panel-desc { font-size: 13.5px; color: var(--gray-500); line-height: 1.55; padding-bottom: 4px; border-bottom: 1px solid var(--gray-200); margin-bottom: 2px; }
     .section-label { font-size: 15px; font-weight: 800; color: var(--navy-900); letter-spacing: -0.3px; display: flex; align-items: center; gap: 8px; }
     .section-label::before { content: ''; width: 3px; height: 16px; background: var(--gold-500); border-radius: 2px; }
 
-    /* ============================================================
-       TOGGLE GROUP (Buy / Sell)
-       ============================================================ */
     .toggle-group { display: flex; gap: 6px; background: var(--navy-50); border: 1px solid var(--gray-200); border-radius: var(--radius-sm); padding: 4px; }
     .toggle-btn { flex: 1; padding: 10px; border: none; background: transparent; border-radius: var(--radius-xs); font-family: var(--font); font-size: 13px; font-weight: 700; color: var(--gray-500); cursor: pointer; transition: all 0.2s; }
     .toggle-btn.active-toggle { background: var(--white); color: var(--navy-900); box-shadow: var(--shadow-xs); font-weight: 800; }
 
-    /* ============================================================
-       QUICK P2P ACTIONS
-       ============================================================ */
     .quick-p2p-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 4px; }
-    .qa-card {
-      background: var(--navy-50); border: 1px solid var(--gray-200);
-      border-radius: var(--radius-md); padding: 14px;
-      display: flex; flex-direction: column; gap: 6px;
-      cursor: pointer; transition: all 0.2s; position: relative; overflow: hidden;
-    }
+    .qa-card { background: var(--navy-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 14px; display: flex; flex-direction: column; gap: 6px; cursor: pointer; transition: all 0.2s; position: relative; overflow: hidden; }
     .qa-card:hover { border-color: var(--gold-500); background: var(--white); box-shadow: var(--shadow-sm); }
     .qa-card-top { display: flex; align-items: center; justify-content: space-between; }
     .qa-card-title { font-size: 13px; font-weight: 800; color: var(--navy-900); display: flex; align-items: center; gap: 6px; }
@@ -286,23 +190,10 @@
     .qa-card-rate { font-size: 14px; font-weight: 800; color: var(--navy-900); font-variant-numeric: tabular-nums; letter-spacing: -0.3px; }
     .qa-card-sub { font-size: 10.5px; font-weight: 600; color: var(--gray-500); }
 
-    /* ============================================================
-       ASSET SELECT CARD
-       ============================================================ */
-    .asset-select-card {
-      display: flex; align-items: center; justify-content: space-between;
-      background: var(--white); border: 1.5px solid var(--gray-200);
-      border-radius: var(--radius-md); padding: 14px 16px;
-      gap: 12px; cursor: pointer; transition: all 0.22s;
-    }
+    .asset-select-card { display: flex; align-items: center; justify-content: space-between; background: var(--white); border: 1.5px solid var(--gray-200); border-radius: var(--radius-md); padding: 14px 16px; gap: 12px; cursor: pointer; transition: all 0.22s; }
     .asset-select-card:hover { border-color: var(--gold-500); box-shadow: var(--shadow-sm); }
     .asset-left { display: flex; align-items: center; gap: 12px; min-width: 0; }
-    .asset-icon-wrap {
-      width: 40px; height: 40px; border-radius: 50%;
-      background: var(--navy-50); border: 1px solid var(--gray-200);
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; padding: 6px;
-    }
+    .asset-icon-wrap { width: 40px; height: 40px; border-radius: 50%; background: var(--navy-50); border: 1px solid var(--gray-200); display: flex; align-items: center; justify-content: center; flex-shrink: 0; padding: 6px; }
     .asset-icon-wrap img { width: 100%; height: 100%; object-fit: contain; }
     .asset-icon-wrap.green-bg { background: var(--green-100); border-color: var(--green-500); }
     .asset-info { display: flex; flex-direction: column; min-width: 0; }
@@ -311,21 +202,10 @@
     .action-circle { width: 36px; height: 36px; border-radius: 50%; background: var(--navy-50); color: var(--navy-800); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; border: 1px solid var(--gray-200); }
     .action-circle svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
 
-    /* ============================================================
-       SELECTOR MODALS
-       ============================================================ */
-    .selector-overlay {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(10, 26, 47, 0.5); backdrop-filter: blur(4px);
-      z-index: 70; opacity: 0; pointer-events: none; transition: opacity 0.25s;
-    }
+    /* SELECTORS */
+    .selector-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 26, 47, 0.5); backdrop-filter: blur(4px); z-index: 70; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
     .selector-overlay.open { opacity: 1; pointer-events: auto; }
-    .selector-modal {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: var(--bg-main); z-index: 75;
-      transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
-      display: flex; flex-direction: column;
-    }
+    .selector-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-main); z-index: 75; transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1); display: flex; flex-direction: column; }
     .selector-modal.open { transform: translateY(0); }
     .selector-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--gray-200); background: var(--white); flex-shrink: 0; }
     .selector-header h3 { font-size: 18px; font-weight: 800; color: var(--navy-900); }
@@ -352,9 +232,7 @@
     .sel-item.selected .sel-check { background: var(--green-500); border-color: var(--green-500); }
     .sel-item.selected .sel-check::after { content: '✓'; color: #fff; font-size: 13px; font-weight: 800; }
 
-    /* ============================================================
-       SWAP
-       ============================================================ */
+    /* SWAP */
     .swap-rate-banner { background: linear-gradient(135deg, var(--navy-900), var(--navy-800)); border-radius: var(--radius-lg); padding: 22px 20px; color: var(--white); display: flex; flex-direction: column; gap: 6px; box-shadow: var(--shadow-md); position: relative; overflow: hidden; }
     .swap-rate-banner::after { content: ''; position: absolute; bottom: -30%; right: -10%; width: 180px; height: 180px; border-radius: 50%; background: radial-gradient(circle, rgba(201, 168, 76, 0.18), transparent 70%); pointer-events: none; }
     .swap-rate-banner .sr-live { display: inline-flex; align-items: center; gap: 6px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: var(--gold-400); position: relative; z-index: 1; }
@@ -364,9 +242,7 @@
     .swap-rate-banner .sr-rate .unit { font-size: 14px; font-weight: 600; color: var(--gray-300); margin-left: 4px; }
     .swap-rate-banner .sr-sub { font-size: 12.5px; font-weight: 600; color: var(--gray-300); position: relative; z-index: 1; }
 
-    /* ============================================================
-       TRADE
-       ============================================================ */
+    /* TRADE */
     .trade-action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .trade-action-card { display: flex; flex-direction: column; gap: 8px; padding: 18px 16px; border-radius: var(--radius-md); border: 1.5px solid var(--gray-200); background: var(--white); cursor: pointer; transition: all 0.22s; text-align: left; }
     .trade-action-card:hover { border-color: var(--gold-500); box-shadow: var(--shadow-gold); transform: translateY(-2px); }
@@ -391,9 +267,7 @@
     .upgrade-banner-text p { font-size: 11px; font-weight: 500; color: var(--gray-300); margin-top: 2px; }
     .upgrade-banner .upgrade-arrow { width: 34px; height: 34px; border-radius: 50%; background: var(--gold-500); color: var(--navy-900); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
 
-    /* ============================================================
-       FORM FIELDS
-       ============================================================ */
+    /* FIELDS */
     .field-group { display: flex; flex-direction: column; gap: 6px; }
     .field-label { font-size: 11.5px; font-weight: 700; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.6px; }
     .field-row { display: flex; gap: 8px; align-items: center; }
@@ -408,15 +282,7 @@
     .info-row strong.positive { color: var(--green-500); }
     .info-row strong.negative { color: var(--red-500); }
 
-    .btn-primary {
-      background: linear-gradient(135deg, var(--green-500), #0B8A5E);
-      color: #fff; border: none; padding: 15px 24px;
-      border-radius: var(--radius-pill); font-family: var(--font);
-      font-weight: 800; font-size: 15.5px; cursor: pointer;
-      transition: all 0.22s; width: 100%; text-align: center;
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-      letter-spacing: -0.2px; box-shadow: 0 4px 16px rgba(15, 157, 110, 0.3);
-    }
+    .btn-primary { background: linear-gradient(135deg, var(--green-500), #0B8A5E); color: #fff; border: none; padding: 15px 24px; border-radius: var(--radius-pill); font-family: var(--font); font-weight: 800; font-size: 15.5px; cursor: pointer; transition: all 0.22s; width: 100%; text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px; letter-spacing: -0.2px; box-shadow: 0 4px 16px rgba(15, 157, 110, 0.3); }
     .btn-primary:hover { box-shadow: 0 6px 24px rgba(15, 157, 110, 0.42); transform: translateY(-1px); }
     .btn-primary:active { transform: translateY(0); }
     .btn-gold { background: linear-gradient(135deg, var(--gold-500), var(--gold-400)); color: var(--navy-900); box-shadow: 0 4px 16px rgba(201,168,76,0.35); }
@@ -430,9 +296,7 @@
     .swap-arrow-btn:hover { border-color: var(--gold-500); box-shadow: var(--shadow-gold); }
     .swap-arrow-btn:active { transform: rotate(180deg); }
 
-    /* ============================================================
-       MARKET CAP
-       ============================================================ */
+    /* MARKET CAP */
     .marketcap-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 20px 18px; display: flex; flex-direction: column; gap: 16px; box-shadow: var(--shadow-sm); }
     .marketcap-statement { background: linear-gradient(135deg, var(--navy-50), #EEF2F8); border-radius: var(--radius-md); padding: 16px 18px; display: flex; align-items: center; justify-content: space-between; gap: 14px; border: 1px solid var(--gray-200); }
     .marketcap-statement-text { flex: 1; min-width: 0; }
@@ -459,9 +323,7 @@
     .marketcap-cell-change.negative { color: var(--red-500); }
     .marketcap-cell-volume { font-size: 9.5px; font-weight: 600; color: var(--gray-500); font-variant-numeric: tabular-nums; }
 
-    /* ============================================================
-       BOTTOM NAV
-       ============================================================ */
+    /* BOTTOM NAV */
     .bottom-nav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 600px; background: rgba(255, 255, 255, 0.97); backdrop-filter: blur(16px); border-top: 1px solid var(--gray-200); display: flex; justify-content: space-around; align-items: center; padding: 8px 8px calc(8px + env(safe-area-inset-bottom, 0px)); z-index: 40; box-shadow: 0 -4px 20px rgba(10, 26, 47, 0.06); }
     .nav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; background: none; border: none; cursor: pointer; padding: 7px 12px; border-radius: var(--radius-sm); transition: all 0.2s; flex: 1; max-width: 80px; color: var(--gray-500); font-family: var(--font); font-size: 10.5px; font-weight: 600; letter-spacing: 0.2px; }
     .nav-item:hover { background: var(--navy-50); }
@@ -471,9 +333,7 @@
     .nav-icon-wrap { width: 38px; height: 28px; border-radius: var(--radius-xs); display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
     .nav-item svg { width: 21px; height: 21px; stroke: currentColor; fill: none; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.2s; }
 
-    /* ============================================================
-       DRAWER
-       ============================================================ */
+    /* DRAWER */
     .drawer-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 26, 47, 0.4); backdrop-filter: blur(3px); z-index: 50; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
     .drawer-overlay.open { opacity: 1; pointer-events: auto; }
     .drawer { position: fixed; top: 0; left: 0; width: 300px; height: 100%; background: var(--white); z-index: 55; transform: translateX(-100%); transition: transform 0.32s cubic-bezier(0.2, 0.9, 0.3, 1); padding: 28px 20px; display: flex; flex-direction: column; gap: 6px; box-shadow: 8px 0 32px rgba(10, 26, 47, 0.12); overflow-y: auto; }
@@ -491,26 +351,13 @@
     .drawer-link .nav-ico { width: 18px; text-align: center; opacity: 0.7; }
     .drawer-link.danger { color: var(--red-500); }
     .drawer-divider { height: 1px; background: var(--gray-200); margin: 8px 10px; }
-
     .drawer-auth-block { display: flex; flex-direction: column; gap: 8px; padding: 8px 0 4px; }
     .drawer-auth-block.hidden { display: none; }
-    .drawer-auth-block button {
-      padding: 12px; border-radius: var(--radius-sm); border: none;
-      font-family: var(--font); font-size: 13.5px; font-weight: 800;
-      cursor: pointer; width: 100%;
-    }
-    .drawer-auth-block .da-join {
-      background: linear-gradient(135deg, var(--gold-500), var(--gold-400));
-      color: var(--navy-900);
-    }
-    .drawer-auth-block .da-signin {
-      background: var(--navy-50); color: var(--navy-900);
-      border: 1.5px solid var(--gray-200);
-    }
+    .drawer-auth-block button { padding: 12px; border-radius: var(--radius-sm); border: none; font-family: var(--font); font-size: 13.5px; font-weight: 800; cursor: pointer; width: 100%; }
+    .drawer-auth-block .da-join { background: linear-gradient(135deg, var(--gold-500), var(--gold-400)); color: var(--navy-900); }
+    .drawer-auth-block .da-signin { background: var(--navy-50); color: var(--navy-900); border: 1.5px solid var(--gray-200); }
 
-    /* ============================================================
-       POPUPS
-       ============================================================ */
+    /* POPUPS */
     .notification-panel { position: fixed; top: 64px; right: 16px; width: 320px; max-width: calc(100vw - 32px); background: var(--white); border-radius: var(--radius-md); box-shadow: var(--shadow-lg); border: 1px solid var(--gray-200); padding: 16px; z-index: 60; display: none; flex-direction: column; gap: 8px; max-height: 440px; overflow-y: auto; }
     .notification-panel.open { display: flex; }
     .notification-panel .panel-title { font-weight: 800; font-size: 14px; margin-bottom: 4px; display: flex; justify-content: space-between; align-items: center; color: var(--navy-900); }
@@ -532,55 +379,30 @@
     .profile-menu button:hover { background: var(--navy-50); }
     .profile-menu button.danger { color: var(--red-500); }
 
-    /* ============================================================
-       RESPONSIVE
-       ============================================================ */
-    @media (max-width: 480px) {
-      .auth-btn-signin, .auth-btn-join { padding: 7px 12px; font-size: 11.5px; }
-    }
+    /* RESPONSIVE */
+    @media (max-width: 480px) { .auth-btn-signin, .auth-btn-join { padding: 7px 12px; font-size: 11.5px; } }
     @media (max-width: 400px) {
-      .hero h1 { font-size: 33px; letter-spacing: -1px; }
-      .hero p { font-size: 14px; }
-      .hero-stats { gap: 20px; }
-      .hero-stat .value { font-size: 16px; }
-      .app-header { padding: 10px 14px; }
-      .logo .wordmark { font-size: 18px; }
-      .logo .tagline { font-size: 7px; padding: 2px 5px; }
-      .balance-wrapper { font-size: 12px; padding: 4px 4px 4px 9px; }
-      .eye-toggle { width: 24px; height: 24px; }
-      .avatar { width: 32px; height: 32px; font-size: 12px; }
-      .bell { font-size: 17px; }
-      .tab-btn { font-size: 12.5px; padding: 11px 4px; }
-      .panel { padding: 18px 14px; }
-      .ticker-item { padding: 14px 18px; gap: 10px; }
-      .ticker-price { font-size: 15px; }
-      .quick-p2p-grid { grid-template-columns: 1fr; }
-      .trade-action-grid { grid-template-columns: 1fr; }
-      .marketcap-grid { grid-template-columns: 1fr 1fr; }
-      .marketcap-statement { flex-direction: column; text-align: center; }
+      .hero h1 { font-size: 33px; letter-spacing: -1px; } .hero p { font-size: 14px; }
+      .hero-stats { gap: 20px; } .hero-stat .value { font-size: 16px; }
+      .app-header { padding: 10px 14px; } .logo .wordmark { font-size: 18px; } .logo .tagline { font-size: 7px; padding: 2px 5px; }
+      .balance-wrapper { font-size: 12px; padding: 4px 4px 4px 9px; } .eye-toggle { width: 24px; height: 24px; }
+      .avatar { width: 32px; height: 32px; font-size: 12px; } .bell { font-size: 17px; }
+      .tab-btn { font-size: 12.5px; padding: 11px 4px; } .panel { padding: 18px 14px; }
+      .ticker-item { padding: 14px 18px; gap: 10px; } .ticker-price { font-size: 15px; }
+      .quick-p2p-grid { grid-template-columns: 1fr; } .trade-action-grid { grid-template-columns: 1fr; }
+      .marketcap-grid { grid-template-columns: 1fr 1fr; } .marketcap-statement { flex-direction: column; text-align: center; }
     }
     @media (min-width: 700px) {
-      body { padding-bottom: 100px; }
-      .app-main { max-width: 640px; padding: 0 24px; gap: 26px; }
-      .hero { padding: 28px 0 8px; }
-      .hero h1 { font-size: 50px; letter-spacing: -2px; }
-      .hero p { font-size: 18px; }
-      .bottom-nav { max-width: 640px; border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
-      .panel { padding: 24px 22px; }
-      .quick-p2p-grid { grid-template-columns: repeat(4, 1fr); }
-      .marketcap-grid { grid-template-columns: 1fr 1fr 1fr 1fr; }
+      body { padding-bottom: 100px; } .app-main { max-width: 640px; padding: 0 24px; gap: 26px; }
+      .hero { padding: 28px 0 8px; } .hero h1 { font-size: 50px; letter-spacing: -2px; } .hero p { font-size: 18px; }
+      .bottom-nav { max-width: 640px; border-radius: var(--radius-lg) var(--radius-lg) 0 0; } .panel { padding: 24px 22px; }
+      .quick-p2p-grid { grid-template-columns: repeat(4, 1fr); } .marketcap-grid { grid-template-columns: 1fr 1fr 1fr 1fr; }
     }
-    @media (min-width: 1024px) {
-      .app-main { max-width: 680px; }
-      .bottom-nav { max-width: 680px; }
-    }
+    @media (min-width: 1024px) { .app-main { max-width: 680px; } .bottom-nav { max-width: 680px; } }
   </style>
 </head>
 <body>
 
-  <!-- ============================================================
-       DRAWER OVERLAY + DRAWER
-       ============================================================ -->
   <div class="drawer-overlay" id="drawerOverlay"></div>
 
   <aside class="drawer" id="drawer">
@@ -599,9 +421,9 @@
 
     <div class="drawer-section-label">Main</div>
     <a class="drawer-link" href="index.html"><span class="nav-ico">🏠</span>Home</a>
-    <a class="drawer-link" href="p2p.html"><span class="nav-ico">🤝</span>P2P Trading</a>
-    <a class="drawer-link" href="swap.html"><span class="nav-ico">⇄</span>Swap</a>
-    <a class="drawer-link" href="trade.html"><span class="nav-ico">📈</span>Trade</a>
+    <a class="drawer-link" href="p2p.html" data-requires-auth><span class="nav-ico">🤝</span>P2P Trading</a>
+    <a class="drawer-link" href="swap.html" data-requires-auth><span class="nav-ico">⇄</span>Swap</a>
+    <a class="drawer-link" href="trade.html" data-requires-auth><span class="nav-ico">📈</span>Trade</a>
     <a class="drawer-link" href="wallet.html" data-requires-auth><span class="nav-ico">👛</span>Wallet</a>
     <a class="drawer-link" href="markets.html"><span class="nav-ico">📊</span>Markets</a>
 
@@ -618,9 +440,6 @@
     <button class="drawer-link danger" id="drawerLogout" style="display:none;"><span class="nav-ico">🚪</span>Logout</button>
   </aside>
 
-  <!-- ============================================================
-       NOTIFICATION PANEL
-       ============================================================ -->
   <div class="notification-panel" id="notificationPanel">
     <div class="panel-title">
       <span>Notifications</span>
@@ -629,9 +448,6 @@
     <div id="notificationList"><div class="notification-empty">No new notifications</div></div>
   </div>
 
-  <!-- ============================================================
-       PROFILE MENU
-       ============================================================ -->
   <div class="profile-menu" id="profileMenu">
     <div class="pm-head">
       <div class="pm-name" id="pmName">User</div>
@@ -645,9 +461,6 @@
     <button class="danger" id="pmLogout">🚪 Logout</button>
   </div>
 
-  <!-- ============================================================
-       ASSET SELECTOR
-       ============================================================ -->
   <div class="selector-overlay" id="assetSelectorOverlay"></div>
   <div class="selector-modal" id="assetSelector">
     <div class="selector-header">
@@ -660,9 +473,6 @@
     <div class="selector-list" id="assetSelectorList"></div>
   </div>
 
-  <!-- ============================================================
-       PAYMENT SELECTOR
-       ============================================================ -->
   <div class="selector-overlay" id="paymentSelectorOverlay"></div>
   <div class="selector-modal" id="paymentSelector">
     <div class="selector-header">
@@ -675,9 +485,6 @@
     <div class="selector-list" id="paymentSelectorList"></div>
   </div>
 
-  <!-- ============================================================
-       HEADER
-       ============================================================ -->
   <header class="app-header">
     <div class="header-left">
       <button class="menu-icon" id="menuBtn" aria-label="Open menu">
@@ -691,13 +498,11 @@
       </div>
     </div>
     <div class="header-right">
-      <!-- Signed out -->
       <div class="header-auth-group" id="headerAuthGroup">
         <button class="auth-btn-signin" id="headerSignInBtn">Sign in</button>
         <button class="auth-btn-join" id="headerJoinBtn">Join us</button>
       </div>
 
-      <!-- Signed in -->
       <div class="balance-wrapper" id="headerBalanceWrap" style="display:none;">
         <span class="balance-amount" id="balanceDisplay">$0.00</span>
         <button class="eye-toggle" id="eyeToggle" aria-label="Toggle balance visibility">
@@ -712,9 +517,6 @@
     </div>
   </header>
 
-  <!-- ============================================================
-       MAIN — unchanged marketing / trading shell
-       ============================================================ -->
   <main class="app-main">
 
     <section class="hero">
@@ -739,7 +541,6 @@
 
     <div class="panel-container">
 
-      <!-- P2P PANEL -->
       <div class="panel active-panel" id="panel-p2p" role="tabpanel">
         <p class="panel-desc">Trade crypto peer-to-peer with local payment methods, bank transfers, and secure transaction protection.</p>
         <div class="section-label">I want to buy</div>
@@ -806,7 +607,6 @@
         <button class="btn-primary" id="p2pContinueBtn">Continue</button>
       </div>
 
-      <!-- SWAP PANEL -->
       <div class="panel" id="panel-swap" role="tabpanel">
         <div class="swap-rate-banner" id="swapRateBanner">
           <span class="sr-live"><span class="pulse"></span>Live Rate · Instant Cashout</span>
@@ -852,14 +652,8 @@
 
         <button class="btn-primary btn-gold" id="swapReviewBtn">Swap Now</button>
         <div class="error-text" id="swapError">Please enter a valid amount</div>
-
-        <div class="quick-actions-banner" style="background:linear-gradient(135deg,var(--navy-900),var(--navy-800));border-radius:var(--radius-lg);padding:20px 18px;color:var(--white);display:flex;flex-direction:column;gap:14px;box-shadow:var(--shadow-md);position:relative;overflow:hidden;margin-top:4px;">
-          <h3 style="font-size:17px;font-weight:800;letter-spacing:-0.3px;position:relative;z-index:1;">🚀 <span style="color:var(--gold-400);">Open Instant Swap Interface</span></h3>
-          <p style="font-size:12.5px;color:var(--gray-300);font-weight:500;position:relative;z-index:1;">Convert between top assets in seconds — zero hidden fees, instant settlement.</p>
-        </div>
       </div>
 
-      <!-- TRADE PANEL -->
       <div class="panel" id="panel-trade" role="tabpanel">
         <p class="panel-desc">Access real-time markets with advanced tools — trade manually or let automation work for you.</p>
 
@@ -932,7 +726,6 @@
 
     </div>
 
-    <!-- MARKET CAP CARD -->
     <div class="marketcap-card" id="marketcapCard">
       <div class="marketcap-statement">
         <div class="marketcap-statement-text">
@@ -952,9 +745,6 @@
 
   </main>
 
-  <!-- ============================================================
-       BOTTOM NAV
-       ============================================================ -->
   <nav class="bottom-nav" id="bottomNav">
     <button class="nav-item active" data-nav="home" aria-label="Home">
       <div class="nav-icon-wrap"><svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9 21v-6h6v6"/></svg></div>
@@ -986,29 +776,27 @@
       const $$ = (s) => document.querySelectorAll(s);
 
       // ============================================================
-      // AUTH STATE
+      // AUTH
       // ============================================================
       let user = null;
       try { user = JSON.parse(localStorage.getItem('bp_user_session') || 'null'); } catch (e) {}
       const isSignedIn = !!user;
       const displayName = user ? (user.name || (user.email ? user.email.split('@')[0] : 'User')) : 'User';
       const userEmail = user ? (user.email || 'user@bluepeak.com') : '';
+      const userCountry = user ? (user.country || '').toUpperCase() : '';
       const initial = (displayName.charAt(0) || 'U').toUpperCase();
 
-      function requireAuth() {
-        if (!isSignedIn) {
-          if (confirm('Please sign in to continue.')) {
-            window.location.href = 'auth.html#signin';
-          }
-          return false;
-        }
-        return true;
+      // Redirect to auth before accessing any protected page
+      function requireAuth(targetUrl) {
+        if (isSignedIn) return true;
+        if (targetUrl) sessionStorage.setItem('bp_redirect_after_auth', targetUrl);
+        window.location.href = 'auth.html#signin';
+        return false;
       }
+
       function go(url) { window.location.href = url; }
 
-      // ============================================================
-      // HEADER AUTH STATE
-      // ============================================================
+      // Header auth state
       (function() {
         const authGroup = $('#headerAuthGroup');
         const balanceWrap = $('#headerBalanceWrap');
@@ -1044,6 +832,74 @@
       $('#headerJoinBtn').addEventListener('click', () => go('auth.html#signup'));
       $('#drawerSignInBtn').addEventListener('click', () => go('auth.html#signin'));
       $('#drawerJoinBtn').addEventListener('click', () => go('auth.html#signup'));
+
+      // ============================================================
+      // COUNTRY → PAYMENT METHOD
+      // ============================================================
+      const COUNTRY_DEFAULT_PAYMENT = {
+        KE: { name: 'M-Pesa Kenya', icon: '📱', sub: 'Safaricom M-Pesa · Kenya', flag: '🇰🇪', label: 'Kenya' },
+        TZ: { name: 'M-Pesa Tanzania', icon: '📱', sub: 'Vodacom M-Pesa · Tanzania', flag: '🇹🇿', label: 'Tanzania' },
+        GH: { name: 'MTN MoMo Ghana', icon: '📲', sub: 'MTN Mobile Money · Ghana', flag: '🇬🇭', label: 'Ghana' },
+        NG: { name: 'Paystack', icon: '💠', sub: 'Nigeria & Ghana', flag: '🇳🇬', label: 'Nigeria' },
+        ZA: { name: 'Bank Transfer', icon: '🏦', sub: 'Standard bank transfer', flag: '🇿🇦', label: 'South Africa' },
+        SN: { name: 'Orange Money Senegal', icon: '🟠', sub: 'Orange Money · Senegal', flag: '🇸🇳', label: 'Senegal' },
+        EG: { name: 'Flutterwave', icon: '🌊', sub: 'Pan-African payments', flag: '🇪🇬', label: 'Egypt' },
+        US: { name: 'Zelle', icon: '⚡', sub: 'United States', flag: '🇺🇸', label: 'United States' },
+        BR: { name: 'PIX', icon: '⚡', sub: 'Brazil', flag: '🇧🇷', label: 'Brazil' },
+        GB: { name: 'Bank Transfer', icon: '🏦', sub: 'Standard bank transfer', flag: '🇬🇧', label: 'United Kingdom' },
+        DE: { name: 'SEPA', icon: '🇪🇺', sub: 'Euro transfers', flag: '🇩🇪', label: 'Germany' },
+        FR: { name: 'SEPA', icon: '🇪🇺', sub: 'Euro transfers', flag: '🇫🇷', label: 'France' },
+        ES: { name: 'SEPA', icon: '🇪🇺', sub: 'Euro transfers', flag: '🇪🇸', label: 'Spain' },
+        IN: { name: 'UPI', icon: '🇮🇳', sub: 'India', flag: '🇮🇳', label: 'India' },
+        CN: { name: 'Alipay', icon: '🇨🇳', sub: 'China', flag: '🇨🇳', label: 'China' },
+      };
+
+      const PAYMENT_METHODS = [
+        { group: 'Global', items: [
+          { name: 'Bank Transfer', icon: '🏦', sub: 'Standard bank transfer' },
+          { name: 'Visa / Mastercard', icon: '💳', sub: 'Debit or credit card' },
+          { name: 'PayPal', icon: '🅿️', sub: 'PayPal balance' },
+          { name: 'Wise', icon: '🌐', sub: 'International transfer' },
+        ]},
+        { group: 'Africa — Mobile Money', items: [
+          { name: 'M-Pesa Kenya', icon: '📱', sub: 'Safaricom M-Pesa · Kenya' },
+          { name: 'M-Pesa Tanzania', icon: '📱', sub: 'Vodacom M-Pesa · Tanzania' },
+          { name: 'MTN MoMo Ghana', icon: '📲', sub: 'MTN Mobile Money · Ghana' },
+          { name: 'Airtel Money Kenya', icon: '📶', sub: 'Airtel Money · Kenya' },
+          { name: 'Orange Money Senegal', icon: '🟠', sub: 'Orange Money · Senegal' },
+          { name: 'Flutterwave', icon: '🌊', sub: 'Pan-African payments' },
+          { name: 'Paystack', icon: '💠', sub: 'Nigeria & Ghana' },
+        ]},
+        { group: 'Americas', items: [
+          { name: 'ACH Transfer', icon: '🏦', sub: 'United States' },
+          { name: 'Zelle', icon: '⚡', sub: 'United States' },
+          { name: 'Venmo', icon: '💸', sub: 'United States' },
+          { name: 'PIX', icon: '⚡', sub: 'Brazil' },
+        ]},
+        { group: 'Europe & Asia', items: [
+          { name: 'SEPA', icon: '🇪🇺', sub: 'Euro transfers' },
+          { name: 'Alipay', icon: '🇨🇳', sub: 'China' },
+          { name: 'UPI', icon: '🇮🇳', sub: 'India' },
+        ]},
+      ];
+
+      // pick payment method from country
+      let selectedPayment = { name: 'Bank Transfer', icon: '🏦', sub: 'Bank transfer payment' };
+      let selectedCountryMeta = null;
+      if (userCountry && COUNTRY_DEFAULT_PAYMENT[userCountry]) {
+        const c = COUNTRY_DEFAULT_PAYMENT[userCountry];
+        selectedPayment = { name: c.name, icon: c.icon, sub: c.sub };
+        selectedCountryMeta = c;
+      }
+
+      function applyCountryToPaymentUI() {
+        $('#selectedPaymentLabel').textContent = selectedPayment.name;
+        $('#selectedPaymentSub').textContent = selectedCountryMeta
+          ? `${selectedCountryMeta.flag} ${selectedCountryMeta.label} · ${selectedPayment.sub}`
+          : selectedPayment.sub;
+        $('#selectedPaymentIcon').textContent = selectedPayment.icon;
+      }
+      applyCountryToPaymentUI();
 
       // ============================================================
       // BALANCE VISIBILITY
@@ -1085,8 +941,7 @@
 
       $('#menuBtn').addEventListener('click', (e) => {
         e.stopPropagation(); closeAll();
-        drawer.classList.add('open');
-        drawerOverlay.classList.add('open');
+        drawer.classList.add('open'); drawerOverlay.classList.add('open');
       });
       $('#drawerClose').addEventListener('click', closeAll);
       drawerOverlay.addEventListener('click', closeAll);
@@ -1126,37 +981,26 @@
         const items = [];
         const myName = (user.name || '').toLowerCase();
         const myEmail = (user.email || '').toLowerCase();
-
         let chats = [];
         try { chats = JSON.parse(localStorage.getItem('bp_admin_chats') || '[]'); } catch (e) {}
         const myOrders = chats.filter(c => {
           const buyer = (c.buyer || '').toLowerCase();
-          return (myName && buyer.includes(myName)) ||
-                 (c.buyerEmail && c.buyerEmail.toLowerCase() === myEmail);
+          return (myName && buyer.includes(myName)) || (c.buyerEmail && c.buyerEmail.toLowerCase() === myEmail);
         });
         myOrders.forEach(o => {
           if (o.unread && o.messages && o.messages.length) {
             const last = o.messages[o.messages.length - 1];
             if (last.from === 'merchant' || last.from === 'admin') {
-              items.push({
-                title: last.from === 'admin' ? 'Admin replied to your order' : 'New merchant message',
-                body: `Order ${o.order}: ${last.text}`,
-                ts: last.ts || o.created,
-                link: 'p2p.html',
-              });
+              items.push({ title: last.from === 'admin' ? 'Admin replied to your order' : 'New merchant message', body: `Order ${o.order}: ${last.text}`, ts: last.ts || o.created, link: 'p2p.html' });
             }
           }
-          if (o.status === 'disputed') {
-            items.push({ title: 'Dispute open', body: `Order ${o.order} is in dispute.`, ts: o.created, link: 'p2p.html' });
-          }
+          if (o.status === 'disputed') items.push({ title: 'Dispute open', body: `Order ${o.order} is in dispute.`, ts: o.created, link: 'p2p.html' });
         });
-
         let bots = [];
         try { bots = JSON.parse(localStorage.getItem('bp_admin_bots') || '[]'); } catch (e) {}
         bots.filter(b => (b.ownerEmail || '').toLowerCase() === myEmail && b.status === 'error').forEach(b => {
           items.push({ title: 'Bot needs attention', body: `${b.name} stopped with an error.`, ts: b.created || Date.now(), link: 'bots.html' });
         });
-
         items.sort((a, b) => (b.ts || 0) - (a.ts || 0));
         return items;
       }
@@ -1205,7 +1049,6 @@
         renderNotifications();
       });
 
-      // Outside click
       document.addEventListener('click', (e) => {
         if (!e.target.closest('#menuBtn') && !e.target.closest('#drawer') && !e.target.closest('#drawerOverlay')) {
           drawer.classList.remove('open'); drawerOverlay.classList.remove('open');
@@ -1214,70 +1057,52 @@
         if (!e.target.closest('#bellBtn') && !e.target.closest('#notificationPanel')) notificationPanel.classList.remove('open');
       });
 
-      // Guard on auth-required drawer links
+      // ============================================================
+      // NAVIGATION — route to real pages with auth guard
+      // ============================================================
+      function navigateTo(page) {
+        if (!requireAuth(page)) return;
+        go(page);
+      }
+
+      // Drawer links
       $$('.drawer-link').forEach(link => {
         link.addEventListener('click', (e) => {
           const href = link.getAttribute('href');
           if (!href || href === '#') { e.preventDefault(); return; }
           if (link.hasAttribute('data-requires-auth') && !isSignedIn) {
             e.preventDefault();
-            requireAuth();
+            requireAuth(href);
           }
         });
       });
 
-      // ============================================================
-      // TABS + BOTTOM NAV
-      // ============================================================
-      let currentTab = 'p2p';
-      const panels = { p2p: $('#panel-p2p'), swap: $('#panel-swap'), trade: $('#panel-trade') };
-
-      function switchTab(tab) {
-        currentTab = tab;
-        $$('.tab-btn').forEach(btn => {
-          const isActive = btn.dataset.tab === tab;
-          btn.classList.toggle('active', isActive);
-          btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
-        });
-        Object.keys(panels).forEach(key => panels[key].classList.toggle('active-panel', key === tab));
-        $$('.nav-item').forEach(btn => {
-          const nav = btn.dataset.nav;
-          const active = (tab === 'p2p' && nav === 'p2p') ||
-                         (tab === 'swap' && nav === 'swap') ||
-                         (tab === 'trade' && nav === 'trade') ||
-                         (nav === 'home' && tab === 'p2p');
-          btn.classList.toggle('active', active);
-        });
-        history.replaceState(null, null, '#' + tab);
-      }
-
+      // Tab selector
       $('#tabSelector').addEventListener('click', (e) => {
         const btn = e.target.closest('.tab-btn');
         if (!btn) return;
-        if (btn.dataset.tab === 'p2p') {
-          saveP2PState();
-          go('p2p.html');
-        } else {
-          switchTab(btn.dataset.tab);
-        }
+        const tab = btn.dataset.tab;
+        if (tab === 'p2p') { saveP2PState(); navigateTo('p2p.html'); }
+        else if (tab === 'swap') { saveSwapState(); navigateTo('swap.html'); }
+        else if (tab === 'trade') { saveTradeState(); navigateTo('trade.html'); }
       });
 
+      // Bottom nav
       $('#bottomNav').addEventListener('click', (e) => {
         const btn = e.target.closest('.nav-item');
         if (!btn) return;
         const nav = btn.dataset.nav;
-        if (nav === 'home') { switchTab('p2p'); window.scrollTo({ top: 0, behavior: 'smooth' }); }
-        else if (nav === 'p2p') { saveP2PState(); go('p2p.html'); }
-        else if (nav === 'trade') { switchTab('trade'); }
-        else if (nav === 'swap') { switchTab('swap'); }
-        else if (nav === 'wallet') { if (!requireAuth()) return; go('wallet.html'); }
+        if (nav === 'home') { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+        if (nav === 'p2p') { saveP2PState(); navigateTo('p2p.html'); }
+        else if (nav === 'trade') { saveTradeState(); navigateTo('trade.html'); }
+        else if (nav === 'swap') { saveSwapState(); navigateTo('swap.html'); }
+        else if (nav === 'wallet') { navigateTo('wallet.html'); }
       });
 
       // ============================================================
       // P2P STATE
       // ============================================================
       let selectedAsset = { id: 'tether', symbol: 'USDT', name: 'Tether', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/usdt.svg' };
-      let selectedPayment = { name: 'Bank Transfer', icon: '🏦', sub: 'Bank transfer payment' };
       let p2pMode = 'buy';
       let tradeMode = 'buy';
       let tickerPrices = {};
@@ -1285,13 +1110,29 @@
       function saveP2PState() {
         localStorage.setItem('bluepeak_p2p_state', JSON.stringify({
           assetId: selectedAsset ? selectedAsset.id : null,
+          assetSymbol: selectedAsset ? selectedAsset.symbol : null,
           paymentName: selectedPayment ? selectedPayment.name : null,
+          country: userCountry || null,
           mode: p2pMode,
+        }));
+      }
+      function saveSwapState() {
+        localStorage.setItem('bluepeak_swap_state', JSON.stringify({
+          from: $('#swapFromAsset').value,
+          to: $('#swapToAsset').value,
+          amount: parseFloat($('#swapFromAmount').value) || 0,
+        }));
+      }
+      function saveTradeState() {
+        localStorage.setItem('bluepeak_trade_state', JSON.stringify({
+          pair: $('#tradePair').value,
+          mode: tradeMode,
+          amount: parseFloat($('#tradeAmount').value) || 0,
         }));
       }
 
       // ============================================================
-      // ASSETS DATA
+      // ASSETS
       // ============================================================
       const ASSETS = [
         { id: 'bitcoin', symbol: 'BTC', name: 'Bitcoin', icon: 'https://blockchains.tatum.io/assets/img/bitcoin.svg' },
@@ -1302,42 +1143,6 @@
         { id: 'ripple', symbol: 'XRP', name: 'XRP', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/xrp.svg' },
         { id: 'cardano', symbol: 'ADA', name: 'Cardano', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/ada.svg' },
         { id: 'dogecoin', symbol: 'DOGE', name: 'Dogecoin', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/doge.svg' },
-        { id: 'avalanche-2', symbol: 'AVAX', name: 'Avalanche', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/avax.svg' },
-        { id: 'polkadot', symbol: 'DOT', name: 'Polkadot', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/dot.svg' },
-        { id: 'chainlink', symbol: 'LINK', name: 'Chainlink', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/link.svg' },
-        { id: 'polygon-ecosystem-token', symbol: 'POL', name: 'Polygon', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/pol.svg' },
-        { id: 'litecoin', symbol: 'LTC', name: 'Litecoin', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/ltc.svg' },
-        { id: 'uniswap', symbol: 'UNI', name: 'Uniswap', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/uni.svg' },
-        { id: 'stellar', symbol: 'XLM', name: 'Stellar', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/xlm.svg' },
-      ];
-
-      const PAYMENT_METHODS = [
-        { group: 'Global', items: [
-          { name: 'Bank Transfer', icon: '🏦', sub: 'Standard bank transfer' },
-          { name: 'Visa / Mastercard', icon: '💳', sub: 'Debit or credit card' },
-          { name: 'PayPal', icon: '🅿️', sub: 'PayPal balance' },
-          { name: 'Wise', icon: '🌐', sub: 'International transfer' },
-        ]},
-        { group: 'Africa — Mobile Money', items: [
-          { name: 'M-Pesa Kenya', icon: '📱', sub: 'Safaricom M-Pesa · Kenya' },
-          { name: 'M-Pesa Tanzania', icon: '📱', sub: 'Vodacom M-Pesa · Tanzania' },
-          { name: 'MTN MoMo Ghana', icon: '📲', sub: 'MTN Mobile Money · Ghana' },
-          { name: 'Airtel Money Kenya', icon: '📶', sub: 'Airtel Money · Kenya' },
-          { name: 'Orange Money Senegal', icon: '🟠', sub: 'Orange Money · Senegal' },
-          { name: 'Flutterwave', icon: '🌊', sub: 'Pan-African payments' },
-          { name: 'Paystack', icon: '💠', sub: 'Nigeria & Ghana' },
-        ]},
-        { group: 'Americas', items: [
-          { name: 'ACH Transfer', icon: '🏦', sub: 'United States' },
-          { name: 'Zelle', icon: '⚡', sub: 'United States' },
-          { name: 'Venmo', icon: '💸', sub: 'United States' },
-          { name: 'PIX', icon: '⚡', sub: 'Brazil' },
-        ]},
-        { group: 'Europe & Asia', items: [
-          { name: 'SEPA', icon: '🇪🇺', sub: 'Euro transfers' },
-          { name: 'Alipay', icon: '🇨🇳', sub: 'China' },
-          { name: 'UPI', icon: '🇮🇳', sub: 'India' },
-        ]},
       ];
 
       // ============================================================
@@ -1356,11 +1161,7 @@
             const d = data[coin.id];
             if (d && d.usd !== undefined) tickerPrices[coin.id] = { price: d.usd, change: d.usd_24h_change || 0, volume: d.usd_24h_vol || 0, timestamp };
           });
-          renderTicker();
-          renderMarketCap();
-          renderQuickActions();
-          updateTradeInfo();
-          updateSwapLiveRate();
+          renderTicker(); renderMarketCap(); renderQuickActions(); updateTradeInfo(); updateSwapLiveRate();
         } catch (err) {
           if (Object.keys(tickerPrices).length === 0) {
             $('#marketTickerWrapper').innerHTML = `<div class="ticker-loading">Market data unavailable.</div>`;
@@ -1387,15 +1188,14 @@
           const d = tickerPrices[coin.id];
           const cls = d.change >= 0 ? 'positive' : 'negative';
           const sign = d.change >= 0 ? '+' : '';
-          return `
-            <div class="ticker-item">
-              <div class="ticker-icon"><img src="${coin.icon}" alt="${coin.symbol}"></div>
-              <div class="ticker-info">
-                <span class="ticker-symbol">${coin.symbol}</span>
-                <span class="ticker-price">${formatPrice(d.price)}</span>
-                <span class="ticker-change ${cls}">${sign}${d.change.toFixed(2)}%</span>
-              </div>
-            </div>`;
+          return `<div class="ticker-item">
+            <div class="ticker-icon"><img src="${coin.icon}" alt="${coin.symbol}"></div>
+            <div class="ticker-info">
+              <span class="ticker-symbol">${coin.symbol}</span>
+              <span class="ticker-price">${formatPrice(d.price)}</span>
+              <span class="ticker-change ${cls}">${sign}${d.change.toFixed(2)}%</span>
+            </div>
+          </div>`;
         }).join('');
         $('#marketTickerWrapper').innerHTML = `<div class="ticker-track">${items}${items}</div>`;
       }
@@ -1408,28 +1208,23 @@
           const d = tickerPrices[coin.id];
           const cls = d.change >= 0 ? 'positive' : 'negative';
           const sign = d.change >= 0 ? '+' : '';
-          return `
-            <div class="marketcap-cell" data-asset-symbol="${coin.symbol}">
-              <div class="marketcap-cell-top">
-                <div class="marketcap-cell-logo"><img src="${coin.icon}" alt="${coin.symbol}"></div>
-                <div>
-                  <div class="marketcap-cell-name">${coin.name}</div>
-                  <div class="marketcap-cell-symbol">${coin.symbol}</div>
-                </div>
+          return `<div class="marketcap-cell" data-asset-symbol="${coin.symbol}">
+            <div class="marketcap-cell-top">
+              <div class="marketcap-cell-logo"><img src="${coin.icon}" alt="${coin.symbol}"></div>
+              <div>
+                <div class="marketcap-cell-name">${coin.name}</div>
+                <div class="marketcap-cell-symbol">${coin.symbol}</div>
               </div>
-              <div class="marketcap-cell-price">${formatPrice(d.price)}</div>
-              <div class="marketcap-cell-change ${cls}">${sign}${d.change.toFixed(2)}%</div>
-              <div class="marketcap-cell-volume">Vol ${formatVolume(d.volume)}</div>
-            </div>`;
+            </div>
+            <div class="marketcap-cell-price">${formatPrice(d.price)}</div>
+            <div class="marketcap-cell-change ${cls}">${sign}${d.change.toFixed(2)}%</div>
+            <div class="marketcap-cell-volume">Vol ${formatVolume(d.volume)}</div>
+          </div>`;
         }).join('');
         $$('#marketcapGrid .marketcap-cell').forEach(cell => {
           cell.addEventListener('click', () => {
             const asset = ASSETS.find(a => a.symbol === cell.dataset.assetSymbol);
-            if (asset) {
-              selectAsset(asset);
-              switchTab('p2p');
-              $('#p2pAmount').scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
+            if (asset) { selectAsset(asset); saveP2PState(); navigateTo('p2p.html'); }
           });
         });
       }
@@ -1445,17 +1240,16 @@
         grid.innerHTML = actions.map(act => {
           const asset = ASSETS.find(a => a.symbol === act.symbol);
           const price = tickerPrices[asset.id]?.price || 0;
-          return `
-            <div class="qa-card" data-quick="${act.mode}-${act.symbol}">
-              <div class="qa-card-top">
-                <div class="qa-card-title">
-                  <div class="qa-icon"><img src="${asset.icon}" alt="${act.symbol}"></div>
-                  ${act.label}
-                </div>
+          return `<div class="qa-card" data-quick="${act.mode}-${act.symbol}">
+            <div class="qa-card-top">
+              <div class="qa-card-title">
+                <div class="qa-icon"><img src="${asset.icon}" alt="${act.symbol}"></div>
+                ${act.label}
               </div>
-              <div class="qa-card-rate">${price ? formatPrice(price) : '—'}</div>
-              <div class="qa-card-sub">${act.mode === 'buy' ? 'Instant buy rate' : 'Instant sell rate'}</div>
-            </div>`;
+            </div>
+            <div class="qa-card-rate">${price ? formatPrice(price) : '—'}</div>
+            <div class="qa-card-sub">${act.mode === 'buy' ? 'Instant buy rate' : 'Instant sell rate'}</div>
+          </div>`;
         }).join('');
         grid.querySelectorAll('.qa-card').forEach(card => {
           card.addEventListener('click', () => {
@@ -1466,7 +1260,7 @@
               p2pMode = mode;
               $('#p2pToggle').querySelectorAll('.toggle-btn').forEach(b => b.classList.toggle('active-toggle', b.dataset.p2pMode === mode));
               saveP2PState();
-              $('#p2pAmount').scrollIntoView({ behavior: 'smooth', block: 'center' });
+              navigateTo('p2p.html');
             }
           });
         });
@@ -1520,7 +1314,6 @@
         $('#selectedAssetLabel').textContent = asset.name + ' (' + asset.symbol + ')';
         $('#selectedAssetSub').textContent = 'Verified ' + asset.symbol + ' available';
         $('#selectedAssetIcon').innerHTML = `<img src="${asset.icon}" alt="${asset.symbol}">`;
-        saveP2PState();
       }
       $('#assetSelectCard').addEventListener('click', openAssetSelector);
       assetSelectorClose.addEventListener('click', closeAssetSelector);
@@ -1528,7 +1321,7 @@
       assetSearchInput.addEventListener('input', (e) => renderAssetOptions(e.target.value));
 
       // ============================================================
-      // PAYMENT SELECTOR
+      // PAYMENT SELECTOR (country-aware ordering)
       // ============================================================
       const paymentSelectorOverlay = $('#paymentSelectorOverlay');
       const paymentSelector = $('#paymentSelector');
@@ -1551,11 +1344,20 @@
       }
       function renderPaymentOptions(filter) {
         const q = filter.toLowerCase().trim();
+
+        // Build ordered list: country group first (if user has a country), then the rest
+        const groups = [...PAYMENT_METHODS];
+        if (selectedCountryMeta) {
+          const idx = groups.findIndex(g => g.items.some(i => i.name === selectedPayment.name));
+          if (idx > 0) { const [g] = groups.splice(idx, 1); groups.unshift(g); }
+        }
+
         let html = '';
-        PAYMENT_METHODS.forEach(group => {
+        groups.forEach(group => {
           const matches = group.items.filter(item => !q || item.name.toLowerCase().includes(q) || item.sub.toLowerCase().includes(q));
           if (matches.length === 0) return;
-          html += `<div class="selector-group-label">${group.group}</div>`;
+          const isCountryGroup = selectedCountryMeta && group.items.some(i => i.name === selectedPayment.name);
+          html += `<div class="selector-group-label">${isCountryGroup ? '⭐ ' : ''}${group.group}</div>`;
           matches.forEach(item => {
             const isSelected = selectedPayment && selectedPayment.name === item.name;
             html += `<div class="sel-item ${isSelected ? 'selected' : ''}" data-payment-name="${item.name}">
@@ -1573,7 +1375,9 @@
             if (found) {
               selectedPayment = found;
               $('#selectedPaymentLabel').textContent = found.name;
-              $('#selectedPaymentSub').textContent = found.sub;
+              $('#selectedPaymentSub').textContent = selectedCountryMeta
+                ? `${selectedCountryMeta.flag} ${selectedCountryMeta.label} · ${found.sub}`
+                : found.sub;
               $('#selectedPaymentIcon').textContent = found.icon;
               saveP2PState();
               closePaymentSelector();
@@ -1587,7 +1391,7 @@
       paymentSearchInput.addEventListener('input', (e) => renderPaymentOptions(e.target.value));
 
       // ============================================================
-      // P2P Buy/Sell toggle + Continue
+      // P2P Continue + toggle
       // ============================================================
       $('#p2pToggle').addEventListener('click', (e) => {
         const btn = e.target.closest('.toggle-btn');
@@ -1602,12 +1406,13 @@
         const errEl = $('#p2pAmountError');
         errEl.classList.remove('visible');
         if (!amt || amt <= 0) { errEl.classList.add('visible'); return; }
+        if (!requireAuth('p2p.html')) return;
         saveP2PState();
         go('p2p.html');
       });
 
-      // Explore P2P banner
       $('#exploreP2PBanner').addEventListener('click', () => {
+        if (!requireAuth('p2p.html')) return;
         saveP2PState();
         go('p2p.html');
       });
@@ -1615,57 +1420,50 @@
       // ============================================================
       // SWAP
       // ============================================================
-      let swapFrom = 'BTC';
-      let swapTo = 'ETH';
-
       function updateSwapEstimate() {
         const fromAmt = parseFloat($('#swapFromAmount').value) || 0;
-        const fromAsset = ASSETS.find(a => a.symbol === swapFrom || (swapFrom === 'USDT_TRC20' && a.symbol === 'USDT'));
-        const toAsset = ASSETS.find(a => a.symbol === swapTo || (swapTo === 'USDT_TRC20' && a.symbol === 'USDT'));
+        const fromAsset = ASSETS.find(a => a.symbol === $('#swapFromAsset').value.replace('_TRC20', ''));
+        const toAsset = ASSETS.find(a => a.symbol === $('#swapToAsset').value.replace('_TRC20', ''));
         if (!fromAsset || !toAsset) return;
         const fromPrice = tickerPrices[fromAsset.id]?.price || 0;
         const toPrice = tickerPrices[toAsset.id]?.price || 0;
         if (fromAmt <= 0 || !fromPrice || !toPrice) {
-          $('#swapToAmount').value = '';
-          $('#swapRate').textContent = '—';
-          $('#swapNetworkFee').textContent = '—';
-          $('#swapMinReceived').textContent = '—';
+          $('#swapToAmount').value = ''; $('#swapRate').textContent = '—'; $('#swapNetworkFee').textContent = '—'; $('#swapMinReceived').textContent = '—';
           return;
         }
         const grossTo = (fromAmt * fromPrice) / toPrice;
         const fee = grossTo * 0.005;
         const netTo = grossTo - fee;
+        const toLabel = $('#swapToAsset').value.replace('_TRC20', '');
         $('#swapToAmount').value = netTo.toFixed(6);
-        $('#swapRate').textContent = `1 ${swapFrom === 'USDT_TRC20' ? 'USDT' : swapFrom} ≈ ${(fromPrice / toPrice).toFixed(6)} ${swapTo === 'USDT_TRC20' ? 'USDT' : swapTo}`;
-        $('#swapNetworkFee').textContent = fee.toFixed(6) + ' ' + (swapTo === 'USDT_TRC20' ? 'USDT' : swapTo);
-        $('#swapMinReceived').textContent = (netTo * 0.995).toFixed(6) + ' ' + (swapTo === 'USDT_TRC20' ? 'USDT' : swapTo);
+        $('#swapRate').textContent = `1 ${$('#swapFromAsset').value.replace('_TRC20', '')} ≈ ${(fromPrice / toPrice).toFixed(6)} ${toLabel}`;
+        $('#swapNetworkFee').textContent = fee.toFixed(6) + ' ' + toLabel;
+        $('#swapMinReceived').textContent = (netTo * 0.995).toFixed(6) + ' ' + toLabel;
       }
-
       function updateSwapLiveRate() {
-        const btcAsset = ASSETS.find(a => a.symbol === 'BTC');
-        const d = btcAsset ? tickerPrices[btcAsset.id] : null;
+        const btc = ASSETS.find(a => a.symbol === 'BTC');
+        const d = btc ? tickerPrices[btc.id] : null;
         if (d) {
           $('#swapLiveRate').innerHTML = formatPrice(d.price) + '<span class="unit">/ BTC</span>';
           const sign = d.change >= 0 ? '+' : '';
           $('#swapLiveRateSub').innerHTML = `<span style="color:${d.change >= 0 ? 'var(--green-500)' : 'var(--red-500)'}">${sign}${d.change.toFixed(2)}%</span> · Updated ${d.timestamp}`;
         }
       }
-
       $('#swapFromAmount').addEventListener('input', updateSwapEstimate);
-      $('#swapFromAsset').addEventListener('change', (e) => { swapFrom = e.target.value; updateSwapEstimate(); });
-      $('#swapToAsset').addEventListener('change', (e) => { swapTo = e.target.value; updateSwapEstimate(); });
+      $('#swapFromAsset').addEventListener('change', updateSwapEstimate);
+      $('#swapToAsset').addEventListener('change', updateSwapEstimate);
       $('#swapDirectionBtn').addEventListener('click', () => {
-        const tmp = swapFrom; swapFrom = swapTo; swapTo = tmp;
-        $('#swapFromAsset').value = swapFrom; $('#swapToAsset').value = swapTo;
+        const a = $('#swapFromAsset').value, b = $('#swapToAsset').value;
+        $('#swapFromAsset').value = b; $('#swapToAsset').value = a;
         updateSwapEstimate();
       });
-      $('#swapReviewBtn').addEventListener('click', (e) => {
-        e.preventDefault();
+      $('#swapReviewBtn').addEventListener('click', () => {
         const errEl = $('#swapError');
         errEl.classList.remove('visible');
-        if (!requireAuth()) return;
-        const fromAmt = parseFloat($('#swapFromAmount').value);
-        if (!fromAmt || fromAmt <= 0) { errEl.classList.add('visible'); return; }
+        const amt = parseFloat($('#swapFromAmount').value);
+        if (!amt || amt <= 0) { errEl.classList.add('visible'); return; }
+        if (!requireAuth('swap.html')) return;
+        saveSwapState();
         go('swap.html');
       });
 
@@ -1684,7 +1482,6 @@
         chg.style.color = d.change >= 0 ? 'var(--green-500)' : 'var(--red-500)';
         $('#tradeFees').textContent = '$' + (d.price * 0.001).toFixed(2);
       }
-
       $('#tradePair').addEventListener('change', updateTradeInfo);
       $('#tradeBuySellToggle').addEventListener('click', (e) => {
         const btn = e.target.closest('.toggle-btn');
@@ -1692,41 +1489,35 @@
         tradeMode = btn.dataset.tradeMode;
         $$('#tradeBuySellToggle .toggle-btn').forEach(b => b.classList.toggle('active-toggle', b === btn));
       });
-      $('#tradeReviewBtn').addEventListener('click', (e) => {
-        e.preventDefault();
+      $('#tradeReviewBtn').addEventListener('click', () => {
         const errEl = $('#tradeAmountError');
         errEl.classList.remove('visible');
-        if (!requireAuth()) return;
         const amt = parseFloat($('#tradeAmount').value);
         if (!amt || amt <= 0) { errEl.classList.add('visible'); return; }
+        if (!requireAuth('trade.html')) return;
+        saveTradeState();
         go('trade.html');
       });
       $('#tradeBotCard').addEventListener('click', () => { $('#botPanel').scrollIntoView({ behavior: 'smooth', block: 'center' }); });
-      $('#tradeChartCard').addEventListener('click', () => go('markets.html'));
+      $('#tradeChartCard').addEventListener('click', () => navigateTo('markets.html'));
       $('#copyPasskeyBtn').addEventListener('click', () => {
         if (navigator.clipboard) {
           navigator.clipboard.writeText($('#botPasskey').textContent).then(() => {
-            const btn = $('#copyPasskeyBtn');
-            btn.textContent = 'Copied!';
+            const btn = $('#copyPasskeyBtn'); btn.textContent = 'Copied!';
             setTimeout(() => btn.textContent = 'Copy', 1500);
           });
         }
       });
-      $('#upgradeBotBanner').addEventListener('click', () => go('bots.html'));
+      $('#upgradeBotBanner').addEventListener('click', () => navigateTo('bots.html'));
 
       // Deposit CTA
-      $('#depositBtn').addEventListener('click', () => {
-        if (!requireAuth()) return;
-        go('deposit.html');
-      });
+      $('#depositBtn').addEventListener('click', () => navigateTo('deposit.html'));
 
       // ============================================================
       // INIT
       // ============================================================
       selectAsset(selectedAsset);
-      $('#selectedPaymentLabel').textContent = 'Bank Transfer';
-      $('#selectedPaymentSub').textContent = 'Bank transfer payment';
-      $('#selectedPaymentIcon').textContent = '🏦';
+      applyCountryToPaymentUI();
       updateTradeInfo();
       updateSwapEstimate();
       $('#swapFromBalance').textContent = '$0.00';
@@ -1735,8 +1526,8 @@
       fetchTickerPrices();
       setInterval(fetchTickerPrices, 60000);
 
-      if (window.location.hash === '#swap') switchTab('swap');
-      if (window.location.hash === '#trade') switchTab('trade');
+      if (window.location.hash === '#swap') $('#tabSelector').querySelector('[data-tab="swap"]').click();
+      if (window.location.hash === '#trade') $('#tabSelector').querySelector('[data-tab="trade"]').click();
 
       window.addEventListener('resize', () => { document.body.style.overflowX = 'hidden'; });
     })();
