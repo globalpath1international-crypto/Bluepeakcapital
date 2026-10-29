@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>Admin Login — Bluepeak Capital</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy-900: #0A1A2F;
+      --navy-800: #10243E;
+      --navy-700: #1A3352;
+      --navy-100: #E8EDF4;
+      --navy-50:  #F2F5FA;
+      --gold-500: #C9A84C;
+      --gold-400: #DDBE6B;
+      --gold-100: #FBF5E6;
+      --green-500: #0F9D6E;
+      --green-100: #E6F7F1;
+      --red-500: #D14343;
+      --red-100: #FDECEC;
+      --blue-500: #2563EB;
+      --blue-100: #DBEAFE;
+      --white: #FFFFFF;
+      --gray-100: #F1F4F9;
+      --gray-200: #E3E8EF;
+      --gray-300: #CDD5E0;
+      --gray-400: #94A3B8;
+      --gray-500: #64748B;
+      --gray-600: #475569;
+      --shadow-xs: 0 1px 2px rgba(10, 26, 47, 0.04);
+      --shadow-sm: 0 2px 8px rgba(10, 26, 47, 0.05);
+      --shadow-md: 0 8px 24px rgba(10, 26, 47, 0.07);
+      --shadow-lg: 0 16px 48px rgba(10, 26, 47, 0.10);
+      --shadow-xl: 0 24px 64px rgba(10, 26, 47, 0.15);
+      --radius-xs: 8px;
+      --radius-sm: 12px;
+      --radius-md: 16px;
+      --radius-lg: 20px;
+      --radius-pill: 999px;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    html { height: 100%; }
+    body {
+      font-family: var(--font); background: var(--navy-900);
+      color: var(--navy-900); line-height: 1.45;
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+      min-height: 100vh; display: flex;
+      flex-direction: column; overflow-x: hidden;
+    }
+
+    /* LAYOUT: split screen on desktop, stacked on mobile */
+    .login-layout {
+      flex: 1;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* LEFT BRANDING PANEL */
+    .login-brand {
+      flex: 1;
+      background: linear-gradient(135deg, var(--navy-900) 0%, var(--navy-800) 60%, var(--navy-700) 100%);
+      padding: 56px 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+    .login-brand::before {
+      content: '';
+      position: absolute;
+      top: -20%;
+      right: -20%;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201, 168, 76, 0.18), transparent 65%);
+      pointer-events: none;
+    }
+    .login-brand::after {
+      content: '';
+      position: absolute;
+      bottom: -20%;
+      left: -20%;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201, 168, 76, 0.08), transparent 70%);
+      pointer-events: none;
+    }
+
+    .brand-top { position: relative; z-index: 1; }
+    .brand-logo {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+      margin-bottom: 40px;
+    }
+    .brand-logo .blue { color: var(--white); font-size: 26px; font-weight: 800; letter-spacing: -1px; }
+    .brand-logo .peak { color: var(--gold-500); font-size: 26px; font-weight: 800; letter-spacing: -1px; }
+    .brand-logo small {
+      font-size: 9px; font-weight: 800; color: var(--gray-400);
+      letter-spacing: 2px; text-transform: uppercase;
+      margin-left: 8px; padding: 3px 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 4px;
+    }
+
+    .brand-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(201, 168, 76, 0.15);
+      color: var(--gold-400);
+      font-size: 10.5px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(201, 168, 76, 0.3);
+      margin-bottom: 24px;
+    }
+    .brand-tag .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green-500);
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+    .brand-headline {
+      font-size: 42px;
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      max-width: 460px;
+      margin-bottom: 16px;
+    }
+    .brand-headline .gold { color: var(--gold-400); }
+
+    .brand-sub {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--gray-300);
+      line-height: 1.6;
+      max-width: 440px;
+    }
+
+    .brand-features {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 40px;
+      position: relative;
+      z-index: 1;
+    }
+    .brand-feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .brand-feature .bf-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .brand-feature .bf-text h4 {
+      color: var(--white);
+      font-size: 13.5px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+    .brand-feature .bf-text p {
+      color: var(--gray-400);
+      font-size: 11.5px;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    .brand-footer {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--gray-500);
+      position: relative;
+      z-index: 1;
+    }
+    .brand-footer strong { color: var(--gray-300); font-weight: 700; }
+
+    /* RIGHT FORM PANEL */
+    .login-form-panel {
+      width: 100%;
+      max-width: 480px;
+      background: var(--white);
+      padding: 48px 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+
+    .form-header { margin-bottom: 28px; }
+    .form-header h1 {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--navy-900);
+      letter-spacing: -0.6px;
+      margin-bottom: 6px;
+    }
+    .form-header p {
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--gray-500);
+      line-height: 1.5;
+    }
+
+    .form-group { margin-bottom: 16px; }
+    .form-label {
+      display: block;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--navy-700);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+    .input-wrap { position: relative; }
+    .input-field {
+      width: 100%;
+      padding: 13px 16px 13px 44px;
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      font-family: var(--font);
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--navy-900);
+      outline: none;
+      transition: border 0.2s, box-shadow 0.2s;
+      background: var(--white);
+    }
+    .input-field:focus {
+      border-color: var(--gold-500);
+      box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.15);
+    }
+    .input-field::placeholder { color: var(--gray-400); font-weight: 500; }
+
+    .input-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 18px;
+      height: 18px;
+      stroke: var(--gray-500);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      pointer-events: none;
+    }
+
+    .input-toggle-eye {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      padding: 6px;
+      cursor: pointer;
+      color: var(--gray-500);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .input-toggle-eye:hover { background: var(--gray-100); }
+    .input-toggle-eye svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+    .form-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--gray-600);
+      cursor: pointer;
+    }
+    .checkbox-label input {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--gold-500);
+      cursor: pointer;
+    }
+    .forgot-link {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--gold-500);
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .forgot-link:hover { text-decoration: underline; }
+
+    .btn-login {
+      width: 100%;
+      padding: 15px;
+      border-radius: var(--radius-pill);
+      background: linear-gradient(135deg, var(--navy-900), var(--navy-800));
+      color: var(--white);
+      border: none;
+      font-family: var(--font);
+      font-weight: 800;
+      font-size: 14.5px;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 4px 16px rgba(10, 26, 47, 0.25);
+      letter-spacing: 0.2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .btn-login:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(10, 26, 47, 0.35); }
+    .btn-login:active { transform: translateY(0); }
+    .btn-login:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }
+    .btn-login .spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top-color: var(--white);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      display: none;
+    }
+    .btn-login.loading .spinner { display: block; }
+    .btn-login.loading span:last-child { opacity: 0.7; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .error-banner {
+      background: var(--red-100);
+      border: 1px solid rgba(209, 67, 67, 0.2);
+      border-radius: var(--radius-sm);
+      padding: 11px 14px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--red-500);
+      display: none;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+    .error-banner.visible { display: flex; }
+    .error-banner .icon { font-size: 14px; flex-shrink: 0; line-height: 1.3; }
+
+    .security-note {
+      margin-top: 24px;
+      padding: 14px 16px;
+      background: var(--navy-50);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .security-note .icon { font-size: 15px; flex-shrink: 0; }
+    .security-note p {
+      font-size: 11.5px;
+      font-weight: 500;
+      color: var(--gray-600);
+      line-height: 1.5;
+    }
+    .security-note p strong { color: var(--navy-900); font-weight: 700; }
+
+    .form-footer {
+      margin-top: 28px;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--gray-400);
+      line-height: 1.5;
+    }
+    .form-footer strong { color: var(--navy-800); font-weight: 700; }
+
+    /* 2FA STEP */
+    .step-2fa { display: none; }
+    .step-2fa.active { display: flex; flex-direction: column; }
+
+    .otp-inputs {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin: 20px 0 24px;
+    }
+    .otp-input {
+      width: 48px;
+      height: 56px;
+      text-align: center;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--navy-900);
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      outline: none;
+      transition: border 0.2s, box-shadow 0.2s;
+      font-variant-numeric: tabular-nums;
+      font-family: var(--font);
+    }
+    .otp-input:focus {
+      border-color: var(--gold-500);
+      box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.15);
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--gray-500);
+      cursor: pointer;
+      margin-bottom: 16px;
+      align-self: flex-start;
+    }
+    .back-link:hover { color: var(--navy-900); }
+    .back-link svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+
+    /* DEMO HINT BADGE */
+    .demo-hint {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      background: var(--gold-500);
+      color: var(--navy-900);
+      font-size: 10px;
+      font-weight: 800;
+      padding: 5px 10px;
+      border-radius: var(--radius-pill);
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      z-index: 100;
+      box-shadow: 0 4px 12px rgba(201, 168, 76, 0.4);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .login-layout { flex-direction: column; }
+      .login-brand { padding: 32px 24px 24px; min-height: auto; }
+      .brand-headline { font-size: 28px; letter-spacing: -1px; margin-bottom: 10px; }
+      .brand-sub { font-size: 13.5px; }
+      .brand-features { display: none; }
+      .brand-footer { margin-top: 24px; }
+      .login-form-panel { max-width: 100%; padding: 32px 24px; }
+    }
+    @media (max-width: 400px) {
+      .brand-headline { font-size: 24px; }
+      .form-header h1 { font-size: 20px; }
+      .otp-input { width: 42px; height: 50px; font-size: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="demo-hint">Demo · admin@bluepeak.com / Admin2026!</div>
+
+  <div class="login-layout">
+
+    <!-- LEFT: BRANDING -->
+    <div class="login-brand">
+      <div class="brand-top">
+        <div class="brand-logo">
+          <span class="blue">BLUE</span><span class="peak">PEAK</span>
+          <small>ADMIN</small>
+        </div>
+
+        <div class="brand-tag">
+          <span class="dot"></span>
+          Restricted Access
+        </div>
+
+        <h1 class="brand-headline">
+          Control the<br>
+          <span class="gold">Bluepeak</span> platform.
+        </h1>
+
+        <p class="brand-sub">
+          Manage users, oversee P2P merchants, review KYC, monitor transactions, and control every aspect of the exchange — from one secure dashboard.
+        </p>
+
+        <div class="brand-features">
+          <div class="brand-feature">
+            <div class="bf-icon">👥</div>
+            <div class="bf-text">
+              <h4>Full user & merchant control</h4>
+              <p>Edit balances, verify merchants, resolve disputes</p>
+            </div>
+          </div>
+          <div class="brand-feature">
+            <div class="bf-icon">🔒</div>
+            <div class="bf-text">
+              <h4>Audit-logged actions</h4>
+              <p>Every change recorded with admin, timestamp, and reason</p>
+            </div>
+          </div>
+          <div class="brand-feature">
+            <div class="bf-icon">⚡</div>
+            <div class="bf-text">
+              <h4>Real-time oversight</h4>
+              <p>Live KPIs, alerts, and monitoring across the platform</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="brand-footer">
+        <strong>Bluepeak Capital Ltd.</strong> · Admin Console v1.0 · Authorized personnel only
+      </div>
+    </div>
+
+    <!-- RIGHT: LOGIN FORM -->
+    <div class="login-form-panel">
+
+      <!-- STEP 1: CREDENTIALS -->
+      <div id="stepCredentials">
+        <div class="form-header">
+          <h1>Admin Sign In</h1>
+          <p>Enter your credentials to access the admin console.</p>
+        </div>
+
+        <div class="error-banner" id="errorBanner">
+          <span class="icon">⚠️</span>
+          <span id="errorText">Invalid credentials</span>
+        </div>
+
+        <form id="loginForm" autocomplete="off">
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <div class="input-wrap">
+              <svg class="input-icon" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <input type="email" class="input-field" id="emailInput" placeholder="admin@bluepeak.com" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <div class="input-wrap">
+              <svg class="input-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+              <input type="password" class="input-field" id="passwordInput" placeholder="••••••••" required style="padding-right: 44px;">
+              <button type="button" class="input-toggle-eye" id="togglePassword" aria-label="Show password">
+                <svg viewBox="0 0 24 24" id="eyeIcon"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label class="checkbox-label">
+              <input type="checkbox" id="rememberDevice">
+              Trust this device for 7 days
+            </label>
+            <a class="forgot-link" id="forgotLink">Forgot password?</a>
+          </div>
+
+          <button type="submit" class="btn-login" id="loginBtn">
+            <div class="spinner"></div>
+            <span>Continue to 2FA</span>
+          </button>
+        </form>
+
+        <div class="security-note">
+          <div class="icon">🔐</div>
+          <p>Admin access requires <strong>mandatory two-factor authentication</strong>. All login attempts are logged with IP address and device fingerprint.</p>
+        </div>
+      </div>
+
+      <!-- STEP 2: 2FA -->
+      <div class="step-2fa" id="step2FA">
+        <div class="back-link" id="backToCredentials">
+          <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+          Back
+        </div>
+
+        <div class="form-header">
+          <h1>Two-Factor Code</h1>
+          <p>Enter the 6-digit code from your authenticator app.</p>
+        </div>
+
+        <div class="error-banner" id="errorBanner2FA">
+          <span class="icon">⚠️</span>
+          <span id="errorText2FA">Incorrect code</span>
+        </div>
+
+        <div class="otp-inputs" id="otpInputs">
+          <input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]">
+          <input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]">
+          <input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]">
+          <input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]">
+          <input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]">
+          <input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]">
+        </div>
+
+        <button class="btn-login" id="verifyBtn">
+          <div class="spinner"></div>
+          <span>Verify & Sign In</span>
+        </button>
+
+        <div class="security-note">
+          <div class="icon">📱</div>
+          <p>Demo code: any 6 digits work. In production, this is your real authenticator code.</p>
+        </div>
+      </div>
+
+      <div class="form-footer">
+        <strong>Bluepeak Capital Ltd.</strong> · Admin Console v1.0<br>
+        Unauthorized access is prohibited and monitored.
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    (function() {
+      'use strict';
+
+      const $ = (s) => document.querySelector(s);
+      const $$ = (s) => document.querySelectorAll(s);
+
+      // DEMO CREDENTIALS
+      const DEMO_EMAIL = 'admin@bluepeak.com';
+      const DEMO_PASSWORD = 'Admin2026!';
+
+      let verifiedEmail = '';
+
+      // ============================================================
+      // PASSWORD TOGGLE
+      // ============================================================
+      const toggleBtn = $('#togglePassword');
+      const passwordInput = $('#passwordInput');
+      const eyeIcon = $('#eyeIcon');
+      let passwordVisible = false;
+
+      toggleBtn.addEventListener('click', () => {
+        passwordVisible = !passwordVisible;
+        passwordInput.type = passwordVisible ? 'text' : 'password';
+        eyeIcon.innerHTML = passwordVisible
+          ? '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>'
+          : '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+      });
+
+      // ============================================================
+      // ERROR HELPERS
+      // ============================================================
+      function showError(text) {
+        $('#errorText').textContent = text;
+        $('#errorBanner').classList.add('visible');
+      }
+      function hideError() {
+        $('#errorBanner').classList.remove('visible');
+      }
+      function showError2FA(text) {
+        $('#errorText2FA').textContent = text;
+        $('#errorBanner2FA').classList.add('visible');
+      }
+      function hideError2FA() {
+        $('#errorBanner2FA').classList.remove('visible');
+      }
+
+      // ============================================================
+      // STEP 1: CREDENTIALS
+      // ============================================================
+      $('#loginForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        hideError();
+
+        const email = $('#emailInput').value.trim().toLowerCase();
+        const password = $('#passwordInput').value;
+
+        if (!email || !password) {
+          showError('Please enter both email and password');
+          return;
+        }
+
+        const btn = $('#loginBtn');
+        btn.classList.add('loading');
+        btn.disabled = true;
+
+        setTimeout(() => {
+          if (email === DEMO_EMAIL && password === DEMO_PASSWORD) {
+            // Success — move to 2FA
+            verifiedEmail = email;
+            $('#stepCredentials').style.display = 'none';
+            $('#step2FA').classList.add('active');
+            setTimeout(() => $('#otpInputs .otp-input')[0].focus(), 100);
+          } else {
+            showError('Invalid email or password. Please try again.');
+            btn.classList.remove('loading');
+            btn.disabled = false;
+          }
+        }, 900);
+      });
+
+      // ============================================================
+      // STEP 2: 2FA OTP INPUTS
+      // ============================================================
+      const otpInputs = $$('#otpInputs .otp-input');
+
+      otpInputs.forEach((input, index) => {
+        input.addEventListener('input', (e) => {
+          const val = e.target.value.replace(/\D/g, '');
+          e.target.value = val;
+
+          if (val && index < otpInputs.length - 1) {
+            otpInputs[index + 1].focus();
+          }
+
+          // Auto-verify when all filled
+          const allFilled = [...otpInputs].every(i => i.value);
+          if (allFilled) {
+            setTimeout(() => verifyOTP(), 150);
+          }
+        });
+
+        input.addEventListener('keydown', (e) => {
+          if (e.key === 'Backspace' && !e.target.value && index > 0) {
+            otpInputs[index - 1].focus();
+          }
+        });
+
+        input.addEventListener('paste', (e) => {
+          e.preventDefault();
+          const pasted = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g, '').slice(0, 6);
+          [...pasted].forEach((char, i) => {
+            if (otpInputs[i]) otpInputs[i].value = char;
+          });
+          if (pasted.length === 6) {
+            setTimeout(() => verifyOTP(), 150);
+          } else if (pasted.length > 0) {
+            otpInputs[Math.min(pasted.length, 5)].focus();
+          }
+        });
+      });
+
+      // ============================================================
+      // VERIFY 2FA
+      // ============================================================
+      function verifyOTP() {
+        hideError2FA();
+        const code = [...otpInputs].map(i => i.value).join('');
+
+        if (code.length !== 6) {
+          showError2FA('Please enter all 6 digits');
+          return;
+        }
+
+        const btn = $('#verifyBtn');
+        btn.classList.add('loading');
+        btn.disabled = true;
+
+        setTimeout(() => {
+          // In demo mode, any 6-digit code works
+          // In production, this calls POST /admin/auth/verify-2fa with the code
+
+          // Store admin session
+          localStorage.setItem('bp_admin_session', JSON.stringify({
+            email: verifiedEmail,
+            role: 'super_admin',
+            name: 'Admin',
+            loginTime: new Date().toISOString(),
+            trustedDevice: $('#rememberDevice').checked,
+          }));
+
+          // Redirect to dashboard
+          window.location.href = 'admin-dashboard.html';
+        }, 900);
+      }
+
+      $('#verifyBtn').addEventListener('click', verifyOTP);
+
+      // Back button
+      $('#backToCredentials').addEventListener('click', () => {
+        $('#step2FA').classList.remove('active');
+        $('#stepCredentials').style.display = 'block';
+        otpInputs.forEach(i => i.value = '');
+        $('#loginBtn').classList.remove('loading');
+        $('#loginBtn').disabled = false;
+        hideError();
+        hideError2FA();
+      });
+
+      // ============================================================
+      // FORGOT PASSWORD
+      // ============================================================
+      $('#forgotLink').addEventListener('click', () => {
+        alert(
+          'Password Reset\n\n' +
+          'For security, admin passwords can only be reset by another super admin.\n\n' +
+          'Contact your security officer or email security@bluepeakcapital.com\n\n' +
+          'All requests are logged with your IP address.'
+        );
+      });
+
+      // ============================================================
+      // IF ALREADY LOGGED IN → redirect to dashboard
+      // ============================================================
+      const existingSession = localStorage.getItem('bp_admin_session');
+      if (existingSession) {
+        try {
+          const session = JSON.parse(existingSession);
+          const loginTime = new Date(session.loginTime);
+          const ageMinutes = (Date.now() - loginTime.getTime()) / 1000 / 60;
+          // Session valid for 30 minutes
+          if (ageMinutes < 30) {
+            window.location.href = 'admin-dashboard.html';
+          } else {
+            localStorage.removeItem('bp_admin_session');
+          }
+        } catch (e) {
+          localStorage.removeItem('bp_admin_session');
+        }
+      }
+
+    })();
+  </script>
+</body>
+</html>
