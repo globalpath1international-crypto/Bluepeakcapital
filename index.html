@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-  <title>Bluepeak Capital — Dashboard</title>
+  <title>Bluepeak Capital — Buy, Sell, Swap Crypto</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
@@ -107,7 +107,6 @@
     .eye-toggle:active { transform: scale(0.94); }
     .eye-toggle svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
-    .avatar-wrap { position: relative; }
     .avatar {
       width: 36px; height: 36px; border-radius: 50%;
       background: linear-gradient(135deg, var(--navy-800), var(--navy-900));
@@ -116,14 +115,6 @@
       border: 2px solid var(--gold-500); transition: box-shadow 0.2s; user-select: none;
     }
     .avatar:hover { box-shadow: var(--shadow-gold); }
-    .avatar-verified {
-      position: absolute; bottom: -2px; right: -2px;
-      width: 14px; height: 14px; border-radius: 50%;
-      background: var(--green-500); color: #fff; font-size: 9px; font-weight: 800;
-      display: none; align-items: center; justify-content: center;
-      border: 2px solid var(--white);
-    }
-    .avatar-verified.show { display: flex; }
 
     .bell {
       position: relative; background: none; border: none; font-size: 19px;
@@ -329,9 +320,7 @@
     .marketcap-cell-change.negative { color: var(--red-500); }
     .marketcap-cell-volume { font-size: 9.5px; font-weight: 600; color: var(--gray-500); font-variant-numeric: tabular-nums; }
 
-    /* ============================================================
-       SIGNED IN VIEW — DASHBOARD (improved)
-       ============================================================ */
+    /* SIGNED IN VIEW — DASHBOARD */
     #signedInView { display: none; flex-direction: column; gap: 18px; }
     #signedInView.active { display: flex; }
 
@@ -356,26 +345,7 @@
     .balance-card-sub .chg { display: inline-flex; align-items: center; gap: 3px; font-weight: 800; }
     .balance-card-sub .chg.up { color: var(--green-500); }
     .balance-card-sub .chg.down { color: var(--red-500); }
-
-    /* NEW: asset breakdown row */
-    .balance-assets {
-      display: flex; gap: 6px; margin-top: 16px;
-      position: relative; z-index: 1; overflow-x: auto;
-      scrollbar-width: none; padding-bottom: 2px;
-    }
-    .balance-assets::-webkit-scrollbar { display: none; }
-    .bal-asset {
-      flex: 0 0 auto; min-width: 78px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 12px; padding: 8px 10px;
-      display: flex; flex-direction: column; gap: 2px;
-    }
-    .bal-asset .ba-sym { font-size: 9px; font-weight: 800; color: var(--gold-400); text-transform: uppercase; letter-spacing: 0.5px; }
-    .bal-asset .ba-amt { font-size: 12px; font-weight: 800; color: var(--white); font-variant-numeric: tabular-nums; }
-    .bal-asset .ba-usd { font-size: 9.5px; font-weight: 600; color: var(--gray-400); font-variant-numeric: tabular-nums; }
-
-    .balance-card-actions { display: flex; gap: 8px; margin-top: 16px; position: relative; z-index: 1; flex-wrap: wrap; }
+    .balance-card-actions { display: flex; gap: 8px; margin-top: 18px; position: relative; z-index: 1; flex-wrap: wrap; }
     .bal-action { flex: 1; min-width: 80px; padding: 11px 12px; border-radius: var(--radius-pill); border: none; font-family: var(--font); font-size: 12px; font-weight: 800; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; justify-content: center; gap: 5px; white-space: nowrap; }
     .bal-action.primary { background: linear-gradient(135deg, var(--green-500), #0B8A5E); color: var(--white); box-shadow: 0 2px 10px rgba(15, 157, 110, 0.35); }
     .bal-action.primary:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(15, 157, 110, 0.5); }
@@ -385,7 +355,7 @@
     .bal-action.ghost:hover { background: rgba(255, 255, 255, 0.18); }
 
     .quick-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-    .quick-tile { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 14px 6px; display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; transition: all 0.2s; text-align: center; }
+    .quick-tile { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 14px 8px; display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; transition: all 0.2s; text-align: center; }
     .quick-tile:hover { border-color: var(--gold-500); background: var(--gold-100); transform: translateY(-2px); box-shadow: var(--shadow-sm); }
     .quick-tile-icon { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
     .quick-tile-icon.green { background: var(--green-100); color: var(--green-500); }
@@ -393,7 +363,6 @@
     .quick-tile-icon.blue { background: var(--blue-100); color: var(--blue-500); }
     .quick-tile-icon.purple { background: var(--purple-100); color: var(--purple-500); }
     .quick-tile-label { font-size: 11.5px; font-weight: 800; color: var(--navy-900); letter-spacing: -0.1px; }
-    .quick-tile-sub { font-size: 9px; font-weight: 600; color: var(--gray-500); margin-top: -2px; }
 
     .section { display: flex; flex-direction: column; gap: 10px; }
     .section-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
@@ -544,7 +513,7 @@
       .greeting h1 { font-size: 22px; } .balance-card { padding: 20px 18px; }
       .balance-card-amount { font-size: 32px; } .balance-card-amount .cents { font-size: 18px; }
       .quick-grid { gap: 6px; } .quick-tile { padding: 10px 4px; }
-      .quick-tile-icon { width: 34px; height: 34px; font-size: 15px; } .quick-tile-label { font-size: 10px; } .quick-tile-sub { font-size: 8px; }
+      .quick-tile-icon { width: 34px; height: 34px; font-size: 15px; } .quick-tile-label { font-size: 10px; }
       .bot-stats-grid { grid-template-columns: 1fr 1fr; }
     }
     @media (min-width: 700px) {
@@ -571,7 +540,7 @@
     </div>
 
     <div class="drawer-auth-block" id="drawerAuthBlock">
-      <button class="da-join" id="drawerJoinBtn">Join us</button>
+      <button class="da-join" id="drawerJoinBtn">Create Account</button>
       <button class="da-signin" id="drawerSignInBtn">Sign in</button>
     </div>
 
@@ -664,10 +633,7 @@
           <svg id="eyeIcon" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
         </button>
       </div>
-      <div class="avatar-wrap" id="avatarWrap" style="display:none;">
-        <div class="avatar" id="avatarBtn" role="button" tabindex="0">U</div>
-        <div class="avatar-verified" id="avatarVerified" title="KYC verified">✓</div>
-      </div>
+      <div class="avatar" id="avatarBtn" role="button" tabindex="0" style="display:none;">U</div>
       <button class="bell" id="bellBtn" aria-label="Notifications" style="display:none;">
         🔔
         <span class="badge" id="notifBadge"></span>
@@ -677,7 +643,9 @@
 
   <main class="app-main">
 
-    <!-- SIGNED OUT VIEW -->
+    <!-- ============================================================
+         SIGNED OUT VIEW — marketing
+         ============================================================ -->
     <div id="signedOutView">
       <section class="hero">
         <h1>Buy, Sell, Swap &amp;<br><span class="gold">Cash Out</span> Crypto</h1>
@@ -902,11 +870,13 @@
       </div>
     </div>
 
-    <!-- SIGNED IN VIEW — improved dashboard -->
+    <!-- ============================================================
+         SIGNED IN VIEW — dashboard
+         ============================================================ -->
     <div id="signedInView">
 
       <section class="greeting">
-        <h1><span id="greetTime">Welcome back</span>, <span class="gold" id="greetName">User</span> 👋</h1>
+        <h1>Welcome back, <span class="gold" id="greetName">User</span> 👋</h1>
         <p id="greetSub">Here's your portfolio at a glance.</p>
       </section>
 
@@ -919,7 +889,6 @@
           <span class="chg up">▲ 0.00%</span>
           <span>vs yesterday</span>
         </div>
-        <div class="balance-assets" id="balanceAssets"></div>
         <div class="balance-card-actions">
           <button class="bal-action primary" id="balDeposit">↓ Deposit</button>
           <button class="bal-action ghost" id="balWithdraw">↑ Withdraw</button>
@@ -931,22 +900,18 @@
         <div class="quick-tile" id="qaDeposit">
           <div class="quick-tile-icon green">↓</div>
           <div class="quick-tile-label">Deposit</div>
-          <div class="quick-tile-sub">Fund instantly</div>
         </div>
         <div class="quick-tile" id="qaWithdraw">
           <div class="quick-tile-icon gold">↑</div>
           <div class="quick-tile-label">Withdraw</div>
-          <div class="quick-tile-sub">Cash out</div>
         </div>
         <div class="quick-tile" id="qaSwap">
           <div class="quick-tile-icon blue">⇄</div>
           <div class="quick-tile-label">Swap</div>
-          <div class="quick-tile-sub">Convert</div>
         </div>
         <div class="quick-tile" id="qaBots">
           <div class="quick-tile-icon purple">🤖</div>
           <div class="quick-tile-label">Bots</div>
-          <div class="quick-tile-sub">Automate</div>
         </div>
       </section>
 
@@ -1026,19 +991,13 @@
       }
       function go(url) { window.location.href = url; }
 
-      // KYC verified flag (set by kyc.html when approved)
-      let kycVerified = false;
-      try { kycVerified = (user && user.kycStatus === 'approved') || localStorage.getItem('bp_kyc_verified') === '1'; } catch (e) {}
-
       // ============================================================
       // HEADER AUTH STATE
       // ============================================================
       (function() {
         const authGroup = $('#headerAuthGroup');
         const balanceWrap = $('#headerBalanceWrap');
-        const avatarWrap = $('#avatarWrap');
         const avatarBtn = $('#avatarBtn');
-        const avatarVerified = $('#avatarVerified');
         const bellBtn = $('#bellBtn');
         const drawerAuth = $('#drawerAuthBlock');
         const drawerLogout = $('#drawerLogout');
@@ -1047,10 +1006,9 @@
         if (isSignedIn) {
           authGroup.classList.add('hidden');
           balanceWrap.style.display = '';
-          avatarWrap.style.display = '';
+          avatarBtn.style.display = '';
           bellBtn.style.display = '';
           avatarBtn.textContent = initial;
-          if (kycVerified && avatarVerified) avatarVerified.classList.add('show');
           $('#pmName').textContent = displayName;
           $('#pmEmail').textContent = userEmail;
           if (drawerAuth) drawerAuth.classList.add('hidden');
@@ -1059,7 +1017,7 @@
         } else {
           authGroup.classList.remove('hidden');
           balanceWrap.style.display = 'none';
-          avatarWrap.style.display = 'none';
+          avatarBtn.style.display = 'none';
           bellBtn.style.display = 'none';
           if (drawerAuth) drawerAuth.classList.remove('hidden');
           if (drawerLogout) drawerLogout.style.display = 'none';
@@ -1314,25 +1272,14 @@
       });
 
       // ============================================================
-      // VIEW SWITCH + GREETING
+      // VIEW SWITCH
       // ============================================================
       const signedOutView = $('#signedOutView');
       const signedInView = $('#signedInView');
 
-      function setGreeting() {
-        const h = new Date().getHours();
-        let word = 'Welcome back';
-        if (h >= 5 && h < 12) word = 'Good morning';
-        else if (h >= 12 && h < 18) word = 'Good afternoon';
-        else if (h >= 18 && h < 22) word = 'Good evening';
-        const t = $('#greetTime');
-        if (t) t.textContent = word;
-      }
-
       if (isSignedIn) {
         signedOutView.classList.add('hidden');
         signedInView.classList.add('active');
-        setGreeting();
         $('#greetName').textContent = firstName;
         $('#greetSub').textContent = user.name ? "Here's your portfolio at a glance." : `Signed in as ${userEmail}`;
         renderDashboard();
@@ -1356,13 +1303,6 @@
       try { marketPrices = JSON.parse(localStorage.getItem('bp_market_prices') || '{}'); } catch (e) {}
       function priceOf(sym) { return marketPrices[sym] || FALLBACK_PRICES[sym] || 0; }
       function fmtUsd(n) { return '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
-      function fmtAmt(n) {
-        n = Number(n) || 0;
-        if (n === 0) return '0';
-        if (n >= 1000) return n.toLocaleString('en-US', { maximumFractionDigits: 2 });
-        if (n >= 1) return n.toLocaleString('en-US', { maximumFractionDigits: 4 });
-        return n.toLocaleString('en-US', { maximumFractionDigits: 6 });
-      }
 
       function renderBalanceCard() {
         const balances = loadBalances();
@@ -1374,21 +1314,6 @@
         const whole = Math.floor(display);
         const cents = Math.round((display - whole) * 100).toString().padStart(2, '0');
         $('#portfolioAmount').innerHTML = '$' + whole.toLocaleString('en-US') + '<span class="cents">.' + cents + '</span>';
-
-        // Asset breakdown row
-        const order = ['BTC', 'ETH', 'USDT', 'SOL'];
-        const wrap = $('#balanceAssets');
-        const items = order.map(sym => {
-          const amt = parseFloat(balances[sym]) || 0;
-          const usd = amt * priceOf(sym);
-          return `
-            <div class="bal-asset">
-              <span class="ba-sym">${sym}</span>
-              <span class="ba-amt">${fmtAmt(amt)}</span>
-              <span class="ba-usd">${fmtUsd(usd)}</span>
-            </div>`;
-        }).join('');
-        wrap.innerHTML = items;
       }
 
       function loadMyOrders() {
@@ -2037,9 +1962,7 @@
 
       if ($('#depositBtn')) $('#depositBtn').addEventListener('click', () => { if (requireAuth()) go('deposit.html'); });
 
-      // ============================================================
-      // TAB SELECTOR (signed-out) — route to real pages
-      // ============================================================
+      // TAB SELECTOR
       if ($('#tabSelector')) {
         $('#tabSelector').addEventListener('click', (e) => {
           const btn = e.target.closest('.tab-btn');
@@ -2063,9 +1986,7 @@
         else if (nav === 'wallet') { if (requireAuth()) go('wallet.html'); }
       });
 
-      // ============================================================
       // INIT
-      // ============================================================
       selectAsset(selectedAsset);
       applyCountryToPaymentUI();
       updateTradeInfo();
