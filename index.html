@@ -515,7 +515,6 @@
 
   <main class="app-main">
 
-    <!-- MARKETING — same for signed in and signed out -->
     <div id="signedOutView">
       <section class="hero">
         <h1>Buy, Sell, Swap &amp;<br><span class="gold">Cash Out</span> Crypto</h1>
@@ -1139,12 +1138,51 @@
         }));
       }
 
+      // ============================================================
+      // MARKET DATA (with CORS-safe fallback)
+      // ============================================================
       async function fetchTickerPrices() {
+        const ids = ASSETS.map(c => c.id).join(',');
+        const direct = `https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd&include_24hr_change=true&include_24hr_vol=true`;
+
+        let data = null;
+
+        // Try direct first
         try {
-          const ids = ASSETS.map(c => c.id).join(',');
-          const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd&include_24hr_change=true&include_24hr_vol=true`);
-          if (!res.ok) throw new Error('HTTP ' + res.status);
-          const data = await res.json();
+          const res = await fetch(direct, { mode: 'cors' });
+          if (res.ok) data = await res.json();
+        } catch (e) {
+          // CORS or network — fall through to proxies
+        }
+
+        // If direct failed, try public proxies in order
+        if (!data) {
+          const proxies = [
+            u => `https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
+            u => `https://corsproxy.io/?${encodeURIComponent(u)}`,
+            u => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(u)}`,
+          ];
+          for (const make of proxies) {
+            try {
+              const res = await fetch(make(direct));
+              if (res.ok) {
+                data = await res.json();
+                if (data && typeof data === 'object') break;
+                data = null;
+              }
+            } catch (e) { /* try next */ }
+          }
+        }
+
+        if (!data) {
+          const tw = $('#marketTickerWrapper');
+          const mg = $('#marketcapGrid');
+          if (tw && Object.keys(tickerPrices).length === 0) tw.innerHTML = `<div class="ticker-loading">Market data unavailable.</div>`;
+          if (mg && Object.keys(tickerPrices).length === 0) mg.innerHTML = `<div class="ticker-loading" style="padding:14px;grid-column:1/-1;">Market data unavailable.</div>`;
+          return;
+        }
+
+        try {
           const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
           tickerPrices = {};
           ASSETS.forEach(coin => {
@@ -1163,12 +1201,7 @@
           updateSwapLiveRate();
           refreshBalancePill();
         } catch (err) {
-          if (Object.keys(tickerPrices).length === 0) {
-            const tw = $('#marketTickerWrapper');
-            const mg = $('#marketcapGrid');
-            if (tw) tw.innerHTML = `<div class="ticker-loading">Market data unavailable.</div>`;
-            if (mg) mg.innerHTML = `<div class="ticker-loading" style="padding:14px;grid-column:1/-1;">Market data unavailable.</div>`;
-          }
+          // ignore parse errors
         }
       }
 
