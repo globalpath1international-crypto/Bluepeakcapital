@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>Profile — Bluepeak Capital</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy-900: #0A1A2F;
+      --navy-800: #10243E;
+      --navy-700: #1A3352;
+      --navy-100: #E8EDF4;
+      --navy-50:  #F2F5FA;
+      --gold-500: #C9A84C;
+      --gold-400: #DDBE6B;
+      --gold-100: #FBF5E6;
+      --green-500: #0F9D6E;
+      --green-100: #E6F7F1;
+      --red-500: #D14343;
+      --red-100: #FDECEC;
+      --blue-500: #2563EB;
+      --blue-100: #DBEAFE;
+      --purple-500: #7C3AED;
+      --purple-100: #EDE9FE;
+      --white: #FFFFFF;
+      --gray-100: #F1F4F9;
+      --gray-200: #E3E8EF;
+      --gray-300: #CDD5E0;
+      --gray-400: #94A3B8;
+      --gray-500: #64748B;
+      --gray-600: #475569;
+      --bg-main: #FAFBFD;
+      --shadow-xs: 0 1px 2px rgba(10, 26, 47, 0.04);
+      --shadow-sm: 0 2px 8px rgba(10, 26, 47, 0.05);
+      --shadow-md: 0 8px 24px rgba(10, 26, 47, 0.07);
+      --shadow-lg: 0 16px 48px rgba(10, 26, 47, 0.10);
+      --shadow-gold: 0 4px 16px rgba(201, 168, 76, 0.25);
+      --radius-xs: 8px;
+      --radius-sm: 12px;
+      --radius-md: 16px;
+      --radius-lg: 20px;
+      --radius-pill: 999px;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    html { height: 100%; scroll-behavior: smooth; }
+    body {
+      font-family: var(--font); background-color: var(--bg-main);
+      color: var(--navy-900); line-height: 1.45;
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+      padding-bottom: 92px; min-height: 100vh; display: flex;
+      flex-direction: column; overflow-x: hidden;
+    }
+
+    /* HEADER */
+    .profile-header {
+      background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(12px);
+      padding: 10px 16px; display: flex; align-items: center;
+      justify-content: space-between; border-bottom: 1px solid var(--gray-200);
+      position: sticky; top: 0; z-index: 30; gap: 8px;
+    }
+    .profile-header-left { display: flex; align-items: center; gap: 8px; flex-shrink: 1; min-width: 0; }
+    .icon-btn {
+      background: none; border: none; padding: 8px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: var(--radius-xs); color: var(--navy-900);
+      transition: background 0.2s; flex-shrink: 0;
+    }
+    .icon-btn:hover { background: var(--navy-50); }
+    .icon-btn svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .header-title { font-size: 17px; font-weight: 800; color: var(--navy-900); letter-spacing: -0.3px; }
+    .header-settings-btn {
+      background: var(--navy-50); border: 1px solid var(--gray-200);
+      padding: 7px 12px; border-radius: var(--radius-pill);
+      font-family: var(--font); font-size: 11.5px; font-weight: 700;
+      color: var(--navy-900); cursor: pointer; display: flex; align-items: center; gap: 5px;
+      transition: all 0.15s;
+    }
+    .header-settings-btn:hover { background: var(--gold-100); border-color: var(--gold-500); }
+    .header-settings-btn svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+    /* MAIN */
+    .profile-main {
+      flex: 1; padding: 16px 16px 0; max-width: 600px;
+      margin: 0 auto; width: 100%;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+
+    /* PROFILE HERO */
+    .profile-hero {
+      background: linear-gradient(135deg, var(--navy-900), var(--navy-800));
+      border-radius: var(--radius-lg); padding: 24px 20px;
+      color: var(--white); position: relative; overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+    .profile-hero::before {
+      content: ''; position: absolute; top: -40%; right: -20%;
+      width: 240px; height: 240px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(201, 168, 76, 0.22), transparent 70%);
+      pointer-events: none;
+    }
+
+    .profile-top-row {
+      display: flex; align-items: center; gap: 16px;
+      position: relative; z-index: 1; margin-bottom: 16px;
+    }
+    .profile-avatar {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--navy-700), var(--navy-900));
+      border: 3px solid var(--gold-500);
+      color: var(--gold-400);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px; font-weight: 800; flex-shrink: 0;
+      position: relative;
+    }
+    .profile-avatar .verified-tick {
+      position: absolute; bottom: -2px; right: -2px;
+      width: 24px; height: 24px; border-radius: 50%;
+      background: var(--gold-500); color: var(--navy-900);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 800;
+      border: 2px solid var(--navy-900);
+    }
+    .profile-name-block { flex: 1; min-width: 0; }
+    .profile-name {
+      font-size: 20px; font-weight: 800; letter-spacing: -0.5px;
+      display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+    }
+    .vip-badge {
+      display: inline-flex; align-items: center; gap: 3px;
+      background: linear-gradient(135deg, var(--gold-500), var(--gold-400));
+      color: var(--navy-900);
+      font-size: 9px; font-weight: 800; padding: 2px 7px;
+      border-radius: var(--radius-pill); letter-spacing: 0.4px;
+      text-transform: uppercase;
+    }
+    .profile-uid {
+      font-size: 11.5px; font-weight: 600; color: var(--gray-300);
+      margin-top: 4px; display: flex; align-items: center; gap: 6px;
+    }
+    .profile-uid .copy-id {
+      color: var(--gold-400); font-weight: 700; cursor: pointer;
+    }
+    .profile-uid .copy-id:hover { text-decoration: underline; }
+    .profile-joined {
+      font-size: 11px; font-weight: 600; color: var(--gray-400); margin-top: 2px;
+    }
+
+    /* PROFILE STATS ROW */
+    .profile-stats {
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px;
+      position: relative; z-index: 1;
+    }
+    .profile-stat {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-sm); padding: 12px 8px; text-align: center;
+    }
+    .profile-stat .val {
+      font-size: 18px; font-weight: 800; color: var(--white);
+      letter-spacing: -0.5px; font-variant-numeric: tabular-nums;
+    }
+    .profile-stat .val.gold { color: var(--gold-400); }
+    .profile-stat .lbl {
+      font-size: 9.5px; font-weight: 700; color: var(--gray-400);
+      text-transform: uppercase; letter-spacing: 0.4px; margin-top: 2px;
+    }
+
+    /* ============================================================
+       TIERS SECTION
+       ============================================================ */
+    .tiers-card {
+      background: var(--white); border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg); padding: 18px 16px;
+      box-shadow: var(--shadow-sm);
+    }
+    .tiers-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .tiers-header h3 {
+      font-size: 15px; font-weight: 800; color: var(--navy-900);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .tiers-header h3::before { content: ''; width: 3px; height: 16px; background: var(--gold-500); border-radius: 2px; }
+    .tiers-header .tier-progress {
+      font-size: 11px; font-weight: 800; color: var(--gold-500);
+      background: var(--gold-100); padding: 3px 10px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(201, 168, 76, 0.3);
+    }
+
+    /* Tier Progress Bar */
+    .tier-progress-bar {
+      display: flex; align-items: center; gap: 4px;
+      margin: 12px 0 14px;
+    }
+    .tier-dot {
+      flex: 1; height: 6px; border-radius: 3px;
+      background: var(--gray-200);
+    }
+    .tier-dot.done { background: var(--green-500); }
+    .tier-dot.current { background: var(--gold-500); }
+
+    /* KYC Note */
+    .kyc-note {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      background: linear-gradient(135deg, var(--gold-100), #FFFAEB);
+      border: 1px solid rgba(201, 168, 76, 0.35);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin-bottom: 14px;
+      position: relative;
+    }
+    .kyc-note .kn-icon {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--gold-500); color: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; flex-shrink: 0;
+    }
+    .kyc-note .kn-text {
+      flex: 1;
+      min-width: 0;
+    }
+    .kyc-note .kn-text h5 {
+      font-size: 12.5px;
+      font-weight: 800;
+      color: var(--navy-900);
+      margin-bottom: 3px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .kyc-note .kn-text h5 .pill {
+      font-size: 8.5px;
+      font-weight: 800;
+      padding: 2px 7px;
+      background: var(--navy-900);
+      color: var(--gold-400);
+      border-radius: var(--radius-pill);
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+    }
+    .kyc-note .kn-text p {
+      font-size: 11.5px;
+      font-weight: 500;
+      color: var(--navy-800);
+      line-height: 1.55;
+    }
+    .kyc-note .kn-text p strong {
+      font-weight: 800;
+      color: var(--navy-900);
+    }
+
+    /* Tiers List */
+    .tiers-list {
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .tier-item {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px; border-radius: var(--radius-md);
+      border: 1.5px solid var(--gray-200); background: var(--white);
+      transition: all 0.15s;
+      cursor: pointer;
+    }
+    .tier-item:hover { border-color: var(--gold-500); }
+    .tier-item.completed {
+      border-color: var(--green-500); background: var(--green-100);
+    }
+    .tier-item.current {
+      border-color: var(--gold-500); background: var(--gold-100);
+    }
+    .tier-item.locked {
+      opacity: 0.75;
+    }
+
+    .tier-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: var(--navy-50); color: var(--navy-700);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; flex-shrink: 0;
+      position: relative;
+    }
+    .tier-item.completed .tier-icon { background: var(--green-500); color: var(--white); }
+    .tier-item.current .tier-icon { background: var(--gold-500); color: var(--white); }
+    .tier-icon .tier-num {
+      position: absolute; bottom: -4px; right: -4px;
+      width: 18px; height: 18px; border-radius: 50%;
+      background: var(--navy-900); color: var(--gold-400);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 9px; font-weight: 800;
+      border: 2px solid var(--white);
+    }
+
+    .tier-info { flex: 1; min-width: 0; }
+    .tier-name {
+      font-size: 14px; font-weight: 800; color: var(--navy-900);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .tier-desc {
+      font-size: 11.5px; font-weight: 500; color: var(--gray-500);
+      margin-top: 2px; line-height: 1.5;
+    }
+    .tier-limits {
+      display: flex; gap: 10px; margin-top: 4px;
+      font-size: 10.5px; font-weight: 700;
+      color: var(--gray-500);
+    }
+    .tier-limits span strong { color: var(--navy-900); font-weight: 800; }
+
+    .tier-status {
+      font-size: 9.5px; font-weight: 800; padding: 4px 10px;
+      border-radius: var(--radius-pill); text-transform: uppercase;
+      letter-spacing: 0.4px; flex-shrink: 0;
+    }
+    .tier-status.done { background: var(--white); color: var(--green-500); border: 1px solid rgba(15,157,110,0.3); }
+    .tier-status.review { background: var(--white); color: var(--gold-500); border: 1px solid rgba(201,168,76,0.3); }
+    .tier-status.todo { background: var(--white); color: var(--gray-500); border: 1px solid var(--gray-200); }
+    .tier-status.locked { background: var(--gray-100); color: var(--gray-500); }
+
+    .tier-arrow {
+      color: var(--gray-400); font-size: 18px; flex-shrink: 0;
+    }
+
+    /* Tier Limits Panel */
+    .tier-limits-panel {
+      background: var(--navy-50);
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+      margin-top: 12px;
+    }
+    .tier-limits-panel h4 {
+      font-size: 11px; font-weight: 800; color: var(--gray-500);
+      text-transform: uppercase; letter-spacing: 0.6px;
+      margin-bottom: 8px;
+    }
+    .tier-limit-row {
+      display: flex; justify-content: space-between;
+      font-size: 12px; font-weight: 600; color: var(--gray-600);
+      padding: 4px 0;
+    }
+    .tier-limit-row strong { color: var(--navy-900); font-weight: 800; font-variant-numeric: tabular-nums; }
+
+    /* QUICK ACTIONS */
+    .quick-actions-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+    }
+    .quick-action {
+      background: var(--white); border: 1px solid var(--gray-200);
+      border-radius: var(--radius-md); padding: 16px;
+      display: flex; flex-direction: column; gap: 8px;
+      cursor: pointer; transition: all 0.2s;
+      box-shadow: var(--shadow-xs);
+    }
+    .quick-action:hover { border-color: var(--gold-500); box-shadow: var(--shadow-sm); transform: translateY(-1px); }
+    .quick-action-icon {
+      width: 36px; height: 36px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 17px; flex-shrink: 0;
+    }
+    .quick-action-icon.blue { background: var(--blue-100); color: var(--blue-500); }
+    .quick-action-icon.gold { background: var(--gold-100); color: var(--gold-500); }
+    .quick-action-icon.green { background: var(--green-100); color: var(--green-500); }
+    .quick-action-icon.purple { background: var(--purple-100); color: var(--purple-500); }
+    .quick-action-title {
+      font-size: 13px; font-weight: 800; color: var(--navy-900);
+      letter-spacing: -0.2px;
+    }
+    .quick-action-sub {
+      font-size: 10.5px; font-weight: 500; color: var(--gray-500);
+      line-height: 1.4;
+    }
+
+    /* REPUTATION */
+    .reputation-card {
+      background: var(--white); border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg); padding: 18px 16px;
+      box-shadow: var(--shadow-sm);
+    }
+    .reputation-card h3 {
+      font-size: 15px; font-weight: 800; color: var(--navy-900);
+      display: flex; align-items: center; gap: 8px; margin-bottom: 14px;
+    }
+    .reputation-card h3::before { content: ''; width: 3px; height: 16px; background: var(--gold-500); border-radius: 2px; }
+    .reputation-score-row {
+      display: flex; align-items: center; gap: 16px; margin-bottom: 16px;
+    }
+    .reputation-score {
+      font-size: 40px; font-weight: 800; color: var(--navy-900);
+      letter-spacing: -1.5px; line-height: 1;
+    }
+    .reputation-score-label {
+      font-size: 11px; font-weight: 700; color: var(--gray-500);
+      text-transform: uppercase; letter-spacing: 0.4px;
+    }
+    .reputation-stars {
+      display: flex; gap: 2px; margin-top: 4px;
+    }
+    .reputation-stars .star {
+      color: var(--gold-500); font-size: 14px;
+    }
+    .reputation-bars {
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .rep-bar-row {
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .rep-bar-label {
+      display: flex; justify-content: space-between;
+      font-size: 11.5px; font-weight: 600; color: var(--gray-500);
+    }
+    .rep-bar-label strong { color: var(--navy-900); font-weight: 800; }
+    .rep-bar-track {
+      height: 6px; background: var(--gray-100); border-radius: 3px; overflow: hidden;
+    }
+    .rep-bar-fill {
+      height: 100%; border-radius: 3px;
+      background: linear-gradient(90deg, var(--green-500), #34D399);
+      transition: width 0.6s ease;
+    }
+    .rep-bar-fill.gold {
+      background: linear-gradient(90deg, var(--gold-500), var(--gold-400));
+    }
+
+    /* ACCOUNT INFO */
+    .account-info-card {
+      background: var(--white); border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg); padding: 18px 16px;
+      box-shadow: var(--shadow-sm);
+    }
+    .account-info-card h3 {
+      font-size: 15px; font-weight: 800; color: var(--navy-900);
+      display: flex; align-items: center; gap: 8px; margin-bottom: 14px;
+    }
+    .account-info-card h3::before { content: ''; width: 3px; height: 16px; background: var(--gold-500); border-radius: 2px; }
+    .info-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 0; border-bottom: 1px solid var(--gray-100);
+      gap: 12px;
+    }
+    .info-row:last-child { border-bottom: none; }
+    .info-row .info-label {
+      font-size: 12px; font-weight: 600; color: var(--gray-500);
+      flex-shrink: 0;
+    }
+    .info-row .info-value {
+      font-size: 12.5px; font-weight: 800; color: var(--navy-900);
+      text-align: right; word-break: break-all;
+    }
+
+    /* SETTINGS LINK */
+    .settings-link-card {
+      background: linear-gradient(135deg, var(--navy-900), var(--navy-800));
+      border-radius: var(--radius-md); padding: 16px 18px;
+      color: var(--white); display: flex; align-items: center;
+      justify-content: space-between; gap: 12px;
+      cursor: pointer; transition: all 0.2s;
+      box-shadow: var(--shadow-sm);
+    }
+    .settings-link-card:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); }
+    .settings-link-content h4 {
+      font-size: 13.5px; font-weight: 800; margin-bottom: 2px;
+    }
+    .settings-link-content p {
+      font-size: 11.5px; font-weight: 500; color: var(--gray-300);
+    }
+    .settings-link-arrow {
+      width: 34px; height: 34px; border-radius: 50%;
+      background: var(--gold-500); color: var(--navy-900);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; flex-shrink: 0;
+    }
+
+    /* TOAST */
+    .toast {
+      position: fixed; bottom: 100px; left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--navy-900); color: var(--white);
+      padding: 12px 20px; border-radius: var(--radius-pill);
+      font-size: 13px; font-weight: 700; z-index: 200;
+      opacity: 0; pointer-events: none; transition: all 0.3s;
+      max-width: calc(100% - 40px); text-align: center;
+      box-shadow: 0 8px 24px rgba(10, 26, 47, 0.3);
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* BOTTOM NAV */
+    .bottom-nav {
+      position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 100%; max-width: 700px; background: rgba(255, 255, 255, 0.97);
+      backdrop-filter: blur(16px); border-top: 1px solid var(--gray-200);
+      display: flex; justify-content: space-around; align-items: center;
+      padding: 8px 8px calc(8px + env(safe-area-inset-bottom, 0px));
+      z-index: 40; box-shadow: 0 -4px 20px rgba(10, 26, 47, 0.06);
+    }
+    .bottom-nav-item {
+      display: flex; flex-direction: column; align-items: center; gap: 3px;
+      background: none; border: none; cursor: pointer;
+      padding: 6px 8px; border-radius: var(--radius-sm);
+      transition: all 0.2s; flex: 1; max-width: 80px;
+      color: var(--gray-500); font-family: var(--font);
+      font-size: 10px; font-weight: 600; letter-spacing: 0.2px;
+    }
+    .bottom-nav-item.active { color: var(--navy-900); font-weight: 800; }
+    .bottom-nav-item.active .bn-icon-wrap { background: var(--navy-900); }
+    .bottom-nav-item.active .bn-icon-wrap svg { stroke: var(--gold-400); }
+    .bn-icon-wrap {
+      width: 38px; height: 26px; border-radius: var(--radius-xs);
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .bottom-nav-item svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+
+    @media (max-width: 400px) {
+      .quick-actions-grid { grid-template-columns: 1fr; }
+      .profile-stats { gap: 6px; }
+      .profile-stat { padding: 10px 6px; }
+      .profile-stat .val { font-size: 16px; }
+      .tier-limits { flex-direction: column; gap: 2px; }
+    }
+    @media (min-width: 700px) {
+      body { padding-bottom: 100px; }
+      .profile-main { max-width: 640px; padding: 20px 24px 0; }
+      .bottom-nav { max-width: 900px; border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="profile-header">
+    <div class="profile-header-left">
+      <button class="icon-btn" id="backBtn" aria-label="Back">
+        <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <span class="header-title">Profile</span>
+    </div>
+    <button class="header-settings-btn" id="settingsBtn">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+      Settings
+    </button>
+  </header>
+
+  <main class="profile-main">
+
+    <!-- PROFILE HERO -->
+    <div class="profile-hero">
+      <div class="profile-top-row">
+        <div class="profile-avatar">
+          B
+          <span class="verified-tick">✓</span>
+        </div>
+        <div class="profile-name-block">
+          <div class="profile-name">
+            Bluepeak User
+            <span class="vip-badge">★ Tier 1</span>
+          </div>
+          <div class="profile-uid">
+            ID: 8829103 · <span class="copy-id" id="copyUidBtn">Copy ID</span>
+          </div>
+          <div class="profile-joined">Member since Jan 2024</div>
+        </div>
+      </div>
+
+      <div class="profile-stats">
+        <div class="profile-stat">
+          <div class="val gold" id="statTrades">0</div>
+          <div class="lbl">Trades</div>
+        </div>
+        <div class="profile-stat">
+          <div class="val" id="statCompletion">0%</div>
+          <div class="lbl">Completion</div>
+        </div>
+        <div class="profile-stat">
+          <div class="val" id="statVolume">$0</div>
+          <div class="lbl">Volume</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         TIERS SECTION
+         ============================================================ -->
+    <div class="tiers-card">
+      <div class="tiers-header">
+        <h3>Account Tiers</h3>
+        <span class="tier-progress" id="tierProgressPill">Tier 1 of 3</span>
+      </div>
+
+      <!-- Progress bar -->
+      <div class="tier-progress-bar">
+        <div class="tier-dot done"></div>
+        <div class="tier-dot current"></div>
+        <div class="tier-dot"></div>
+      </div>
+
+      <!-- Professional KYC note -->
+      <div class="kyc-note">
+        <div class="kn-icon">ℹ️</div>
+        <div class="kn-text">
+          <h5>
+            Important notice
+            <span class="pill">Required</span>
+          </h5>
+          <p>Full <strong>KYC verification</strong> will be <strong>required when your account reaches Tier 2</strong>. Complete your identity verification early to unlock higher limits, faster withdrawals, and uninterrupted trading.</p>
+        </div>
+      </div>
+
+      <!-- Tiers List -->
+      <div class="tiers-list">
+
+        <div class="tier-item completed" data-tier="1">
+          <div class="tier-icon">
+            ✓
+            <span class="tier-num">1</span>
+          </div>
+          <div class="tier-info">
+            <div class="tier-name">Tier 1 · Basic</div>
+            <div class="tier-desc">Email & phone verified — trading enabled</div>
+            <div class="tier-limits">
+              <span>Daily: <strong>$1,000</strong></span>
+              <span>P2P: <strong>$500</strong></span>
+            </div>
+          </div>
+          <span class="tier-status done">Active</span>
+        </div>
+
+        <div class="tier-item current" data-tier="2">
+          <div class="tier-icon">
+            🪪
+            <span class="tier-num">2</span>
+          </div>
+          <div class="tier-info">
+            <div class="tier-name">Tier 2 · Verified</div>
+            <div class="tier-desc">Identity verification (KYC) required</div>
+            <div class="tier-limits">
+              <span>Daily: <strong>$10,000</strong></span>
+              <span>P2P: <strong>$5,000</strong></span>
+            </div>
+          </div>
+          <span class="tier-status review">Start</span>
+        </div>
+
+        <div class="tier-item locked" data-tier="3">
+          <div class="tier-icon">
+            🏠
+            <span class="tier-num">3</span>
+          </div>
+          <div class="tier-info">
+            <div class="tier-name">Tier 3 · Advanced</div>
+            <div class="tier-desc">Proof of address — unlocks full limits</div>
+            <div class="tier-limits">
+              <span>Daily: <strong>$50,000</strong></span>
+              <span>P2P: <strong>$25,000</strong></span>
+            </div>
+          </div>
+          <span class="tier-status locked">Locked</span>
+        </div>
+
+      </div>
+
+      <!-- Tier limits summary -->
+      <div class="tier-limits-panel">
+        <h4>Your current limits</h4>
+        <div class="tier-limit-row">
+          <span>Daily withdrawal</span>
+          <strong>$1,000</strong>
+        </div>
+        <div class="tier-limit-row">
+          <span>P2P trading</span>
+          <strong>$500</strong>
+        </div>
+        <div class="tier-limit-row">
+          <span>Fiat deposit</span>
+          <strong>$2,000</strong>
+        </div>
+        <div class="tier-limit-row">
+          <span>Crypto withdrawal</span>
+          <strong>$5,000</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUICK ACTIONS -->
+    <div class="quick-actions-grid">
+      <div class="quick-action" data-action="my-orders">
+        <div class="quick-action-icon blue">📋</div>
+        <div class="quick-action-title">My Orders</div>
+        <div class="quick-action-sub">View active and past orders</div>
+      </div>
+      <div class="quick-action" data-action="my-ads">
+        <div class="quick-action-icon gold">📢</div>
+        <div class="quick-action-title">My Ads</div>
+        <div class="quick-action-sub">Manage your P2P listings</div>
+      </div>
+      <div class="quick-action" data-action="transaction-history">
+        <div class="quick-action-icon green">📜</div>
+        <div class="quick-action-title">Transaction History</div>
+        <div class="quick-action-sub">All deposits & withdrawals</div>
+      </div>
+      <div class="quick-action" data-action="referrals">
+        <div class="quick-action-icon purple">🎁</div>
+        <div class="quick-action-title">Refer & Earn</div>
+        <div class="quick-action-sub">Invite friends, earn rewards</div>
+      </div>
+    </div>
+
+    <!-- REPUTATION -->
+    <div class="reputation-card">
+      <h3>Reputation</h3>
+      <div class="reputation-score-row">
+        <div>
+          <div class="reputation-score">4.9</div>
+          <div class="reputation-score-label">out of 5.0</div>
+        </div>
+        <div style="flex:1;">
+          <div class="reputation-stars">
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+          </div>
+          <div style="font-size:11px;font-weight:600;color:var(--gray-500);margin-top:4px;">
+            Based on <strong style="color:var(--navy-900);">0 reviews</strong>
+          </div>
+        </div>
+      </div>
+      <div class="reputation-bars">
+        <div class="rep-bar-row">
+          <div class="rep-bar-label">
+            <span>Trade Completion</span>
+            <strong id="repCompletion">0%</strong>
+          </div>
+          <div class="rep-bar-track"><div class="rep-bar-fill" id="repCompletionBar" style="width:0%"></div></div>
+        </div>
+        <div class="rep-bar-row">
+          <div class="rep-bar-label">
+            <span>Response Rate</span>
+            <strong>100%</strong>
+          </div>
+          <div class="rep-bar-track"><div class="rep-bar-fill" style="width:100%"></div></div>
+        </div>
+        <div class="rep-bar-row">
+          <div class="rep-bar-label">
+            <span>Account Age</span>
+            <strong>2+ years</strong>
+          </div>
+          <div class="rep-bar-track"><div class="rep-bar-fill gold" style="width:85%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACCOUNT INFO -->
+    <div class="account-info-card">
+      <h3>Account Information</h3>
+      <div class="info-row">
+        <span class="info-label">Email</span>
+        <span class="info-value" id="infoEmail">user@example.com</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Phone</span>
+        <span class="info-value" id="infoPhone">+254 712 345 678</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Country</span>
+        <span class="info-value" id="infoCountry">Kenya</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Member Since</span>
+        <span class="info-value">January 2024</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Last Login</span>
+        <span class="info-value" id="infoLastLogin">Just now</span>
+      </div>
+    </div>
+
+    <!-- SETTINGS LINK -->
+    <div class="settings-link-card" id="settingsLink">
+      <div class="settings-link-content">
+        <h4>Account Settings</h4>
+        <p>Security, preferences, notifications</p>
+      </div>
+      <div class="settings-link-arrow">→</div>
+    </div>
+
+  </main>
+
+  <nav class="bottom-nav">
+    <button class="bottom-nav-item" data-nav="home">
+      <div class="bn-icon-wrap"><svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9 21v-6h6v6"/></svg></div>
+      <span>Home</span>
+    </button>
+    <button class="bottom-nav-item" data-nav="p2p">
+      <div class="bn-icon-wrap"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M2.5 20c.8-3.5 3.2-5.5 6.5-5.5s5.7 2 6.5 5.5"/><circle cx="17.5" cy="8" r="2.8"/><path d="M15.5 14c2.5 0 4.8 1.5 5.5 4.5"/></svg></div>
+      <span>P2P</span>
+    </button>
+    <button class="bottom-nav-item" data-nav="trade">
+      <div class="bn-icon-wrap"><svg viewBox="0 0 24 24"><path d="M3 20L9 14l4 4 8-8"/><path d="M17 10h4v4"/></svg></div>
+      <span>Trade</span>
+    </button>
+    <button class="bottom-nav-item" data-nav="swap">
+      <div class="bn-icon-wrap"><svg viewBox="0 0 24 24"><path d="M7 4v13M7 17l-3-3M7 17l3-3"/><path d="M17 20V7M17 7l3 3M17 7l-3 3"/></svg></div>
+      <span>Swap</span>
+    </button>
+    <button class="bottom-nav-item active" data-nav="wallet">
+      <div class="bn-icon-wrap"><svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="14" rx="3"/><path d="M16 13h.01"/><path d="M2 9h20"/></svg></div>
+      <span>Wallet</span>
+    </button>
+  </nav>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    (function() {
+      'use strict';
+
+      const $ = (s) => document.querySelector(s);
+      const $$ = (s) => document.querySelectorAll(s);
+      const toastEl = $('#toast');
+
+      function showToast(msg) {
+        toastEl.textContent = msg;
+        toastEl.classList.add('show');
+        clearTimeout(toastEl._t);
+        toastEl._t = setTimeout(() => toastEl.classList.remove('show'), 2600);
+      }
+
+      // ============================================================
+      // LOAD USER DATA
+      // ============================================================
+      function loadUserData() {
+        const email = localStorage.getItem('bp_user_email') || 'user@example.com';
+        const phone = localStorage.getItem('bp_user_phone') || '+254 712 345 678';
+        const country = localStorage.getItem('bp_user_country') || 'Kenya';
+        const name = localStorage.getItem('bp_user_name') || 'Bluepeak User';
+
+        $('#infoEmail').textContent = email;
+        $('#infoPhone').textContent = phone;
+        $('#infoCountry').textContent = country;
+        $('#infoLastLogin').textContent = 'Just now';
+
+        $('.profile-name').innerHTML = name + ' <span class="vip-badge">★ Tier 1</span>';
+        $('.profile-avatar').innerHTML = name.charAt(0).toUpperCase() + '<span class="verified-tick">✓</span>';
+      }
+
+      // ============================================================
+      // LOAD STATS
+      // ============================================================
+      function loadStats() {
+        const withdrawals = JSON.parse(localStorage.getItem('bp_withdrawals') || '[]');
+        const swaps = JSON.parse(localStorage.getItem('bp_recent_swaps') || '[]');
+        const deposits = JSON.parse(localStorage.getItem('bp_deposits') || '[]');
+        const p2pOrders = JSON.parse(localStorage.getItem('bp_p2p_orders') || '[]');
+
+        const txs = [];
+        withdrawals.forEach(w => txs.push({ type: 'withdraw', usd: parseFloat(w.amount) || 0 }));
+        swaps.forEach(() => txs.push({ type: 'swap', usd: 0 }));
+        deposits.forEach(d => txs.push({ type: 'deposit', usd: parseFloat(d.amountUSD) || 0 }));
+        p2pOrders.forEach(o => txs.push({ type: 'p2p', usd: parseFloat(o.amountUSD) || 0 }));
+
+        const tradeCount = swaps.length + p2pOrders.length;
+        const completed = txs.filter(t => t.type !== 'withdraw').length;
+        const total = txs.length || 1;
+        const completion = txs.length > 0 ? Math.round((completed / total) * 100) : 0;
+        const volume = txs.reduce((sum, t) => sum + t.usd, 0);
+
+        $('#statTrades').textContent = tradeCount;
+        $('#statCompletion').textContent = completion + '%';
+        $('#statVolume').textContent = volume >= 1000
+          ? '$' + (volume / 1000).toFixed(1) + 'K'
+          : '$' + volume.toFixed(0);
+
+        $('#repCompletion').textContent = completion + '%';
+        setTimeout(() => {
+          $('#repCompletionBar').style.width = completion + '%';
+        }, 300);
+      }
+
+      // ============================================================
+      // COPY UID
+      // ============================================================
+      $('#copyUidBtn').addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText('8829103').then(() => {
+            showToast('User ID copied');
+          });
+        } else {
+          showToast('User ID copied');
+        }
+      });
+
+      // ============================================================
+      // QUICK ACTIONS
+      // ============================================================
+      $$('.quick-action').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const action = btn.dataset.action;
+          switch (action) {
+            case 'my-orders':
+            case 'my-ads':
+              window.location.href = 'p2p.html';
+              break;
+            case 'transaction-history':
+              window.location.href = 'transaction-history.html';
+              break;
+            case 'referrals':
+              showToast('Referral program coming soon');
+              break;
+            default:
+              showToast('Opening…');
+          }
+        });
+      });
+
+      // ============================================================
+      // TIER CLICKS
+      // ============================================================
+      $$('.tier-item').forEach(item => {
+        item.addEventListener('click', () => {
+          const tier = parseInt(item.dataset.tier);
+          if (tier === 1) {
+            showToast('Tier 1 is already active — you have full basic access');
+          } else if (tier === 2) {
+            showToast('Starting KYC verification for Tier 2…');
+            setTimeout(() => {
+              // Simulated: navigate to a KYC flow (placeholder)
+              showToast('KYC flow — integration point. Please complete identity verification.');
+            }, 1200);
+          } else if (tier === 3) {
+            showToast('Complete Tier 2 first to unlock Tier 3');
+          }
+        });
+      });
+
+      // ============================================================
+      // SETTINGS
+      // ============================================================
+      $('#settingsBtn').addEventListener('click', () => {
+        window.location.href = 'settings.html';
+      });
+      $('#settingsLink').addEventListener('click', () => {
+        window.location.href = 'settings.html';
+      });
+
+      // ============================================================
+      // NAV
+      // ============================================================
+      $('#backBtn').addEventListener('click', () => window.location.href = 'wallet.html');
+      $$('.bottom-nav-item').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const nav = btn.dataset.nav;
+          if (nav === 'home') window.location.href = 'index.html';
+          if (nav === 'p2p') window.location.href = 'p2p.html';
+          if (nav === 'trade') window.location.href = 'trade.html';
+          if (nav === 'swap') window.location.href = 'swap.html';
+          if (nav === 'wallet') window.location.href = 'wallet.html';
+        });
+      });
+
+      // ============================================================
+      // INIT
+      // ============================================================
+      loadUserData();
+      loadStats();
+
+    })();
+  </script>
+</body>
+</html>
