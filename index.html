@@ -643,9 +643,7 @@
 
   <main class="app-main">
 
-    <!-- ============================================================
-         SIGNED OUT VIEW — marketing
-         ============================================================ -->
+    <!-- SIGNED OUT VIEW — marketing -->
     <div id="signedOutView">
       <section class="hero">
         <h1>Buy, Sell, Swap &amp;<br><span class="gold">Cash Out</span> Crypto</h1>
@@ -870,9 +868,7 @@
       </div>
     </div>
 
-    <!-- ============================================================
-         SIGNED IN VIEW — dashboard
-         ============================================================ -->
+    <!-- SIGNED IN VIEW — dashboard -->
     <div id="signedInView">
 
       <section class="greeting">
@@ -1105,6 +1101,8 @@
       const eyeToggle = $('#eyeToggle');
       const eyeIcon = $('#eyeIcon');
 
+      let currentHeaderBalance = '$0.00';
+
       function setBalanceVisibility(visible) {
         balanceVisible = visible;
         if (visible) {
@@ -1117,9 +1115,25 @@
           eyeIcon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
         }
       }
-      let currentHeaderBalance = '$0.00';
       eyeToggle.addEventListener('click', (e) => { e.stopPropagation(); setBalanceVisibility(!balanceVisible); });
       setBalanceVisibility(true);
+
+      // ============================================================
+      // DASHBOARD HELPERS (must be initialized BEFORE renderDashboard)
+      // ============================================================
+      const FALLBACK_PRICES = { USD: 1, USDT: 1, BTC: 81250, ETH: 3218, SOL: 128.70 };
+
+      let marketPrices = {};
+      try { marketPrices = JSON.parse(localStorage.getItem('bp_market_prices') || '{}'); } catch (e) {}
+
+      function loadBalances() {
+        let bal = null;
+        try { bal = JSON.parse(localStorage.getItem('bp_user_balances') || 'null'); } catch (e) {}
+        if (!bal || typeof bal !== 'object') bal = { USD: 0, BTC: 0, ETH: 0, USDT: 0, SOL: 0 };
+        return bal;
+      }
+      function priceOf(sym) { return marketPrices[sym] || FALLBACK_PRICES[sym] || 0; }
+      function fmtUsd(n) { return '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
 
       // ============================================================
       // DRAWER + POPUPS
@@ -1289,21 +1303,8 @@
       }
 
       // ============================================================
-      // DASHBOARD RENDER
+      // DASHBOARD RENDER FUNCTIONS
       // ============================================================
-      const FALLBACK_PRICES = { USD: 1, USDT: 1, BTC: 81250, ETH: 3218, SOL: 128.70 };
-
-      function loadBalances() {
-        let bal = null;
-        try { bal = JSON.parse(localStorage.getItem('bp_user_balances') || 'null'); } catch (e) {}
-        if (!bal || typeof bal !== 'object') bal = { USD: 0, BTC: 0, ETH: 0, USDT: 0, SOL: 0 };
-        return bal;
-      }
-      let marketPrices = {};
-      try { marketPrices = JSON.parse(localStorage.getItem('bp_market_prices') || '{}'); } catch (e) {}
-      function priceOf(sym) { return marketPrices[sym] || FALLBACK_PRICES[sym] || 0; }
-      function fmtUsd(n) { return '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
-
       function renderBalanceCard() {
         const balances = loadBalances();
         let total = 0;
