@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>Settings — Admin — Bluepeak Capital</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy-900: #0A1A2F; --navy-800: #10243E; --navy-700: #1A3352;
+      --navy-100: #E8EDF4; --navy-50: #F2F5FA;
+      --gold-500: #C9A84C; --gold-400: #DDBE6B; --gold-100: #FBF5E6;
+      --green-500: #0F9D6E; --green-100: #E6F7F1;
+      --red-500: #D14343; --red-100: #FDECEC;
+      --blue-500: #2563EB; --blue-100: #DBEAFE;
+      --purple-500: #7C3AED; --purple-100: #EDE9FE;
+      --white: #FFFFFF; --gray-100: #F1F4F9; --gray-200: #E3E8EF;
+      --gray-300: #CDD5E0; --gray-400: #94A3B8; --gray-500: #64748B; --gray-600: #475569;
+      --shadow-xs: 0 1px 2px rgba(10, 26, 47, 0.04);
+      --shadow-sm: 0 2px 8px rgba(10, 26, 47, 0.05);
+      --shadow-md: 0 8px 24px rgba(10, 26, 47, 0.07);
+      --shadow-lg: 0 16px 48px rgba(10, 26, 47, 0.10);
+      --radius-xs: 8px; --radius-sm: 12px; --radius-md: 16px;
+      --radius-lg: 20px; --radius-pill: 999px;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    html { height: 100%; }
+    body {
+      font-family: var(--font); background-color: var(--navy-50);
+      color: var(--navy-900); line-height: 1.45;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh; display: flex;
+    }
+
+    /* SIDEBAR */
+    .sidebar { width: 250px; background: var(--navy-900); color: var(--white); display: flex; flex-direction: column; flex-shrink: 0; position: sticky; top: 0; height: 100vh; overflow-y: auto; z-index: 50; transition: transform 0.3s; }
+    .sidebar-header { padding: 20px 20px 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+    .sidebar-logo { display: flex; align-items: baseline; gap: 2px; margin-bottom: 4px; }
+    .sidebar-logo .blue { color: var(--white); font-size: 19px; font-weight: 800; letter-spacing: -0.6px; }
+    .sidebar-logo .peak { color: var(--gold-500); font-size: 19px; font-weight: 800; letter-spacing: -0.6px; }
+    .sidebar-logo .admin-badge { font-size: 8px; font-weight: 800; color: var(--gold-400); background: rgba(201, 168, 76, 0.15); border: 1px solid rgba(201, 168, 76, 0.3); padding: 2px 6px; border-radius: 3px; letter-spacing: 1px; margin-left: 6px; text-transform: uppercase; }
+    .sidebar-email { font-size: 11px; font-weight: 500; color: var(--gray-400); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .sidebar-nav { flex: 1; padding: 14px 12px; display: flex; flex-direction: column; gap: 2px; }
+    .nav-section-label { font-size: 9px; font-weight: 800; color: var(--gray-500); text-transform: uppercase; letter-spacing: 1.2px; padding: 14px 12px 6px; }
+    .nav-item { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: var(--radius-xs); background: none; border: none; cursor: pointer; color: var(--gray-300); font-family: var(--font); font-size: 13px; font-weight: 600; text-align: left; text-decoration: none; transition: all 0.15s; width: 100%; }
+    .nav-item:hover { background: rgba(255, 255, 255, 0.06); color: var(--white); }
+    .nav-item.active { background: rgba(201, 168, 76, 0.15); color: var(--gold-400); font-weight: 700; border-left: 2px solid var(--gold-500); padding-left: 10px; }
+    .nav-item .nav-ico { width: 18px; text-align: center; font-size: 15px; flex-shrink: 0; }
+    .nav-item .nav-badge { margin-left: auto; background: var(--red-500); color: var(--white); font-size: 9px; font-weight: 800; padding: 2px 6px; border-radius: var(--radius-pill); min-width: 18px; text-align: center; }
+    .sidebar-footer { padding: 16px 20px; border-top: 1px solid rgba(255, 255, 255, 0.08); }
+    .logout-btn { display: flex; align-items: center; gap: 10px; width: 100%; padding: 10px 12px; background: rgba(209, 67, 67, 0.12); border: 1px solid rgba(209, 67, 67, 0.25); border-radius: var(--radius-xs); color: #FCA5A5; font-family: var(--font); font-size: 12.5px; font-weight: 700; cursor: pointer; transition: all 0.15s; }
+    .logout-btn:hover { background: rgba(209, 67, 67, 0.2); }
+
+    /* MAIN */
+    .main-wrap { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+    .topbar { background: var(--white); border-bottom: 1px solid var(--gray-200); padding: 14px 28px; display: flex; align-items: center; justify-content: space-between; gap: 16px; position: sticky; top: 0; z-index: 40; }
+    .topbar-left { display: flex; align-items: center; gap: 16px; flex-shrink: 1; min-width: 0; }
+    .menu-toggle { display: none; background: none; border: none; padding: 6px; cursor: pointer; color: var(--navy-900); border-radius: var(--radius-xs); }
+    .menu-toggle:hover { background: var(--navy-50); }
+    .menu-toggle svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; }
+    .page-title-block h1 { font-size: 20px; font-weight: 800; color: var(--navy-900); letter-spacing: -0.5px; margin-bottom: 2px; }
+    .page-title-block p { font-size: 12px; font-weight: 500; color: var(--gray-500); }
+    .topbar-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .admin-chip { display: flex; align-items: center; gap: 10px; padding: 4px 14px 4px 4px; background: var(--navy-50); border: 1px solid var(--gray-200); border-radius: var(--radius-pill); cursor: pointer; transition: all 0.15s; }
+    .admin-chip:hover { background: var(--gold-100); border-color: var(--gold-500); }
+    .admin-avatar { width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg, var(--navy-900), var(--navy-700)); color: var(--gold-400); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; }
+    .admin-name { font-size: 12px; font-weight: 700; color: var(--navy-900); }
+    .admin-role { font-size: 9.5px; font-weight: 600; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.4px; }
+
+    /* CONTENT */
+    .content { flex: 1; padding: 20px 24px 32px; max-width: 1100px; width: 100%; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
+
+    /* MAINTENANCE BANNER */
+    .maintenance-banner { display: none; align-items: center; gap: 12px; padding: 14px 18px; border-radius: var(--radius-lg); background: linear-gradient(135deg, #FEF3C7, #FDE68A); border: 1px solid rgba(180, 83, 9, 0.25); color: #92400E; font-size: 12.5px; font-weight: 700; }
+    .maintenance-banner.show { display: flex; }
+    .maintenance-banner .icon { font-size: 20px; }
+
+    /* PANEL / CARD */
+    .settings-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-xs); }
+    .settings-card-header { padding: 16px 20px; border-bottom: 1px solid var(--gray-200); display: flex; align-items: center; gap: 12px; }
+    .settings-card-header .card-ico { width: 36px; height: 36px; border-radius: var(--radius-sm); background: var(--navy-50); border: 1px solid var(--gray-200); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+    .settings-card-header h2 { font-size: 14px; font-weight: 800; color: var(--navy-900); letter-spacing: -0.3px; }
+    .settings-card-header p { font-size: 11.5px; font-weight: 500; color: var(--gray-500); margin-top: 1px; }
+    .settings-card-body { padding: 20px; display: flex; flex-direction: column; gap: 18px; }
+
+    /* FORM */
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-grid.single { grid-template-columns: 1fr; }
+    .field { display: flex; flex-direction: column; gap: 6px; }
+    .field label { font-size: 11px; font-weight: 800; color: var(--navy-900); text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .field label .hint { font-size: 9.5px; font-weight: 600; color: var(--gray-400); text-transform: none; letter-spacing: 0; }
+    .field .help { font-size: 10.5px; font-weight: 500; color: var(--gray-500); line-height: 1.4; }
+    .input, .select, .textarea {
+      width: 100%; padding: 10px 13px;
+      border: 1.5px solid var(--gray-200); border-radius: var(--radius-sm);
+      font-family: var(--font); font-size: 12.5px; font-weight: 600;
+      color: var(--navy-900); outline: none; transition: border 0.2s, background 0.2s;
+      background: var(--navy-50);
+    }
+    .input:focus, .select:focus, .textarea:focus { border-color: var(--gold-500); background: var(--white); }
+    .input::placeholder, .textarea::placeholder { color: var(--gray-400); font-weight: 500; }
+    .textarea { resize: vertical; min-height: 72px; line-height: 1.5; }
+    .select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 13px center; padding-right: 36px; cursor: pointer; }
+
+    .input-group { display: flex; }
+    .input-group .input { border-radius: var(--radius-sm) 0 0 var(--radius-sm); }
+    .input-group .suffix { display: flex; align-items: center; padding: 0 13px; background: var(--gray-100); border: 1.5px solid var(--gray-200); border-left: none; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; font-size: 11.5px; font-weight: 700; color: var(--gray-500); white-space: nowrap; }
+
+    /* TOGGLE */
+    .toggle-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--gray-100); }
+    .toggle-row:last-child { border-bottom: none; }
+    .toggle-info { min-width: 0; }
+    .toggle-title { font-size: 12.5px; font-weight: 700; color: var(--navy-900); }
+    .toggle-desc { font-size: 11px; font-weight: 500; color: var(--gray-500); margin-top: 2px; line-height: 1.4; }
+    .toggle { position: relative; width: 42px; height: 24px; flex-shrink: 0; }
+    .toggle input { opacity: 0; width: 0; height: 0; }
+    .toggle .slider { position: absolute; inset: 0; background: var(--gray-300); border-radius: var(--radius-pill); cursor: pointer; transition: 0.25s; }
+    .toggle .slider::before { content: ''; position: absolute; width: 18px; height: 18px; left: 3px; top: 3px; background: var(--white); border-radius: 50%; transition: 0.25s; box-shadow: 0 1px 3px rgba(10, 26, 47, 0.2); }
+    .toggle input:checked + .slider { background: var(--green-500); }
+    .toggle input:checked + .slider::before { transform: translateX(18px); }
+    .toggle input:focus + .slider { box-shadow: 0 0 0 3px rgba(15, 157, 110, 0.15); }
+
+    /* API KEY ROW */
+    .key-row { display: flex; align-items: center; gap: 8px; }
+    .key-row .input { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 11.5px; letter-spacing: 0.3px; }
+    .icon-btn { width: 38px; height: 38px; flex-shrink: 0; border: 1.5px solid var(--gray-200); background: var(--white); border-radius: var(--radius-sm); cursor: pointer; font-size: 13px; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+    .icon-btn:hover { border-color: var(--gold-500); background: var(--gold-100); }
+
+    /* STATUS PILL */
+    .status-pill { display: inline-flex; align-items: center; gap: 5px; font-size: 9.5px; font-weight: 800; padding: 4px 10px; border-radius: var(--radius-pill); text-transform: uppercase; letter-spacing: 0.4px; }
+    .status-pill .dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+    .status-pill.connected { background: var(--green-100); color: var(--green-500); }
+    .status-pill.disconnected { background: var(--gray-100); color: var(--gray-500); }
+    .status-pill.warning { background: var(--gold-100); color: var(--gold-500); }
+
+    /* ACTIONS BAR */
+    .actions-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 20px; border-top: 1px solid var(--gray-200); background: var(--gray-100); flex-wrap: wrap; }
+    .actions-bar .left-note { font-size: 11px; font-weight: 600; color: var(--gray-500); }
+    .actions-bar .btn-group { display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn { padding: 9px 16px; border-radius: var(--radius-pill); font-family: var(--font); font-size: 11.5px; font-weight: 700; cursor: pointer; transition: all 0.15s; border: 1px solid transparent; display: inline-flex; align-items: center; gap: 5px; }
+    .btn:hover { transform: translateY(-1px); }
+    .btn.primary { background: linear-gradient(135deg, var(--green-500), #0B8A5E); color: var(--white); box-shadow: 0 2px 8px rgba(15, 157, 110, 0.3); }
+    .btn.gold { background: var(--gold-500); color: var(--navy-900); }
+    .btn.gold:hover { background: var(--gold-400); }
+    .btn.outline { background: var(--white); border-color: var(--gray-200); color: var(--navy-700); }
+    .btn.outline:hover { border-color: var(--gold-500); background: var(--gold-100); }
+    .btn.danger { background: var(--red-100); color: var(--red-500); border-color: rgba(209, 67, 67, 0.3); }
+    .btn.danger:hover { background: var(--red-500); color: var(--white); }
+
+    /* TOAST */
+    .toast { position: fixed; bottom: 24px; right: 24px; background: var(--navy-900); color: var(--white); padding: 12px 20px; border-radius: var(--radius-pill); font-size: 13px; font-weight: 700; z-index: 200; opacity: 0; pointer-events: none; transition: all 0.3s; max-width: 380px; box-shadow: 0 8px 24px rgba(10, 26, 47, 0.3); }
+    .toast.show { opacity: 1; transform: translateY(-4px); }
+
+    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(10, 26, 47, 0.5); backdrop-filter: blur(4px); z-index: 45; }
+    .sidebar-overlay.open { display: block; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .sidebar { position: fixed; transform: translateX(-100%); }
+      .sidebar.open { transform: translateX(0); }
+      .menu-toggle { display: flex; }
+      .content { padding: 12px; }
+      .topbar { padding: 12px 16px; }
+      .page-title-block h1 { font-size: 17px; }
+      .admin-chip { padding: 4px; }
+      .admin-chip .admin-name, .admin-chip .admin-role { display: none; }
+    }
+    @media (max-width: 600px) {
+      .form-grid { grid-template-columns: 1fr; }
+      .settings-card-body { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <span class="blue">BLUE</span><span class="peak">PEAK</span>
+        <span class="admin-badge">Admin</span>
+      </div>
+      <div class="sidebar-email" id="sidebarEmail">admin@bluepeak.com</div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Overview</div>
+      <a href="admin-dashboard.html" class="nav-item"><span class="nav-ico">📊</span> Dashboard</a>
+      <div class="nav-section-label">Management</div>
+      <a href="admin-users.html" class="nav-item"><span class="nav-ico">👥</span> Users</a>
+      <a href="admin-merchants.html" class="nav-item"><span class="nav-ico">🤝</span> P2P Merchants</a>
+      <a href="admin-kyc.html" class="nav-item"><span class="nav-ico">🪪</span> KYC Reviews <span class="nav-badge" id="kycBadge">0</span></a>
+      <a href="admin-transactions.html" class="nav-item"><span class="nav-ico">💸</span> Transactions</a>
+      <a href="admin-p2p-orders.html" class="nav-item"><span class="nav-ico">📋</span> P2P Orders <span class="nav-badge" id="ordersBadge">0</span></a>
+      <div class="nav-section-label">System</div>
+      <a href="admin-bots.html" class="nav-item"><span class="nav-ico">🤖</span> Bot Manager <span class="nav-badge" id="botsBadge">0</span></a>
+      <a href="admin-settings.html" class="nav-item active"><span class="nav-ico">⚙️</span> Settings</a>
+      <a href="admin-audit.html" class="nav-item"><span class="nav-ico">📜</span> Audit Log</a>
+    </nav>
+    <div class="sidebar-footer">
+      <button class="logout-btn" id="logoutBtn"><span>🚪</span> Sign Out</button>
+    </div>
+  </aside>
+
+  <div class="main-wrap">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+          <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+        <div class="page-title-block">
+          <h1>Platform Settings</h1>
+          <p>Global fees, escrow rules, Telegram bridge, API keys, and notifications</p>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <div class="admin-chip" id="adminChip">
+          <div class="admin-avatar" id="adminAvatar">A</div>
+          <div>
+            <div class="admin-name" id="adminName">Admin</div>
+            <div class="admin-role">Super Admin</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="content">
+
+      <!-- Maintenance banner -->
+      <div class="maintenance-banner" id="maintenanceBanner">
+        <span class="icon">🛠</span>
+        <span><strong>Maintenance mode is ON.</strong> Non-admin users see a maintenance page. Toggle off below when done.</span>
+      </div>
+
+      <!-- ============================================================
+           1. TRADING FEES
+           ============================================================ -->
+      <section class="settings-card">
+        <div class="settings-card-header">
+          <div class="card-ico">💱</div>
+          <div>
+            <h2>Trading Fees</h2>
+            <p>Platform fees applied to P2P orders and bot trades</p>
+          </div>
+        </div>
+        <div class="settings-card-body">
+          <div class="form-grid">
+            <div class="field">
+              <label for="p2pMakerFee">P2P Maker Fee <span class="hint">per order</span></label>
+              <div class="input-group">
+                <input type="number" class="input" id="p2pMakerFee" value="0.5" min="0" max="10" step="0.1">
+                <span class="suffix">%</span>
+              </div>
+              <div class="help">Charged to the order creator when the order completes.</div>
+            </div>
+            <div class="field">
+              <label for="p2pTakerFee">P2P Taker Fee <span class="hint">per order</span></label>
+              <div class="input-group">
+                <input type="number" class="input" id="p2pTakerFee" value="0.75" min="0" max="10" step="0.1">
+                <span class="suffix">%</span>
+              </div>
+              <div class="help">Charged to the counterparty who fills the order.</div>
+            </div>
+            <div class="field">
+              <label for="botFee">Bot Trade Fee <span class="hint">per trade</span></label>
+              <div class="input-group">
+                <input type="number" class="input" id="botFee" value="0.25" min="0" max="5" step="0.05">
+                <span class="suffix">%</span>
+              </div>
+              <div class="help">Deducted from each executed bot trade.</div>
+            </div>
+            <div class="field">
+              <label for="withdrawalFee">Withdrawal Fee <span class="hint">fixed</span></label>
+              <div class="input-group">
+                <input type="number" class="input" id="withdrawalFee" value="1.50" min="0" step="0.01">
+                <span class="suffix">USD</span>
+              </div>
+              <div class="help">Flat fee added to crypto and fiat withdrawals.</div>
+            </div>
+          </div>
+          <div class="toggle-row" style="border-top:1px solid var(--gray-100); padding-top:14px;">
+            <div class="toggle-info">
+              <div class="toggle-title">Charge fee on cancelled orders</div>
+              <div class="toggle-desc">Apply the maker fee even when an order is cancelled after payment is confirmed.</div>
+            </div>
+            <label class="toggle"><input type="checkbox" id="feeOnCancel"><span class="slider"></span></label>
+          </div>
+        </div>
+        <div class="actions-bar">
+          <span class="left-note">Last saved: <span id="feesSavedAt">—</span></span>
+          <div class="btn-group">
+            <button class="btn outline" data-reset="fees">Reset</button>
+            <button class="btn primary" data-save="fees">💾 Save Fees</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           2. ESCROW RULES
+           ============================================================ -->
+      <section class="settings-card">
+        <div class="settings-card-header">
+          <div class="card-ico">🔒</div>
+          <div>
+            <h2>Escrow Rules</h2>
+            <p>Controls for order lock, auto-release, and dispute windows</p>
+          </div>
+        </div>
+        <div class="settings-card-body">
+          <div class="form-grid">
+            <div class="field">
+              <label for="escrowTimeout">Payment Confirmation Window</label>
+              <div class="input-group">
+                <input type="number" class="input" id="escrowTimeout" value="30" min="5" max="180" step="1">
+                <span class="suffix">min</span>
+              </div>
+              <div class="help">Time the buyer has to send payment before the order auto-cancels.</div>
+            </div>
+            <div class="field">
+              <label for="autoRelease">Auto-Release After</label>
+              <div class="input-group">
+                <input type="number" class="input" id="autoRelease" value="60" min="0" max="720" step="5">
+                <span class="suffix">min</span>
+              </div>
+              <div class="help">Escrow auto-releases to the buyer if the merchant doesn't respond. Set 0 to disable.</div>
+            </div>
+            <div class="field">
+              <label for="disputeWindow">Dispute Window</label>
+              <div class="input-group">
+                <input type="number" class="input" id="disputeWindow" value="24" min="1" max="168" step="1">
+                <span class="suffix">hrs</span>
+              </div>
+              <div class="help">Time after release during which a dispute can still be opened.</div>
+            </div>
+            <div class="field">
+              <label for="minOrder">Minimum Order Size</label>
+              <div class="input-group">
+                <input type="number" class="input" id="minOrder" value="5" min="1" step="1">
+                <span class="suffix">USD</span>
+              </div>
+              <div class="help">Smallest P2P order a user can place.</div>
+            </div>
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <div class="toggle-title">Require KYC before first P2P trade</div>
+              <div class="toggle-desc">Users must complete identity verification before placing or filling an order.</div>
+            </div>
+            <label class="toggle"><input type="checkbox" id="kycRequired" checked><span class="slider"></span></label>
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <div class="toggle-title">Auto-release escrow on timeout</div>
+              <div class="toggle-desc">If enabled, escrow releases automatically when the auto-release window expires.</div>
+            </div>
+            <label class="toggle"><input type="checkbox" id="autoReleaseEnabled" checked><span class="slider"></span></label>
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <div class="toggle-title">Allow merchant-to-merchant trades</div>
+              <div class="toggle-desc">Permit two verified merchants to trade with each other.</div>
+            </div>
+            <label class="toggle"><input type="checkbox" id="merchantToMerchant"><span class="slider"></span></label>
+          </div>
+        </div>
+        <div class="actions-bar">
+          <span class="left-note">Changes apply to new orders only.</span>
+          <div class="btn-group">
+            <button class="btn outline" data-reset="escrow">Reset</button>
+            <button class="btn primary" data-save="escrow">💾 Save Escrow Rules</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           3. TELEGRAM BRIDGE
+           ============================================================ -->
+      <section class="settings-card">
+        <div class="settings-card-header">
+          <div class="card-ico">✈️</div>
+          <div style="flex:1;">
+            <h2>Telegram Bridge</h2>
+            <p>Bot connection used for admin order threads and notifications</p>
+          </div>
+          <span class="status-pill connected" id="tgStatus"><span class="dot"></span>Connected</span>
+        </div>
+        <div class="settings-card-body">
+          <div class="form-grid">
+            <div class="field">
+              <label for="tgBotToken">Bot Token <span class="hint">from @BotFather</span></label>
+              <div class="key-row">
+                <input type="password" class="input" id="tgBotToken" value="7834921:AAF9xK2mPqLwRn4Tz8vB6cYdHs3jE5uNgXo" autocomplete="off">
+                <button class="icon-btn" data-reveal="tgBotToken" title="Show / hide">👁</button>
+              </div>
+            </div>
+            <div class="field">
+              <label for="tgAdminGroup">Admin Group Chat ID</label>
+              <input type="text" class="input" id="tgAdminGroup" value="-1002417829031" placeholder="-100…">
+              <div class="help">Supergroup where order threads are created.</div>
+            </div>
+            <div class="field">
+              <label for="tgWebhook">Webhook URL</label>
+              <input type="text" class="input" id="tgWebhook" value="https://api.bluepeak.com/telegram/webhook" placeholder="https://…">
+            </div>
+            <div class="field">
+              <label for="tgThreadPrefix">Thread Name Prefix</label>
+              <input type="text" class="input" id="tgThreadPrefix" value="ORD-" placeholder="ORD-">
+              <div class="help">Each order thread is named with this prefix + order number.</div>
+            </div>
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <div class="toggle-title">Mirror all P2P chats to Telegram</div>
+              <div class="toggle-desc">Every new order creates a Telegram forum thread. Admin replies sync back to the user chat.</div>
+            </div>
+            <label class="toggle"><input type="checkbox" id="tgMirrorP2P" checked><span class="slider"></span></label>
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <div class="toggle-title">Send bot trade alerts</div>
+              <div class="toggle-desc">Post a message in the admin group for large bot trades and P&L milestones.</div>
+            </div>
+            <label class="toggle"><input type="checkbox" id="tgBotAlerts" checked><span class="slider"></span></label>
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <div class="toggle-title">Send KYC submission alerts</div>
+              <div class="toggle-desc">Notify the admin group whenever a user submits KYC for review.</div>
+            </div>
+            <label class="toggle"><input type="checkbox" id="tgKycAlerts"><span class="slider"></span></label>
+          </div>
+        </div>
+        <div class="actions-bar">
+          <span class="left-note">Last webhook ping: <span id="tgPingAt">12s ago</span></span>
+          <div class="btn-group">
+            <button class="btn outline" id="tgTestBtn">🔌 Test Connection</button>
+            <button class="btn outline" id="tgRotateBtn">🔑 Rotate Token</button>
+            <button class="btn primary" data-save="telegram">💾 Save Telegram</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           4. API KEYS
+           ============================================================ -->
+      <section class="settings-card">
+        <div class="settings-card-header">
+          <div class="card-ico">🔑</div>
+          <div>
+            <h2>API Keys</h2>
+            <p>Server-side keys used for price feeds and payment verification</p>
+          </div>
+        </div>
+        <div class="settings-card-body">
+          <div class="form-grid">
+            <div class="field">
+              <label for="priceFeedKey">Price Feed API Key <span class="hint">CoinGecko / Binance</span></label>
+              <div class="key-row">
+                <input type="password" class="input" id="priceFeedKey" value="cg-pro-7f3a9c2e1b8d4a6f0e5c" autocomplete="off">
+                <button class="icon-btn" data-reveal="priceFeedKey" title="Show / hide">👁</button>
+              </div>
+            </div>
+            <div class="field">
+              <label for="paymentKey">Payment Verification Key <span class="hint">M-Pesa / bank</span></label>
+              <div class="key-row">
+                <input type="password" class="input" id="paymentKey" value="mp-verify-91c4e7a2f6b0d8e3a5c1" autocomplete="off">
+                <button class="icon-btn" data-reveal="paymentKey" title="Show / hide">👁</button>
+              </div>
+            </div>
+            <div class="field">
+              <label for="smtpKey">Email / SMTP Key</label>
+              <div class="key-row">
+                <input type="password" class="input" id="smtpKey" value="smtp-key-3e8b1a9d7c2f4e6a0b5d" autocomplete="off">
+                <button class="icon-btn" data-reveal="smtpKey" title="Show / hide">👁</button>
+              </div>
+            </div>
+            <div class="field">
+              <label for="rateLimit">API Rate Limit</label>
+              <div class="input-group">
+                <input type="number" class="input" id="rateLimit" value="120" min="10" max="1000" step="10">
+                <span class="suffix">req/min</span>
+              </div>
+              <div class="help">Max requests per user per minute across all public endpoints.</div>
+            </div>
+          </div>
+        </div>
+        <div class="actions-bar">
+          <span class="left-note">⚠ Keys are stored server-side. Never expose them in the client bundle.</span>
+          <div class="btn-group">
+            <button class="btn outline" id="rotateAllKeys">♻️ Rotate All</button>
+            <button class="btn primary" data-save="api">💾 Save Keys</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           5. PLATFORM STATUS & NOTIFICATIONS
+           ============================================================ -->
+      <section class="settings-card">
+        <div class="settings-card-header">
+          <div class="card-ico">📢</div>
+          <div>
+            <h2>Platform Status & Notifications</h2>
+            <p>Maintenance mode and what admins get notified about</p>
+          </div>
+        </div>
+        <div class="settings-card-body">
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <div class="toggle-title">Maintenance mode</div>
+              <div class="toggle-desc">Blocks all non-admin access. Admins can still log in to the console.</div>
+            </div>
+            <label class="toggle"><input type="checkbox" id="maintenanceMode"><span class="slider"></span></label>
+          </div>
+          <div class="field">
+            <label for="maintenanceMsg">Maintenance Message <span class="hint">shown to users</span></label>
+            <textarea class="textarea" id="maintenanceMsg" placeholder="We'll be back shortly…">Bluepeak Capital is undergoing scheduled maintenance. We'll be back shortly — thank you for your patience.</textarea>
+          </div>
+          <div class="toggle-row" style="border-top:1px solid var(--gray-100); padding-top:14px;">
+            <div class="toggle-info">
+              <div class="toggle-title">Email alerts for new disputes</div>
+              <div class="toggle-desc">Send an email to all super admins when a P2P dispute is opened.</div>
+            </div>
+            <label class="toggle"><input type="checkbox" id="notifyDisputes" checked><span class="slider"></span></label>
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <div class="toggle-title">Email alerts for large withdrawals</div>
+              <div class="toggle-desc">Notify admins when a withdrawal exceeds the threshold below.</div>
+            </div>
+            <label class="toggle"><input type="checkbox" id="notifyWithdrawals" checked><span class="slider"></span></label>
+          </div>
+          <div class="field">
+            <label for="largeWithdrawalThreshold">Large Withdrawal Threshold</label>
+            <div class="input-group">
+              <input type="number" class="input" id="largeWithdrawalThreshold" value="5000" min="100" step="100">
+              <span class="suffix">USD</span>
+            </div>
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <div class="toggle-title">Daily P&L summary email</div>
+              <div class="toggle-desc">Send a daily digest of bot P&L, trades, and platform fees to all admins.</div>
+            </div>
+            <label class="toggle"><input type="checkbox" id="notifyDailySummary" checked><span class="slider"></span></label>
+          </div>
+        </div>
+        <div class="actions-bar">
+          <span class="left-note" id="platformStatusNote">Platform is live for all users.</span>
+          <div class="btn-group">
+            <button class="btn primary" data-save="platform">💾 Save Platform Settings</button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    (function() {
+      'use strict';
+
+      const $ = (s) => document.querySelector(s);
+      const $$ = (s) => document.querySelectorAll(s);
+
+      function showToast(msg) {
+        const t = $('#toast');
+        t.textContent = msg;
+        t.classList.add('show');
+        clearTimeout(t._t);
+        t._t = setTimeout(() => t.classList.remove('show'), 2600);
+      }
+
+      // AUTH GUARD
+      const session = localStorage.getItem('bp_admin_session');
+      if (!session) { window.location.href = 'admin-login.html'; return; }
+      let admin;
+      try {
+        admin = JSON.parse(session);
+        const ageMin = (Date.now() - new Date(admin.loginTime).getTime()) / 60000;
+        if (ageMin > 30) { localStorage.removeItem('bp_admin_session'); window.location.href = 'admin-login.html'; return; }
+      } catch (e) { window.location.href = 'admin-login.html'; return; }
+
+      $('#adminName').textContent = admin.name || 'Admin';
+      $('#adminAvatar').textContent = (admin.name || 'Admin').charAt(0).toUpperCase();
+      $('#sidebarEmail').textContent = admin.email;
+
+      // SIDEBAR
+      $('#menuToggle').addEventListener('click', () => {
+        $('#sidebar').classList.add('open');
+        $('#sidebarOverlay').classList.add('open');
+      });
+      $('#sidebarOverlay').addEventListener('click', () => {
+        $('#sidebar').classList.remove('open');
+        $('#sidebarOverlay').classList.remove('open');
+      });
+      function logout() {
+        if (confirm('Sign out of admin console?')) {
+          localStorage.removeItem('bp_admin_session');
+          window.location.href = 'admin-login.html';
+        }
+      }
+      $('#logoutBtn').addEventListener('click', logout);
+      $('#adminChip').addEventListener('click', logout);
+
+      // SIDEBAR BADGES (read from other modules)
+      (function() {
+        try {
+          const chats = JSON.parse(localStorage.getItem('bp_admin_chats') || '[]');
+          const unread = chats.filter(c => c.unread).length;
+          $('#ordersBadge').textContent = unread || '0';
+        } catch (e) {}
+        try {
+          const bots = JSON.parse(localStorage.getItem('bp_admin_bots') || '[]');
+          $('#botsBadge').textContent = bots.filter(b => b.status === 'error').length || '0';
+        } catch (e) {}
+      })();
+
+      // ============================================================
+      // SETTINGS STORE
+      // ============================================================
+      const DEFAULTS = {
+        fees: { maker: 0.5, taker: 0.75, bot: 0.25, withdrawal: 1.5, feeOnCancel: false },
+        escrow: { timeout: 30, autoRelease: 60, disputeWindow: 24, minOrder: 5, kycRequired: true, autoReleaseEnabled: true, m2m: false },
+        telegram: { token: '7834921:AAF9xK2mPqLwRn4Tz8vB6cYdHs3jE5uNgXo', group: '-1002417829031', webhook: 'https://api.bluepeak.com/telegram/webhook', prefix: 'ORD-', mirrorP2P: true, botAlerts: true, kycAlerts: false },
+        api: { priceFeed: 'cg-pro-7f3a9c2e1b8d4a6f0e5c', payment: 'mp-verify-91c4e7a2f6b0d8e3a5c1', smtp: 'smtp-key-3e8b1a9d7c2f4e6a0b5d', rateLimit: 120 },
+        platform: { maintenance: false, maintenanceMsg: 'Bluepeak Capital is undergoing scheduled maintenance. We\'ll be back shortly — thank you for your patience.', notifyDisputes: true, notifyWithdrawals: true, threshold: 5000, notifyDaily: true },
+      };
+
+      function loadSettings() {
+        try {
+          const saved = JSON.parse(localStorage.getItem('bp_platform_settings') || 'null');
+          return saved ? { ...DEFAULTS, ...saved } : JSON.parse(JSON.stringify(DEFAULTS));
+        } catch (e) { return JSON.parse(JSON.stringify(DEFAULTS)); }
+      }
+
+      function saveSettings(settings) {
+        localStorage.setItem('bp_platform_settings', JSON.stringify(settings));
+      }
+
+      let settings = loadSettings();
+
+      // ============================================================
+      // POPULATE FORM
+      // ============================================================
+      function populate() {
+        // Fees
+        $('#p2pMakerFee').value = settings.fees.maker;
+        $('#p2pTakerFee').value = settings.fees.taker;
+        $('#botFee').value = settings.fees.bot;
+        $('#withdrawalFee').value = settings.fees.withdrawal;
+        $('#feeOnCancel').checked = settings.fees.feeOnCancel;
+
+        // Escrow
+        $('#escrowTimeout').value = settings.escrow.timeout;
+        $('#autoRelease').value = settings.escrow.autoRelease;
+        $('#disputeWindow').value = settings.escrow.disputeWindow;
+        $('#minOrder').value = settings.escrow.minOrder;
+        $('#kycRequired').checked = settings.escrow.kycRequired;
+        $('#autoReleaseEnabled').checked = settings.escrow.autoReleaseEnabled;
+        $('#merchantToMerchant').checked = settings.escrow.m2m;
+
+        // Telegram
+        $('#tgBotToken').value = settings.telegram.token;
+        $('#tgAdminGroup').value = settings.telegram.group;
+        $('#tgWebhook').value = settings.telegram.webhook;
+        $('#tgThreadPrefix').value = settings.telegram.prefix;
+        $('#tgMirrorP2P').checked = settings.telegram.mirrorP2P;
+        $('#tgBotAlerts').checked = settings.telegram.botAlerts;
+        $('#tgKycAlerts').checked = settings.telegram.kycAlerts;
+
+        // API
+        $('#priceFeedKey').value = settings.api.priceFeed;
+        $('#paymentKey').value = settings.api.payment;
+        $('#smtpKey').value = settings.api.smtp;
+        $('#rateLimit').value = settings.api.rateLimit;
+
+        // Platform
+        $('#maintenanceMode').checked = settings.platform.maintenance;
+        $('#maintenanceMsg').value = settings.platform.maintenanceMsg;
+        $('#notifyDisputes').checked = settings.platform.notifyDisputes;
+        $('#notifyWithdrawals').checked = settings.platform.notifyWithdrawals;
+        $('#largeWithdrawalThreshold').value = settings.platform.threshold;
+        $('#notifyDailySummary').checked = settings.platform.notifyDaily;
+
+        updateMaintenanceUI();
+      }
+
+      function updateMaintenanceUI() {
+        const on = settings.platform.maintenance;
+        $('#maintenanceBanner').classList.toggle('show', on);
+        $('#platformStatusNote').textContent = on
+          ? '⚠ Maintenance mode is active — non-admin users are blocked.'
+          : 'Platform is live for all users.';
+        $('#platformStatusNote').style.color = on ? 'var(--red-500)' : 'var(--gray-500)';
+      }
+
+      // ============================================================
+      // READ FORM INTO SETTINGS
+      // ============================================================
+      function readFees() {
+        settings.fees = {
+          maker: parseFloat($('#p2pMakerFee').value) || 0,
+          taker: parseFloat($('#p2pTakerFee').value) || 0,
+          bot: parseFloat($('#botFee').value) || 0,
+          withdrawal: parseFloat($('#withdrawalFee').value) || 0,
+          feeOnCancel: $('#feeOnCancel').checked,
+        };
+      }
+      function readEscrow() {
+        settings.escrow = {
+          timeout: parseInt($('#escrowTimeout').value, 10) || 30,
+          autoRelease: parseInt($('#autoRelease').value, 10) || 0,
+          disputeWindow: parseInt($('#disputeWindow').value, 10) || 24,
+          minOrder: parseFloat($('#minOrder').value) || 5,
+          kycRequired: $('#kycRequired').checked,
+          autoReleaseEnabled: $('#autoReleaseEnabled').checked,
+          m2m: $('#merchantToMerchant').checked,
+        };
+      }
+      function readTelegram() {
+        settings.telegram = {
+          token: $('#tgBotToken').value,
+          group: $('#tgAdminGroup').value,
+          webhook: $('#tgWebhook').value,
+          prefix: $('#tgThreadPrefix').value || 'ORD-',
+          mirrorP2P: $('#tgMirrorP2P').checked,
+          botAlerts: $('#tgBotAlerts').checked,
+          kycAlerts: $('#tgKycAlerts').checked,
+        };
+      }
+      function readApi() {
+        settings.api = {
+          priceFeed: $('#priceFeedKey').value,
+          payment: $('#paymentKey').value,
+          smtp: $('#smtpKey').value,
+          rateLimit: parseInt($('#rateLimit').value, 10) || 120,
+        };
+      }
+      function readPlatform() {
+        settings.platform = {
+          maintenance: $('#maintenanceMode').checked,
+          maintenanceMsg: $('#maintenanceMsg').value,
+          notifyDisputes: $('#notifyDisputes').checked,
+          notifyWithdrawals: $('#notifyWithdrawals').checked,
+          threshold: parseFloat($('#largeWithdrawalThreshold').value) || 5000,
+          notifyDaily: $('#notifyDailySummary').checked,
+        };
+      }
+
+      // ============================================================
+      // AUDIT LOG
+      // ============================================================
+      function logAction(action, target, details) {
+        const log = JSON.parse(localStorage.getItem('bp_audit_log') || '[]');
+        log.push({ ts: Date.now(), admin: admin.email, action, target, details });
+        if (log.length > 500) log.splice(0, log.length - 500);
+        localStorage.setItem('bp_audit_log', JSON.stringify(log));
+      }
+
+      function stampSavedAt() {
+        const el = $('#feesSavedAt');
+        if (el) el.textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      }
+
+      // ============================================================
+      // SAVE / RESET BUTTONS
+      // ============================================================
+      $$('[data-save]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const section = btn.dataset.save;
+          if (section === 'fees') { readFees(); logAction('settings_updated', 'fees', settings.fees); showToast('Trading fees saved'); }
+          if (section === 'escrow') { readEscrow(); logAction('settings_updated', 'escrow', settings.escrow); showToast('Escrow rules saved'); }
+          if (section === 'telegram') { readTelegram(); logAction('settings_updated', 'telegram', { group: settings.telegram.group, mirrorP2P: settings.telegram.mirrorP2P }); showToast('Telegram settings saved'); }
+          if (section === 'api') { readApi(); logAction('settings_updated', 'api', { rateLimit: settings.api.rateLimit }); showToast('API keys saved'); }
+          if (section === 'platform') {
+            readPlatform();
+            logAction('settings_updated', 'platform', { maintenance: settings.platform.maintenance });
+            updateMaintenanceUI();
+            showToast(settings.platform.maintenance ? 'Maintenance mode enabled' : 'Platform settings saved');
+          }
+          saveSettings(settings);
+          stampSavedAt();
+        });
+      });
+
+      $$('[data-reset]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const section = btn.dataset.reset;
+          if (section === 'fees') settings.fees = JSON.parse(JSON.stringify(DEFAULTS.fees));
+          if (section === 'escrow') settings.escrow = JSON.parse(JSON.stringify(DEFAULTS.escrow));
+          saveSettings(settings);
+          populate();
+          showToast('Reset to defaults');
+        });
+      });
+
+      // ============================================================
+      // TOGGLES — MAINTENANCE BANNER LIVE
+      // ============================================================
+      $('#maintenanceMode').addEventListener('change', function() {
+        settings.platform.maintenance = this.checked;
+        updateMaintenanceUI();
+      });
+
+      // ============================================================
+      // REVEAL / HIDE SECRETS
+      // ============================================================
+      $$('[data-reveal]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const input = $('#' + btn.dataset.reveal);
+          if (!input) return;
+          input.type = input.type === 'password' ? 'text' : 'password';
+          btn.textContent = input.type === 'password' ? '👁' : '🙈';
+        });
+      });
+
+      // ============================================================
+      // TELEGRAM TEST / ROTATE
+      // ============================================================
+      $('#tgTestBtn').addEventListener('click', () => {
+        const status = $('#tgStatus');
+        status.className = 'status-pill warning';
+        status.innerHTML = '<span class="dot"></span>Testing…';
+        setTimeout(() => {
+          status.className = 'status-pill connected';
+          status.innerHTML = '<span class="dot"></span>Connected';
+          $('#tgPingAt').textContent = 'just now';
+          showToast('Telegram bridge reachable — 200 OK');
+          logAction('telegram_test', 'bridge', { group: settings.telegram.group });
+        }, 900);
+      });
+
+      $('#tgRotateBtn').addEventListener('click', () => {
+        if (!confirm('Rotate the Telegram bot token? The current token will stop working immediately.')) return;
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let tok = '7' + Math.floor(Math.random() * 9000000 + 1000000) + ':AA';
+        for (let i = 0; i < 30; i++) tok += chars[Math.floor(Math.random() * chars.length)];
+        $('#tgBotToken').value = tok;
+        readTelegram();
+        saveSettings(settings);
+        logAction('telegram_token_rotated', 'bridge', {});
+        showToast('Token rotated — update your server env');
+      });
+
+      $('#rotateAllKeys').addEventListener('click', () => {
+        if (!confirm('Rotate all API keys? Any server using the old keys will fail until updated.')) return;
+        const chars = 'abcdef0123456789';
+        const gen = (prefix) => prefix + '-' + Array.from({ length: 20 }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
+        $('#priceFeedKey').value = gen('cg-pro');
+        $('#paymentKey').value = gen('mp-verify');
+        $('#smtpKey').value = gen('smtp-key');
+        readApi();
+        saveSettings(settings);
+        logAction('api_keys_rotated', 'api', {});
+        showToast('All API keys rotated');
+      });
+
+      // ============================================================
+      // INIT
+      // ============================================================
+      populate();
+      stampSavedAt();
+
+      // Simulated webhook ping counter
+      let pingSecs = 12;
+      setInterval(() => {
+        pingSecs++;
+        if (pingSecs > 60) pingSecs = 1;
+        const el = $('#tgPingAt');
+        if (el) el.textContent = pingSecs + 's ago';
+      }, 1000);
+
+    })();
+  </script>
+</body>
+</html>
