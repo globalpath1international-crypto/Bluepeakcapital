@@ -27,13 +27,17 @@
     }
 
     html { height: 100%; }
+
+    /* Hide until we know we're not going to redirect */
     body {
       font-family: var(--font); background-color: var(--bg-main);
       color: var(--navy-900); line-height: 1.45;
       -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
       min-height: 100vh; display: flex; align-items: center; justify-content: center;
       padding: 20px;
+      opacity: 0; transition: opacity 0.15s ease;
     }
+    body.ready { opacity: 1; }
 
     .auth-container {
       display: flex; width: 100%; max-width: 900px;
@@ -231,10 +235,16 @@
 
       const $ = (s) => document.querySelector(s);
 
+      // ============================================================
+      // If already signed in, go straight to index.html — no flash
+      // ============================================================
       if (localStorage.getItem('bp_user_session')) {
         window.location.replace('index.html');
         return;
       }
+
+      // Not signed in — reveal the auth form
+      document.body.classList.add('ready');
 
       const tabLogin = $('#tabLogin');
       const tabSignup = $('#tabSignup');
@@ -289,6 +299,9 @@
         dialCodeDisplay.textContent = (flag + ' ' + dial).trim();
       });
 
+      // ============================================================
+      // SESSION WRITE + REDIRECT
+      // ============================================================
       function writeSession(payload) {
         const session = Object.assign({
           loginTime: new Date().toISOString(),
@@ -319,11 +332,15 @@
         } catch (e) {}
       }
 
+      // ============================================================
+      // LOGIN
+      // ============================================================
       loginForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const email = $('#loginEmail').value.trim().toLowerCase();
         const password = $('#loginPassword').value;
         if (!email || !password) return;
+
         const known = lookupAccount(email);
         writeSession({
           email: email,
@@ -333,6 +350,9 @@
         goToDashboard();
       });
 
+      // ============================================================
+      // CREATE ACCOUNT
+      // ============================================================
       signupForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const firstName = $('#firstName').value.trim();
