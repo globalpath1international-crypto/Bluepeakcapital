@@ -320,128 +320,6 @@
     .marketcap-cell-change.negative { color: var(--red-500); }
     .marketcap-cell-volume { font-size: 9.5px; font-weight: 600; color: var(--gray-500); font-variant-numeric: tabular-nums; }
 
-    /* SIGNED IN VIEW — DASHBOARD */
-    #signedInView { display: none; flex-direction: column; gap: 18px; }
-    #signedInView.active { display: flex; }
-
-    .greeting { padding: 20px 0 2px; }
-    .greeting h1 { font-size: 26px; font-weight: 800; letter-spacing: -0.8px; color: var(--navy-900); margin-bottom: 4px; line-height: 1.15; }
-    .greeting h1 .gold { color: var(--gold-500); }
-    .greeting p { font-size: 13.5px; font-weight: 500; color: var(--gray-500); }
-
-    .balance-card {
-      background: linear-gradient(135deg, var(--navy-900), var(--navy-800));
-      border-radius: var(--radius-xl); padding: 24px 22px;
-      color: var(--white); position: relative; overflow: hidden;
-      box-shadow: var(--shadow-md);
-    }
-    .balance-card::after { content: ''; position: absolute; bottom: -40%; right: -15%; width: 240px; height: 240px; border-radius: 50%; background: radial-gradient(circle, rgba(201, 168, 76, 0.22), transparent 70%); pointer-events: none; }
-    .balance-card::before { content: ''; position: absolute; top: -30%; left: -10%; width: 180px; height: 180px; border-radius: 50%; background: radial-gradient(circle, rgba(37, 99, 235, 0.15), transparent 70%); pointer-events: none; }
-    .balance-card-label { font-size: 10.5px; font-weight: 800; color: var(--gold-400); text-transform: uppercase; letter-spacing: 1px; position: relative; z-index: 1; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
-    .balance-card-label .live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green-500); animation: pulse 1.6s ease-in-out infinite; }
-    .balance-card-amount { font-size: 38px; font-weight: 800; letter-spacing: -1.5px; position: relative; z-index: 1; font-variant-numeric: tabular-nums; margin-bottom: 6px; line-height: 1.1; }
-    .balance-card-amount .cents { font-size: 22px; color: var(--gray-300); }
-    .balance-card-sub { font-size: 12px; font-weight: 600; color: var(--gray-300); position: relative; z-index: 1; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-    .balance-card-sub .chg { display: inline-flex; align-items: center; gap: 3px; font-weight: 800; }
-    .balance-card-sub .chg.up { color: var(--green-500); }
-    .balance-card-sub .chg.down { color: var(--red-500); }
-    .balance-card-actions { display: flex; gap: 8px; margin-top: 18px; position: relative; z-index: 1; flex-wrap: wrap; }
-    .bal-action { flex: 1; min-width: 80px; padding: 11px 12px; border-radius: var(--radius-pill); border: none; font-family: var(--font); font-size: 12px; font-weight: 800; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; justify-content: center; gap: 5px; white-space: nowrap; }
-    .bal-action.primary { background: linear-gradient(135deg, var(--green-500), #0B8A5E); color: var(--white); box-shadow: 0 2px 10px rgba(15, 157, 110, 0.35); }
-    .bal-action.primary:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(15, 157, 110, 0.5); }
-    .bal-action.gold { background: var(--gold-500); color: var(--navy-900); }
-    .bal-action.gold:hover { background: var(--gold-400); transform: translateY(-1px); }
-    .bal-action.ghost { background: rgba(255, 255, 255, 0.1); color: var(--white); border: 1px solid rgba(255, 255, 255, 0.2); }
-    .bal-action.ghost:hover { background: rgba(255, 255, 255, 0.18); }
-
-    .quick-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-    .quick-tile { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 14px 8px; display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; transition: all 0.2s; text-align: center; }
-    .quick-tile:hover { border-color: var(--gold-500); background: var(--gold-100); transform: translateY(-2px); box-shadow: var(--shadow-sm); }
-    .quick-tile-icon { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
-    .quick-tile-icon.green { background: var(--green-100); color: var(--green-500); }
-    .quick-tile-icon.gold { background: var(--gold-100); color: var(--gold-500); }
-    .quick-tile-icon.blue { background: var(--blue-100); color: var(--blue-500); }
-    .quick-tile-icon.purple { background: var(--purple-100); color: var(--purple-500); }
-    .quick-tile-label { font-size: 11.5px; font-weight: 800; color: var(--navy-900); letter-spacing: -0.1px; }
-
-    .section { display: flex; flex-direction: column; gap: 10px; }
-    .section-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-    .section-title { font-size: 15px; font-weight: 800; color: var(--navy-900); letter-spacing: -0.3px; display: flex; align-items: center; gap: 8px; }
-    .section-title .count-pill { font-size: 10px; font-weight: 800; color: var(--gray-500); background: var(--gray-100); padding: 2px 8px; border-radius: var(--radius-pill); }
-    .section-link { background: none; border: none; font-family: var(--font); font-size: 11.5px; font-weight: 700; color: var(--gold-500); cursor: pointer; display: inline-flex; align-items: center; gap: 3px; padding: 4px 6px; border-radius: var(--radius-xs); }
-    .section-link:hover { background: var(--gold-100); }
-
-    .empty-state { background: var(--white); border: 1px dashed var(--gray-300); border-radius: var(--radius-lg); padding: 26px 20px; text-align: center; }
-    .empty-state .icon { font-size: 32px; opacity: 0.4; display: block; margin-bottom: 8px; }
-    .empty-state h4 { font-size: 13px; font-weight: 800; color: var(--navy-900); margin-bottom: 3px; }
-    .empty-state p { font-size: 11.5px; font-weight: 500; color: var(--gray-500); line-height: 1.45; margin-bottom: 12px; }
-    .empty-state button { padding: 9px 18px; border-radius: var(--radius-pill); border: none; background: linear-gradient(135deg, var(--green-500), #0B8A5E); color: var(--white); font-family: var(--font); font-size: 12px; font-weight: 800; cursor: pointer; box-shadow: 0 2px 8px rgba(15, 157, 110, 0.3); }
-
-    .orders-list { display: flex; flex-direction: column; gap: 8px; }
-    .order-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 13px 15px; cursor: pointer; transition: all 0.2s; display: flex; gap: 12px; align-items: center; position: relative; }
-    .order-card:hover { border-color: var(--gold-500); box-shadow: var(--shadow-sm); transform: translateY(-1px); }
-    .order-card.unread { border-left: 3px solid var(--red-500); padding-left: 13px; }
-    .order-card.disputed { border-left: 3px solid var(--red-500); background: linear-gradient(90deg, rgba(253, 236, 236, 0.5), var(--white) 30%); }
-    .order-avatar { width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, var(--navy-800), var(--navy-900)); color: var(--gold-400); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; flex-shrink: 0; }
-    .order-main { flex: 1; min-width: 0; }
-    .order-title-row { display: flex; align-items: center; gap: 6px; margin-bottom: 2px; flex-wrap: wrap; }
-    .order-title { font-size: 13px; font-weight: 800; color: var(--navy-900); }
-    .order-pill { font-size: 8.5px; font-weight: 800; padding: 2px 7px; border-radius: var(--radius-pill); text-transform: uppercase; letter-spacing: 0.3px; flex-shrink: 0; }
-    .order-pill.active { background: var(--green-100); color: var(--green-500); }
-    .order-pill.disputed { background: var(--red-100); color: var(--red-500); }
-    .order-pill.completed { background: var(--blue-100); color: var(--blue-500); }
-    .order-pill.pending { background: var(--gold-100); color: var(--gold-500); }
-    .order-preview { font-size: 11.5px; font-weight: 500; color: var(--gray-500); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.4; }
-    .order-preview .name { font-weight: 800; color: var(--navy-700); }
-    .order-meta { font-size: 10px; font-weight: 600; color: var(--gray-400); display: flex; align-items: center; gap: 5px; margin-top: 3px; }
-    .order-meta .sep { width: 2px; height: 2px; border-radius: 50%; background: var(--gray-300); }
-    .order-amount { text-align: right; flex-shrink: 0; }
-    .order-amount .amt { font-size: 13px; font-weight: 800; color: var(--navy-900); font-variant-numeric: tabular-nums; }
-    .order-amount .usd { font-size: 10px; font-weight: 600; color: var(--gray-500); margin-top: 1px; }
-    .order-unread-dot { position: absolute; top: 14px; right: 14px; width: 8px; height: 8px; border-radius: 50%; background: var(--red-500); box-shadow: 0 0 0 3px rgba(209, 67, 67, 0.15); }
-
-    .bot-summary { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 16px 18px; display: flex; flex-direction: column; gap: 12px; box-shadow: var(--shadow-xs); cursor: pointer; transition: all 0.2s; }
-    .bot-summary:hover { border-color: var(--gold-500); box-shadow: var(--shadow-sm); transform: translateY(-1px); }
-    .bot-summary-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-    .bot-summary-name { display: flex; align-items: center; gap: 10px; }
-    .bot-summary-icon { width: 36px; height: 36px; border-radius: var(--radius-sm); background: var(--gold-100); color: var(--gold-500); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
-    .bot-summary-title { font-size: 13px; font-weight: 800; color: var(--navy-900); }
-    .bot-summary-sub { font-size: 10.5px; font-weight: 600; color: var(--gray-500); margin-top: 1px; }
-    .bot-status-pill { display: inline-flex; align-items: center; gap: 4px; font-size: 9px; font-weight: 800; padding: 3px 9px; border-radius: var(--radius-pill); text-transform: uppercase; letter-spacing: 0.4px; flex-shrink: 0; }
-    .bot-status-pill .dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
-    .bot-status-pill.running { background: var(--green-100); color: var(--green-500); }
-    .bot-status-pill.paused { background: var(--gold-100); color: var(--gold-500); }
-    .bot-status-pill.stopped { background: var(--gray-100); color: var(--gray-500); }
-    .bot-status-pill.error { background: var(--red-100); color: var(--red-500); }
-    .bot-stats-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
-    .bot-stat { background: var(--navy-50); border-radius: var(--radius-sm); padding: 9px 10px; }
-    .bot-stat .lbl { font-size: 9px; font-weight: 800; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 3px; }
-    .bot-stat .val { font-size: 13px; font-weight: 800; color: var(--navy-900); font-variant-numeric: tabular-nums; }
-    .bot-stat .val.up { color: var(--green-500); }
-    .bot-stat .val.down { color: var(--red-500); }
-
-    .tx-list { display: flex; flex-direction: column; gap: 6px; }
-    .tx-row { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-sm); padding: 11px 14px; display: flex; align-items: center; gap: 12px; cursor: pointer; transition: all 0.15s; }
-    .tx-row:hover { border-color: var(--gold-500); background: var(--gold-100); }
-    .tx-icon { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
-    .tx-icon.in { background: var(--green-100); color: var(--green-500); }
-    .tx-icon.out { background: var(--red-100); color: var(--red-500); }
-    .tx-icon.swap { background: var(--blue-100); color: var(--blue-500); }
-    .tx-icon.trade { background: var(--purple-100); color: var(--purple-500); }
-    .tx-info { flex: 1; min-width: 0; }
-    .tx-title { font-size: 12.5px; font-weight: 800; color: var(--navy-900); }
-    .tx-sub { font-size: 10.5px; font-weight: 500; color: var(--gray-500); margin-top: 1px; }
-    .tx-amount { text-align: right; flex-shrink: 0; }
-    .tx-amount .val { font-size: 12.5px; font-weight: 800; font-variant-numeric: tabular-nums; }
-    .tx-amount .val.in { color: var(--green-500); }
-    .tx-amount .val.out { color: var(--navy-900); }
-    .tx-amount .val.swap { color: var(--blue-500); }
-    .tx-amount .val.trade { color: var(--purple-500); }
-    .tx-amount .status { font-size: 9px; font-weight: 700; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.4px; margin-top: 1px; }
-    .tx-amount .status.completed { color: var(--green-500); }
-    .tx-amount .status.pending { color: var(--gold-500); }
-    .tx-amount .status.failed { color: var(--red-500); }
-
     /* BOTTOM NAV */
     .bottom-nav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 600px; background: rgba(255, 255, 255, 0.97); backdrop-filter: blur(16px); border-top: 1px solid var(--gray-200); display: flex; justify-content: space-around; align-items: center; padding: 8px 8px calc(8px + env(safe-area-inset-bottom, 0px)); z-index: 40; box-shadow: 0 -4px 20px rgba(10, 26, 47, 0.06); }
     .nav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; background: none; border: none; cursor: pointer; padding: 7px 12px; border-radius: var(--radius-sm); transition: all 0.2s; flex: 1; max-width: 80px; color: var(--gray-500); font-family: var(--font); font-size: 10.5px; font-weight: 600; letter-spacing: 0.2px; }
@@ -510,18 +388,12 @@
       .ticker-item { padding: 14px 18px; gap: 10px; } .ticker-price { font-size: 15px; }
       .quick-p2p-grid { grid-template-columns: 1fr; } .trade-action-grid { grid-template-columns: 1fr; }
       .marketcap-grid { grid-template-columns: 1fr 1fr; } .marketcap-statement { flex-direction: column; text-align: center; }
-      .greeting h1 { font-size: 22px; } .balance-card { padding: 20px 18px; }
-      .balance-card-amount { font-size: 32px; } .balance-card-amount .cents { font-size: 18px; }
-      .quick-grid { gap: 6px; } .quick-tile { padding: 10px 4px; }
-      .quick-tile-icon { width: 34px; height: 34px; font-size: 15px; } .quick-tile-label { font-size: 10px; }
-      .bot-stats-grid { grid-template-columns: 1fr 1fr; }
     }
     @media (min-width: 700px) {
       body { padding-bottom: 100px; } .app-main { max-width: 640px; padding: 0 24px; gap: 26px; }
       .hero { padding: 28px 0 8px; } .hero h1 { font-size: 50px; letter-spacing: -2px; } .hero p { font-size: 18px; }
       .bottom-nav { max-width: 640px; border-radius: var(--radius-lg) var(--radius-lg) 0 0; } .panel { padding: 24px 22px; }
       .quick-p2p-grid { grid-template-columns: repeat(4, 1fr); } .marketcap-grid { grid-template-columns: 1fr 1fr 1fr 1fr; }
-      .greeting h1 { font-size: 30px; } .balance-card-amount { font-size: 42px; }
     }
     @media (min-width: 1024px) { .app-main { max-width: 680px; } .bottom-nav { max-width: 680px; } }
   </style>
@@ -643,7 +515,7 @@
 
   <main class="app-main">
 
-    <!-- SIGNED OUT VIEW — marketing -->
+    <!-- MARKETING — same for signed in and signed out -->
     <div id="signedOutView">
       <section class="hero">
         <h1>Buy, Sell, Swap &amp;<br><span class="gold">Cash Out</span> Crypto</h1>
@@ -868,74 +740,6 @@
       </div>
     </div>
 
-    <!-- SIGNED IN VIEW — dashboard -->
-    <div id="signedInView">
-
-      <section class="greeting">
-        <h1>Welcome back, <span class="gold" id="greetName">User</span> 👋</h1>
-        <p id="greetSub">Here's your portfolio at a glance.</p>
-      </section>
-
-      <section class="balance-card">
-        <div class="balance-card-label">
-          <span class="live-dot"></span> Total Portfolio Value
-        </div>
-        <div class="balance-card-amount" id="portfolioAmount">$0<span class="cents">.00</span></div>
-        <div class="balance-card-sub" id="portfolioSub">
-          <span class="chg up">▲ 0.00%</span>
-          <span>vs yesterday</span>
-        </div>
-        <div class="balance-card-actions">
-          <button class="bal-action primary" id="balDeposit">↓ Deposit</button>
-          <button class="bal-action ghost" id="balWithdraw">↑ Withdraw</button>
-          <button class="bal-action gold" id="balP2P">🤝 P2P</button>
-        </div>
-      </section>
-
-      <section class="quick-grid">
-        <div class="quick-tile" id="qaDeposit">
-          <div class="quick-tile-icon green">↓</div>
-          <div class="quick-tile-label">Deposit</div>
-        </div>
-        <div class="quick-tile" id="qaWithdraw">
-          <div class="quick-tile-icon gold">↑</div>
-          <div class="quick-tile-label">Withdraw</div>
-        </div>
-        <div class="quick-tile" id="qaSwap">
-          <div class="quick-tile-icon blue">⇄</div>
-          <div class="quick-tile-label">Swap</div>
-        </div>
-        <div class="quick-tile" id="qaBots">
-          <div class="quick-tile-icon purple">🤖</div>
-          <div class="quick-tile-label">Bots</div>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="section-header">
-          <div class="section-title">P2P Orders <span class="count-pill" id="ordersCountPill">0</span></div>
-          <button class="section-link" id="viewAllOrders">View all →</button>
-        </div>
-        <div class="orders-list" id="ordersList"></div>
-      </section>
-
-      <section class="section">
-        <div class="section-header">
-          <div class="section-title">Your Bots <span class="count-pill" id="botsCountPill">0</span></div>
-          <button class="section-link" id="manageBots">Manage →</button>
-        </div>
-        <div id="botSummaryWrap"></div>
-      </section>
-
-      <section class="section">
-        <div class="section-header">
-          <div class="section-title">Recent Activity</div>
-          <button class="section-link" id="viewAllTx">See all →</button>
-        </div>
-        <div class="tx-list" id="txList"></div>
-      </section>
-    </div>
-
   </main>
 
   <nav class="bottom-nav" id="bottomNav">
@@ -1094,46 +898,53 @@
       applyCountryToPaymentUI();
 
       // ============================================================
-      // BALANCE VISIBILITY
+      // BALANCE VISIBILITY + DISPLAY
       // ============================================================
       let balanceVisible = true;
       const balanceDisplay = $('#balanceDisplay');
       const eyeToggle = $('#eyeToggle');
       const eyeIcon = $('#eyeIcon');
 
+      const FALLBACK_PRICES = { USD: 1, USDT: 1, BTC: 81250, ETH: 3218, SOL: 128.70 };
+      let marketPrices = {};
+      try { marketPrices = JSON.parse(localStorage.getItem('bp_market_prices') || '{}'); } catch (e) {}
+      function priceOf(sym) { return marketPrices[sym] || FALLBACK_PRICES[sym] || 0; }
+
       let currentHeaderBalance = '$0.00';
+
+      function computePortfolioValue() {
+        let balances = {};
+        try { balances = JSON.parse(localStorage.getItem('bp_user_balances') || '{}'); } catch (e) {}
+        let total = 0;
+        Object.keys(balances).forEach(sym => { total += (parseFloat(balances[sym]) || 0) * priceOf(sym); });
+        if (total === 0 && user && user.balance != null) total = parseFloat(user.balance) || 0;
+        return total;
+      }
+
+      function fmtUsd(n) { return '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+
+      function refreshBalancePill() {
+        currentHeaderBalance = fmtUsd(computePortfolioValue());
+        if (balanceVisible) {
+          balanceDisplay.textContent = currentHeaderBalance;
+          balanceDisplay.classList.remove('masked');
+        } else {
+          balanceDisplay.textContent = '••••••';
+          balanceDisplay.classList.add('masked');
+        }
+      }
 
       function setBalanceVisibility(visible) {
         balanceVisible = visible;
         if (visible) {
-          balanceDisplay.textContent = currentHeaderBalance;
-          balanceDisplay.classList.remove('masked');
           eyeIcon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
         } else {
-          balanceDisplay.textContent = '••••••';
-          balanceDisplay.classList.add('masked');
           eyeIcon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
         }
+        refreshBalancePill();
       }
       eyeToggle.addEventListener('click', (e) => { e.stopPropagation(); setBalanceVisibility(!balanceVisible); });
-      setBalanceVisibility(true);
-
-      // ============================================================
-      // DASHBOARD HELPERS (must be initialized BEFORE renderDashboard)
-      // ============================================================
-      const FALLBACK_PRICES = { USD: 1, USDT: 1, BTC: 81250, ETH: 3218, SOL: 128.70 };
-
-      let marketPrices = {};
-      try { marketPrices = JSON.parse(localStorage.getItem('bp_market_prices') || '{}'); } catch (e) {}
-
-      function loadBalances() {
-        let bal = null;
-        try { bal = JSON.parse(localStorage.getItem('bp_user_balances') || 'null'); } catch (e) {}
-        if (!bal || typeof bal !== 'object') bal = { USD: 0, BTC: 0, ETH: 0, USDT: 0, SOL: 0 };
-        return bal;
-      }
-      function priceOf(sym) { return marketPrices[sym] || FALLBACK_PRICES[sym] || 0; }
-      function fmtUsd(n) { return '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+      refreshBalancePill();
 
       // ============================================================
       // DRAWER + POPUPS
@@ -1286,251 +1097,7 @@
       });
 
       // ============================================================
-      // VIEW SWITCH
-      // ============================================================
-      const signedOutView = $('#signedOutView');
-      const signedInView = $('#signedInView');
-
-      if (isSignedIn) {
-        signedOutView.classList.add('hidden');
-        signedInView.classList.add('active');
-        $('#greetName').textContent = firstName;
-        $('#greetSub').textContent = user.name ? "Here's your portfolio at a glance." : `Signed in as ${userEmail}`;
-        renderDashboard();
-      } else {
-        signedOutView.classList.remove('hidden');
-        signedInView.classList.remove('active');
-      }
-
-      // ============================================================
-      // DASHBOARD RENDER FUNCTIONS
-      // ============================================================
-      function renderBalanceCard() {
-        const balances = loadBalances();
-        let total = 0;
-        Object.keys(balances).forEach(sym => { total += (parseFloat(balances[sym]) || 0) * priceOf(sym); });
-        const display = total > 0 ? total : (user.balance != null ? parseFloat(user.balance) || 0 : 0);
-        currentHeaderBalance = fmtUsd(display);
-        if (balanceVisible) $('#balanceDisplay').textContent = currentHeaderBalance;
-        const whole = Math.floor(display);
-        const cents = Math.round((display - whole) * 100).toString().padStart(2, '0');
-        $('#portfolioAmount').innerHTML = '$' + whole.toLocaleString('en-US') + '<span class="cents">.' + cents + '</span>';
-      }
-
-      function loadMyOrders() {
-        let chats = [];
-        try { chats = JSON.parse(localStorage.getItem('bp_admin_chats') || '[]'); } catch (e) {}
-        const myEmail = (user.email || '').toLowerCase();
-        const myName = (user.name || '').toLowerCase();
-        return chats.filter(c => {
-          if (!c || typeof c !== 'object') return false;
-          const buyer = (c.buyer || '').toLowerCase();
-          return (myName && buyer.includes(myName)) || (c.buyerEmail && c.buyerEmail.toLowerCase() === myEmail);
-        });
-      }
-
-      function statusPillClass(s) {
-        if (s === 'active') return 'active';
-        if (s === 'disputed') return 'disputed';
-        if (s === 'completed') return 'completed';
-        if (s === 'pending') return 'pending';
-        return 'active';
-      }
-
-      function renderOrders() {
-        const list = $('#ordersList');
-        const orders = loadMyOrders();
-        $('#ordersCountPill').textContent = orders.length;
-        if (orders.length === 0) {
-          list.innerHTML = `
-            <div class="empty-state">
-              <span class="icon">🤝</span>
-              <h4>No P2P orders yet</h4>
-              <p>Start trading crypto with verified merchants and local payment methods.</p>
-              <button id="emptyBrowseP2P">Browse Marketplace</button>
-            </div>`;
-          const b = $('#emptyBrowseP2P');
-          if (b) b.addEventListener('click', () => go('p2p.html'));
-          return;
-        }
-        orders.sort((a, b) => {
-          if (a.status === 'disputed' && b.status !== 'disputed') return -1;
-          if (b.status === 'disputed' && a.status !== 'disputed') return 1;
-          if (a.unread && !b.unread) return -1;
-          if (b.unread && !a.unread) return 1;
-          return new Date(b.created || 0) - new Date(a.created || 0);
-        });
-        list.innerHTML = orders.slice(0, 4).map(o => {
-          const lastMsg = (o.messages && o.messages.length) ? o.messages[o.messages.length - 1] : null;
-          const preview = lastMsg ? lastMsg.text : 'No messages yet';
-          const fromLabel = lastMsg ? (lastMsg.from === 'buyer' ? 'You' : (o.merchant || 'Merchant')) : 'Order';
-          return `
-            <div class="order-card ${o.unread ? 'unread' : ''} ${o.status === 'disputed' ? 'disputed' : ''}" data-order-id="${escapeHtml(o.id)}">
-              ${o.unread ? '<span class="order-unread-dot"></span>' : ''}
-              <div class="order-avatar">${escapeHtml((o.merchantInitial || (o.merchant || 'M').charAt(0)).toUpperCase())}</div>
-              <div class="order-main">
-                <div class="order-title-row">
-                  <span class="order-title">${escapeHtml(o.merchant || 'Merchant')}</span>
-                  <span class="order-pill ${statusPillClass(o.status)}">${escapeHtml(o.status || 'active')}</span>
-                </div>
-                <div class="order-preview"><span class="name">${escapeHtml(fromLabel)}:</span> ${escapeHtml(preview)}</div>
-                <div class="order-meta">
-                  <span>${escapeHtml(o.order || '—')}</span>
-                  <span class="sep"></span>
-                  <span>${escapeHtml(o.side || 'Buy')} ${escapeHtml(o.amount || '0')} ${escapeHtml(o.asset || '')}</span>
-                </div>
-              </div>
-              <div class="order-amount">
-                <div class="amt">$${Number(o.usdAmount || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
-                <div class="usd">${escapeHtml(o.payment || '—')}</div>
-              </div>
-            </div>`;
-        }).join('');
-        list.querySelectorAll('.order-card').forEach(card => {
-          card.addEventListener('click', () => {
-            localStorage.setItem('bluepeak_p2p_open_order', card.dataset.orderId);
-            go('p2p.html');
-          });
-        });
-      }
-
-      function loadMyBots() {
-        let bots = [];
-        try { bots = JSON.parse(localStorage.getItem('bp_admin_bots') || '[]'); } catch (e) {}
-        const myEmail = (user.email || '').toLowerCase();
-        const myName = (user.name || '').toLowerCase();
-        return bots.filter(b => {
-          if (!b || typeof b !== 'object') return false;
-          if (b.ownerEmail && b.ownerEmail.toLowerCase() === myEmail) return true;
-          if (myName && b.owner && b.owner.toLowerCase().includes(myName)) return true;
-          return false;
-        });
-      }
-
-      function renderBots() {
-        const wrap = $('#botSummaryWrap');
-        const bots = loadMyBots();
-        $('#botsCountPill').textContent = bots.length;
-        if (bots.length === 0) {
-          wrap.innerHTML = `
-            <div class="empty-state">
-              <span class="icon">🤖</span>
-              <h4>No active bots</h4>
-              <p>Automate your trading with a strategy bot. Start small and scale as you learn.</p>
-              <button id="emptyExploreBots">Explore Bots</button>
-            </div>`;
-          const b = $('#emptyExploreBots');
-          if (b) b.addEventListener('click', () => go('bots.html'));
-          return;
-        }
-        const sorted = [...bots].sort((a, b) => {
-          const order = { running: 0, paused: 1, error: 2, stopped: 3 };
-          return (order[a.status] ?? 4) - (order[b.status] ?? 4) || (b.pnl24h || 0) - (a.pnl24h || 0);
-        });
-        const b = sorted[0];
-        const pnl = parseFloat(b.pnl24h) || 0;
-        const pnlCls = pnl >= 0 ? 'up' : 'down';
-        const pnlSign = pnl >= 0 ? '+' : '-';
-        wrap.innerHTML = `
-          <div class="bot-summary" id="botSummaryClick">
-            <div class="bot-summary-header">
-              <div class="bot-summary-name">
-                <div class="bot-summary-icon">🤖</div>
-                <div>
-                  <div class="bot-summary-title">${escapeHtml(b.name || 'Bot')}</div>
-                  <div class="bot-summary-sub">${escapeHtml(b.strategy || 'Strategy')}</div>
-                </div>
-              </div>
-              <span class="bot-status-pill ${escapeHtml(b.status || 'stopped')}"><span class="dot"></span>${escapeHtml(b.status || 'stopped')}</span>
-            </div>
-            <div class="bot-stats-grid">
-              <div class="bot-stat">
-                <div class="lbl">24h P&L</div>
-                <div class="val ${pnlCls}">${pnlSign}$${Math.abs(pnl).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
-              </div>
-              <div class="bot-stat">
-                <div class="lbl">Trades</div>
-                <div class="val">${b.trades24h || 0}</div>
-              </div>
-              <div class="bot-stat">
-                <div class="lbl">Balance</div>
-                <div class="val">$${(b.balance || 0).toLocaleString('en-US')}</div>
-              </div>
-            </div>
-          </div>`;
-        $('#botSummaryClick').addEventListener('click', () => go('bots.html'));
-      }
-
-      function loadTransactions() {
-        let txs = [];
-        try { txs = JSON.parse(localStorage.getItem('bp_user_transactions') || '[]'); } catch (e) {}
-        return txs.filter(t => t && typeof t === 'object');
-      }
-      function txMeta(tx) {
-        const type = (tx.type || '').toLowerCase();
-        if (type === 'deposit') return { icon: '↓', cls: 'in', sign: '+' };
-        if (type === 'withdrawal') return { icon: '↑', cls: 'out', sign: '-' };
-        if (type === 'swap') return { icon: '⇄', cls: 'swap', sign: '⇄' };
-        if (type === 'trade') return { icon: '📈', cls: 'trade', sign: '' };
-        if (type === 'p2p_buy') return { icon: '🤝', cls: 'in', sign: '+' };
-        if (type === 'p2p_sell') return { icon: '🤝', cls: 'out', sign: '-' };
-        return { icon: '•', cls: 'trade', sign: '' };
-      }
-      function capitalize(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : ''; }
-
-      function renderTx() {
-        const list = $('#txList');
-        const txs = loadTransactions();
-        if (txs.length === 0) {
-          list.innerHTML = `
-            <div class="empty-state" style="padding:22px 18px;">
-              <span class="icon">📜</span>
-              <h4>No activity yet</h4>
-              <p>Your deposits, withdrawals, swaps, and trades will appear here.</p>
-            </div>`;
-          return;
-        }
-        txs.sort((a, b) => (b.ts || 0) - (a.ts || 0));
-        list.innerHTML = txs.slice(0, 5).map(tx => {
-          const meta = txMeta(tx);
-          const amount = parseFloat(tx.amount) || 0;
-          const asset = tx.asset || 'USD';
-          const status = (tx.status || 'completed').toLowerCase();
-          return `
-            <div class="tx-row">
-              <div class="tx-icon ${meta.cls}">${meta.icon}</div>
-              <div class="tx-info">
-                <div class="tx-title">${escapeHtml(tx.title || capitalize(tx.type || 'Transaction'))}</div>
-                <div class="tx-sub">${relTime(tx.ts || 0)}${tx.ref ? ' · ' + escapeHtml(tx.ref) : ''}</div>
-              </div>
-              <div class="tx-amount">
-                <div class="val ${meta.cls}">${meta.sign}${Math.abs(amount).toLocaleString('en-US', { maximumFractionDigits: 6 })} ${escapeHtml(asset)}</div>
-                <div class="status ${status}">${status}</div>
-              </div>
-            </div>`;
-        }).join('');
-      }
-
-      function renderDashboard() {
-        renderBalanceCard();
-        renderOrders();
-        renderBots();
-        renderTx();
-      }
-
-      $('#balDeposit').addEventListener('click', () => go('deposit.html'));
-      $('#balWithdraw').addEventListener('click', () => go('withdraw.html'));
-      $('#balP2P').addEventListener('click', () => go('p2p.html'));
-      $('#qaDeposit').addEventListener('click', () => go('deposit.html'));
-      $('#qaWithdraw').addEventListener('click', () => go('withdraw.html'));
-      $('#qaSwap').addEventListener('click', () => go('swap.html'));
-      $('#qaBots').addEventListener('click', () => go('bots.html'));
-      $('#viewAllOrders').addEventListener('click', () => go('p2p.html'));
-      $('#manageBots').addEventListener('click', () => go('bots.html'));
-      $('#viewAllTx').addEventListener('click', () => go('transaction-history.html'));
-
-      // ============================================================
-      // MARKET DATA
+      // STATE
       // ============================================================
       const ASSETS = [
         { id: 'bitcoin', symbol: 'BTC', name: 'Bitcoin', icon: 'https://blockchains.tatum.io/assets/img/bitcoin.svg' },
@@ -1589,17 +1156,14 @@
           localStorage.setItem('bp_market_prices', JSON.stringify(priceMap));
           try { marketPrices = priceMap; } catch (e) {}
 
-          if (!isSignedIn) {
-            renderTicker();
-            renderMarketCap();
-            renderQuickActions();
-          } else {
-            renderBalanceCard();
-          }
+          renderTicker();
+          renderMarketCap();
+          renderQuickActions();
           updateTradeInfo();
           updateSwapLiveRate();
+          refreshBalancePill();
         } catch (err) {
-          if (!isSignedIn && Object.keys(tickerPrices).length === 0) {
+          if (Object.keys(tickerPrices).length === 0) {
             const tw = $('#marketTickerWrapper');
             const mg = $('#marketcapGrid');
             if (tw) tw.innerHTML = `<div class="ticker-loading">Market data unavailable.</div>`;
