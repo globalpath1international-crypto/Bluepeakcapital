@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-  <title>Login / Sign Up — Bluepeak Capital</title>
+  <title>Login / Create Account — Bluepeak Capital</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
@@ -11,37 +11,25 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --navy-900: #0A1A2F;
-      --navy-800: #10243E;
-      --navy-700: #1A3352;
+      --navy-900: #0A1A2F; --navy-800: #10243E; --navy-700: #1A3352;
       --navy-50:  #F2F5FA;
-      --gold-500: #C9A84C;
-      --gold-400: #DDBE6B;
-      --gold-100: #FBF5E6;
-      --green-500: #0F9D6E;
-      --red-500: #D14343;
+      --gold-500: #C9A84C; --gold-400: #DDBE6B; --gold-100: #FBF5E6;
+      --green-500: #0F9D6E; --red-500: #D14343;
       --white: #FFFFFF;
-      --gray-200: #E3E8EF;
-      --gray-300: #CDD5E0;
-      --gray-500: #64748B;
-      --gray-600: #475569;
+      --gray-100: #F1F4F9; --gray-200: #E3E8EF; --gray-300: #CDD5E0;
+      --gray-400: #94A3B8; --gray-500: #64748B; --gray-600: #475569;
       --bg-main: #FAFBFD;
-      --text-primary: var(--navy-900);
-      --text-secondary: var(--gray-500);
       --shadow-sm: 0 2px 8px rgba(10, 26, 47, 0.05);
-      --shadow-md: 0 8px 24px rgba(10, 26, 47, 0.07);
       --shadow-lg: 0 16px 48px rgba(10, 26, 47, 0.10);
-      --radius-sm: 12px;
-      --radius-md: 16px;
-      --radius-lg: 20px;
-      --radius-pill: 999px;
+      --radius-xs: 8px; --radius-sm: 12px; --radius-md: 16px;
+      --radius-lg: 20px; --radius-pill: 999px;
       --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     }
 
     html { height: 100%; }
     body {
       font-family: var(--font); background-color: var(--bg-main);
-      color: var(--text-primary); line-height: 1.45;
+      color: var(--navy-900); line-height: 1.45;
       -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
       min-height: 100vh; display: flex; align-items: center; justify-content: center;
       padding: 20px;
@@ -54,7 +42,7 @@
       min-height: 600px; border: 1px solid var(--gray-200);
     }
 
-    /* Left Panel (Branding) */
+    /* Left Branding */
     .auth-left {
       flex: 1; background: linear-gradient(135deg, var(--navy-900), var(--navy-800));
       padding: 40px; display: flex; flex-direction: column;
@@ -70,16 +58,14 @@
     .auth-logo .blue { color: var(--white); }
     .auth-logo .peak { color: var(--gold-500); }
     .auth-logo small { display: block; font-size: 9px; font-weight: 700; color: var(--gray-400); letter-spacing: 2px; margin-top: 2px; }
-    
     .auth-headline { font-size: 32px; font-weight: 800; color: var(--white); line-height: 1.2; margin-bottom: 16px; position: relative; z-index: 1; }
     .auth-headline .gold { color: var(--gold-400); }
     .auth-subtext { font-size: 14px; color: var(--gray-300); line-height: 1.6; position: relative; z-index: 1; }
-    
     .auth-feature-list { margin-top: 40px; display: flex; flex-direction: column; gap: 16px; position: relative; z-index: 1; }
     .auth-feature { display: flex; align-items: center; gap: 12px; color: var(--white); font-size: 14px; font-weight: 600; }
     .auth-feature .icon { width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; font-size: 16px; }
 
-    /* Right Panel (Form) */
+    /* Right Form */
     .auth-right { flex: 1; padding: 40px; display: flex; flex-direction: column; justify-content: center; position: relative; overflow-y: auto; }
 
     .auth-tabs { display: flex; background: var(--navy-50); border-radius: var(--radius-sm); padding: 4px; margin-bottom: 28px; border: 1px solid var(--gray-200); flex-shrink: 0; }
@@ -96,6 +82,7 @@
     }
     .form-input:focus { border-color: var(--gold-500); box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.15); }
     .form-input::placeholder { color: var(--gray-300); }
+    .form-input.invalid { border-color: var(--red-500); }
 
     .form-row { display: flex; gap: 10px; }
     .form-row .form-group { flex: 1; }
@@ -109,36 +96,23 @@
       transition: all 0.2s; margin-top: 10px;
     }
     .auth-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(15, 157, 110, 0.42); }
-
-    .auth-divider { display: flex; align-items: center; gap: 10px; margin: 24px 0; color: var(--gray-400); font-size: 12px; font-weight: 600; flex-shrink: 0; }
-    .auth-divider::before, .auth-divider::after { content: ''; flex: 1; height: 1px; background: var(--gray-200); }
-
-    .social-btns { display: flex; gap: 10px; flex-shrink: 0; }
-    .social-btn {
-      flex: 1; padding: 12px; border-radius: var(--radius-sm);
-      border: 1.5px solid var(--gray-200); background: var(--white);
-      font-family: var(--font); font-size: 13px; font-weight: 700;
-      color: var(--navy-900); cursor: pointer; display: flex;
-      align-items: center; justify-content: center; gap: 8px;
-      transition: background 0.2s;
-    }
-    .social-btn:hover { background: var(--navy-50); }
+    .auth-btn:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
 
     .auth-footer { text-align: center; margin-top: 24px; font-size: 12px; color: var(--gray-500); font-weight: 500; flex-shrink: 0; }
     .auth-footer a { color: var(--gold-500); text-decoration: none; font-weight: 700; }
 
-    /* Custom Select for Country */
     .phone-input-group { display: flex; gap: 8px; }
     .country-select {
       width: 110px; flex-shrink: 0; padding: 14px 10px; border: 1.5px solid var(--gray-200);
       border-radius: var(--radius-sm); font-family: var(--font);
       font-size: 14px; font-weight: 600; color: var(--navy-900);
       outline: none; cursor: pointer; background: var(--white);
-      transition: border 0.2s;
+      transition: border 0.2s; appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 12px center; padding-right: 30px;
     }
     .country-select:focus { border-color: var(--gold-500); }
 
-    /* Responsive */
     @media (max-width: 768px) {
       .auth-container { flex-direction: column; min-height: auto; }
       .auth-left { padding: 30px; }
@@ -151,15 +125,14 @@
 <body>
 
   <div class="auth-container">
-    <!-- Left Branding Panel -->
+    <!-- Left Branding -->
     <div class="auth-left">
       <div class="auth-logo">
         <span class="blue">BLUE</span><span class="peak">PEAK</span>
         <small>CAPITAL</small>
       </div>
-      <h1 class="auth-headline">Trade Crypto<br><span class="gold">Globally</span> & Securely.</h1>
+      <h1 class="auth-headline">Trade Crypto<br><span class="gold">Globally</span> &amp; Securely.</h1>
       <p class="auth-subtext">Join millions of traders using Bluepeak Capital for instant swaps, P2P trading, and institutional-grade security.</p>
-      
       <div class="auth-feature-list">
         <div class="auth-feature"><div class="icon">🛡️</div> Escrow Protected Trades</div>
         <div class="auth-feature"><div class="icon">🌍</div> Local Payment Methods</div>
@@ -167,22 +140,22 @@
       </div>
     </div>
 
-    <!-- Right Form Panel -->
+    <!-- Right Form -->
     <div class="auth-right">
       <div class="auth-tabs">
         <div class="auth-tab active" id="tabLogin">Log In</div>
-        <div class="auth-tab" id="tabSignup">Sign Up</div>
+        <div class="auth-tab" id="tabSignup">Create Account</div>
       </div>
 
-      <!-- LOGIN FORM -->
-      <form id="loginForm">
+      <!-- LOGIN -->
+      <form id="loginForm" autocomplete="on">
         <div class="form-group">
-          <label class="form-label">Email Address</label>
-          <input type="email" class="form-input" placeholder="name@example.com" required>
+          <label class="form-label" for="loginEmail">Email Address</label>
+          <input type="email" id="loginEmail" name="email" class="form-input" placeholder="name@example.com" required autocomplete="email">
         </div>
         <div class="form-group">
-          <label class="form-label">Password</label>
-          <input type="password" class="form-input" placeholder="••••••••" required>
+          <label class="form-label" for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" name="password" class="form-input" placeholder="••••••••" required autocomplete="current-password" minlength="6">
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
           <label style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--gray-500);cursor:pointer;">
@@ -193,167 +166,228 @@
         <button type="submit" class="auth-btn">Log In to Account</button>
       </form>
 
-      <!-- SIGN UP FORM -->
-      <form id="signupForm" style="display:none;">
+      <!-- CREATE ACCOUNT -->
+      <form id="signupForm" style="display:none;" autocomplete="on">
         <div class="form-row">
           <div class="form-group">
-            <label class="form-label">First Name</label>
-            <input type="text" class="form-input" placeholder="John" required>
+            <label class="form-label" for="firstName">First Name</label>
+            <input type="text" id="firstName" class="form-input" placeholder="John" required autocomplete="given-name">
           </div>
           <div class="form-group">
-            <label class="form-label">Last Name</label>
-            <input type="text" class="form-input" placeholder="Doe" required>
+            <label class="form-label" for="lastName">Last Name</label>
+            <input type="text" id="lastName" class="form-input" placeholder="Doe" required autocomplete="family-name">
           </div>
         </div>
         <div class="form-group">
-          <label class="form-label">Email Address</label>
-          <input type="email" class="form-input" placeholder="name@example.com" required>
+          <label class="form-label" for="signupEmail">Email Address</label>
+          <input type="email" id="signupEmail" class="form-input" placeholder="name@example.com" required autocomplete="email">
         </div>
-        
         <div class="form-group">
-          <label class="form-label">Country</label>
+          <label class="form-label" for="countrySelect">Country</label>
           <select class="form-input" id="countrySelect" style="appearance:none; background-image:url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%2364748B%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%2F%3E%3C%2Fsvg%3E'); background-repeat:no-repeat; background-position:right 14px center; padding-right:38px;">
             <option value="" disabled selected>Select your country</option>
-            <option value="+254" data-flag="🇰🇪">🇰🇪 Kenya (+254)</option>
-            <option value="+234" data-flag="🇳🇬">🇳🇬 Nigeria (+234)</option>
-            <option value="+233" data-flag="🇬🇭">🇬🇭 Ghana (+233)</option>
-            <option value="+27" data-flag="🇿🇦">🇿🇦 South Africa (+27)</option>
-            <option value="+255" data-flag="🇹🇿">🇹🇿 Tanzania (+255)</option>
-            <option value="+256" data-flag="🇺🇬">🇺🇬 Uganda (+256)</option>
-            <option value="+1" data-flag="🇺🇸">🇺🇸 United States (+1)</option>
-            <option value="+44" data-flag="🇬🇧">🇬🇧 United Kingdom (+44)</option>
-            <option value="+49" data-flag="🇩🇪">🇩🇪 Germany (+49)</option>
-            <option value="+91" data-flag="🇮🇳">🇮🇳 India (+91)</option>
-            <option value="+971" data-flag="🇦🇪">🇦🇪 UAE (+971)</option>
-            <option value="+55" data-flag="🇧🇷">🇧🇷 Brazil (+55)</option>
+            <option value="KE" data-dial="+254" data-flag="🇰🇪">🇰🇪 Kenya (+254)</option>
+            <option value="NG" data-dial="+234" data-flag="🇳🇬">🇳🇬 Nigeria (+234)</option>
+            <option value="GH" data-dial="+233" data-flag="🇬🇭">🇬🇭 Ghana (+233)</option>
+            <option value="ZA" data-dial="+27" data-flag="🇿🇦">🇿🇦 South Africa (+27)</option>
+            <option value="TZ" data-dial="+255" data-flag="🇹🇿">🇹🇿 Tanzania (+255)</option>
+            <option value="UG" data-dial="+256" data-flag="🇺🇬">🇺🇬 Uganda (+256)</option>
+            <option value="SN" data-dial="+221" data-flag="🇸🇳">🇸🇳 Senegal (+221)</option>
+            <option value="EG" data-dial="+20" data-flag="🇪🇬">🇪🇬 Egypt (+20)</option>
+            <option value="US" data-dial="+1" data-flag="🇺🇸">🇺🇸 United States (+1)</option>
+            <option value="GB" data-dial="+44" data-flag="🇬🇧">🇬🇧 United Kingdom (+44)</option>
+            <option value="DE" data-dial="+49" data-flag="🇩🇪">🇩🇪 Germany (+49)</option>
+            <option value="FR" data-dial="+33" data-flag="🇫🇷">🇫🇷 France (+33)</option>
+            <option value="ES" data-dial="+34" data-flag="🇪🇸">🇪🇸 Spain (+34)</option>
+            <option value="BR" data-dial="+55" data-flag="🇧🇷">🇧🇷 Brazil (+55)</option>
+            <option value="IN" data-dial="+91" data-flag="🇮🇳">🇮🇳 India (+91)</option>
+            <option value="CN" data-dial="+86" data-flag="🇨🇳">🇨🇳 China (+86)</option>
+            <option value="AE" data-dial="+971" data-flag="🇦🇪">🇦🇪 UAE (+971)</option>
           </select>
         </div>
-
         <div class="form-group">
-          <label class="form-label">Phone Number</label>
+          <label class="form-label" for="phoneInput">Phone Number</label>
           <div class="phone-input-group">
-            <div class="country-select" id="dialCodeDisplay" style="display:flex;align-items:center;justify-content:center;color:var(--gray-500);background:var(--navy-50);">+--</div>
-            <input type="tel" class="form-input" id="phoneInput" placeholder="712 345 678" required style="flex:1;">
+            <div class="country-select" id="dialCodeDisplay" style="display:flex;align-items:center;justify-content:center;color:var(--gray-500);background:var(--navy-50);padding:14px 8px;appearance:none;background-image:none;">+--</div>
+            <input type="tel" class="form-input" id="phoneInput" placeholder="712 345 678" required autocomplete="tel" style="flex:1;">
           </div>
         </div>
-
         <div class="form-group">
-          <label class="form-label">Password</label>
-          <input type="password" class="form-input" placeholder="Create a strong password" required>
+          <label class="form-label" for="signupPassword">Password</label>
+          <input type="password" id="signupPassword" class="form-input" placeholder="Create a strong password" required autocomplete="new-password" minlength="6">
         </div>
         <div class="form-group">
           <label style="display:flex;align-items:flex-start;gap:8px;font-size:12px;font-weight:500;color:var(--gray-500);cursor:pointer;margin-top:8px;">
-            <input type="checkbox" required style="margin-top:2px;accent-color:var(--green-500);"> I agree to the <a href="#" style="color:var(--gold-500);text-decoration:underline;">Terms of Service</a> and <a href="#" style="color:var(--gold-500);text-decoration:underline;">Privacy Policy</a>.
+            <input type="checkbox" id="agreeTerms" required style="margin-top:2px;accent-color:var(--green-500);">
+            <span>I agree to the <a href="#" style="color:var(--gold-500);text-decoration:underline;">Terms of Service</a> and <a href="#" style="color:var(--gold-500);text-decoration:underline;">Privacy Policy</a>.</span>
           </label>
         </div>
         <button type="submit" class="auth-btn">Create Account</button>
       </form>
 
-      <div class="auth-divider">or continue with</div>
-
-      <div class="social-btns">
-        <button class="social-btn" onclick="showToast('Google Auth integration point')">🇬 Google</button>
-        <button class="social-btn" onclick="showToast('Apple Auth integration point')">🍎 Apple</button>
-      </div>
-
       <div class="auth-footer">
-        <span id="footerText">Don't have an account? <a href="#" id="footerLink">Sign Up</a></span>
+        <span id="footerText">Don't have an account? <a href="#" id="footerLink">Create Account</a></span>
       </div>
     </div>
   </div>
 
-  <!-- Simple Toast for Feedback -->
-  <div id="toast" style="position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--navy-900);color:white;padding:12px 20px;border-radius:999px;font-size:13px;font-weight:700;z-index:200;opacity:0;pointer-events:none;transition:all 0.3s;box-shadow:0 8px 24px rgba(0,0,0,0.2);">Message</div>
-
   <script>
-    const tabLogin = document.getElementById('tabLogin');
-    const tabSignup = document.getElementById('tabSignup');
-    const loginForm = document.getElementById('loginForm');
-    const signupForm = document.getElementById('signupForm');
-    const footerText = document.getElementById('footerText');
-    const countrySelect = document.getElementById('countrySelect');
-    const dialCodeDisplay = document.getElementById('dialCodeDisplay');
+    (function() {
+      'use strict';
 
-    function setMode(mode) {
-      if (mode === 'login') {
-        tabLogin.classList.add('active');
-        tabSignup.classList.remove('active');
-        loginForm.style.display = 'block';
-        signupForm.style.display = 'none';
-        footerText.innerHTML = `Don't have an account? <a href="#" id="footerLink" style="color:var(--gold-500);text-decoration:none;font-weight:700;">Sign Up</a>`;
-      } else {
-        tabSignup.classList.add('active');
-        tabLogin.classList.remove('active');
-        loginForm.style.display = 'none';
-        signupForm.style.display = 'block';
-        footerText.innerHTML = `Already have an account? <a href="#" id="footerLink" style="color:var(--gold-500);text-decoration:none;font-weight:700;">Log In</a>`;
+      const $ = (s) => document.querySelector(s);
+
+      // If already signed in, go straight to the dashboard.
+      if (localStorage.getItem('bp_user_session')) {
+        window.location.replace('index.html');
+        return;
       }
-      attachFooterLink();
-    }
 
-    function attachFooterLink() {
-      const link = document.getElementById('footerLink');
-      if (link) {
+      // ============================================================
+      // TABS
+      // ============================================================
+      const tabLogin = $('#tabLogin');
+      const tabSignup = $('#tabSignup');
+      const loginForm = $('#loginForm');
+      const signupForm = $('#signupForm');
+      const footerText = $('#footerText');
+
+      function setMode(mode) {
+        if (mode === 'login') {
+          tabLogin.classList.add('active');
+          tabSignup.classList.remove('active');
+          loginForm.style.display = 'block';
+          signupForm.style.display = 'none';
+          footerText.innerHTML = `Don't have an account? <a href="#" id="footerLink" style="color:var(--gold-500);text-decoration:none;font-weight:700;">Create Account</a>`;
+        } else {
+          tabSignup.classList.add('active');
+          tabLogin.classList.remove('active');
+          loginForm.style.display = 'none';
+          signupForm.style.display = 'block';
+          footerText.innerHTML = `Already have an account? <a href="#" id="footerLink" style="color:var(--gold-500);text-decoration:none;font-weight:700;">Log In</a>`;
+        }
+        attachFooterLink();
+        history.replaceState(null, '', '#' + mode);
+      }
+
+      function attachFooterLink() {
+        const link = $('#footerLink');
+        if (!link) return;
         link.addEventListener('click', (e) => {
           e.preventDefault();
-          if (link.textContent === 'Sign Up') setMode('signup');
-          else setMode('login');
+          setMode(link.textContent.trim() === 'Create Account' ? 'signup' : 'login');
         });
       }
-    }
 
-    tabLogin.addEventListener('click', () => setMode('login'));
-    tabSignup.addEventListener('click', () => setMode('signup'));
-    attachFooterLink();
+      tabLogin.addEventListener('click', () => setMode('login'));
+      tabSignup.addEventListener('click', () => setMode('signup'));
+      attachFooterLink();
 
-    // Update dial code display when country is selected
-    countrySelect.addEventListener('change', (e) => {
-      const selectedOption = e.target.options[e.target.selectedIndex];
-      const dialCode = e.target.value;
-      const flag = selectedOption.getAttribute('data-flag');
-      dialCodeDisplay.textContent = `${flag} ${dialCode}`;
-    });
+      if (window.location.hash === '#signup' || window.location.hash === '#create') setMode('signup');
+      else if (window.location.hash === '#signin' || window.location.hash === '#login') setMode('login');
+      window.addEventListener('hashchange', () => {
+        if (window.location.hash === '#signup' || window.location.hash === '#create') setMode('signup');
+        else if (window.location.hash === '#signin' || window.location.hash === '#login') setMode('login');
+      });
 
-    // Handle Form Submissions
-    loginForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      showToast('Logging in... Redirecting to dashboard.');
-      setTimeout(() => {
-        window.location.href = 'p2p.html'; // Redirect to P2P on success
-      }, 1500);
-    });
+      // ============================================================
+      // COUNTRY → dial code display
+      // ============================================================
+      const countrySelect = $('#countrySelect');
+      const dialCodeDisplay = $('#dialCodeDisplay');
+      countrySelect.addEventListener('change', () => {
+        const opt = countrySelect.options[countrySelect.selectedIndex];
+        const dial = opt.getAttribute('data-dial') || '+--';
+        const flag = opt.getAttribute('data-flag') || '';
+        dialCodeDisplay.textContent = `${flag} ${dial}`.trim();
+      });
 
-    signupForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const country = countrySelect.value;
-      const phone = document.getElementById('phoneInput').value;
-      
-      if (!country) {
-        showToast('Please select your country.');
-        return;
+      // ============================================================
+      // SESSION WRITE + REDIRECT
+      // ============================================================
+      function writeSession(payload) {
+        const session = Object.assign({
+          loginTime: new Date().toISOString(),
+          country: '',
+          name: '',
+          email: '',
+        }, payload);
+        localStorage.setItem('bp_user_session', JSON.stringify(session));
+        sessionStorage.removeItem('bp_redirect_after_auth');
       }
-      if (!phone) {
-        showToast('Please enter your phone number.');
-        return;
+
+      function goToDashboard() {
+        window.location.replace('index.html');
       }
 
-      showToast('Account created successfully! Redirecting...');
-      setTimeout(() => {
-        window.location.href = 'p2p.html'; // Redirect to P2P on signup
-      }, 1500);
-    });
+      function lookupAccount(email) {
+        try {
+          const accounts = JSON.parse(localStorage.getItem('bp_accounts') || '{}');
+          return accounts[email] || null;
+        } catch (e) { return null; }
+      }
 
-    // Toast Function
-    function showToast(msg) {
-      const t = document.getElementById('toast');
-      t.textContent = msg;
-      t.style.opacity = '1';
-      t.style.transform = 'translateX(-50%) translateY(0)';
-      setTimeout(() => {
-        t.style.opacity = '0';
-        t.style.transform = 'translateX(-50%) translateY(20px)';
-      }, 2800);
-    }
+      function rememberAccount(email, data) {
+        try {
+          const accounts = JSON.parse(localStorage.getItem('bp_accounts') || '{}');
+          accounts[email] = data;
+          localStorage.setItem('bp_accounts', JSON.stringify(accounts));
+        } catch (e) {}
+      }
+
+      // ============================================================
+      // LOGIN
+      // ============================================================
+      loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = $('#loginEmail').value.trim().toLowerCase();
+        const password = $('#loginPassword').value;
+        if (!email || !password) return;
+
+        const known = lookupAccount(email);
+        writeSession({
+          email,
+          name: known ? known.name : '',
+          country: known ? known.country : '',
+        });
+        goToDashboard();
+      });
+
+      // ============================================================
+      // CREATE ACCOUNT
+      // ============================================================
+      signupForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const firstName = $('#firstName').value.trim();
+        const lastName = $('#lastName').value.trim();
+        const email = $('#signupEmail').value.trim().toLowerCase();
+        const country = countrySelect.value;
+        const phone = $('#phoneInput').value.trim();
+        const password = $('#signupPassword').value;
+        const agreed = $('#agreeTerms').checked;
+
+        if (!firstName || !lastName || !email || !country || !phone || !password || !agreed) {
+          return;
+        }
+
+        const fullName = `${firstName} ${lastName}`.trim();
+        const dial = countrySelect.options[countrySelect.selectedIndex].getAttribute('data-dial') || '';
+        const account = {
+          name: fullName,
+          email,
+          country,
+          phone: dial + phone,
+        };
+        rememberAccount(email, account);
+        writeSession(account);
+        goToDashboard();
+      });
+
+      // Quietly remove invalid outlines once the user types
+      document.querySelectorAll('.form-input').forEach(input => {
+        input.addEventListener('input', () => input.classList.remove('invalid'));
+      });
+    })();
   </script>
 </body>
 </html>
