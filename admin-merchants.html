@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-  <title>Merchants — Admin — Bluepeak Capital</title>
+  <title>Merchants &mdash; Admin &mdash; Bluepeak Capital</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
@@ -11,15 +11,19 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
+      --navy-950: #050E1A;
       --navy-900: #0A1A2F;
       --navy-800: #10243E;
       --navy-700: #1A3352;
+      --navy-600: #23436B;
       --navy-100: #E8EDF4;
       --navy-50:  #F2F5FA;
       --gold-500: #C9A84C;
       --gold-400: #DDBE6B;
+      --gold-300: #EED793;
       --gold-100: #FBF5E6;
       --green-500: #0F9D6E;
+      --green-600: #0B8A5E;
       --green-100: #E6F7F1;
       --red-500: #D14343;
       --red-100: #FDECEC;
@@ -28,6 +32,7 @@
       --purple-500: #7C3AED;
       --purple-100: #EDE9FE;
       --white: #FFFFFF;
+      --gray-50: #F8FAFC;
       --gray-100: #F1F4F9;
       --gray-200: #E3E8EF;
       --gray-300: #CDD5E0;
@@ -36,524 +41,853 @@
       --gray-600: #475569;
       --shadow-xs: 0 1px 2px rgba(10, 26, 47, 0.04);
       --shadow-sm: 0 2px 8px rgba(10, 26, 47, 0.05);
-      --shadow-md: 0 8px 24px rgba(10, 26, 47, 0.07);
-      --shadow-lg: 0 16px 48px rgba(10, 26, 47, 0.10);
-      --radius-xs: 8px;
-      --radius-sm: 12px;
-      --radius-md: 16px;
-      --radius-lg: 20px;
-      --radius-pill: 999px;
-      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      --shadow-md: 0 4px 16px rgba(10, 26, 47, 0.08);
+      --shadow-lg: 0 8px 32px rgba(10, 26, 47, 0.12);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --radius-xl: 18px;
+      --radius-pill: 9999px;
+      --font: 'Inter', system-ui, -apple-system, sans-serif;
     }
 
-    html { height: 100%; }
     body {
-      font-family: var(--font); background-color: var(--navy-50);
-      color: var(--navy-900); line-height: 1.45;
-      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
-      min-height: 100vh; display: flex;
+      background: var(--navy-50);
+      color: var(--navy-900);
+      font-family: var(--font);
+      font-size: 13px;
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
     /* SIDEBAR */
     .sidebar {
-      width: 250px; background: var(--navy-900); color: var(--white);
-      display: flex; flex-direction: column; flex-shrink: 0;
-      position: sticky; top: 0; height: 100vh; overflow-y: auto;
-      z-index: 50; transition: transform 0.3s;
+      width: 260px;
+      background: var(--navy-900);
+      color: var(--white);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      z-index: 50;
+      transition: transform 0.25s ease;
+      border-right: 1px solid rgba(255, 255, 255, 0.06);
     }
-    .sidebar-header { padding: 20px 20px 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
-    .sidebar-logo { display: flex; align-items: baseline; gap: 2px; margin-bottom: 4px; }
-    .sidebar-logo .blue { color: var(--white); font-size: 19px; font-weight: 800; letter-spacing: -0.6px; }
-    .sidebar-logo .peak { color: var(--gold-500); font-size: 19px; font-weight: 800; letter-spacing: -0.6px; }
-    .sidebar-logo .admin-badge {
-      font-size: 8px; font-weight: 800; color: var(--gold-400);
-      background: rgba(201, 168, 76, 0.15); border: 1px solid rgba(201, 168, 76, 0.3);
-      padding: 2px 6px; border-radius: 3px; letter-spacing: 1px;
-      margin-left: 6px; text-transform: uppercase;
-    }
-    .sidebar-email { font-size: 11px; font-weight: 500; color: var(--gray-400); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .sidebar-nav { flex: 1; padding: 14px 12px; display: flex; flex-direction: column; gap: 2px; }
-    .nav-section-label { font-size: 9px; font-weight: 800; color: var(--gray-500); text-transform: uppercase; letter-spacing: 1.2px; padding: 14px 12px 6px; }
-    .nav-item {
-      display: flex; align-items: center; gap: 12px; padding: 10px 12px;
-      border-radius: var(--radius-xs); background: none; border: none;
-      cursor: pointer; color: var(--gray-300); font-family: var(--font);
-      font-size: 13px; font-weight: 600; text-align: left; text-decoration: none;
-      transition: all 0.15s; width: 100%;
-    }
-    .nav-item:hover { background: rgba(255, 255, 255, 0.06); color: var(--white); }
-    .nav-item.active { background: rgba(201, 168, 76, 0.15); color: var(--gold-400); font-weight: 700; border-left: 2px solid var(--gold-500); padding-left: 10px; }
-    .nav-item .nav-ico { width: 18px; text-align: center; font-size: 15px; flex-shrink: 0; }
-    .nav-item .nav-badge { margin-left: auto; background: var(--red-500); color: var(--white); font-size: 9px; font-weight: 800; padding: 2px 6px; border-radius: var(--radius-pill); min-width: 18px; text-align: center; }
-    .sidebar-footer { padding: 16px 20px; border-top: 1px solid rgba(255, 255, 255, 0.08); }
-    .logout-btn {
-      display: flex; align-items: center; gap: 10px; width: 100%;
-      padding: 10px 12px; background: rgba(209, 67, 67, 0.12);
-      border: 1px solid rgba(209, 67, 67, 0.25); border-radius: var(--radius-xs);
-      color: #FCA5A5; font-family: var(--font); font-size: 12.5px; font-weight: 700;
-      cursor: pointer; transition: all 0.15s;
-    }
-    .logout-btn:hover { background: rgba(209, 67, 67, 0.2); }
 
-    /* MAIN */
-    .main-wrap { flex: 1; display: flex; flex-direction: column; min-width: 0; }
-    .topbar {
-      background: var(--white); border-bottom: 1px solid var(--gray-200);
-      padding: 14px 28px; display: flex; align-items: center;
-      justify-content: space-between; gap: 16px;
-      position: sticky; top: 0; z-index: 40;
+    .brand {
+      padding: 22px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
     }
-    .topbar-left { display: flex; align-items: center; gap: 16px; flex-shrink: 1; min-width: 0; }
-    .menu-toggle { display: none; background: none; border: none; padding: 6px; cursor: pointer; color: var(--navy-900); border-radius: var(--radius-xs); }
-    .menu-toggle:hover { background: var(--navy-50); }
-    .menu-toggle svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; }
-    .page-title-block h1 { font-size: 20px; font-weight: 800; color: var(--navy-900); letter-spacing: -0.5px; margin-bottom: 2px; }
-    .page-title-block p { font-size: 12px; font-weight: 500; color: var(--gray-500); }
-    .topbar-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .brand-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, var(--gold-400), var(--gold-500));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: var(--navy-950);
+      font-size: 17px;
+      box-shadow: 0 2px 8px rgba(201, 168, 76, 0.3);
+    }
+    .brand-info { display: flex; flex-direction: column; }
+    .brand-name { font-size: 14.5px; font-weight: 800; letter-spacing: -0.2px; color: var(--white); }
+    .brand-badge {
+      font-size: 9.5px;
+      font-weight: 700;
+      color: var(--gold-400);
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      margin-top: 1px;
+    }
+
+    .nav-list { flex: 1; padding: 16px 10px; overflow-y: auto; display: flex; flex-direction: column; gap: 3px; }
+    .nav-section-label {
+      font-size: 10px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.4);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: 12px 12px 6px;
+    }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 9.5px 12px;
+      border-radius: var(--radius-sm);
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 12.5px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.15s ease;
+      position: relative;
+    }
+    .nav-item:hover {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--white);
+    }
+    .nav-item.active {
+      background: rgba(201, 168, 76, 0.15);
+      color: var(--gold-300);
+      font-weight: 700;
+    }
+    .nav-item.active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 6px;
+      bottom: 6px;
+      width: 3px;
+      background: var(--gold-500);
+      border-radius: 0 3px 3px 0;
+    }
+    .nav-ico { width: 16px; text-align: center; font-size: 13px; }
+    .nav-badge {
+      margin-left: auto;
+      background: var(--red-500);
+      color: var(--white);
+      font-size: 10px;
+      font-weight: 800;
+      padding: 1px 7px;
+      border-radius: var(--radius-pill);
+      min-width: 18px;
+      text-align: center;
+    }
+
+    .sidebar-footer {
+      padding: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+    }
+    .logout-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 8px 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-sm);
+      color: rgba(255, 255, 255, 0.75);
+      font-family: var(--font);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .logout-btn:hover {
+      background: rgba(209, 67, 67, 0.2);
+      border-color: var(--red-500);
+      color: var(--white);
+    }
+
+    /* MAIN CONTENT */
+    .main-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    /* TOPBAR */
+    .topbar {
+      height: 64px;
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px;
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      flex-shrink: 0;
+    }
+    .topbar-left { display: flex; align-items: center; gap: 14px; }
+    .menu-toggle {
+      display: none;
+      width: 36px;
+      height: 36px;
+      background: var(--navy-50);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .menu-toggle svg { width: 18px; height: 18px; stroke: var(--navy-900); fill: none; stroke-width: 2; }
+    .page-title-block h1 { font-size: 18px; font-weight: 800; color: var(--navy-900); letter-spacing: -0.3px; }
+    .page-title-block p { font-size: 11px; font-weight: 500; color: var(--gray-500); margin-top: 1px; }
+
+    .topbar-right { display: flex; align-items: center; gap: 10px; }
+    .action-header-btn {
+      padding: 7px 14px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--gray-200);
+      background: var(--white);
+      font-family: var(--font);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--navy-900);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+    .action-header-btn:hover { background: var(--navy-50); border-color: var(--gray-300); }
+    .action-header-btn.primary {
+      background: var(--navy-900);
+      color: var(--white);
+      border-color: var(--navy-900);
+    }
+    .action-header-btn.primary:hover {
+      background: var(--navy-800);
+      box-shadow: 0 2px 8px rgba(10, 26, 47, 0.2);
+    }
+
     .admin-chip {
-      display: flex; align-items: center; gap: 10px; padding: 4px 14px 4px 4px;
-      background: var(--navy-50); border: 1px solid var(--gray-200);
-      border-radius: var(--radius-pill); cursor: pointer; transition: all 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 5px 10px 5px 6px;
+      background: var(--navy-50);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      transition: all 0.15s;
     }
     .admin-chip:hover { background: var(--gold-100); border-color: var(--gold-500); }
     .admin-avatar {
-      width: 30px; height: 30px; border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
       background: linear-gradient(135deg, var(--navy-900), var(--navy-700));
-      color: var(--gold-400); display: flex; align-items: center; justify-content: center;
-      font-size: 13px; font-weight: 800;
+      color: var(--gold-400);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 800;
     }
     .admin-name { font-size: 12px; font-weight: 700; color: var(--navy-900); }
     .admin-role { font-size: 9.5px; font-weight: 600; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.4px; }
 
     /* CONTENT */
-    .content { flex: 1; padding: 24px 28px 40px; display: flex; flex-direction: column; gap: 16px; max-width: 1500px; width: 100%; margin: 0 auto; }
+    .content {
+      flex: 1;
+      padding: 20px 28px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 1540px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* STATS */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .stat-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-md);
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      box-shadow: var(--shadow-xs);
+    }
+    .stat-label {
+      font-size: 10.5px;
+      font-weight: 800;
+      color: var(--gray-500);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .stat-value {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--navy-900);
+      letter-spacing: -0.6px;
+      font-variant-numeric: tabular-nums;
+    }
+    .stat-value.gold { color: var(--gold-500); }
+    .stat-value.green { color: var(--green-500); }
+    .stat-value.blue { color: var(--blue-500); }
+    .stat-value.purple { color: var(--purple-500); }
+    .stat-sub { font-size: 10.5px; color: var(--gray-500); font-weight: 500; }
 
     /* TOOLBAR */
     .toolbar {
-      background: var(--white); border: 1px solid var(--gray-200);
-      border-radius: var(--radius-lg); padding: 16px 18px;
-      display: flex; flex-direction: column; gap: 12px;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      padding: 14px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
       box-shadow: var(--shadow-xs);
     }
-    .toolbar-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
-    .search-wrap { position: relative; flex: 1; min-width: 220px; }
-    .search-wrap svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; stroke: var(--gray-500); fill: none; stroke-width: 2; pointer-events: none; }
+    .toolbar-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .toolbar-left-group {
+      display: flex;
+      gap: 10px;
+      flex: 1;
+      flex-wrap: wrap;
+      min-width: 280px;
+    }
+
+    .search-wrap {
+      position: relative;
+      flex: 1;
+      min-width: 220px;
+    }
+    .search-wrap svg {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 15px;
+      height: 15px;
+      stroke: var(--gray-500);
+      fill: none;
+      stroke-width: 2;
+      pointer-events: none;
+    }
     .search-input {
-      width: 100%; padding: 10px 14px 10px 40px;
-      border: 1.5px solid var(--gray-200); border-radius: var(--radius-pill);
-      font-family: var(--font); font-size: 13px; font-weight: 500;
-      color: var(--navy-900); outline: none; transition: border 0.2s;
+      width: 100%;
+      padding: 9px 14px 9px 38px;
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-pill);
+      font-family: var(--font);
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--navy-900);
+      outline: none;
+      transition: border 0.2s;
       background: var(--navy-50);
     }
     .search-input:focus { border-color: var(--gold-500); background: var(--white); }
     .search-input::placeholder { color: var(--gray-400); }
 
     .filter-select {
-      padding: 10px 14px; border-radius: var(--radius-pill);
-      border: 1.5px solid var(--gray-200); background: var(--white);
-      font-family: var(--font); font-size: 12.5px; font-weight: 700;
-      color: var(--navy-900); cursor: pointer; outline: none;
+      padding: 8px 14px;
+      border-radius: var(--radius-pill);
+      border: 1.5px solid var(--gray-200);
+      background: var(--white);
+      font-family: var(--font);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--navy-900);
+      cursor: pointer;
+      outline: none;
       transition: border 0.2s;
     }
     .filter-select:focus { border-color: var(--gold-500); }
 
-    .filter-pill-group { display: flex; gap: 6px; flex-wrap: wrap; }
+    .filter-pill-group {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
     .filter-pill {
-      padding: 8px 14px; border-radius: var(--radius-pill);
-      background: var(--white); border: 1px solid var(--gray-200);
-      font-family: var(--font); font-size: 12px; font-weight: 700;
-      color: var(--gray-500); cursor: pointer; transition: all 0.15s;
+      padding: 6px 13px;
+      border-radius: var(--radius-pill);
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      font-family: var(--font);
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--gray-500);
+      cursor: pointer;
+      transition: all 0.15s;
       white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
     .filter-pill:hover { border-color: var(--gold-500); color: var(--navy-900); }
-    .filter-pill.active { background: var(--navy-900); border-color: var(--navy-900); color: var(--white); }
-
-    .btn-add-merchant {
-      padding: 10px 18px; border-radius: var(--radius-pill);
-      background: linear-gradient(135deg, var(--gold-500), var(--gold-400));
-      color: var(--navy-900); border: none;
-      font-family: var(--font); font-weight: 800; font-size: 12.5px;
-      cursor: pointer; display: flex; align-items: center; gap: 6px;
-      margin-left: auto;
-      box-shadow: 0 4px 12px rgba(201, 168, 76, 0.3);
+    .filter-pill.active {
+      background: var(--navy-900);
+      border-color: var(--navy-900);
+      color: var(--white);
     }
-    .btn-add-merchant:hover { transform: translateY(-1px); }
+    .filter-pill .count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.15);
+      color: inherit;
+      font-size: 9.5px;
+      font-weight: 800;
+      padding: 1px 6px;
+      border-radius: var(--radius-pill);
+      min-width: 16px;
+    }
+    .filter-pill.active .count { background: var(--gold-500); color: var(--navy-900); }
 
-    /* MERCHANT GRID */
-    .merchant-grid {
+    /* VIEW SWITCHER */
+    .view-switcher {
+      display: inline-flex;
+      background: var(--navy-50);
+      padding: 2px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--gray-200);
+    }
+    .view-btn {
+      padding: 5px 11px;
+      border-radius: var(--radius-pill);
+      background: transparent;
+      border: none;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--gray-500);
+      cursor: pointer;
+      transition: all 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .view-btn.active {
+      background: var(--white);
+      color: var(--navy-900);
+      box-shadow: 0 1px 3px rgba(10, 26, 47, 0.08);
+    }
+
+    /* MERCHANTS GRID */
+    .merchants-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
       gap: 14px;
     }
+
     .merchant-card {
-      background: var(--white); border: 1px solid var(--gray-200);
-      border-radius: var(--radius-lg); overflow: hidden;
-      box-shadow: var(--shadow-xs); transition: all 0.2s;
-      cursor: pointer;
-    }
-    .merchant-card:hover { border-color: var(--gold-500); box-shadow: var(--shadow-md); transform: translateY(-2px); }
-
-    .merchant-card-top {
-      padding: 16px 18px;
-      display: flex; align-items: flex-start; gap: 12px;
-    }
-    .merchant-avatar {
-      width: 48px; height: 48px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--navy-800), var(--navy-900));
-      color: var(--gold-400); display: flex; align-items: center; justify-content: center;
-      font-size: 18px; font-weight: 800; flex-shrink: 0;
-      border: 2px solid var(--gold-500); position: relative;
-    }
-    .merchant-avatar .status-dot {
-      position: absolute; bottom: -1px; right: -1px;
-      width: 14px; height: 14px; border-radius: 50%;
-      border: 2px solid var(--white);
-    }
-    .merchant-avatar .status-dot.online { background: var(--green-500); }
-    .merchant-avatar .status-dot.offline { background: var(--gray-400); }
-    .merchant-avatar .status-dot.suspended { background: var(--red-500); }
-
-    .merchant-card-info { flex: 1; min-width: 0; }
-    .merchant-card-name {
-      font-size: 14.5px; font-weight: 800; color: var(--navy-900);
-      display: flex; align-items: center; gap: 6px;
-      margin-bottom: 2px; flex-wrap: wrap;
-    }
-    .verified-tick {
-      width: 15px; height: 15px; border-radius: 50%;
-      background: var(--gold-500); color: var(--white);
-      display: inline-flex; align-items: center; justify-content: center;
-      font-size: 9px; font-weight: 800; flex-shrink: 0;
-    }
-    .merchant-card-sub {
-      font-size: 11.5px; font-weight: 500; color: var(--gray-500);
-    }
-
-    .merchant-card-menu {
-      background: none; border: none; cursor: pointer;
-      padding: 4px; color: var(--gray-400); border-radius: 50%;
-      width: 26px; height: 26px;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .merchant-card-menu:hover { background: var(--navy-50); color: var(--navy-900); }
-
-    .merchant-card-stats {
-      padding: 0 18px 14px;
-      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px;
-    }
-    .merchant-stat-cell {
-      background: var(--navy-50); border-radius: var(--radius-xs);
-      padding: 8px 6px; text-align: center;
-    }
-    .merchant-stat-cell .val {
-      font-size: 13px; font-weight: 800; color: var(--navy-900);
-      font-variant-numeric: tabular-nums;
-    }
-    .merchant-stat-cell .val.green { color: var(--green-500); }
-    .merchant-stat-cell .val.red { color: var(--red-500); }
-    .merchant-stat-cell .lbl {
-      font-size: 9px; font-weight: 700; color: var(--gray-500);
-      text-transform: uppercase; letter-spacing: 0.3px; margin-top: 1px;
-    }
-
-    .merchant-card-footer {
-      padding: 12px 18px;
-      border-top: 1px solid var(--gray-100);
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 8px;
-    }
-    .merchant-methods {
-      display: flex; gap: 4px; flex-wrap: wrap; flex: 1;
-    }
-    .method-chip {
-      font-size: 9.5px; font-weight: 700; color: var(--navy-700);
-      background: var(--navy-50); border: 1px solid var(--gray-200);
-      padding: 3px 8px; border-radius: var(--radius-pill);
-      white-space: nowrap;
-    }
-    .merchant-card-actions {
-      display: flex; gap: 4px; flex-shrink: 0;
-    }
-    .mini-action-btn {
-      width: 28px; height: 28px; border-radius: 50%;
-      background: var(--white); border: 1px solid var(--gray-200);
-      cursor: pointer; display: flex; align-items: center; justify-content: center;
-      color: var(--navy-700); transition: all 0.15s;
-    }
-    .mini-action-btn:hover { background: var(--gold-100); border-color: var(--gold-500); }
-    .mini-action-btn.danger:hover { background: var(--red-100); border-color: var(--red-500); color: var(--red-500); }
-    .mini-action-btn svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
-
-    .empty-state {
-      text-align: center; padding: 60px 20px;
-      background: var(--white); border: 1px dashed var(--gray-300);
-      border-radius: var(--radius-lg); grid-column: 1 / -1;
-    }
-    .empty-state .icon { font-size: 44px; margin-bottom: 10px; }
-    .empty-state h3 { font-size: 15px; font-weight: 800; color: var(--navy-900); margin-bottom: 4px; }
-    .empty-state p { font-size: 12.5px; font-weight: 500; color: var(--gray-500); line-height: 1.5; max-width: 320px; margin: 0 auto 16px; }
-    .empty-state button {
-      padding: 10px 20px; border-radius: var(--radius-pill);
-      background: var(--navy-900); color: var(--white); border: none;
-      font-family: var(--font); font-weight: 800; font-size: 12.5px;
-      cursor: pointer;
-    }
-
-    /* MODAL */
-    .modal-overlay {
-      position: fixed; inset: 0; background: rgba(10, 26, 47, 0.6);
-      backdrop-filter: blur(4px); z-index: 90;
-      opacity: 0; pointer-events: none; transition: opacity 0.25s;
-    }
-    .modal-overlay.open { opacity: 1; pointer-events: auto; }
-    .modal {
-      position: fixed; top: 50%; left: 50%;
-      transform: translate(-50%, -50%) scale(0.94);
-      background: var(--white); border-radius: var(--radius-lg);
-      width: 560px; max-width: calc(100vw - 32px);
-      max-height: 90vh; overflow: hidden;
-      z-index: 95; display: flex; flex-direction: column;
-      box-shadow: var(--shadow-lg);
-      opacity: 0; pointer-events: none;
-      transition: all 0.25s;
-    }
-    .modal.open { opacity: 1; pointer-events: auto; transform: translate(-50%, -50%) scale(1); }
-
-    .modal-header {
-      padding: 20px 24px 16px;
-      border-bottom: 1px solid var(--gray-200);
-      display: flex; align-items: flex-start; justify-content: space-between;
-      gap: 12px; flex-shrink: 0;
-    }
-    .modal-header-text h3 {
-      font-size: 17px; font-weight: 800; color: var(--navy-900);
-      letter-spacing: -0.3px; margin-bottom: 3px;
-    }
-    .modal-header-text p {
-      font-size: 12px; font-weight: 500; color: var(--gray-500);
-      line-height: 1.4;
-    }
-    .modal-close {
-      background: var(--navy-50); border: none;
-      width: 32px; height: 32px; border-radius: 50%;
-      cursor: pointer; color: var(--navy-900);
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; transition: background 0.15s;
-    }
-    .modal-close:hover { background: var(--gray-200); }
-
-    .modal-body {
-      flex: 1; overflow-y: auto;
-      padding: 20px 24px;
-      display: flex; flex-direction: column; gap: 16px;
-    }
-
-    .avatar-preview-row {
-      display: flex; align-items: center; gap: 14px;
-      padding: 14px;
-      background: var(--navy-50);
-      border-radius: var(--radius-md);
+      background: var(--white);
       border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: var(--shadow-xs);
+      transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+      position: relative;
     }
-    .avatar-preview {
-      width: 54px; height: 54px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--navy-900), var(--navy-700));
-      color: var(--gold-400);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 22px; font-weight: 800;
-      border: 2px solid var(--gold-500);
+    .merchant-card:hover {
+      border-color: var(--gray-300);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-1px);
+    }
+
+    .card-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .merchant-avatar-wrap {
+      position: relative;
       flex-shrink: 0;
     }
-    .avatar-preview-info { flex: 1; min-width: 0; }
-    .avatar-preview-name {
-      font-size: 14px; font-weight: 800; color: var(--navy-900);
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    .merchant-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--navy-800), var(--navy-950));
+      color: var(--gold-400);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 800;
+      border: 1.5px solid var(--gold-500);
     }
-    .avatar-preview-sub {
-      font-size: 11px; font-weight: 500; color: var(--gray-500);
+    .online-indicator {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--gray-400);
+      border: 2px solid var(--white);
+    }
+    .online-indicator.online {
+      background: var(--green-500);
+      box-shadow: 0 0 0 2px rgba(15, 157, 110, 0.2);
+    }
+
+    .card-title-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .merchant-name-line {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .merchant-name {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--navy-900);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .badge-verified {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--green-100);
+      color: var(--green-600);
+      font-size: 10px;
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+    .merchant-meta {
+      font-size: 11px;
+      color: var(--gray-500);
+      font-weight: 500;
+      display: flex;
+      gap: 8px;
       margin-top: 2px;
     }
 
-    .form-group { display: flex; flex-direction: column; gap: 6px; }
-    .form-label {
-      font-size: 11px; font-weight: 700; color: var(--gray-600);
-      text-transform: uppercase; letter-spacing: 0.5px;
+    .card-badge-status {
+      font-size: 9.5px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: var(--radius-pill);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
     }
-    .form-label .required { color: var(--red-500); font-weight: 800; }
-    .form-label .hint { color: var(--gray-400); font-weight: 500; text-transform: none; letter-spacing: 0; font-size: 10.5px; margin-left: 4px; }
+    .card-badge-status.active { background: var(--green-100); color: var(--green-500); }
+    .card-badge-status.suspended { background: var(--red-100); color: var(--red-500); }
+    .card-badge-status.pending { background: var(--gold-100); color: var(--gold-500); }
 
-    .form-input {
-      width: 100%; padding: 12px 14px;
-      border: 1.5px solid var(--gray-200); border-radius: var(--radius-sm);
-      font-family: var(--font); font-size: 14px; font-weight: 600;
-      color: var(--navy-900); outline: none;
-      transition: border 0.2s, box-shadow 0.2s;
-      background: var(--white);
+    .card-metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      background: var(--navy-50);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-md);
+      padding: 8px 10px;
     }
-    .form-input:focus { border-color: var(--gold-500); box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.12); }
-    .form-input::placeholder { color: var(--gray-400); font-weight: 500; }
+    .c-metric { display: flex; flex-direction: column; text-align: center; }
+    .c-metric .num { font-size: 12px; font-weight: 800; color: var(--navy-900); font-variant-numeric: tabular-nums; }
+    .c-metric .lbl { font-size: 9.5px; font-weight: 600; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.3px; }
 
-    .form-hint {
-      font-size: 10.5px; font-weight: 500; color: var(--gray-500);
-      line-height: 1.4; margin-top: 2px;
+    .card-methods-row {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+      align-items: center;
+      min-height: 22px;
     }
-
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-
-    .error-text {
-      font-size: 11px; font-weight: 600; color: var(--red-500);
-      margin-top: 2px; display: none;
+    .method-chip {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: var(--radius-pill);
+      background: var(--gray-100);
+      color: var(--navy-700);
+      border: 1px solid var(--gray-200);
+      white-space: nowrap;
     }
-    .error-text.visible { display: block; }
-
-    .reason-box {
+    .method-chip.curr {
       background: var(--gold-100);
-      border: 1px solid rgba(201, 168, 76, 0.3);
-      border-radius: var(--radius-sm);
-      padding: 12px 14px;
-      display: flex; gap: 10px; align-items: flex-start;
+      color: var(--gold-500);
+      border-color: rgba(201, 168, 76, 0.3);
+      font-weight: 800;
     }
-    .reason-box .reason-icon { font-size: 15px; flex-shrink: 0; }
-    .reason-box .reason-text {
-      font-size: 11.5px; font-weight: 500; color: var(--navy-800);
-      line-height: 1.5;
-    }
-    .reason-box .reason-text strong { font-weight: 800; color: var(--navy-900); }
 
-    .telegram-box {
-      background: linear-gradient(135deg, var(--blue-100), #EFF6FF);
-      border: 1px solid rgba(37, 99, 235, 0.25);
-      border-radius: var(--radius-sm);
-      padding: 12px 14px;
-      display: flex; gap: 10px; align-items: flex-start;
+    .card-footer {
+      border-top: 1px solid var(--gray-100);
+      padding-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
     }
-    .telegram-box .reason-icon { font-size: 15px; flex-shrink: 0; }
-    .telegram-box .reason-text {
-      font-size: 11.5px; font-weight: 500; color: var(--blue-500);
-      line-height: 1.5;
+    .thread-indicator {
+      font-size: 10.5px;
+      font-weight: 600;
+      color: var(--gray-500);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
     }
-    .telegram-box .reason-text strong { font-weight: 800; }
+    .thread-indicator span { font-weight: 700; color: var(--navy-800); }
 
-    .modal-footer {
-      padding: 16px 24px;
-      border-top: 1px solid var(--gray-200);
-      display: flex; gap: 10px; justify-content: flex-end;
-      flex-shrink: 0;
-    }
-    .btn-cancel {
-      padding: 11px 20px; border-radius: var(--radius-pill);
-      background: var(--white); border: 1.5px solid var(--gray-200);
-      font-family: var(--font); font-weight: 700; font-size: 13px;
-      color: var(--navy-900); cursor: pointer;
+    .card-actions { display: flex; gap: 4px; }
+    .btn-card-action {
+      padding: 6px 11px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--gray-200);
+      background: var(--white);
+      font-family: var(--font);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--navy-900);
+      cursor: pointer;
       transition: all 0.15s;
     }
-    .btn-cancel:hover { background: var(--navy-50); border-color: var(--gray-300); }
-    .btn-create {
-      padding: 11px 24px; border-radius: var(--radius-pill);
-      background: linear-gradient(135deg, var(--green-500), #0B8A5E);
-      border: none; font-family: var(--font); font-weight: 800;
-      font-size: 13px; color: var(--white); cursor: pointer;
-      display: flex; align-items: center; gap: 6px;
-      box-shadow: 0 4px 14px rgba(15, 157, 110, 0.3);
-      transition: all 0.15s;
+    .btn-card-action:hover {
+      border-color: var(--gold-500);
+      background: var(--gold-100);
     }
-    .btn-create:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(15, 157, 110, 0.4); }
-    .btn-create:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
-    .btn-create .spinner {
-      width: 14px; height: 14px;
-      border: 2px solid rgba(255, 255, 255, 0.3);
-      border-top-color: var(--white);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
+    .btn-card-action.primary {
+      background: var(--navy-900);
+      color: var(--white);
+      border-color: var(--navy-900);
+    }
+    .btn-card-action.primary:hover {
+      background: var(--navy-800);
+    }
+
+    /* TABLE VIEW */
+    .table-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-xs);
       display: none;
     }
-    .btn-create.loading .spinner { display: block; }
-    @keyframes spin { to { transform: rotate(360deg); } }
+    .table-header {
+      display: grid;
+      grid-template-columns: 2.2fr 110px 100px 100px 1.4fr 110px 90px;
+      gap: 12px;
+      padding: 12px 20px;
+      background: var(--navy-50);
+      border-bottom: 1px solid var(--gray-200);
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--gray-500);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      align-items: center;
+    }
+    .table-row {
+      display: grid;
+      grid-template-columns: 2.2fr 110px 100px 100px 1.4fr 110px 90px;
+      gap: 12px;
+      padding: 14px 20px;
+      align-items: center;
+      border-bottom: 1px solid var(--gray-100);
+      transition: background 0.15s;
+      cursor: pointer;
+    }
+    .table-row:last-child { border-bottom: none; }
+    .table-row:hover { background: var(--navy-50); }
+
+    .t-user-cell { display: flex; align-items: center; gap: 10px; min-width: 0; }
+    .t-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--navy-800), var(--navy-900));
+      color: var(--gold-400);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 800;
+      flex-shrink: 0;
+      border: 1px solid var(--gray-300);
+      position: relative;
+    }
+    .t-name-wrap { min-width: 0; }
+    .t-name { font-size: 12.5px; font-weight: 800; color: var(--navy-900); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: flex; align-items: center; gap: 5px; }
+    .t-sub { font-size: 10.5px; color: var(--gray-500); font-weight: 500; }
 
     /* DRAWER */
     .drawer-overlay {
-      position: fixed; inset: 0; background: rgba(10, 26, 47, 0.5);
-      backdrop-filter: blur(4px); z-index: 80;
-      opacity: 0; pointer-events: none; transition: opacity 0.25s;
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 26, 47, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 80;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s;
     }
     .drawer-overlay.open { opacity: 1; pointer-events: auto; }
     .drawer {
-      position: fixed; top: 0; right: 0; height: 100%; width: 480px;
-      background: var(--white); z-index: 85;
-      transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
-      display: flex; flex-direction: column;
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: 520px;
+      max-width: 100%;
+      background: var(--white);
+      z-index: 85;
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
+      display: flex;
+      flex-direction: column;
       box-shadow: -8px 0 32px rgba(10, 26, 47, 0.15);
     }
     .drawer.open { transform: translateX(0); }
 
     .drawer-header {
-      padding: 20px 24px; border-bottom: 1px solid var(--gray-200);
-      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--gray-200);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       flex-shrink: 0;
     }
-    .drawer-user { display: flex; align-items: center; gap: 12px; }
+    .drawer-merchant {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
     .drawer-avatar {
-      width: 48px; height: 48px; border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
       background: linear-gradient(135deg, var(--navy-900), var(--navy-700));
-      color: var(--gold-400); display: flex; align-items: center; justify-content: center;
-      font-size: 18px; font-weight: 800;
-      border: 2px solid var(--gold-500);
+      color: var(--gold-400);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 800;
+      border: 1.5px solid var(--gold-500);
     }
     .drawer-name { font-size: 15px; font-weight: 800; color: var(--navy-900); }
-    .drawer-uid { font-size: 11px; font-weight: 500; color: var(--gray-500); margin-top: 1px; }
+    .drawer-id { font-size: 11px; font-weight: 600; color: var(--gray-500); margin-top: 1px; }
     .drawer-close {
-      background: var(--navy-50); border: none; width: 34px; height: 34px;
-      border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;
-      color: var(--navy-900);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--navy-50);
+      border: 1px solid var(--gray-200);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--gray-500);
+      transition: all 0.15s;
     }
-    .drawer-close:hover { background: var(--gray-200); }
+    .drawer-close:hover { background: var(--gray-200); color: var(--navy-900); }
 
     .drawer-tabs {
-      display: flex; gap: 4px; padding: 0 24px;
-      border-bottom: 1px solid var(--gray-200); flex-shrink: 0;
+      display: flex;
+      gap: 4px;
+      padding: 0 24px;
+      border-bottom: 1px solid var(--gray-200);
+      flex-shrink: 0;
+      background: var(--navy-50);
     }
     .drawer-tab {
-      padding: 12px 14px; background: none; border: none;
-      font-family: var(--font); font-size: 12.5px; font-weight: 700;
-      color: var(--gray-500); cursor: pointer; position: relative;
-      transition: color 0.2s;
+      padding: 12px 14px;
+      background: none;
+      border: none;
+      font-family: var(--font);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--gray-500);
+      cursor: pointer;
+      position: relative;
     }
     .drawer-tab:hover { color: var(--navy-900); }
     .drawer-tab.active { color: var(--navy-900); font-weight: 800; }
     .drawer-tab.active::after {
-      content: ''; position: absolute; bottom: -1px; left: 14px; right: 14px;
-      height: 2px; background: var(--gold-500); border-radius: 2px 2px 0 0;
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 14px;
+      right: 14px;
+      height: 2px;
+      background: var(--gold-500);
+      border-radius: 2px 2px 0 0;
     }
+
     .drawer-body {
-      flex: 1; overflow-y: auto; padding: 20px 24px;
-      display: flex; flex-direction: column; gap: 16px;
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
     }
     .detail-panel { display: none; }
     .detail-panel.active { display: flex; flex-direction: column; gap: 14px; }
+
     .detail-section {
       border: 1px solid var(--gray-200);
-      border-radius: var(--radius-md); padding: 14px 16px;
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
       background: var(--white);
     }
     .detail-section h4 {
-      font-size: 11px; font-weight: 800; color: var(--gray-500);
-      text-transform: uppercase; letter-spacing: 0.6px;
+      font-size: 10.5px;
+      font-weight: 800;
+      color: var(--gray-500);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
       margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
     .detail-row {
-      display: flex; justify-content: space-between;
-      padding: 6px 0; font-size: 12.5px; gap: 12px;
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      font-size: 12px;
+      gap: 12px;
+      border-bottom: 1px solid var(--gray-100);
     }
-    .detail-row .lbl { font-weight: 600; color: var(--gray-500); flex-shrink: 0; }
+    .detail-row:last-child { border-bottom: none; }
+    .detail-row .lbl { font-weight: 600; color: var(--gray-500); }
     .detail-row .val { font-weight: 800; color: var(--navy-900); text-align: right; word-break: break-all; font-variant-numeric: tabular-nums; }
 
     .action-btn-row { display: flex; gap: 6px; flex-wrap: wrap; }
     .btn-action-sm {
-      padding: 8px 14px; border-radius: var(--radius-pill);
-      background: var(--white); border: 1.5px solid var(--gray-200);
-      font-family: var(--font); font-size: 11.5px; font-weight: 700;
-      color: var(--navy-900); cursor: pointer; transition: all 0.15s;
-      display: inline-flex; align-items: center; gap: 5px;
+      padding: 8px 14px;
+      border-radius: var(--radius-pill);
+      background: var(--white);
+      border: 1.5px solid var(--gray-200);
+      font-family: var(--font);
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--navy-900);
+      cursor: pointer;
+      transition: all 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
     }
     .btn-action-sm:hover { border-color: var(--gold-500); background: var(--gold-100); }
     .btn-action-sm.danger { color: var(--red-500); border-color: rgba(209, 67, 67, 0.3); }
@@ -561,20 +895,153 @@
     .btn-action-sm.primary { background: var(--navy-900); color: var(--white); border-color: var(--navy-900); }
     .btn-action-sm.primary:hover { background: var(--navy-800); }
 
+    /* MODAL */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 26, 47, 0.65);
+      backdrop-filter: blur(5px);
+      z-index: 100;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: auto; }
+
+    .modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.96);
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      width: 580px;
+      max-width: 95vw;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 16px 48px rgba(10, 26, 47, 0.25);
+      z-index: 105;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.25s cubic-bezier(0.2, 0.9, 0.3, 1);
+    }
+    .modal-overlay.open .modal {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .modal-header {
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--gray-200);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .modal-title { font-size: 16px; font-weight: 800; color: var(--navy-900); }
+    .modal-subtitle { font-size: 11px; font-weight: 500; color: var(--gray-500); margin-top: 1px; }
+    .modal-body {
+      padding: 20px 24px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .modal-footer {
+      padding: 16px 24px;
+      border-top: 1px solid var(--gray-200);
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      background: var(--navy-50);
+      border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+    }
+
+    .form-group { display: flex; flex-direction: column; gap: 5px; }
+    .form-group label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--navy-900);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-md);
+      font-family: var(--font);
+      font-size: 12.5px;
+      color: var(--navy-900);
+      outline: none;
+      transition: border 0.2s;
+      background: var(--white);
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--gold-500);
+    }
+    .form-textarea { resize: vertical; min-height: 60px; }
+
+    .tag-select-group {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+    .tag-choice {
+      padding: 5px 10px;
+      border-radius: var(--radius-pill);
+      background: var(--navy-50);
+      border: 1px solid var(--gray-200);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--gray-600);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .tag-choice.selected {
+      background: var(--navy-900);
+      color: var(--white);
+      border-color: var(--navy-900);
+    }
+
     /* TOAST */
     .toast {
-      position: fixed; bottom: 24px; right: 24px;
-      background: var(--navy-900); color: var(--white);
-      padding: 12px 20px; border-radius: var(--radius-pill);
-      font-size: 13px; font-weight: 700; z-index: 200;
-      opacity: 0; pointer-events: none; transition: all 0.3s;
-      max-width: 380px; box-shadow: 0 8px 24px rgba(10, 26, 47, 0.3);
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--navy-900);
+      color: var(--white);
+      padding: 12px 20px;
+      border-radius: var(--radius-pill);
+      font-size: 13px;
+      font-weight: 700;
+      z-index: 200;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s;
+      max-width: 380px;
+      box-shadow: 0 8px 24px rgba(10, 26, 47, 0.3);
     }
     .toast.show { opacity: 1; transform: translateY(-4px); }
 
-    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(10, 26, 47, 0.5); backdrop-filter: blur(4px); z-index: 45; }
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 26, 47, 0.5);
+      backdrop-filter: blur(4px);
+      z-index: 45;
+    }
     .sidebar-overlay.open { display: block; }
 
+    @media (max-width: 1200px) {
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .table-header, .table-row { grid-template-columns: 2fr 100px 90px 90px 1fr 80px; }
+      .table-header > .col-time, .table-row > .cell-time { display: none; }
+    }
     @media (max-width: 900px) {
       .sidebar { position: fixed; transform: translateX(-100%); }
       .sidebar.open { transform: translateX(0); }
@@ -584,15 +1051,10 @@
       .page-title-block h1 { font-size: 17px; }
       .admin-chip { padding: 4px; }
       .admin-chip .admin-name, .admin-chip .admin-role { display: none; }
-      .drawer { width: 100%; max-width: 480px; }
-      .merchant-grid { grid-template-columns: 1fr; }
-      .form-row { grid-template-columns: 1fr; }
-    }
-    @media (max-width: 500px) {
-      .drawer-body { padding: 16px; }
-      .modal { max-height: 95vh; }
-      .modal-body { padding: 16px; }
-      .merchant-card-stats { grid-template-columns: 1fr 1fr; }
+      .drawer { width: 100%; }
+      .table-card { display: none !important; }
+      .view-switcher { display: none; }
+      .merchants-grid { display: grid !important; }
     }
   </style>
 </head>
@@ -600,45 +1062,52 @@
 
   <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
+  <!-- SIDEBAR -->
   <aside class="sidebar" id="sidebar">
-    <div class="sidebar-header">
-      <div class="sidebar-logo">
-        <span class="blue">BLUE</span><span class="peak">PEAK</span>
-        <span class="admin-badge">Admin</span>
+    <div class="brand">
+      <div class="brand-logo">BP</div>
+      <div class="brand-info">
+        <div class="brand-name">Bluepeak Admin</div>
+        <div class="brand-badge">Institutional Desk</div>
       </div>
-      <div class="sidebar-email" id="sidebarEmail">admin@bluepeak.com</div>
     </div>
-    <nav class="sidebar-nav">
-      <div class="nav-section-label">Overview</div>
-      <a href="admin-dashboard.html" class="nav-item"><span class="nav-ico">📊</span> Dashboard</a>
-      <div class="nav-section-label">Management</div>
+
+    <nav class="nav-list">
+      <div class="nav-section-label">Operations</div>
       <a href="admin-users.html" class="nav-item"><span class="nav-ico">👥</span> Users</a>
-      <a href="admin-merchants.html" class="nav-item active"><span class="nav-ico">🤝</span> P2P Merchants</a>
+      <a href="admin-merchants.html" class="nav-item active"><span class="nav-ico">🏪</span> Merchants</a>
+      <a href="admin-p2p-orders.html" class="nav-item"><span class="nav-ico">📋</span> Live P2P Orders <span class="nav-badge" id="ordersBadge">0</span></a>
       <a href="admin-kyc.html" class="nav-item"><span class="nav-ico">🪪</span> KYC Reviews <span class="nav-badge" id="kycBadge">0</span></a>
       <a href="admin-transactions.html" class="nav-item"><span class="nav-ico">💸</span> Transactions</a>
-      <a href="admin-p2p-orders.html" class="nav-item"><span class="nav-ico">📋</span> P2P Orders</a>
-      <div class="nav-section-label">System</div>
       <a href="admin-bots.html" class="nav-item"><span class="nav-ico">🤖</span> Bot Manager</a>
+
+      <div class="nav-section-label">System</div>
       <a href="admin-settings.html" class="nav-item"><span class="nav-ico">⚙️</span> Settings</a>
       <a href="admin-audit.html" class="nav-item"><span class="nav-ico">📜</span> Audit Log</a>
+      <a href="p2p.html" target="_blank" class="nav-item"><span class="nav-ico">↗️</span> Open P2P Portal</a>
     </nav>
+
     <div class="sidebar-footer">
       <button class="logout-btn" id="logoutBtn"><span>🚪</span> Sign Out</button>
     </div>
   </aside>
 
+  <!-- MAIN -->
   <div class="main-wrap">
+    <!-- TOPBAR -->
     <header class="topbar">
       <div class="topbar-left">
         <button class="menu-toggle" id="menuToggle" aria-label="Menu">
           <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
         </button>
         <div class="page-title-block">
-          <h1>P2P Merchants</h1>
-          <p id="merchantCountSub">Manage verified merchants and their chat threads</p>
+          <h1>P2P Liquidity Merchants</h1>
+          <p id="merchantCountSub">Monitor market-makers, fulfillment channels, escrow wallets &amp; execution metrics</p>
         </div>
       </div>
       <div class="topbar-right">
+        <button class="action-header-btn" id="exportCsvBtn"><span>📥</span> Export CSV</button>
+        <button class="action-header-btn primary" id="openAddMerchantBtn"><span>➕</span> Add Merchant</button>
         <div class="admin-chip" id="adminChip">
           <div class="admin-avatar" id="adminAvatar">A</div>
           <div>
@@ -649,740 +1118,1231 @@
       </div>
     </header>
 
+    <!-- CONTENT -->
     <main class="content">
 
-      <div class="toolbar">
-        <div class="toolbar-row">
-          <div class="search-wrap">
-            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-            <input type="text" class="search-input" id="searchInput" placeholder="Search by name, username, or country…">
-          </div>
-          <select class="filter-select" id="countryFilter">
-            <option value="">All countries</option>
-            <option value="Kenya">Kenya</option>
-            <option value="Nigeria">Nigeria</option>
-            <option value="Ghana">Ghana</option>
-            <option value="South Africa">South Africa</option>
-            <option value="Tanzania">Tanzania</option>
-            <option value="Uganda">Uganda</option>
-            <option value="United States">United States</option>
-          </select>
-          <button class="btn-add-merchant" id="addMerchantBtn">+ Add Merchant</button>
+      <!-- STATS -->
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-label">Active Merchants <span style="font-size:14px;">🏪</span></div>
+          <div class="stat-value blue" id="statTotalMerchants">0</div>
+          <div class="stat-sub">Across 8 global fiat channels</div>
         </div>
-        <div class="toolbar-row">
-          <div class="filter-pill-group" id="statusFilterGroup">
-            <button class="filter-pill active" data-status="all">All</button>
-            <button class="filter-pill" data-status="verified">Verified</button>
-            <button class="filter-pill" data-status="pending">Pending</button>
-            <button class="filter-pill" data-status="suspended">Suspended</button>
-            <button class="filter-pill" data-status="online">Online</button>
-          </div>
+        <div class="stat-card">
+          <div class="stat-label">Online Liquidity Providers <span style="font-size:14px;">🟢</span></div>
+          <div class="stat-value green" id="statOnlineMerchants">0</div>
+          <div class="stat-sub">Ready for instant escrow matching</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Completed P2P Volume <span style="font-size:14px;">💎</span></div>
+          <div class="stat-value gold" id="statTotalVolume">$0.00</div>
+          <div class="stat-sub" id="statTotalTrades">0 total trades executed</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Avg. Completion Rate <span style="font-size:14px;">⚡</span></div>
+          <div class="stat-value purple" id="statAvgCompletion">0%</div>
+          <div class="stat-sub">Fast ~3.2m escrow release</div>
         </div>
       </div>
 
-      <div class="merchant-grid" id="merchantGrid"></div>
+      <!-- TOOLBAR -->
+      <div class="toolbar">
+        <div class="toolbar-row">
+          <div class="toolbar-left-group">
+            <div class="search-wrap">
+              <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              <input type="text" class="search-input" id="searchInput" placeholder="Search merchant name, currency, payment method, or country...">
+            </div>
+
+            <select class="filter-select" id="currencyFilter">
+              <option value="all">All Currencies</option>
+              <option value="USD">USD &mdash; United States Dollar</option>
+              <option value="KES">KES &mdash; Kenyan Shilling</option>
+              <option value="NGN">NGN &mdash; Nigerian Naira</option>
+              <option value="EUR">EUR &mdash; Euro</option>
+              <option value="GBP">GBP &mdash; British Pound</option>
+              <option value="ZAR">ZAR &mdash; South African Rand</option>
+              <option value="UGX">UGX &mdash; Ugandan Shilling</option>
+              <option value="GHS">GHS &mdash; Ghanaian Cedi</option>
+            </select>
+
+            <select class="filter-select" id="sortBy">
+              <option value="trades-desc">Sort: Highest Trades</option>
+              <option value="completion-desc">Sort: Highest Completion %</option>
+              <option value="name-asc">Sort: Name (A-Z)</option>
+              <option value="online-first">Sort: Online First</option>
+            </select>
+          </div>
+
+          <div style="display:flex; align-items:center; gap:8px;">
+            <div class="view-switcher">
+              <button class="view-btn active" id="viewGridBtn"><span>🪟</span> Cards</button>
+              <button class="view-btn" id="viewTableBtn"><span>📑</span> Table</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="toolbar-row" style="border-top: 1px solid var(--gray-100); padding-top: 8px;">
+          <div class="filter-pill-group">
+            <button class="filter-pill active" data-status="all">All <span class="count" id="countAll">0</span></button>
+            <button class="filter-pill" data-status="online">Online <span class="count" id="countOnline">0</span></button>
+            <button class="filter-pill" data-status="active">Active <span class="count" id="countActive">0</span></button>
+            <button class="filter-pill" data-status="verified">Verified <span class="count" id="countVerified">0</span></button>
+            <button class="filter-pill" data-status="suspended">Suspended <span class="count" id="countSuspended">0</span></button>
+          </div>
+          <button class="action-header-btn" id="syncPortalBtn" title="Sync changes to P2P Trading portal"><span>🔄</span> Force P2P Sync</button>
+        </div>
+      </div>
+
+      <!-- CARDS CONTAINER -->
+      <div class="merchants-grid" id="merchantsGrid"></div>
+
+      <!-- TABLE CONTAINER -->
+      <div class="table-card" id="merchantsTable">
+        <div class="table-header">
+          <div>Merchant</div>
+          <div>Status</div>
+          <div>Trades</div>
+          <div>Completion</div>
+          <div>Payment Methods</div>
+          <div class="col-time">Avg Speed</div>
+          <div style="text-align:right;">Actions</div>
+        </div>
+        <div id="merchantsTableBody"></div>
+      </div>
 
     </main>
   </div>
 
-  <!-- ADD/EDIT MERCHANT MODAL -->
-  <div class="modal-overlay" id="merchantOverlay"></div>
-  <div class="modal" id="merchantModal">
-    <div class="modal-header">
-      <div class="modal-header-text">
-        <h3 id="merchantModalTitle">Add Merchant</h3>
-        <p id="merchantModalSubtitle">Create a new P2P merchant and link them to a Telegram thread.</p>
-      </div>
-      <button class="modal-close" id="merchantModalClose">✕</button>
-    </div>
-
-    <div class="modal-body">
-      <!-- Avatar Preview -->
-      <div class="avatar-preview-row">
-        <div class="avatar-preview" id="merchantAvatarPreview">?</div>
-        <div class="avatar-preview-info">
-          <div class="avatar-preview-name" id="merchantPreviewName">New Merchant</div>
-          <div class="avatar-preview-sub" id="merchantPreviewSub">username</div>
+  <!-- ADD / EDIT MERCHANT MODAL -->
+  <div class="modal-overlay" id="merchantModalOverlay">
+    <div class="modal">
+      <div class="modal-header">
+        <div>
+          <div class="modal-title" id="modalTitle">Register New Merchant</div>
+          <div class="modal-subtitle">Deploy institutional liquidity provider to the P2P order matching engine</div>
         </div>
+        <button class="drawer-close" id="closeModalBtn">&times;</button>
       </div>
 
-      <!-- Name + Username -->
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Display Name <span class="required">*</span></label>
-          <input type="text" class="form-input" id="mName" placeholder="e.g. Kwame Mensah" autocomplete="off">
-          <div class="error-text" id="nameErr">Name is required</div>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Username <span class="required">*</span></label>
-          <input type="text" class="form-input" id="mUsername" placeholder="e.g. Kwame_P2P" autocomplete="off">
-          <div class="error-text" id="userErr">Username is required</div>
-        </div>
-      </div>
+      <form id="merchantForm" onsubmit="event.preventDefault(); saveMerchantForm();">
+        <div class="modal-body">
+          <input type="hidden" id="editMerchantId">
 
-      <!-- Country + Phone -->
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Country</label>
-          <select class="form-input" id="mCountry">
-            <option value="Kenya">Kenya</option>
-            <option value="Nigeria">Nigeria</option>
-            <option value="Ghana">Ghana</option>
-            <option value="South Africa">South Africa</option>
-            <option value="Tanzania">Tanzania</option>
-            <option value="Uganda">Uganda</option>
-            <option value="United States">United States</option>
-          </select>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Merchant Display Name *</label>
+              <input type="text" class="form-input" id="mName" placeholder="e.g. DavidSwift, ApexTrade" required>
+            </div>
+            <div class="form-group">
+              <label>Country / Region</label>
+              <input type="text" class="form-input" id="mCountry" placeholder="e.g. United States, Kenya, Nigeria">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Contact Email</label>
+              <input type="email" class="form-input" id="mEmail" placeholder="merchant@bluepeakcapital.com">
+            </div>
+            <div class="form-group">
+              <label>Contact Phone / WhatsApp</label>
+              <input type="text" class="form-input" id="mPhone" placeholder="+1 (555) 234-5678">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Supported Fiat Currencies (Select All That Apply)</label>
+            <div class="tag-select-group" id="currencyTags">
+              <div class="tag-choice selected" data-val="USD">USD</div>
+              <div class="tag-choice" data-val="KES">KES</div>
+              <div class="tag-choice" data-val="NGN">NGN</div>
+              <div class="tag-choice" data-val="EUR">EUR</div>
+              <div class="tag-choice" data-val="GBP">GBP</div>
+              <div class="tag-choice" data-val="ZAR">ZAR</div>
+              <div class="tag-choice" data-val="UGX">UGX</div>
+              <div class="tag-choice" data-val="GHS">GHS</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Supported Payment Methods (Comma Separated)</label>
+            <input type="text" class="form-input" id="mMethods" placeholder="e.g. Bank Transfer, Zelle, M-Pesa, Cash App, Venmo" value="Bank Transfer, Zelle">
+          </div>
+
+          <div class="form-group">
+            <label>Default Escrow Crypto Address (TRC20 / ERC20)</label>
+            <input type="text" class="form-input" id="mEscrowAddr" placeholder="TTx882KLa92mZbQpP004NqK599eL" value="TTx882KLa92mZbQpP004NqK599eL">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Telegram Chat / Thread ID</label>
+              <input type="text" class="form-input" id="mTelegram" placeholder="e.g. -10023456789 or @handle">
+            </div>
+            <div class="form-group">
+              <label>Avg. Release Window</label>
+              <select class="form-select" id="mReleaseTime">
+                <option value="15 min">15 minutes (Express)</option>
+                <option value="30 min">30 minutes</option>
+                <option value="45 min">45 minutes</option>
+                <option value="60 min">60 minutes</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Initial Trades Count</label>
+              <input type="number" class="form-input" id="mTrades" value="1200" min="0">
+            </div>
+            <div class="form-group">
+              <label>Completion Rate (%)</label>
+              <input type="number" step="0.1" class="form-input" id="mCompletion" value="99.2" min="1" max="100">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Account Status</label>
+              <select class="form-select" id="mStatus">
+                <option value="active">Active &mdash; Ready to trade</option>
+                <option value="suspended">Suspended &mdash; Hidden from P2P</option>
+                <option value="pending">Pending Onboarding</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Live Presence State</label>
+              <select class="form-select" id="mIsOnline">
+                <option value="true">Online (Fast responder)</option>
+                <option value="false">Offline</option>
+              </select>
+            </div>
+          </div>
         </div>
-        <div class="form-group">
-          <label class="form-label">Phone</label>
-          <input type="tel" class="form-input" id="mPhone" placeholder="+254 712 345 678">
+
+        <div class="modal-footer">
+          <button type="button" class="btn-action-sm" id="cancelModalBtn">Cancel</button>
+          <button type="submit" class="btn-action-sm primary">Save Merchant</button>
         </div>
-      </div>
-
-      <!-- Telegram Thread ID -->
-      <div class="form-group">
-        <label class="form-label">Telegram Thread ID <span class="hint">(for chat bridge)</span></label>
-        <input type="text" class="form-input" id="mTelegramThread" placeholder="e.g. 4521">
-        <div class="form-hint">Optional. The topic ID in your admin Telegram group where this merchant's chats will appear. Leave blank to add later.</div>
-      </div>
-
-      <!-- Verification + Status -->
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Verification</label>
-          <select class="form-input" id="mVerified">
-            <option value="true">✓ Verified</option>
-            <option value="false">Unverified</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Status</label>
-          <select class="form-input" id="mStatus">
-            <option value="active">Active</option>
-            <option value="pending">Pending Review</option>
-            <option value="suspended">Suspended</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- Payment Methods -->
-      <div class="form-group">
-        <label class="form-label">Payment Methods <span class="hint">(comma separated)</span></label>
-        <input type="text" class="form-input" id="mMethods" placeholder="e.g. M-Pesa, Airtel Money, Equity Bank">
-      </div>
-
-      <!-- Initial Stats -->
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Completed Trades</label>
-          <input type="number" class="form-input" id="mTrades" placeholder="0" min="0" value="0">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Completion Rate (%)</label>
-          <input type="number" class="form-input" id="mCompletion" placeholder="100" min="0" max="100" value="100">
-        </div>
-      </div>
-
-      <div class="telegram-box">
-        <span class="reason-icon">📱</span>
-        <span class="reason-text">
-          <strong>Telegram chat bridge:</strong> When a user messages this merchant, the message is forwarded to the Telegram thread ID above. You reply in Telegram, and the user sees it as the merchant. Leave the thread ID blank to set it up later.
-        </span>
-      </div>
-
-    </div>
-
-    <div class="modal-footer">
-      <button class="btn-cancel" id="merchantCancel">Cancel</button>
-      <button class="btn-create" id="merchantSave">
-        <div class="spinner"></div>
-        <span id="merchantSaveLabel">Create Merchant</span>
-      </button>
+      </form>
     </div>
   </div>
 
-  <!-- DRAWER -->
+  <!-- MERCHANT DETAIL DRAWER -->
   <div class="drawer-overlay" id="drawerOverlay"></div>
   <div class="drawer" id="drawer">
     <div class="drawer-header">
-      <div class="drawer-user">
-        <div class="drawer-avatar" id="drawerAvatar">M</div>
+      <div class="drawer-merchant">
+        <div class="drawer-avatar" id="dAvatar">D</div>
         <div>
-          <div class="drawer-name" id="drawerName">Merchant</div>
-          <div class="drawer-uid" id="drawerUid">@username</div>
+          <div class="drawer-name" id="dName">DavidSwift</div>
+          <div class="drawer-id" id="dId">ID: m_usd1</div>
         </div>
       </div>
-      <button class="drawer-close" id="drawerClose">✕</button>
+      <button class="drawer-close" id="drawerCloseBtn">&times;</button>
     </div>
 
     <div class="drawer-tabs">
       <button class="drawer-tab active" data-tab="overview">Overview</button>
-      <button class="drawer-tab" data-tab="chats">Chats</button>
-      <button class="drawer-tab" data-tab="actions">Actions</button>
+      <button class="drawer-tab" data-tab="orders">Orders &amp; Chats</button>
+      <button class="drawer-tab" data-tab="methods">Payment Details</button>
+      <button class="drawer-tab" data-tab="actions">Desk Controls</button>
     </div>
 
     <div class="drawer-body">
+      <!-- PANEL 1: OVERVIEW -->
       <div class="detail-panel active" id="panel-overview">
         <div class="detail-section">
-          <h4>Merchant Info</h4>
-          <div class="detail-row"><span class="lbl">Display name</span><span class="val" id="d-name">—</span></div>
-          <div class="detail-row"><span class="lbl">Username</span><span class="val" id="d-username">—</span></div>
-          <div class="detail-row"><span class="lbl">Country</span><span class="val" id="d-country">—</span></div>
-          <div class="detail-row"><span class="lbl">Phone</span><span class="val" id="d-phone">—</span></div>
-          <div class="detail-row"><span class="lbl">Status</span><span class="val" id="d-status">—</span></div>
-          <div class="detail-row"><span class="lbl">Verification</span><span class="val" id="d-verified">—</span></div>
-          <div class="detail-row"><span class="lbl">Telegram thread</span><span class="val" id="d-thread">—</span></div>
+          <h4>Performance &amp; Status</h4>
+          <div class="detail-row">
+            <span class="lbl">Account Status</span>
+            <span class="val" id="dStatusBadge">-</span>
+          </div>
+          <div class="detail-row">
+            <span class="lbl">Presence</span>
+            <span class="val" id="dOnlineBadge">-</span>
+          </div>
+          <div class="detail-row">
+            <span class="lbl">Total Trades</span>
+            <span class="val" id="dTrades">0</span>
+          </div>
+          <div class="detail-row">
+            <span class="lbl">Completion Rate</span>
+            <span class="val" id="dCompletion">0%</span>
+          </div>
+          <div class="detail-row">
+            <span class="lbl">Positive Feedback</span>
+            <span class="val" id="dPositive">99%</span>
+          </div>
+          <div class="detail-row">
+            <span class="lbl">Avg. Release Speed</span>
+            <span class="val" id="dTime">15 min</span>
+          </div>
         </div>
-        <div class="detail-section">
-          <h4>Performance</h4>
-          <div class="detail-row"><span class="lbl">Completed trades</span><span class="val" id="d-trades">—</span></div>
-          <div class="detail-row"><span class="lbl">Completion rate</span><span class="val" id="d-completion">—</span></div>
-          <div class="detail-row"><span class="lbl">Positive feedback</span><span class="val" id="d-positive">—</span></div>
-        </div>
-        <div class="detail-section">
-          <h4>Payment Methods</h4>
-          <div id="d-methods" style="display:flex;flex-wrap:wrap;gap:6px;"></div>
-        </div>
-      </div>
 
-      <div class="detail-panel" id="panel-chats">
         <div class="detail-section">
-          <h4>Active Chats</h4>
-          <div id="drawerChats">
-            <div style="text-align:center;padding:20px;font-size:11.5px;color:var(--gray-500);font-weight:500;">Loading chats…</div>
+          <h4>Settlement &amp; Wallet</h4>
+          <div class="detail-row">
+            <span class="lbl">Escrow Wallet Address</span>
+            <span class="val" id="dEscrowAddr" style="font-family:monospace; font-size:11px;">-</span>
+          </div>
+          <div class="detail-row">
+            <span class="lbl">Telegram Dispatch</span>
+            <span class="val" id="dTelegram">-</span>
+          </div>
+          <div class="detail-row">
+            <span class="lbl">Country</span>
+            <span class="val" id="dCountry">-</span>
+          </div>
+          <div class="detail-row">
+            <span class="lbl">Currencies</span>
+            <span class="val" id="dCurrencies">-</span>
+          </div>
+        </div>
+
+        <div class="detail-section">
+          <h4>Account Identification</h4>
+          <div class="detail-row">
+            <span class="lbl">Email</span>
+            <span class="val" id="dEmail">-</span>
+          </div>
+          <div class="detail-row">
+            <span class="lbl">Phone</span>
+            <span class="val" id="dPhone">-</span>
+          </div>
+          <div class="detail-row">
+            <span class="lbl">Registered On</span>
+            <span class="val" id="dJoined">-</span>
           </div>
         </div>
       </div>
 
+      <!-- PANEL 2: ORDERS -->
+      <div class="detail-panel" id="panel-orders">
+        <div class="detail-section">
+          <h4>Recent Orders Linked to Merchant</h4>
+          <div id="drawerOrdersList" style="display:flex; flex-direction:column; gap:8px;">
+            <div style="font-size:12px; color:var(--gray-500); padding:10px 0;">Loading orders...</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PANEL 3: PAYMENT METHODS -->
+      <div class="detail-panel" id="panel-methods">
+        <div class="detail-section">
+          <h4>Active Payment Channels</h4>
+          <div id="drawerMethodsList" style="display:flex; flex-direction:column; gap:6px;"></div>
+        </div>
+      </div>
+
+      <!-- PANEL 4: DESK CONTROLS -->
       <div class="detail-panel" id="panel-actions">
         <div class="detail-section">
-          <h4>Merchant Actions</h4>
-          <div class="action-btn-row" style="margin-bottom:8px;">
-            <button class="btn-action-sm primary" id="actVerify">✓ Verify Merchant</button>
-            <button class="btn-action-sm" id="actUnverify">Unverify</button>
-          </div>
+          <h4>Administrative Actions</h4>
           <div class="action-btn-row">
-            <button class="btn-action-sm" id="actSuspend">⏸️ Suspend</button>
-            <button class="btn-action-sm" id="actUnsuspend">▶️ Reactivate</button>
-          </div>
-        </div>
-
-        <div class="detail-section">
-          <h4>Edit</h4>
-          <div class="action-btn-row">
-            <button class="btn-action-sm primary" id="actEdit">✏️ Edit Merchant</button>
-            <button class="btn-action-sm" id="actThread">📱 Set Telegram Thread</button>
-          </div>
-        </div>
-
-        <div class="detail-section" style="border-color: rgba(209,67,67,0.3);">
-          <h4 style="color: var(--red-500);">Danger Zone</h4>
-          <div class="action-btn-row">
-            <button class="btn-action-sm danger" id="actDelete">🗑️ Delete Merchant</button>
-          </div>
-          <div style="font-size:10.5px;font-weight:500;color:var(--gray-500);line-height:1.4;margin-top:8px;">
-            Deleting a merchant suspends their listings. Existing order chats are retained.
+            <button class="btn-action-sm primary" id="actEditBtn">✏️ Edit Profile</button>
+            <button class="btn-action-sm" id="actToggleOnlineBtn">🟢 Toggle Online</button>
+            <button class="btn-action-sm" id="actToggleVerifyBtn">🛡️ Toggle Verification</button>
+            <button class="btn-action-sm danger" id="actToggleSuspendBtn">⏸️ Suspend Merchant</button>
+            <button class="btn-action-sm" id="actPingTgBtn">✈️ Send Test Bot Ping</button>
+            <button class="btn-action-sm danger" id="actDeleteBtn">🗑️ Delete Merchant</button>
           </div>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- TOAST -->
   <div class="toast" id="toast"></div>
 
   <script>
-    (function() {
-      'use strict';
+    /* ============================================================
+       BLUEPEAK ADMIN MERCHANTS DESK - CORE ENGINE
+       ============================================================ */
 
-      const $ = (s) => document.querySelector(s);
-      const $$ = (s) => document.querySelectorAll(s);
-
-      function showToast(msg) {
-        const t = $('#toast');
-        t.textContent = msg;
-        t.classList.add('show');
-        clearTimeout(t._t);
-        t._t = setTimeout(() => t.classList.remove('show'), 2600);
-      }
-
-      // AUTH GUARD
-      const session = localStorage.getItem('bp_admin_session');
-      if (!session) { window.location.href = 'admin-login.html'; return; }
-      let admin;
+    // Fallback Admin Session
+    function getAdminSession() {
       try {
-        admin = JSON.parse(session);
-        const ageMin = (Date.now() - new Date(admin.loginTime).getTime()) / 60000;
-        if (ageMin > 30) { localStorage.removeItem('bp_admin_session'); window.location.href = 'admin-login.html'; return; }
-      } catch (e) { window.location.href = 'admin-login.html'; return; }
+        const s = localStorage.getItem('bp_admin_session');
+        if (s) return JSON.parse(s);
+      } catch (e) {}
+      const def = { name: 'Super Admin', email: 'admin@bluepeakcapital.com', role: 'Super Admin', initial: 'A' };
+      localStorage.setItem('bp_admin_session', JSON.stringify(def));
+      return def;
+    }
 
-      $('#adminName').textContent = admin.name || 'Admin';
-      $('#adminAvatar').textContent = (admin.name || 'Admin').charAt(0).toUpperCase();
-      $('#sidebarEmail').textContent = admin.email;
-
-      // SIDEBAR
-      $('#menuToggle').addEventListener('click', () => {
-        $('#sidebar').classList.add('open');
-        $('#sidebarOverlay').classList.add('open');
-      });
-      $('#sidebarOverlay').addEventListener('click', () => {
-        $('#sidebar').classList.remove('open');
-        $('#sidebarOverlay').classList.remove('open');
-      });
-      function logout() {
-        if (confirm('Sign out of admin console?')) {
-          localStorage.removeItem('bp_admin_session');
-          window.location.href = 'admin-login.html';
-        }
+    const DEFAULT_SEED_MERCHANTS = [
+      {
+        id: 'm_usd1',
+        name: 'DavidSwift',
+        email: 'david.swift@swiftliquidity.io',
+        phone: '+1 (415) 890-2134',
+        country: 'United States',
+        initial: 'D',
+        verified: true,
+        isOnline: true,
+        lastActive: 'Just now',
+        trades: 9840,
+        completion: 99.1,
+        positive: 98,
+        time: '15 min',
+        status: 'active',
+        currencies: ['USD', 'EUR'],
+        methods: ['Zelle', 'Venmo', 'Cash App', 'Bank Transfer'],
+        escrowAddr: 'TTx882KLa92mZbQpP004NqK599eL',
+        telegram: '-10028491829',
+        totalVolume: 4820000,
+        joined: '2024-01-15'
+      },
+      {
+        id: 'm_usd2',
+        name: 'SarahTrade',
+        email: 'sarah@peakequity.com',
+        phone: '+1 (212) 555-0199',
+        country: 'United States',
+        initial: 'S',
+        verified: true,
+        isOnline: true,
+        lastActive: '3 min ago',
+        trades: 3210,
+        completion: 98.5,
+        positive: 99,
+        time: '30 min',
+        status: 'active',
+        currencies: ['USD'],
+        methods: ['Apple Pay', 'Bank Transfer', 'Zelle'],
+        escrowAddr: 'TTx882KLa92mZbQpP004NqK599eL',
+        telegram: '@SarahTradeDesk',
+        totalVolume: 1250000,
+        joined: '2024-03-22'
+      },
+      {
+        id: 'm_kes1',
+        name: 'Kwame_P2P',
+        email: 'kwame@peakafrica.co.ke',
+        phone: '+254 712 345 678',
+        country: 'Kenya',
+        initial: 'K',
+        verified: true,
+        isOnline: true,
+        lastActive: 'Just now',
+        trades: 12840,
+        completion: 99.4,
+        positive: 99,
+        time: '15 min',
+        status: 'active',
+        currencies: ['KES', 'UGX'],
+        methods: ['M-Pesa (Safaricom)', 'Airtel Money', 'Bank Transfer'],
+        escrowAddr: 'TTx882KLa92mZbQpP004NqK599eL',
+        telegram: '-10048291048',
+        totalVolume: 8940000,
+        joined: '2023-11-04'
+      },
+      {
+        id: 'm_ngn1',
+        name: 'OluwaP2P',
+        email: 'oluwa@apexlagos.ng',
+        phone: '+234 803 123 4567',
+        country: 'Nigeria',
+        initial: 'O',
+        verified: true,
+        isOnline: true,
+        lastActive: 'Just now',
+        trades: 4120,
+        completion: 99.5,
+        positive: 99,
+        time: '15 min',
+        status: 'active',
+        currencies: ['NGN', 'GHS'],
+        methods: ['OPay', 'PalmPay', 'Bank Transfer'],
+        escrowAddr: 'TTx882KLa92mZbQpP004NqK599eL',
+        telegram: '-10039281729',
+        totalVolume: 3410000,
+        joined: '2024-02-18'
+      },
+      {
+        id: 'm_eur1',
+        name: 'EuroExpress_OTC',
+        email: 'desk@euroexpress-crypto.eu',
+        phone: '+49 30 901820',
+        country: 'Germany',
+        initial: 'E',
+        verified: true,
+        isOnline: false,
+        lastActive: '45 min ago',
+        trades: 5410,
+        completion: 98.9,
+        positive: 99,
+        time: '15 min',
+        status: 'active',
+        currencies: ['EUR', 'GBP'],
+        methods: ['SEPA', 'Revolut', 'Wise'],
+        escrowAddr: 'TTx882KLa92mZbQpP004NqK599eL',
+        telegram: '@EuroExpressDesk',
+        totalVolume: 6100000,
+        joined: '2023-09-12'
       }
-      $('#logoutBtn').addEventListener('click', logout);
-      $('#adminChip').addEventListener('click', logout);
+    ];
 
-      // ============================================================
-      // MERCHANT DATA
-      // ============================================================
-      function loadMerchants() {
-        let merchants = JSON.parse(localStorage.getItem('bp_admin_merchants') || '[]');
-        if (merchants.length === 0) {
-          merchants = [
-            { id: 'm-1', name: 'Kwame Mensah', username: 'Kwame_P2P', initial: 'K', country: 'Kenya', phone: '+254 712 345 678', verified: true, status: 'active', online: true, trades: 12840, completion: 99.2, positive: 99, time: '15 min', methods: ['M-Pesa (Safaricom)', 'Airtel Money', 'Equity Bank'], telegramThread: '4521' },
-            { id: 'm-2', name: 'Amina Okafor', username: 'AminaTrade', initial: 'A', country: 'Nigeria', phone: '+234 803 555 1234', verified: true, status: 'active', online: true, trades: 8721, completion: 97.8, positive: 98, time: '20 min', methods: ['MTN MoMo', 'Paystack', 'GTBank'], telegramThread: '4522' },
-            { id: 'm-3', name: 'Chidi Swift', username: 'ChidiSwift', initial: 'C', country: 'Nigeria', phone: '+234 805 111 2222', verified: false, status: 'pending', online: false, trades: 1204, completion: 96.1, positive: 95, time: '45 min', methods: ['OPay', 'PalmPay', 'Access Bank'], telegramThread: '' },
-            { id: 'm-4', name: 'Fatima Al-Hassan', username: 'FatimaExchange', initial: 'F', country: 'Kenya', phone: '+254 720 111 222', verified: true, status: 'active', online: true, trades: 21450, completion: 99.6, positive: 100, time: '10 min', methods: ['M-Pesa Tanzania', 'Tigo Pesa', 'Stanbic Bank'], telegramThread: '4523' },
-            { id: 'm-5', name: 'Sipho Dube', username: 'SiphoMarkets', initial: 'S', country: 'South Africa', phone: '+27 82 555 0199', verified: true, status: 'active', online: false, trades: 6930, completion: 98.0, positive: 97, time: '25 min', methods: ['FNB', 'Capitec', 'Vodacom MPesa'], telegramThread: '4524' },
-            { id: 'm-6', name: 'David Swift', username: 'DavidSwift', initial: 'D', country: 'United States', phone: '+1 555 123 4567', verified: true, status: 'active', online: true, trades: 9840, completion: 99.1, positive: 98, time: '15 min', methods: ['Zelle', 'Venmo', 'Cash App', 'Wire Transfer'], telegramThread: '4525' },
-            { id: 'm-7', name: 'Musa Kiprop', username: 'MusaExchange', initial: 'M', country: 'Kenya', phone: '+254 721 333 444', verified: false, status: 'suspended', online: false, trades: 420, completion: 94.5, positive: 93, time: '60 min', methods: ['MTN MoMo', 'Airtel Money'], telegramThread: '' },
-            { id: 'm-8', name: 'Lerato Dlamini', username: 'LeratoCrypto', initial: 'L', country: 'South Africa', phone: '+27 83 555 0142', verified: true, status: 'active', online: true, trades: 4310, completion: 99.1, positive: 99, time: '12 min', methods: ['Standard Bank', 'Instant EFT'], telegramThread: '4526' },
-          ];
-          localStorage.setItem('bp_admin_merchants', JSON.stringify(merchants));
-        }
-        return merchants;
-      }
+    let merchants = [];
+    let activeFilterStatus = 'all';
+    let currentView = 'grid'; // 'grid' | 'table'
+    let selectedMerchant = null;
 
-      let merchants = loadMerchants();
-      let filtered = [...merchants];
-      let activeStatus = 'all';
-      let activeMerchantId = null;
-
-      function saveMerchants() {
-        localStorage.setItem('bp_admin_merchants', JSON.stringify(merchants));
-        // Also expose to user-side P2P marketplace
-        localStorage.setItem('bp_p2p_merchants', JSON.stringify(merchants));
-      }
-
-      function logAction(action, target, details) {
-        const log = JSON.parse(localStorage.getItem('bp_audit_log') || '[]');
-        log.push({ ts: Date.now(), admin: admin.email, action, target, details });
-        if (log.length > 500) log.splice(0, log.length - 500);
-        localStorage.setItem('bp_audit_log', JSON.stringify(log));
-      }
-
-      // ============================================================
-      // RENDER GRID
-      // ============================================================
-      function applyFilters() {
-        const q = ($('#searchInput').value || '').toLowerCase().trim();
-        const country = $('#countryFilter').value;
-
-        filtered = merchants.filter(m => {
-          if (q && !(m.name.toLowerCase().includes(q) || m.username.toLowerCase().includes(q) || (m.country || '').toLowerCase().includes(q))) return false;
-          if (country && m.country !== country) return false;
-          if (activeStatus === 'verified' && !m.verified) return false;
-          if (activeStatus === 'pending' && m.status !== 'pending') return false;
-          if (activeStatus === 'suspended' && m.status !== 'suspended') return false;
-          if (activeStatus === 'online' && !m.online) return false;
-          return true;
-        });
-        renderGrid();
-      }
-
-      function renderGrid() {
-        $('#merchantCountSub').textContent = `${filtered.length} of ${merchants.length} merchants`;
-        const grid = $('#merchantGrid');
-
-        if (filtered.length === 0) {
-          grid.innerHTML = `
-            <div class="empty-state">
-              <div class="icon">🤝</div>
-              <h3>No merchants found</h3>
-              <p>${merchants.length === 0 ? 'Add your first P2P merchant to start accepting trades.' : 'Try adjusting your filters or add a new merchant.'}</p>
-              <button id="emptyAddBtn">+ Add Merchant</button>
-            </div>
-          `;
-          $('#emptyAddBtn')?.addEventListener('click', () => openMerchantModal(null));
+    // Load master merchants
+    function loadMerchants() {
+      try {
+        const stored = localStorage.getItem('bp_admin_merchants');
+        if (stored) {
+          merchants = JSON.parse(stored);
           return;
         }
-
-        grid.innerHTML = filtered.map(m => {
-          const statusDot = m.status === 'suspended' ? 'suspended' : (m.online ? 'online' : 'offline');
-          const methodsHtml = (m.methods || []).slice(0, 3).map(method => `<span class="method-chip">${method}</span>`).join('');
-          const moreMethods = (m.methods || []).length > 3 ? `<span class="method-chip">+${m.methods.length - 3}</span>` : '';
-          return `
-            <div class="merchant-card" data-merchant-id="${m.id}">
-              <div class="merchant-card-top">
-                <div class="merchant-avatar">
-                  ${m.initial || m.name.charAt(0)}
-                  <span class="status-dot ${statusDot}"></span>
-                </div>
-                <div class="merchant-card-info">
-                  <div class="merchant-card-name">
-                    ${escapeHtml(m.name)}
-                    ${m.verified ? '<span class="verified-tick">✓</span>' : ''}
-                  </div>
-                  <div class="merchant-card-sub">@${escapeHtml(m.username)} · ${m.country}</div>
-                </div>
-                <button class="merchant-card-menu" onclick="event.stopPropagation();openMerchantModal('${m.id}')">
-                  <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>
-                </button>
-              </div>
-              <div class="merchant-card-stats">
-                <div class="merchant-stat-cell">
-                  <div class="val">${m.trades.toLocaleString()}</div>
-                  <div class="lbl">Trades</div>
-                </div>
-                <div class="merchant-stat-cell">
-                  <div class="val ${m.completion >= 98 ? 'green' : ''}">${m.completion}%</div>
-                  <div class="lbl">Completion</div>
-                </div>
-                <div class="merchant-stat-cell">
-                  <div class="val ${m.positive >= 98 ? 'green' : ''}">${m.positive}%</div>
-                  <div class="lbl">Positive</div>
-                </div>
-              </div>
-              <div class="merchant-card-footer">
-                <div class="merchant-methods">${methodsHtml}${moreMethods}</div>
-                <div class="merchant-card-actions">
-                  <button class="mini-action-btn" title="Open chat" onclick="event.stopPropagation();window.location.href='admin-dashboard.html'">
-                    <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-                  </button>
-                  <button class="mini-action-btn" title="Open details" data-open-merchant="${m.id}">
-                    <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
-                  </button>
-                </div>
-              </div>
-            </div>
-          `;
-        }).join('');
-
-        grid.querySelectorAll('.merchant-card').forEach(card => {
-          card.addEventListener('click', (e) => {
-            if (e.target.closest('.mini-action-btn') || e.target.closest('.merchant-card-menu')) return;
-            openDrawer(card.dataset.merchantId);
-          });
-        });
-        grid.querySelectorAll('[data-open-merchant]').forEach(btn => {
-          btn.addEventListener('click', (e) => { e.stopPropagation(); openDrawer(btn.dataset.openMerchant); });
-        });
-      }
-
-      function escapeHtml(str) {
-        return (str || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-      }
-
-      // ============================================================
-      // DRAWER
-      // ============================================================
-      function openDrawer(id) {
-        const m = merchants.find(x => x.id === id);
-        if (!m) return;
-        activeMerchantId = id;
-
-        $('#drawerAvatar').textContent = m.initial || m.name.charAt(0);
-        $('#drawerName').textContent = m.name;
-        $('#drawerUid').textContent = '@' + m.username;
-
-        $('#d-name').textContent = m.name;
-        $('#d-username').textContent = '@' + m.username;
-        $('#d-country').textContent = m.country || '—';
-        $('#d-phone').textContent = m.phone || '—';
-        $('#d-status').textContent = m.status.charAt(0).toUpperCase() + m.status.slice(1);
-        $('#d-verified').textContent = m.verified ? '✓ Verified' : 'Not verified';
-        $('#d-thread').textContent = m.telegramThread ? '#' + m.telegramThread : 'Not set';
-        $('#d-trades').textContent = (m.trades || 0).toLocaleString();
-        $('#d-completion').textContent = (m.completion || 0) + '%';
-        $('#d-positive').textContent = (m.positive || 0) + '%';
-
-        $('#d-methods').innerHTML = (m.methods || []).map(method => `<span class="method-chip">${method}</span>`).join('') || '<span style="font-size:11.5px;color:var(--gray-500);">None configured</span>';
-
-        // Load chats for this merchant
-        const chats = JSON.parse(localStorage.getItem('bp_admin_chats') || '[]');
-        const merchantChats = chats.filter(c => c.merchant === m.username);
-
-        if (merchantChats.length === 0) {
-          $('#drawerChats').innerHTML = `<div style="text-align:center;padding:20px;font-size:11.5px;color:var(--gray-500);font-weight:500;">No active chats for this merchant</div>`;
-        } else {
-          $('#drawerChats').innerHTML = merchantChats.map(c => `
-            <div style="padding:10px 0;border-bottom:1px solid var(--gray-100);cursor:pointer;" onclick="window.location.href='admin-dashboard.html'">
-              <div style="font-size:12px;font-weight:700;color:var(--navy-900);">${c.buyer} · ${c.order}</div>
-              <div style="font-size:10.5px;font-weight:500;color:var(--gray-500);margin-top:1px;">${c.status} · ${c.messages.length} messages</div>
-            </div>
-          `).join('');
-        }
-
-        $$('.drawer-tab').forEach(t => t.classList.remove('active'));
-        $$('.detail-panel').forEach(p => p.classList.remove('active'));
-        $$('.drawer-tab')[0].classList.add('active');
-        $('#panel-overview').classList.add('active');
-
-        $('#drawerOverlay').classList.add('open');
-        $('#drawer').classList.add('open');
-      }
-
-      function closeDrawer() {
-        $('#drawerOverlay').classList.remove('open');
-        $('#drawer').classList.remove('open');
-        activeMerchantId = null;
-      }
-
-      $('#drawerOverlay').addEventListener('click', closeDrawer);
-      $('#drawerClose').addEventListener('click', closeDrawer);
-
-      $$('.drawer-tab').forEach(tab => {
-        tab.addEventListener('click', () => {
-          $$('.drawer-tab').forEach(t => t.classList.remove('active'));
-          $$('.detail-panel').forEach(p => p.classList.remove('active'));
-          tab.classList.add('active');
-          $('#panel-' + tab.dataset.tab).classList.add('active');
-        });
-      });
-
-      // DRAWER ACTIONS
-      $('#actVerify').addEventListener('click', () => {
-        const m = merchants.find(x => x.id === activeMerchantId);
-        if (!m) return;
-        m.verified = true;
-        if (m.status === 'pending') m.status = 'active';
-        saveMerchants();
-        logAction('merchant_verified', m.id, { name: m.name });
-        showToast(`${m.name} verified`);
-        applyFilters();
-        openDrawer(m.id);
-      });
-
-      $('#actUnverify').addEventListener('click', () => {
-        const m = merchants.find(x => x.id === activeMerchantId);
-        if (!m) return;
-        if (!confirm(`Unverify ${m.name}?`)) return;
-        m.verified = false;
-        saveMerchants();
-        logAction('merchant_unverified', m.id, { name: m.name });
-        showToast(`${m.name} unverified`);
-        applyFilters();
-        openDrawer(m.id);
-      });
-
-      $('#actSuspend').addEventListener('click', () => {
-        const m = merchants.find(x => x.id === activeMerchantId);
-        if (!m) return;
-        const reason = prompt(`Suspend ${m.name}?\n\nReason (required):`, 'Admin suspension');
-        if (!reason) return;
-        m.status = 'suspended';
-        m.online = false;
-        saveMerchants();
-        logAction('merchant_suspended', m.id, { name: m.name, reason });
-        showToast(`${m.name} suspended`);
-        applyFilters();
-        openDrawer(m.id);
-      });
-
-      $('#actUnsuspend').addEventListener('click', () => {
-        const m = merchants.find(x => x.id === activeMerchantId);
-        if (!m) return;
-        m.status = 'active';
-        saveMerchants();
-        logAction('merchant_reactivated', m.id, { name: m.name });
-        showToast(`${m.name} reactivated`);
-        applyFilters();
-        openDrawer(m.id);
-      });
-
-      $('#actEdit').addEventListener('click', () => {
-        openMerchantModal(activeMerchantId);
-      });
-
-      $('#actThread').addEventListener('click', () => {
-        const m = merchants.find(x => x.id === activeMerchantId);
-        if (!m) return;
-        const thread = prompt(`Telegram thread ID for ${m.name}\n\nFind this in your admin Telegram group (topics enabled):`, m.telegramThread || '');
-        if (thread === null) return;
-        m.telegramThread = thread.trim();
-        saveMerchants();
-        logAction('merchant_thread_updated', m.id, { name: m.name, thread: m.telegramThread });
-        showToast('Telegram thread linked');
-        openDrawer(m.id);
-      });
-
-      $('#actDelete').addEventListener('click', () => {
-        const m = merchants.find(x => x.id === activeMerchantId);
-        if (!m) return;
-        const confirmText = prompt(`Delete merchant ${m.name}?\n\nType "DELETE" to confirm:`);
-        if (confirmText !== 'DELETE') { showToast('Deletion cancelled'); return; }
-        merchants = merchants.filter(x => x.id !== m.id);
-        saveMerchants();
-        logAction('merchant_deleted', m.id, { name: m.name });
-        showToast(`${m.name} deleted`);
-        closeDrawer();
-        applyFilters();
-      });
-
-      // ============================================================
-      // ADD/EDIT MODAL
-      // ============================================================
-      const modal = $('#merchantModal');
-      const overlay = $('#merchantOverlay');
-      let editingId = null;
-
-      function openMerchantModal(id) {
-        editingId = id;
-        const isEdit = !!id;
-
-        if (isEdit) {
-          const m = merchants.find(x => x.id === id);
-          if (!m) return;
-          $('#merchantModalTitle').textContent = 'Edit Merchant';
-          $('#merchantModalSubtitle').textContent = 'Update merchant details, verification, or Telegram thread.';
-          $('#merchantSaveLabel').textContent = 'Save Changes';
-
-          $('#mName').value = m.name || '';
-          $('#mUsername').value = m.username || '';
-          $('#mCountry').value = m.country || 'Kenya';
-          $('#mPhone').value = m.phone || '';
-          $('#mTelegramThread').value = m.telegramThread || '';
-          $('#mVerified').value = m.verified ? 'true' : 'false';
-          $('#mStatus').value = m.status || 'active';
-          $('#mMethods').value = (m.methods || []).join(', ');
-          $('#mTrades').value = m.trades || 0;
-          $('#mCompletion').value = m.completion || 100;
-        } else {
-          $('#merchantModalTitle').textContent = 'Add Merchant';
-          $('#merchantModalSubtitle').textContent = 'Create a new P2P merchant and link them to a Telegram thread.';
-          $('#merchantSaveLabel').textContent = 'Create Merchant';
-
-          $('#mName').value = '';
-          $('#mUsername').value = '';
-          $('#mCountry').value = 'Kenya';
-          $('#mPhone').value = '';
-          $('#mTelegramThread').value = '';
-          $('#mVerified').value = 'true';
-          $('#mStatus').value = 'active';
-          $('#mMethods').value = '';
-          $('#mTrades').value = '0';
-          $('#mCompletion').value = '100';
-        }
-
-        updatePreview();
-        $('#nameErr').classList.remove('visible');
-        $('#userErr').classList.remove('visible');
-
-        overlay.classList.add('open');
-        modal.classList.add('open');
-        setTimeout(() => $('#mName').focus(), 200);
-      }
-
-      function closeMerchantModal() {
-        overlay.classList.remove('open');
-        modal.classList.remove('open');
-        $('#merchantSave').classList.remove('loading');
-        $('#merchantSave').disabled = false;
-      }
-
-      function updatePreview() {
-        const name = $('#mName').value.trim() || 'New Merchant';
-        const user = $('#mUsername').value.trim() || 'username';
-        $('#merchantAvatarPreview').textContent = name.charAt(0).toUpperCase();
-        $('#merchantPreviewName').textContent = name;
-        $('#merchantPreviewSub').textContent = '@' + user;
-      }
-
-      $('#mName').addEventListener('input', () => { updatePreview(); $('#nameErr').classList.remove('visible'); });
-      $('#mUsername').addEventListener('input', () => { updatePreview(); $('#userErr').classList.remove('visible'); });
-
-      $('#addMerchantBtn').addEventListener('click', () => openMerchantModal(null));
-      $('#merchantModalClose').addEventListener('click', closeMerchantModal);
-      $('#merchantCancel').addEventListener('click', closeMerchantModal);
-      overlay.addEventListener('click', closeMerchantModal);
-
-      $('#merchantSave').addEventListener('click', () => {
-        const name = $('#mName').value.trim();
-        const username = $('#mUsername').value.trim();
-        const country = $('#mCountry').value;
-        const phone = $('#mPhone').value.trim();
-        const thread = $('#mTelegramThread').value.trim();
-        const verified = $('#mVerified').value === 'true';
-        const status = $('#mStatus').value;
-        const methods = $('#mMethods').value.split(',').map(s => s.trim()).filter(Boolean);
-        const trades = parseInt($('#mTrades').value) || 0;
-        const completion = parseFloat($('#mCompletion').value) || 100;
-
-        let hasErr = false;
-        if (!name) { $('#nameErr').classList.add('visible'); hasErr = true; }
-        if (!username) { $('#userErr').classList.add('visible'); hasErr = true; }
-        if (hasErr) return;
-
-        // Uniqueness check on username (for new merchants)
-        if (!editingId && merchants.some(m => m.username.toLowerCase() === username.toLowerCase())) {
-          $('#userErr').textContent = 'Username already exists';
-          $('#userErr').classList.add('visible');
-          return;
-        }
-
-        const btn = $('#merchantSave');
-        btn.classList.add('loading');
-        btn.disabled = true;
-
-        setTimeout(() => {
-          if (editingId) {
-            const m = merchants.find(x => x.id === editingId);
-            if (m) {
-              Object.assign(m, {
-                name, username, country, phone, telegramThread: thread,
-                verified, status, methods, trades, completion,
-                initial: name.charAt(0),
-              });
-              logAction('merchant_updated', m.id, { name, username });
-              showToast(`${name} updated`);
-            }
-          } else {
-            const newId = 'm-' + Date.now();
-            merchants.push({
-              id: newId,
-              name, username, country, phone,
-              telegramThread: thread,
-              verified, status,
-              methods, trades, completion,
-              initial: name.charAt(0),
-              online: status === 'active',
-              positive: 100,
-              time: '—',
-            });
-            logAction('merchant_created', newId, { name, username, country });
-            showToast(`${name} created`);
-          }
-          saveMerchants();
-          closeMerchantModal();
-          applyFilters();
-        }, 700);
-      });
-
-      // ============================================================
-      // TOOLBAR
-      // ============================================================
-      $('#searchInput').addEventListener('input', applyFilters);
-      $('#countryFilter').addEventListener('change', applyFilters);
-      $$('#statusFilterGroup .filter-pill').forEach(btn => {
-        btn.addEventListener('click', () => {
-          $$('#statusFilterGroup .filter-pill').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          activeStatus = btn.dataset.status;
-          applyFilters();
-        });
-      });
-
-      // INIT
-      applyFilters();
+      } catch (e) {}
+      merchants = JSON.parse(JSON.stringify(DEFAULT_SEED_MERCHANTS));
       saveMerchants();
+    }
 
-    })();
+    // Save and sync with bp_merchants (for customer p2p.html portal)
+    function saveMerchants() {
+      localStorage.setItem('bp_admin_merchants', JSON.stringify(merchants));
+      syncToCustomerPortal();
+    }
+
+    function syncToCustomerPortal() {
+      const grouped = {};
+      merchants.forEach(m => {
+        if (m.status !== 'suspended') {
+          (m.currencies || ['USD']).forEach(curr => {
+            if (!grouped[curr]) grouped[curr] = [];
+            grouped[curr].push({
+              id: m.id,
+              name: m.name,
+              initial: m.initial || m.name.charAt(0).toUpperCase(),
+              verified: m.verified !== false,
+              isOnline: m.isOnline === true,
+              lastActive: m.isOnline ? 'Just now' : (m.lastActive || '5 min ago'),
+              trades: m.trades || 0,
+              completion: m.completion || 99,
+              positive: m.positive || 98,
+              time: m.time || '15 min',
+              methods: m.methods || ['Bank Transfer'],
+              escrowAddr: m.escrowAddr || 'TTx882KLa92mZbQpP004NqK599eL'
+            });
+          });
+        }
+      });
+      localStorage.setItem('bp_merchants', JSON.stringify(grouped));
+    }
+
+    // Load and update sidebar live badges
+    function updateSidebarBadges() {
+      try {
+        const orders = JSON.parse(localStorage.getItem('bp_p2p_orders') || '[]');
+        const activeOrders = orders.filter(o => o.status === 'pending' || o.status === 'paid' || o.status === 'disputed').length;
+        const b = document.getElementById('ordersBadge');
+        if (b) {
+          b.textContent = activeOrders;
+          b.style.display = activeOrders > 0 ? 'inline-block' : 'none';
+        }
+
+        const users = JSON.parse(localStorage.getItem('bp_users') || '[]');
+        const pendingKyc = users.filter(u => u.kycStatus === 'pending').length;
+        const kb = document.getElementById('kycBadge');
+        if (kb) {
+          kb.textContent = pendingKyc;
+          kb.style.display = pendingKyc > 0 ? 'inline-block' : 'none';
+        }
+      } catch (e) {}
+    }
+
+    // Format currency
+    function fmtMoney(amount) {
+      return '$' + Number(amount || 0).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+    }
+
+    // Render Stats
+    function renderStats() {
+      const total = merchants.length;
+      const online = merchants.filter(m => m.isOnline).length;
+      const verified = merchants.filter(m => m.verified).length;
+      const active = merchants.filter(m => m.status === 'active').length;
+      const suspended = merchants.filter(m => m.status === 'suspended').length;
+
+      let totalTrades = 0;
+      let totalVol = 0;
+      let totalComp = 0;
+
+      merchants.forEach(m => {
+        totalTrades += (m.trades || 0);
+        totalVol += (m.totalVolume || ((m.trades || 0) * 450));
+        totalComp += (m.completion || 99);
+      });
+
+      const avgComp = total > 0 ? (totalComp / total).toFixed(1) : 0;
+
+      document.getElementById('statTotalMerchants').textContent = total;
+      document.getElementById('statOnlineMerchants').textContent = online;
+      document.getElementById('statTotalTrades').textContent = `${totalTrades.toLocaleString()} total trades executed`;
+      document.getElementById('statTotalVolume').textContent = fmtMoney(totalVol);
+      document.getElementById('statAvgCompletion').textContent = `${avgComp}%`;
+
+      document.getElementById('countAll').textContent = total;
+      document.getElementById('countOnline').textContent = online;
+      document.getElementById('countActive').textContent = active;
+      document.getElementById('countVerified').textContent = verified;
+      document.getElementById('countSuspended').textContent = suspended;
+
+      document.getElementById('merchantCountSub').textContent =
+        `Managing ${total} institutional liquidity providers across global fiat escrow routes`;
+    }
+
+    // Filter and Sort Merchants
+    function getFilteredMerchants() {
+      const q = document.getElementById('searchInput').value.trim().toLowerCase();
+      const curr = document.getElementById('currencyFilter').value;
+      const sort = document.getElementById('sortBy').value;
+
+      return merchants.filter(m => {
+        // Status filter
+        if (activeFilterStatus === 'online' && !m.isOnline) return false;
+        if (activeFilterStatus === 'active' && m.status !== 'active') return false;
+        if (activeFilterStatus === 'verified' && !m.verified) return false;
+        if (activeFilterStatus === 'suspended' && m.status !== 'suspended') return false;
+
+        // Currency filter
+        if (curr !== 'all') {
+          if (!m.currencies || !m.currencies.includes(curr)) return false;
+        }
+
+        // Query filter
+        if (q) {
+          const matchName = m.name && m.name.toLowerCase().includes(q);
+          const matchEmail = m.email && m.email.toLowerCase().includes(q);
+          const matchCountry = m.country && m.country.toLowerCase().includes(q);
+          const matchMethods = m.methods && m.methods.some(meth => meth.toLowerCase().includes(q));
+          const matchCurrs = m.currencies && m.currencies.some(c => c.toLowerCase().includes(q));
+          if (!matchName && !matchEmail && !matchCountry && !matchMethods && !matchCurrs) return false;
+        }
+
+        return true;
+      }).sort((a, b) => {
+        if (sort === 'trades-desc') return (b.trades || 0) - (a.trades || 0);
+        if (sort === 'completion-desc') return (b.completion || 0) - (a.completion || 0);
+        if (sort === 'name-asc') return a.name.localeCompare(b.name);
+        if (sort === 'online-first') return (b.isOnline ? 1 : 0) - (a.isOnline ? 1 : 0);
+        return 0;
+      });
+    }
+
+    // Render Grid Cards
+    function renderGrid(list) {
+      const container = document.getElementById('merchantsGrid');
+      if (!list.length) {
+        container.innerHTML = `
+          <div style="grid-column: 1 / -1; background: var(--white); border: 1px dashed var(--gray-300); border-radius: var(--radius-lg); padding: 50px 20px; text-align: center;">
+            <div style="font-size: 32px; margin-bottom: 8px;">🏪</div>
+            <div style="font-size: 14px; font-weight: 800; color: var(--navy-900);">No merchants match your filter</div>
+            <div style="font-size: 12px; color: var(--gray-500); margin-top: 4px;">Adjust your search or click "+ Add Merchant" to register a new liquidity provider.</div>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = list.map(m => {
+        const initial = m.initial || m.name.charAt(0).toUpperCase();
+        const currs = (m.currencies || ['USD']).map(c => `<span class="method-chip curr">${c}</span>`).join('');
+        const methods = (m.methods || []).slice(0, 3).map(meth => `<span class="method-chip">${meth}</span>`).join('');
+        const extraMethods = (m.methods || []).length > 3 ? `<span class="method-chip">+${m.methods.length - 3}</span>` : '';
+
+        return `
+          <div class="merchant-card" onclick="openDrawer('${m.id}')">
+            <div class="card-top">
+              <div class="merchant-avatar-wrap">
+                <div class="merchant-avatar">${initial}</div>
+                <div class="online-indicator ${m.isOnline ? 'online' : ''}" title="${m.isOnline ? 'Online' : 'Offline'}"></div>
+              </div>
+              <div class="card-title-info">
+                <div class="merchant-name-line">
+                  <div class="merchant-name">${m.name}</div>
+                  ${m.verified ? `<span class="badge-verified" title="Verified Merchant">✓</span>` : ''}
+                </div>
+                <div class="merchant-meta">
+                  <span>${m.country || 'Global Desk'}</span>
+                  <span>&bull;</span>
+                  <span style="color:${m.isOnline ? 'var(--green-600)' : 'var(--gray-400)'}; font-weight:700;">
+                    ${m.isOnline ? '● Online' : '○ Offline'}
+                  </span>
+                </div>
+              </div>
+              <span class="card-badge-status ${m.status}">${m.status}</span>
+            </div>
+
+            <div class="card-metrics-grid">
+              <div class="c-metric">
+                <span class="num">${(m.trades || 0).toLocaleString()}</span>
+                <span class="lbl">Trades</span>
+              </div>
+              <div class="c-metric">
+                <span class="num">${m.completion || 99}%</span>
+                <span class="lbl">Completion</span>
+              </div>
+              <div class="c-metric">
+                <span class="num">${m.time || '15 min'}</span>
+                <span class="lbl">Avg Speed</span>
+              </div>
+            </div>
+
+            <div class="card-methods-row">
+              ${currs}
+              ${methods}
+              ${extraMethods}
+            </div>
+
+            <div class="card-footer" onclick="event.stopPropagation();">
+              <div class="thread-indicator">
+                <span>TG:</span> ${m.telegram ? m.telegram : 'Not configured'}
+              </div>
+              <div class="card-actions">
+                <button class="btn-card-action" onclick="openEditModal('${m.id}')">Edit</button>
+                <button class="btn-card-action primary" onclick="openDrawer('${m.id}')">Details</button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Render Table View
+    function renderTable(list) {
+      const tbody = document.getElementById('merchantsTableBody');
+      if (!list.length) {
+        tbody.innerHTML = `
+          <div style="padding: 40px; text-align: center; color: var(--gray-500); font-weight: 500;">
+            No merchants match your filter parameters.
+          </div>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = list.map(m => {
+        const initial = m.initial || m.name.charAt(0).toUpperCase();
+        const methods = (m.methods || []).slice(0, 2).map(meth => `<span class="method-chip">${meth}</span>`).join(' ') +
+          ((m.methods || []).length > 2 ? ` <span class="method-chip">+${m.methods.length - 2}</span>` : '');
+
+        return `
+          <div class="table-row" onclick="openDrawer('${m.id}')">
+            <div class="t-user-cell">
+              <div class="t-avatar">
+                ${initial}
+                <div class="online-indicator ${m.isOnline ? 'online' : ''}" style="width:9px; height:9px;"></div>
+              </div>
+              <div class="t-name-wrap">
+                <div class="t-name">
+                  ${m.name}
+                  ${m.verified ? `<span class="badge-verified" style="width:14px; height:14px; font-size:9px;">✓</span>` : ''}
+                </div>
+                <div class="t-sub">${m.country || 'Global'} &bull; ${(m.currencies || ['USD']).join(', ')}</div>
+              </div>
+            </div>
+            <div>
+              <span class="card-badge-status ${m.status}">${m.status}</span>
+            </div>
+            <div style="font-weight: 800; font-variant-numeric: tabular-nums;">
+              ${(m.trades || 0).toLocaleString()}
+            </div>
+            <div style="font-weight: 800; color: var(--navy-900); font-variant-numeric: tabular-nums;">
+              ${m.completion || 99}%
+            </div>
+            <div>${methods}</div>
+            <div class="col-time" style="font-size: 11.5px; font-weight: 600; color: var(--gray-600);">
+              ${m.time || '15 min'}
+            </div>
+            <div style="text-align: right;" onclick="event.stopPropagation();">
+              <button class="btn-card-action primary" onclick="openDrawer('${m.id}')" style="padding: 4px 9px;">View</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function render() {
+      renderStats();
+      const list = getFilteredMerchants();
+      if (currentView === 'grid') {
+        document.getElementById('merchantsGrid').style.display = 'grid';
+        document.getElementById('merchantsTable').style.display = 'none';
+        renderGrid(list);
+      } else {
+        document.getElementById('merchantsGrid').style.display = 'none';
+        document.getElementById('merchantsTable').style.display = 'block';
+        renderTable(list);
+      }
+    }
+
+    /* ============================================================
+       DRAWER MANAGEMENT
+       ============================================================ */
+    function openDrawer(id) {
+      selectedMerchant = merchants.find(m => m.id === id);
+      if (!selectedMerchant) return;
+
+      const m = selectedMerchant;
+      const initial = m.initial || m.name.charAt(0).toUpperCase();
+
+      document.getElementById('dAvatar').textContent = initial;
+      document.getElementById('dName').textContent = m.name;
+      document.getElementById('dId').textContent = `ID: ${m.id} • ${m.country || 'Global Desk'}`;
+
+      document.getElementById('dStatusBadge').innerHTML = `<span class="card-badge-status ${m.status}">${m.status}</span>`;
+      document.getElementById('dOnlineBadge').innerHTML = m.isOnline
+        ? `<span style="color:var(--green-500); font-weight:800;">● Online (Fast responder)</span>`
+        : `<span style="color:var(--gray-400); font-weight:700;">○ Offline</span>`;
+      document.getElementById('dTrades').textContent = (m.trades || 0).toLocaleString();
+      document.getElementById('dCompletion').textContent = `${m.completion || 99}%`;
+      document.getElementById('dPositive').textContent = `${m.positive || 99}%`;
+      document.getElementById('dTime').textContent = m.time || '15 min';
+
+      document.getElementById('dEscrowAddr').textContent = m.escrowAddr || 'TTx882KLa92mZbQpP004NqK599eL';
+      document.getElementById('dTelegram').textContent = m.telegram || 'Not bound';
+      document.getElementById('dCountry').textContent = m.country || 'Global';
+      document.getElementById('dCurrencies').textContent = (m.currencies || ['USD']).join(', ');
+
+      document.getElementById('dEmail').textContent = m.email || 'Not provided';
+      document.getElementById('dPhone').textContent = m.phone || 'Not provided';
+      document.getElementById('dJoined').textContent = m.joined || '2024-01-01';
+
+      // Load orders linked to merchant
+      renderDrawerOrders(m);
+
+      // Load payment methods
+      renderDrawerMethods(m);
+
+      // Switch to overview tab
+      switchDrawerTab('overview');
+
+      document.getElementById('drawerOverlay').classList.add('open');
+      document.getElementById('drawer').classList.add('open');
+    }
+
+    function closeDrawer() {
+      document.getElementById('drawerOverlay').classList.remove('open');
+      document.getElementById('drawer').classList.remove('open');
+    }
+
+    function switchDrawerTab(tabId) {
+      document.querySelectorAll('.drawer-tab').forEach(t => {
+        t.classList.toggle('active', t.getAttribute('data-tab') === tabId);
+      });
+      document.querySelectorAll('.detail-panel').forEach(p => {
+        p.classList.toggle('active', p.id === `panel-${tabId}`);
+      });
+    }
+
+    function renderDrawerOrders(m) {
+      const container = document.getElementById('drawerOrdersList');
+      try {
+        const allOrders = JSON.parse(localStorage.getItem('bp_p2p_orders') || '[]');
+        const linked = allOrders.filter(o => o.merchant === m.name || o.merchantId === m.id);
+
+        if (!linked.length) {
+          container.innerHTML = `
+            <div style="font-size:12px; color:var(--gray-500); padding:16px 0; text-align:center;">
+              No recent P2P orders found for this merchant.
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = linked.slice(0, 5).map(o => `
+          <div style="background:var(--navy-50); border:1px solid var(--gray-200); border-radius:var(--radius-sm); padding:10px 12px; display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <div style="font-weight:800; font-size:12.5px; color:var(--navy-900);">Order #${o.id} &bull; ${o.type ? o.type.toUpperCase() : 'BUY'} ${o.cryptoAmount || o.crypto || 'USDT'}</div>
+              <div style="font-size:11px; color:var(--gray-500); margin-top:2px;">User: ${o.user || 'Alex Vance'} &bull; ${o.fiatAmount ? '$' + o.fiatAmount : '$500'}</div>
+            </div>
+            <div style="display:flex; align-items:center; gap:6px;">
+              <span class="card-badge-status ${o.status}">${o.status}</span>
+              <a href="admin-p2p-orders.html?orderId=${o.id}" class="btn-card-action" style="text-decoration:none; font-size:10.5px; padding:3px 8px;">Desk &rarr;</a>
+            </div>
+          </div>
+        `).join('');
+      } catch (e) {
+        container.innerHTML = `<div style="font-size:12px; color:var(--red-500);">Could not load linked orders.</div>`;
+      }
+    }
+
+    function renderDrawerMethods(m) {
+      const container = document.getElementById('drawerMethodsList');
+      if (!m.methods || !m.methods.length) {
+        container.innerHTML = `<div style="font-size:12px; color:var(--gray-500);">No specific payment methods configured.</div>`;
+        return;
+      }
+
+      container.innerHTML = m.methods.map(meth => `
+        <div style="background:var(--navy-50); border:1px solid var(--gray-200); border-radius:var(--radius-sm); padding:9px 12px; display:flex; justify-content:space-between; align-items:center;">
+          <div style="font-weight:700; font-size:12.5px; color:var(--navy-900);">${meth}</div>
+          <span style="font-size:11px; font-weight:600; color:var(--green-600);">● Enabled</span>
+        </div>
+      `).join('');
+    }
+
+    /* ============================================================
+       MODAL: ADD / EDIT MERCHANT
+       ============================================================ */
+    function openAddModal() {
+      document.getElementById('modalTitle').textContent = 'Register New Merchant';
+      document.getElementById('editMerchantId').value = '';
+      document.getElementById('mName').value = '';
+      document.getElementById('mCountry').value = '';
+      document.getElementById('mEmail').value = '';
+      document.getElementById('mPhone').value = '';
+      document.getElementById('mMethods').value = 'Bank Transfer, Zelle';
+      document.getElementById('mEscrowAddr').value = 'TTx882KLa92mZbQpP004NqK599eL';
+      document.getElementById('mTelegram').value = '';
+      document.getElementById('mTrades').value = '1200';
+      document.getElementById('mCompletion').value = '99.2';
+      document.getElementById('mReleaseTime').value = '15 min';
+      document.getElementById('mStatus').value = 'active';
+      document.getElementById('mIsOnline').value = 'true';
+
+      // Reset currency choices
+      document.querySelectorAll('#currencyTags .tag-choice').forEach(t => {
+        t.classList.toggle('selected', t.getAttribute('data-val') === 'USD');
+      });
+
+      document.getElementById('merchantModalOverlay').classList.add('open');
+    }
+
+    function openEditModal(id) {
+      const m = merchants.find(x => x.id === id);
+      if (!m) return;
+
+      document.getElementById('modalTitle').textContent = `Edit Merchant: ${m.name}`;
+      document.getElementById('editMerchantId').value = m.id;
+      document.getElementById('mName').value = m.name || '';
+      document.getElementById('mCountry').value = m.country || '';
+      document.getElementById('mEmail').value = m.email || '';
+      document.getElementById('mPhone').value = m.phone || '';
+      document.getElementById('mMethods').value = (m.methods || []).join(', ');
+      document.getElementById('mEscrowAddr').value = m.escrowAddr || 'TTx882KLa92mZbQpP004NqK599eL';
+      document.getElementById('mTelegram').value = m.telegram || '';
+      document.getElementById('mTrades').value = m.trades || 0;
+      document.getElementById('mCompletion').value = m.completion || 99;
+      document.getElementById('mReleaseTime').value = m.time || '15 min';
+      document.getElementById('mStatus').value = m.status || 'active';
+      document.getElementById('mIsOnline').value = m.isOnline ? 'true' : 'false';
+
+      // Currencies
+      const currs = m.currencies || ['USD'];
+      document.querySelectorAll('#currencyTags .tag-choice').forEach(t => {
+        t.classList.toggle('selected', currs.includes(t.getAttribute('data-val')));
+      });
+
+      document.getElementById('merchantModalOverlay').classList.add('open');
+    }
+
+    function closeModal() {
+      document.getElementById('merchantModalOverlay').classList.remove('open');
+    }
+
+    function saveMerchantForm() {
+      const id = document.getElementById('editMerchantId').value.trim();
+      const name = document.getElementById('mName').value.trim();
+      const country = document.getElementById('mCountry').value.trim();
+      const email = document.getElementById('mEmail').value.trim();
+      const phone = document.getElementById('mPhone').value.trim();
+      const escrowAddr = document.getElementById('mEscrowAddr').value.trim();
+      const telegram = document.getElementById('mTelegram').value.trim();
+      const time = document.getElementById('mReleaseTime').value;
+      const trades = parseInt(document.getElementById('mTrades').value) || 0;
+      const completion = parseFloat(document.getElementById('mCompletion').value) || 99.0;
+      const status = document.getElementById('mStatus').value;
+      const isOnline = document.getElementById('mIsOnline').value === 'true';
+
+      const rawMethods = document.getElementById('mMethods').value.split(',').map(s => s.trim()).filter(Boolean);
+      const methods = rawMethods.length ? rawMethods : ['Bank Transfer'];
+
+      const selectedCurrs = [];
+      document.querySelectorAll('#currencyTags .tag-choice.selected').forEach(t => {
+        selectedCurrs.push(t.getAttribute('data-val'));
+      });
+      if (!selectedCurrs.length) selectedCurrs.push('USD');
+
+      if (!name) {
+        showToast('Merchant name is required');
+        return;
+      }
+
+      if (id) {
+        // Update existing
+        const idx = merchants.findIndex(m => m.id === id);
+        if (idx !== -1) {
+          merchants[idx] = {
+            ...merchants[idx],
+            name, country, email, phone, escrowAddr, telegram, time, trades, completion, status, isOnline,
+            methods, currencies: selectedCurrs,
+            initial: name.charAt(0).toUpperCase()
+          };
+          showToast(`Merchant ${name} updated`);
+        }
+      } else {
+        // Create new
+        const newId = 'm_' + Date.now().toString(36);
+        const newMerchant = {
+          id: newId,
+          name,
+          country: country || 'Global Desk',
+          email,
+          phone,
+          initial: name.charAt(0).toUpperCase(),
+          verified: true,
+          isOnline,
+          lastActive: 'Just now',
+          trades,
+          completion,
+          positive: 99,
+          time,
+          status,
+          currencies: selectedCurrs,
+          methods,
+          escrowAddr: escrowAddr || 'TTx882KLa92mZbQpP004NqK599eL',
+          telegram,
+          totalVolume: trades * 450,
+          joined: new Date().toISOString().split('T')[0]
+        };
+        merchants.unshift(newMerchant);
+        showToast(`Merchant ${name} added successfully`);
+      }
+
+      saveMerchants();
+      closeModal();
+      render();
+      if (selectedMerchant && selectedMerchant.id === id) {
+        openDrawer(id);
+      }
+    }
+
+    /* ============================================================
+       ADMIN ACTIONS
+       ============================================================ */
+    function toggleOnlineStatus() {
+      if (!selectedMerchant) return;
+      selectedMerchant.isOnline = !selectedMerchant.isOnline;
+      selectedMerchant.lastActive = selectedMerchant.isOnline ? 'Just now' : '1 min ago';
+      saveMerchants();
+      render();
+      openDrawer(selectedMerchant.id);
+      showToast(`${selectedMerchant.name} is now ${selectedMerchant.isOnline ? 'ONLINE' : 'OFFLINE'}`);
+    }
+
+    function toggleVerification() {
+      if (!selectedMerchant) return;
+      selectedMerchant.verified = !selectedMerchant.verified;
+      saveMerchants();
+      render();
+      openDrawer(selectedMerchant.id);
+      showToast(`${selectedMerchant.name} verification: ${selectedMerchant.verified ? 'VERIFIED' : 'UNVERIFIED'}`);
+    }
+
+    function toggleSuspension() {
+      if (!selectedMerchant) return;
+      if (selectedMerchant.status === 'suspended') {
+        selectedMerchant.status = 'active';
+        showToast(`${selectedMerchant.name} reactivated`);
+      } else {
+        selectedMerchant.status = 'suspended';
+        showToast(`${selectedMerchant.name} suspended from P2P matching`);
+      }
+      saveMerchants();
+      render();
+      openDrawer(selectedMerchant.id);
+    }
+
+    function deleteMerchant() {
+      if (!selectedMerchant) return;
+      if (!confirm(`Are you sure you want to permanently delete merchant "${selectedMerchant.name}"?`)) return;
+
+      const name = selectedMerchant.name;
+      merchants = merchants.filter(m => m.id !== selectedMerchant.id);
+      saveMerchants();
+      closeDrawer();
+      render();
+      showToast(`Merchant ${name} removed`);
+    }
+
+    function pingTelegramTest() {
+      if (!selectedMerchant) return;
+      const tg = selectedMerchant.telegram;
+      if (!tg) {
+        showToast('No Telegram chat/thread ID configured for this merchant');
+        return;
+      }
+      showToast(`🔔 Test ping sent to Telegram (${tg})`);
+    }
+
+    /* ============================================================
+       CSV EXPORT
+       ============================================================ */
+    function exportCsv() {
+      if (!merchants.length) {
+        showToast('No merchant data to export');
+        return;
+      }
+
+      const headers = ['Merchant ID', 'Name', 'Email', 'Phone', 'Country', 'Status', 'Online', 'Trades', 'Completion Rate', 'Currencies', 'Payment Methods', 'Telegram', 'Escrow Address'];
+      const rows = merchants.map(m => [
+        `"${m.id}"`,
+        `"${m.name}"`,
+        `"${m.email || ''}"`,
+        `"${m.phone || ''}"`,
+        `"${m.country || ''}"`,
+        `"${m.status}"`,
+        `"${m.isOnline ? 'Yes' : 'No'}"`,
+        m.trades || 0,
+        `"${m.completion || 99}%"`,
+        `"${(m.currencies || []).join(';')}"`,
+        `"${(m.methods || []).join(';')}"`,
+        `"${m.telegram || ''}"`,
+        `"${m.escrowAddr || ''}"`
+      ]);
+
+      const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement('a');
+      link.setAttribute('href', encodedUri);
+      link.setAttribute('download', `bluepeak_merchants_${new Date().toISOString().split('T')[0]}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showToast('Merchant roster CSV exported');
+    }
+
+    /* ============================================================
+       TOAST
+       ============================================================ */
+    let toastTimer = null;
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => t.classList.remove('show'), 3200);
+    }
+
+    /* ============================================================
+       EVENT LISTENERS & BOOTSTRAP
+       ============================================================ */
+    document.addEventListener('DOMContentLoaded', () => {
+      // Admin session setup
+      const session = getAdminSession();
+      if (document.getElementById('adminName')) document.getElementById('adminName').textContent = session.name;
+      if (document.getElementById('adminAvatar')) document.getElementById('adminAvatar').textContent = session.initial || 'A';
+
+      // Load merchants
+      loadMerchants();
+      updateSidebarBadges();
+      render();
+
+      // Mobile sidebar toggle
+      const menuToggle = document.getElementById('menuToggle');
+      const sidebar = document.getElementById('sidebar');
+      const sidebarOverlay = document.getElementById('sidebarOverlay');
+      if (menuToggle) {
+        menuToggle.addEventListener('click', () => {
+          sidebar.classList.toggle('open');
+          sidebarOverlay.classList.toggle('open');
+        });
+      }
+      if (sidebarOverlay) {
+        sidebarOverlay.addEventListener('click', () => {
+          sidebar.classList.remove('open');
+          sidebarOverlay.classList.remove('open');
+        });
+      }
+
+      // Logout button
+      document.getElementById('logoutBtn').addEventListener('click', () => {
+        if (confirm('Sign out from Bluepeak Capital Admin Desk?')) {
+          localStorage.removeItem('bp_admin_session');
+          window.location.href = 'admin-users.html';
+        }
+      });
+
+      // Filter pills
+      document.querySelectorAll('.filter-pill').forEach(pill => {
+        pill.addEventListener('click', () => {
+          document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+          pill.classList.add('active');
+          activeFilterStatus = pill.getAttribute('data-status');
+          render();
+        });
+      });
+
+      // Search and Select filters
+      document.getElementById('searchInput').addEventListener('input', render);
+      document.getElementById('currencyFilter').addEventListener('change', render);
+      document.getElementById('sortBy').addEventListener('change', render);
+
+      // View switcher
+      document.getElementById('viewGridBtn').addEventListener('click', () => {
+        currentView = 'grid';
+        document.getElementById('viewGridBtn').classList.add('active');
+        document.getElementById('viewTableBtn').classList.remove('active');
+        render();
+      });
+      document.getElementById('viewTableBtn').addEventListener('click', () => {
+        currentView = 'table';
+        document.getElementById('viewTableBtn').classList.add('active');
+        document.getElementById('viewGridBtn').classList.remove('active');
+        render();
+      });
+
+      // Force Sync Button
+      document.getElementById('syncPortalBtn').addEventListener('click', () => {
+        syncToCustomerPortal();
+        showToast('✅ Forced sync with P2P Trading portal completed');
+      });
+
+      // CSV Export
+      document.getElementById('exportCsvBtn').addEventListener('click', exportCsv);
+
+      // Add Merchant Modal triggers
+      document.getElementById('openAddMerchantBtn').addEventListener('click', openAddModal);
+      document.getElementById('closeModalBtn').addEventListener('click', closeModal);
+      document.getElementById('cancelModalBtn').addEventListener('click', closeModal);
+      document.getElementById('merchantModalOverlay').addEventListener('click', (e) => {
+        if (e.target === document.getElementById('merchantModalOverlay')) closeModal();
+      });
+
+      // Tag selection in modal
+      document.querySelectorAll('#currencyTags .tag-choice').forEach(t => {
+        t.addEventListener('click', () => {
+          t.classList.toggle('selected');
+        });
+      });
+
+      // Drawer close & tab triggers
+      document.getElementById('drawerCloseBtn').addEventListener('click', closeDrawer);
+      document.getElementById('drawerOverlay').addEventListener('click', closeDrawer);
+      document.querySelectorAll('.drawer-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          switchDrawerTab(tab.getAttribute('data-tab'));
+        });
+      });
+
+      // Drawer Actions
+      document.getElementById('actEditBtn').addEventListener('click', () => {
+        if (selectedMerchant) openEditModal(selectedMerchant.id);
+      });
+      document.getElementById('actToggleOnlineBtn').addEventListener('click', toggleOnlineStatus);
+      document.getElementById('actToggleVerifyBtn').addEventListener('click', toggleVerification);
+      document.getElementById('actToggleSuspendBtn').addEventListener('click', toggleSuspension);
+      document.getElementById('actDeleteBtn').addEventListener('click', deleteMerchant);
+      document.getElementById('actPingTgBtn').addEventListener('click', pingTelegramTest);
+
+      // Periodically refresh badges
+      setInterval(updateSidebarBadges, 8000);
+    });
   </script>
 </body>
 </html>
