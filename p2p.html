@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <title>P2P Trading — Bluepeak Capital</title>
+  <title>P2P & Express Trading — Bluepeak Capital</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
@@ -55,8 +55,7 @@
       border-radius: 50%; color: var(--white); cursor: pointer; font-size: 15px;
     }
     .drawer-body { flex: 1; overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 6px; }
-
-    /* PRO TERMINAL HERO CARD */
+    
     .pro-trade-card {
       background: linear-gradient(135deg, #0A1A2F 0%, #152E52 100%);
       border: 1.5px solid rgba(201,168,76,0.35); border-radius: var(--radius-md);
@@ -98,11 +97,11 @@
     .icon-btn svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; }
     .p2p-tabs { display: flex; align-items: center; gap: 4px; margin-left: 4px; }
     .p2p-tab {
-      background: none; border: none; padding: 8px 10px; font-family: var(--font); font-size: 17px;
-      font-weight: 800; color: var(--gray-400); cursor: pointer; position: relative;
+      background: none; border: none; padding: 8px 12px; font-family: var(--font); font-size: 16px;
+      font-weight: 800; color: var(--gray-400); cursor: pointer; position: relative; transition: color 0.2s;
     }
     .p2p-tab.active { color: var(--navy-900); }
-    .p2p-tab.active::after { content: ''; position: absolute; left: 10px; right: 10px; bottom: 0; height: 3px; background: var(--navy-900); border-radius: 3px 3px 0 0; }
+    .p2p-tab.active::after { content: ''; position: absolute; left: 12px; right: 12px; bottom: 0; height: 3px; background: var(--navy-900); border-radius: 3px 3px 0 0; }
 
     /* VIEWS */
     .view-section { display: none; flex: 1; flex-direction: column; }
@@ -127,7 +126,7 @@
     /* CONTROLS */
     .trade-controls-row { display: flex; align-items: center; gap: 10px; }
     .buy-sell-toggle { display: flex; background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-pill); padding: 4px; gap: 3px; flex: 1; box-shadow: var(--shadow-xs); }
-    .bs-btn { flex: 1; padding: 10px 0; border: none; background: transparent; border-radius: var(--radius-pill); font-family: var(--font); font-size: 14px; font-weight: 800; color: var(--gray-500); cursor: pointer; }
+    .bs-btn { flex: 1; padding: 10px 0; border: none; background: transparent; border-radius: var(--radius-pill); font-family: var(--font); font-size: 14px; font-weight: 800; color: var(--gray-500); cursor: pointer; transition: all 0.2s; }
     .bs-btn.active { background: var(--navy-900); color: var(--white); }
     .bs-btn.active.sell-active { background: var(--red-500); }
     .fiat-dropdown { display: flex; align-items: center; gap: 6px; background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-pill); padding: 10px 14px; font-family: var(--font); font-size: 13.5px; font-weight: 800; color: var(--navy-900); cursor: pointer; box-shadow: var(--shadow-xs); }
@@ -166,7 +165,6 @@
     .offer-price { display: flex; align-items: baseline; gap: 4px; }
     .offer-price .price-amount { font-size: 26px; font-weight: 800; color: var(--navy-900); }
     .offer-price .price-unit { font-size: 13px; font-weight: 700; color: var(--gray-500); display: flex; align-items: center; gap: 4px; }
-    .offer-price .price-unit img { width: 16px; height: 16px; object-fit: contain; }
     .limit-row { display: flex; flex-direction: column; gap: 3px; font-size: 12.5px; color: var(--gray-500); font-weight: 600; }
     .limit-row strong { color: var(--navy-900); }
     .payment-tags { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -200,11 +198,19 @@
     .balance-warning-box p { font-size: 11.5px; font-weight: 600; color: var(--red-500); }
     .deposit-cta-btn { align-self: flex-start; padding: 6px 12px; border-radius: var(--radius-pill); background: var(--red-500); color: var(--white); font-size: 11px; font-weight: 800; text-decoration: none; }
 
-    .payment-select-box { background: var(--navy-50); border: 1.5px solid var(--gray-200); border-radius: var(--radius-sm); padding: 12px 14px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
-    .escrow-badge { display: flex; align-items: center; gap: 10px; background: var(--green-100); border: 1px solid rgba(15,157,110,0.2); padding: 12px; border-radius: var(--radius-sm); }
-    .escrow-icon { width: 30px; height: 30px; border-radius: 50%; background: var(--green-500); display: flex; align-items: center; justify-content: center; font-size: 15px; color: #fff; flex-shrink: 0; }
-    .escrow-text h5 { font-size: 12px; font-weight: 800; color: var(--green-500); }
-    .escrow-text p { font-size: 11px; color: var(--gray-600); }
+    .user-payout-box { background: var(--navy-50); border: 1.5px solid var(--gray-200); border-radius: var(--radius-sm); padding: 12px; display: flex; flex-direction: column; gap: 8px; }
+    .user-payout-header { display: flex; justify-content: space-between; align-items: center; }
+    .user-payout-header strong { font-size: 12px; color: var(--navy-900); }
+    .user-payout-edit-btn { background: none; border: none; font-size: 11px; color: var(--blue-500); font-weight: 700; cursor: pointer; }
+    .user-payout-details { font-size: 12px; color: var(--navy-800); background: #fff; padding: 8px 10px; border-radius: 6px; border: 1px solid var(--gray-200); }
+
+    .escrow-guide-banner {
+      background: linear-gradient(135deg, #0A1A2F 0%, #152E52 100%);
+      color: #fff; border-radius: var(--radius-md); padding: 14px;
+      border: 1px solid var(--gold-500); box-shadow: var(--shadow-sm);
+    }
+    .escrow-guide-title { font-size: 12px; font-weight: 800; color: var(--gold-400); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+    .escrow-guide-step { font-size: 11.5px; color: var(--navy-100); line-height: 1.5; margin-bottom: 8px; }
 
     .terms-checkbox { display: flex; align-items: flex-start; gap: 10px; padding: 10px; background: var(--gold-100); border: 1px solid rgba(201,168,76,0.3); border-radius: var(--radius-sm); font-size: 11.5px; font-weight: 600; }
     .terms-checkbox input { width: 16px; height: 16px; accent-color: var(--green-500); margin-top: 2px; }
@@ -214,18 +220,28 @@
     .order-timer-banner { background: linear-gradient(135deg, var(--navy-900), var(--navy-800)); border-radius: var(--radius-md); padding: 14px; text-align: center; color: var(--white); }
     .order-timer-banner h4 { font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--gold-400); }
     .order-timer-value { font-size: 28px; font-weight: 800; letter-spacing: -1px; }
-    .order-timer-value.warning { color: #FF6B6B; }
 
-    .chat-mock { background: var(--navy-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 12px; display: flex; flex-direction: column; gap: 10px; max-height: 260px; min-height: 180px; overflow-y: auto; }
-    .chat-bubble { max-width: 82%; padding: 10px 12px; border-radius: 12px; font-size: 12px; line-height: 1.45; font-weight: 500; }
+    .trade-submain-card {
+      background: var(--navy-50); border: 1.5px solid var(--gray-200); border-radius: var(--radius-md);
+      padding: 14px; display: flex; flex-direction: column; gap: 8px;
+    }
+    .submain-header { font-size: 11px; font-weight: 800; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.5px; }
+    .submain-row { display: flex; justify-content: space-between; font-size: 12.5px; color: var(--navy-900); }
+    .submain-row strong { font-weight: 700; }
+
+    .chat-mock { background: var(--navy-50); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 12px; display: flex; flex-direction: column; gap: 10px; max-height: 280px; min-height: 180px; overflow-y: auto; }
+    .chat-bubble { max-width: 85%; padding: 10px 12px; border-radius: 12px; font-size: 12px; line-height: 1.45; font-weight: 500; }
     .chat-bubble.merchant { background: var(--white); color: var(--navy-900); align-self: flex-start; border-bottom-left-radius: 3px; border: 1px solid var(--gray-200); }
     .chat-bubble.user { background: var(--navy-900); color: var(--white); align-self: flex-end; border-bottom-right-radius: 3px; }
-    .chat-bubble .meta { font-size: 9px; opacity: 0.65; margin-top: 3px; display: block; }
-
-    .chat-crypto-card { background: var(--navy-900); color: var(--white); border-radius: var(--radius-sm); padding: 10px; margin-top: 6px; border: 1px solid var(--gold-500); }
-    .chat-crypto-card .network-pill { background: var(--gold-500); color: var(--navy-950); font-size: 9px; font-weight: 800; padding: 2px 6px; border-radius: 4px; display: inline-block; }
-    .chat-crypto-card .addr-line { font-family: monospace; font-size: 11px; color: var(--gold-300); word-break: break-all; margin: 4px 0 6px; }
-    .copy-chip { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); color: var(--white); border-radius: var(--radius-pill); padding: 4px 10px; font-size: 10.5px; font-weight: 700; cursor: pointer; }
+    .chat-bubble-author { font-size: 10.5px; font-weight: 800; margin-bottom: 2px; color: var(--gold-500); }
+    .chat-bubble.user .chat-bubble-author { color: var(--gold-300); }
+    .chat-bubble .meta { font-size: 9px; opacity: 0.65; margin-top: 4px; display: block; text-align: right; }
+    
+    .chat-crypto-card { background: var(--navy-950); color: var(--white); border-radius: var(--radius-sm); padding: 12px; margin-top: 6px; border: 1px solid var(--gold-500); }
+    .chat-crypto-card .network-pill { background: var(--gold-500); color: var(--navy-950); font-size: 9.5px; font-weight: 800; padding: 2px 7px; border-radius: 4px; display: inline-block; margin-bottom: 6px; }
+    .chat-crypto-card .addr-line { font-family: monospace; font-size: 12px; color: var(--gold-300); word-break: break-all; margin: 4px 0 8px; background: rgba(255,255,255,0.06); padding: 6px 8px; border-radius: 6px; }
+    .copy-chip { background: var(--gold-500); border: none; color: var(--navy-950); border-radius: var(--radius-pill); padding: 5px 12px; font-size: 11px; font-weight: 800; cursor: pointer; transition: opacity 0.2s; }
+    .copy-chip:hover { opacity: 0.9; }
 
     .chat-input-wrap { display: flex; gap: 8px; }
     .chat-input-wrap input { flex: 1; padding: 10px 14px; border: 1.5px solid var(--gray-200); border-radius: var(--radius-pill); font-size: 12.5px; outline: none; }
@@ -233,7 +249,7 @@
 
     .action-buttons-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     .btn-outline-danger { background: var(--white); border: 1.5px solid var(--red-500); color: var(--red-500); padding: 11px; border-radius: var(--radius-pill); font-weight: 800; font-size: 13px; cursor: pointer; }
-    .btn-solid-green { background: linear-gradient(135deg, var(--green-500), var(--green-600)); border: none; color: var(--white); padding: 12px; border-radius: var(--radius-pill); font-weight: 800; font-size: 13.5px; cursor: pointer; width: 100%; }
+    .btn-solid-green { background: linear-gradient(135deg, var(--green-500), var(--green-600)); border: none; color: var(--white); padding: 12px; border-radius: var(--radius-pill); font-weight: 800; font-size: 13.5px; cursor: pointer; width: 100%; text-align: center; }
 
     /* FILTERS GRID */
     .filter-options-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
@@ -243,6 +259,49 @@
     .field-group { display: flex; flex-direction: column; gap: 4px; }
     .field-label { font-size: 10.5px; font-weight: 700; color: var(--gray-500); text-transform: uppercase; }
     .input-field, .select-field { width: 100%; padding: 10px 12px; border: 1.5px solid var(--gray-200); border-radius: var(--radius-sm); font-size: 13px; font-weight: 600; outline: none; }
+
+    /* EXPRESS STYLES */
+    .express-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 20px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 16px; }
+    .express-subtabs { display: flex; background: var(--navy-50); border-radius: var(--radius-pill); padding: 4px; gap: 4px; border: 1px solid var(--gray-200); }
+    .express-subtab { flex: 1; padding: 10px 0; border: none; background: transparent; font-family: var(--font); font-size: 14px; font-weight: 800; color: var(--gray-500); border-radius: var(--radius-pill); cursor: pointer; transition: all 0.2s; }
+    .express-subtab.active { background: var(--navy-900); color: var(--white); }
+    .express-subtab.active.sell { background: var(--red-500); }
+    .express-input-box { background: var(--navy-50); border: 1.5px solid var(--gray-200); border-radius: var(--radius-md); padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; }
+    .express-input-top { display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-weight: 700; color: var(--gray-500); }
+    .express-input-row { display: flex; align-items: center; gap: 10px; }
+    .express-input-row input { flex: 1; border: none; background: transparent; font-size: 24px; font-weight: 800; color: var(--navy-900); outline: none; }
+    .express-selector-btn { display: flex; align-items: center; gap: 6px; background: #fff; border: 1px solid var(--gray-200); border-radius: var(--radius-pill); padding: 6px 12px; font-size: 13px; font-weight: 800; cursor: pointer; white-space: nowrap; }
+    .express-selector-btn img { width: 18px; height: 18px; object-fit: contain; border-radius: 50%; }
+    .express-wallet-hint { font-size: 11px; color: var(--gray-500); font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
+    .express-max-btn { background: none; border: none; color: var(--gold-500); font-weight: 800; font-size: 11px; cursor: pointer; padding: 0 4px; }
+    .express-rate-banner { display: flex; justify-content: space-between; font-size: 11.5px; font-weight: 600; color: var(--gray-500); padding: 0 4px; }
+
+    /* ADS VIEW STYLES */
+    .ads-header-banner {
+      background: linear-gradient(135deg, #0A1A2F 0%, #152E52 100%);
+      color: #fff; border-radius: var(--radius-lg); padding: 20px;
+      display: flex; justify-content: space-between; align-items: center; box-shadow: var(--shadow-sm);
+    }
+    .ads-header-content h3 { font-size: 18px; font-weight: 800; margin-bottom: 4px; }
+    .ads-header-content p { font-size: 12px; color: var(--navy-100); opacity: 0.9; }
+    .create-ad-btn { background: var(--gold-500); color: var(--navy-950); border: none; padding: 10px 18px; border-radius: var(--radius-pill); font-weight: 800; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+
+    /* ORDERS VIEW STYLES */
+    .order-history-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+    .order-h-top { display: flex; justify-content: space-between; align-items: center; }
+    .order-h-id { font-size: 13px; font-weight: 800; color: var(--navy-900); }
+    .order-h-status { font-size: 10.5px; font-weight: 800; padding: 3px 8px; border-radius: var(--radius-pill); }
+    .status-completed { background: var(--green-100); color: var(--green-500); }
+    .status-escrow { background: var(--gold-100); color: var(--gold-500); }
+    .status-cancelled { background: var(--red-100); color: var(--red-500); }
+    .order-h-body { display: flex; justify-content: space-between; font-size: 12.5px; }
+
+    /* PROFILE VIEW STYLES */
+    .profile-hero-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 22px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .profile-avatar-lg { width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, var(--navy-900), var(--navy-800)); color: var(--gold-400); display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 800; border: 2px solid var(--gold-500); }
+    .profile-info-grid { width: 100%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; background: var(--navy-50); padding: 12px; border-radius: var(--radius-md); margin-top: 10px; }
+    .profile-stat-box .v { font-size: 16px; font-weight: 800; color: var(--navy-900); }
+    .profile-stat-box .l { font-size: 10.5px; color: var(--gray-500); font-weight: 600; text-transform: uppercase; }
 
     /* BOTTOM NAV */
     .bottom-nav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 760px; background: rgba(255,255,255,0.97); backdrop-filter: blur(16px); border-top: 1px solid var(--gray-200); display: flex; justify-content: space-around; align-items: center; padding: 8px 8px calc(8px + env(safe-area-inset-bottom, 0px)); z-index: 40; }
@@ -272,15 +331,14 @@
       <button class="drawer-close" id="drawerCloseBtn">✕</button>
     </div>
     <div class="drawer-body">
-      <!-- HERO PRO TERMINAL -->
       <a href="trade.html" class="pro-trade-card">
         <div class="pro-badge"><span class="pulse-glow"></span> Pro Terminal</div>
         <div class="pro-trade-title"><span>Spot &amp; Bot Trading</span><span>⚡</span></div>
-        <p class="pro-trade-desc">Execute high-frequency trading with institutional orderbooks and automated 80%+ win rate scalp bots.</p>
+        <p class="pro-trade-desc">Institutional orderbooks and automated algorithmic trading bots.</p>
         <div class="pro-trade-action">Launch Trading Desk →</div>
       </a>
 
-      <div class="drawer-section-title">Core Trading</div>
+      <div class="drawer-section-title">Markets &amp; Trading</div>
       <a href="trade.html" class="drawer-link"><span class="ico">📈</span> Trade Desk</a>
       <a href="swap.html" class="drawer-link"><span class="ico">⚡</span> Instant Swap</a>
       <a href="p2p.html" class="drawer-link active"><span class="ico">🤝</span> P2P Marketplace</a>
@@ -290,16 +348,12 @@
       <a href="wallet.html" class="drawer-link"><span class="ico">💼</span> Wallets &amp; Balances</a>
       <a href="deposit.html" class="drawer-link"><span class="ico">📥</span> Deposit Crypto</a>
       <a href="withdraw.html" class="drawer-link"><span class="ico">📤</span> Withdraw Funds</a>
-
-      <div class="drawer-section-title">Merchant &amp; Administration</div>
-      <button class="drawer-link" id="drawerAddMerchantBtn" style="background:none;border:none;width:100%;text-align:left;cursor:pointer;"><span class="ico">⭐</span> Register / Edit Merchant</button>
-      <a href="admin-p2p-orders.html" class="drawer-link"><span class="ico">🛡️</span> Admin Console</a>
     </div>
   </aside>
 
   <!-- OVERLAYS & MODALS -->
   <div class="modal-overlay" id="globalOverlay"></div>
-
+  
   <!-- CURRENCY MODAL -->
   <div class="bottom-sheet" id="currencyModal">
     <div class="sheet-header"><h3>Select Currency</h3><button class="sheet-close" onclick="closeSheet('currencyModal')">✕</button></div>
@@ -371,21 +425,82 @@
     <div class="sheet-body" id="orderModalBody"></div>
   </div>
 
+  <!-- USER PAYMENT METHOD MODAL (FOR SELLING INTERNAL) -->
+  <div class="bottom-sheet" id="userPaymentMethodModal">
+    <div class="sheet-header"><h3>Payout Account Details</h3><button class="sheet-close" onclick="closeSheet('userPaymentMethodModal')">✕</button></div>
+    <div class="sheet-body">
+      <p style="font-size:12px;color:var(--gray-500);">Provide account details where the buyer will deposit your funds.</p>
+      <div class="field-group">
+        <label class="field-label">Payment Method</label>
+        <select class="select-field" id="userPayMethodTypeSelect"></select>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Account / Phone / IBAN</label>
+        <input type="text" class="input-field" id="userPayAccountNumber" placeholder="e.g. 0712345678 or IBAN">
+      </div>
+      <div class="field-group">
+        <label class="field-label">Account Holder Name</label>
+        <input type="text" class="input-field" id="userPayAccountHolder" placeholder="e.g. John Doe">
+      </div>
+      <div class="field-group">
+        <label class="field-label">Bank Name / Extra Instructions (Optional)</label>
+        <input type="text" class="input-field" id="userPayExtraInfo" placeholder="e.g. Chase Bank, Wire routing...">
+      </div>
+      <button class="btn-solid-green" id="saveUserPaymentDetailsBtn">Save &amp; Continue</button>
+    </div>
+  </div>
+
+  <!-- CREATE AD MODAL -->
+  <div class="bottom-sheet" id="createAdModal">
+    <div class="sheet-header"><h3>Create Trade Advertisement</h3><button class="sheet-close" onclick="closeSheet('createAdModal')">✕</button></div>
+    <div class="sheet-body">
+      <div class="field-group">
+        <label class="field-label">I Want To</label>
+        <div class="express-subtabs" id="adSideToggle">
+          <button class="express-subtab active" data-adside="buy">Buy Crypto</button>
+          <button class="express-subtab" data-adside="sell">Sell Crypto</button>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div class="field-group">
+          <label class="field-label">Asset</label>
+          <select class="select-field" id="adAssetSelect">
+            <option value="USDT">USDT</option>
+            <option value="BTC">BTC</option>
+            <option value="ETH">ETH</option>
+            <option value="SOL">SOL</option>
+            <option value="BNB">BNB</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Fiat Currency</label>
+          <select class="select-field" id="adFiatSelect"></select>
+        </div>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Your Fixed Unit Price</label>
+        <input type="number" step="0.01" class="input-field" id="adUnitPrice" placeholder="e.g. 1.02">
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div class="field-group"><label class="field-label">Min Limit</label><input type="number" class="input-field" id="adMinLimit" placeholder="50"></div>
+        <div class="field-group"><label class="field-label">Max Limit</label><input type="number" class="input-field" id="adMaxLimit" placeholder="3000"></div>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Payment Methods (Comma separated)</label>
+        <input type="text" class="input-field" id="adMethods" placeholder="M-Pesa, Bank Transfer, Zelle">
+      </div>
+      <div class="field-group">
+        <label class="field-label">Escrow Settlement Address (Optional / TRC20)</label>
+        <input type="text" class="input-field" id="adEscrowAddr" placeholder="TTx882KLa92mZbQpP004NqK599eL">
+      </div>
+      <button class="btn-solid-green" id="submitNewAdBtn">Publish Advertisement</button>
+    </div>
+  </div>
+
   <!-- MERCHANT PROFILE MODAL -->
   <div class="bottom-sheet" id="profileModal">
     <div class="sheet-header"><h3>Merchant Profile</h3><button class="sheet-close" onclick="closeSheet('profileModal')">✕</button></div>
     <div class="sheet-body" id="profileModalBody"></div>
-  </div>
-
-  <!-- REGISTER / EDIT MERCHANT -->
-  <div class="bottom-sheet" id="merchantEditModal">
-    <div class="sheet-header"><h3>Merchant Account</h3><button class="sheet-close" onclick="closeSheet('merchantEditModal')">✕</button></div>
-    <div class="sheet-body">
-      <div class="field-group"><label class="field-label">Display Name</label><input type="text" class="input-field" id="mEditName" placeholder="e.g. BluePeakTrader"></div>
-      <div class="field-group"><label class="field-label">Payment Methods (Comma separated)</label><input type="text" class="input-field" id="mEditMethods" placeholder="M-Pesa, Bank Transfer, Zelle"></div>
-      <div class="field-group"><label class="field-label">Escrow Address (TRC20)</label><input type="text" class="input-field" id="mEditEscrowAddr" placeholder="TTx882KLa92mZbQpP004NqK599eL"></div>
-      <button class="btn-solid-green" id="saveMerchantBtn">Save Merchant Account</button>
-    </div>
   </div>
 
   <!-- HEADER -->
@@ -398,7 +513,9 @@
         <button class="p2p-tab" data-p2ptab="express">Express</button>
       </div>
     </div>
-    <button class="icon-btn" id="searchBtn"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></button>
+    <div style="font-weight:800;font-size:13px;color:var(--gold-500);display:flex;align-items:center;gap:4px;">
+      <span style="width:7px;height:7px;border-radius:50%;background:var(--green-500);"></span> Escrow Active
+    </div>
   </header>
 
   <!-- P2P MAIN VIEW -->
@@ -406,11 +523,11 @@
     <div class="p2p-main" id="p2pMainContent">
       <div class="promo-carousel">
         <div class="promo-slide active">
-          <div class="promo-text"><h3>Earn as a P2P Merchant</h3><p>Zero maker fees · Up to 40% escrow arbitrage earnings</p><span class="promo-badge">✦ Tap to Learn</span></div>
+          <div class="promo-text"><h3>Earn as a P2P Merchant</h3><p>Zero maker fees · Institutional escrow security</p><span class="promo-badge">✦ Tap to Learn</span></div>
           <div class="promo-icon">✨</div>
         </div>
         <div class="promo-slide">
-          <div class="promo-text"><h3>Verified Local Merchants</h3><p>Escrow-protected trades · Fast local payouts</p><span class="promo-badge">🛡️ Secure Escrow</span></div>
+          <div class="promo-text"><h3>Verified Local Liquidity</h3><p>Fast regional payouts · Instant release</p><span class="promo-badge">🛡️ Secure Escrow</span></div>
           <div class="promo-icon">🤝</div>
         </div>
         <div class="promo-dots">
@@ -443,49 +560,184 @@
     </div>
   </main>
 
+  <!-- EXPRESS VIEW -->
+  <main class="view-section" id="view-express">
+    <div style="padding:16px 20px;background:#fff;border-bottom:1px solid var(--gray-200);">
+      <h2 style="font-size:19px;font-weight:800;">Express Instant Desk</h2>
+      <p style="font-size:12px;color:var(--gray-500);">Direct institutional settlement with guaranteed rate lock</p>
+    </div>
+    <div class="p2p-main">
+      <div class="express-card">
+        <div class="express-subtabs" id="expressSideToggle">
+          <button class="express-subtab active" data-side="buy">Buy Crypto</button>
+          <button class="express-subtab" data-side="sell">Sell Crypto</button>
+        </div>
+
+        <!-- EXPRESS BUY FORM -->
+        <div id="expressBuyForm" style="display:flex;flex-direction:column;gap:12px;">
+          <div class="express-input-box">
+            <div class="express-input-top">
+              <span>You Pay</span>
+              <span class="express-wallet-hint">Fiat Account</span>
+            </div>
+            <div class="express-input-row">
+              <input type="number" id="expressBuyPayAmt" placeholder="0.00" value="100">
+              <button class="express-selector-btn" id="expressBuyFiatBtn">
+                <span id="expressBuyFiatFlag">🇺🇸</span>
+                <span id="expressBuyFiatLabel">USD</span>
+                ▼
+              </button>
+            </div>
+          </div>
+
+          <div style="text-align:center;color:var(--gray-400);font-size:18px;">⇅</div>
+
+          <div class="express-input-box">
+            <div class="express-input-top">
+              <span>You Receive (Estimated)</span>
+              <span class="express-wallet-hint" id="expressBuyBalHint">Wallet: --</span>
+            </div>
+            <div class="express-input-row">
+              <input type="number" id="expressBuyRecAmt" placeholder="0.00" readonly style="color:var(--green-500);">
+              <button class="express-selector-btn" id="expressBuyCryptoBtn">
+                <img id="expressBuyCryptoIcon" src="https://essamamdani.github.io/open-crypto-icons/icons/colored/usdt.svg">
+                <span id="expressBuyCryptoLabel">USDT</span>
+                ▼
+              </button>
+            </div>
+          </div>
+
+          <div class="express-rate-banner">
+            <span>Guaranteed Price</span>
+            <span id="expressBuyRateLabel">1 USDT ≈ $1.00 USD</span>
+          </div>
+
+          <button class="btn-solid-green" id="executeExpressBuyBtn">Buy with 0 Fee</button>
+        </div>
+
+        <!-- EXPRESS SELL FORM -->
+        <div id="expressSellForm" style="display:none;flex-direction:column;gap:12px;">
+          <div class="express-input-box">
+            <div class="express-input-top">
+              <span>You Sell</span>
+              <span class="express-wallet-hint">
+                <span id="expressSellBalHint">Available: --</span>
+                <button class="express-max-btn" id="expressSellMaxBtn">MAX</button>
+              </span>
+            </div>
+            <div class="express-input-row">
+              <input type="number" id="expressSellPayAmt" placeholder="0.00" value="100">
+              <button class="express-selector-btn" id="expressSellCryptoBtn">
+                <img id="expressSellCryptoIcon" src="https://essamamdani.github.io/open-crypto-icons/icons/colored/usdt.svg">
+                <span id="expressSellCryptoLabel">USDT</span>
+                ▼
+              </button>
+            </div>
+          </div>
+
+          <div style="text-align:center;color:var(--gray-400);font-size:18px;">⇅</div>
+
+          <div class="express-input-box">
+            <div class="express-input-top">
+              <span>You Receive (Estimated)</span>
+              <span class="express-wallet-hint">Local Bank / Payout</span>
+            </div>
+            <div class="express-input-row">
+              <input type="number" id="expressSellRecAmt" placeholder="0.00" readonly style="color:var(--green-500);">
+              <button class="express-selector-btn" id="expressSellFiatBtn">
+                <span id="expressSellFiatFlag">🇺🇸</span>
+                <span id="expressSellFiatLabel">USD</span>
+                ▼
+              </button>
+            </div>
+          </div>
+
+          <div class="express-rate-banner">
+            <span>Guaranteed Price</span>
+            <span id="expressSellRateLabel">1 USDT ≈ $0.99 USD</span>
+          </div>
+
+          <button class="btn-solid-green sell-btn-style" id="executeExpressSellBtn">Sell with 0 Fee</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
   <!-- ORDERS VIEW -->
   <main class="view-section" id="view-orders">
-    <div style="padding:16px 20px;background:#fff;border-bottom:1px solid var(--gray-200);"><h2 style="font-size:19px;font-weight:800;">My Orders</h2></div>
-    <div class="p2p-main"><div id="ordersList"></div></div>
+    <div style="padding:16px 20px;background:#fff;border-bottom:1px solid var(--gray-200);display:flex;justify-content:space-between;align-items:center;">
+      <div>
+        <h2 style="font-size:19px;font-weight:800;">Trade History &amp; Orders</h2>
+        <p style="font-size:12px;color:var(--gray-500);">All your active &amp; completed P2P escrow trades</p>
+      </div>
+      <span id="ordersCountBadge" style="background:var(--navy-50);font-weight:800;font-size:12px;padding:4px 10px;border-radius:var(--radius-pill);color:var(--navy-900);">0 Orders</span>
+    </div>
+    <div class="p2p-main">
+      <div id="ordersList" style="display:flex;flex-direction:column;gap:10px;"></div>
+    </div>
   </main>
 
   <!-- ADS VIEW -->
   <main class="view-section" id="view-ads">
-    <div style="padding:16px 20px;background:#fff;border-bottom:1px solid var(--gray-200);display:flex;justify-content:space-between;align-items:center;">
-      <h2 style="font-size:19px;font-weight:800;">Merchant Hub</h2>
-      <button class="view-profile" id="openMerchantEditBtn">+ Add Merchant</button>
+    <div class="p2p-main" style="padding-top:16px;">
+      <div class="ads-header-banner">
+        <div class="ads-header-content">
+          <h3>Create Your Ad and Start Earning</h3>
+          <p>Post competitive P2P offers and earn maker spreads with 100% escrow protection.</p>
+        </div>
+        <button class="create-ad-btn" id="openCreateAdBtn"><span>+</span> Post Ad</button>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;">
+        <h4 style="font-size:14px;font-weight:800;color:var(--navy-900);">Your Active Advertisements</h4>
+        <span style="font-size:12px;color:var(--gray-500);" id="myAdsCount">0 Published</span>
+      </div>
+
+      <div id="myAdsList" style="display:flex;flex-direction:column;gap:10px;"></div>
     </div>
-    <div class="p2p-main"><div id="adsList"></div></div>
   </main>
 
   <!-- ALERTS VIEW -->
   <main class="view-section" id="view-alerts">
-    <div style="padding:16px 20px;background:#fff;border-bottom:1px solid var(--gray-200);"><h2 style="font-size:19px;font-weight:800;">Alerts</h2></div>
+    <div style="padding:16px 20px;background:#fff;border-bottom:1px solid var(--gray-200);"><h2 style="font-size:19px;font-weight:800;">Notifications &amp; Security</h2></div>
     <div class="p2p-main">
-      <div class="offer-card"><strong>🔐 Security Alert</strong><p style="font-size:12px;color:var(--gray-500);margin-top:4px;">New login verified. Your 2FA escrow security is active.</p></div>
+      <div class="offer-card">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <strong>🛡️ Escrow Protection Active</strong>
+          <span style="font-size:10px;color:var(--green-500);font-weight:800;background:var(--green-100);padding:2px 8px;border-radius:10px;">Protected</span>
+        </div>
+        <p style="font-size:12px;color:var(--gray-500);margin-top:4px;">All buyer payments and seller crypto deposits are locked safely in BluePeak multi-sig escrow until both parties confirm fulfillment.</p>
+      </div>
+      <div class="offer-card">
+        <strong>⚡ Live Arbitrage Updates</strong>
+        <p style="font-size:12px;color:var(--gray-500);margin-top:4px;">P2P maker rates update dynamically to match regional foreign exchange prices.</p>
+      </div>
     </div>
   </main>
 
   <!-- PROFILE VIEW -->
   <main class="view-section" id="view-profile">
-    <div style="padding:16px 20px;background:#fff;border-bottom:1px solid var(--gray-200);"><h2 style="font-size:19px;font-weight:800;">Profile &amp; KYC</h2></div>
-    <div class="p2p-main">
-      <div class="offer-card" style="text-align:center;align-items:center;">
-        <div class="merchant-avatar" style="width:64px;height:64px;font-size:24px;">U</div>
-        <h3 style="font-size:18px;font-weight:800;margin-top:6px;">Bluepeak Trader</h3>
-        <p style="font-size:12px;color:var(--green-500);font-weight:700;">● Verified Tier 2 KYC</p>
+    <div class="p2p-main" style="padding-top:16px;">
+      <div class="profile-hero-card">
+        <div class="profile-avatar-lg" id="profAvatar">U</div>
+        <h3 style="font-size:18px;font-weight:800;" id="profDisplayName">Bluepeak Trader</h3>
+        <span style="font-size:11.5px;color:var(--green-500);font-weight:800;background:var(--green-100);padding:3px 10px;border-radius:12px;">● Verified Tier 2 KYC</span>
+        <div class="profile-info-grid">
+          <div class="profile-stat-box"><div class="v" id="profTradeCount">12</div><div class="l">Completed</div></div>
+          <div class="profile-stat-box"><div class="v" id="profRating">99.8%</div><div class="l">Completion</div></div>
+          <div class="profile-stat-box"><div class="v">15 min</div><div class="l">Avg Time</div></div>
+        </div>
       </div>
-    </div>
-  </main>
 
-  <!-- EXPRESS VIEW -->
-  <main class="view-section" id="view-express">
-    <div style="padding:16px 20px;background:#fff;border-bottom:1px solid var(--gray-200);"><h2 style="font-size:19px;font-weight:800;">Express Swap</h2></div>
-    <div class="p2p-main">
       <div class="offer-card">
-        <div class="field-group"><label class="field-label">From</label><input type="number" id="expressFromAmount" value="100" class="input-field" style="font-size:20px;font-weight:800;"></div>
-        <div class="field-group" style="margin-top:10px;"><label class="field-label">To (Estimated)</label><input type="number" id="expressToAmount" class="input-field" style="font-size:20px;font-weight:800;color:var(--green-500);" readonly></div>
-        <button class="btn-solid-green" style="margin-top:14px;" onclick="showToast('Express swap completed!')">Execute Swap</button>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <strong style="font-size:14px;">My Payout &amp; Payment Methods</strong>
+            <p style="font-size:11px;color:var(--gray-500);">Used when selling crypto via internal BluePeak balance.</p>
+          </div>
+          <button class="view-profile" id="profAddPayMethodBtn">+ Add Method</button>
+        </div>
+        <div id="profPaymentMethodsList" style="display:flex;flex-direction:column;gap:8px;margin-top:6px;"></div>
       </div>
     </div>
   </main>
@@ -493,9 +745,9 @@
   <!-- BOTTOM NAV -->
   <nav class="bottom-nav">
     <button class="bottom-nav-item active" data-bnav="p2p"><div class="bn-icon-wrap"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M2.5 20c.8-3.5 3.2-5.5 6.5-5.5s5.7 2 6.5 5.5"/><circle cx="17.5" cy="8" r="2.8"/><path d="M15.5 14c2.5 0 4.8 1.5 5.5 4.5"/></svg></div><span>P2P</span></button>
+    <button class="bottom-nav-item" data-bnav="express"><div class="bn-icon-wrap"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><span>Express</span></button>
     <button class="bottom-nav-item" data-bnav="orders"><div class="bn-icon-wrap"><svg viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1"/><path d="M9 9h6M9 13h6M9 17h4"/></svg></div><span>Orders</span></button>
     <button class="bottom-nav-item" data-bnav="ads"><div class="bn-icon-wrap"><svg viewBox="0 0 24 24"><path d="M20 12l-8-8H4v8l8 8 8-8z"/><circle cx="8.5" cy="8.5" r="1.2"/></svg></div><span>Ads</span></button>
-    <button class="bottom-nav-item" data-bnav="alerts"><div class="bn-icon-wrap"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 10-12 0c0 7-3 8-3 8h18s-3-1-3-8"/><path d="M13.7 21a2 2 0 01-3.4 0"/></svg></div><span>Alerts</span></button>
     <button class="bottom-nav-item" data-bnav="profile"><div class="bn-icon-wrap"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4.5 4.5-6.5 8-6.5s7 2 8 6.5"/></svg></div><span>Profile</span></button>
   </nav>
 
@@ -509,14 +761,14 @@
     ];
 
     const CURRENCIES = [
-      { code: 'USD', name: 'US Dollar', symbol: '$', flag: '🇺🇸' },
-      { code: 'EUR', name: 'Euro', symbol: '€', flag: '🇪🇺' },
-      { code: 'GBP', name: 'British Pound', symbol: '£', flag: '🇬🇧' },
-      { code: 'NGN', name: 'Nigerian Naira', symbol: '₦', flag: '🇳🇬' },
-      { code: 'KES', name: 'Kenyan Shilling', symbol: 'KSh', flag: '🇰🇪' },
-      { code: 'GHS', name: 'Ghanaian Cedi', symbol: 'GH₵', flag: '🇬🇭' },
-      { code: 'ZAR', name: 'South African Rand', symbol: 'R', flag: '🇿🇦' },
-      { code: 'TZS', name: 'Tanzanian Shilling', symbol: 'TSh', flag: '🇹🇿' },
+      { code: 'USD', name: 'US Dollar', symbol: '$', flag: '🇺🇸', methods: ['Zelle', 'Bank Transfer', 'Wire', 'Venmo', 'Cash App', 'Apple Pay'] },
+      { code: 'EUR', name: 'Euro', symbol: '€', flag: '🇪🇺', methods: ['SEPA', 'SEPA Instant', 'Revolut', 'Wise', 'Bank Transfer'] },
+      { code: 'GBP', name: 'British Pound', symbol: '£', flag: '🇬🇧', methods: ['Faster Payments', 'Revolut', 'Wise', 'Bank Transfer'] },
+      { code: 'NGN', name: 'Nigerian Naira', symbol: '₦', flag: '🇳🇬', methods: ['OPay', 'PalmPay', 'Bank Transfer', 'Kuda Bank'] },
+      { code: 'KES', name: 'Kenyan Shilling', symbol: 'KSh', flag: '🇰🇪', methods: ['M-Pesa (Safaricom)', 'Airtel Money', 'Bank Transfer'] },
+      { code: 'GHS', name: 'Ghanaian Cedi', symbol: 'GH₵', flag: '🇬🇭', methods: ['MTN MoMo', 'Vodafone Cash', 'AirtelTigo', 'Bank Transfer'] },
+      { code: 'ZAR', name: 'South African Rand', symbol: 'R', flag: '🇿🇦', methods: ['FNB / Capitec', 'Nedbank', 'Standard Bank', 'EFT'] },
+      { code: 'TZS', name: 'Tanzanian Shilling', symbol: 'TSh', flag: '🇹🇿', methods: ['M-Pesa', 'Tigo Pesa', 'Airtel Money', 'Bank Transfer'] },
     ];
 
     const ALL_PAYMENT_METHODS = [
@@ -560,14 +812,40 @@
     }
     let allMerchants = loadMerchants();
 
+    function getUserProfile() {
+      try {
+        const u = localStorage.getItem('bp_user_profile');
+        if (u) return JSON.parse(u);
+      } catch (e) {}
+      const def = { name: 'Alex Vance', email: 'user@bluepeakcapital.com', kyc: 'Tier 2 Verified', initials: 'AV' };
+      localStorage.setItem('bp_user_profile', JSON.stringify(def));
+      return def;
+    }
+
+    function getUserPaymentMethods() {
+      try {
+        const p = localStorage.getItem('bp_user_payment_methods');
+        if (p) return JSON.parse(p);
+      } catch (e) {}
+      const def = [
+        { method: 'Bank Transfer', number: '1098472918', holder: 'Alex Vance', extra: 'Domestic Wire' }
+      ];
+      localStorage.setItem('bp_user_payment_methods', JSON.stringify(def));
+      return def;
+    }
+
+    function saveUserPaymentMethods(arr) {
+      localStorage.setItem('bp_user_payment_methods', JSON.stringify(arr));
+    }
+
     const state = {
       p2pMode: 'buy', fiat: 'USD', crypto: 'USDT', amountFilter: null, paymentFilter: 'any',
       filterLimitPeriod: 'all', filterVerification: 'all', filterCompletion: 0,
-      page: 1, pageSize: 6, hasMore: true, filteredOffers: [], activeOrder: null,
-      orderTimerInterval: null, chatPollInterval: null
+      activeOrder: null, orderTimerInterval: null, chatPollInterval: null,
+      expressSide: 'buy', expressCrypto: 'USDT', expressFiat: 'USD'
     };
 
-    const liveRates = { USDT: 1, BTC: 81000, ETH: 3200, SOL: 150, BNB: 590 };
+    const liveRates = { USDT: 1.00, BTC: 81250, ETH: 3200, SOL: 155, BNB: 590 };
     const $ = (s) => document.querySelector(s);
     const $$ = (s) => document.querySelectorAll(s);
 
@@ -576,7 +854,7 @@
       clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove('show'), 2600);
     }
     function formatNum(n, d = 2) { return Number(n).toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d }); }
-    function fiatSym() { const c = CURRENCIES.find(x => x.code === state.fiat); return c ? c.symbol : '$'; }
+    function fiatSym(code = state.fiat) { const c = CURRENCIES.find(x => x.code === code); return c ? c.symbol : '$'; }
 
     function openSheet(id) { $('#' + id).classList.add('open'); $('#globalOverlay').classList.add('open'); document.body.style.overflow = 'hidden'; }
     function closeSheet(id) { $('#' + id).classList.remove('open'); $('#globalOverlay').classList.remove('open'); document.body.style.overflow = ''; }
@@ -593,7 +871,7 @@
         const b = localStorage.getItem('bp_user_balances');
         if (b) return JSON.parse(b);
       } catch (e) {}
-      const def = { USDT: 350.00, BTC: 0.045, ETH: 1.25, SOL: 15.0, BNB: 3.5 };
+      const def = { USDT: 350.00, BTC: 0.045, ETH: 1.25, SOL: 15.0, BNB: 3.5, USD: 1250.00 };
       localStorage.setItem('bp_user_balances', JSON.stringify(def));
       return def;
     }
@@ -604,21 +882,25 @@
         if (res.ok) {
           const d = await res.json();
           liveRates.USDT = d.tether?.usd || 1;
-          liveRates.BTC = d.bitcoin?.usd || 81000;
+          liveRates.BTC = d.bitcoin?.usd || 81250;
           liveRates.ETH = d.ethereum?.usd || 3200;
-          liveRates.SOL = d.solana?.usd || 150;
+          liveRates.SOL = d.solana?.usd || 155;
           liveRates.BNB = d.binancecoin?.usd || 590;
           $('#liveRateValue').textContent = `1 ${state.crypto} ≈ ${fiatSym()}${formatNum(liveRates[state.crypto] || 1, 2)}`;
+          updateExpressCalculations();
         }
-      } catch (e) {}
+      } catch (e) {
+        // Fallback default
+        $('#liveRateValue').textContent = `1 ${state.crypto} ≈ ${fiatSym()}${formatNum(liveRates[state.crypto] || 1, 2)}`;
+      }
     }
 
     function buildOffers() {
       const baseMerchants = allMerchants[state.fiat] || allMerchants.USD || [];
       const offers = [];
       baseMerchants.forEach((m, idx) => {
-        const basePrice = { USDT: 1.03, BTC: 81250, ETH: 3280, SOL: 153, BNB: 595 }[state.crypto] || 1.03;
-        const price = state.p2pMode === 'buy' ? basePrice * (1 + idx * 0.004) : basePrice * 0.98;
+        const basePrice = { USDT: 1.00, BTC: 81250, ETH: 3280, SOL: 153, BNB: 595 }[state.crypto] || 1.00;
+        const price = state.p2pMode === 'buy' ? basePrice * (1 + idx * 0.005) : basePrice * (0.99 - idx * 0.004);
         offers.push({
           id: `off-${m.id}-${idx}`, merchant: m, price: Number(price.toFixed(state.crypto === 'BTC' ? 2 : 4)),
           limitMin: 50, limitMax: 5000, available: 4500, methods: m.methods || ['Bank Transfer'],
@@ -656,7 +938,7 @@
           <div class="merchant-row">
             <div class="merchant-identity">
               <div class="merchant-avatar-wrap">
-                <div class="merchant-avatar">${o.merchant.initial}</div>
+                <div class="merchant-avatar">${o.merchant.initial || o.merchant.name.charAt(0)}</div>
                 ${o.merchant.isOnline ? '<span class="online-dot"></span>' : ''}
               </div>
               <div>
@@ -682,24 +964,28 @@
       `).join('');
     }
 
-    // ORDER MODAL LOGIC
+    // ORDER MODAL LOGIC (BUY & SELL FLOWS)
     function openOrderModal(offerId) {
       const offer = state.filteredOffers.find(o => o.id === offerId);
       if (!offer) return;
       const sym = fiatSym();
       const isBuy = state.p2pMode === 'buy';
       const userCryptoBal = getUserBalances()[state.crypto] || 0;
+      const userMethods = getUserPaymentMethods();
+      const currObj = CURRENCIES.find(c => c.code === state.fiat) || CURRENCIES[0];
+
+      let selectedUserMethod = userMethods.length > 0 ? userMethods[0] : null;
 
       $('#orderModalTitle').textContent = `${isBuy ? 'Buy' : 'Sell'} ${state.crypto}`;
       $('#orderModalBody').innerHTML = `
         <div class="amount-highlight-card">
           <div class="amount-highlight-box">
-            <span class="lbl">${isBuy ? 'You Pay' : 'Amount to Sell'}</span>
+            <span class="lbl">${isBuy ? 'You Pay' : 'Quantity to Sell'}</span>
             <span class="val" id="ordDisp1">${isBuy ? sym + '0.00' : '0.00 ' + state.crypto}</span>
             <span class="sub">Rate: ${sym}${offer.price}</span>
           </div>
           <div class="amount-highlight-box">
-            <span class="lbl">${isBuy ? 'You Receive' : 'Amount to Receive'}</span>
+            <span class="lbl">${isBuy ? 'You Receive' : 'Total Payout'}</span>
             <span class="val" id="ordDisp2" style="color:var(--gold-400);">${isBuy ? '0.00 ' + state.crypto : sym + '0.00'}</span>
             <span class="sub">Escrow Protected</span>
           </div>
@@ -719,7 +1005,7 @@
           <div class="source-selection-card">
             <div class="source-option active" id="srcInt">
               <input type="radio" name="csrc" checked>
-              <div><strong>BluePeak Balance (Internal)</strong><div class="source-desc">${userCryptoBal} ${state.crypto} available. Zero gas fee.</div></div>
+              <div><strong>BluePeak Wallet (Internal Balance)</strong><div class="source-desc">${userCryptoBal} ${state.crypto} available. Zero gas fee.</div></div>
             </div>
             <div class="source-option" id="srcExt">
               <input type="radio" name="csrc">
@@ -730,14 +1016,38 @@
             <p>⚠️ Insufficient BluePeak balance.</p>
             <a href="deposit.html" class="deposit-cta-btn">Deposit ${state.crypto}</a>
           </div>
-        </div>` : ''}
+        </div>
 
+        <!-- PAYMENT METHOD CONTAINER: ONLY FOR INTERNAL WALLET -->
+        <div id="internalSellPayoutSection" class="field-group">
+          <label class="field-label">Receive Payment Via (${state.fiat})</label>
+          <div class="user-payout-box" id="userPayoutBox">
+            ${selectedUserMethod ? `
+              <div class="user-payout-header">
+                <strong>${selectedUserMethod.method}</strong>
+                <button type="button" class="user-payout-edit-btn" id="changeUserPayoutBtn">Edit Account</button>
+              </div>
+              <div class="user-payout-details">
+                <div>Account: <strong>${selectedUserMethod.number}</strong></div>
+                <div>Name: <strong>${selectedUserMethod.holder}</strong></div>
+                ${selectedUserMethod.extra ? `<div style="font-size:11px;color:var(--gray-500);">${selectedUserMethod.extra}</div>` : ''}
+              </div>
+            ` : `
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span style="font-size:12px;color:var(--red-500);font-weight:700;">No payout account added</span>
+                <button type="button" class="btn-solid-green" style="padding:6px 14px;font-size:11px;width:auto;" id="changeUserPayoutBtn">+ Add Details</button>
+              </div>
+            `}
+          </div>
+        </div>
+        ` : `
         <div class="field-group">
-          <label class="field-label">Payment Method</label>
+          <label class="field-label">Pay Merchant Via</label>
           <select class="select-field" id="ordMethodSelect">
             ${offer.methods.map(m => `<option value="${m}">${m}</option>`).join('')}
           </select>
         </div>
+        `}
 
         <div class="terms-checkbox">
           <input type="checkbox" id="ordTerms" checked>
@@ -753,17 +1063,41 @@
       let srcType = 'internal';
 
       if (!isBuy) {
-        $('#srcInt').addEventListener('click', () => { srcType = 'internal'; $('#srcInt').classList.add('active'); $('#srcExt').classList.remove('active'); checkBal(); });
-        $('#srcExt').addEventListener('click', () => { srcType = 'external'; $('#srcExt').classList.add('active'); $('#srcInt').classList.remove('active'); $('#balWarn').style.display = 'none'; });
+        const srcInt = $('#srcInt');
+        const srcExt = $('#srcExt');
+        const payoutSec = $('#internalSellPayoutSection');
+        const balWarn = $('#balWarn');
+
+        srcInt.addEventListener('click', () => {
+          srcType = 'internal';
+          srcInt.classList.add('active');
+          srcExt.classList.remove('active');
+          payoutSec.style.display = 'flex';
+          checkBal();
+        });
+
+        srcExt.addEventListener('click', () => {
+          srcType = 'external';
+          srcExt.classList.add('active');
+          srcInt.classList.remove('active');
+          payoutSec.style.display = 'none'; // SCRAP payment method choice for external wallet!
+          balWarn.style.display = 'none';
+        });
+
         function checkBal() {
           const val = parseFloat(amtInp.value) || 0;
-          $('#balWarn').style.display = (srcType === 'internal' && val > userCryptoBal) ? 'flex' : 'none';
+          balWarn.style.display = (srcType === 'internal' && val > userCryptoBal) ? 'flex' : 'none';
         }
+
         amtInp.addEventListener('input', () => {
           const q = parseFloat(amtInp.value) || 0;
           $('#ordDisp1').textContent = `${q.toFixed(4)} ${state.crypto}`;
           $('#ordDisp2').textContent = `${sym}${formatNum(q * offer.price, 2)}`;
           checkBal();
+        });
+
+        $('#changeUserPayoutBtn')?.addEventListener('click', () => {
+          openUserPaymentMethodModal();
         });
       } else {
         amtInp.addEventListener('input', () => {
@@ -776,53 +1110,178 @@
       $('#ordConfirmBtn').addEventListener('click', () => {
         const val = parseFloat(amtInp.value);
         if (!val || val <= 0) return alert('Enter a valid amount.');
-        if (!isBuy && srcType === 'internal' && val > userCryptoBal) return alert('Insufficient balance.');
+        if (!isBuy && srcType === 'internal' && val > userCryptoBal) return alert('Insufficient BluePeak balance.');
 
+        if (!isBuy && srcType === 'internal') {
+          const currentMethods = getUserPaymentMethods();
+          if (currentMethods.length === 0) {
+            alert('Please add your payout account details before proceeding.');
+            return openUserPaymentMethodModal();
+          }
+        }
+
+        const userProf = getUserProfile();
         const orderId = 'ORD-' + Math.floor(100000 + Math.random() * 900000);
         const assetObj = ASSETS.find(a => a.symbol === state.crypto) || ASSETS[0];
         const cryptoAmt = isBuy ? (val / offer.price).toFixed(4) : val.toFixed(4);
         const fiatAmt = isBuy ? val.toFixed(2) : (val * offer.price).toFixed(2);
         const escrowAddr = offer.merchant.escrowAddr || assetObj.defaultAddr;
         const nowTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        const userMethods = getUserPaymentMethods();
+        const activeMethod = userMethods[0] || { method: 'Bank Transfer', number: '--', holder: userProf.name };
 
-        const messages = [{
-          sender: 'merchant',
-          text: `Hi! Order #${orderId} opened. I am ready to complete settlement.`,
-          time: nowTime
-        }];
+        const messages = [];
 
-        if (!isBuy && srcType === 'external') {
+        if (isBuy) {
+          // BUY ORDER: User is paying fiat to Merchant
           messages.push({
-            sender: 'merchant', isEscrowInstruction: true, network: assetObj.network, address: escrowAddr,
-            text: `Please transfer ${cryptoAmt} ${state.crypto} to the BluePeak Escrow address below:`,
+            sender: 'merchant',
+            senderName: offer.merchant.name,
+            text: `Hi ${userProf.name}! Order #${orderId} is opened. Please send ${sym}${fiatAmt} using ${$('#ordMethodSelect').value}. I will release ${cryptoAmt} ${state.crypto} upon bank confirmation.`,
             time: nowTime
           });
+        } else {
+          // SELL ORDER
+          if (srcType === 'internal') {
+            // Internal balance sell: Buyer/Merchant must pay user to user's saved account details
+            messages.push({
+              sender: 'system',
+              senderName: 'BluePeak Escrow',
+              text: `Order #${orderId} locked. Crypto funds (${cryptoAmt} ${state.crypto}) are held securely in BluePeak Escrow.`,
+              time: nowTime
+            });
+            messages.push({
+              sender: 'user',
+              senderName: userProf.name,
+              text: `Hello ${offer.merchant.name}, please send ${sym}${fiatAmt} to my account:\n• Method: ${activeMethod.method}\n• Account: ${activeMethod.number}\n• Name: ${activeMethod.holder}`,
+              time: nowTime
+            });
+            messages.push({
+              sender: 'merchant',
+              senderName: offer.merchant.name,
+              text: `Received details! Processing payout of ${sym}${fiatAmt} to ${activeMethod.holder}. I will notify you once transferred.`,
+              time: nowTime
+            });
+          } else {
+            // External wallet sell: Direct escrow instructions
+            messages.push({
+              sender: 'merchant',
+              senderName: offer.merchant.name,
+              isEscrowInstruction: true,
+              network: assetObj.network,
+              address: escrowAddr,
+              text: `Please transfer exactly ${cryptoAmt} ${state.crypto} to the BluePeak Escrow address below, then send transaction hash or chat with me:`,
+              time: nowTime
+            });
+          }
         }
 
         state.activeOrder = {
-          id: orderId, offer, mode: state.p2pMode, crypto: state.crypto, cryptoAmount: cryptoAmt,
-          fiatAmount: fiatAmt, paymentMethod: $('#ordMethodSelect').value, timeLeft: (offer.timeWindow || 15) * 60,
+          id: orderId,
+          offer,
+          mode: state.p2pMode,
+          srcType,
+          crypto: state.crypto,
+          cryptoAmount: cryptoAmt,
+          fiatAmount: fiatAmt,
+          fiat: state.fiat,
+          paymentMethod: isBuy ? $('#ordMethodSelect').value : (srcType === 'internal' ? activeMethod.method : 'Direct Escrow'),
+          payoutDetails: srcType === 'internal' ? activeMethod : null,
+          escrowAddr: escrowAddr,
+          network: assetObj.network,
+          userName: userProf.name,
+          merchantName: offer.merchant.name,
+          timeLeft: (offer.timeWindow || 15) * 60,
+          status: 'Escrow Locked',
+          date: new Date().toLocaleDateString() + ' ' + nowTime,
           messages
         };
 
+        saveOrderToHistory(state.activeOrder);
         syncOrderStorage(state.activeOrder);
         closeSheet('orderModal');
         startTimer();
         startChatSync();
         renderActiveOrder();
-        showToast('Trade opened! Chat active.');
+        showToast('Trade opened! Escrow is active.');
       });
+    }
+
+    function openUserPaymentMethodModal() {
+      const curr = CURRENCIES.find(c => c.code === state.fiat) || CURRENCIES[0];
+      const sel = $('#userPayMethodTypeSelect');
+      sel.innerHTML = curr.methods.map(m => `<option value="${m}">${m}</option>`).join('');
+      openSheet('userPaymentMethodModal');
+    }
+
+    $('#saveUserPaymentDetailsBtn').addEventListener('click', () => {
+      const method = $('#userPayMethodTypeSelect').value;
+      const number = $('#userPayAccountNumber').value.trim();
+      const holder = $('#userPayAccountHolder').value.trim();
+      const extra = $('#userPayExtraInfo').value.trim();
+
+      if (!number || !holder) return alert('Please enter account number and holder name.');
+
+      const list = getUserPaymentMethods();
+      list.unshift({ method, number, holder, extra });
+      saveUserPaymentMethods(list);
+
+      closeSheet('userPaymentMethodModal');
+      renderProfilePaymentMethods();
+      showToast('Payout details saved to profile!');
+
+      // If order modal is open, re-render its payout box
+      const box = $('#userPayoutBox');
+      if (box) {
+        box.innerHTML = `
+          <div class="user-payout-header">
+            <strong>${method}</strong>
+            <button type="button" class="user-payout-edit-btn" id="changeUserPayoutBtn">Edit Account</button>
+          </div>
+          <div class="user-payout-details">
+            <div>Account: <strong>${number}</strong></div>
+            <div>Name: <strong>${holder}</strong></div>
+            ${extra ? `<div style="font-size:11px;color:var(--gray-500);">${extra}</div>` : ''}
+          </div>
+        `;
+        $('#changeUserPayoutBtn')?.addEventListener('click', openUserPaymentMethodModal);
+      }
+    });
+
+    function saveOrderToHistory(order) {
+      let orders = JSON.parse(localStorage.getItem('bp_p2p_orders') || '[]');
+      orders.unshift({
+        id: order.id,
+        mode: order.mode,
+        crypto: order.crypto,
+        cryptoAmount: order.cryptoAmount,
+        fiat: order.fiat,
+        fiatAmount: order.fiatAmount,
+        merchantName: order.merchantName,
+        status: order.status,
+        date: order.date,
+        srcType: order.srcType
+      });
+      localStorage.setItem('bp_p2p_orders', JSON.stringify(orders));
+      renderOrdersHistory();
     }
 
     function syncOrderStorage(order) {
       localStorage.setItem('bp_p2p_chat_' + order.id, JSON.stringify(order.messages));
       let adminChats = JSON.parse(localStorage.getItem('bp_admin_chats') || '[]');
       const item = {
-        id: 'chat-' + order.id, order: order.id, merchant: order.offer.merchant.name,
-        buyer: 'Bluepeak User', asset: order.crypto, amount: order.cryptoAmount,
-        usdAmount: parseFloat(order.fiatAmount), side: order.mode === 'buy' ? 'Buy' : 'Sell',
-        status: 'active', unread: true, created: new Date().toISOString(),
-        messages: order.messages.map(m => ({ from: m.sender, text: m.text, time: m.time }))
+        id: 'chat-' + order.id,
+        order: order.id,
+        merchant: order.merchantName,
+        buyer: order.userName,
+        asset: order.crypto,
+        amount: order.cryptoAmount,
+        usdAmount: parseFloat(order.fiatAmount),
+        side: order.mode === 'buy' ? 'Buy' : 'Sell',
+        status: 'active',
+        unread: true,
+        created: new Date().toISOString(),
+        messages: order.messages.map(m => ({ from: m.sender, name: m.senderName, text: m.text, time: m.time }))
       };
       const idx = adminChats.findIndex(c => c.order === order.id);
       if (idx >= 0) adminChats[idx] = item; else adminChats.unshift(item);
@@ -846,22 +1305,28 @@
     }
 
     function renderBubbles(msgs) {
-      return msgs.map(m => `
-        <div class="chat-bubble ${m.sender === 'user' ? 'user' : 'merchant'}">
-          <strong>${m.sender === 'user' ? 'You' : 'Merchant'}</strong>
-          <div>${m.text}</div>
-          ${m.isEscrowInstruction ? `
-            <div class="chat-crypto-card">
-              <span class="network-pill">${m.network}</span>
-              <div class="addr-line">${m.address}</div>
-              <button class="copy-chip" onclick="copyText('${m.address}')">📋 Copy Address</button>
-            </div>` : ''}
-          <span class="meta">${m.time || ''}</span>
-        </div>
-      `).join('');
+      return msgs.map(m => {
+        const isUser = m.sender === 'user';
+        const isSystem = m.sender === 'system';
+        return `
+          <div class="chat-bubble ${isUser ? 'user' : (isSystem ? 'system' : 'merchant')}">
+            <div class="chat-bubble-author">${m.senderName || (isUser ? 'You' : 'Merchant')}</div>
+            <div style="white-space:pre-wrap;">${m.text}</div>
+            ${m.isEscrowInstruction ? `
+              <div class="chat-crypto-card">
+                <span class="network-pill">${m.network}</span>
+                <div class="addr-line">${m.address}</div>
+                <button class="copy-chip" onclick="copyText('${m.address}')">📋 Copy Address</button>
+              </div>` : ''}
+            <span class="meta">${m.time || ''}</span>
+          </div>
+        `;
+      }).join('');
     }
 
-    function copyText(txt) { navigator.clipboard.writeText(txt).then(() => showToast('Address copied!')); }
+    function copyText(txt) {
+      navigator.clipboard.writeText(txt).then(() => showToast('Escrow Address Copied!'));
+    }
 
     function startTimer() {
       if (state.orderTimerInterval) clearInterval(state.orderTimerInterval);
@@ -881,7 +1346,8 @@
     function renderActiveOrder() {
       const o = state.activeOrder;
       const isBuy = o.mode === 'buy';
-      const sym = fiatSym();
+      const isExternalSell = !isBuy && o.srcType === 'external';
+      const sym = fiatSym(o.fiat);
 
       $('#p2pMainContent').innerHTML = `
         <div class="active-order-panel">
@@ -889,22 +1355,58 @@
             <h4>Trade Settlement Window</h4>
             <div class="order-timer-value" id="orderTimerDisplay">15:00</div>
           </div>
+
           <div style="display:flex;justify-content:space-between;align-items:center;">
-            <div><strong>${o.offer.merchant.name}</strong><div style="font-size:12px;color:var(--gray-500);">${o.paymentMethod}</div></div>
-            <span style="font-size:11px;font-weight:800;color:var(--green-500);background:var(--green-100);padding:3px 8px;border-radius:12px;">● Escrow Locked</span>
+            <div>
+              <strong style="font-size:15px;">${o.merchantName}</strong>
+              <div style="font-size:12px;color:var(--gray-500);">${o.paymentMethod}</div>
+            </div>
+            <span style="font-size:11px;font-weight:800;color:var(--green-500);background:var(--green-100);padding:4px 10px;border-radius:12px;">● Escrow Locked</span>
           </div>
-          <div class="amount-highlight-card">
-            <div class="amount-highlight-box"><span class="lbl">${isBuy ? 'Fiat Total' : 'Crypto Sold'}</span><span class="val">${isBuy ? sym + o.fiatAmount : o.cryptoAmount + ' ' + o.crypto}</span></div>
-            <div class="amount-highlight-box"><span class="lbl">${isBuy ? 'Crypto Received' : 'Fiat Total'}</span><span class="val" style="color:var(--gold-400);">${isBuy ? o.cryptoAmount + ' ' + o.crypto : sym + o.fiatAmount}</span></div>
+
+          <!-- TRADE SUBMAIN & DETAILS -->
+          <div class="trade-submain-card">
+            <div class="submain-header">Trade Summary</div>
+            <div class="submain-row"><span>Order ID:</span><strong>#${o.id}</strong></div>
+            <div class="submain-row"><span>Type:</span><strong>${isBuy ? 'Buy Crypto' : 'Sell Crypto'}</strong></div>
+            <div class="submain-row"><span>Amount:</span><strong>${isBuy ? sym + o.fiatAmount : o.cryptoAmount + ' ' + o.crypto}</strong></div>
+            <div class="submain-row"><span>Receive:</span><strong>${isBuy ? o.cryptoAmount + ' ' + o.crypto : sym + o.fiatAmount}</strong></div>
+
+            ${!isBuy && o.srcType === 'internal' && o.payoutDetails ? `
+              <div style="margin-top:6px;padding-top:8px;border-top:1px dashed var(--gray-300);">
+                <div class="submain-header" style="color:var(--blue-500);margin-bottom:4px;">Seller Payout Account Details</div>
+                <div class="submain-row"><span>Method:</span><strong>${o.payoutDetails.method}</strong></div>
+                <div class="submain-row"><span>Account/Phone:</span><strong>${o.payoutDetails.number}</strong></div>
+                <div class="submain-row"><span>Name:</span><strong>${o.payoutDetails.holder}</strong></div>
+              </div>
+            ` : ''}
+
+            ${isExternalSell ? `
+              <div class="escrow-guide-banner" style="margin-top:6px;">
+                <div class="escrow-guide-title"><span>🛡️</span> External Settlement Guide</div>
+                <p class="escrow-guide-step">1. Send exactly <strong>${o.cryptoAmount} ${o.crypto}</strong> to the BluePeak escrow address below.<br>
+                2. After broadcasting transaction, notify <strong>${o.merchantName}</strong> in chat.<br>
+                3. The vendor will release <strong>${sym}${o.fiatAmount}</strong> directly to you.</p>
+                <div class="chat-crypto-card">
+                  <span class="network-pill">${o.network}</span>
+                  <div class="addr-line">${o.escrowAddr}</div>
+                  <button class="copy-chip" onclick="copyText('${o.escrowAddr}')">📋 Copy Address</button>
+                </div>
+              </div>
+            ` : ''}
           </div>
+
+          <!-- CHAT WINDOW -->
           <div class="chat-mock" id="chatContainer">${renderBubbles(o.messages)}</div>
+
           <div class="chat-input-wrap">
-            <input type="text" id="chatInput" placeholder="Message merchant...">
+            <input type="text" id="chatInput" placeholder="Message ${o.merchantName}...">
             <button id="chatSendBtn">Send</button>
           </div>
+
           <div class="action-buttons-grid">
-            <button class="btn-outline-danger" id="cancelBtn">Cancel</button>
-            <button class="btn-solid-green" id="confirmPaidBtn">${isBuy ? 'I Have Paid' : 'I Have Transferred'}</button>
+            <button class="btn-outline-danger" id="cancelBtn">Cancel Trade</button>
+            <button class="btn-solid-green" id="confirmPaidBtn">${isBuy ? 'I Have Paid' : (isExternalSell ? 'I Have Sent Crypto' : 'Confirm Release')}</button>
           </div>
         </div>
       `;
@@ -912,7 +1414,12 @@
       function sendMsg() {
         const txt = $('#chatInput').value.trim();
         if (!txt) return;
-        const msg = { sender: 'user', text: txt, time: new Date().toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' }) };
+        const msg = {
+          sender: 'user',
+          senderName: o.userName,
+          text: txt,
+          time: new Date().toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' })
+        };
         o.messages.push(msg);
         $('#chatInput').value = '';
         syncOrderStorage(o);
@@ -923,32 +1430,263 @@
       $('#chatInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMsg(); });
 
       $('#cancelBtn').addEventListener('click', () => {
-        if (confirm('Cancel order?')) { clearInterval(state.orderTimerInterval); state.activeOrder = null; applyFiltersAndRender(); }
+        if (confirm('Cancel this trade? Funds in escrow will be released.')) {
+          clearInterval(state.orderTimerInterval);
+          state.activeOrder.status = 'Cancelled';
+          saveOrderToHistory(state.activeOrder);
+          state.activeOrder = null;
+          applyFiltersAndRender();
+        }
       });
+
       $('#confirmPaidBtn').addEventListener('click', () => {
-        showToast('Confirmation sent to merchant escrow desk.');
+        showToast('Confirmation dispatched to vendor & escrow clerk.');
       });
     }
 
-    // MERCHANT REGISTRATION
-    $('#drawerAddMerchantBtn').addEventListener('click', () => { closeDrawer(); openSheet('merchantEditModal'); });
-    $('#openMerchantEditBtn')?.addEventListener('click', () => openSheet('merchantEditModal'));
-    $('#saveMerchantBtn').addEventListener('click', () => {
-      const name = $('#mEditName').value.trim();
-      if (!name) return alert('Enter name.');
-      const m = {
-        id: 'm_' + Date.now(), name, initial: name.charAt(0).toUpperCase(), verified: true, isOnline: true,
-        trades: 1, completion: 100, positive: 100, time: '15 min',
-        methods: ($('#mEditMethods').value || 'Bank Transfer').split(',').map(s=>s.trim()),
-        escrowAddr: $('#mEditEscrowAddr').value.trim() || 'TTx882KLa92mZbQpP004NqK599eL'
-      };
-      if (!allMerchants[state.fiat]) allMerchants[state.fiat] = [];
-      allMerchants[state.fiat].unshift(m);
-      localStorage.setItem('bp_merchants', JSON.stringify(allMerchants));
-      closeSheet('merchantEditModal');
-      showToast('Merchant registered!');
-      applyFiltersAndRender();
+    // ORDERS HISTORY RENDER
+    function renderOrdersHistory() {
+      const list = $('#ordersList');
+      const orders = JSON.parse(localStorage.getItem('bp_p2p_orders') || '[]');
+      $('#ordersCountBadge').textContent = `${orders.length} Orders`;
+
+      if (orders.length === 0) {
+        list.innerHTML = `<div style="text-align:center;padding:40px;background:#fff;border-radius:16px;color:var(--gray-500);">No P2P trades executed yet.</div>`;
+        return;
+      }
+
+      list.innerHTML = orders.map(o => `
+        <div class="order-history-card">
+          <div class="order-h-top">
+            <span class="order-h-id">#${o.id}</span>
+            <span class="order-h-status ${o.status === 'Cancelled' ? 'status-cancelled' : 'status-completed'}">${o.status}</span>
+          </div>
+          <div class="order-h-body">
+            <div>
+              <div style="font-weight:800;color:var(--navy-900);">${o.mode === 'buy' ? 'Buy' : 'Sell'} ${o.crypto}</div>
+              <div style="font-size:11px;color:var(--gray-500);">${o.date} · ${o.merchantName}</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-weight:800;">${fiatSym(o.fiat)}${o.fiatAmount}</div>
+              <div style="font-size:11px;color:var(--gold-500);font-weight:700;">${o.cryptoAmount} ${o.crypto}</div>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // ADS TAB MANAGEMENT
+    function renderMyAds() {
+      const list = $('#myAdsList');
+      const ads = JSON.parse(localStorage.getItem('bp_my_p2p_ads') || '[]');
+      $('#myAdsCount').textContent = `${ads.length} Published`;
+
+      if (ads.length === 0) {
+        list.innerHTML = `<div style="text-align:center;padding:30px;background:#fff;border-radius:16px;color:var(--gray-500);font-size:13px;">You have no active advertisements. Tap "+ Post Ad" to create one.</div>`;
+        return;
+      }
+
+      list.innerHTML = ads.map(a => `
+        <div class="offer-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <strong>${a.side.toUpperCase()} ${a.asset}</strong>
+            <span style="font-size:11px;font-weight:800;color:var(--green-500);">● Active</span>
+          </div>
+          <div style="font-size:18px;font-weight:800;">${fiatSym(a.fiat)}${a.price} / ${a.asset}</div>
+          <div style="font-size:12px;color:var(--gray-500);">Limit: ${fiatSym(a.fiat)}${a.min} - ${fiatSym(a.fiat)}${a.max} · ${a.methods}</div>
+        </div>
+      `).join('');
+    }
+
+    $('#openCreateAdBtn').addEventListener('click', () => {
+      $('#adFiatSelect').innerHTML = CURRENCIES.map(c => `<option value="${c.code}">${c.code} (${c.name})</option>`).join('');
+      openSheet('createAdModal');
     });
+
+    let currentAdSide = 'buy';
+    $$('#adSideToggle .express-subtab').forEach(b => {
+      b.addEventListener('click', () => {
+        $$('#adSideToggle .express-subtab').forEach(x => x.classList.remove('active'));
+        b.classList.add('active');
+        currentAdSide = b.dataset.adside;
+      });
+    });
+
+    $('#submitNewAdBtn').addEventListener('click', () => {
+      const price = parseFloat($('#adUnitPrice').value);
+      const min = parseFloat($('#adMinLimit').value) || 50;
+      const max = parseFloat($('#adMaxLimit').value) || 3000;
+      const methods = $('#adMethods').value.trim() || 'Bank Transfer';
+      const asset = $('#adAssetSelect').value;
+      const fiat = $('#adFiatSelect').value;
+
+      if (!price || price <= 0) return alert('Please enter a valid price.');
+
+      const newAd = { id: 'ad-' + Date.now(), side: currentAdSide, asset, fiat, price, min, max, methods };
+      let ads = JSON.parse(localStorage.getItem('bp_my_p2p_ads') || '[]');
+      ads.unshift(newAd);
+      localStorage.setItem('bp_my_p2p_ads', JSON.stringify(ads));
+
+      closeSheet('createAdModal');
+      renderMyAds();
+      showToast('Advertisement published to marketplace!');
+    });
+
+    // PROFILE VIEW PAYMENT METHODS
+    function renderProfilePaymentMethods() {
+      const list = $('#profPaymentMethodsList');
+      const methods = getUserPaymentMethods();
+      if (methods.length === 0) {
+        list.innerHTML = `<div style="font-size:12px;color:var(--gray-500);text-align:center;padding:12px;">No payment methods registered.</div>`;
+        return;
+      }
+      list.innerHTML = methods.map((m, i) => `
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:var(--navy-50);border-radius:8px;border:1px solid var(--gray-200);">
+          <div>
+            <strong style="font-size:12px;color:var(--navy-900);">${m.method}</strong>
+            <div style="font-size:11px;color:var(--gray-500);">${m.number} · ${m.holder}</div>
+          </div>
+          <button style="background:none;border:none;color:var(--red-500);font-size:11px;cursor:pointer;font-weight:700;" onclick="deleteUserPaymentMethod(${i})">Remove</button>
+        </div>
+      `).join('');
+    }
+
+    window.deleteUserPaymentMethod = function(idx) {
+      const list = getUserPaymentMethods();
+      list.splice(idx, 1);
+      saveUserPaymentMethods(list);
+      renderProfilePaymentMethods();
+    };
+
+    $('#profAddPayMethodBtn').addEventListener('click', openUserPaymentMethodModal);
+
+    // EXPRESS DESK LOGIC
+    function initExpressDesk() {
+      const userBals = getUserBalances();
+      $('#expressBuyBalHint').textContent = `Bal: ${userBals[state.expressCrypto] || 0} ${state.expressCrypto}`;
+      $('#expressSellBalHint').textContent = `Available: ${userBals[state.expressCrypto] || 0} ${state.expressCrypto}`;
+
+      $$('#expressSideToggle .express-subtab').forEach(b => {
+        b.addEventListener('click', () => {
+          $$('#expressSideToggle .express-subtab').forEach(x => { x.classList.remove('active', 'sell'); });
+          b.classList.add('active');
+          if (b.dataset.side === 'sell') b.classList.add('sell');
+          state.expressSide = b.dataset.side;
+
+          $('#expressBuyForm').style.display = state.expressSide === 'buy' ? 'flex' : 'none';
+          $('#expressSellForm').style.display = state.expressSide === 'sell' ? 'flex' : 'none';
+          updateExpressCalculations();
+        });
+      });
+
+      $('#expressBuyPayAmt').addEventListener('input', updateExpressCalculations);
+      $('#expressSellPayAmt').addEventListener('input', updateExpressCalculations);
+
+      $('#expressSellMaxBtn').addEventListener('click', () => {
+        const bal = getUserBalances()[state.expressCrypto] || 0;
+        $('#expressSellPayAmt').value = bal;
+        updateExpressCalculations();
+      });
+
+      $('#expressBuyFiatBtn').addEventListener('click', () => {
+        openCurrencyPickerForExpress('expressBuyFiat');
+      });
+      $('#expressSellFiatBtn').addEventListener('click', () => {
+        openCurrencyPickerForExpress('expressSellFiat');
+      });
+
+      $('#expressBuyCryptoBtn').addEventListener('click', () => {
+        openCryptoPickerForExpress('expressBuyCrypto');
+      });
+      $('#expressSellCryptoBtn').addEventListener('click', () => {
+        openCryptoPickerForExpress('expressSellCrypto');
+      });
+
+      $('#executeExpressBuyBtn').addEventListener('click', () => {
+        const amt = parseFloat($('#expressBuyPayAmt').value) || 0;
+        if (amt <= 0) return alert('Enter valid amount.');
+        showToast('Express purchase locked & confirmed!');
+      });
+
+      $('#executeExpressSellBtn').addEventListener('click', () => {
+        const amt = parseFloat($('#expressSellPayAmt').value) || 0;
+        const bal = getUserBalances()[state.expressCrypto] || 0;
+        if (amt <= 0 || amt > bal) return alert('Insufficient crypto balance.');
+        showToast('Express settlement dispatched to your bank!');
+      });
+
+      updateExpressCalculations();
+    }
+
+    function updateExpressCalculations() {
+      const rate = liveRates[state.expressCrypto] || 1;
+      const sym = fiatSym(state.expressFiat);
+
+      // Buy
+      const buyPay = parseFloat($('#expressBuyPayAmt').value) || 0;
+      const buyRec = buyPay / rate;
+      $('#expressBuyRecAmt').value = buyRec.toFixed(4);
+      $('#expressBuyRateLabel').textContent = `1 ${state.expressCrypto} ≈ ${sym}${formatNum(rate, 2)} ${state.expressFiat}`;
+
+      // Sell
+      const sellPay = parseFloat($('#expressSellPayAmt').value) || 0;
+      const sellRec = sellPay * rate * 0.99; // 1% spread
+      $('#expressSellRecAmt').value = sellRec.toFixed(2);
+      $('#expressSellRateLabel').textContent = `1 ${state.expressCrypto} ≈ ${sym}${formatNum(rate * 0.99, 2)} ${state.expressFiat}`;
+    }
+
+    function openCurrencyPickerForExpress(target) {
+      $('#currencyList').innerHTML = CURRENCIES.map(c => `
+        <div style="display:flex;align-items:center;gap:12px;padding:10px;cursor:pointer;border-bottom:1px solid #eee;" onclick="selectExpressFiat('${c.code}', '${target}')">
+          <span style="font-size:20px;">${c.flag}</span>
+          <div style="flex:1;"><strong>${c.code}</strong> <span style="font-size:11px;color:#888;">${c.name}</span></div>
+          <strong>${c.symbol}</strong>
+        </div>
+      `).join('');
+      openSheet('currencyModal');
+    }
+
+    window.selectExpressFiat = function(code, target) {
+      const c = CURRENCIES.find(x => x.code === code);
+      state.expressFiat = code;
+      if (target === 'expressBuyFiat') {
+        $('#expressBuyFiatFlag').textContent = c.flag;
+        $('#expressBuyFiatLabel').textContent = c.code;
+      } else {
+        $('#expressSellFiatFlag').textContent = c.flag;
+        $('#expressSellFiatLabel').textContent = c.code;
+      }
+      closeSheet('currencyModal');
+      updateExpressCalculations();
+    };
+
+    function openCryptoPickerForExpress(target) {
+      $('#cryptoPickerList').innerHTML = ASSETS.map(a => `
+        <div style="display:flex;align-items:center;gap:12px;padding:12px;cursor:pointer;border:1px solid #eee;border-radius:10px;margin-bottom:6px;" onclick="selectExpressCrypto('${a.symbol}', '${target}')">
+          <img src="${a.icon}" style="width:30px;height:30px;">
+          <div style="flex:1;"><strong>${a.name}</strong> <div style="font-size:11px;color:#888;">${a.network}</div></div>
+          <strong>$${liveRates[a.symbol] || 1}</strong>
+        </div>
+      `).join('');
+      openSheet('cryptoModal');
+    }
+
+    window.selectExpressCrypto = function(sym, target) {
+      const a = ASSETS.find(x => x.symbol === sym);
+      state.expressCrypto = sym;
+      if (target === 'expressBuyCrypto') {
+        $('#expressBuyCryptoIcon').src = a.icon;
+        $('#expressBuyCryptoLabel').textContent = sym;
+      } else {
+        $('#expressSellCryptoIcon').src = a.icon;
+        $('#expressSellCryptoLabel').textContent = sym;
+      }
+      const userBals = getUserBalances();
+      $('#expressBuyBalHint').textContent = `Bal: ${userBals[sym] || 0} ${sym}`;
+      $('#expressSellBalHint').textContent = `Available: ${userBals[sym] || 0} ${sym}`;
+      closeSheet('cryptoModal');
+      updateExpressCalculations();
+    };
 
     // FILTER MODALS
     $('#fiatDropdown').addEventListener('click', () => {
@@ -1029,12 +1767,21 @@
       $$('.view-section').forEach(v => v.classList.remove('active'));
       const t = $('#view-' + id); if (t) t.classList.add('active');
       $$('.bottom-nav-item').forEach(b => b.classList.toggle('active', b.dataset.bnav === id));
+      $$('.p2p-tab').forEach(x => x.classList.toggle('active', x.dataset.p2ptab === id));
+
+      if (id === 'orders') renderOrdersHistory();
+      if (id === 'ads') renderMyAds();
+      if (id === 'profile') {
+        const u = getUserProfile();
+        $('#profDisplayName').textContent = u.name;
+        $('#profAvatar').textContent = u.initials || u.name.charAt(0);
+        renderProfilePaymentMethods();
+      }
+      if (id === 'express') initExpressDesk();
     }
+
     $$('.bottom-nav-item').forEach(b => b.addEventListener('click', () => switchView(b.dataset.bnav)));
-    $$('.p2p-tab').forEach(t => t.addEventListener('click', () => {
-      $$('.p2p-tab').forEach(x => x.classList.toggle('active', x === t));
-      switchView(t.dataset.p2ptab);
-    }));
+    $$('.p2p-tab').forEach(t => t.addEventListener('click', () => switchView(t.dataset.p2ptab)));
 
     function openProfileModal(mId) {
       let m = null; Object.values(allMerchants).forEach(l => { const f = l.find(x => x.id === mId); if (f) m = f; });
@@ -1053,6 +1800,9 @@
     // INIT
     applyFiltersAndRender();
     fetchLiveRates();
+    renderOrdersHistory();
+    renderProfilePaymentMethods();
+    initExpressDesk();
   </script>
 </body>
 </html>
