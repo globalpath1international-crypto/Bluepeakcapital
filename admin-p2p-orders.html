@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-  <title>P2P Orders — Admin — Bluepeak Capital</title>
+  <title>P2P Orders &amp; Escrow Desk — Admin — Bluepeak Capital</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
@@ -11,7 +11,7 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --navy-900: #0A1A2F; --navy-800: #10243E; --navy-700: #1A3352;
+      --navy-950: #050E1A; --navy-900: #0A1A2F; --navy-800: #10243E; --navy-700: #1A3352;
       --navy-100: #E8EDF4; --navy-50: #F2F5FA;
       --gold-500: #C9A84C; --gold-400: #DDBE6B; --gold-100: #FBF5E6;
       --green-500: #0F9D6E; --green-100: #E6F7F1;
@@ -23,7 +23,7 @@
       --shadow-xs: 0 1px 2px rgba(10, 26, 47, 0.04);
       --shadow-sm: 0 2px 8px rgba(10, 26, 47, 0.05);
       --shadow-md: 0 8px 24px rgba(10, 26, 47, 0.07);
-      --shadow-lg: 0 16px 48px rgba(10, 26, 47, 0.10);
+      --shadow-lg: 0 16px 48px rgba(10, 26, 47, 0.12);
       --radius-xs: 8px; --radius-sm: 12px; --radius-md: 16px;
       --radius-lg: 20px; --radius-pill: 999px;
       --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -66,6 +66,15 @@
     .page-title-block h1 { font-size: 20px; font-weight: 800; color: var(--navy-900); letter-spacing: -0.5px; margin-bottom: 2px; }
     .page-title-block p { font-size: 12px; font-weight: 500; color: var(--gray-500); }
     .topbar-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    
+    .action-header-btn {
+      display: flex; align-items: center; gap: 6px; background: var(--navy-50);
+      border: 1px solid var(--gray-200); border-radius: var(--radius-pill);
+      padding: 7px 14px; font-family: var(--font); font-size: 12px; font-weight: 700;
+      color: var(--navy-900); cursor: pointer; transition: all 0.15s;
+    }
+    .action-header-btn:hover { background: var(--gold-100); border-color: var(--gold-500); }
+
     .admin-chip { display: flex; align-items: center; gap: 10px; padding: 4px 14px 4px 4px; background: var(--navy-50); border: 1px solid var(--gray-200); border-radius: var(--radius-pill); cursor: pointer; transition: all 0.15s; }
     .admin-chip:hover { background: var(--gold-100); border-color: var(--gold-500); }
     .admin-avatar { width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg, var(--navy-900), var(--navy-700)); color: var(--gold-400); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; }
@@ -73,10 +82,10 @@
     .admin-role { font-size: 9.5px; font-weight: 600; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.4px; }
 
     /* CONTENT — 2 column layout: orders list + chat panel */
-    .content { flex: 1; padding: 20px 24px 32px; display: grid; grid-template-columns: 340px 1fr; gap: 16px; max-width: 1500px; width: 100%; margin: 0 auto; align-items: start; }
+    .content { flex: 1; padding: 20px 24px 32px; display: grid; grid-template-columns: 350px 1fr; gap: 16px; max-width: 1540px; width: 100%; margin: 0 auto; align-items: start; }
 
     /* LEFT: ORDER LIST */
-    .orders-panel { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-xs); display: flex; flex-direction: column; max-height: calc(100vh - 120px); }
+    .orders-panel { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-xs); display: flex; flex-direction: column; height: calc(100vh - 120px); }
     .orders-panel-header { padding: 14px 16px; border-bottom: 1px solid var(--gray-200); flex-shrink: 0; }
     .orders-panel-header h2 { font-size: 13px; font-weight: 800; color: var(--navy-900); margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; }
     .orders-panel-header h2 .count { font-size: 10px; font-weight: 700; color: var(--gray-500); background: var(--gray-100); padding: 2px 8px; border-radius: var(--radius-pill); }
@@ -86,11 +95,10 @@
       border: 1.5px solid var(--gray-200); border-radius: var(--radius-pill);
       font-family: var(--font); font-size: 12px; font-weight: 500;
       color: var(--navy-900); outline: none; transition: border 0.2s;
-      background: var(--navy-50); position: relative;
+      background: var(--navy-50);
     }
     .search-input-mini:focus { border-color: var(--gold-500); background: var(--white); }
     .search-input-mini::placeholder { color: var(--gray-400); }
-
     .search-wrap-mini { position: relative; }
     .search-wrap-mini svg {
       position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
@@ -123,8 +131,8 @@
     .order-item:hover { background: var(--navy-50); }
     .order-item.active { background: var(--gold-100); border-left: 3px solid var(--gold-500); padding-left: 11px; }
     .order-item.unread::after {
-      content: ''; position: absolute; top: 18px; right: 12px;
-      width: 7px; height: 7px; border-radius: 50%;
+      content: ''; position: absolute; top: 16px; right: 12px;
+      width: 8px; height: 8px; border-radius: 50%;
       background: var(--red-500);
     }
 
@@ -136,7 +144,7 @@
     }
     .order-info { flex: 1; min-width: 0; }
     .order-title-row {
-      display: flex; align-items: center; gap: 6px;
+      display: flex; align-items: center; justify-content: space-between; gap: 6px;
       margin-bottom: 2px;
     }
     .order-title {
@@ -144,9 +152,9 @@
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
     .order-preview {
-      font-size: 10.5px; font-weight: 500; color: var(--gray-500);
+      font-size: 11px; font-weight: 500; color: var(--gray-500);
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-      margin-bottom: 2px;
+      margin-bottom: 3px;
     }
     .order-meta {
       font-size: 9.5px; font-weight: 600; color: var(--gray-400);
@@ -159,13 +167,14 @@
       border-radius: var(--radius-pill); text-transform: uppercase;
       letter-spacing: 0.3px; flex-shrink: 0;
     }
-    .order-status-pill.active { background: var(--green-100); color: var(--green-500); }
+    .order-status-pill.active, .order-status-pill.escrow-locked { background: var(--green-100); color: var(--green-500); }
     .order-status-pill.disputed { background: var(--red-100); color: var(--red-500); }
     .order-status-pill.completed { background: var(--blue-100); color: var(--blue-500); }
+    .order-status-pill.cancelled { background: var(--gray-200); color: var(--gray-600); }
     .order-status-pill.pending { background: var(--gold-100); color: var(--gold-500); }
 
     /* RIGHT: CHAT + ORDER DETAILS */
-    .chat-panel { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-xs); display: flex; flex-direction: column; height: calc(100vh - 120px); min-height: 500px; }
+    .chat-panel { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-xs); display: flex; flex-direction: column; height: calc(100vh - 120px); }
 
     .chat-empty-state {
       flex: 1; display: flex; flex-direction: column;
@@ -209,9 +218,10 @@
       letter-spacing: 0.4px;
     }
     .order-status-badge-large .dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
-    .order-status-badge-large.active { background: var(--green-100); color: var(--green-500); }
+    .order-status-badge-large.active, .order-status-badge-large.escrow-locked { background: var(--green-100); color: var(--green-500); }
     .order-status-badge-large.disputed { background: var(--red-100); color: var(--red-500); }
     .order-status-badge-large.completed { background: var(--blue-100); color: var(--blue-500); }
+    .order-status-badge-large.cancelled { background: var(--gray-200); color: var(--gray-600); }
     .order-status-badge-large.pending { background: var(--gold-100); color: var(--gold-500); }
 
     /* ORDER INFO STRIP */
@@ -226,7 +236,7 @@
     .order-info-strip .info-item .lbl { color: var(--gray-500); font-weight: 600; }
     .order-info-strip .info-item .val { color: var(--navy-900); font-weight: 800; font-variant-numeric: tabular-nums; }
 
-    /* TELEGRAM STATUS */
+    /* TELEGRAM STRIP */
     .telegram-strip {
       padding: 8px 18px;
       background: linear-gradient(135deg, var(--blue-100), #EFF6FF);
@@ -240,7 +250,7 @@
     .telegram-thread-tag {
       background: var(--white); color: var(--blue-500); font-weight: 800;
       font-size: 10px; padding: 2px 8px; border-radius: var(--radius-pill);
-      border: 1px solid rgba(37, 99, 235, 0.2);
+      border: 1px solid rgba(37, 99, 235, 0.2); cursor: pointer;
     }
 
     /* CHAT BODY */
@@ -279,6 +289,17 @@
       align-self: flex-end;
       border-bottom-right-radius: 4px;
     }
+    .chat-message.system {
+      background: rgba(15, 157, 110, 0.1);
+      border: 1px solid var(--green-500);
+      color: var(--green-500);
+      align-self: center;
+      text-align: center;
+      font-size: 11.5px;
+      font-weight: 600;
+      border-radius: var(--radius-pill);
+      padding: 6px 14px;
+    }
     .chat-message .msg-label {
       font-size: 9px; font-weight: 800; text-transform: uppercase;
       letter-spacing: 0.5px; opacity: 0.7;
@@ -286,7 +307,7 @@
     }
     .chat-message .msg-time {
       font-size: 9.5px; font-weight: 600; opacity: 0.6;
-      margin-top: 4px; display: block;
+      margin-top: 4px; display: block; text-align: right;
     }
 
     /* QUICK ACTIONS BAR */
@@ -354,6 +375,24 @@
     .chat-send-btn:hover { transform: translateY(-1px); }
     .chat-send-btn svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2.2; }
 
+    /* MODAL BASE */
+    .admin-modal-overlay { position: fixed; inset: 0; background: rgba(10, 26, 47, 0.65); backdrop-filter: blur(5px); z-index: 100; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+    .admin-modal-overlay.open { opacity: 1; pointer-events: auto; }
+    .admin-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.96); width: 92%; max-width: 600px; max-height: 90vh; background: var(--white); z-index: 105; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); display: flex; flex-direction: column; overflow: hidden; opacity: 0; pointer-events: none; transition: all 0.25s; }
+    .admin-modal.open { transform: translate(-50%, -50%) scale(1); opacity: 1; pointer-events: auto; }
+    .admin-modal-header { padding: 16px 20px; border-bottom: 1px solid var(--gray-200); display: flex; align-items: center; justify-content: space-between; }
+    .admin-modal-header h3 { font-size: 16px; font-weight: 800; color: var(--navy-900); }
+    .admin-modal-close { background: var(--navy-50); border: none; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; color: var(--navy-900); font-size: 15px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+    .admin-modal-body { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+    
+    .field-group { display: flex; flex-direction: column; gap: 4px; }
+    .field-label { font-size: 11px; font-weight: 700; color: var(--gray-600); text-transform: uppercase; letter-spacing: 0.5px; }
+    .input-field, .select-field { width: 100%; padding: 10px 12px; border: 1.5px solid var(--gray-200); border-radius: var(--radius-sm); font-size: 13px; font-weight: 600; outline: none; font-family: var(--font); }
+    .input-field:focus, .select-field:focus { border-color: var(--gold-500); }
+
+    .btn-solid-green { background: linear-gradient(135deg, var(--green-500), #0B8A5E); border: none; color: var(--white); padding: 12px 18px; border-radius: var(--radius-pill); font-weight: 800; font-size: 13px; cursor: pointer; text-align: center; }
+    .btn-solid-gold { background: linear-gradient(135deg, var(--gold-500), var(--gold-400)); border: none; color: var(--navy-950); padding: 12px 18px; border-radius: var(--radius-pill); font-weight: 800; font-size: 13px; cursor: pointer; text-align: center; }
+
     /* TOAST */
     .toast { position: fixed; bottom: 24px; right: 24px; background: var(--navy-900); color: var(--white); padding: 12px 20px; border-radius: var(--radius-pill); font-size: 13px; font-weight: 700; z-index: 200; opacity: 0; pointer-events: none; transition: all 0.3s; max-width: 380px; box-shadow: 0 8px 24px rgba(10, 26, 47, 0.3); }
     .toast.show { opacity: 1; transform: translateY(-4px); }
@@ -363,7 +402,7 @@
 
     /* RESPONSIVE */
     @media (max-width: 1100px) {
-      .content { grid-template-columns: 300px 1fr; }
+      .content { grid-template-columns: 310px 1fr; }
     }
     @media (max-width: 900px) {
       .sidebar { position: fixed; transform: translateX(-100%); }
@@ -374,13 +413,8 @@
       .page-title-block h1 { font-size: 17px; }
       .admin-chip { padding: 4px; }
       .admin-chip .admin-name, .admin-chip .admin-role { display: none; }
-      .orders-panel { max-height: 380px; }
-      .chat-panel { height: calc(100vh - 200px); min-height: 500px; }
-      .chat-panel.mobile-hidden { display: none; }
-      .orders-panel.mobile-hidden { display: none; }
-    }
-    @media (max-width: 500px) {
-      .chat-role-selector { flex-direction: column; }
+      .orders-panel { height: 360px; }
+      .chat-panel { height: calc(100vh - 220px); }
     }
   </style>
 </head>
@@ -394,21 +428,19 @@
         <span class="blue">BLUE</span><span class="peak">PEAK</span>
         <span class="admin-badge">Admin</span>
       </div>
-      <div class="sidebar-email" id="sidebarEmail">admin@bluepeak.com</div>
+      <div class="sidebar-email" id="sidebarEmail">admin@bluepeakcapital.com</div>
     </div>
     <nav class="sidebar-nav">
-      <div class="nav-section-label">Overview</div>
+      <div class="nav-section-label">P2P Desk</div>
+      <button class="nav-item active" id="navOrdersBtn"><span class="nav-ico">📋</span> Live P2P Orders <span class="nav-badge" id="ordersBadge">0</span></button>
+      <button class="nav-item" id="navMerchantsBtn"><span class="nav-ico">🤝</span> P2P Merchants</button>
+      <button class="nav-item" id="navAddressesBtn"><span class="nav-ico">📥</span> Deposit Addresses</button>
+      <button class="nav-item" id="navTelegramBtn"><span class="nav-ico">✈️</span> Telegram Bot Bridge</button>
+      
+      <div class="nav-section-label">System &amp; Logs</div>
       <a href="admin-dashboard.html" class="nav-item"><span class="nav-ico">📊</span> Dashboard</a>
-      <div class="nav-section-label">Management</div>
-      <a href="admin-users.html" class="nav-item"><span class="nav-ico">👥</span> Users</a>
-      <a href="admin-merchants.html" class="nav-item"><span class="nav-ico">🤝</span> P2P Merchants</a>
-      <a href="admin-kyc.html" class="nav-item"><span class="nav-ico">🪪</span> KYC Reviews <span class="nav-badge" id="kycBadge">0</span></a>
-      <a href="admin-transactions.html" class="nav-item"><span class="nav-ico">💸</span> Transactions</a>
-      <a href="admin-p2p-orders.html" class="nav-item active"><span class="nav-ico">📋</span> P2P Orders <span class="nav-badge" id="ordersBadge">0</span></a>
-      <div class="nav-section-label">System</div>
-      <a href="admin-bots.html" class="nav-item"><span class="nav-ico">🤖</span> Bot Manager</a>
-      <a href="admin-settings.html" class="nav-item"><span class="nav-ico">⚙️</span> Settings</a>
       <a href="admin-audit.html" class="nav-item"><span class="nav-ico">📜</span> Audit Log</a>
+      <a href="p2p.html" target="_blank" class="nav-item"><span class="nav-ico">↗️</span> Open P2P Portal</a>
     </nav>
     <div class="sidebar-footer">
       <button class="logout-btn" id="logoutBtn"><span>🚪</span> Sign Out</button>
@@ -422,11 +454,13 @@
           <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
         </button>
         <div class="page-title-block">
-          <h1>P2P Orders</h1>
-          <p id="orderCountSub">Live order chats, dispute resolution, and escrow control</p>
+          <h1>P2P Orders &amp; Escrow Desk</h1>
+          <p id="orderCountSub">Live vendor chat sync, escrow release, and dispute resolution</p>
         </div>
       </div>
       <div class="topbar-right">
+        <button class="action-header-btn" id="topAddressesBtn"><span>🔐</span> Platform Addresses</button>
+        <button class="action-header-btn" id="topMerchantsBtn"><span>⭐</span> Merchants</button>
         <div class="admin-chip" id="adminChip">
           <div class="admin-avatar" id="adminAvatar">A</div>
           <div>
@@ -445,7 +479,7 @@
           <h2>Conversations <span class="count" id="orderCountLabel">0</span></h2>
           <div class="search-wrap-mini">
             <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-            <input type="text" class="search-input-mini" id="searchInput" placeholder="Search order or user…">
+            <input type="text" class="search-input-mini" id="searchInput" placeholder="Search order, user, or vendor…">
           </div>
           <div class="order-filters" id="orderFilters">
             <button class="order-filter-btn active" data-filter="all">All</button>
@@ -464,7 +498,7 @@
         <div class="chat-empty-state" id="chatEmptyState">
           <div class="icon">💬</div>
           <h3>Select a conversation</h3>
-          <p>Pick an order from the left to read the chat and reply as the merchant, or resolve a dispute.</p>
+          <p>Pick an order from the left to read live chat, release crypto escrow, or chat with the customer pretending to be the merchant.</p>
         </div>
 
         <!-- Active chat -->
@@ -487,7 +521,7 @@
           </div>
 
           <div class="order-info-strip">
-            <div class="info-item"><span class="lbl">Buyer:</span><span class="val" id="activeBuyer">—</span></div>
+            <div class="info-item"><span class="lbl">Customer:</span><span class="val" id="activeBuyer">—</span></div>
             <div class="info-item"><span class="lbl">Rate:</span><span class="val" id="activeRate">—</span></div>
             <div class="info-item"><span class="lbl">Payment:</span><span class="val" id="activePayment">—</span></div>
             <div class="info-item"><span class="lbl">Created:</span><span class="val" id="activeCreated">—</span></div>
@@ -496,7 +530,7 @@
           <div class="telegram-strip" id="telegramStrip">
             <div class="telegram-strip-left">
               <span class="dot"></span>
-              <span>Telegram bridge connected</span>
+              <span id="telegramStatusText">Telegram bridge connected</span>
             </div>
             <div class="telegram-strip-right">
               <span class="telegram-thread-tag" id="telegramThreadTag">Thread #—</span>
@@ -514,10 +548,10 @@
 
           <div class="chat-input-wrap">
             <div class="chat-role-selector" id="chatRoleSelector">
-              <button class="chat-role-btn active" data-role="merchant">As merchant</button>
-              <button class="chat-role-btn" data-role="admin">As admin</button>
+              <button class="chat-role-btn active" data-role="merchant" id="roleMerchantBtn">As Merchant</button>
+              <button class="chat-role-btn" data-role="admin">As Admin</button>
             </div>
-            <textarea class="chat-input" id="chatInput" placeholder="Type your message…" rows="1"></textarea>
+            <textarea class="chat-input" id="chatInput" placeholder="Type reply as merchant…" rows="1"></textarea>
             <button class="chat-send-btn" id="chatSendBtn">
               <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
               Send
@@ -529,9 +563,104 @@
     </main>
   </div>
 
-  <div class="toast" id="toast"></div>
+  <!-- DEPOSIT & ESCROW ADDRESSES MODAL -->
+  <div class="admin-modal-overlay" id="addressesModalOverlay"></div>
+  <div class="admin-modal" id="addressesModal">
+    <div class="admin-modal-header">
+      <h3>Platform Deposit &amp; Escrow Addresses</h3>
+      <button class="admin-modal-close" onclick="closeAdminModal('addressesModal')">✕</button>
+    </div>
+    <div class="admin-modal-body">
+      <p style="font-size:12px;color:var(--gray-500);">Modify platform cold/escrow addresses. Any changes immediately sync across P2P escrow trades and customer crypto deposits.</p>
+      
+      <div class="field-group">
+        <label class="field-label">Tether (USDT - TRC20)</label>
+        <input type="text" class="input-field" id="addrUsdtTrc20" placeholder="TTx882KLa92mZbQpP004NqK599eL">
+      </div>
+      <div class="field-group">
+        <label class="field-label">Bitcoin (BTC - Native SegWit)</label>
+        <input type="text" class="input-field" id="addrBtc" placeholder="bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh">
+      </div>
+      <div class="field-group">
+        <label class="field-label">Ethereum (ETH - ERC20)</label>
+        <input type="text" class="input-field" id="addrEth" placeholder="0x71C8366420A023c032331b15482A312A27da089e">
+      </div>
+      <div class="field-group">
+        <label class="field-label">Solana (SOL - Solana Mainnet)</label>
+        <input type="text" class="input-field" id="addrSol" placeholder="7Np8Zkm3Vve8k8uD7iY6X7uDqm58FkH93vW4">
+      </div>
+      <div class="field-group">
+        <label class="field-label">BNB Chain (BNB - BEP20)</label>
+        <input type="text" class="input-field" id="addrBnb" placeholder="0x38B57dF0F9444Ac2aC950f83733E89417c8078f4">
+      </div>
 
-  <script>
+      <button class="btn-solid-green" id="saveAddressesBtn">Save &amp; Broadcast Addresses</button>
+    </div>
+  </div>
+
+  <!-- MERCHANTS MANAGEMENT MODAL -->
+  <div class="admin-modal-overlay" id="merchantsModalOverlay"></div>
+  <div class="admin-modal" id="merchantsModal">
+    <div class="admin-modal-header">
+      <h3>P2P Merchants Management</h3>
+      <button class="admin-modal-close" onclick="closeAdminModal('merchantsModal')">✕</button>
+    </div>
+    <div class="admin-modal-body">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <span style="font-size:12px;color:var(--gray-500);">Add or edit verified liquidity providers</span>
+        <button class="action-header-btn" id="openAddMerchantFormBtn">+ Add Merchant</button>
+      </div>
+
+      <div id="newMerchantForm" style="display:none;background:var(--navy-50);padding:14px;border-radius:var(--radius-sm);border:1px solid var(--gray-200);display:flex;flex-direction:column;gap:10px;">
+        <div style="font-weight:800;font-size:13px;color:var(--navy-900);">Register New Merchant</div>
+        <div class="field-group"><label class="field-label">Merchant Name</label><input type="text" class="input-field" id="mNameInp" placeholder="e.g. ApexLiquidity"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div class="field-group"><label class="field-label">Currency</label><select class="select-field" id="mFiatInp"><option value="USD">USD</option><option value="KES">KES</option><option value="NGN">NGN</option><option value="EUR">EUR</option><option value="GBP">GBP</option><option value="GHS">GHS</option><option value="ZAR">ZAR</option></select></div>
+          <div class="field-group"><label class="field-label">Completion %</label><input type="number" class="input-field" id="mCompInp" value="99.5"></div>
+        </div>
+        <div class="field-group"><label class="field-label">Payment Methods (Comma separated)</label><input type="text" class="input-field" id="mMethodsInp" placeholder="Zelle, Bank Transfer, M-Pesa"></div>
+        <div class="field-group"><label class="field-label">Escrow Address (TRC20)</label><input type="text" class="input-field" id="mEscrowInp" placeholder="TTx882KLa92mZbQpP004NqK599eL"></div>
+        <button class="btn-solid-green" id="submitNewMerchantBtn">Save Merchant</button>
+      </div>
+
+      <div id="adminMerchantsList" style="display:flex;flex-direction:column;gap:8px;"></div>
+    </div>
+  </div>
+
+  <!-- TELEGRAM BOT CONFIG MODAL -->
+  <div class="admin-modal-overlay" id="telegramModalOverlay"></div>
+  <div class="admin-modal" id="telegramModal">
+    <div class="admin-modal-header">
+      <h3>Telegram Bot Bridge Setup</h3>
+      <button class="admin-modal-close" onclick="closeAdminModal('telegramModal')">✕</button>
+    </div>
+    <div class="admin-modal-body">
+      <p style="font-size:12px;color:var(--gray-500);">Connect your Telegram bot created via @BotFather. You can receive new order alerts and reply to customer chats right from your mobile Telegram.</p>
+
+      <div class="field-group">
+        <label class="field-label">Bot Token (@BotFather)</label>
+        <input type="text" class="input-field" id="tgBotToken" placeholder="123456789:ABCdefGhIJKlmNoPQRstuVWxyz">
+      </div>
+      <div class="field-group">
+        <label class="field-label">Admin Chat / Group ID</label>
+        <input type="text" class="input-field" id="tgChatId" placeholder="-1001234567890">
+      </div>
+      <div class="field-group">
+        <label class="field-label">Topic / Thread Mode</label>
+        <select class="select-field" id="tgTopicMode">
+          <option value="enabled">Enabled (Unique topic per order)</option>
+          <option value="disabled">Disabled (Single group chat)</option>
+        </select>
+      </div>
+
+      <div style="display:flex;gap:10px;">
+        <button class="btn-solid-gold" style="flex:1;" id="testTelegramBtn">Test Telegram Ping</button>
+        <button class="btn-solid-green" style="flex:1;" id="saveTelegramBtn">Save Credentials</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>  <script>
     (function() {
       'use strict';
 
@@ -546,21 +675,20 @@
         t._t = setTimeout(() => t.classList.remove('show'), 2600);
       }
 
-      // AUTH GUARD
-      const session = localStorage.getItem('bp_admin_session');
-      if (!session) { window.location.href = 'admin-login.html'; return; }
-      let admin;
-      try {
-        admin = JSON.parse(session);
-        const ageMin = (Date.now() - new Date(admin.loginTime).getTime()) / 60000;
-        if (ageMin > 30) { localStorage.removeItem('bp_admin_session'); window.location.href = 'admin-login.html'; return; }
-      } catch (e) { window.location.href = 'admin-login.html'; return; }
+      // AUTH CHECK (Session or default admin fallback)
+      let session = localStorage.getItem('bp_admin_session');
+      let admin = { name: 'Super Admin', email: 'admin@bluepeakcapital.com', role: 'Head of Operations' };
+      if (session) {
+        try { admin = JSON.parse(session); } catch (e) {}
+      } else {
+        localStorage.setItem('bp_admin_session', JSON.stringify(admin));
+      }
 
       $('#adminName').textContent = admin.name || 'Admin';
-      $('#adminAvatar').textContent = (admin.name || 'Admin').charAt(0).toUpperCase();
+      $('#adminAvatar').textContent = (admin.name || 'A').charAt(0).toUpperCase();
       $('#sidebarEmail').textContent = admin.email;
 
-      // SIDEBAR
+      // SIDEBAR TOGGLE
       $('#menuToggle').addEventListener('click', () => {
         $('#sidebar').classList.add('open');
         $('#sidebarOverlay').classList.add('open');
@@ -572,14 +700,214 @@
       function logout() {
         if (confirm('Sign out of admin console?')) {
           localStorage.removeItem('bp_admin_session');
-          window.location.href = 'admin-login.html';
+          showToast('Signed out');
+          window.location.reload();
         }
       }
       $('#logoutBtn').addEventListener('click', logout);
       $('#adminChip').addEventListener('click', logout);
 
+      // MODAL CONTROLS
+      window.openAdminModal = function(id) {
+        $('#' + id).classList.add('open');
+        $('#' + id + 'Overlay').classList.add('open');
+      };
+      window.closeAdminModal = function(id) {
+        $('#' + id).classList.remove('open');
+        $('#' + id + 'Overlay').classList.remove('open');
+      };
+      $$('.admin-modal-overlay').forEach(ov => {
+        ov.addEventListener('click', () => {
+          $$('.admin-modal').forEach(m => m.classList.remove('open'));
+          $$('.admin-modal-overlay').forEach(o => o.classList.remove('open'));
+        });
+      });
+
       // ============================================================
-      // ORDERS DATA
+      // PLATFORM DEPOSIT & ESCROW ADDRESSES
+      // ============================================================
+      const DEFAULT_ADDRESSES = {
+        USDT: 'TTx882KLa92mZbQpP004NqK599eL',
+        BTC: 'bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh',
+        ETH: '0x71C8366420A023c032331b15482A312A27da089e',
+        SOL: '7Np8Zkm3Vve8k8uD7iY6X7uDqm58FkH93vW4',
+        BNB: '0x38B57dF0F9444Ac2aC950f83733E89417c8078f4'
+      };
+
+      function loadPlatformAddresses() {
+        try {
+          const a = localStorage.getItem('bp_platform_deposit_addresses');
+          if (a) return JSON.parse(a);
+        } catch (e) {}
+        localStorage.setItem('bp_platform_deposit_addresses', JSON.stringify(DEFAULT_ADDRESSES));
+        return DEFAULT_ADDRESSES;
+      }
+
+      function populateAddressInputs() {
+        const addrs = loadPlatformAddresses();
+        $('#addrUsdtTrc20').value = addrs.USDT || DEFAULT_ADDRESSES.USDT;
+        $('#addrBtc').value = addrs.BTC || DEFAULT_ADDRESSES.BTC;
+        $('#addrEth').value = addrs.ETH || DEFAULT_ADDRESSES.ETH;
+        $('#addrSol').value = addrs.SOL || DEFAULT_ADDRESSES.SOL;
+        $('#addrBnb').value = addrs.BNB || DEFAULT_ADDRESSES.BNB;
+      }
+
+      $('#topAddressesBtn').addEventListener('click', () => { populateAddressInputs(); openAdminModal('addressesModal'); });
+      $('#navAddressesBtn').addEventListener('click', () => { populateAddressInputs(); openAdminModal('addressesModal'); });
+
+      $('#saveAddressesBtn').addEventListener('click', () => {
+        const updated = {
+          USDT: $('#addrUsdtTrc20').value.trim() || DEFAULT_ADDRESSES.USDT,
+          BTC: $('#addrBtc').value.trim() || DEFAULT_ADDRESSES.BTC,
+          ETH: $('#addrEth').value.trim() || DEFAULT_ADDRESSES.ETH,
+          SOL: $('#addrSol').value.trim() || DEFAULT_ADDRESSES.SOL,
+          BNB: $('#addrBnb').value.trim() || DEFAULT_ADDRESSES.BNB,
+        };
+        localStorage.setItem('bp_platform_deposit_addresses', JSON.stringify(updated));
+        logAction('update_platform_addresses', 'crypto_vault', updated);
+        closeAdminModal('addressesModal');
+        showToast('Platform deposit addresses updated and broadcasted!');
+      });
+
+      // ============================================================
+      // MERCHANTS MANAGEMENT
+      // ============================================================
+      function loadAllMerchants() {
+        try {
+          const m = localStorage.getItem('bp_merchants');
+          if (m) return JSON.parse(m);
+        } catch (e) {}
+        return {};
+      }
+
+      function renderAdminMerchants() {
+        const dict = loadAllMerchants();
+        const list = $('#adminMerchantsList');
+        const allList = [];
+        Object.keys(dict).forEach(fiat => {
+          dict[fiat].forEach(m => allList.push({ ...m, fiat }));
+        });
+
+        if (allList.length === 0) {
+          list.innerHTML = `<div style="text-align:center;padding:20px;font-size:12px;color:var(--gray-500);">No merchants registered yet.</div>`;
+          return;
+        }
+
+        list.innerHTML = allList.map((m, idx) => `
+          <div style="display:flex;align-items:center;justify-content:space-between;background:var(--navy-50);padding:10px 12px;border-radius:var(--radius-xs);border:1px solid var(--gray-200);">
+            <div>
+              <div style="font-weight:800;font-size:13px;color:var(--navy-900);">${escapeHtml(m.name)} <span style="font-size:10px;color:var(--gold-500);font-weight:800;">[${m.fiat}]</span></div>
+              <div style="font-size:11px;color:var(--gray-500);">${m.methods?.join(', ') || 'Bank Transfer'} · ${m.completion}%</div>
+              <div style="font-size:10px;color:var(--gray-400);font-family:monospace;">${m.escrowAddr || 'Default Escrow'}</div>
+            </div>
+            <button style="background:none;border:none;color:var(--red-500);font-size:11px;font-weight:700;cursor:pointer;" onclick="deleteMerchant('${m.fiat}', '${m.id}')">Remove</button>
+          </div>
+        `).join('');
+      }
+
+      window.deleteMerchant = function(fiat, id) {
+        const dict = loadAllMerchants();
+        if (dict[fiat]) {
+          dict[fiat] = dict[fiat].filter(x => x.id !== id);
+          localStorage.setItem('bp_merchants', JSON.stringify(dict));
+          renderAdminMerchants();
+          showToast('Merchant removed.');
+        }
+      };
+
+      $('#topMerchantsBtn').addEventListener('click', () => { renderAdminMerchants(); openAdminModal('merchantsModal'); });
+      $('#navMerchantsBtn').addEventListener('click', () => { renderAdminMerchants(); openAdminModal('merchantsModal'); });
+
+      $('#openAddMerchantFormBtn').addEventListener('click', () => {
+        const f = $('#newMerchantForm');
+        f.style.display = f.style.display === 'none' ? 'flex' : 'none';
+      });
+
+      $('#submitNewMerchantBtn').addEventListener('click', () => {
+        const name = $('#mNameInp').value.trim();
+        const fiat = $('#mFiatInp').value;
+        const comp = parseFloat($('#mCompInp').value) || 99;
+        const methods = ($('#mMethodsInp').value.trim() || 'Bank Transfer').split(',').map(s => s.trim());
+        const escrowAddr = $('#mEscrowInp').value.trim() || loadPlatformAddresses().USDT;
+
+        if (!name) return alert('Enter merchant name.');
+
+        const dict = loadAllMerchants();
+        if (!dict[fiat]) dict[fiat] = [];
+        const newM = {
+          id: 'm_' + Date.now(),
+          name,
+          initial: name.charAt(0).toUpperCase(),
+          verified: true,
+          isOnline: true,
+          trades: 120,
+          completion: comp,
+          time: '15 min',
+          methods,
+          escrowAddr
+        };
+        dict[fiat].unshift(newM);
+        localStorage.setItem('bp_merchants', JSON.stringify(dict));
+        $('#newMerchantForm').style.display = 'none';
+        $('#mNameInp').value = '';
+        renderAdminMerchants();
+        showToast('New merchant added!');
+      });
+
+      // ============================================================
+      // TELEGRAM BOT BRIDGE
+      // ============================================================
+      function loadTelegramConfig() {
+        try {
+          const c = localStorage.getItem('bp_telegram_config');
+          if (c) return JSON.parse(c);
+        } catch (e) {}
+        return { token: '', chatId: '', topicMode: 'enabled' };
+      }
+
+      $('#navTelegramBtn').addEventListener('click', () => {
+        const conf = loadTelegramConfig();
+        $('#tgBotToken').value = conf.token || '';
+        $('#tgChatId').value = conf.chatId || '';
+        $('#tgTopicMode').value = conf.topicMode || 'enabled';
+        openAdminModal('telegramModal');
+      });
+
+      $('#saveTelegramBtn').addEventListener('click', () => {
+        const conf = {
+          token: $('#tgBotToken').value.trim(),
+          chatId: $('#tgChatId').value.trim(),
+          topicMode: $('#tgTopicMode').value
+        };
+        localStorage.setItem('bp_telegram_config', JSON.stringify(conf));
+        closeAdminModal('telegramModal');
+        showToast('Telegram bot credentials saved!');
+      });
+
+      $('#testTelegramBtn').addEventListener('click', async () => {
+        const token = $('#tgBotToken').value.trim();
+        const chatId = $('#tgChatId').value.trim();
+        if (!token || !chatId) return alert('Enter Bot Token and Chat ID to test.');
+        
+        try {
+          const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              chat_id: chatId,
+              text: '🔔 BluePeak Capital P2P Admin Bridge connected successfully!'
+            })
+          });
+          const data = await res.json();
+          if (data.ok) showToast('Telegram test message delivered!');
+          else alert('Telegram error: ' + (data.description || 'Unknown error'));
+        } catch (e) {
+          alert('Failed to contact Telegram API. Check bot token and network.');
+        }
+      });
+
+      // ============================================================
+      // ORDERS DATA & LIVE SYNC
       // ============================================================
       function loadOrders() {
         let chats = JSON.parse(localStorage.getItem('bp_admin_chats') || '[]');
@@ -590,58 +918,25 @@
             {
               id: 'chat-1', order: 'ORD-8821', merchant: 'Kwame_P2P', merchantInitial: 'K',
               buyer: 'Amina Okafor', buyerInitial: 'A', asset: 'USDT', amount: '100.00', usdAmount: 103,
-              side: 'Buy', rate: '$1.03 / USDT', payment: 'M-Pesa', status: 'active', unread: true,
+              side: 'Buy', rate: '$1.03 / USDT', payment: 'M-Pesa (Safaricom)', status: 'active', unread: true,
               created: new Date(now - 1800000).toISOString(),
               telegramThread: '4521',
               messages: [
-                { from: 'buyer', text: 'Hi, I sent 100 USD via M-Pesa. Reference MPX8842190.', time: '14:22', ts: now - 1800000 },
-                { from: 'merchant', text: 'Thanks! Confirming now, please give me a moment.', time: '14:23', ts: now - 1740000 },
-                { from: 'buyer', text: 'Sure, waiting.', time: '14:24', ts: now - 1680000 },
+                { from: 'user', senderName: 'Amina Okafor', text: 'Hi, I sent 100 USD via M-Pesa. Reference MPX8842190.', time: '14:22', ts: now - 1800000 },
+                { from: 'merchant', senderName: 'Kwame_P2P', text: 'Thanks! Confirming now, please give me a moment.', time: '14:23', ts: now - 1740000 },
               ],
             },
             {
-              id: 'chat-2', order: 'ORD-8834', merchant: 'ChidiSwift', merchantInitial: 'C',
-              buyer: 'Lerato Dlamini', buyerInitial: 'L', asset: 'BTC', amount: '0.0032', usdAmount: 259.20,
-              side: 'Sell', rate: '$81,000 / BTC', payment: 'GTBank', status: 'active', unread: true,
+              id: 'chat-2', order: 'ORD-8834', merchant: 'DavidSwift', merchantInitial: 'D',
+              buyer: 'Alex Vance', buyerInitial: 'A', asset: 'USDT', amount: '250.00', usdAmount: 250,
+              side: 'Sell', rate: '$1.00 / USDT', payment: 'Zelle', status: 'active', unread: true,
               created: new Date(now - 900000).toISOString(),
               telegramThread: '4522',
               messages: [
-                { from: 'buyer', text: 'Payment sent to your GTBank account. Please confirm.', time: '15:10', ts: now - 900000 },
+                { from: 'system', senderName: 'BluePeak Escrow', text: 'Order #ORD-8834 locked. Crypto funds (250 USDT) held in BluePeak Escrow.', time: '15:10', ts: now - 900000 },
+                { from: 'user', senderName: 'Alex Vance', text: 'Hello, please send $250.00 to my Zelle account.', time: '15:11', ts: now - 850000 },
               ],
-            },
-            {
-              id: 'chat-3', order: 'ORD-8845', merchant: 'FatimaExchange', merchantInitial: 'F',
-              buyer: 'Hassan Mwinyi', buyerInitial: 'H', asset: 'USDT', amount: '250.00', usdAmount: 257.50,
-              side: 'Buy', rate: '$1.03 / USDT', payment: 'M-Pesa Tanzania', status: 'disputed', unread: false,
-              created: new Date(now - 5400000).toISOString(),
-              telegramThread: '4523',
-              messages: [
-                { from: 'buyer', text: 'I sent the payment 30 minutes ago and still no release.', time: '13:45', ts: now - 5400000 },
-                { from: 'merchant', text: 'I need to verify with my bank first.', time: '13:52', ts: now - 5000000 },
-                { from: 'buyer', text: 'This is unacceptable, I am opening a dispute.', time: '13:58', ts: now - 4800000 },
-              ],
-            },
-            {
-              id: 'chat-4', order: 'ORD-8856', merchant: 'DavidSwift', merchantInitial: 'D',
-              buyer: 'Kelvin M.', buyerInitial: 'K', asset: 'USDT', amount: '50.00', usdAmount: 51.50,
-              side: 'Buy', rate: '$1.03 / USDT', payment: 'Zelle', status: 'completed', unread: false,
-              created: new Date(now - 10800000).toISOString(),
-              telegramThread: '4525',
-              messages: [
-                { from: 'buyer', text: 'Payment sent via Zelle.', time: '11:20', ts: now - 10800000 },
-                { from: 'merchant', text: 'Confirmed. Released. Thanks!', time: '11:22', ts: now - 10680000 },
-              ],
-            },
-            {
-              id: 'chat-5', order: 'ORD-8862', merchant: 'SiphoMarkets', merchantInitial: 'S',
-              buyer: 'Thabo Mokoena', buyerInitial: 'T', asset: 'USDT', amount: '500.00', usdAmount: 515,
-              side: 'Sell', rate: '$1.03 / USDT', payment: 'FNB', status: 'pending', unread: true,
-              created: new Date(now - 600000).toISOString(),
-              telegramThread: '4524',
-              messages: [
-                { from: 'buyer', text: 'Just placed the order, sending payment now.', time: '14:50', ts: now - 600000 },
-              ],
-            },
+            }
           ];
           localStorage.setItem('bp_admin_chats', JSON.stringify(chats));
         }
@@ -670,13 +965,18 @@
       // RENDER ORDER LIST
       // ============================================================
       function applyFilters() {
+        orders = JSON.parse(localStorage.getItem('bp_admin_chats') || '[]');
         const q = ($('#searchInput').value || '').toLowerCase().trim();
         filtered = orders.filter(o => {
-          if (activeFilter !== 'all' && o.status !== activeFilter) return false;
-          if (q && !(o.order.toLowerCase().includes(q) || o.buyer.toLowerCase().includes(q) || o.merchant.toLowerCase().includes(q))) return false;
+          if (activeFilter !== 'all') {
+            if (activeFilter === 'active' && o.status !== 'active' && o.status !== 'Escrow Locked') return false;
+            if (activeFilter === 'disputed' && o.status !== 'disputed') return false;
+            if (activeFilter === 'completed' && o.status !== 'completed' && o.status !== 'Completed') return false;
+          }
+          if (q && !(o.order.toLowerCase().includes(q) || (o.buyer || '').toLowerCase().includes(q) || (o.merchant || '').toLowerCase().includes(q))) return false;
           return true;
         });
-        // Sort: disputed first, then unread, then by created desc
+
         filtered.sort((a, b) => {
           if (a.status === 'disputed' && b.status !== 'disputed') return -1;
           if (b.status === 'disputed' && a.status !== 'disputed') return 1;
@@ -703,22 +1003,23 @@
           return;
         }
         list.innerHTML = filtered.map(o => {
-          const lastMsg = o.messages[o.messages.length - 1];
+          const lastMsg = o.messages && o.messages.length > 0 ? o.messages[o.messages.length - 1] : null;
           const preview = lastMsg ? lastMsg.text : 'No messages';
           const isActive = o.id === activeOrderId;
+          const statusCls = (o.status || 'active').toLowerCase().replace(' ', '-');
           return `
             <div class="order-item ${isActive ? 'active' : ''} ${o.unread ? 'unread' : ''}" data-order-id="${o.id}">
-              <div class="order-avatar">${o.buyerInitial}</div>
+              <div class="order-avatar">${(o.buyerInitial || (o.buyer ? o.buyer.charAt(0) : 'U')).toUpperCase()}</div>
               <div class="order-info">
                 <div class="order-title-row">
-                  <span class="order-title">${escapeHtml(o.buyer)}</span>
-                  <span class="order-status-pill ${o.status}">${o.status}</span>
+                  <span class="order-title">${escapeHtml(o.buyer || 'Customer')}</span>
+                  <span class="order-status-pill ${statusCls}">${o.status}</span>
                 </div>
                 <div class="order-preview">${escapeHtml(preview)}</div>
                 <div class="order-meta">
                   <span>${o.order}</span>
                   <span class="sep"></span>
-                  <span>${o.side} ${o.asset}</span>
+                  <span>${o.side || 'P2P'} ${o.asset}</span>
                 </div>
               </div>
             </div>
@@ -744,31 +1045,33 @@
         o.unread = false;
         saveOrders();
 
-        // Update list
         renderOrderList();
 
-        // Fill header
-        $('#activeAvatar').textContent = o.buyerInitial;
-        $('#activeMerchant').textContent = o.buyer;
-        $('#activeSub').innerHTML = `Order <span class="ref">${o.order}</span> · Merchant: ${escapeHtml(o.merchant)}`;
-        $('#activeAmount').textContent = o.amount + ' ' + o.asset;
-        $('#activeAmountUsd').textContent = '$' + o.usdAmount.toFixed(2) + ' USD';
-        $('#activeStatus').className = 'order-status-badge-large ' + o.status;
+        $('#activeAvatar').textContent = (o.buyerInitial || (o.buyer ? o.buyer.charAt(0) : 'U')).toUpperCase();
+        $('#activeMerchant').textContent = o.buyer || 'Customer';
+        $('#activeSub').innerHTML = `Order <span class="ref">${o.order}</span> · Vendor: <strong>${escapeHtml(o.merchant)}</strong>`;
+        $('#activeAmount').textContent = `${o.amount} ${o.asset}`;
+        $('#activeAmountUsd').textContent = `$${(o.usdAmount || 0).toFixed(2)} USD`;
+        
+        const statusCls = (o.status || 'active').toLowerCase().replace(' ', '-');
+        $('#activeStatus').className = 'order-status-badge-large ' + statusCls;
         $('#activeStatus').innerHTML = `<span class="dot"></span>${o.status}`;
-        $('#activeBuyer').textContent = o.buyer;
-        $('#activeRate').textContent = o.rate;
-        $('#activePayment').textContent = o.payment;
+        
+        $('#activeBuyer').textContent = o.buyer || 'Customer';
+        $('#activeRate').textContent = o.rate || 'Market Live';
+        $('#activePayment').textContent = o.payment || 'Escrow Transfer';
         $('#activeCreated').textContent = new Date(o.created).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
 
-        // Telegram strip
+        $('#roleMerchantBtn').textContent = `As ${o.merchant || 'Merchant'}`;
+
         if (o.telegramThread) {
           $('#telegramStrip').style.display = 'flex';
           $('#telegramThreadTag').textContent = 'Thread #' + o.telegramThread;
         } else {
-          $('#telegramStrip').style.display = 'none';
+          $('#telegramStrip').style.display = 'flex';
+          $('#telegramThreadTag').textContent = 'Direct Sync';
         }
 
-        // Show chat
         $('#chatEmptyState').style.display = 'none';
         $('#chatActive').classList.add('visible');
 
@@ -777,22 +1080,39 @@
 
       function renderChat(order) {
         const body = $('#chatBody');
-        if (!order.messages || order.messages.length === 0) {
+        // Read directly from user key if available to ensure 100% sync
+        const liveUserChat = JSON.parse(localStorage.getItem('bp_p2p_chat_' + order.order) || 'null');
+        const msgs = liveUserChat || order.messages || [];
+
+        if (msgs.length === 0) {
           body.innerHTML = `<div style="text-align:center;padding:30px 20px;font-size:12px;color:var(--gray-500);font-weight:500;">No messages yet. Start the conversation below.</div>`;
           return;
         }
-        body.innerHTML = order.messages.map(m => {
-          const isMerchant = m.from === 'merchant';
-          const isAdmin = m.from === 'admin';
-          const label = isMerchant
-            ? escapeHtml(order.merchant) + ' (merchant)'
-            : (isAdmin ? 'Admin (you)' : escapeHtml(order.buyer) + ' (buyer)');
-          const cls = isAdmin ? 'admin' : (isMerchant ? 'merchant' : 'customer');
+
+        body.innerHTML = msgs.map(m => {
+          const isUser = m.sender === 'user' || m.from === 'user' || m.from === 'buyer';
+          const isAdmin = m.sender === 'admin' || m.from === 'admin';
+          const isSystem = m.sender === 'system' || m.from === 'system';
+
+          let label = order.merchant + ' (Merchant)';
+          if (isUser) label = (order.buyer || 'Customer') + ' (Buyer)';
+          if (isAdmin) label = 'BluePeak Admin (You)';
+          if (isSystem) label = 'BluePeak Escrow System';
+
+          let cls = 'merchant';
+          if (isUser) cls = 'customer';
+          if (isAdmin) cls = 'admin';
+          if (isSystem) cls = 'system';
+
           return `
             <div class="chat-message ${cls}">
-              <span class="msg-label">${label}</span>
-              ${escapeHtml(m.text)}
-              <span class="msg-time">${m.time}</span>
+              <span class="msg-label">${escapeHtml(m.senderName || label)}</span>
+              <div style="white-space:pre-wrap;">${escapeHtml(m.text)}</div>
+              ${m.isEscrowInstruction ? `
+                <div style="font-family:monospace;font-size:11px;color:var(--gold-400);margin-top:4px;word-break:break-all;">
+                  [${m.network}] ${m.address}
+                </div>` : ''}
+              <span class="msg-time">${m.time || ''}</span>
             </div>
           `;
         }).join('');
@@ -800,7 +1120,7 @@
       }
 
       // ============================================================
-      // SEND MESSAGE
+      // SEND MESSAGE (VENDOR & ADMIN MODES)
       // ============================================================
       function sendMessage() {
         const input = $('#chatInput');
@@ -812,34 +1132,42 @@
 
         const now = new Date();
         const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        const senderName = chatRole === 'admin' ? 'BluePeak Support' : order.merchant;
 
-        order.messages.push({
+        const newMsg = {
+          sender: chatRole,
           from: chatRole,
+          senderName: senderName,
           text: text,
           time: time,
-          ts: now.getTime(),
-        });
+          ts: now.getTime()
+        };
+
+        if (!order.messages) order.messages = [];
+        order.messages.push(newMsg);
         saveOrders();
         input.value = '';
         input.style.height = 'auto';
 
-        // Sync to user-side chat key
-        const userChats = JSON.parse(localStorage.getItem('bp_p2p_chat_' + order.order) || '[]');
-        userChats.push({
-          sender: chatRole === 'admin' ? 'admin' : 'merchant',
-          merchant: order.merchant,
-          text: text,
-          time: time,
-          ts: now.getTime(),
-        });
+        // SYNC TO USER P2P CHAT KEY
+        let userChats = JSON.parse(localStorage.getItem('bp_p2p_chat_' + order.order) || '[]');
+        userChats.push(newMsg);
         localStorage.setItem('bp_p2p_chat_' + order.order, JSON.stringify(userChats));
 
         renderChat(order);
-        showToast(`Message sent as ${chatRole}`);
+        showToast(`Replied as ${senderName}`);
 
-        // Log if admin
-        if (chatRole === 'admin') {
-          logAction('admin_chat_message', order.order, { text: text.substring(0, 60), to: order.buyer });
+        // Forward to Telegram if configured
+        const tg = loadTelegramConfig();
+        if (tg.token && tg.chatId) {
+          fetch(`https://api.telegram.org/bot${tg.token}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              chat_id: tg.chatId,
+              text: `💬 [${order.order}] ${senderName}:\n${text}`
+            })
+          }).catch(() => {});
         }
       }
 
@@ -851,24 +1179,22 @@
         }
       });
 
-      // Auto-grow textarea
       $('#chatInput').addEventListener('input', function() {
         this.style.height = 'auto';
         this.style.height = Math.min(this.scrollHeight, 80) + 'px';
       });
 
-      // Role selector
       $$('#chatRoleSelector .chat-role-btn').forEach(btn => {
         btn.addEventListener('click', () => {
           $$('#chatRoleSelector .chat-role-btn').forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
           chatRole = btn.dataset.role;
-          showToast(chatRole === 'admin' ? 'Replying as admin' : 'Replying as merchant');
+          showToast(chatRole === 'admin' ? 'Replying as BluePeak Admin' : 'Replying as Vendor');
         });
       });
 
       // ============================================================
-      // QUICK ACTIONS
+      // QUICK ESCROW ACTIONS
       // ============================================================
       $$('.chat-action-btn').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -880,46 +1206,120 @@
           const nowTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
           if (action === 'confirm-payment') {
-            order.messages.push({ from: 'merchant', text: 'Payment confirmed. Preparing to release escrow.', time: nowTime, ts: Date.now() });
+            const msg = {
+              sender: 'merchant',
+              from: 'merchant',
+              senderName: order.merchant,
+              text: 'Payment received and verified. Preparing to release crypto from escrow.',
+              time: nowTime,
+              ts: Date.now()
+            };
+            order.messages.push(msg);
             saveOrders();
+            syncToUserChat(order.order, msg);
             renderChat(order);
-            showToast('Payment confirmed');
+            showToast('Payment confirmed to customer');
           } else if (action === 'release') {
             if (!confirm(`Release escrow for ${order.order}?\n\nThis will release ${order.amount} ${order.asset} to ${order.buyer}.`)) return;
-            order.status = 'completed';
-            order.messages.push({ from: 'merchant', text: 'Escrow released. Thank you for trading!', time: nowTime, ts: Date.now() });
+            
+            order.status = 'Completed';
+            const msg = {
+              sender: 'system',
+              from: 'system',
+              senderName: 'BluePeak Escrow',
+              text: `Escrow released! ${order.amount} ${order.asset} has been credited to ${order.buyer}'s wallet. Trade completed.`,
+              time: nowTime,
+              ts: Date.now()
+            };
+            order.messages.push(msg);
             saveOrders();
+            syncToUserChat(order.order, msg);
+
+            // Update user balance in localStorage
+            try {
+              let balances = JSON.parse(localStorage.getItem('bp_user_balances') || '{}');
+              const cur = parseFloat(balances[order.asset] || 0);
+              balances[order.asset] = (cur + parseFloat(order.amount || 0)).toFixed(4);
+              localStorage.setItem('bp_user_balances', JSON.stringify(balances));
+            } catch (e) {}
+
+            // Update orders history
+            updateOrderInHistory(order.order, 'Completed');
             logAction('escrow_released', order.order, { buyer: order.buyer, amount: order.amount, asset: order.asset });
+            
             renderChat(order);
             $('#activeStatus').className = 'order-status-badge-large completed';
-            $('#activeStatus').innerHTML = `<span class="dot"></span>completed`;
+            $('#activeStatus').innerHTML = `<span class="dot"></span>Completed`;
             applyFilters();
-            showToast('Escrow released');
+            showToast('Escrow released and credited!');
           } else if (action === 'cancel') {
-            const reason = prompt('Cancel order — reason (shown to both parties):', 'Cancelled by admin');
+            const reason = prompt('Reason for cancelling order:', 'Payment window timed out or unverified sender');
             if (!reason) return;
-            order.status = 'completed';
-            order.messages.push({ from: 'admin', text: 'Order cancelled: ' + reason, time: nowTime, ts: Date.now() });
+            
+            order.status = 'Cancelled';
+            const msg = {
+              sender: 'admin',
+              from: 'admin',
+              senderName: 'BluePeak Escrow',
+              text: `Trade cancelled: ${reason}. Escrow funds returned to vendor.`,
+              time: nowTime,
+              ts: Date.now()
+            };
+            order.messages.push(msg);
             saveOrders();
+            syncToUserChat(order.order, msg);
+            updateOrderInHistory(order.order, 'Cancelled');
             logAction('order_cancelled', order.order, { reason, buyer: order.buyer });
+
             renderChat(order);
+            $('#activeStatus').className = 'order-status-badge-large cancelled';
+            $('#activeStatus').innerHTML = `<span class="dot"></span>Cancelled`;
+            applyFilters();
             showToast('Order cancelled');
           } else if (action === 'dispute') {
-            order.status = 'disputed';
-            order.messages.push({ from: 'admin', text: 'Dispute opened. Both parties may submit evidence.', time: nowTime, ts: Date.now() });
+            order.status = 'Disputed';
+            const msg = {
+              sender: 'admin',
+              from: 'admin',
+              senderName: 'BluePeak Escrow Mediation',
+              text: 'Dispute opened. Crypto assets remain frozen in escrow while operations review proof of payment.',
+              time: nowTime,
+              ts: Date.now()
+            };
+            order.messages.push(msg);
             saveOrders();
+            syncToUserChat(order.order, msg);
+            updateOrderInHistory(order.order, 'Disputed');
             logAction('dispute_opened', order.order, { buyer: order.buyer });
+
             renderChat(order);
             $('#activeStatus').className = 'order-status-badge-large disputed';
-            $('#activeStatus').innerHTML = `<span class="dot"></span>disputed`;
+            $('#activeStatus').innerHTML = `<span class="dot"></span>Disputed`;
             applyFilters();
-            showToast('Dispute opened');
+            showToast('Dispute opened & assets frozen');
           }
         });
       });
 
+      function syncToUserChat(orderId, msg) {
+        let userChats = JSON.parse(localStorage.getItem('bp_p2p_chat_' + orderId) || '[]');
+        userChats.push(msg);
+        localStorage.setItem('bp_p2p_chat_' + orderId, JSON.stringify(userChats));
+      }
+
+      function updateOrderInHistory(orderId, newStatus) {
+        try {
+          let list = JSON.parse(localStorage.getItem('bp_p2p_orders') || '[]');
+          const item = list.find(x => x.id === orderId);
+          if (item) {
+            item.status = newStatus;
+            localStorage.setItem('bp_p2p_orders', JSON.stringify(list));
+          }
+        } catch (e) {}
+      }
+
       // ============================================================
-      // FILTERS
+      // FILTERS & LIVE POLLING
       // ============================================================
       $('#searchInput').addEventListener('input', applyFilters);
       $$('.order-filter-btn').forEach(btn => {
@@ -930,6 +1330,24 @@
           applyFilters();
         });
       });
+
+      // Live Polling every 2 seconds for instant incoming trades & chats
+      setInterval(() => {
+        const stored = JSON.parse(localStorage.getItem('bp_admin_chats') || '[]');
+        if (stored.length !== orders.length) {
+          applyFilters();
+        }
+        if (activeOrderId) {
+          const ord = orders.find(x => x.id === activeOrderId);
+          if (ord) {
+            const userChat = JSON.parse(localStorage.getItem('bp_p2p_chat_' + ord.order) || '[]');
+            if (userChat.length > (ord.messages ? ord.messages.length : 0)) {
+              ord.messages = userChat;
+              renderChat(ord);
+            }
+          }
+        }
+      }, 2000);
 
       // INIT
       applyFilters();
