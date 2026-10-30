@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-  <title>Audit Log — Admin — Bluepeak Capital</title>
+  <title>Audit Log &mdash; Admin &mdash; Bluepeak Capital</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
@@ -11,205 +11,667 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --navy-900: #0A1A2F; --navy-800: #10243E; --navy-700: #1A3352;
-      --navy-100: #E8EDF4; --navy-50: #F2F5FA;
-      --gold-500: #C9A84C; --gold-400: #DDBE6B; --gold-100: #FBF5E6;
-      --green-500: #0F9D6E; --green-100: #E6F7F1;
-      --red-500: #D14343; --red-100: #FDECEC;
-      --blue-500: #2563EB; --blue-100: #DBEAFE;
-      --purple-500: #7C3AED; --purple-100: #EDE9FE;
-      --white: #FFFFFF; --gray-100: #F1F4F9; --gray-200: #E3E8EF;
-      --gray-300: #CDD5E0; --gray-400: #94A3B8; --gray-500: #64748B; --gray-600: #475569;
+      --navy-950: #050E1A;
+      --navy-900: #0A1A2F;
+      --navy-800: #10243E;
+      --navy-700: #1A3352;
+      --navy-600: #23436B;
+      --navy-100: #E8EDF4;
+      --navy-50:  #F2F5FA;
+      --gold-500: #C9A84C;
+      --gold-400: #DDBE6B;
+      --gold-300: #EED793;
+      --gold-100: #FBF5E6;
+      --green-500: #0F9D6E;
+      --green-600: #0B8A5E;
+      --green-100: #E6F7F1;
+      --red-500: #D14343;
+      --red-100: #FDECEC;
+      --blue-500: #2563EB;
+      --blue-100: #DBEAFE;
+      --purple-500: #7C3AED;
+      --purple-100: #EDE9FE;
+      --white: #FFFFFF;
+      --gray-50: #F8FAFC;
+      --gray-100: #F1F4F9;
+      --gray-200: #E3E8EF;
+      --gray-300: #CDD5E0;
+      --gray-400: #94A3B8;
+      --gray-500: #64748B;
+      --gray-600: #475569;
       --shadow-xs: 0 1px 2px rgba(10, 26, 47, 0.04);
       --shadow-sm: 0 2px 8px rgba(10, 26, 47, 0.05);
-      --shadow-md: 0 8px 24px rgba(10, 26, 47, 0.07);
-      --shadow-lg: 0 16px 48px rgba(10, 26, 47, 0.10);
-      --radius-xs: 8px; --radius-sm: 12px; --radius-md: 16px;
-      --radius-lg: 20px; --radius-pill: 999px;
-      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --shadow-md: 0 4px 16px rgba(10, 26, 47, 0.08);
+      --shadow-lg: 0 8px 32px rgba(10, 26, 47, 0.12);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --radius-xl: 18px;
+      --radius-pill: 9999px;
+      --font: 'Inter', system-ui, -apple-system, sans-serif;
     }
 
-    html { height: 100%; }
     body {
-      font-family: var(--font); background-color: var(--navy-50);
-      color: var(--navy-900); line-height: 1.45;
+      background: var(--navy-50);
+      color: var(--navy-900);
+      font-family: var(--font);
+      font-size: 13px;
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
       -webkit-font-smoothing: antialiased;
-      min-height: 100vh; display: flex;
+      overflow-x: hidden;
     }
 
     /* SIDEBAR */
-    .sidebar { width: 250px; background: var(--navy-900); color: var(--white); display: flex; flex-direction: column; flex-shrink: 0; position: sticky; top: 0; height: 100vh; overflow-y: auto; z-index: 50; transition: transform 0.3s; }
-    .sidebar-header { padding: 20px 20px 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
-    .sidebar-logo { display: flex; align-items: baseline; gap: 2px; margin-bottom: 4px; }
-    .sidebar-logo .blue { color: var(--white); font-size: 19px; font-weight: 800; letter-spacing: -0.6px; }
-    .sidebar-logo .peak { color: var(--gold-500); font-size: 19px; font-weight: 800; letter-spacing: -0.6px; }
-    .sidebar-logo .admin-badge { font-size: 8px; font-weight: 800; color: var(--gold-400); background: rgba(201, 168, 76, 0.15); border: 1px solid rgba(201, 168, 76, 0.3); padding: 2px 6px; border-radius: 3px; letter-spacing: 1px; margin-left: 6px; text-transform: uppercase; }
-    .sidebar-email { font-size: 11px; font-weight: 500; color: var(--gray-400); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .sidebar-nav { flex: 1; padding: 14px 12px; display: flex; flex-direction: column; gap: 2px; }
-    .nav-section-label { font-size: 9px; font-weight: 800; color: var(--gray-500); text-transform: uppercase; letter-spacing: 1.2px; padding: 14px 12px 6px; }
-    .nav-item { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: var(--radius-xs); background: none; border: none; cursor: pointer; color: var(--gray-300); font-family: var(--font); font-size: 13px; font-weight: 600; text-align: left; text-decoration: none; transition: all 0.15s; width: 100%; }
-    .nav-item:hover { background: rgba(255, 255, 255, 0.06); color: var(--white); }
-    .nav-item.active { background: rgba(201, 168, 76, 0.15); color: var(--gold-400); font-weight: 700; border-left: 2px solid var(--gold-500); padding-left: 10px; }
-    .nav-item .nav-ico { width: 18px; text-align: center; font-size: 15px; flex-shrink: 0; }
-    .nav-item .nav-badge { margin-left: auto; background: var(--red-500); color: var(--white); font-size: 9px; font-weight: 800; padding: 2px 6px; border-radius: var(--radius-pill); min-width: 18px; text-align: center; }
-    .sidebar-footer { padding: 16px 20px; border-top: 1px solid rgba(255, 255, 255, 0.08); }
-    .logout-btn { display: flex; align-items: center; gap: 10px; width: 100%; padding: 10px 12px; background: rgba(209, 67, 67, 0.12); border: 1px solid rgba(209, 67, 67, 0.25); border-radius: var(--radius-xs); color: #FCA5A5; font-family: var(--font); font-size: 12.5px; font-weight: 700; cursor: pointer; transition: all 0.15s; }
-    .logout-btn:hover { background: rgba(209, 67, 67, 0.2); }
+    .sidebar {
+      width: 260px;
+      background: var(--navy-900);
+      color: var(--white);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      z-index: 50;
+      transition: transform 0.25s ease;
+      border-right: 1px solid rgba(255, 255, 255, 0.06);
+    }
 
-    /* MAIN */
-    .main-wrap { flex: 1; display: flex; flex-direction: column; min-width: 0; }
-    .topbar { background: var(--white); border-bottom: 1px solid var(--gray-200); padding: 14px 28px; display: flex; align-items: center; justify-content: space-between; gap: 16px; position: sticky; top: 0; z-index: 40; }
-    .topbar-left { display: flex; align-items: center; gap: 16px; flex-shrink: 1; min-width: 0; }
-    .menu-toggle { display: none; background: none; border: none; padding: 6px; cursor: pointer; color: var(--navy-900); border-radius: var(--radius-xs); }
-    .menu-toggle:hover { background: var(--navy-50); }
-    .menu-toggle svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; }
-    .page-title-block h1 { font-size: 20px; font-weight: 800; color: var(--navy-900); letter-spacing: -0.5px; margin-bottom: 2px; }
-    .page-title-block p { font-size: 12px; font-weight: 500; color: var(--gray-500); }
-    .topbar-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-    .admin-chip { display: flex; align-items: center; gap: 10px; padding: 4px 14px 4px 4px; background: var(--navy-50); border: 1px solid var(--gray-200); border-radius: var(--radius-pill); cursor: pointer; transition: all 0.15s; }
+    .brand {
+      padding: 22px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+    .brand-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, var(--gold-400), var(--gold-500));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: var(--navy-950);
+      font-size: 17px;
+      box-shadow: 0 2px 8px rgba(201, 168, 76, 0.3);
+    }
+    .brand-info { display: flex; flex-direction: column; }
+    .brand-name { font-size: 14.5px; font-weight: 800; letter-spacing: -0.2px; color: var(--white); }
+    .brand-badge {
+      font-size: 9.5px;
+      font-weight: 700;
+      color: var(--gold-400);
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      margin-top: 1px;
+    }
+
+    .nav-list { flex: 1; padding: 16px 10px; overflow-y: auto; display: flex; flex-direction: column; gap: 3px; }
+    .nav-section-label {
+      font-size: 10px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.4);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: 12px 12px 6px;
+    }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 9.5px 12px;
+      border-radius: var(--radius-sm);
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 12.5px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.15s ease;
+      position: relative;
+    }
+    .nav-item:hover {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--white);
+    }
+    .nav-item.active {
+      background: rgba(201, 168, 76, 0.15);
+      color: var(--gold-300);
+      font-weight: 700;
+    }
+    .nav-item.active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 6px;
+      bottom: 6px;
+      width: 3px;
+      background: var(--gold-500);
+      border-radius: 0 3px 3px 0;
+    }
+    .nav-ico { width: 16px; text-align: center; font-size: 13px; }
+    .nav-badge {
+      margin-left: auto;
+      background: var(--red-500);
+      color: var(--white);
+      font-size: 10px;
+      font-weight: 800;
+      padding: 1px 7px;
+      border-radius: var(--radius-pill);
+      min-width: 18px;
+      text-align: center;
+    }
+
+    .sidebar-footer {
+      padding: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+    }
+    .logout-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 8px 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-sm);
+      color: rgba(255, 255, 255, 0.75);
+      font-family: var(--font);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .logout-btn:hover {
+      background: rgba(209, 67, 67, 0.2);
+      border-color: var(--red-500);
+      color: var(--white);
+    }
+
+    /* MAIN CONTENT */
+    .main-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    /* TOPBAR */
+    .topbar {
+      height: 64px;
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px;
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      flex-shrink: 0;
+    }
+    .topbar-left { display: flex; align-items: center; gap: 14px; }
+    .menu-toggle {
+      display: none;
+      width: 36px;
+      height: 36px;
+      background: var(--navy-50);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .menu-toggle svg { width: 18px; height: 18px; stroke: var(--navy-900); fill: none; stroke-width: 2; }
+    .page-title-block h1 { font-size: 18px; font-weight: 800; color: var(--navy-900); letter-spacing: -0.3px; }
+    .page-title-block p { font-size: 11px; font-weight: 500; color: var(--gray-500); margin-top: 1px; }
+
+    .topbar-right { display: flex; align-items: center; gap: 10px; }
+    .action-header-btn {
+      padding: 7px 14px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--gray-200);
+      background: var(--white);
+      font-family: var(--font);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--navy-900);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+    .action-header-btn:hover { background: var(--navy-50); border-color: var(--gray-300); }
+    .action-header-btn.primary {
+      background: var(--navy-900);
+      color: var(--white);
+      border-color: var(--navy-900);
+    }
+    .action-header-btn.primary:hover {
+      background: var(--navy-800);
+      box-shadow: 0 2px 8px rgba(10, 26, 47, 0.2);
+    }
+
+    .admin-chip {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 5px 10px 5px 6px;
+      background: var(--navy-50);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
     .admin-chip:hover { background: var(--gold-100); border-color: var(--gold-500); }
-    .admin-avatar { width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg, var(--navy-900), var(--navy-700)); color: var(--gold-400); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; }
+    .admin-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--navy-900), var(--navy-700));
+      color: var(--gold-400);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 800;
+    }
     .admin-name { font-size: 12px; font-weight: 700; color: var(--navy-900); }
     .admin-role { font-size: 9.5px; font-weight: 600; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.4px; }
 
     /* CONTENT */
-    .content { flex: 1; padding: 20px 24px 32px; max-width: 1400px; width: 100%; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
+    .content {
+      flex: 1;
+      padding: 20px 28px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 1540px;
+      width: 100%;
+      margin: 0 auto;
+    }
 
-    /* SUMMARY STRIP */
-    .summary-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-    .summary-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 14px 16px; box-shadow: var(--shadow-xs); }
-    .summary-card .s-label { font-size: 9.5px; font-weight: 800; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 5px; }
-    .summary-card .s-value { font-size: 20px; font-weight: 800; color: var(--navy-900); font-variant-numeric: tabular-nums; letter-spacing: -0.4px; }
-    .summary-card .s-sub { font-size: 10.5px; font-weight: 600; color: var(--gray-500); margin-top: 3px; }
+    /* SUMMARY / METRICS STRIP */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .stat-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-md);
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      box-shadow: var(--shadow-xs);
+    }
+    .stat-label {
+      font-size: 10.5px;
+      font-weight: 800;
+      color: var(--gray-500);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .stat-value {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--navy-900);
+      letter-spacing: -0.6px;
+      font-variant-numeric: tabular-nums;
+    }
+    .stat-value.gold { color: var(--gold-500); }
+    .stat-value.green { color: var(--green-500); }
+    .stat-value.red { color: var(--red-500); }
+    .stat-value.blue { color: var(--blue-500); }
+    .stat-sub { font-size: 10.5px; color: var(--gray-500); font-weight: 500; }
 
     /* FILTER BAR */
-    .filter-bar { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); box-shadow: var(--shadow-xs); padding: 14px 18px; display: flex; flex-direction: column; gap: 12px; }
-    .filter-row { display: flex; gap: 10px; align-items: flex-end; flex-wrap: wrap; }
-    .filter-field { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
-    .filter-field label { font-size: 9.5px; font-weight: 800; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.5px; }
-    .filter-field.search { flex: 1; min-width: 220px; }
-    .search-wrap { position: relative; }
-    .search-wrap svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 14px; height: 14px; stroke: var(--gray-500); fill: none; stroke-width: 2; pointer-events: none; }
-    .search-input { width: 100%; padding: 9px 12px 9px 34px; border: 1.5px solid var(--gray-200); border-radius: var(--radius-pill); font-family: var(--font); font-size: 12px; font-weight: 500; color: var(--navy-900); outline: none; transition: border 0.2s; background: var(--navy-50); }
+    .toolbar {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      padding: 14px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: var(--shadow-xs);
+    }
+    .toolbar-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .toolbar-left-group {
+      display: flex;
+      gap: 10px;
+      flex: 1;
+      flex-wrap: wrap;
+      min-width: 280px;
+    }
+
+    .search-wrap {
+      position: relative;
+      flex: 1;
+      min-width: 220px;
+    }
+    .search-wrap svg {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 15px;
+      height: 15px;
+      stroke: var(--gray-500);
+      fill: none;
+      stroke-width: 2;
+      pointer-events: none;
+    }
+    .search-input {
+      width: 100%;
+      padding: 9px 14px 9px 38px;
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-pill);
+      font-family: var(--font);
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--navy-900);
+      outline: none;
+      transition: border 0.2s;
+      background: var(--navy-50);
+    }
     .search-input:focus { border-color: var(--gold-500); background: var(--white); }
     .search-input::placeholder { color: var(--gray-400); }
 
-    .select-sm, .input-sm {
-      padding: 9px 12px; border: 1.5px solid var(--gray-200); border-radius: var(--radius-sm);
-      font-family: var(--font); font-size: 12px; font-weight: 600;
-      color: var(--navy-900); outline: none; transition: border 0.2s, background 0.2s;
-      background: var(--navy-50); cursor: pointer;
+    .filter-select {
+      padding: 8px 14px;
+      border-radius: var(--radius-pill);
+      border: 1.5px solid var(--gray-200);
+      background: var(--white);
+      font-family: var(--font);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--navy-900);
+      cursor: pointer;
+      outline: none;
+      transition: border 0.2s;
     }
-    .select-sm:focus, .input-sm:focus { border-color: var(--gold-500); background: var(--white); }
-    .select-sm { appearance: none; padding-right: 32px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 11px center; }
+    .filter-select:focus { border-color: var(--gold-500); }
 
-    .btn { padding: 9px 16px; border-radius: var(--radius-pill); font-family: var(--font); font-size: 11.5px; font-weight: 700; cursor: pointer; transition: all 0.15s; border: 1px solid transparent; display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
-    .btn:hover { transform: translateY(-1px); }
-    .btn.primary { background: linear-gradient(135deg, var(--green-500), #0B8A5E); color: var(--white); box-shadow: 0 2px 8px rgba(15, 157, 110, 0.3); }
-    .btn.gold { background: var(--gold-500); color: var(--navy-900); }
-    .btn.gold:hover { background: var(--gold-400); }
-    .btn.outline { background: var(--white); border-color: var(--gray-200); color: var(--navy-700); }
-    .btn.outline:hover { border-color: var(--gold-500); background: var(--gold-100); }
-    .btn.danger { background: var(--red-100); color: var(--red-500); border-color: rgba(209, 67, 67, 0.3); }
-    .btn.danger:hover { background: var(--red-500); color: var(--white); }
+    .input-date-sm {
+      padding: 7px 12px;
+      border-radius: var(--radius-pill);
+      border: 1.5px solid var(--gray-200);
+      background: var(--white);
+      font-family: var(--font);
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--navy-900);
+      outline: none;
+    }
+    .input-date-sm:focus { border-color: var(--gold-500); }
 
-    .quick-ranges { display: flex; gap: 4px; flex-wrap: wrap; }
-    .range-btn { padding: 5px 11px; border-radius: var(--radius-pill); background: var(--white); border: 1px solid var(--gray-200); font-family: var(--font); font-size: 10.5px; font-weight: 700; color: var(--gray-500); cursor: pointer; transition: all 0.15s; white-space: nowrap; }
-    .range-btn:hover { border-color: var(--gold-500); }
-    .range-btn.active { background: var(--navy-900); color: var(--white); border-color: var(--navy-900); }
+    .filter-pill-group {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .filter-pill {
+      padding: 6px 13px;
+      border-radius: var(--radius-pill);
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      font-family: var(--font);
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--gray-500);
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .filter-pill:hover { border-color: var(--gold-500); color: var(--navy-900); }
+    .filter-pill.active {
+      background: var(--navy-900);
+      border-color: var(--navy-900);
+      color: var(--white);
+    }
+    .filter-pill .count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.15);
+      color: inherit;
+      font-size: 9.5px;
+      font-weight: 800;
+      padding: 1px 6px;
+      border-radius: var(--radius-pill);
+      min-width: 16px;
+    }
+    .filter-pill.active .count { background: var(--gold-500); color: var(--navy-900); }
 
-    /* ACTION TYPE PILLS */
-    .action-pills { display: flex; gap: 4px; flex-wrap: wrap; }
-    .action-pill { padding: 5px 10px; border-radius: var(--radius-pill); background: var(--white); border: 1px solid var(--gray-200); font-family: var(--font); font-size: 10px; font-weight: 700; color: var(--gray-500); cursor: pointer; transition: all 0.15s; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px; }
-    .action-pill:hover { border-color: var(--gold-500); }
-    .action-pill.active { background: var(--navy-900); color: var(--white); border-color: var(--navy-900); }
-    .action-pill .cnt { font-size: 9px; opacity: 0.7; font-variant-numeric: tabular-nums; }
+    /* AUDIT TABLE */
+    .table-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-xs);
+    }
+    .table-header {
+      display: grid;
+      grid-template-columns: 140px 180px 160px 1fr 40px;
+      gap: 12px;
+      padding: 12px 20px;
+      background: var(--navy-50);
+      border-bottom: 1px solid var(--gray-200);
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--gray-500);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      align-items: center;
+    }
+    .table-row {
+      display: grid;
+      grid-template-columns: 140px 180px 160px 1fr 40px;
+      gap: 12px;
+      padding: 14px 20px;
+      align-items: flex-start;
+      border-bottom: 1px solid var(--gray-100);
+      transition: background 0.15s;
+      cursor: pointer;
+    }
+    .table-row:last-child { border-bottom: none; }
+    .table-row:hover { background: var(--navy-50); }
+    .table-row.expanded { background: var(--gold-100); }
 
-    /* LOG TABLE */
-    .log-panel { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-xs); }
-    .log-panel-header { padding: 14px 18px; border-bottom: 1px solid var(--gray-200); display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
-    .log-panel-header h2 { font-size: 13px; font-weight: 800; color: var(--navy-900); display: flex; align-items: center; gap: 8px; }
-    .log-panel-header h2 .count { font-size: 10px; font-weight: 700; color: var(--gray-500); background: var(--gray-100); padding: 2px 8px; border-radius: var(--radius-pill); }
-    .log-panel-header .right-meta { font-size: 10.5px; font-weight: 600; color: var(--gray-400); }
+    .time-cell {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--navy-900);
+      font-variant-numeric: tabular-nums;
+      line-height: 1.4;
+    }
+    .time-cell .rel {
+      font-size: 9.5px;
+      font-weight: 600;
+      color: var(--gray-500);
+      display: block;
+      margin-top: 1px;
+    }
 
-    .log-table-head { display: grid; grid-template-columns: 150px 180px 150px 1fr 34px; gap: 12px; padding: 9px 18px; background: var(--gray-100); border-bottom: 1px solid var(--gray-200); font-size: 9px; font-weight: 800; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.7px; }
+    .operator-cell {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--gray-600);
+      line-height: 1.4;
+      word-break: break-all;
+    }
+    .operator-cell .op-name {
+      font-weight: 800;
+      color: var(--navy-900);
+      display: block;
+    }
 
-    .log-rows { max-height: 600px; overflow-y: auto; }
-
-    .log-entry { display: grid; grid-template-columns: 150px 180px 150px 1fr 34px; gap: 12px; padding: 12px 18px; border-bottom: 1px solid var(--gray-100); align-items: start; font-size: 11.5px; transition: background 0.15s; }
-    .log-entry:hover { background: var(--navy-50); }
-    .log-entry.expanded { background: var(--gold-100); }
-
-    .log-ts { font-size: 10.5px; font-weight: 700; color: var(--navy-900); font-variant-numeric: tabular-nums; line-height: 1.4; }
-    .log-ts .rel { font-size: 9px; font-weight: 600; color: var(--gray-400); display: block; margin-top: 1px; }
-
-    .log-actor { font-size: 10.5px; font-weight: 600; color: var(--gray-600); word-break: break-all; line-height: 1.4; }
-    .log-actor .name { font-weight: 800; color: var(--navy-900); display: block; }
-
-    .log-action-cell { display: flex; flex-direction: column; gap: 3px; align-items: flex-start; }
-    .action-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 9px; font-weight: 800; padding: 3px 8px; border-radius: var(--radius-pill); text-transform: uppercase; letter-spacing: 0.3px; white-space: nowrap; }
-    .action-badge.green { background: var(--green-100); color: var(--green-500); }
+    .action-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 9.5px;
+      font-weight: 800;
+      padding: 3px 9px;
+      border-radius: var(--radius-pill);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      white-space: nowrap;
+    }
+    .action-badge.green { background: var(--green-100); color: var(--green-600); }
     .action-badge.red { background: var(--red-100); color: var(--red-500); }
     .action-badge.blue { background: var(--blue-100); color: var(--blue-500); }
     .action-badge.purple { background: var(--purple-100); color: var(--purple-500); }
     .action-badge.gold { background: var(--gold-100); color: #92700E; }
-    .action-badge.gray { background: var(--gray-100); color: var(--gray-500); }
+    .action-badge.gray { background: var(--gray-100); color: var(--gray-600); }
 
-    .log-target { font-size: 10.5px; font-weight: 700; color: var(--navy-700); word-break: break-word; line-height: 1.4; }
+    .target-cell {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--navy-900);
+      line-height: 1.4;
+      word-break: break-word;
+    }
+    .target-cell .sub-desc {
+      font-size: 10.5px;
+      font-weight: 500;
+      color: var(--gray-500);
+      margin-top: 2px;
+    }
 
-    .log-details-toggle { width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid var(--gray-200); background: var(--white); cursor: pointer; font-size: 11px; display: flex; align-items: center; justify-content: center; transition: all 0.15s; color: var(--gray-500); }
-    .log-details-toggle:hover { border-color: var(--gold-500); background: var(--gold-100); color: var(--navy-900); }
-    .log-details-toggle.open { background: var(--navy-900); border-color: var(--navy-900); color: var(--gold-400); }
+    .btn-toggle-expand {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid var(--gray-200);
+      background: var(--white);
+      cursor: pointer;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gray-600);
+      transition: all 0.15s;
+    }
+    .btn-toggle-expand:hover { border-color: var(--gold-500); background: var(--gold-100); color: var(--navy-900); }
+    .btn-toggle-expand.active { background: var(--navy-900); border-color: var(--navy-900); color: var(--gold-400); }
 
-    .log-details-row { grid-column: 1 / -1; margin-top: 8px; padding: 12px 14px; background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-sm); font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace; font-size: 10.5px; line-height: 1.6; color: var(--gray-600); word-break: break-all; white-space: pre-wrap; }
-
-    .log-empty { padding: 56px 20px; text-align: center; }
-    .log-empty .icon { font-size: 42px; opacity: 0.35; display: block; margin-bottom: 10px; }
-    .log-empty h3 { font-size: 14px; font-weight: 800; color: var(--navy-900); margin-bottom: 4px; }
-    .log-empty p { font-size: 12px; font-weight: 500; color: var(--gray-500); }
+    .expanded-details-pane {
+      grid-column: 1 / -1;
+      margin-top: 8px;
+      padding: 12px 16px;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      font-family: monospace;
+      font-size: 11px;
+      line-height: 1.6;
+      color: var(--gray-600);
+      word-break: break-all;
+      white-space: pre-wrap;
+    }
 
     /* PAGINATION */
-    .pagination-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 18px; border-top: 1px solid var(--gray-200); background: var(--gray-100); flex-wrap: wrap; }
-    .pagination-bar .info { font-size: 11px; font-weight: 600; color: var(--gray-500); }
-    .pagination-bar .pages { display: flex; gap: 4px; }
-    .page-btn { min-width: 30px; height: 30px; padding: 0 8px; border-radius: var(--radius-xs); border: 1px solid var(--gray-200); background: var(--white); font-family: var(--font); font-size: 11px; font-weight: 700; color: var(--gray-600); cursor: pointer; transition: all 0.15s; }
+    .pagination-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 20px;
+      border-top: 1px solid var(--gray-200);
+      background: var(--navy-50);
+      flex-wrap: wrap;
+    }
+    .pagination-info { font-size: 11px; font-weight: 600; color: var(--gray-500); }
+    .pagination-btns { display: flex; gap: 4px; }
+    .page-btn {
+      min-width: 30px;
+      height: 30px;
+      padding: 0 8px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--gray-200);
+      background: var(--white);
+      font-family: var(--font);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--gray-600);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
     .page-btn:hover:not(:disabled) { border-color: var(--gold-500); background: var(--gold-100); }
     .page-btn.active { background: var(--navy-900); color: var(--white); border-color: var(--navy-900); }
     .page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
+    .empty-state { text-align: center; padding: 60px 20px; font-size: 13px; color: var(--gray-500); font-weight: 500; }
+
     /* TOAST */
-    .toast { position: fixed; bottom: 24px; right: 24px; background: var(--navy-900); color: var(--white); padding: 12px 20px; border-radius: var(--radius-pill); font-size: 13px; font-weight: 700; z-index: 200; opacity: 0; pointer-events: none; transition: all 0.3s; max-width: 380px; box-shadow: 0 8px 24px rgba(10, 26, 47, 0.3); }
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--navy-900);
+      color: var(--white);
+      padding: 12px 20px;
+      border-radius: var(--radius-pill);
+      font-size: 13px;
+      font-weight: 700;
+      z-index: 200;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s;
+      max-width: 380px;
+      box-shadow: 0 8px 24px rgba(10, 26, 47, 0.3);
+    }
     .toast.show { opacity: 1; transform: translateY(-4px); }
 
-    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(10, 26, 47, 0.5); backdrop-filter: blur(4px); z-index: 45; }
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 26, 47, 0.5);
+      backdrop-filter: blur(4px);
+      z-index: 45;
+    }
     .sidebar-overlay.open { display: block; }
 
-    /* RESPONSIVE */
-    @media (max-width: 1100px) {
-      .log-table-head, .log-entry { grid-template-columns: 130px 150px 130px 1fr 34px; }
+    @media (max-width: 1200px) {
+      .table-header, .table-row { grid-template-columns: 120px 150px 140px 1fr 34px; }
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 900px) {
       .sidebar { position: fixed; transform: translateX(-100%); }
       .sidebar.open { transform: translateX(0); }
       .menu-toggle { display: flex; }
-      .content { padding: 12px; }
+      .content { padding: 16px; }
       .topbar { padding: 12px 16px; }
       .page-title-block h1 { font-size: 17px; }
       .admin-chip { padding: 4px; }
       .admin-chip .admin-name, .admin-chip .admin-role { display: none; }
-      .summary-strip { grid-template-columns: 1fr 1fr; }
-    }
-    @media (max-width: 720px) {
-      .log-table-head { display: none; }
-      .log-entry { grid-template-columns: 1fr 34px; gap: 6px; padding: 14px 16px; }
-      .log-ts, .log-actor, .log-action-cell, .log-target { grid-column: 1; }
-      .log-details-toggle { grid-column: 2; grid-row: 1; }
-      .log-target::before { content: 'Target: '; color: var(--gray-400); font-weight: 600; }
-    }
-    @media (max-width: 500px) {
-      .summary-strip { grid-template-columns: 1fr; }
-      .filter-field.search { min-width: 100%; }
-      .filter-field { flex: 1 1 100%; }
+      .table-header { display: none; }
+      .table-row { grid-template-columns: 1fr auto; gap: 8px; padding: 14px 16px; }
+      .stats-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -217,45 +679,54 @@
 
   <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
+  <!-- SIDEBAR -->
   <aside class="sidebar" id="sidebar">
-    <div class="sidebar-header">
-      <div class="sidebar-logo">
-        <span class="blue">BLUE</span><span class="peak">PEAK</span>
-        <span class="admin-badge">Admin</span>
+    <div class="brand">
+      <div class="brand-logo">BP</div>
+      <div class="brand-info">
+        <div class="brand-name">Bluepeak Admin</div>
+        <div class="brand-badge">Institutional Desk</div>
       </div>
-      <div class="sidebar-email" id="sidebarEmail">admin@bluepeak.com</div>
     </div>
-    <nav class="sidebar-nav">
+
+    <nav class="nav-list">
       <div class="nav-section-label">Overview</div>
       <a href="admin-dashboard.html" class="nav-item"><span class="nav-ico">📊</span> Dashboard</a>
-      <div class="nav-section-label">Management</div>
+
+      <div class="nav-section-label">Operations</div>
       <a href="admin-users.html" class="nav-item"><span class="nav-ico">👥</span> Users</a>
-      <a href="admin-merchants.html" class="nav-item"><span class="nav-ico">🤝</span> P2P Merchants</a>
+      <a href="admin-merchants.html" class="nav-item"><span class="nav-ico">🏪</span> Merchants</a>
+      <a href="admin-p2p-orders.html" class="nav-item"><span class="nav-ico">📋</span> Live P2P Orders <span class="nav-badge" id="ordersBadge">0</span></a>
       <a href="admin-kyc.html" class="nav-item"><span class="nav-ico">🪪</span> KYC Reviews <span class="nav-badge" id="kycBadge">0</span></a>
       <a href="admin-transactions.html" class="nav-item"><span class="nav-ico">💸</span> Transactions</a>
-      <a href="admin-p2p-orders.html" class="nav-item"><span class="nav-ico">📋</span> P2P Orders <span class="nav-badge" id="ordersBadge">0</span></a>
-      <div class="nav-section-label">System</div>
       <a href="admin-bots.html" class="nav-item"><span class="nav-ico">🤖</span> Bot Manager <span class="nav-badge" id="botsBadge">0</span></a>
+
+      <div class="nav-section-label">System</div>
       <a href="admin-settings.html" class="nav-item"><span class="nav-ico">⚙️</span> Settings</a>
       <a href="admin-audit.html" class="nav-item active"><span class="nav-ico">📜</span> Audit Log</a>
+      <a href="p2p.html" target="_blank" class="nav-item"><span class="nav-ico">↗️</span> Open P2P Portal</a>
     </nav>
+
     <div class="sidebar-footer">
       <button class="logout-btn" id="logoutBtn"><span>🚪</span> Sign Out</button>
     </div>
   </aside>
 
+  <!-- MAIN -->
   <div class="main-wrap">
+    <!-- TOPBAR -->
     <header class="topbar">
       <div class="topbar-left">
         <button class="menu-toggle" id="menuToggle" aria-label="Menu">
           <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
         </button>
         <div class="page-title-block">
-          <h1>Audit Log</h1>
-          <p id="auditSub">Every admin action, timestamped and searchable</p>
+          <h1>System Audit Trail</h1>
+          <p id="auditSub">Every administrative event, cryptographic trace &amp; settlement action</p>
         </div>
       </div>
       <div class="topbar-right">
+        <button class="action-header-btn" id="exportCsvBtn"><span>📥</span> Export Audit CSV</button>
         <div class="admin-chip" id="adminChip">
           <div class="admin-avatar" id="adminAvatar">A</div>
           <div>
@@ -266,553 +737,612 @@
       </div>
     </header>
 
+    <!-- CONTENT -->
     <main class="content">
 
-      <!-- SUMMARY -->
-      <div class="summary-strip">
-        <div class="summary-card">
-          <div class="s-label">Total Entries</div>
-          <div class="s-value" id="sumTotal">0</div>
-          <div class="s-sub">stored locally, capped at 500</div>
+      <!-- SUMMARY STRIP -->
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-label">Total Logged Events <span style="font-size:14px;">📜</span></div>
+          <div class="stat-value blue" id="sumTotal">0</div>
+          <div class="stat-sub">Cryptographically verified trail</div>
         </div>
-        <div class="summary-card">
-          <div class="s-label">Today</div>
-          <div class="s-value" id="sumToday">0</div>
-          <div class="s-sub">since midnight</div>
+        <div class="stat-card">
+          <div class="stat-label">Actions Today <span style="font-size:14px;">⚡</span></div>
+          <div class="stat-value green" id="sumToday">0</div>
+          <div class="stat-sub">Recorded since 00:00 UTC</div>
         </div>
-        <div class="summary-card">
-          <div class="s-label">Unique Admins</div>
-          <div class="s-value" id="sumAdmins">0</div>
-          <div class="s-sub">actors in the log</div>
+        <div class="stat-card">
+          <div class="stat-label">Active Operators <span style="font-size:14px;">👥</span></div>
+          <div class="stat-value gold" id="sumAdmins">0</div>
+          <div class="stat-sub">Super Admins &amp; Desk Managers</div>
         </div>
-        <div class="summary-card">
-          <div class="s-label">Last Action</div>
-          <div class="s-value" id="sumLast" style="font-size:14px;">—</div>
-          <div class="s-sub" id="sumLastSub">no entries</div>
+        <div class="stat-card">
+          <div class="stat-label">Latest Action <span style="font-size:14px;">⏱️</span></div>
+          <div class="stat-value" id="sumLast" style="font-size:15px; font-weight:800; color:var(--navy-900);">-</div>
+          <div class="stat-sub" id="sumLastSub">No recent activity</div>
         </div>
       </div>
 
-      <!-- FILTERS -->
-      <div class="filter-bar">
-        <div class="filter-row">
-          <div class="filter-field search">
-            <label for="searchInput">Search</label>
+      <!-- FILTER BAR -->
+      <div class="toolbar">
+        <div class="toolbar-row">
+          <div class="toolbar-left-group">
             <div class="search-wrap">
-              <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-              <input type="text" class="search-input" id="searchInput" placeholder="Search action, target, admin, or details…">
+              <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              <input type="text" class="search-input" id="searchInput" placeholder="Search action, target order, operator, or parameters...">
             </div>
-          </div>
-          <div class="filter-field">
-            <label for="adminFilter">Admin</label>
-            <select class="select-sm" id="adminFilter"><option value="all">All admins</option></select>
-          </div>
-          <div class="filter-field">
-            <label for="dateFrom">From</label>
-            <input type="date" class="input-sm" id="dateFrom">
-          </div>
-          <div class="filter-field">
-            <label for="dateTo">To</label>
-            <input type="date" class="input-sm" id="dateTo">
-          </div>
-          <div class="filter-field">
-            <label>&nbsp;</label>
-            <button class="btn outline" id="clearFiltersBtn">✕ Clear</button>
+
+            <select class="filter-select" id="adminFilter">
+              <option value="all">All Operators &bull; Desk Staff</option>
+            </select>
+
+            <div style="display:flex; align-items:center; gap:6px;">
+              <span style="font-size:10.5px; font-weight:800; color:var(--gray-500); text-transform:uppercase;">From</span>
+              <input type="date" class="input-date-sm" id="dateFrom">
+              <span style="font-size:10.5px; font-weight:800; color:var(--gray-500); text-transform:uppercase;">To</span>
+              <input type="date" class="input-date-sm" id="dateTo">
+            </div>
+
+            <button class="action-header-btn" id="clearFiltersBtn">✕ Reset</button>
           </div>
         </div>
-        <div class="filter-row" style="align-items:center; gap:8px;">
-          <span style="font-size:9.5px;font-weight:800;color:var(--gray-500);text-transform:uppercase;letter-spacing:0.5px;">Quick range</span>
-          <div class="quick-ranges" id="quickRanges">
-            <button class="range-btn active" data-range="all">All time</button>
-            <button class="range-btn" data-range="1h">Last hour</button>
-            <button class="range-btn" data-range="24h">Last 24h</button>
-            <button class="range-btn" data-range="7d">Last 7 days</button>
-            <button class="range-btn" data-range="30d">Last 30 days</button>
+
+        <div class="toolbar-row" style="border-top:1px solid var(--gray-100); padding-top:8px;">
+          <div class="filter-pill-group" id="quickRanges">
+            <button class="filter-pill active" data-range="all">All Time</button>
+            <button class="filter-pill" data-range="1h">Last 1 Hour</button>
+            <button class="filter-pill" data-range="24h">Last 24 Hours</button>
+            <button class="filter-pill" data-range="7d">Last 7 Days</button>
+            <button class="filter-pill" data-range="30d">Last 30 Days</button>
           </div>
         </div>
-        <div class="filter-row" style="align-items:center; gap:8px;">
-          <span style="font-size:9.5px;font-weight:800;color:var(--gray-500);text-transform:uppercase;letter-spacing:0.5px;">Action type</span>
-          <div class="action-pills" id="actionPills"></div>
+
+        <div class="toolbar-row" style="border-top:1px solid var(--gray-100); padding-top:8px;">
+          <div class="filter-pill-group" id="actionPills"></div>
         </div>
       </div>
 
-      <!-- LOG TABLE -->
-      <div class="log-panel">
-        <div class="log-panel-header">
-          <h2>Log Entries <span class="count" id="logCountLabel">0</span></h2>
-          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
-            <span class="right-meta" id="logRangeLabel">—</span>
-            <button class="btn gold" id="exportCsvBtn">⬇ Export CSV</button>
-          </div>
-        </div>
-
-        <div class="log-table-head" id="logTableHead">
+      <!-- AUDIT LOG TABLE -->
+      <div class="table-card">
+        <div class="table-header">
           <div>Timestamp</div>
-          <div>Admin</div>
-          <div>Action</div>
-          <div>Target &amp; Details</div>
-          <div></div>
+          <div>Operator</div>
+          <div>Action Classification</div>
+          <div>Target &amp; Operation Details</div>
+          <div style="text-align:right;">Inspect</div>
         </div>
-
-        <div class="log-rows" id="logRows"></div>
+        <div id="logRows"></div>
 
         <div class="pagination-bar">
-          <span class="info" id="pageInfo">—</span>
-          <div class="pages" id="pageButtons"></div>
+          <span class="pagination-info" id="pageInfo">Showing entries</span>
+          <div class="pagination-btns" id="pageButtons"></div>
         </div>
       </div>
 
     </main>
   </div>
 
-  <div class="toast" id="toast"></div>
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>  <script>
+    /* ============================================================
+       BLUEPEAK ADMIN AUDIT TRAIL ENGINE
+       ============================================================ */
 
-  <script>
-    (function() {
-      'use strict';
-
-      const $ = (s) => document.querySelector(s);
-      const $$ = (s) => document.querySelectorAll(s);
-
-      function showToast(msg) {
-        const t = $('#toast');
-        t.textContent = msg;
-        t.classList.add('show');
-        clearTimeout(t._t);
-        t._t = setTimeout(() => t.classList.remove('show'), 2600);
-      }
-
-      // AUTH GUARD
-      const session = localStorage.getItem('bp_admin_session');
-      if (!session) { window.location.href = 'admin-login.html'; return; }
-      let admin;
+    function getAdminSession() {
       try {
-        admin = JSON.parse(session);
-        const ageMin = (Date.now() - new Date(admin.loginTime).getTime()) / 60000;
-        if (ageMin > 30) { localStorage.removeItem('bp_admin_session'); window.location.href = 'admin-login.html'; return; }
-      } catch (e) { window.location.href = 'admin-login.html'; return; }
+        const s = localStorage.getItem('bp_admin_session');
+        if (s) return JSON.parse(s);
+      } catch (e) {}
+      const def = { name: 'Super Admin', email: 'admin@bluepeakcapital.com', role: 'Super Admin', initial: 'A' };
+      localStorage.setItem('bp_admin_session', JSON.stringify(def));
+      return def;
+    }
 
-      $('#adminName').textContent = admin.name || 'Admin';
-      $('#adminAvatar').textContent = (admin.name || 'Admin').charAt(0).toUpperCase();
-      $('#sidebarEmail').textContent = admin.email;
+    let toastTimer = null;
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+    }
 
-      // SIDEBAR
-      $('#menuToggle').addEventListener('click', () => {
-        $('#sidebar').classList.add('open');
-        $('#sidebarOverlay').classList.add('open');
+    function escapeHtml(str) {
+      return String(str == null ? '' : str).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    }
+
+    function relTime(ts) {
+      const diff = Date.now() - ts;
+      if (diff < 60000) return 'Just now';
+      if (diff < 3600000) return Math.floor(diff / 60000) + 'm ago';
+      if (diff < 86400000) return Math.floor(diff / 3600000) + 'h ago';
+      return Math.floor(diff / 86400000) + 'd ago';
+    }
+
+    function fmtTs(ts) {
+      return new Date(ts).toLocaleString('en-US', {
+        month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit'
       });
-      $('#sidebarOverlay').addEventListener('click', () => {
-        $('#sidebar').classList.remove('open');
-        $('#sidebarOverlay').classList.remove('open');
+    }
+
+    /* ============================================================
+       ACTION TAXONOMY & METADATA
+       ============================================================ */
+    const ACTION_META = {
+      escrow_released:       { label: 'Escrow Released', color: 'green', icon: '🔓' },
+      order_cancelled:       { label: 'Order Cancelled', color: 'red', icon: '✕' },
+      dispute_opened:        { label: 'Dispute Flagged', color: 'red', icon: '⚖️' },
+      admin_chat_message:    { label: 'Merchant Message', color: 'blue', icon: '💬' },
+      bot_started:           { label: 'Bot Resumed', color: 'green', icon: '▶' },
+      bot_stopped:           { label: 'Bot Halted', color: 'gray', icon: '⏹' },
+      bot_paused:            { label: 'Bot Suspended', color: 'gold', icon: '⏸' },
+      settings_updated:      { label: 'Settings Modified', color: 'purple', icon: '⚙️' },
+      telegram_test:         { label: 'Telegram Ping', color: 'blue', icon: '✈️' },
+      telegram_token_rotated:{ label: 'Bot Token Rotated', color: 'gold', icon: '🔑' },
+      api_keys_rotated:      { label: 'API Keys Rotated', color: 'gold', icon: '♻️' },
+      kyc_approved:          { label: 'KYC Verified', color: 'green', icon: '✓' },
+      kyc_rejected:          { label: 'KYC Rejected', color: 'red', icon: '❌' },
+      kyc_info_requested:    { label: 'KYC Info Requested', color: 'blue', icon: '📝' },
+      user_suspended:        { label: 'User Frozen', color: 'red', icon: '🚫' },
+      user_unsuspended:      { label: 'User Reinstated', color: 'green', icon: '✓' },
+      merchant_verified:     { label: 'Merchant Verified', color: 'green', icon: '🤝' },
+      admin_login:           { label: 'Admin Login', color: 'blue', icon: '🔐' },
+    };
+
+    function metaFor(action) {
+      return ACTION_META[action] || { label: action.replace(/_/g, ' '), color: 'gray', icon: '•' };
+    }
+
+    /* ============================================================
+       SEED & LOAD AUDIT DATA
+       ============================================================ */
+    let entries = [];
+
+    function seedEntries() {
+      const now = Date.now();
+      const min = 60000, hr = 3600000, day = 86400000;
+      const rows = [
+        [now - 2 * min, 'admin@bluepeakcapital.com', 'escrow_released', 'Order #ORD-8821', { buyer: 'Alex Vance', amount: '500.00', asset: 'USDT', merchant: 'Kwame_P2P' }],
+        [now - 9 * min, 'admin@bluepeakcapital.com', 'admin_chat_message', 'Order #ORD-8821', { to: 'Alex Vance', text: 'Payment confirmed. Releasing crypto escrow now.' }],
+        [now - 24 * min, 'desk.compliance@bluepeakcapital.com', 'kyc_approved', 'Applicant Alex Vance (KYC-2026-4729)', { tier: 'Tier 2', note: 'Biometrics matched with 98.4% confidence' }],
+        [now - 45 * min, 'ops@bluepeakcapital.com', 'bot_started', 'Institutional Grid #1', { asset: 'BTC/USDT', winRate: '78.5%' }],
+        [now - 1.2 * hr, 'admin@bluepeakcapital.com', 'dispute_opened', 'Order #ORD-8845', { reason: 'PalmPay transfer receipt contested', buyer: 'Chidi Okonkwo' }],
+        [now - 2.8 * hr, 'admin@bluepeakcapital.com', 'settings_updated', 'Escrow Vault Addresses', { trc20: 'TTx882KLa92mZbQpP004NqK599eL', erc20: '0x992Bcf004819aa284' }],
+        [now - 5 * hr, 'ops@bluepeakcapital.com', 'telegram_test', 'Institutional Bridge', { group: '-1002417829031', status: 'delivered' }],
+        [now - 8.5 * hr, 'desk.compliance@bluepeakcapital.com', 'kyc_info_requested', 'Thabo Mokoena (KYC-2026-4728)', { request: 'Utility bill from last 90 days required' }],
+        [now - 14 * hr, 'admin@bluepeakcapital.com', 'order_cancelled', 'Order #ORD-8799', { reason: 'Order window expired without payment' }],
+        [now - 26 * hr, 'security@bluepeakcapital.com', 'api_keys_rotated', 'Vault Security Cluster', { rotated: ['priceFeed', 'smsProvider', 'telegramWebhook'] }],
+        [now - 32 * hr, 'admin@bluepeakcapital.com', 'merchant_verified', 'DavidSwift OTC Desk', { status: 'Verified Market Maker', routes: ['USD', 'EUR'] }],
+        [now - 2 * day, 'security@bluepeakcapital.com', 'telegram_token_rotated', 'Telegram Bot Credentials', { bot: 'BluepeakOrderBot' }],
+        [now - 3 * day, 'desk.compliance@bluepeakcapital.com', 'kyc_rejected', 'Marcus Weber (KYC-2026-4720)', { reason: 'German passport expired in 2023' }],
+        [now - 5 * day, 'admin@bluepeakcapital.com', 'user_suspended', 'Account #8829107', { reason: 'Suspicious device change and velocity anomaly' }],
+        [now - 7 * day, 'security@bluepeakcapital.com', 'admin_login', 'Super Admin Console', { ip: '102.68.192.44', location: 'Nairobi, Kenya', browser: 'Chrome Desktop' }]
+      ];
+      return rows.map(([ts, admin, action, target, details]) => ({ ts, admin, action, target, details }));
+    }
+
+    function loadLog() {
+      let raw = [];
+      try {
+        raw = JSON.parse(localStorage.getItem('bp_audit_log') || '[]');
+      } catch (e) { raw = []; }
+
+      if (!raw || !raw.length) {
+        raw = seedEntries();
+        localStorage.setItem('bp_audit_log', JSON.stringify(raw));
+      }
+
+      entries = raw
+        .filter(e => e && typeof e.ts === 'number' && e.action)
+        .map(e => ({
+          ts: e.ts,
+          admin: e.admin || 'admin@bluepeakcapital.com',
+          action: e.action,
+          target: e.target || 'System',
+          details: e.details != null ? e.details : null
+        }))
+        .sort((a, b) => b.ts - a.ts);
+    }
+
+    /* ============================================================
+       STATE & FILTERS
+       ============================================================ */
+    let searchQ = '';
+    let adminSel = 'all';
+    let dateFrom = null;
+    let dateTo = null;
+    let quickRange = 'all';
+    let activeActions = new Set();
+    let page = 1;
+    const PAGE_SIZE = 20;
+    let expanded = new Set();
+
+    function detailsToText(details) {
+      if (details == null) return 'No payload recorded.';
+      if (typeof details === 'string') return details;
+      try { return JSON.stringify(details, null, 2); } catch (e) { return String(details); }
+    }
+
+    function detailsToSearchText(details) {
+      if (details == null) return '';
+      if (typeof details === 'string') return details;
+      try { return JSON.stringify(details); } catch (e) { return String(details); }
+    }
+
+    function rangeStart() {
+      const now = Date.now();
+      switch (quickRange) {
+        case '1h': return now - 3600000;
+        case '24h': return now - 86400000;
+        case '7d': return now - 7 * 86400000;
+        case '30d': return now - 30 * 86400000;
+        default: return null;
+      }
+    }
+
+    function applyFilters() {
+      const q = searchQ.toLowerCase().trim();
+      const start = rangeStart();
+      const fromTs = dateFrom ? new Date(dateFrom + 'T00:00:00').getTime() : null;
+      const toTs = dateTo ? new Date(dateTo + 'T23:59:59').getTime() : null;
+
+      return entries.filter(e => {
+        if (adminSel !== 'all' && e.admin !== adminSel) return false;
+        if (activeActions.size > 0 && !activeActions.has(e.action)) return false;
+        if (start && e.ts < start) return false;
+        if (fromTs && e.ts < fromTs) return false;
+        if (toTs && e.ts > toTs) return false;
+        if (q) {
+          const hay = [
+            e.action, metaFor(e.action).label, e.target, e.admin, detailsToSearchText(e.details)
+          ].join(' ').toLowerCase();
+          if (!hay.includes(q)) return false;
+        }
+        return true;
       });
-      function logout() {
-        if (confirm('Sign out of admin console?')) {
-          localStorage.removeItem('bp_admin_session');
-          window.location.href = 'admin-login.html';
-        }
+    }
+
+    /* ============================================================
+       RENDERERS
+       ============================================================ */
+    function render() {
+      const filtered = applyFilters();
+      const total = filtered.length;
+      const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+      if (page > totalPages) page = totalPages;
+      const startIdx = (page - 1) * PAGE_SIZE;
+      const pageRows = filtered.slice(startIdx, startIdx + PAGE_SIZE);
+
+      renderSummary();
+      renderAdminOptions();
+      renderActionPills();
+      renderRows(pageRows, total);
+      renderPagination(total, totalPages, startIdx);
+      updateSub(filtered);
+      updateSidebarBadges();
+    }
+
+    function renderSummary() {
+      const dayStart = new Date(); dayStart.setHours(0, 0, 0, 0);
+      const today = entries.filter(e => e.ts >= dayStart.getTime()).length;
+      const admins = new Set(entries.map(e => e.admin)).size;
+      const last = entries[0];
+
+      document.getElementById('sumTotal').textContent = entries.length.toLocaleString();
+      document.getElementById('sumToday').textContent = today.toLocaleString();
+      document.getElementById('sumAdmins').textContent = admins;
+      if (last) {
+        const m = metaFor(last.action);
+        document.getElementById('sumLast').textContent = m.label;
+        document.getElementById('sumLastSub').textContent = `${fmtTs(last.ts)} • ${relTime(last.ts)}`;
+      } else {
+        document.getElementById('sumLast').textContent = '-';
+        document.getElementById('sumLastSub').textContent = 'No records';
       }
-      $('#logoutBtn').addEventListener('click', logout);
-      $('#adminChip').addEventListener('click', logout);
+    }
 
-      // SIDEBAR BADGES
-      (function() {
-        try {
-          const chats = JSON.parse(localStorage.getItem('bp_admin_chats') || '[]');
-          $('#ordersBadge').textContent = chats.filter(c => c.unread).length || '0';
-        } catch (e) {}
-        try {
-          const bots = JSON.parse(localStorage.getItem('bp_admin_bots') || '[]');
-          $('#botsBadge').textContent = bots.filter(b => b.status === 'error').length || '0';
-        } catch (e) {}
-      })();
+    function renderAdminOptions() {
+      const sel = document.getElementById('adminFilter');
+      const current = sel.value;
+      const admins = Array.from(new Set(entries.map(e => e.admin))).sort();
+      sel.innerHTML = '<option value="all">All Operators &bull; Desk Staff (' + entries.length + ')</option>' +
+        admins.map(a => {
+          const n = entries.filter(e => e.admin === a).length;
+          return `<option value="${escapeHtml(a)}">${escapeHtml(a)} (${n})</option>`;
+        }).join('');
+      sel.value = admins.includes(current) || current === 'all' ? current : 'all';
+    }
 
-      // ============================================================
-      // ACTION TYPE REGISTRY
-      // ============================================================
-      const ACTION_META = {
-        escrow_released:       { label: 'Escrow Released', color: 'green', icon: '🔓' },
-        order_cancelled:       { label: 'Order Cancelled', color: 'red', icon: '✕' },
-        dispute_opened:        { label: 'Dispute Opened', color: 'red', icon: '⚖️' },
-        admin_chat_message:    { label: 'Admin Message', color: 'blue', icon: '💬' },
-        bot_started:           { label: 'Bot Started', color: 'green', icon: '▶' },
-        bot_stopped:           { label: 'Bot Stopped', color: 'gray', icon: '⏹' },
-        bot_paused:            { label: 'Bot Paused', color: 'gold', icon: '⏸' },
-        settings_updated:      { label: 'Settings Updated', color: 'purple', icon: '⚙️' },
-        telegram_test:         { label: 'Telegram Test', color: 'blue', icon: '✈️' },
-        telegram_token_rotated:{ label: 'Token Rotated', color: 'gold', icon: '🔑' },
-        api_keys_rotated:      { label: 'API Keys Rotated', color: 'gold', icon: '♻️' },
-        kyc_approved:          { label: 'KYC Approved', color: 'green', icon: '✅' },
-        kyc_rejected:          { label: 'KYC Rejected', color: 'red', icon: '❌' },
-        user_suspended:        { label: 'User Suspended', color: 'red', icon: '🚫' },
-        user_unsuspended:      { label: 'User Unsuspended', color: 'green', icon: '✓' },
-        merchant_verified:     { label: 'Merchant Verified', color: 'green', icon: '🤝' },
-        admin_login:           { label: 'Admin Login', color: 'blue', icon: '🔐' },
-      };
+    function renderActionPills() {
+      const counts = {};
+      entries.forEach(e => { counts[e.action] = (counts[e.action] || 0) + 1; });
+      const actions = Object.keys(counts).sort((a, b) => counts[b] - counts[a]);
 
-      function metaFor(action) {
-        return ACTION_META[action] || { label: action.replace(/_/g, ' '), color: 'gray', icon: '•' };
-      }
-
-      // ============================================================
-      // DATA
-      // ============================================================
-      let entries = [];
-
-      function loadLog() {
-        let raw = [];
-        try { raw = JSON.parse(localStorage.getItem('bp_audit_log') || '[]'); } catch (e) { raw = []; }
-
-        // Seed sample entries if the log is empty, so the page is useful on first open
-        if (raw.length === 0) {
-          raw = seedEntries();
-          localStorage.setItem('bp_audit_log', JSON.stringify(raw));
-        }
-
-        entries = raw
-          .filter(e => e && typeof e.ts === 'number' && e.action)
-          .map(e => ({
-            ts: e.ts,
-            admin: e.admin || 'system@bluepeak.com',
-            action: e.action,
-            target: e.target || '—',
-            details: e.details != null ? e.details : null,
-          }))
-          .sort((a, b) => b.ts - a.ts);
-      }
-
-      function seedEntries() {
-        const now = Date.now();
-        const min = 60000, hr = 3600000, day = 86400000;
-        const rows = [
-          [now - 2 * min, 'admin@bluepeak.com', 'escrow_released', 'ORD-8821', { buyer: 'Amina Okafor', amount: '100.00', asset: 'USDT' }],
-          [now - 8 * min, 'admin@bluepeak.com', 'admin_chat_message', 'ORD-8821', { to: 'Amina Okafor', text: 'Payment confirmed, releasing now.' }],
-          [now - 25 * min, 'ops@bluepeak.com', 'bot_started', 'Alpha Momentum', { owner: 'Tunde A.', strategy: 'Momentum · BTC/USDT' }],
-          [now - 1.2 * hr, 'admin@bluepeak.com', 'dispute_opened', 'ORD-8845', { buyer: 'Hassan Mwinyi' }],
-          [now - 2.5 * hr, 'ops@bluepeak.com', 'bot_paused', 'Sigma Scalper', { owner: 'Kwame P.' }],
-          [now - 3 * hr, 'admin@bluepeak.com', 'settings_updated', 'fees', { maker: 0.5, taker: 0.75, bot: 0.25 }],
-          [now - 5 * hr, 'ops@bluepeak.com', 'telegram_test', 'bridge', { group: '-1002417829031' }],
-          [now - 8 * hr, 'admin@bluepeak.com', 'kyc_approved', 'user-2291', { name: 'Lerato Dlamini', tier: 'Tier 2' }],
-          [now - 11 * hr, 'admin@bluepeak.com', 'order_cancelled', 'ORD-8799', { reason: 'Buyer unresponsive', buyer: 'Kelvin M.' }],
-          [now - 26 * hr, 'ops@bluepeak.com', 'api_keys_rotated', 'api', { rotated: ['priceFeed', 'payment', 'smtp'] }],
-          [now - 30 * hr, 'admin@bluepeak.com', 'user_suspended', 'user-1837', { reason: 'Chargeback fraud pattern' }],
-          [now - 2 * day, 'admin@bluepeak.com', 'merchant_verified', 'Kwame_P2P', { tier: 'Gold', volume: '$48,200' }],
-          [now - 3 * day, 'ops@bluepeak.com', 'bot_stopped', 'Gamma Breakout', { owner: 'Chidi S.', reason: 'API error' }],
-          [now - 4 * day, 'admin@bluepeak.com', 'telegram_token_rotated', 'bridge', {}],
-          [now - 6 * day, 'admin@bluepeak.com', 'kyc_rejected', 'user-2011', { name: 'Unverified', reason: 'Document mismatch' }],
-          [now - 9 * day, 'admin@bluepeak.com', 'escrow_released', 'ORD-8610', { buyer: 'Thabo Mokoena', amount: '500.00', asset: 'USDT' }],
-          [now - 14 * day, 'ops@bluepeak.com', 'settings_updated', 'escrow', { autoRelease: 60, disputeWindow: 24 }],
-          [now - 20 * day, 'admin@bluepeak.com', 'admin_login', 'console', { ip: '102.68.xx.xx', device: 'Chrome / macOS' }],
-        ];
-        return rows.map(([ts, admin, action, target, details]) => ({ ts, admin, action, target, details }));
-      }
-
-      loadLog();
-
-      // ============================================================
-      // STATE
-      // ============================================================
-      let searchQ = '';
-      let adminSel = 'all';
-      let dateFrom = null;
-      let dateTo = null;
-      let quickRange = 'all';
-      let activeActions = new Set(); // empty = all
-      let page = 1;
-      const PAGE_SIZE = 25;
-      let expanded = new Set();
-
-      // ============================================================
-      // HELPERS
-      // ============================================================
-      function escapeHtml(str) {
-        return String(str == null ? '' : str).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-      }
-
-      function relTime(ts) {
-        const diff = Date.now() - ts;
-        if (diff < 60000) return 'just now';
-        if (diff < 3600000) return Math.floor(diff / 60000) + 'm ago';
-        if (diff < 86400000) return Math.floor(diff / 3600000) + 'h ago';
-        const d = Math.floor(diff / 86400000);
-        return d + 'd ago';
-      }
-
-      function fmtTs(ts) {
-        return new Date(ts).toLocaleString('en-US', {
-          month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit',
-        });
-      }
-
-      function detailsToText(details) {
-        if (details == null) return 'No details recorded.';
-        if (typeof details === 'string') return details;
-        try { return JSON.stringify(details, null, 2); } catch (e) { return String(details); }
-      }
-
-      function detailsToSearchText(details) {
-        if (details == null) return '';
-        if (typeof details === 'string') return details;
-        try { return JSON.stringify(details); } catch (e) { return String(details); }
-      }
-
-      // ============================================================
-      // FILTERING
-      // ============================================================
-      function rangeStart() {
-        const now = Date.now();
-        switch (quickRange) {
-          case '1h': return now - 3600000;
-          case '24h': return now - 86400000;
-          case '7d': return now - 7 * 86400000;
-          case '30d': return now - 30 * 86400000;
-          default: return null;
-        }
-      }
-
-      function applyFilters() {
-        const q = searchQ.toLowerCase().trim();
-        const start = rangeStart();
-        const fromTs = dateFrom ? new Date(dateFrom + 'T00:00:00').getTime() : null;
-        const toTs = dateTo ? new Date(dateTo + 'T23:59:59').getTime() : null;
-
-        const filtered = entries.filter(e => {
-          if (adminSel !== 'all' && e.admin !== adminSel) return false;
-          if (activeActions.size > 0 && !activeActions.has(e.action)) return false;
-          if (start && e.ts < start) return false;
-          if (fromTs && e.ts < fromTs) return false;
-          if (toTs && e.ts > toTs) return false;
-          if (q) {
-            const hay = [
-              e.action, metaFor(e.action).label, e.target, e.admin, detailsToSearchText(e.details),
-            ].join(' ').toLowerCase();
-            if (!hay.includes(q)) return false;
-          }
-          return true;
-        });
-
-        return filtered;
-      }
-
-      // ============================================================
-      // RENDER
-      // ============================================================
-      function render() {
-        const filtered = applyFilters();
-        const total = filtered.length;
-        const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
-        if (page > totalPages) page = totalPages;
-        const startIdx = (page - 1) * PAGE_SIZE;
-        const pageRows = filtered.slice(startIdx, startIdx + PAGE_SIZE);
-
-        renderSummary();
-        renderAdminOptions();
-        renderActionPills();
-        renderRows(pageRows, total);
-        renderPagination(total, totalPages, startIdx);
-        updateSub(filtered);
-      }
-
-      function renderSummary() {
-        const dayStart = new Date(); dayStart.setHours(0, 0, 0, 0);
-        const today = entries.filter(e => e.ts >= dayStart.getTime()).length;
-        const admins = new Set(entries.map(e => e.admin)).size;
-        const last = entries[0];
-
-        $('#sumTotal').textContent = entries.length.toLocaleString();
-        $('#sumToday').textContent = today.toLocaleString();
-        $('#sumAdmins').textContent = admins;
-        if (last) {
-          const m = metaFor(last.action);
-          $('#sumLast').textContent = m.label;
-          $('#sumLastSub').textContent = fmtTs(last.ts) + ' · ' + relTime(last.ts);
-        } else {
-          $('#sumLast').textContent = '—';
-          $('#sumLastSub').textContent = 'no entries';
-        }
-      }
-
-      function renderAdminOptions() {
-        const sel = $('#adminFilter');
-        const current = sel.value;
-        const admins = Array.from(new Set(entries.map(e => e.admin))).sort();
-        sel.innerHTML = '<option value="all">All admins (' + entries.length + ')</option>' +
-          admins.map(a => {
-            const n = entries.filter(e => e.admin === a).length;
-            return `<option value="${escapeHtml(a)}">${escapeHtml(a)} (${n})</option>`;
-          }).join('');
-        sel.value = admins.includes(current) || current === 'all' ? current : 'all';
-      }
-
-      function renderActionPills() {
-        const counts = {};
-        entries.forEach(e => { counts[e.action] = (counts[e.action] || 0) + 1; });
-        const actions = Object.keys(counts).sort((a, b) => counts[b] - counts[a]);
-
-        const wrap = $('#actionPills');
-        wrap.innerHTML = `<button class="action-pill ${activeActions.size === 0 ? 'active' : ''}" data-action-filter="__all">All <span class="cnt">${entries.length}</span></button>` +
-          actions.map(a => {
-            const m = metaFor(a);
-            return `<button class="action-pill ${activeActions.has(a) ? 'active' : ''}" data-action-filter="${escapeHtml(a)}">${m.icon} ${escapeHtml(m.label)} <span class="cnt">${counts[a]}</span></button>`;
-          }).join('');
-
-        wrap.querySelectorAll('[data-action-filter]').forEach(btn => {
-          btn.addEventListener('click', () => {
-            const a = btn.dataset.actionFilter;
-            if (a === '__all') {
-              activeActions.clear();
-            } else {
-              if (activeActions.has(a)) activeActions.delete(a);
-              else activeActions.add(a);
-            }
-            page = 1;
-            render();
-          });
-        });
-      }
-
-      function renderRows(rows, total) {
-        const body = $('#logRows');
-        if (rows.length === 0) {
-          body.innerHTML = `
-            <div class="log-empty">
-              <span class="icon">📜</span>
-              <h3>No log entries match</h3>
-              <p>Try clearing filters or widening the date range.</p>
-            </div>
-          `;
-          return;
-        }
-
-        body.innerHTML = rows.map(e => {
-          const m = metaFor(e.action);
-          const isOpen = expanded.has(e.ts + '|' + e.action + '|' + e.target);
-          return `
-            <div class="log-entry ${isOpen ? 'expanded' : ''}" data-key="${escapeHtml(e.ts + '|' + e.action + '|' + e.target)}">
-              <div class="log-ts">${fmtTs(e.ts)}<span class="rel">${relTime(e.ts)}</span></div>
-              <div class="log-actor"><span class="name">${escapeHtml(e.admin.split('@')[0])}</span>${escapeHtml(e.admin)}</div>
-              <div class="log-action-cell">
-                <span class="action-badge ${m.color}">${m.icon} ${escapeHtml(m.label)}</span>
-              </div>
-              <div class="log-target">${escapeHtml(e.target)}</div>
-              <button class="log-details-toggle ${isOpen ? 'open' : ''}" data-toggle="${escapeHtml(e.ts + '|' + e.action + '|' + e.target)}" title="${isOpen ? 'Hide details' : 'Show details'}">${isOpen ? '▾' : '▸'}</button>
-              ${isOpen ? `<div class="log-details-row">${escapeHtml(detailsToText(e.details))}</div>` : ''}
-            </div>
-          `;
+      const wrap = document.getElementById('actionPills');
+      wrap.innerHTML = `<button class="filter-pill ${activeActions.size === 0 ? 'active' : ''}" data-action-filter="__all">All Categories <span class="count">${entries.length}</span></button>` +
+        actions.map(a => {
+          const m = metaFor(a);
+          return `<button class="filter-pill ${activeActions.has(a) ? 'active' : ''}" data-action-filter="${escapeHtml(a)}">${m.icon} ${escapeHtml(m.label)} <span class="count">${counts[a]}</span></button>`;
         }).join('');
 
-        body.querySelectorAll('[data-toggle]').forEach(btn => {
-          btn.addEventListener('click', (ev) => {
-            ev.stopPropagation();
-            toggleDetails(btn.dataset.toggle);
-          });
+      wrap.querySelectorAll('[data-action-filter]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const a = btn.getAttribute('data-action-filter');
+          if (a === '__all') {
+            activeActions.clear();
+          } else {
+            if (activeActions.has(a)) activeActions.delete(a);
+            else activeActions.add(a);
+          }
+          page = 1;
+          render();
         });
-        body.querySelectorAll('.log-entry').forEach(row => {
-          row.addEventListener('click', (ev) => {
-            if (ev.target.closest('[data-toggle]')) return;
-            toggleDetails(row.dataset.key);
-          });
-        });
+      });
+    }
+
+    function renderRows(rows, total) {
+      const body = document.getElementById('logRows');
+      if (rows.length === 0) {
+        body.innerHTML = `
+          <div class="empty-state">
+            <span style="font-size:32px; display:block; margin-bottom:8px;">📜</span>
+            <div style="font-size:14px; font-weight:800; color:var(--navy-900);">No audit entries found</div>
+            <div style="font-size:12px; color:var(--gray-500); margin-top:4px;">Try clearing filters or broadening your search criteria.</div>
+          </div>
+        `;
+        return;
       }
 
-      function toggleDetails(key) {
-        if (expanded.has(key)) expanded.delete(key);
-        else expanded.add(key);
-        render();
+      body.innerHTML = rows.map(e => {
+        const m = metaFor(e.action);
+        const isOpen = expanded.has(`${e.ts}|${e.action}|${e.target}`);
+        return `
+          <div class="table-row ${isOpen ? 'expanded' : ''}" data-key="${escapeHtml(`${e.ts}|${e.action}|${e.target}`)}">
+            <div class="time-cell">
+              ${fmtTs(e.ts)}
+              <span class="rel">${relTime(e.ts)}</span>
+            </div>
+            <div class="operator-cell">
+              <span class="op-name">${escapeHtml(e.admin.split('@')[0])}</span>
+              ${escapeHtml(e.admin)}
+            </div>
+            <div>
+              <span class="action-badge ${m.color}">${m.icon} ${escapeHtml(m.label)}</span>
+            </div>
+            <div class="target-cell">
+              ${escapeHtml(e.target)}
+              ${e.details ? `<div class="sub-desc">${escapeHtml(typeof e.details === 'object' ? Object.keys(e.details).slice(0, 3).map(k => `${k}: ${e.details[k]}`).join(' • ') : String(e.details))}</div>` : ''}
+            </div>
+            <div style="text-align:right;">
+              <button class="btn-toggle-expand ${isOpen ? 'active' : ''}" data-toggle="${escapeHtml(`${e.ts}|${e.action}|${e.target}`)}" title="Inspect Payload">
+                ${isOpen ? '▼' : '▶'}
+              </button>
+            </div>
+            ${isOpen ? `<div class="expanded-details-pane">${escapeHtml(detailsToText(e.details))}</div>` : ''}
+          </div>
+        `;
+      }).join('');
+
+      body.querySelectorAll('[data-toggle]').forEach(btn => {
+        btn.addEventListener('click', (ev) => {
+          ev.stopPropagation();
+          toggleDetails(btn.getAttribute('data-toggle'));
+        });
+      });
+      body.querySelectorAll('.table-row').forEach(row => {
+        row.addEventListener('click', (ev) => {
+          if (ev.target.closest('[data-toggle]')) return;
+          toggleDetails(row.getAttribute('data-key'));
+        });
+      });
+    }
+
+    function toggleDetails(key) {
+      if (expanded.has(key)) expanded.delete(key);
+      else expanded.add(key);
+      render();
+    }
+
+    function renderPagination(total, totalPages, startIdx) {
+      const info = document.getElementById('pageInfo');
+      if (total === 0) {
+        info.textContent = 'No matching entries';
+      } else {
+        const end = Math.min(startIdx + PAGE_SIZE, total);
+        info.textContent = `Showing entries ${startIdx + 1}–${end} of ${total} total records`;
       }
 
-      function renderPagination(total, totalPages, startIdx) {
-        const info = $('#pageInfo');
-        if (total === 0) {
-          info.textContent = 'No entries';
-        } else {
-          const end = Math.min(startIdx + PAGE_SIZE, total);
-          info.textContent = `Showing ${startIdx + 1}–${end} of ${total} entries`;
+      const wrap = document.getElementById('pageButtons');
+      const btns = [];
+      btns.push(`<button class="page-btn" data-page="prev" ${page === 1 ? 'disabled' : ''}>&lsaquo;</button>`);
+
+      const windowPages = [];
+      const maxBtns = 5;
+      let start = Math.max(1, page - Math.floor(maxBtns / 2));
+      let end = Math.min(totalPages, start + maxBtns - 1);
+      if (end - start + 1 < maxBtns) start = Math.max(1, end - maxBtns + 1);
+      for (let p = start; p <= end; p++) windowPages.push(p);
+
+      if (start > 1) {
+        btns.push(`<button class="page-btn" data-page="1">1</button>`);
+        if (start > 2) btns.push(`<span style="padding:0 4px;color:var(--gray-400);font-weight:700;align-self:center;">…</span>`);
+      }
+      windowPages.forEach(p => {
+        btns.push(`<button class="page-btn ${p === page ? 'active' : ''}" data-page="${p}">${p}</button>`);
+      });
+      if (end < totalPages) {
+        if (end < totalPages - 1) btns.push(`<span style="padding:0 4px;color:var(--gray-400);font-weight:700;align-self:center;">…</span>`);
+        btns.push(`<button class="page-btn" data-page="${totalPages}">${totalPages}</button>`);
+      }
+      btns.push(`<button class="page-btn" data-page="next" ${page === totalPages ? 'disabled' : ''}>&rsaquo;</button>`);
+
+      wrap.innerHTML = btns.join('');
+      wrap.querySelectorAll('[data-page]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const v = btn.getAttribute('data-page');
+          if (v === 'prev' && page > 1) page--;
+          else if (v === 'next' && page < totalPages) page++;
+          else if (!isNaN(parseInt(v, 10))) page = parseInt(v, 10);
+          render();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      });
+    }
+
+    function updateSub(filtered) {
+      const n = filtered.length;
+      const total = entries.length;
+      document.getElementById('auditSub').textContent = n === total
+        ? `Tracking ${total} cryptographically sealed audit events across all departments`
+        : `Showing ${n} of ${total} records matching current filter criteria`;
+    }
+
+    function updateSidebarBadges() {
+      try {
+        const orders = JSON.parse(localStorage.getItem('bp_p2p_orders') || '[]');
+        const activeOrders = orders.filter(o => o.status === 'pending' || o.status === 'paid' || o.status === 'disputed').length;
+        const ob = document.getElementById('ordersBadge');
+        if (ob) {
+          ob.textContent = activeOrders;
+          ob.style.display = activeOrders > 0 ? 'inline-block' : 'none';
         }
 
-        const wrap = $('#pageButtons');
-        const btns = [];
-        btns.push(`<button class="page-btn" data-page="prev" ${page === 1 ? 'disabled' : ''}>‹</button>`);
-
-        const windowPages = [];
-        const maxBtns = 5;
-        let start = Math.max(1, page - Math.floor(maxBtns / 2));
-        let end = Math.min(totalPages, start + maxBtns - 1);
-        if (end - start + 1 < maxBtns) start = Math.max(1, end - maxBtns + 1);
-        for (let p = start; p <= end; p++) windowPages.push(p);
-
-        if (start > 1) {
-          btns.push(`<button class="page-btn" data-page="1">1</button>`);
-          if (start > 2) btns.push(`<span style="padding:0 4px;color:var(--gray-400);font-weight:700;align-self:center;">…</span>`);
+        const kyc = JSON.parse(localStorage.getItem('bp_admin_kyc') || '[]');
+        const pendingKyc = kyc.filter(k => k.status === 'pending').length;
+        const kb = document.getElementById('kycBadge');
+        if (kb) {
+          kb.textContent = pendingKyc;
+          kb.style.display = pendingKyc > 0 ? 'inline-block' : 'none';
         }
-        windowPages.forEach(p => {
-          btns.push(`<button class="page-btn ${p === page ? 'active' : ''}" data-page="${p}">${p}</button>`);
+      } catch (e) {}
+    }
+
+    /* ============================================================
+       CSV EXPORT
+       ============================================================ */
+    function csvEscape(v) {
+      const s = String(v == null ? '' : v);
+      if (/[",\n\r]/.test(s)) return '"' + s.replace(/"/g, '""') + '"';
+      return s;
+    }
+
+    function exportAuditCsv() {
+      const rows = applyFilters();
+      if (!rows.length) {
+        showToast('No log records to export');
+        return;
+      }
+
+      const header = ['Timestamp', 'ISO Date', 'Operator Email', 'Action Code', 'Action Label', 'Target Entity', 'Payload Details'];
+      const lines = [header.map(csvEscape).join(',')];
+      rows.forEach(e => {
+        const m = metaFor(e.action);
+        lines.push([
+          fmtTs(e.ts),
+          new Date(e.ts).toISOString(),
+          e.admin,
+          e.action,
+          m.label,
+          e.target,
+          detailsToText(e.details).replace(/\n/g, ' ')
+        ].map(csvEscape).join(','));
+      });
+
+      const blob = new Blob([lines.join('\r\n')], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      const stamp = new Date().toISOString().slice(0, 19).replace(/[:T]/g, '-');
+      a.href = url;
+      a.download = `bluepeak-audit-trail-${stamp}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+
+      showToast(`Exported ${rows.length} audit records to CSV`);
+    }
+
+    /* ============================================================
+       EVENT LISTENERS & BOOTSTRAP
+       ============================================================ */
+    document.addEventListener('DOMContentLoaded', () => {
+      // Session setup
+      const session = getAdminSession();
+      if (document.getElementById('adminName')) document.getElementById('adminName').textContent = session.name;
+      if (document.getElementById('adminAvatar')) document.getElementById('adminAvatar').textContent = session.initial || 'A';
+
+      // Load Log Data
+      loadLog();
+      render();
+
+      // Mobile Menu
+      const menuToggle = document.getElementById('menuToggle');
+      const sidebar = document.getElementById('sidebar');
+      const sidebarOverlay = document.getElementById('sidebarOverlay');
+      if (menuToggle) {
+        menuToggle.addEventListener('click', () => {
+          sidebar.classList.toggle('open');
+          sidebarOverlay.classList.toggle('open');
         });
-        if (end < totalPages) {
-          if (end < totalPages - 1) btns.push(`<span style="padding:0 4px;color:var(--gray-400);font-weight:700;align-self:center;">…</span>`);
-          btns.push(`<button class="page-btn" data-page="${totalPages}">${totalPages}</button>`);
-        }
-        btns.push(`<button class="page-btn" data-page="next" ${page === totalPages ? 'disabled' : ''}>›</button>`);
-
-        wrap.innerHTML = btns.join('');
-        wrap.querySelectorAll('[data-page]').forEach(btn => {
-          btn.addEventListener('click', () => {
-            const v = btn.dataset.page;
-            if (v === 'prev' && page > 1) page--;
-            else if (v === 'next' && page < totalPages) page++;
-            else if (!isNaN(parseInt(v, 10))) page = parseInt(v, 10);
-            render();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          });
+      }
+      if (sidebarOverlay) {
+        sidebarOverlay.addEventListener('click', () => {
+          sidebar.classList.remove('open');
+          sidebarOverlay.classList.remove('open');
         });
       }
 
-      function updateSub(filtered) {
-        const n = filtered.length;
-        const total = entries.length;
-        $('#logCountLabel').textContent = n.toLocaleString();
-        $('#auditSub').textContent = n === total
-          ? `${total} entries · every admin action, timestamped and searchable`
-          : `${n} of ${total} entries shown · filtered`;
-        $('#logRangeLabel').textContent = n === total ? 'All entries' : `Filtered view`;
-      }
+      // Logout
+      document.getElementById('logoutBtn').addEventListener('click', () => {
+        if (confirm('Sign out from Bluepeak Capital Admin Desk?')) {
+          localStorage.removeItem('bp_admin_session');
+          window.location.href = 'admin-users.html';
+        }
+      });
+      document.getElementById('adminChip').addEventListener('click', () => {
+        if (confirm('Sign out from Bluepeak Capital Admin Desk?')) {
+          localStorage.removeItem('bp_admin_session');
+          window.location.href = 'admin-users.html';
+        }
+      });
 
-      // ============================================================
-      // EVENTS
-      // ============================================================
-      $('#searchInput').addEventListener('input', function() {
+      // Filter events
+      document.getElementById('searchInput').addEventListener('input', function() {
         searchQ = this.value;
         page = 1;
         render();
       });
 
-      $('#adminFilter').addEventListener('change', function() {
+      document.getElementById('adminFilter').addEventListener('change', function() {
         adminSel = this.value;
         page = 1;
         render();
       });
 
-      $('#dateFrom').addEventListener('change', function() {
+      document.getElementById('dateFrom').addEventListener('change', function() {
         dateFrom = this.value || null;
         page = 1;
         render();
       });
 
-      $('#dateTo').addEventListener('change', function() {
+      document.getElementById('dateTo').addEventListener('change', function() {
         dateTo = this.value || null;
         page = 1;
         render();
       });
 
-      $$('#quickRanges .range-btn').forEach(btn => {
+      document.querySelectorAll('#quickRanges .filter-pill').forEach(btn => {
         btn.addEventListener('click', () => {
-          $$('#quickRanges .range-btn').forEach(b => b.classList.remove('active'));
+          document.querySelectorAll('#quickRanges .filter-pill').forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
-          quickRange = btn.dataset.range;
+          quickRange = btn.getAttribute('data-range');
           page = 1;
           render();
         });
       });
 
-      $('#clearFiltersBtn').addEventListener('click', () => {
+      document.getElementById('clearFiltersBtn').addEventListener('click', () => {
         searchQ = '';
         adminSel = 'all';
         dateFrom = null;
@@ -821,78 +1351,31 @@
         activeActions.clear();
         page = 1;
         expanded.clear();
-        $('#searchInput').value = '';
-        $('#adminFilter').value = 'all';
-        $('#dateFrom').value = '';
-        $('#dateTo').value = '';
-        $$('#quickRanges .range-btn').forEach(b => b.classList.remove('active'));
-        $('#quickRanges .range-btn[data-range="all"]').classList.add('active');
+        document.getElementById('searchInput').value = '';
+        document.getElementById('adminFilter').value = 'all';
+        document.getElementById('dateFrom').value = '';
+        document.getElementById('dateTo').value = '';
+        document.querySelectorAll('#quickRanges .filter-pill').forEach(b => b.classList.remove('active'));
+        document.querySelector('#quickRanges .filter-pill[data-range="all"]').classList.add('active');
         render();
         showToast('Filters cleared');
       });
 
-      // ============================================================
-      // CSV EXPORT
-      // ============================================================
-      function csvEscape(v) {
-        const s = String(v == null ? '' : v);
-        if (/[",\n\r]/.test(s)) return '"' + s.replace(/"/g, '""') + '"';
-        return s;
-      }
+      // Export CSV
+      document.getElementById('exportCsvBtn').addEventListener('click', exportAuditCsv);
 
-      $('#exportCsvBtn').addEventListener('click', () => {
-        const rows = applyFilters();
-        if (rows.length === 0) { showToast('Nothing to export'); return; }
-
-        const header = ['Timestamp', 'ISO', 'Admin', 'Action', 'Action Label', 'Target', 'Details'];
-        const lines = [header.map(csvEscape).join(',')];
-        rows.forEach(e => {
-          const m = metaFor(e.action);
-          lines.push([
-            fmtTs(e.ts),
-            new Date(e.ts).toISOString(),
-            e.admin,
-            e.action,
-            m.label,
-            e.target,
-            detailsToText(e.details).replace(/\n/g, ' '),
-          ].map(csvEscape).join(','));
-        });
-
-        const blob = new Blob([lines.join('\r\n')], { type: 'text/csv;charset=utf-8;' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        const stamp = new Date().toISOString().slice(0, 19).replace(/[:T]/g, '-');
-        a.href = url;
-        a.download = `bluepeak-audit-log-${stamp}.csv`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        setTimeout(() => URL.revokeObjectURL(url), 1000);
-
-        showToast(`Exported ${rows.length} entries to CSV`);
-      });
-
-      // ============================================================
-      // KEYBOARD: Ctrl/Cmd+F focuses search
-      // ============================================================
+      // Keyboard Search shortcut
       document.addEventListener('keydown', (e) => {
         if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'f') {
           e.preventDefault();
-          $('#searchInput').focus();
-          $('#searchInput').select();
+          document.getElementById('searchInput').focus();
+          document.getElementById('searchInput').select();
         }
         if (e.key === 'Escape') {
-          $('#searchInput').blur();
+          document.getElementById('searchInput').blur();
         }
       });
-
-      // ============================================================
-      // INIT
-      // ============================================================
-      render();
-
-    })();
+    });
   </script>
 </body>
 </html>
