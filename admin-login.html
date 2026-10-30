@@ -3,29 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-  <title>Admin Login — Bluepeak Capital</title>
+  <title>Admin Portal Login &mdash; Bluepeak Capital</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
+      --navy-950: #050E1A;
       --navy-900: #0A1A2F;
       --navy-800: #10243E;
       --navy-700: #1A3352;
+      --navy-600: #23436B;
       --navy-100: #E8EDF4;
       --navy-50:  #F2F5FA;
       --gold-500: #C9A84C;
       --gold-400: #DDBE6B;
+      --gold-300: #EED793;
       --gold-100: #FBF5E6;
       --green-500: #0F9D6E;
+      --green-600: #0B8A5E;
       --green-100: #E6F7F1;
       --red-500: #D14343;
       --red-100: #FDECEC;
       --blue-500: #2563EB;
       --blue-100: #DBEAFE;
+      --purple-500: #7C3AED;
+      --purple-100: #EDE9FE;
       --white: #FFFFFF;
+      --gray-50: #F8FAFC;
       --gray-100: #F1F4F9;
       --gray-200: #E3E8EF;
       --gray-300: #CDD5E0;
@@ -33,236 +40,390 @@
       --gray-500: #64748B;
       --gray-600: #475569;
       --shadow-xs: 0 1px 2px rgba(10, 26, 47, 0.04);
-      --shadow-sm: 0 2px 8px rgba(10, 26, 47, 0.05);
-      --shadow-md: 0 8px 24px rgba(10, 26, 47, 0.07);
-      --shadow-lg: 0 16px 48px rgba(10, 26, 47, 0.10);
-      --shadow-xl: 0 24px 64px rgba(10, 26, 47, 0.15);
-      --radius-xs: 8px;
-      --radius-sm: 12px;
-      --radius-md: 16px;
+      --shadow-sm: 0 2px 8px rgba(10, 26, 47, 0.06);
+      --shadow-md: 0 8px 24px rgba(10, 26, 47, 0.10);
+      --shadow-lg: 0 16px 48px rgba(10, 26, 47, 0.16);
+      --shadow-xl: 0 24px 64px rgba(5, 14, 26, 0.35);
+      --radius-xs: 6px;
+      --radius-sm: 10px;
+      --radius-md: 14px;
       --radius-lg: 20px;
-      --radius-pill: 999px;
-      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      --radius-pill: 9999px;
+      --font: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
     }
 
-    html { height: 100%; }
-    body {
-      font-family: var(--font); background: var(--navy-900);
-      color: var(--navy-900); line-height: 1.45;
-      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
-      min-height: 100vh; display: flex;
-      flex-direction: column; overflow-x: hidden;
+    html, body {
+      height: 100%;
+      background: var(--navy-950);
+      font-family: var(--font);
+      color: var(--navy-900);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
-    /* LAYOUT: split screen on desktop, stacked on mobile */
-    .login-layout {
-      flex: 1;
-      display: flex;
+    /* SPLIT SCREEN LAYOUT */
+    .portal-wrap {
       min-height: 100vh;
+      display: flex;
+      width: 100%;
     }
 
-    /* LEFT BRANDING PANEL */
-    .login-brand {
-      flex: 1;
-      background: linear-gradient(135deg, var(--navy-900) 0%, var(--navy-800) 60%, var(--navy-700) 100%);
-      padding: 56px 48px;
+    /* LEFT BRAND HERO PANEL */
+    .hero-panel {
+      flex: 1.15;
+      background: linear-gradient(145deg, var(--navy-950) 0%, var(--navy-900) 45%, var(--navy-800) 100%);
+      padding: 64px 56px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       position: relative;
       overflow: hidden;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
     }
-    .login-brand::before {
+
+    /* Atmospheric ambient glows */
+    .hero-panel::before {
       content: '';
       position: absolute;
-      top: -20%;
-      right: -20%;
+      top: -150px;
+      right: -150px;
+      width: 550px;
+      height: 550px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201, 168, 76, 0.22), transparent 70%);
+      pointer-events: none;
+      filter: blur(40px);
+    }
+    .hero-panel::after {
+      content: '';
+      position: absolute;
+      bottom: -150px;
+      left: -150px;
       width: 500px;
       height: 500px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(201, 168, 76, 0.18), transparent 65%);
+      background: radial-gradient(circle, rgba(15, 157, 110, 0.15), transparent 70%);
       pointer-events: none;
-    }
-    .login-brand::after {
-      content: '';
-      position: absolute;
-      bottom: -20%;
-      left: -20%;
-      width: 400px;
-      height: 400px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(201, 168, 76, 0.08), transparent 70%);
-      pointer-events: none;
+      filter: blur(50px);
     }
 
-    .brand-top { position: relative; z-index: 1; }
-    .brand-logo {
+    .hero-header { position: relative; z-index: 2; }
+    .brand-cluster {
       display: flex;
-      align-items: baseline;
-      gap: 4px;
-      margin-bottom: 40px;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 48px;
     }
-    .brand-logo .blue { color: var(--white); font-size: 26px; font-weight: 800; letter-spacing: -1px; }
-    .brand-logo .peak { color: var(--gold-500); font-size: 26px; font-weight: 800; letter-spacing: -1px; }
-    .brand-logo small {
-      font-size: 9px; font-weight: 800; color: var(--gray-400);
-      letter-spacing: 2px; text-transform: uppercase;
-      margin-left: 8px; padding: 3px 8px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 4px;
+    .brand-crest {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--gold-400), var(--gold-500));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: var(--navy-950);
+      font-size: 20px;
+      box-shadow: 0 4px 16px rgba(201, 168, 76, 0.4);
+      letter-spacing: -0.5px;
+    }
+    .brand-meta { display: flex; flex-direction: column; }
+    .brand-title {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .brand-title span.peak { color: var(--gold-400); }
+    .brand-pill {
+      font-size: 9.5px;
+      font-weight: 800;
+      letter-spacing: 1.2px;
+      color: var(--gold-300);
+      background: rgba(201, 168, 76, 0.12);
+      border: 1px solid rgba(201, 168, 76, 0.3);
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      text-transform: uppercase;
+    }
+    .brand-subline {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--gray-400);
+      letter-spacing: 0.3px;
     }
 
-    .brand-tag {
+    .hero-badge-live {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      background: rgba(201, 168, 76, 0.15);
-      color: var(--gold-400);
-      font-size: 10.5px;
-      font-weight: 800;
-      letter-spacing: 1px;
-      text-transform: uppercase;
+      gap: 8px;
+      background: rgba(15, 157, 110, 0.14);
+      border: 1px solid rgba(15, 157, 110, 0.35);
+      color: #34D399;
+      font-size: 11px;
+      font-weight: 700;
       padding: 6px 14px;
       border-radius: var(--radius-pill);
-      border: 1px solid rgba(201, 168, 76, 0.3);
       margin-bottom: 24px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
     }
-    .brand-tag .dot {
-      width: 6px;
-      height: 6px;
+    .live-dot {
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
       background: var(--green-500);
-      animation: pulse 1.5s infinite;
+      box-shadow: 0 0 8px var(--green-500);
+      animation: pulseDot 2s infinite ease-in-out;
     }
-    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
 
-    .brand-headline {
-      font-size: 42px;
+    .hero-heading {
+      font-size: 44px;
       font-weight: 800;
       color: var(--white);
-      line-height: 1.1;
-      letter-spacing: -1.5px;
-      max-width: 460px;
-      margin-bottom: 16px;
+      line-height: 1.15;
+      letter-spacing: -1.2px;
+      max-width: 520px;
+      margin-bottom: 18px;
     }
-    .brand-headline .gold { color: var(--gold-400); }
-
-    .brand-sub {
+    .hero-heading .gold {
+      background: linear-gradient(135deg, var(--gold-300), var(--gold-500));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-desc {
       font-size: 15px;
-      font-weight: 500;
       color: var(--gray-300);
       line-height: 1.6;
-      max-width: 440px;
+      max-width: 480px;
+      font-weight: 400;
     }
 
-    .brand-features {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      margin-top: 40px;
-      position: relative;
-      z-index: 1;
-    }
-    .brand-feature {
-      display: flex;
-      align-items: flex-start;
+    /* REAL-TIME INSTITUTIONAL SNAPSHOT STRIP */
+    .hero-telemetry {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
       gap: 12px;
+      margin-top: 36px;
+      position: relative;
+      z-index: 2;
     }
-    .brand-feature .bf-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+    .tele-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      backdrop-filter: blur(8px);
+      transition: all 0.2s;
+    }
+    .tele-card:hover {
+      background: rgba(255, 255, 255, 0.07);
+      border-color: rgba(201, 168, 76, 0.3);
+      transform: translateY(-2px);
+    }
+    .tele-label {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--gray-400);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
       display: flex;
       align-items: center;
-      justify-content: center;
-      font-size: 16px;
-      flex-shrink: 0;
+      justify-content: space-between;
+      margin-bottom: 6px;
     }
-    .brand-feature .bf-text h4 {
+    .tele-val {
+      font-size: 18px;
+      font-weight: 800;
       color: var(--white);
-      font-size: 13.5px;
-      font-weight: 700;
-      margin-bottom: 2px;
+      letter-spacing: -0.4px;
+      font-variant-numeric: tabular-nums;
     }
-    .brand-feature .bf-text p {
+    .tele-val.gold { color: var(--gold-400); }
+    .tele-val.green { color: #34D399; }
+    .tele-sub {
+      font-size: 10.5px;
       color: var(--gray-400);
-      font-size: 11.5px;
+      margin-top: 2px;
       font-weight: 500;
-      line-height: 1.4;
     }
 
-    .brand-footer {
-      font-size: 11px;
-      font-weight: 500;
-      color: var(--gray-500);
+    /* SECURITY BADGES */
+    .hero-footer {
       position: relative;
-      z-index: 1;
+      z-index: 2;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
     }
-    .brand-footer strong { color: var(--gray-300); font-weight: 700; }
+    .sec-chips {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .sec-chip {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--gray-300);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      letter-spacing: 0.3px;
+    }
+    .sec-chip span { color: var(--gold-400); }
+    .hero-copy {
+      font-size: 11px;
+      color: var(--gray-500);
+      font-weight: 500;
+    }
 
-    /* RIGHT FORM PANEL */
-    .login-form-panel {
+    /* RIGHT AUTH FORM PANEL */
+    .form-panel {
       width: 100%;
-      max-width: 480px;
+      max-width: 520px;
       background: var(--white);
-      padding: 48px 44px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: space-between;
+      padding: 56px 48px;
       position: relative;
+      box-shadow: -12px 0 40px rgba(5, 14, 26, 0.2);
     }
 
-    .form-header { margin-bottom: 28px; }
-    .form-header h1 {
-      font-size: 24px;
+    /* DEMO BADGE DROPDOWN */
+    .demo-bar {
+      margin-bottom: 24px;
+      background: var(--gold-100);
+      border: 1px solid rgba(201, 168, 76, 0.4);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .demo-bar-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #92700E;
+    }
+    .demo-bar-left span.icon { font-size: 14px; }
+    .btn-autofill {
+      padding: 5px 12px;
+      background: var(--navy-900);
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius-pill);
+      font-family: var(--font);
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-autofill:hover {
+      background: var(--navy-800);
+      box-shadow: 0 2px 6px rgba(10, 26, 47, 0.2);
+    }
+
+    .form-head { margin-bottom: 28px; }
+    .form-head h2 {
+      font-size: 26px;
       font-weight: 800;
       color: var(--navy-900);
       letter-spacing: -0.6px;
-      margin-bottom: 6px;
+      line-height: 1.2;
     }
-    .form-header p {
+    .form-head p {
       font-size: 13.5px;
       font-weight: 500;
       color: var(--gray-500);
-      line-height: 1.5;
+      margin-top: 6px;
     }
 
-    .form-group { margin-bottom: 16px; }
-    .form-label {
-      display: block;
+    /* ERROR BANNER */
+    .alert-banner {
+      background: var(--red-100);
+      border: 1px solid rgba(209, 67, 67, 0.3);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--red-500);
+      display: none;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+    .alert-banner.show { display: flex; }
+    .alert-banner .ico { font-size: 15px; line-height: 1.3; }
+
+    /* INPUT FIELDS */
+    .field-group { margin-bottom: 18px; }
+    .field-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       font-size: 11.5px;
-      font-weight: 700;
+      font-weight: 800;
       color: var(--navy-700);
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 6px;
+      letter-spacing: 0.6px;
+      margin-bottom: 7px;
     }
-    .input-wrap { position: relative; }
-    .input-field {
+    .field-label .caps-warn {
+      color: var(--gold-500);
+      font-weight: 700;
+      font-size: 10.5px;
+      text-transform: none;
+      display: none;
+    }
+    .field-label .caps-warn.show { display: inline; }
+
+    .input-box { position: relative; }
+    .input-box input {
       width: 100%;
       padding: 13px 16px 13px 44px;
       border: 1.5px solid var(--gray-200);
       border-radius: var(--radius-sm);
       font-family: var(--font);
-      font-size: 14.5px;
+      font-size: 14px;
       font-weight: 600;
       color: var(--navy-900);
       outline: none;
-      transition: border 0.2s, box-shadow 0.2s;
       background: var(--white);
+      transition: all 0.2s;
     }
-    .input-field:focus {
+    .input-box input:focus {
       border-color: var(--gold-500);
+      background: var(--white);
       box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.15);
     }
-    .input-field::placeholder { color: var(--gray-400); font-weight: 500; }
-
-    .input-icon {
+    .input-box input::placeholder { color: var(--gray-400); font-weight: 500; }
+    .input-box svg.lead-ico {
       position: absolute;
-      left: 16px;
+      left: 15px;
       top: 50%;
       transform: translateY(-50%);
       width: 18px;
@@ -274,8 +435,7 @@
       stroke-linejoin: round;
       pointer-events: none;
     }
-
-    .input-toggle-eye {
+    .btn-toggle-pw {
       position: absolute;
       right: 12px;
       top: 50%;
@@ -285,21 +445,21 @@
       padding: 6px;
       cursor: pointer;
       color: var(--gray-500);
-      border-radius: 6px;
+      border-radius: var(--radius-xs);
       display: flex;
       align-items: center;
       justify-content: center;
     }
-    .input-toggle-eye:hover { background: var(--gray-100); }
-    .input-toggle-eye svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
+    .btn-toggle-pw:hover { background: var(--gray-100); color: var(--navy-900); }
+    .btn-toggle-pw svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
 
-    .form-row {
+    .options-row {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
+      justify-content: space-between;
+      margin-bottom: 22px;
     }
-    .checkbox-label {
+    .remember-check {
       display: flex;
       align-items: center;
       gap: 8px;
@@ -307,539 +467,766 @@
       font-weight: 600;
       color: var(--gray-600);
       cursor: pointer;
+      user-select: none;
     }
-    .checkbox-label input {
+    .remember-check input {
       width: 16px;
       height: 16px;
-      accent-color: var(--gold-500);
+      accent-color: var(--navy-900);
       cursor: pointer;
     }
-    .forgot-link {
+    .link-forgot {
       font-size: 12px;
       font-weight: 700;
       color: var(--gold-500);
       text-decoration: none;
       cursor: pointer;
+      transition: color 0.15s;
     }
-    .forgot-link:hover { text-decoration: underline; }
+    .link-forgot:hover { color: #92700E; text-decoration: underline; }
 
-    .btn-login {
+    /* SUBMIT BUTTON */
+    .btn-action {
       width: 100%;
       padding: 15px;
       border-radius: var(--radius-pill);
       background: linear-gradient(135deg, var(--navy-900), var(--navy-800));
       color: var(--white);
-      border: none;
+      border: 1px solid rgba(255, 255, 255, 0.1);
       font-family: var(--font);
-      font-weight: 800;
       font-size: 14.5px;
+      font-weight: 800;
       cursor: pointer;
-      transition: all 0.2s;
-      box-shadow: 0 4px 16px rgba(10, 26, 47, 0.25);
-      letter-spacing: 0.2px;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 10px;
+      transition: all 0.2s;
+      box-shadow: 0 4px 16px rgba(10, 26, 47, 0.25);
+      letter-spacing: 0.2px;
     }
-    .btn-login:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(10, 26, 47, 0.35); }
-    .btn-login:active { transform: translateY(0); }
-    .btn-login:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }
-    .btn-login .spinner {
-      width: 16px;
-      height: 16px;
+    .btn-action:hover {
+      background: linear-gradient(135deg, var(--navy-800), var(--navy-700));
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(10, 26, 47, 0.35);
+    }
+    .btn-action:active { transform: translateY(0); }
+    .btn-action:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }
+    .btn-action .spinner {
+      width: 18px;
+      height: 18px;
       border: 2px solid rgba(255, 255, 255, 0.3);
       border-top-color: var(--white);
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
       display: none;
     }
-    .btn-login.loading .spinner { display: block; }
-    .btn-login.loading span:last-child { opacity: 0.7; }
+    .btn-action.loading .spinner { display: block; }
+    .btn-action.loading span { opacity: 0.8; }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    .error-banner {
-      background: var(--red-100);
-      border: 1px solid rgba(209, 67, 67, 0.2);
-      border-radius: var(--radius-sm);
-      padding: 11px 14px;
-      font-size: 12.5px;
-      font-weight: 600;
-      color: var(--red-500);
-      display: none;
-      align-items: flex-start;
-      gap: 8px;
-      margin-bottom: 16px;
-      line-height: 1.5;
-    }
-    .error-banner.visible { display: flex; }
-    .error-banner .icon { font-size: 14px; flex-shrink: 0; line-height: 1.3; }
-
-    .security-note {
-      margin-top: 24px;
-      padding: 14px 16px;
-      background: var(--navy-50);
-      border: 1px solid var(--gray-200);
-      border-radius: var(--radius-sm);
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-    }
-    .security-note .icon { font-size: 15px; flex-shrink: 0; }
-    .security-note p {
-      font-size: 11.5px;
-      font-weight: 500;
-      color: var(--gray-600);
-      line-height: 1.5;
-    }
-    .security-note p strong { color: var(--navy-900); font-weight: 700; }
-
-    .form-footer {
-      margin-top: 28px;
-      text-align: center;
-      font-size: 11px;
-      font-weight: 500;
-      color: var(--gray-400);
-      line-height: 1.5;
-    }
-    .form-footer strong { color: var(--navy-800); font-weight: 700; }
-
-    /* 2FA STEP */
+    /* HARDWARE TOKEN & 2FA STYLES */
     .step-2fa { display: none; }
     .step-2fa.active { display: flex; flex-direction: column; }
 
-    .otp-inputs {
-      display: flex;
-      gap: 8px;
-      justify-content: center;
-      margin: 20px 0 24px;
-    }
-    .otp-input {
-      width: 48px;
-      height: 56px;
-      text-align: center;
-      font-size: 22px;
-      font-weight: 800;
-      color: var(--navy-900);
-      border: 1.5px solid var(--gray-200);
-      border-radius: var(--radius-sm);
-      outline: none;
-      transition: border 0.2s, box-shadow 0.2s;
-      font-variant-numeric: tabular-nums;
-      font-family: var(--font);
-    }
-    .otp-input:focus {
-      border-color: var(--gold-500);
-      box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.15);
-    }
-
-    .back-link {
+    .nav-back-step {
       display: inline-flex;
       align-items: center;
-      gap: 4px;
+      gap: 6px;
       font-size: 12px;
       font-weight: 700;
       color: var(--gray-500);
       cursor: pointer;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
       align-self: flex-start;
+      transition: color 0.15s;
     }
-    .back-link:hover { color: var(--navy-900); }
-    .back-link svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+    .nav-back-step:hover { color: var(--navy-900); }
+    .nav-back-step svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2.5; }
 
-    /* DEMO HINT BADGE */
-    .demo-hint {
-      position: fixed;
-      top: 16px;
-      right: 16px;
-      background: var(--gold-500);
-      color: var(--navy-900);
-      font-size: 10px;
-      font-weight: 800;
-      padding: 5px 10px;
-      border-radius: var(--radius-pill);
-      letter-spacing: 0.6px;
-      text-transform: uppercase;
-      z-index: 100;
-      box-shadow: 0 4px 12px rgba(201, 168, 76, 0.4);
+    .totp-box-strip {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin: 24px 0;
     }
+    .totp-input {
+      width: 50px;
+      height: 60px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--navy-900);
+      border: 2px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      outline: none;
+      font-family: var(--font-mono);
+      background: var(--navy-50);
+      transition: all 0.2s;
+    }
+    .totp-input:focus {
+      border-color: var(--gold-500);
+      background: var(--white);
+      box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.18);
+    }
+
+    .totp-timer-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      padding: 10px 14px;
+      background: var(--navy-50);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--gray-200);
+    }
+    .totp-timer-text {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gray-600);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .totp-countdown-badge {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--navy-900);
+      font-family: var(--font-mono);
+      background: var(--white);
+      padding: 3px 8px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--gray-300);
+    }
+
+    /* WEBAUTHN / HARDWARE KEY BANNER */
+    .webauthn-trigger {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      border: 1.5px dashed var(--gray-300);
+      border-radius: var(--radius-sm);
+      margin-bottom: 20px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .webauthn-trigger:hover {
+      border-color: var(--gold-500);
+      background: var(--gold-100);
+    }
+    .webauthn-left { display: flex; align-items: center; gap: 10px; }
+    .webauthn-left span.key-ico { font-size: 18px; }
+    .webauthn-title { font-size: 12px; font-weight: 700; color: var(--navy-900); }
+    .webauthn-sub { font-size: 10.5px; color: var(--gray-500); }
+    .webauthn-tag {
+      font-size: 9.5px;
+      font-weight: 800;
+      color: var(--gold-500);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* TELEMETRY FOOTNOTE */
+    .device-intel {
+      margin-top: 24px;
+      padding: 12px 14px;
+      background: var(--navy-50);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .device-intel .icon { font-size: 16px; flex-shrink: 0; line-height: 1.3; }
+    .device-intel-content {
+      font-size: 11px;
+      color: var(--gray-600);
+      line-height: 1.45;
+    }
+    .device-intel-content strong { color: var(--navy-900); font-weight: 700; }
+
+    .form-foot {
+      margin-top: 32px;
+      text-align: center;
+      font-size: 11px;
+      color: var(--gray-400);
+      line-height: 1.5;
+    }
+    .form-foot strong { color: var(--navy-900); }
+
+    /* TOAST */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--navy-900);
+      color: var(--white);
+      padding: 12px 20px;
+      border-radius: var(--radius-pill);
+      font-size: 13px;
+      font-weight: 700;
+      z-index: 200;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s;
+      max-width: 380px;
+      box-shadow: 0 8px 24px rgba(10, 26, 47, 0.3);
+    }
+    .toast.show { opacity: 1; transform: translateY(-4px); }
 
     /* RESPONSIVE */
-    @media (max-width: 900px) {
-      .login-layout { flex-direction: column; }
-      .login-brand { padding: 32px 24px 24px; min-height: auto; }
-      .brand-headline { font-size: 28px; letter-spacing: -1px; margin-bottom: 10px; }
-      .brand-sub { font-size: 13.5px; }
-      .brand-features { display: none; }
-      .brand-footer { margin-top: 24px; }
-      .login-form-panel { max-width: 100%; padding: 32px 24px; }
+    @media (max-width: 1024px) {
+      .portal-wrap { flex-direction: column; }
+      .hero-panel { padding: 40px 32px; min-height: auto; }
+      .hero-heading { font-size: 32px; }
+      .hero-telemetry { grid-template-columns: repeat(3, 1fr); }
+      .form-panel { max-width: 100%; padding: 40px 32px; }
     }
-    @media (max-width: 400px) {
-      .brand-headline { font-size: 24px; }
-      .form-header h1 { font-size: 20px; }
-      .otp-input { width: 42px; height: 50px; font-size: 20px; }
+    @media (max-width: 640px) {
+      .hero-panel { padding: 32px 20px; }
+      .hero-heading { font-size: 26px; }
+      .hero-telemetry { grid-template-columns: 1fr; }
+      .form-panel { padding: 32px 20px; }
+      .totp-input { width: 42px; height: 52px; font-size: 20px; }
     }
   </style>
 </head>
 <body>
 
-  <div class="demo-hint">Demo · admin@bluepeak.com / Admin2026!</div>
+  <div class="portal-wrap">
 
-  <div class="login-layout">
-
-    <!-- LEFT: BRANDING -->
-    <div class="login-brand">
-      <div class="brand-top">
-        <div class="brand-logo">
-          <span class="blue">BLUE</span><span class="peak">PEAK</span>
-          <small>ADMIN</small>
+    <!-- LEFT: HERO BRANDING & TELEMETRY -->
+    <section class="hero-panel">
+      <div class="hero-header">
+        <div class="brand-cluster">
+          <div class="brand-crest">BP</div>
+          <div class="brand-meta">
+            <div class="brand-title">
+              BLUE<span class="peak">PEAK</span>
+              <span class="brand-pill">ADMIN DESK</span>
+            </div>
+            <div class="brand-subline">Institutional Digital Asset Infrastructure</div>
+          </div>
         </div>
 
-        <div class="brand-tag">
-          <span class="dot"></span>
-          Restricted Access
+        <div class="hero-badge-live">
+          <span class="live-dot"></span>
+          Cluster Core Online &bull; Latency 2.4ms
         </div>
 
-        <h1 class="brand-headline">
-          Control the<br>
-          <span class="gold">Bluepeak</span> platform.
+        <h1 class="hero-heading">
+          Institutional Settlement <br>
+          <span class="gold">&amp; Operations Portal</span>
         </h1>
 
-        <p class="brand-sub">
-          Manage users, oversee P2P merchants, review KYC, monitor transactions, and control every aspect of the exchange — from one secure dashboard.
+        <p class="hero-desc">
+          High-frequency OTC dispute mediation, algorithmic market maker oversight, multi-sig escrow release, and sovereign compliance management.
         </p>
 
-        <div class="brand-features">
-          <div class="brand-feature">
-            <div class="bf-icon">👥</div>
-            <div class="bf-text">
-              <h4>Full user & merchant control</h4>
-              <p>Edit balances, verify merchants, resolve disputes</p>
+        <!-- REAL-TIME TELEMETRY STRIP -->
+        <div class="hero-telemetry">
+          <div class="tele-card">
+            <div class="tele-label">
+              <span>24h P2P Volume</span>
+              <span>⚡</span>
             </div>
+            <div class="tele-val gold" id="teleVol">$1,842,910</div>
+            <div class="tele-sub">&uarr; +14.2% vs. 7d average</div>
           </div>
-          <div class="brand-feature">
-            <div class="bf-icon">🔒</div>
-            <div class="bf-text">
-              <h4>Audit-logged actions</h4>
-              <p>Every change recorded with admin, timestamp, and reason</p>
+
+          <div class="tele-card">
+            <div class="tele-label">
+              <span>Escrow Health</span>
+              <span>🛡️</span>
             </div>
+            <div class="tele-val green" id="teleHealth">99.98%</div>
+            <div class="tele-sub">Zero contested releases</div>
           </div>
-          <div class="brand-feature">
-            <div class="bf-icon">⚡</div>
-            <div class="bf-text">
-              <h4>Real-time oversight</h4>
-              <p>Live KPIs, alerts, and monitoring across the platform</p>
+
+          <div class="tele-card">
+            <div class="tele-label">
+              <span>Active Desks</span>
+              <span>💼</span>
             </div>
+            <div class="tele-val" id="teleDesks">28 Market Makers</div>
+            <div class="tele-sub">Across 8 currencies</div>
           </div>
         </div>
       </div>
 
-      <div class="brand-footer">
-        <strong>Bluepeak Capital Ltd.</strong> · Admin Console v1.0 · Authorized personnel only
-      </div>
-    </div>
+      <!-- FOOTER BADGES -->
+      <footer class="hero-footer">
+        <div class="sec-chips">
+          <div class="sec-chip"><span>🔐</span> SOC2 Type II Certified</div>
+          <div class="sec-chip"><span>🛡️</span> CCSS Level 3 Vaults</div>
+          <div class="sec-chip"><span>⚡</span> Hardware FIDO2 Ready</div>
+        </div>
+        <div class="hero-copy">
+          Bluepeak Capital Ltd. &copy; 2026
+        </div>
+      </footer>
+    </section>
 
-    <!-- RIGHT: LOGIN FORM -->
-    <div class="login-form-panel">
+    <!-- RIGHT: AUTHENTICATION FORM PANEL -->
+    <main class="form-panel">
 
       <!-- STEP 1: CREDENTIALS -->
       <div id="stepCredentials">
-        <div class="form-header">
-          <h1>Admin Sign In</h1>
-          <p>Enter your credentials to access the admin console.</p>
+
+        <!-- QUICK DEMO AUTOFILL STRIP -->
+        <div class="demo-bar">
+          <div class="demo-bar-left">
+            <span class="icon">🔑</span>
+            <span>Demo: <strong>admin@bluepeakcapital.com</strong> / <strong>Admin2026!</strong></span>
+          </div>
+          <button type="button" class="btn-autofill" id="btnAutofill">Auto-Fill</button>
         </div>
 
-        <div class="error-banner" id="errorBanner">
-          <span class="icon">⚠️</span>
-          <span id="errorText">Invalid credentials</span>
+        <div class="form-head">
+          <h2>Administrative Sign In</h2>
+          <p>Enter your authorized institutional operator credentials.</p>
         </div>
 
-        <form id="loginForm" autocomplete="off">
-          <div class="form-group">
-            <label class="form-label">Email Address</label>
-            <div class="input-wrap">
-              <svg class="input-icon" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-              <input type="email" class="input-field" id="emailInput" placeholder="admin@bluepeak.com" required>
+        <div class="alert-banner" id="alertBanner">
+          <span class="ico">⚠️</span>
+          <span id="alertMsg">Invalid operator credentials.</span>
+        </div>
+
+        <form id="credentialsForm" autocomplete="off">
+          <div class="field-group">
+            <div class="field-label">
+              <span>Operator Email</span>
+            </div>
+            <div class="input-box">
+              <svg class="lead-ico" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <input type="email" id="emailInput" placeholder="operator@bluepeakcapital.com" required>
             </div>
           </div>
 
-          <div class="form-group">
-            <label class="form-label">Password</label>
-            <div class="input-wrap">
-              <svg class="input-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-              <input type="password" class="input-field" id="passwordInput" placeholder="••••••••" required style="padding-right: 44px;">
-              <button type="button" class="input-toggle-eye" id="togglePassword" aria-label="Show password">
-                <svg viewBox="0 0 24 24" id="eyeIcon"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          <div class="field-group">
+            <div class="field-label">
+              <span>Security Password</span>
+              <span class="caps-warn" id="capsWarn">Caps Lock is ON</span>
+            </div>
+            <div class="input-box">
+              <svg class="lead-ico" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+              <input type="password" id="passwordInput" placeholder="••••••••••••" required style="padding-right: 44px;">
+              <button type="button" class="btn-toggle-pw" id="btnTogglePw" aria-label="Toggle Password Visibility">
+                <svg viewBox="0 0 24 24" id="eyeIco"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
               </button>
             </div>
           </div>
 
-          <div class="form-row">
-            <label class="checkbox-label">
-              <input type="checkbox" id="rememberDevice">
-              Trust this device for 7 days
+          <div class="options-row">
+            <label class="remember-check">
+              <input type="checkbox" id="trustDevice" checked>
+              Trust device for 7 days
             </label>
-            <a class="forgot-link" id="forgotLink">Forgot password?</a>
+            <a class="link-forgot" id="btnForgot">Security recovery?</a>
           </div>
 
-          <button type="submit" class="btn-login" id="loginBtn">
+          <button type="submit" class="btn-action" id="btnContinue">
             <div class="spinner"></div>
-            <span>Continue to 2FA</span>
+            <span>Continue to Multi-Factor Auth &rarr;</span>
           </button>
         </form>
 
-        <div class="security-note">
-          <div class="icon">🔐</div>
-          <p>Admin access requires <strong>mandatory two-factor authentication</strong>. All login attempts are logged with IP address and device fingerprint.</p>
+        <div class="device-intel">
+          <span class="icon">🛡️</span>
+          <div class="device-intel-content">
+            Session validated under <strong>Hardware Security Policy</strong>. Login attempts are logged with client IP (<span id="clientIp">102.68.192.44</span>) and browser fingerprint.
+          </div>
         </div>
       </div>
 
-      <!-- STEP 2: 2FA -->
+      <!-- STEP 2: MULTI-FACTOR AUTHENTICATION (2FA) -->
       <div class="step-2fa" id="step2FA">
-        <div class="back-link" id="backToCredentials">
+        <button type="button" class="nav-back-step" id="btnBackToCreds">
           <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
-          Back
-        </div>
-
-        <div class="form-header">
-          <h1>Two-Factor Code</h1>
-          <p>Enter the 6-digit code from your authenticator app.</p>
-        </div>
-
-        <div class="error-banner" id="errorBanner2FA">
-          <span class="icon">⚠️</span>
-          <span id="errorText2FA">Incorrect code</span>
-        </div>
-
-        <div class="otp-inputs" id="otpInputs">
-          <input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]">
-          <input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]">
-          <input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]">
-          <input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]">
-          <input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]">
-          <input type="text" class="otp-input" maxlength="1" inputmode="numeric" pattern="[0-9]">
-        </div>
-
-        <button class="btn-login" id="verifyBtn">
-          <div class="spinner"></div>
-          <span>Verify & Sign In</span>
+          Back to credentials
         </button>
 
-        <div class="security-note">
-          <div class="icon">📱</div>
-          <p>Demo code: any 6 digits work. In production, this is your real authenticator code.</p>
+        <div class="form-head">
+          <h2>Two-Factor Authentication</h2>
+          <p>Enter the 6-digit TOTP token generated by your authenticator app.</p>
+        </div>
+
+        <div class="alert-banner" id="alertBanner2FA">
+          <span class="ico">⚠️</span>
+          <span id="alertMsg2FA">Invalid 6-digit TOTP code</span>
+        </div>
+
+        <!-- HARDWARE TOKEN OPTION -->
+        <div class="webauthn-trigger" id="webauthnTrigger">
+          <div class="webauthn-left">
+            <span class="key-ico">🔑</span>
+            <div>
+              <div class="webauthn-title">FIDO2 / YubiKey Hardware Token</div>
+              <div class="webauthn-sub">Touch your security key to authenticate instantly</div>
+            </div>
+          </div>
+          <span class="webauthn-tag">Instant</span>
+        </div>
+
+        <div class="totp-timer-row">
+          <div class="totp-timer-text">
+            <span>⏱️</span>
+            <span>Code refreshes in</span>
+          </div>
+          <div class="totp-countdown-badge" id="totpCountdown">24s</div>
+        </div>
+
+        <div class="totp-box-strip" id="totpBoxStrip">
+          <input type="text" class="totp-input" maxlength="1" inputmode="numeric" pattern="[0-9]" autofocus>
+          <input type="text" class="totp-input" maxlength="1" inputmode="numeric" pattern="[0-9]">
+          <input type="text" class="totp-input" maxlength="1" inputmode="numeric" pattern="[0-9]">
+          <input type="text" class="totp-input" maxlength="1" inputmode="numeric" pattern="[0-9]">
+          <input type="text" class="totp-input" maxlength="1" inputmode="numeric" pattern="[0-9]">
+          <input type="text" class="totp-input" maxlength="1" inputmode="numeric" pattern="[0-9]">
+        </div>
+
+        <button type="button" class="btn-action" id="btnVerifyTotp">
+          <div class="spinner"></div>
+          <span>Verify &amp; Enter Command Desk</span>
+        </button>
+
+        <div class="device-intel" style="margin-top:20px;">
+          <span class="icon">📱</span>
+          <div class="device-intel-content">
+            Demo Mode: <strong>Any 6-digit number</strong> (or clicking the YubiKey prompt) completes authentication.
+          </div>
         </div>
       </div>
 
-      <div class="form-footer">
-        <strong>Bluepeak Capital Ltd.</strong> · Admin Console v1.0<br>
-        Unauthorized access is prohibited and monitored.
+      <!-- FOOTER -->
+      <div class="form-foot">
+        <strong>Bluepeak Capital Desk Security</strong> &bull; v2.4.0-institutional<br>
+        Unauthorized access attempts trigger automated IP isolation and regulatory filing.
       </div>
 
-    </div>
+    </main>
 
   </div>
 
-  <script>
+  <!-- TOAST NOTIFICATION -->
+  <div class="toast" id="toast"></div>  <script>
     (function() {
       'use strict';
 
-      const $ = (s) => document.querySelector(s);
-      const $$ = (s) => document.querySelectorAll(s);
+      /* ============================================================
+         OPERATOR CREDENTIALS REGISTRY
+         ============================================================ */
+      const OPERATORS = [
+        {
+          email: 'admin@bluepeakcapital.com',
+          password: 'Admin2026!',
+          name: 'Super Admin',
+          role: 'Super Admin',
+          initial: 'SA',
+          department: 'Executive Operations'
+        },
+        {
+          email: 'compliance@bluepeakcapital.com',
+          password: 'Compliance2026!',
+          name: 'Chief Compliance Officer',
+          role: 'Compliance Lead',
+          initial: 'CC',
+          department: 'AML & Regulatory'
+        },
+        {
+          email: 'ops@bluepeakcapital.com',
+          password: 'BluepeakOps!',
+          name: 'Desk Operator',
+          role: 'Operations Desk',
+          initial: 'OP',
+          department: 'P2P & Treasury'
+        }
+      ];
 
-      // DEMO CREDENTIALS
-      const DEMO_EMAIL = 'admin@bluepeak.com';
-      const DEMO_PASSWORD = 'Admin2026!';
+      // Also support the short legacy demo login for backwards compatibility
+      const LEGACY_EMAIL = 'admin@bluepeak.com';
+      const LEGACY_PW = 'Admin2026!';
 
-      let verifiedEmail = '';
+      let currentOperator = null;
 
-      // ============================================================
-      // PASSWORD TOGGLE
-      // ============================================================
-      const toggleBtn = $('#togglePassword');
-      const passwordInput = $('#passwordInput');
-      const eyeIcon = $('#eyeIcon');
-      let passwordVisible = false;
+      /* ============================================================
+         HELPERS & TOAST
+         ============================================================ */
+      const $ = s => document.querySelector(s);
+      const $$ = s => document.querySelectorAll(s);
 
-      toggleBtn.addEventListener('click', () => {
-        passwordVisible = !passwordVisible;
-        passwordInput.type = passwordVisible ? 'text' : 'password';
-        eyeIcon.innerHTML = passwordVisible
+      let toastTimer = null;
+      function showToast(msg) {
+        const t = $('#toast');
+        t.textContent = msg;
+        t.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => t.classList.remove('show'), 3200);
+      }
+
+      function showAlert(msg) {
+        $('#alertMsg').textContent = msg;
+        $('#alertBanner').classList.add('show');
+      }
+      function hideAlert() {
+        $('#alertBanner').classList.remove('show');
+      }
+
+      function showAlert2FA(msg) {
+        $('#alertMsg2FA').textContent = msg;
+        $('#alertBanner2FA').classList.add('show');
+      }
+      function hideAlert2FA() {
+        $('#alertBanner2FA').classList.remove('show');
+      }
+
+      /* ============================================================
+         AUDIT LOG BRIDGE
+         ============================================================ */
+      function recordAuditLogin(operator) {
+        try {
+          const raw = JSON.parse(localStorage.getItem('bp_audit_log') || '[]');
+          const newEntry = {
+            ts: Date.now(),
+            admin: operator.email,
+            action: 'admin_login',
+            target: 'Institutional Console',
+            details: {
+              role: operator.role,
+              department: operator.department,
+              ip: $('#clientIp').textContent,
+              userAgent: navigator.userAgent.slice(0, 80),
+              authMethod: 'Password + TOTP 2FA'
+            }
+          };
+          raw.unshift(newEntry);
+          if (raw.length > 500) raw.pop();
+          localStorage.setItem('bp_audit_log', JSON.stringify(raw));
+        } catch (e) {
+          console.error('Audit record error', e);
+        }
+      }
+
+      /* ============================================================
+         AUTO-FILL BUTTON
+         ============================================================ */
+      $('#btnAutofill').addEventListener('click', () => {
+        $('#emailInput').value = 'admin@bluepeakcapital.com';
+        $('#passwordInput').value = 'Admin2026!';
+        hideAlert();
+        showToast('Auto-filled Super Admin credentials');
+        $('#emailInput').focus();
+      });
+
+      /* ============================================================
+         PASSWORD TOGGLE & CAPS LOCK DETECTION
+         ============================================================ */
+      let isPasswordVisible = false;
+      const pwInput = $('#passwordInput');
+      const eyeIco = $('#eyeIco');
+
+      $('#btnTogglePw').addEventListener('click', () => {
+        isPasswordVisible = !isPasswordVisible;
+        pwInput.type = isPasswordVisible ? 'text' : 'password';
+        eyeIco.innerHTML = isPasswordVisible
           ? '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>'
           : '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
       });
 
-      // ============================================================
-      // ERROR HELPERS
-      // ============================================================
-      function showError(text) {
-        $('#errorText').textContent = text;
-        $('#errorBanner').classList.add('visible');
-      }
-      function hideError() {
-        $('#errorBanner').classList.remove('visible');
-      }
-      function showError2FA(text) {
-        $('#errorText2FA').textContent = text;
-        $('#errorBanner2FA').classList.add('visible');
-      }
-      function hideError2FA() {
-        $('#errorBanner2FA').classList.remove('visible');
-      }
+      pwInput.addEventListener('keyup', (e) => {
+        const isCaps = e.getModifierState && e.getModifierState('CapsLock');
+        $('#capsWarn').classList.toggle('show', !!isCaps);
+      });
 
-      // ============================================================
-      // STEP 1: CREDENTIALS
-      // ============================================================
-      $('#loginForm').addEventListener('submit', (e) => {
+      /* ============================================================
+         STEP 1 SUBMISSION
+         ============================================================ */
+      $('#credentialsForm').addEventListener('submit', (e) => {
         e.preventDefault();
-        hideError();
+        hideAlert();
 
         const email = $('#emailInput').value.trim().toLowerCase();
         const password = $('#passwordInput').value;
 
         if (!email || !password) {
-          showError('Please enter both email and password');
+          showAlert('Please supply both operator email and security password.');
           return;
         }
 
-        const btn = $('#loginBtn');
+        const btn = $('#btnContinue');
         btn.classList.add('loading');
         btn.disabled = true;
 
         setTimeout(() => {
-          if (email === DEMO_EMAIL && password === DEMO_PASSWORD) {
-            // Success — move to 2FA
-            verifiedEmail = email;
+          // Check against operator list or legacy
+          let match = OPERATORS.find(op => op.email.toLowerCase() === email && op.password === password);
+          if (!match && email === LEGACY_EMAIL && password === LEGACY_PW) {
+            match = OPERATORS[0];
+          }
+
+          if (match) {
+            currentOperator = match;
             $('#stepCredentials').style.display = 'none';
             $('#step2FA').classList.add('active');
-            setTimeout(() => $('#otpInputs .otp-input')[0].focus(), 100);
+            btn.classList.remove('loading');
+            btn.disabled = false;
+            initTotpTimer();
+            setTimeout(() => $$('.totp-input')[0].focus(), 100);
           } else {
-            showError('Invalid email or password. Please try again.');
+            showAlert('Access Denied: Invalid operator credentials or account restricted.');
             btn.classList.remove('loading');
             btn.disabled = false;
           }
-        }, 900);
+        }, 700);
       });
 
-      // ============================================================
-      // STEP 2: 2FA OTP INPUTS
-      // ============================================================
-      const otpInputs = $$('#otpInputs .otp-input');
+      /* ============================================================
+         STEP 2: TOTP MULTI-FACTOR
+         ============================================================ */
+      const totpInputs = $$('#totpBoxStrip .totp-input');
 
-      otpInputs.forEach((input, index) => {
+      totpInputs.forEach((input, idx) => {
         input.addEventListener('input', (e) => {
           const val = e.target.value.replace(/\D/g, '');
           e.target.value = val;
 
-          if (val && index < otpInputs.length - 1) {
-            otpInputs[index + 1].focus();
+          if (val && idx < totpInputs.length - 1) {
+            totpInputs[idx + 1].focus();
           }
 
-          // Auto-verify when all filled
-          const allFilled = [...otpInputs].every(i => i.value);
+          // Auto verify when 6 digits are typed
+          const allFilled = [...totpInputs].every(i => i.value.length === 1);
           if (allFilled) {
-            setTimeout(() => verifyOTP(), 150);
+            setTimeout(executeFinalLogin, 150);
           }
         });
 
         input.addEventListener('keydown', (e) => {
-          if (e.key === 'Backspace' && !e.target.value && index > 0) {
-            otpInputs[index - 1].focus();
+          if (e.key === 'Backspace' && !e.target.value && idx > 0) {
+            totpInputs[idx - 1].focus();
           }
         });
 
         input.addEventListener('paste', (e) => {
           e.preventDefault();
-          const pasted = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g, '').slice(0, 6);
-          [...pasted].forEach((char, i) => {
-            if (otpInputs[i]) otpInputs[i].value = char;
+          const pasteData = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g, '').slice(0, 6);
+          [...pasteData].forEach((digit, i) => {
+            if (totpInputs[i]) totpInputs[i].value = digit;
           });
-          if (pasted.length === 6) {
-            setTimeout(() => verifyOTP(), 150);
-          } else if (pasted.length > 0) {
-            otpInputs[Math.min(pasted.length, 5)].focus();
+          if (pasteData.length === 6) {
+            setTimeout(executeFinalLogin, 150);
+          } else if (pasteData.length > 0) {
+            totpInputs[Math.min(pasteData.length, 5)].focus();
           }
         });
       });
 
-      // ============================================================
-      // VERIFY 2FA
-      // ============================================================
-      function verifyOTP() {
-        hideError2FA();
-        const code = [...otpInputs].map(i => i.value).join('');
+      function executeFinalLogin() {
+        hideAlert2FA();
+        const code = [...totpInputs].map(i => i.value).join('');
 
         if (code.length !== 6) {
-          showError2FA('Please enter all 6 digits');
+          showAlert2FA('Please enter the complete 6-digit TOTP code.');
           return;
         }
 
-        const btn = $('#verifyBtn');
+        const btn = $('#btnVerifyTotp');
         btn.classList.add('loading');
         btn.disabled = true;
 
         setTimeout(() => {
-          // In demo mode, any 6-digit code works
-          // In production, this calls POST /admin/auth/verify-2fa with the code
-
-          // Store admin session
-          localStorage.setItem('bp_admin_session', JSON.stringify({
-            email: verifiedEmail,
-            role: 'super_admin',
-            name: 'Admin',
+          const sessionPayload = {
+            name: currentOperator.name,
+            email: currentOperator.email,
+            role: currentOperator.role,
+            initial: currentOperator.initial,
+            department: currentOperator.department,
             loginTime: new Date().toISOString(),
-            trustedDevice: $('#rememberDevice').checked,
-          }));
+            trustedDevice: $('#trustDevice').checked,
+            authToken: 'bpt_' + Math.random().toString(36).substring(2) + Date.now().toString(36)
+          };
 
-          // Redirect to dashboard
-          window.location.href = 'admin-dashboard.html';
-        }, 900);
+          // Store session
+          localStorage.setItem('bp_admin_session', JSON.stringify(sessionPayload));
+
+          // Log in compliance audit ledger
+          recordAuditLogin(currentOperator);
+
+          showToast('Security clearance approved. Launching desk...');
+          setTimeout(() => {
+            window.location.href = 'admin-dashboard.html';
+          }, 600);
+        }, 850);
       }
 
-      $('#verifyBtn').addEventListener('click', verifyOTP);
+      $('#btnVerifyTotp').addEventListener('click', executeFinalLogin);
 
-      // Back button
-      $('#backToCredentials').addEventListener('click', () => {
+      // Back to credentials
+      $('#btnBackToCreds').addEventListener('click', () => {
         $('#step2FA').classList.remove('active');
         $('#stepCredentials').style.display = 'block';
-        otpInputs.forEach(i => i.value = '');
-        $('#loginBtn').classList.remove('loading');
-        $('#loginBtn').disabled = false;
-        hideError();
-        hideError2FA();
+        totpInputs.forEach(i => i.value = '');
+        hideAlert();
+        hideAlert2FA();
+        $('#emailInput').focus();
       });
 
-      // ============================================================
-      // FORGOT PASSWORD
-      // ============================================================
-      $('#forgotLink').addEventListener('click', () => {
+      // WEBAUTHN / YUBIKEY HARDWARE FLOW SIMULATION
+      $('#webauthnTrigger').addEventListener('click', () => {
+        showToast('Initiating FIDO2 Hardware Handshake...');
+        totpInputs.forEach((i, idx) => i.value = (idx + 1).toString());
+        setTimeout(executeFinalLogin, 500);
+      });
+
+      /* ============================================================
+         TOTP COUNTDOWN REFRESH
+         ============================================================ */
+      let totpInterval = null;
+      function initTotpTimer() {
+        clearInterval(totpInterval);
+        const updateTimer = () => {
+          const sec = 30 - (Math.floor(Date.now() / 1000) % 30);
+          const badge = $('#totpCountdown');
+          if (badge) badge.textContent = `${sec}s`;
+        };
+        updateTimer();
+        totpInterval = setInterval(updateTimer, 1000);
+      }
+
+      /* ============================================================
+         FORGOT PASSWORD MODAL/NOTICE
+         ============================================================ */
+      $('#btnForgot').addEventListener('click', () => {
         alert(
-          'Password Reset\n\n' +
-          'For security, admin passwords can only be reset by another super admin.\n\n' +
-          'Contact your security officer or email security@bluepeakcapital.com\n\n' +
-          'All requests are logged with your IP address.'
+          'Institutional Security Recovery Protocol\n\n' +
+          'Bluepeak Capital administrator passwords require multi-sig security clearance.\n\n' +
+          '• Contact the Chief Information Security Officer (CISO)\n' +
+          '• Internal Emergency Desk: security@bluepeakcapital.com\n' +
+          '• Signal PGP Emergency Key: 0x992B-441F-BLUE-PEAK\n\n' +
+          'Your IP (' + $('#clientIp').textContent + ') has been registered with this inquiry.'
         );
       });
 
-      // ============================================================
-      // IF ALREADY LOGGED IN → redirect to dashboard
-      // ============================================================
-      const existingSession = localStorage.getItem('bp_admin_session');
-      if (existingSession) {
-        try {
-          const session = JSON.parse(existingSession);
-          const loginTime = new Date(session.loginTime);
-          const ageMinutes = (Date.now() - loginTime.getTime()) / 1000 / 60;
-          // Session valid for 30 minutes
-          if (ageMinutes < 30) {
-            window.location.href = 'admin-dashboard.html';
-          } else {
-            localStorage.removeItem('bp_admin_session');
+      /* ============================================================
+         CHECK EXISTING SESSION ON LOAD
+         ============================================================ */
+      try {
+        const existing = localStorage.getItem('bp_admin_session');
+        if (existing) {
+          const s = JSON.parse(existing);
+          if (s && s.loginTime) {
+            const ageMins = (Date.now() - new Date(s.loginTime).getTime()) / 60000;
+            // If logged in within last 60 minutes, offer quick resume
+            if (ageMins < 60) {
+              const resume = confirm(`Active session detected for ${s.name} (${s.email}). Proceed directly to Dashboard?`);
+              if (resume) {
+                window.location.href = 'admin-dashboard.html';
+              }
+            }
           }
-        } catch (e) {
-          localStorage.removeItem('bp_admin_session');
         }
-      }
+      } catch (e) {}
 
     })();
   </script>
