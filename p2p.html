@@ -515,8 +515,289 @@
         grid-template-columns: 1.15fr 1fr;
       }
     }
-  </style></head>
-<body>
+  
+    /* ===== ADDITIONS (Changes 1-9) ===== */
+    /* CHANGE 1: Trade controls single row (no wrap) */
+    .trade-controls-row {
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      gap: 10px !important;
+      flex-wrap: nowrap !important;
+      margin-bottom: 12px;
+    }
+    @media (max-width: 360px) {
+      .trade-controls-row {
+        gap: 6px !important;
+      }
+    }
+    .trade-controls-left {
+      display: flex;
+      align-items: center;
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+    .buy-sell-toggle {
+      flex: 1 1 auto !important;
+      min-width: 0 !important;
+    }
+    .trade-controls-right {
+      display: flex;
+      align-items: center;
+      flex: 0 0 auto;
+    }
+    .fiat-dropdown {
+      flex: 0 0 auto !important;
+      align-self: center !important;
+      margin-top: 0 !important;
+      min-height: 40px;
+      white-space: nowrap;
+    }
+    @media (max-width: 480px) {
+      .fiat-dropdown {
+        padding: 8px 12px !important;
+        font-size: 13px !important;
+      }
+    }
+
+    /* CHANGE 2: Payment Modal Grouped & Search Styles */
+    .pay-groups-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 4px 0 16px;
+    }
+    .pay-group-section {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .pay-group-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--gray-500);
+      padding: 4px 8px;
+    }
+    .pay-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      background: var(--navy-50);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--navy-900);
+      transition: all 0.15s ease;
+    }
+    .pay-item:hover, .pay-item:active {
+      background: var(--gold-100);
+      border-color: var(--gold-500);
+    }
+    .pay-item-icon {
+      font-size: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+    }
+    .pill-label-truncate {
+      max-width: 120px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    /* CHANGE 3: Express Submain Framing */
+    #view-express {
+      overflow-x: hidden !important;
+    }
+    .express-card {
+      padding: clamp(14px, 4vw, 24px) !important;
+    }
+    .express-selector-btn {
+      flex-shrink: 0 !important;
+      white-space: nowrap !important;
+      max-width: 42% !important;
+    }
+    .express-input-row {
+      display: flex !important;
+      align-items: center !important;
+      gap: 10px !important;
+      min-width: 0 !important;
+    }
+    .express-input-row input {
+      font-size: clamp(18px, 5.5vw, 26px) !important;
+      min-width: 0 !important;
+    }
+    .express-subtabs button {
+      font-size: clamp(12px, 3.6vw, 14px) !important;
+      padding: clamp(8px, 2.2vw, 11px) 0 !important;
+    }
+
+    /* CHANGE 4: Profile Balance Card */
+    .wallet-balance-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow-xs);
+    }
+    .wallet-bal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .wallet-bal-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--navy-700);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .wallet-bal-links {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .wallet-bal-link {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--blue-500);
+      text-decoration: none;
+      padding: 4px 8px;
+      border-radius: var(--radius-xs);
+      background: var(--blue-100);
+      transition: opacity 0.2s;
+    }
+    .wallet-bal-link:hover {
+      opacity: 0.85;
+    }
+    .wallet-chips-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
+      gap: 8px;
+    }
+    .bal-chip {
+      background: var(--navy-50);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      padding: 8px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .bal-chip-sym {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--gray-500);
+    }
+    .bal-chip-val {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--navy-900);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* CHANGE 5: Orders Sub-tabs & Status Pills */
+    .ord-subtabs-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 4px 0 14px;
+      margin-bottom: 8px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .ord-subtabs-bar::-webkit-scrollbar {
+      display: none;
+    }
+    .ord-subtab {
+      flex: 0 0 auto;
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--gray-200);
+      background: var(--white);
+      color: var(--gray-500);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .ord-subtab.active {
+      background: var(--navy-900);
+      color: var(--white);
+      border-color: var(--navy-900);
+    }
+    .status-proof {
+      background: var(--blue-100) !important;
+      color: var(--blue-500) !important;
+    }
+    .status-disputed {
+      background: var(--red-100) !important;
+      color: var(--red-500) !important;
+    }
+    .order-card-timestamp {
+      font-size: 11px;
+      color: var(--gray-400);
+      margin-top: 4px;
+    }
+    .order-open-dispute-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 8px;
+      padding: 4px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--red-500);
+      background: var(--red-100);
+      border: 1px solid rgba(209,67,67,0.3);
+      border-radius: var(--radius-xs);
+      cursor: pointer;
+    }
+    .order-open-dispute-btn:hover {
+      background: var(--red-500);
+      color: var(--white);
+    }
+
+    /* Modal read-only details table */
+    .order-detail-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0;
+      font-size: 13px;
+    }
+    .order-detail-table tr {
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .order-detail-table td {
+      padding: 10px 4px;
+    }
+    .order-detail-label {
+      color: var(--gray-500);
+      font-weight: 500;
+      width: 40%;
+    }
+    .order-detail-value {
+      font-weight: 600;
+      color: var(--navy-900);
+      text-align: right;
+    }
+  </style><body>
 
   <!-- DRAWER -->
   <div class="drawer-overlay" id="drawerOverlay"></div>
@@ -868,6 +1149,15 @@
       </div>
       <span id="ordersCountBadge" style="background:var(--navy-50);font-weight:800;font-size:12px;padding:5px 12px;border-radius:var(--radius-pill);color:var(--navy-900);">0 Orders</span>
     </div>
+
+    <!-- ORDERS SUB-TABS (CHANGE 5) -->
+    <div class="ord-subtabs-bar" id="ordersSubtabsBar">
+      <button class="ord-subtab active" data-tab="all" onclick="filterOrdersByTab('all')">All</button>
+      <button class="ord-subtab" data-tab="pending" onclick="filterOrdersByTab('pending')">Pending</button>
+      <button class="ord-subtab" data-tab="paid" onclick="filterOrdersByTab('paid')">Paid</button>
+      <button class="ord-subtab" data-tab="disputed" onclick="filterOrdersByTab('disputed')">Disputed</button>
+      <button class="ord-subtab" data-tab="cancelled" onclick="filterOrdersByTab('cancelled')">Cancelled</button>
+    </div>
     <div class="p2p-main">
       <div id="ordersList" style="display:flex;flex-direction:column;gap:12px;"></div>
     </div>
@@ -914,7 +1204,24 @@
   <!-- PROFILE VIEW -->
   <main class="view-section" id="view-profile">
     <div class="p2p-main" style="padding-top:20px;">
-      <div class="profile-hero-card">
+      <!-- WALLET BALANCE CARD (CHANGE 4) -->
+    <div class="wallet-balance-card" id="profileBalanceCard">
+      <div class="wallet-bal-header">
+        <div>
+          <span class="wallet-bal-title">Estimated Total Balance</span>
+          <div style="font-size:18px; font-weight:800; color:var(--navy-900);" id="profTotalUsdBal">$0.00 USD</div>
+        </div>
+        <div class="wallet-bal-links">
+          <a href="deposit.html" class="wallet-bal-link">+ Deposit</a>
+          <a href="wallet.html" class="wallet-bal-link">Wallet &rarr;</a>
+        </div>
+      </div>
+      <div class="wallet-chips-grid" id="profBalanceChipsGrid">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+
+    <div class="profile-hero-card">
         <div class="profile-avatar-lg" id="profAvatar">U</div>
         <h3 style="font-size:19px;font-weight:800;" id="profDisplayName">Bluepeak Trader</h3>
         <span style="font-size:12px;color:var(--green-500);font-weight:800;background:var(--green-100);padding:3px 12px;border-radius:12px;">● Verified Tier 2 KYC</span>
@@ -947,20 +1254,17 @@
     <button class="bottom-nav-item" data-bnav="profile"><div class="bn-icon-wrap"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4.5 4.5-6.5 8-6.5s7 2 8 6.5"/></svg></div><span>Profile</span></button>
   </nav>
 
-  <div class="toast" id="toast"></div>  <script>
-    /*
-     * BluePeak P2P & Express Trading System
-     * Updates:
-     * - Institutional Desk header badge removed.
-     * - Merchant avatar letter circles removed from marketplace cards.
-     * - Profile action replaced with arrow-only circular button.
-     * - Trade controls reframed with responsive spacing between Buy/Sell and Currency selector.
-     * - 20-minute confirmation window with live countdown timer.
-     * - Proof upload flow with preview on payment confirmation.
-     * - Multi-reason cancellation modal returning cleanly to offers.
-     * - Admin deposit address fallback integration.
-     * - Telegram inbound routing with support tag instead of Telegram label.
-     */
+  <div class="toast" id="toast"></div>
+
+  <script>    /* BluePeak P2P updates applied:
+   1. Trade controls row (buy/sell + currency single row)
+   2. Payment methods grouped + live search
+   3. Express card responsive fit
+   4. Profile real data + wallet balance card
+   5. Orders sub-tabs (All/Pending/Paid/Disputed/Cancelled) + status pills + card click + dispute shortcut
+   6. Cancel → smooth back to offers
+   7. Global smooth navigation
+*/
 
     function getAdminEscrowAddress(cryptoSymbol, fallbackAddr) {
       try {
@@ -2154,9 +2458,7 @@ Reply directly to this message or send "#${order.id} <your message>" to chat bac
         } else {
           showToast('No active merchants available for instant matching.');
         }
-      });
-
-      $('#executeExpressSellBtn').addEventListener('click', () => {
+      });      $('#executeExpressSellBtn').addEventListener('click', () => {
         const val = parseFloat($('#expressSellPayAmt').value) || 0;
         if (!val || val <= 0) {
           showToast('Please enter crypto quantity to sell.');
@@ -2732,7 +3034,431 @@ Reply directly to this message or send "#${order.id} <your message>" to chat bac
       }
     });
 
-    applyFiltersAndRender();
+    applyFiltersAndRender();    /* ===== ADDITIONS (Changes 1-9) ===== */
+
+    // --- CHANGE 2: GROUPED PAYMENT METHODS & LIVE SEARCH ---
+    const GROUPED_PAYMENT_METHODS = {
+      "Banks & Transfers": [
+        { name: "Bank Transfer", icon: "🏦" },
+        { name: "Wire Transfer", icon: "🏛️" },
+        { name: "SWIFT", icon: "🌐" },
+        { name: "SEPA", icon: "💶" },
+        { name: "SEPA Instant", icon: "⚡" },
+        { name: "Faster Payments", icon: "💷" },
+        { name: "ACH", icon: "🏢" },
+        { name: "FedNow", icon: "🇺🇸" },
+        { name: "EFT", icon: "💼" },
+        { name: "PIX", icon: "🇧🇷" },
+        { name: "UPI", icon: "🇮🇳" },
+        { name: "IMPS", icon: "🇮🇳" },
+        { name: "NEFT", icon: "🇮🇳" },
+        { name: "RTGS", icon: "🇮🇳" }
+      ],
+      "Mobile Money": [
+        { name: "M-Pesa", icon: "📱" },
+        { name: "Airtel Money", icon: "📲" },
+        { name: "MTN Mobile Money", icon: "🟡" },
+        { name: "Vodafone Cash", icon: "🔴" },
+        { name: "Tigo Pesa", icon: "🔵" },
+        { name: "OPay", icon: "🟢" },
+        { name: "PalmPay", icon: "🌴" },
+        { name: "Chipper Cash", icon: "🟣" },
+        { name: "MoMo Pay", icon: "💛" },
+        { name: "EcoCash", icon: "🌍" },
+        { name: "Orange Money", icon: "🍊" },
+        { name: "Wave", icon: "🌊" },
+        { name: "Kuda Bank", icon: "🟣" }
+      ],
+      "Cards & Wallets": [
+        { name: "Visa / Mastercard", icon: "💳" },
+        { name: "Apple Pay", icon: "🍏" },
+        { name: "Google Pay", icon: "🇬" },
+        { name: "Cash App", icon: "💵" },
+        { name: "Venmo", icon: "✌️" },
+        { name: "PayPal", icon: "🅿️" },
+        { name: "Revolut", icon: "🇷" },
+        { name: "Wise", icon: "🌐" },
+        { name: "Zelle", icon: "⚡" },
+        { name: "Skrill", icon: "💰" },
+        { name: "Payoneer", icon: "💳" },
+        { name: "Stripe", icon: "💲" },
+        { name: "Chime", icon: "🔔" }
+      ],
+      "Crypto Rails": [
+        { name: "Binance Pay", icon: "🔶" },
+        { name: "Crypto.com Pay", icon: "🦁" },
+        { name: "MoonPay", icon: "🌙" },
+        { name: "Ramp", icon: "🔄" },
+        { name: "Transak", icon: "⚡" },
+        { name: "Yellow Card", icon: "🟨" }
+      ]
+    };
+
+    function renderGroupedPaymentOptions(searchQuery) {
+      const container = $('#paymentPickList');
+      if (!container) return;
+
+      const q = (searchQuery || '').trim().toLowerCase();
+      let html = `
+        <div class="pay-item ${state.paymentFilter === 'All' ? 'active' : ''}" onclick="selectPayment('All')" style="margin-bottom:8px;">
+          <span class="pay-item-icon">🌐</span>
+          <span style="font-weight:600;">All Payment Methods</span>
+        </div>
+      `;
+
+      let totalMatches = 0;
+      Object.keys(GROUPED_PAYMENT_METHODS).forEach(groupName => {
+        const methods = GROUPED_PAYMENT_METHODS[groupName];
+        const filtered = methods.filter(it => {
+          if (!q) return true;
+          return it.name.toLowerCase().includes(q) || groupName.toLowerCase().includes(q);
+        });
+
+        if (filtered.length > 0) {
+          totalMatches += filtered.length;
+          html += `<div class="pay-group-section">`;
+          html += `<div class="pay-group-label">${groupName}</div>`;
+          filtered.forEach(it => {
+            const isSel = (state.paymentFilter === it.name);
+            html += `
+              <div class="pay-item ${isSel ? 'active' : ''}" onclick="selectPayment('${it.name.replace(/'/g, "\\'")}')">
+                <span class="pay-item-icon">${it.icon}</span>
+                <span>${it.name}</span>
+              </div>
+            `;
+          });
+          html += `</div>`;
+        }
+      });
+
+      if (totalMatches === 0 && q) {
+        html += `<div style="text-align:center; padding:20px; color:var(--gray-400); font-size:13px;">No payment methods matching "${q}"</div>`;
+      }
+
+      container.innerHTML = html;
+    }
+
+    // Wrap / override selectPayment to update pill label with ellipsis truncation
+    const _origSelectPayment = typeof selectPayment === 'function' ? selectPayment : null;
+    selectPayment = function(name) {
+      if (_origSelectPayment) {
+        _origSelectPayment(name);
+      } else {
+        state.paymentFilter = name;
+        state.page = 1;
+        applyFiltersAndRender();
+        closeSheet('paymentModal');
+      }
+      const pill = $('#paymentPillLabel');
+      if (pill) {
+        pill.innerHTML = '<span class="pill-label-truncate">' + (name === 'All' ? 'All Payments' : name) + '</span>';
+      }
+    };
+
+    // Live search debounced
+    const paySearchInput = document.getElementById('paymentSearchInput');
+    if (paySearchInput) {
+      let debounceTimer = null;
+      paySearchInput.addEventListener('input', function(e) {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+          renderGroupedPaymentOptions(e.target.value);
+        }, 120);
+      });
+    }
+
+    // --- CHANGE 5: ORDERS SUB-TABS LOGIC & DETAILS MODAL ---
+    let currentOrdersTab = 'all';
+
+    function filterOrdersByTab(tab) {
+      currentOrdersTab = tab;
+      const buttons = document.querySelectorAll('.ord-subtab');
+      buttons.forEach(b => {
+        b.classList.toggle('active', b.getAttribute('data-tab') === tab);
+      });
+      renderOrdersHistory();
+    }
+
+    // Override renderOrdersHistory to support subtabs, status pills, card click, & dispute shortcut
+    renderOrdersHistory = function() {
+      const list = $('#ordersList');
+      const badge = $('#ordersCountBadge');
+      if (!list) return;
+
+      const orders = getOrders();
+      if (!orders || orders.length === 0) {
+        list.innerHTML = `<div class="empty-state"><div class="empty-icon">📭</div><div class="empty-text">No P2P trades executed yet.</div></div>`;
+        if (badge) badge.textContent = '0 Orders';
+        return;
+      }
+
+      // Filter by currentOrdersTab
+      const filtered = orders.filter(o => {
+        const s = (o.status || '').trim();
+        if (currentOrdersTab === 'all') return true;
+        if (currentOrdersTab === 'pending') return s === 'Escrow Locked' || s === 'Proof Submitted';
+        if (currentOrdersTab === 'paid') return s === 'Paid' || s === 'Completed';
+        if (currentOrdersTab === 'disputed') return s === 'Disputed';
+        if (currentOrdersTab === 'cancelled') return s === 'Cancelled';
+        return true;
+      });
+
+      // Update badge
+      if (badge) {
+        if (currentOrdersTab === 'all') {
+          badge.textContent = orders.length + ' Orders';
+        } else {
+          const capitalized = currentOrdersTab.charAt(0).toUpperCase() + currentOrdersTab.slice(1);
+          badge.textContent = filtered.length + ' ' + capitalized;
+        }
+      }
+
+      if (filtered.length === 0) {
+        const tabName = currentOrdersTab === 'all' ? 'P2P' : currentOrdersTab;
+        list.innerHTML = `<div class="empty-state"><div class="empty-icon">📭</div><div class="empty-text">No ${tabName} trades found.</div></div>`;
+        return;
+      }
+
+      list.innerHTML = filtered.map(o => {
+        const isBuy = (o.side === 'Buy');
+        const sideColor = isBuy ? 'var(--green-500)' : 'var(--blue-500)';
+        const st = (o.status || '').trim();
+
+        // Status pill class
+        let statusClass = 'status-escrow';
+        if (st === 'Completed') statusClass = 'status-completed';
+        else if (st === 'Cancelled') statusClass = 'status-cancelled';
+        else if (st === 'Proof Submitted') statusClass = 'status-proof';
+        else if (st === 'Disputed') statusClass = 'status-disputed';
+
+        const lastUpdated = o.date || new Date().toLocaleString();
+        const canDispute = (st === 'Paid' || st === 'Proof Submitted') && o.confirmDeadline && (Date.now() > Number(o.confirmDeadline));
+
+        return `
+          <div class="order-card" style="cursor:pointer;" onclick="handleOrderCardClick('${o.id}')">
+            <div class="order-card-header">
+              <div class="order-id">
+                <strong style="color:${sideColor}; font-size:14px;">${o.side.toUpperCase()} ${o.crypto}</strong>
+                <span style="font-size:11px; color:var(--gray-400); margin-left:6px;">#${o.id.slice(-6)}</span>
+              </div>
+              <span class="status-pill ${statusClass}">${st}</span>
+            </div>
+            <div class="order-card-body">
+              <div class="order-metric">
+                <span class="order-metric-label">Amount</span>
+                <span class="order-metric-value">${o.fiatAmount} ${o.fiat}</span>
+              </div>
+              <div class="order-metric">
+                <span class="order-metric-label">Crypto Quantity</span>
+                <span class="order-metric-value">${o.cryptoAmount} ${o.crypto}</span>
+              </div>
+              <div class="order-metric">
+                <span class="order-metric-label">Counterparty</span>
+                <span class="order-metric-value">${o.merchantName || 'BluePeak Desk'}</span>
+              </div>
+              <div class="order-metric">
+                <span class="order-metric-label">Payment Method</span>
+                <span class="order-metric-value">${o.paymentMethod || 'Bank Transfer'}</span>
+              </div>
+            </div>
+            <div class="order-card-timestamp">Last updated: ${lastUpdated}</div>
+            ${canDispute ? `
+              <button class="order-open-dispute-btn" onclick="event.stopPropagation(); triggerOrderDisputeShortcut('${o.id}');">
+                ⚠️ Open Dispute (Timer Expired)
+              </button>
+            ` : ''}
+          </div>
+        `;
+      }).join('');
+    };
+
+    function handleOrderCardClick(orderId) {
+      const orders = getOrders();
+      const order = orders.find(o => o.id === orderId);
+      if (!order) return;
+
+      const st = (order.status || '').trim();
+      if (st === 'Completed' || st === 'Cancelled') {
+        openOrderDetailModal(order);
+      } else {
+        // Active / Pending / Paid / Disputed -> smoothly reopen active trade
+        state.activeOrder = order;
+        localStorage.setItem('bp_active_order', JSON.stringify(order));
+
+        if (typeof startTimer === 'function') startTimer();
+        if (typeof startChatSync === 'function') startChatSync();
+        if (typeof renderActiveOrder === 'function') renderActiveOrder();
+        if (typeof switchMainView === 'function') switchMainView('p2p', { scroll: true });
+      }
+    }
+
+    function triggerOrderDisputeShortcut(orderId) {
+      const orders = getOrders();
+      const order = orders.find(o => o.id === orderId);
+      if (!order) return;
+
+      state.activeOrder = order;
+      localStorage.setItem('bp_active_order', JSON.stringify(order));
+
+      if (typeof switchMainView === 'function') switchMainView('p2p', { scroll: true });
+      if (typeof renderActiveOrder === 'function') renderActiveOrder();
+      if (typeof startTimer === 'function') startTimer();
+      if (typeof startChatSync === 'function') startChatSync();
+      if (typeof openSheet === 'function') openSheet('disputeModal');
+    }
+
+    function openOrderDetailModal(order) {
+      const table = $('#orderDetailTable');
+      if (!table) return;
+
+      table.innerHTML = `
+        <tr><td class="order-detail-label">Order ID</td><td class="order-detail-value">#${order.id}</td></tr>
+        <tr><td class="order-detail-label">Type</td><td class="order-detail-value">${order.side} ${order.crypto}</td></tr>
+        <tr><td class="order-detail-label">Status</td><td class="order-detail-value">${order.status}</td></tr>
+        <tr><td class="order-detail-label">Fiat Amount</td><td class="order-detail-value">${order.fiatAmount} ${order.fiat}</td></tr>
+        <tr><td class="order-detail-label">Crypto Quantity</td><td class="order-detail-value">${order.cryptoAmount} ${order.crypto}</td></tr>
+        <tr><td class="order-detail-label">Exchange Rate</td><td class="order-detail-value">${order.rate || '—'} ${order.fiat}</td></tr>
+        <tr><td class="order-detail-label">Counterparty</td><td class="order-detail-value">${order.merchantName || 'BluePeak Desk'}</td></tr>
+        <tr><td class="order-detail-label">Payment Method</td><td class="order-detail-value">${order.paymentMethod || 'Bank Transfer'}</td></tr>
+        <tr><td class="order-detail-label">Timestamp</td><td class="order-detail-value">${order.date || '—'}</td></tr>
+        ${order.proofNote ? `<tr><td class="order-detail-label">Payment Proof Note</td><td class="order-detail-value">${order.proofNote}</td></tr>` : ''}
+        ${order.disputeReason ? `<tr><td class="order-detail-label">Dispute Reason</td><td class="order-detail-value" style="color:var(--red-500);">${order.disputeReason}</td></tr>` : ''}
+      `;
+
+      if (typeof openSheet === 'function') openSheet('orderDetailModal');
+    }
+
+    // --- CHANGE 4: PROFILE REAL DATA & WALLET BALANCES ---
+    function renderProfileWalletBalances() {
+      const b = getUserBalances();
+      const chipsGrid = $('#profBalanceChipsGrid');
+      const totalDisplay = $('#profTotalUsdBal');
+
+      let totalUsd = 0;
+      ASSETS.forEach(a => {
+        const amt = Number(b[a.symbol]) || 0;
+        const rate = liveRatesUsd[a.symbol] || 1.0;
+        totalUsd += amt * rate;
+      });
+
+      if (totalDisplay) totalDisplay.textContent = '$' + formatNum(totalUsd, 2) + ' USD';
+
+      if (chipsGrid) {
+        chipsGrid.innerHTML = ASSETS.map(a => {
+          const amt = Number(b[a.symbol]) || 0;
+          const dec = (a.symbol === 'USDT') ? 2 : 4;
+          return `
+            <div class="bal-chip">
+              <span class="bal-chip-sym">${a.symbol}</span>
+              <span class="bal-chip-val">${formatNum(amt, dec)}</span>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Update profile stats from real orders
+      const orders = getOrders();
+      const completed = orders.filter(o => o.status === 'Completed');
+      const countEl = $('#profTradeCount');
+      if (countEl) countEl.textContent = completed.length;
+
+      const ratingEl = $('#profRating');
+      if (ratingEl) {
+        if (orders.length === 0) {
+          ratingEl.textContent = '—';
+        } else {
+          const pct = ((completed.length / orders.length) * 100).toFixed(1);
+          ratingEl.textContent = pct + '%';
+        }
+      }
+
+      // User identity
+      const prof = getUserProfile();
+      const nameEl = $('#profDisplayName');
+      if (nameEl && prof.name) nameEl.textContent = prof.name;
+      const avEl = $('#profAvatar');
+      if (avEl && prof.name) {
+        const initials = prof.initials || prof.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+        avEl.textContent = initials;
+      }
+    }
+
+    // --- CHANGE 6: ENHANCED returnToOffersFromCancel ---
+    const _origReturnCancel = typeof returnToOffersFromCancel === 'function' ? returnToOffersFromCancel : null;
+    returnToOffersFromCancel = function() {
+      if (_origReturnCancel) {
+        try { _origReturnCancel(); } catch(e) {}
+      }
+      state.activeOrder = null;
+      localStorage.removeItem('bp_active_order');
+
+      // Close all sheets
+      document.querySelectorAll('.bottom-sheet').forEach(s => s.classList.remove('open'));
+      const ov = $('#globalOverlay');
+      if (ov) ov.classList.remove('open');
+      document.body.style.overflow = '';
+
+      if (typeof switchMainView === 'function') switchMainView('p2p', { scroll: true });
+      if (typeof applyFiltersAndRender === 'function') applyFiltersAndRender();
+
+      const mainScroll = $('#p2pMainContent');
+      if (mainScroll) mainScroll.scrollTop = 0;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      showToast('Returned to active marketplace offers.');
+    };
+
+    // --- CHANGE 7: DIRECT SMOOTH NAVIGATION WRAPPER ---
+    const _origSwitchMainView = typeof switchMainView === 'function' ? switchMainView : null;
+    switchMainView = function(viewId, options = { scroll: true }) {
+      document.body.style.overflow = '';
+
+      if (_origSwitchMainView) {
+        _origSwitchMainView(viewId);
+      }
+
+      if (options && options.scroll !== false) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      // If switching to P2P and there is no active order, ensure offers are rendered
+      if (viewId === 'p2p' && !state.activeOrder) {
+        if (typeof applyFiltersAndRender === 'function') applyFiltersAndRender();
+      }
+
+      // If switching to profile, refresh wallet balance card
+      if (viewId === 'profile') {
+        renderProfileWalletBalances();
+      }
+
+      // If switching to orders, refresh orders tab
+      if (viewId === 'orders') {
+        renderOrdersHistory();
+      }
+    };
+
+    // Global listener for nav / tab clicks to dismiss any open sheet
+    document.querySelectorAll('.bottom-nav-item, .header-tab').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.bottom-sheet').forEach(s => s.classList.remove('open'));
+        const ov = $('#globalOverlay');
+        if (ov) ov.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // Storage listener to refresh profile and orders across tabs
+    window.addEventListener('storage', function(e) {
+      if (e.key === 'bp_user_balances' || e.key === 'bp_p2p_orders' || e.key === 'bp_user_profile') {
+        renderProfileWalletBalances();
+        if (typeof renderOrdersHistory === 'function') renderOrdersHistory();
+      }
+    });
+
+    // --- CHANGE 8: INITIALIZATION FOR NEW COMPONENTS ---
+    renderGroupedPaymentOptions('');
+    renderProfileWalletBalances();
+
     fetchLiveRates();
     renderOrdersHistory();
     renderProfilePaymentMethods();
@@ -2833,7 +3559,7 @@ Reply directly to this message or send "#${order.id} <your message>" to chat bac
       <div style="width:52px;height:52px;border-radius:50%;background:var(--red-100);color:var(--red-500);display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 12px;">✕</div>
       <h4 style="font-size:16px;font-weight:800;color:var(--navy-900);margin-bottom:6px;">Trade Has Been Cancelled</h4>
       <p style="font-size:12.5px;color:var(--gray-500);margin-bottom:20px;">The escrow reservation has been cleared. You can return to the P2P marketplace to browse other offers.</p>
-      <button class="btn-solid-green" style="width:100%;" onclick="returnToOffersFromCancel()">Return to P2P Offers</button>
+      <button class="btn-solid-green" style="width:100%;" onclick="returnToOffersFromCancel()">Browse Other Vendors</button>
     </div>
   </div>
 
@@ -2869,5 +3595,21 @@ Reply directly to this message or send "#${order.id} <your message>" to chat bac
     </div>
   </div>
 
+  <!-- ORDER DETAIL MODAL (Read-Only) -->
+  <div class="bottom-sheet" id="orderDetailModal">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <h3 class="sheet-title">Trade Summary</h3>
+      <button class="sheet-close" onclick="closeSheet('orderDetailModal')">&times;</button>
+    </div>
+    <div class="sheet-body" style="padding: 16px 20px;">
+      <table class="order-detail-table" id="orderDetailTable">
+        <!-- Injected via openOrderDetailModal -->
+      </table>
+      <div style="margin-top: 18px;">
+        <button class="p2p-btn p2p-btn-secondary" style="width: 100%; justify-content: center;" onclick="closeSheet('orderDetailModal')">Close</button>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
