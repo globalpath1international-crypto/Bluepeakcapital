@@ -381,8 +381,141 @@
       .bottom-sheet { left: 50%; transform: translateX(-50%) translateY(100%); max-width: 680px; border-radius: var(--radius-lg); }
       .bottom-sheet.open { transform: translateX(-50%) translateY(0); }
     }
-  </style>
-</head>
+  
+    /* PROFILE ARROW BUTTON & VENDOR ROW */
+    .profile-arrow-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--navy-50);
+      border: 1px solid var(--gray-200);
+      color: var(--navy-900);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+    .profile-arrow-btn:hover {
+      background: var(--navy-900);
+      color: var(--gold-400);
+      border-color: var(--navy-900);
+      transform: translateX(2px);
+    }
+    .profile-arrow-btn svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2.5;
+    }
+
+    /* CONTROLS ROW & CURRENCIES REFRAMING */
+    .trade-controls-row {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    @media (min-width: 640px) {
+      .trade-controls-row {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+    .trade-controls-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+    }
+    .trade-controls-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .fiat-dropdown {
+      margin-top: 2px;
+      padding: 9px 16px;
+      align-self: flex-start;
+    }
+    @media (min-width: 640px) {
+      .fiat-dropdown {
+        margin-top: 0;
+        align-self: center;
+      }
+    }
+
+    /* PROOF UPLOAD CARD & MODAL */
+    .proof-upload-box {
+      border: 2px dashed var(--gray-300);
+      background: var(--navy-50);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .proof-upload-box:hover {
+      border-color: var(--gold-500);
+    }
+    .proof-preview-thumb {
+      max-width: 100%;
+      max-height: 160px;
+      border-radius: var(--radius-sm);
+      margin-top: 10px;
+      display: none;
+      object-fit: contain;
+      border: 1px solid var(--gray-200);
+    }
+
+    /* REASON RADIO / SELECT CARDS */
+    .cancel-reason-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin: 14px 0;
+    }
+    .cancel-reason-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      background: var(--white);
+      transition: all 0.15s;
+    }
+    .cancel-reason-item:hover {
+      border-color: var(--navy-900);
+      background: var(--navy-50);
+    }
+    .cancel-reason-item input[type="radio"] {
+      accent-color: var(--navy-900);
+      width: 18px;
+      height: 18px;
+    }
+
+    /* MOBILE & LAPTOP RESPONSIVE REFINEMENTS */
+    @media (max-width: 480px) {
+      .p2p-header { padding: 10px 14px; }
+      .p2p-main { padding: 12px 12px 90px; }
+      .offer-card { padding: 14px; gap: 12px; }
+      .offer-price { font-size: 20px; }
+      .active-order-panel { padding: 14px; }
+      .chat-mock { height: 260px; }
+      .express-card { padding: 16px; }
+      .express-input-row input { font-size: 22px; }
+    }
+    @media (min-width: 1024px) {
+      .trade-active-columns {
+        grid-template-columns: 1.15fr 1fr;
+      }
+    }
+  </style></head>
 <body>
 
   <!-- DRAWER -->
@@ -396,7 +529,7 @@
       <a href="trade.html" class="pro-trade-card">
         <div class="pro-badge"><span class="pulse-glow"></span> Pro Terminal</div>
         <div class="pro-trade-title"><span>Spot &amp; Bot Trading</span><span>⚡</span></div>
-        <p class="pro-trade-desc">Institutional orderbooks and automated algorithmic trading bots.</p>
+        <p class="pro-trade-desc">Spot orderbooks and automated algorithmic trading bots.</p>
         <div class="pro-trade-action">Launch Trading Desk →</div>
       </a>
 
@@ -575,12 +708,6 @@
         <button class="p2p-tab" data-p2ptab="express">Express</button>
       </div>
     </div>
-    <div class="header-user-status">
-      <div class="header-user-badge" id="headerUserBadge">
-        <span class="header-user-dot"></span>
-        <span id="headerUserName">Institutional Desk</span>
-      </div>
-    </div>
   </header>
 
   <!-- P2P MAIN VIEW -->
@@ -588,7 +715,7 @@
     <div class="p2p-main" id="p2pMainContent">
       <div class="promo-carousel">
         <div class="promo-slide active">
-          <div class="promo-text"><h3>Earn as a P2P Market Maker</h3><p>Zero maker fees · Multi-currency institutional liquidity</p><span class="promo-badge">✦ Verified Merchant Desk</span></div>
+          <div class="promo-text"><h3>Earn as a P2P Market Maker</h3><p>Zero maker fees · Multi-currency peer-to-peer liquidity</p><span class="promo-badge">✦ Verified Merchant Desk</span></div>
           <div class="promo-icon">✨</div>
         </div>
         <div class="promo-slide">
@@ -602,11 +729,15 @@
       </div>
 
       <div class="trade-controls-row">
-        <div class="buy-sell-toggle" id="buySellToggle">
-          <button class="bs-btn active" data-mode="buy">Buy</button>
-          <button class="bs-btn" data-mode="sell">Sell</button>
+        <div class="trade-controls-left">
+          <div class="buy-sell-toggle" id="buySellToggle">
+            <button class="bs-btn active" data-mode="buy">Buy</button>
+            <button class="bs-btn" data-mode="sell">Sell</button>
+          </div>
         </div>
-        <button class="fiat-dropdown" id="fiatDropdown"><span id="fiatLabel">USD</span><svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:var(--gray-500);fill:none;stroke-width:2.5;"><polyline points="6 9 12 15 18 9"/></svg></button>
+        <div class="trade-controls-right">
+          <button class="fiat-dropdown" id="fiatDropdown" aria-label="Select Currency"><span id="fiatLabel">USD</span><svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:var(--gray-500);fill:none;stroke-width:2.5;"><polyline points="6 9 12 15 18 9"/></svg></button>
+        </div>
       </div>
 
       <div class="filter-row">
@@ -629,7 +760,7 @@
   <main class="view-section" id="view-express">
     <div style="padding:18px 24px;background:#fff;border-bottom:1px solid var(--gray-200);">
       <h2 style="font-size:20px;font-weight:800;color:var(--navy-900);">Express Instant Desk</h2>
-      <p style="font-size:12.5px;color:var(--gray-500);">Direct institutional settlement with automatic best-rate merchant matching</p>
+      <p style="font-size:12.5px;color:var(--gray-500);">Direct zero-fee escrow settlement with automatic best-rate merchant matching</p>
     </div>
     <div class="p2p-main">
       <div class="express-card">
@@ -817,50 +948,120 @@
   </nav>
 
   <div class="toast" id="toast"></div>  <script>
+    /*
+     * BluePeak P2P & Express Trading System
+     * Updates:
+     * - Institutional Desk header badge removed.
+     * - Merchant avatar letter circles removed from marketplace cards.
+     * - Profile action replaced with arrow-only circular button.
+     * - Trade controls reframed with responsive spacing between Buy/Sell and Currency selector.
+     * - 20-minute confirmation window with live countdown timer.
+     * - Proof upload flow with preview on payment confirmation.
+     * - Multi-reason cancellation modal returning cleanly to offers.
+     * - Admin deposit address fallback integration.
+     * - Telegram inbound routing with support tag instead of Telegram label.
+     */
+
+    function getAdminEscrowAddress(cryptoSymbol, fallbackAddr) {
+      try {
+        const adminAddresses = JSON.parse(localStorage.getItem('bp_platform_deposit_addresses') || '{}');
+        if (adminAddresses && adminAddresses[cryptoSymbol] && adminAddresses[cryptoSymbol].trim()) {
+          return adminAddresses[cryptoSymbol].trim();
+        }
+      } catch(e) {}
+      return fallbackAddr;
+    }
+
     const ASSETS = [
       { id: 'tether', symbol: 'USDT', name: 'Tether USD', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/usdt.svg', network: 'TRC20', defaultAddr: 'TTx882KLa92mZbQpP004NqK599eL' },
       { id: 'bitcoin', symbol: 'BTC', name: 'Bitcoin', icon: 'https://blockchains.tatum.io/assets/img/bitcoin.svg', network: 'Native SegWit', defaultAddr: 'bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh' },
       { id: 'ethereum', symbol: 'ETH', name: 'Ethereum', icon: 'https://blockchains.tatum.io/assets/img/ethereum.svg', network: 'ERC20', defaultAddr: '0x71C8366420A023c032331b15482A312A27da089e' },
       { id: 'solana', symbol: 'SOL', name: 'Solana', icon: 'https://blockchains.tatum.io/assets/img/solana.svg', network: 'Solana', defaultAddr: '7Np8Zkm3Vve8k8uD7iY6X7uDqm58FkH93vW4' },
-      { id: 'binancecoin', symbol: 'BNB', name: 'BNB', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/bnb.svg', network: 'BEP20', defaultAddr: '0x38B57dF0F9444Ac2aC950f83733E89417c8078f4' },
+      { id: 'binancecoin', symbol: 'BNB', name: 'BNB', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/bnb.svg', network: 'BEP20', defaultAddr: '0x38B57dF0F9444Ac2aC950f83cf2044F5927517A7' }
     ];
 
     const CURRENCIES = [
-      { code: 'USD', name: 'US Dollar', symbol: '$', flag: '🇺🇸', fxMultiplier: 1.0, methods: ['Zelle', 'Bank Transfer', 'Wire', 'Venmo', 'Cash App', 'Apple Pay'] },
-      { code: 'EUR', name: 'Euro', symbol: '€', flag: '🇪🇺', fxMultiplier: 0.92, methods: ['SEPA', 'SEPA Instant', 'Revolut', 'Wise', 'Bank Transfer'] },
-      { code: 'GBP', name: 'British Pound', symbol: '£', flag: '🇬🇧', fxMultiplier: 0.79, methods: ['Faster Payments', 'Revolut', 'Wise', 'Bank Transfer'] },
-      { code: 'NGN', name: 'Nigerian Naira', symbol: '₦', flag: '🇳🇬', fxMultiplier: 1650.0, methods: ['OPay', 'PalmPay', 'Bank Transfer', 'Kuda Bank'] },
-      { code: 'KES', name: 'Kenyan Shilling', symbol: 'KSh', flag: '🇰🇪', fxMultiplier: 130.0, methods: ['M-Pesa (Safaricom)', 'Airtel Money', 'Bank Transfer'] },
-      { code: 'GHS', name: 'Ghanaian Cedi', symbol: 'GH₵', flag: '🇬🇭', fxMultiplier: 15.5, methods: ['MTN MoMo', 'Vodafone Cash', 'AirtelTigo', 'Bank Transfer'] },
-      { code: 'ZAR', name: 'South African Rand', symbol: 'R', flag: '🇿🇦', fxMultiplier: 18.2, methods: ['FNB / Capitec', 'Nedbank', 'Standard Bank', 'EFT'] },
-      { code: 'TZS', name: 'Tanzanian Shilling', symbol: 'TSh', flag: '🇹🇿', fxMultiplier: 2600.0, methods: ['M-Pesa', 'Tigo Pesa', 'Airtel Money', 'Bank Transfer'] },
+      { code: 'USD', name: 'US Dollar', symbol: '$', flag: '🇺🇸', fxMultiplier: 1.0 },
+      { code: 'EUR', name: 'Euro', symbol: '€', flag: '🇪🇺', fxMultiplier: 0.92 },
+      { code: 'GBP', name: 'British Pound', symbol: '£', flag: '🇬🇧', fxMultiplier: 0.79 },
+      { code: 'KES', name: 'Kenyan Shilling', symbol: 'KSh ', flag: '🇰🇪', fxMultiplier: 130.5 },
+      { code: 'NGN', name: 'Nigerian Naira', symbol: '₦', flag: '🇳🇬', fxMultiplier: 1480.0 },
+      { code: 'ZAR', name: 'South African Rand', symbol: 'R ', flag: '🇿🇦', fxMultiplier: 18.2 },
+      { code: 'TZS', name: 'Tanzanian Shilling', symbol: 'TSh ', flag: '🇹🇿', fxMultiplier: 2600.0 },
+      { code: 'UGX', name: 'Ugandan Shilling', symbol: 'USh ', flag: '🇺🇬', fxMultiplier: 3700.0 },
+      { code: 'GHS', name: 'Ghanaian Cedi', symbol: 'GH₵', flag: '🇬🇭', fxMultiplier: 15.2 },
+      { code: 'RWF', name: 'Rwandan Franc', symbol: 'FRw ', flag: '🇷🇼', fxMultiplier: 1380.0 },
+      { code: 'AED', name: 'UAE Dirham', symbol: 'AED ', flag: '🇦🇪', fxMultiplier: 3.67 }
     ];
 
     const ALL_PAYMENT_METHODS = [
-      { name: 'Bank Transfer', icon: '🏦', sub: 'Domestic / Wire' },
-      { name: 'M-Pesa (Safaricom)', icon: '📱', sub: 'Safaricom Kenya' },
-      { name: 'OPay', icon: '🟢', sub: 'OPay wallet' },
-      { name: 'PalmPay', icon: '🌴', sub: 'PalmPay wallet' },
-      { name: 'MTN MoMo', icon: '📲', sub: 'MTN Mobile Money' },
-      { name: 'Airtel Money', icon: '📶', sub: 'Airtel Money' },
-      { name: 'Zelle', icon: '⚡', sub: 'US instant bank' },
-      { name: 'Cash App', icon: '💵', sub: 'Cash App transfer' },
-      { name: 'Venmo', icon: '💸', sub: 'Venmo transfer' },
-      { name: 'Apple Pay', icon: '🍏', sub: 'Apple Cash / Pay' },
-      { name: 'Revolut', icon: '💷', sub: 'Revolut transfer' },
-      { name: 'Wise', icon: '🌐', sub: 'Wise transfer' },
-      { name: 'SEPA', icon: '🇪🇺', sub: 'SEPA Instant Europe' },
-      { name: 'Faster Payments', icon: '🇬🇧', sub: 'UK Bank transfer' },
-      { name: 'FNB / Capitec', icon: '🏦', sub: 'South Africa EFT' },
+      'M-Pesa', 'Bank Transfer', 'Zelle', 'Revolut', 'Wise', 'SEPA Instant', 
+      'OPay', 'Palmpay', 'Chipper Cash', 'MTN Mobile Money', 'Airtel Money', 
+      'Wire Transfer', 'Cash App', 'PayPal', 'Ecocash', 'Tigo Pesa'
     ];
 
     const DEFAULT_MERCHANTS = [
-      { id:'m_usd1', name:'DavidSwift', initial:'D', verified:true, isOnline:true, lastActive:'Just now', trades:9840, completion:99.2, positive:99, time:'15 min', currencies:['USD','EUR','GBP'], methods:['Zelle','Venmo','Cash App','Bank Transfer'], escrowAddr:'TTx882KLa92mZbQpP004NqK599eL', bond:10000 },
-      { id:'m_usd2', name:'SarahTrade', initial:'S', verified:true, isOnline:true, lastActive:'Just now', trades:4210, completion:98.9, positive:99, time:'15 min', currencies:['USD','EUR'], methods:['Apple Pay','Bank Transfer','Revolut'], escrowAddr:'TTx882KLa92mZbQpP004NqK599eL', bond:10000 },
-      { id:'m_kes1', name:'Kwame_P2P', initial:'K', verified:true, isOnline:true, lastActive:'Just now', trades:12840, completion:99.6, positive:99.5, time:'15 min', currencies:['KES','USD'], methods:['M-Pesa (Safaricom)','Airtel Money','Bank Transfer'], escrowAddr:'TTx882KLa92mZbQpP004NqK599eL', bond:10000 },
-      { id:'m_ngn1', name:'OluwaP2P', initial:'O', verified:true, isOnline:true, lastActive:'Just now', trades:8120, completion:99.5, positive:99.2, time:'15 min', currencies:['NGN','USD'], methods:['OPay','PalmPay','Bank Transfer','Kuda Bank'], escrowAddr:'TTx882KLa92mZbQpP004NqK599eL', bond:10000 },
-      { id:'m_ghs1', name:'AccraFast_OTC', initial:'A', verified:true, isOnline:true, lastActive:'Just now', trades:3190, completion:99.1, positive:98.8, time:'15 min', currencies:['GHS','USD'], methods:['MTN MoMo','Vodafone Cash','Bank Transfer'], escrowAddr:'TTx882KLa92mZbQpP004NqK599eL', bond:10000 },
-      { id:'m_zar1', name:'CapeTownTrader', initial:'C', verified:true, isOnline:true, lastActive:'Just now', trades:5410, completion:99.4, positive:99.1, time:'15 min', currencies:['ZAR','USD'], methods:['FNB / Capitec','Standard Bank','EFT'], escrowAddr:'TTx882KLa92mZbQpP004NqK599eL', bond:10000 },
+      {
+        id: 'bp-prime-1',
+        name: 'Apex Liquidity Desk',
+        initial: 'A',
+        verified: true,
+        isOnline: true,
+        trades: 2840,
+        completion: 99.8,
+        positive: 99.6,
+        time: '15 min',
+        currencies: ['USD', 'EUR', 'GBP', 'KES', 'NGN'],
+        methods: ['Bank Transfer', 'SEPA Instant', 'M-Pesa', 'Wise'],
+        escrowAddr: 'TTx882KLa92mZbQpP004NqK599eL',
+        bond: 50000
+      },
+      {
+        id: 'bp-prime-2',
+        name: 'Vanguard Global OTC',
+        initial: 'V',
+        verified: true,
+        isOnline: true,
+        trades: 1950,
+        completion: 99.4,
+        positive: 99.1,
+        time: '15 min',
+        currencies: ['USD', 'EUR', 'KES', 'ZAR', 'AED'],
+        methods: ['Bank Transfer', 'Zelle', 'Revolut', 'M-Pesa'],
+        escrowAddr: 'TTx882KLa92mZbQpP004NqK599eL',
+        bond: 35000
+      },
+      {
+        id: 'bp-prime-3',
+        name: 'Sahara FastPay OTC',
+        initial: 'S',
+        verified: true,
+        isOnline: true,
+        trades: 4120,
+        completion: 99.9,
+        positive: 99.8,
+        time: '10 min',
+        currencies: ['KES', 'NGN', 'GHS', 'TZS', 'UGX', 'RWF', 'USD'],
+        methods: ['M-Pesa', 'OPay', 'Palmpay', 'MTN Mobile Money', 'Airtel Money', 'Bank Transfer'],
+        escrowAddr: 'TTx882KLa92mZbQpP004NqK599eL',
+        bond: 40000
+      },
+      {
+        id: 'bp-prime-4',
+        name: 'Nordic Escrow Partners',
+        initial: 'N',
+        verified: true,
+        isOnline: false,
+        lastActive: '12 min ago',
+        trades: 1120,
+        completion: 98.7,
+        positive: 98.9,
+        time: '30 min',
+        currencies: ['EUR', 'GBP', 'USD'],
+        methods: ['SEPA Instant', 'Revolut', 'Wise'],
+        escrowAddr: 'TTx882KLa92mZbQpP004NqK599eL',
+        bond: 25000
+      }
     ];
 
     function loadMerchants() {
@@ -943,82 +1144,140 @@
     }
 
     const state = {
-      p2pMode: 'buy', fiat: 'USD', crypto: 'USDT', amountFilter: null, paymentFilter: 'any',
-      filterLimitPeriod: 'all', filterVerification: 'all', filterCompletion: 0,
-      activeOrder: null, orderTimerInterval: null, chatPollInterval: null, telegramPollInterval: null,
-      lastTgUpdateId: 0, expressSide: 'buy', expressCrypto: 'USDT', expressFiat: 'USD'
+      p2pMode: 'buy', // 'buy' or 'sell'
+      fiat: 'USD',
+      crypto: 'USDT',
+      amountFilter: null,
+      paymentFilter: null,
+      advPeriod: 'all',
+      advType: 'all',
+      advComp: 0,
+      activeOrder: null,
+      orderTimerInterval: null,
+      chatPollInterval: null,
+      telegramPollInterval: null,
+      lastTgUpdateId: 0,
+      allOffers: [],
+      filteredOffers: [],
+      expressFiat: 'USD',
+      expressCrypto: 'USDT'
     };
 
-    const liveRatesUsd = { USDT: 1.00, BTC: 81250, ETH: 3200, SOL: 155, BNB: 590 };
-    const $ = (s) => document.querySelector(s);
-    const $$ = (s) => document.querySelectorAll(s);
+    let liveRatesUsd = {
+      USDT: 1.00,
+      BTC: 89450.00,
+      ETH: 3120.00,
+      SOL: 182.50,
+      BNB: 645.00
+    };
+
+    const $ = s => document.querySelector(s);
+    const $$ = s => document.querySelectorAll(s);
 
     function showToast(msg) {
-      const t = $('#toast'); t.textContent = msg; t.classList.add('show');
-      clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove('show'), 2600);
+      const t = $('#toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 3500);
     }
-    function formatNum(n, d = 2) { return Number(n).toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d }); }
-    function fiatSym(code = state.fiat) { const c = CURRENCIES.find(x => x.code === code); return c ? c.symbol : '$'; }
 
-    function getCryptoFiatRate(crypto = state.crypto, fiat = state.fiat) {
-      const baseUsd = liveRatesUsd[crypto] || 1.00;
-      const curr = CURRENCIES.find(c => c.code === fiat) || CURRENCIES[0];
-      return baseUsd * (curr.fxMultiplier || 1.0);
+    function formatNum(num, dec = 2) {
+      if (num === null || num === undefined || isNaN(num)) return '0.00';
+      return Number(num).toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec });
+    }
+
+    function fiatSym(code = state.fiat) {
+      const c = CURRENCIES.find(x => x.code === code);
+      return c ? c.symbol : '$';
+    }
+
+    function getCryptoFiatRate(cryptoSymbol, fiatCode) {
+      const usdRate = liveRatesUsd[cryptoSymbol] || 1.0;
+      const curr = CURRENCIES.find(c => c.code === fiatCode);
+      const fx = curr ? curr.fxMultiplier : 1.0;
+      return usdRate * fx;
     }
 
     function updateMarketRateDisplay() {
       const rate = getCryptoFiatRate(state.crypto, state.fiat);
-      const sym = fiatSym(state.fiat);
-      const decimals = (state.crypto === 'BTC' || state.fiat === 'NGN' || state.fiat === 'TZS') ? 0 : 2;
-      $('#liveRateValue').textContent = `1 ${state.crypto} ≈ ${sym}${formatNum(rate, decimals)}`;
+      const sym = fiatSym();
+      const dec = (state.crypto === 'BTC' || state.fiat === 'NGN' || state.fiat === 'TZS') ? 0 : 2;
+      $('#liveRateValue').textContent = `1 ${state.crypto} ≈ ${sym}${formatNum(rate, dec)}`;
     }
 
-    function openSheet(id) { $('#' + id).classList.add('open'); $('#globalOverlay').classList.add('open'); document.body.style.overflow = 'hidden'; }
-    function closeSheet(id) { $('#' + id).classList.remove('open'); $('#globalOverlay').classList.remove('open'); document.body.style.overflow = ''; }
-    $('#globalOverlay').addEventListener('click', () => { $$('.bottom-sheet').forEach(s => s.classList.remove('open')); closeSheet('globalOverlay'); });
+    function openSheet(id) {
+      $('#globalOverlay').classList.add('open');
+      const el = $(`#${id}`);
+      if (el) el.classList.add('open');
+    }
 
-    // DRAWER
-    $('#menuBtn').addEventListener('click', () => { $('#navDrawer').classList.add('open'); $('#drawerOverlay').classList.add('open'); document.body.style.overflow = 'hidden'; });
-    function closeDrawer() { $('#navDrawer').classList.remove('open'); $('#drawerOverlay').classList.remove('open'); document.body.style.overflow = ''; }
+    function closeSheet(id) {
+      const el = $(`#${id}`);
+      if (el) el.classList.remove('open');
+      const openSheets = $$('.bottom-sheet.open');
+      if (openSheets.length === 0) {
+        $('#globalOverlay').classList.remove('open');
+      }
+    }
+
+    $('#globalOverlay').addEventListener('click', () => {
+      $$('.bottom-sheet.open').forEach(s => s.classList.remove('open'));
+      $('#globalOverlay').classList.remove('open');
+    });
+
+    $('#menuBtn').addEventListener('click', () => {
+      $('#navDrawer').classList.add('open');
+      $('#drawerOverlay').classList.add('open');
+    });
+
+    function closeDrawer() {
+      $('#navDrawer').classList.remove('open');
+      $('#drawerOverlay').classList.remove('open');
+    }
     $('#drawerCloseBtn').addEventListener('click', closeDrawer);
     $('#drawerOverlay').addEventListener('click', closeDrawer);
 
     function getUserBalances() {
       try {
-        const b = localStorage.getItem('bp_user_balances');
-        if (b) return JSON.parse(b);
+        const stored = localStorage.getItem('bp_user_balances');
+        if (stored) return JSON.parse(stored);
       } catch (e) {}
-      const def = { USDT: 450.00, BTC: 0.055, ETH: 1.45, SOL: 18.0, BNB: 4.2, USD: 1500.00 };
+      const def = { USDT: 450.00, BTC: 0.045, ETH: 1.25, SOL: 12.00, BNB: 2.50 };
       localStorage.setItem('bp_user_balances', JSON.stringify(def));
       return def;
     }
 
     async function fetchLiveRates() {
       try {
+        $('#liveRateRefresh').classList.add('spinning');
         const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=tether,bitcoin,ethereum,solana,binancecoin&vs_currencies=usd');
         if (res.ok) {
-          const d = await res.json();
-          liveRatesUsd.USDT = d.tether?.usd || 1;
-          liveRatesUsd.BTC = d.bitcoin?.usd || 81250;
-          liveRatesUsd.ETH = d.ethereum?.usd || 3200;
-          liveRatesUsd.SOL = d.solana?.usd || 155;
-          liveRatesUsd.BNB = d.binancecoin?.usd || 590;
+          const data = await res.json();
+          if (data.tether) liveRatesUsd.USDT = data.tether.usd;
+          if (data.bitcoin) liveRatesUsd.BTC = data.bitcoin.usd;
+          if (data.ethereum) liveRatesUsd.ETH = data.ethereum.usd;
+          if (data.solana) liveRatesUsd.SOL = data.solana.usd;
+          if (data.binancecoin) liveRatesUsd.BNB = data.binancecoin.usd;
+          updateMarketRateDisplay();
+          applyFiltersAndRender();
         }
-      } catch (e) {}
-      updateMarketRateDisplay();
-      updateExpressCalculations();
+      } catch (e) {
+      } finally {
+        setTimeout(() => $('#liveRateRefresh').classList.remove('spinning'), 500);
+      }
     }
+    $('#liveRateRefresh').addEventListener('click', fetchLiveRates);
 
-    // TELEGRAM NOTIFICATIONS & BIDIRECTIONAL SYNC
-    function notifyTelegramOrder(order, actionType, extraText = '') {
+    async function notifyTelegramOrder(order, actionType = 'OPENED', customDetail = '') {
       try {
         const confStr = localStorage.getItem('bp_telegram_config');
         if (!confStr) return;
         const tg = JSON.parse(confStr);
-        if (!tg.token || !tg.chatId) return;
+        if (!tg.enabled || !tg.token || !tg.chatId) return;
 
-        let title = '🔔 NEW P2P ESCROW TRADE OPENED';
-        let detail = 'Trade created. Escrow deposit locked. Awaiting customer payment.';
+        let title = '🤝 NEW P2P ESCROW TRADE';
+        let detail = 'Order opened and locked in BluePeak Multi-Sig Escrow.';
+
         if (actionType === 'PAID') {
           title = '💰 BUYER MARKED ORDER AS PAID';
           detail = 'Customer confirmed payment transfer. Verify bank receipt and release crypto escrow.';
@@ -1027,28 +1286,37 @@
           detail = 'Trade has been cancelled. Funds returned to wallet.';
         } else if (actionType === 'CHAT') {
           title = '💬 NEW P2P CHAT MESSAGE';
-          detail = `Message from ${extraText || 'Customer'}`;
+          detail = `Message: ${customDetail}`;
+        } else if (actionType === 'PROOF') {
+          title = '📎 PAYMENT PROOF UPLOADED';
+          detail = 'Buyer uploaded bank receipt. Counterparty 20-min window active.';
+        } else if (actionType === 'DISPUTE') {
+          title = '🚩 P2P ESCROW DISPUTE OPENED';
+          detail = 'Mediation requested. Awaiting administrator review.';
         }
 
-        const sym = fiatSym(order.fiat);
-        const msg = `${title}\n\n` +
-          `• Order ID: #${order.id}\n` +
-          `• Action: ${(order.mode || 'trade').toUpperCase()} ${order.crypto}\n` +
-          `• Volume: ${order.cryptoAmount} ${order.crypto} (${sym}${order.fiatAmount} ${order.fiat})\n` +
-          `• Merchant: ${order.merchantName}\n` +
-          `• Customer: ${order.userName || 'Institutional Trader'}\n` +
-          `• Status: ${order.status}\n\n` +
-          `${detail}`;
+        const msgText = 
+`${title}
+───────────────────────
+Order ID: #${order.id}
+Type: ${order.mode.toUpperCase()} ${order.crypto}
+Fiat Amount: ${fiatSym(order.fiat)}${order.fiatAmount} ${order.fiat}
+Crypto Quantity: ${order.cryptoAmount} ${order.crypto}
+Counterparty: ${order.merchantName}
+Trader Name: ${order.userName || 'P2P Trader'}
+Status: ${order.status}
+Notice: ${detail}
+───────────────────────
+Reply directly to this message or send "#${order.id} <your message>" to chat back into the trade room.`;
 
-        fetch(`https://api.telegram.org/bot${tg.token}/sendMessage`, {
+        await fetch(`https://api.telegram.org/bot${tg.token}/sendMessage`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ chat_id: tg.chatId, text: msg })
-        }).catch(() => {});
-      } catch (e) {}
+          body: JSON.stringify({ chat_id: tg.chatId, text: msgText })
+        });
+      } catch (err) {}
     }
 
-    // Telegram Inbound Polling: Check if operator replied via Telegram
     function startTelegramInboundSync() {
       if (state.telegramPollInterval) clearInterval(state.telegramPollInterval);
       state.telegramPollInterval = setInterval(async () => {
@@ -1066,10 +1334,10 @@
               if (u.update_id > state.lastTgUpdateId) state.lastTgUpdateId = u.update_id;
               const text = u.message?.text;
               if (text && state.activeOrder) {
-                if (!text.startsWith('🔔') && !text.startsWith('💰') && !text.startsWith('❌') && !text.startsWith('💬')) {
+                if (!text.startsWith('🔔') && !text.startsWith('💰') && !text.startsWith('❌') && !text.startsWith('💬') && !text.startsWith('🤝')) {
                   const newReply = {
                     sender: 'merchant',
-                    senderName: state.activeOrder.merchantName + ' (via Telegram)',
+                    senderName: state.activeOrder.merchantName + ' (Support)',
                     text: text,
                     time: new Date().toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' })
                   };
@@ -1085,17 +1353,15 @@
             });
           }
         } catch(e) {}
-      }, 4000);
+      }, 3500);
     }
 
-    // MARKETPLACE OFFERS BUILDER
-    function buildOffers() {
+    function generateMarketOffers() {
       allMerchants = loadMerchants();
       const baseMerchants = allMerchants[state.fiat] || allMerchants.USD || [];
       const baseRate = getCryptoFiatRate(state.crypto, state.fiat);
       const offers = [];
 
-      // 1. Incorporate User Published Ads for this currency & asset
       try {
         const userAds = JSON.parse(localStorage.getItem('bp_my_p2p_ads') || '[]');
         userAds.forEach(a => {
@@ -1126,7 +1392,6 @@
         });
       } catch (e) {}
 
-      // 2. Incorporate Institutional Market Makers
       baseMerchants.forEach((m, idx) => {
         const spreadMultiplier = state.p2pMode === 'buy' ? (1 + idx * 0.004) : (0.992 - idx * 0.003);
         const calculatedPrice = baseRate * spreadMultiplier;
@@ -1151,15 +1416,29 @@
     }
 
     function applyFiltersAndRender() {
-      updateMarketRateDisplay();
-      let offers = buildOffers();
-      if (state.amountFilter) offers = offers.filter(o => o.limitMax >= state.amountFilter && o.limitMin <= state.amountFilter);
-      if (state.paymentFilter !== 'any') offers = offers.filter(o => o.methods.some(m => m.toLowerCase().includes(state.paymentFilter.toLowerCase())));
-      if (state.filterLimitPeriod !== 'all') offers = offers.filter(o => o.timeWindow <= parseInt(state.filterLimitPeriod));
-      if (state.filterVerification === 'verified') offers = offers.filter(o => o.merchant.verified);
-      if (state.filterCompletion > 0) offers = offers.filter(o => o.merchant.completion >= state.filterCompletion);
+      state.allOffers = generateMarketOffers();
+      let res = state.allOffers;
 
-      state.filteredOffers = offers;
+      if (state.amountFilter !== null) {
+        res = res.filter(o => state.amountFilter >= o.limitMin && state.amountFilter <= o.limitMax);
+      }
+      if (state.paymentFilter !== null) {
+        res = res.filter(o => o.methods.some(m => m.toLowerCase().includes(state.paymentFilter.toLowerCase())));
+      }
+      if (state.advPeriod !== 'all') {
+        const target = parseInt(state.advPeriod);
+        res = res.filter(o => o.timeWindow <= target);
+      }
+      if (state.advType === 'verified') {
+        res = res.filter(o => o.merchant.verified);
+      } else if (state.advType === 'online') {
+        res = res.filter(o => o.merchant.isOnline);
+      }
+      if (state.advComp > 0) {
+        res = res.filter(o => o.merchant.completion >= state.advComp);
+      }
+
+      state.filteredOffers = res;
       renderOfferPage();
     }
 
@@ -1179,16 +1458,14 @@
           <div>
             <div class="merchant-row">
               <div class="merchant-identity" onclick="openProfileModal('${o.merchant.id}')">
-                <div class="merchant-avatar-wrap">
-                  <div class="merchant-avatar">${o.merchant.initial || o.merchant.name.charAt(0)}</div>
-                  ${o.merchant.isOnline ? '<span class="online-dot"></span>' : ''}
-                </div>
                 <div>
-                  <div class="merchant-name">${o.merchant.name} ${o.merchant.verified ? '<span class="verified-badge">✓</span>' : ''}</div>
-                  <div class="merchant-meta">${o.merchant.trades} trades · ${o.merchant.completion}% · ${o.timeWindow} min</div>
+                  <div class="merchant-name">${o.merchant.name} ${o.merchant.verified ? '<span class="verified-badge">✓</span>' : ''} ${o.merchant.isOnline ? '<span style="width:7px;height:7px;border-radius:50%;background:var(--green-500);display:inline-block;vertical-align:middle;margin-left:4px;" title="Online"></span>' : ''}</div>
+                  <div class="merchant-meta">${o.merchant.trades} trades · ${o.merchant.completion}% · ${o.timeWindow || 20} min</div>
                 </div>
               </div>
-              <button class="view-profile" onclick="openProfileModal('${o.merchant.id}')">Profile →</button>
+              <button class="profile-arrow-btn" onclick="openProfileModal('${o.merchant.id}')" aria-label="View merchant profile" title="View Profile">
+                <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+              </button>
             </div>
             <div class="offer-price" style="margin-top:12px;">
               <span class="price-amount">${sym}${formatNum(o.price, (state.crypto==='BTC'||state.fiat==='NGN'||state.fiat==='TZS')?0:2)}</span>
@@ -1207,7 +1484,6 @@
       `).join('');
     }
 
-    // ORDER MODAL LOGIC (BUY & SELL FLOWS)
     function openOrderModal(offerId) {
       const offer = state.filteredOffers.find(o => o.id === offerId);
       if (!offer) return;
@@ -1254,32 +1530,26 @@
               <div><strong>External Wallet (Direct Escrow)</strong><div class="source-desc">Send from TrustWallet/Ledger directly to trade escrow address.</div></div>
             </div>
           </div>
-          <div class="balance-warning-box" id="balWarn" style="display:none;">
-            <p>⚠️ Insufficient BluePeak balance.</p>
-            <a href="deposit.html" class="deposit-cta-btn">Deposit ${state.crypto}</a>
+        </div>
+
+        <div id="insufficientBalWarning" class="balance-warning-box" style="display:none;">
+          <p>⚠️ Insufficient balance in your BluePeak wallet for this order.</p>
+          <a href="deposit.html" class="deposit-cta-btn">📥 Deposit ${state.crypto} Now</a>
+        </div>
+
+        <div id="userPayoutWrap" class="user-payout-box">
+          <div class="user-payout-header">
+            <strong>Payout Account (Where Merchant Pays You)</strong>
+            <button class="user-payout-edit-btn" id="editPayoutMethodBtn">Change / Add</button>
+          </div>
+          <div class="user-payout-details" id="payoutDetailsPreview">
+            ${selectedUserMethod ? `<strong>${selectedUserMethod.method}</strong>: ${selectedUserMethod.number} (${selectedUserMethod.holder})` : 'No payout details registered.'}
           </div>
         </div>
 
-        <div id="internalSellPayoutSection" class="field-group">
-          <label class="field-label">Receive Payment Via (${state.fiat})</label>
-          <div class="user-payout-box" id="userPayoutBox">
-            ${selectedUserMethod ? `
-              <div class="user-payout-header">
-                <strong>${selectedUserMethod.method}</strong>
-                <button type="button" class="user-payout-edit-btn" id="changeUserPayoutBtn">Edit Account</button>
-              </div>
-              <div class="user-payout-details">
-                <div>Account: <strong>${selectedUserMethod.number}</strong></div>
-                <div>Name: <strong>${selectedUserMethod.holder}</strong></div>
-                ${selectedUserMethod.extra ? `<div style="font-size:11px;color:var(--gray-500);">${selectedUserMethod.extra}</div>` : ''}
-              </div>
-            ` : `
-              <div style="display:flex;justify-content:space-between;align-items:center;">
-                <span style="font-size:12px;color:var(--red-500);font-weight:700;">No payout account added</span>
-                <button type="button" class="btn-solid-green" style="padding:6px 14px;font-size:11px;width:auto;" id="changeUserPayoutBtn">+ Add Details</button>
-              </div>
-            `}
-          </div>
+        <div id="externalEscrowGuide" class="escrow-guide-banner" style="display:none;">
+          <div class="escrow-guide-title"><span>🛡️</span> Direct External Deposit</div>
+          <p class="escrow-guide-step">When this order is opened, an institutional multi-sig escrow address will be generated. You will transfer <strong>${state.crypto}</strong> directly to escrow to initiate lock.</p>
         </div>
         ` : `
         <div class="field-group">
@@ -1291,71 +1561,88 @@
         `}
 
         <div class="terms-checkbox">
-          <input type="checkbox" id="ordTerms" checked>
-          <label for="ordTerms">I agree that funds are held securely in BluePeak Multi-Sig Escrow.</label>
+          <input type="checkbox" id="ordTermsCheck" checked>
+          <span>I agree to the BluePeak P2P Escrow terms. I understand that assets remain in cold custody until payment confirmation.</span>
         </div>
 
-        <button class="btn-solid-green ${isBuy ? '' : 'sell-btn-style'}" id="ordConfirmBtn">Confirm &amp; Place Order</button>
+        <button class="btn-solid-green ${isBuy ? '' : 'sell-btn-style'}" id="ordConfirmBtn">${isBuy ? 'Confirm & Open Escrow' : 'Lock Escrow & Open Trade'}</button>
       `;
 
-      openSheet('orderModal');
-
-      const amtInp = $('#ordInputAmt');
       let srcType = 'internal';
 
       if (!isBuy) {
-        const srcInt = $('#srcInt');
-        const srcExt = $('#srcExt');
-        const payoutSec = $('#internalSellPayoutSection');
-        const balWarn = $('#balWarn');
+        const rInt = $('#srcInt');
+        const rExt = $('#srcExt');
+        const warn = $('#insufficientBalWarning');
+        const pwrap = $('#userPayoutWrap');
+        const eguide = $('#externalEscrowGuide');
 
-        srcInt.addEventListener('click', () => {
+        rInt.addEventListener('click', () => {
           srcType = 'internal';
-          srcInt.classList.add('active');
-          srcExt.classList.remove('active');
-          payoutSec.style.display = 'flex';
+          rInt.classList.add('active');
+          rExt.classList.remove('active');
+          rInt.querySelector('input').checked = true;
+          pwrap.style.display = 'flex';
+          eguide.style.display = 'none';
           checkBal();
         });
 
-        srcExt.addEventListener('click', () => {
+        rExt.addEventListener('click', () => {
           srcType = 'external';
-          srcExt.classList.add('active');
-          srcInt.classList.remove('active');
-          payoutSec.style.display = 'none';
-          balWarn.style.display = 'none';
+          rExt.classList.add('active');
+          rInt.classList.remove('active');
+          rExt.querySelector('input').checked = true;
+          warn.style.display = 'none';
+          pwrap.style.display = 'none';
+          eguide.style.display = 'block';
         });
 
         function checkBal() {
-          const val = parseFloat(amtInp.value) || 0;
-          balWarn.style.display = (srcType === 'internal' && val > userCryptoBal) ? 'flex' : 'none';
+          const val = parseFloat($('#ordInputAmt').value) || 0;
+          if (srcType === 'internal' && val > userCryptoBal) {
+            warn.style.display = 'flex';
+          } else {
+            warn.style.display = 'none';
+          }
         }
+        $('#ordInputAmt').addEventListener('input', checkBal);
 
-        amtInp.addEventListener('input', () => {
-          const q = parseFloat(amtInp.value) || 0;
-          $('#ordDisp1').textContent = `${q.toFixed(4)} ${state.crypto}`;
-          $('#ordDisp2').textContent = `${sym}${formatNum(q * offer.price, 2)}`;
-          checkBal();
-        });
-
-        $('#changeUserPayoutBtn')?.addEventListener('click', openUserPaymentMethodModal);
-      } else {
-        amtInp.addEventListener('input', () => {
-          const f = parseFloat(amtInp.value) || 0;
-          $('#ordDisp1').textContent = `${sym}${formatNum(f, 2)}`;
-          $('#ordDisp2').textContent = `${(f / offer.price).toFixed(4)} ${state.crypto}`;
+        $('#editPayoutMethodBtn').addEventListener('click', () => {
+          openUserPaymentMethodModal();
         });
       }
 
-      $('#ordConfirmBtn').addEventListener('click', () => {
-        const val = parseFloat(amtInp.value);
-        if (!val || val <= 0) return alert('Enter a valid amount.');
-        if (!isBuy && srcType === 'internal' && val > userCryptoBal) return alert('Insufficient BluePeak balance.');
+      $('#ordInputAmt').addEventListener('input', () => {
+        const val = parseFloat($('#ordInputAmt').value) || 0;
+        if (isBuy) {
+          const cryptoAmt = val / offer.price;
+          $('#ordDisp1').textContent = sym + formatNum(val, 2);
+          $('#ordDisp2').textContent = formatNum(cryptoAmt, 4) + ' ' + state.crypto;
+        } else {
+          const fiatAmt = val * offer.price;
+          $('#ordDisp1').textContent = formatNum(val, 4) + ' ' + state.crypto;
+          $('#ordDisp2').textContent = sym + formatNum(fiatAmt, 2);
+        }
+      });
 
-        if (!isBuy && srcType === 'internal') {
-          const currentMethods = getUserPaymentMethods();
-          if (currentMethods.length === 0) {
-            alert('Please add your payout account details before proceeding.');
-            return openUserPaymentMethodModal();
+      openSheet('orderModal');
+
+      $('#ordConfirmBtn').addEventListener('click', () => {
+        const val = parseFloat($('#ordInputAmt').value) || 0;
+        if (!val || val <= 0) {
+          showToast('Please enter a valid trade amount.');
+          return;
+        }
+
+        if (isBuy) {
+          if (val < offer.limitMin || val > offer.limitMax) {
+            showToast(`Amount must be between ${sym}${offer.limitMin} and ${sym}${offer.limitMax}`);
+            return;
+          }
+        } else {
+          if (srcType === 'internal' && val > userCryptoBal) {
+            showToast('Insufficient wallet balance. Use External Wallet or deposit funds.');
+            return;
           }
         }
 
@@ -1364,7 +1651,7 @@
         const assetObj = ASSETS.find(a => a.symbol === state.crypto) || ASSETS[0];
         const cryptoAmt = isBuy ? (val / offer.price).toFixed(4) : val.toFixed(4);
         const fiatAmt = isBuy ? val.toFixed(2) : (val * offer.price).toFixed(2);
-        const escrowAddr = offer.merchant.escrowAddr || assetObj.defaultAddr;
+        const escrowAddr = getAdminEscrowAddress(state.crypto, offer.merchant.escrowAddr || assetObj.defaultAddr);
         const nowTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         const userMethods = getUserPaymentMethods();
         const activeMethod = userMethods[0] || { method: 'Bank Transfer', number: '--', holder: userProf.name };
@@ -1375,7 +1662,7 @@
           messages.push({
             sender: 'merchant',
             senderName: offer.merchant.name,
-            text: `Hi ${userProf.name}! Order #${orderId} is opened. Please send ${sym}${fiatAmt} using ${$('#ordMethodSelect').value}. I will release ${cryptoAmt} ${state.crypto} upon bank receipt.`,
+            text: `Hi ${userProf.name}! Order #${orderId} is opened for ${sym}${fiatAmt}. Please complete your transfer and upload proof of payment so I can release ${cryptoAmt} ${state.crypto}.`,
             time: nowTime
           });
         } else {
@@ -1383,19 +1670,19 @@
             messages.push({
               sender: 'system',
               senderName: 'BluePeak Escrow',
-              text: `Order #${orderId} locked. Crypto funds (${cryptoAmt} ${state.crypto}) are held securely in BluePeak Escrow.`,
+              text: `Order #${orderId} locked. Crypto funds (${cryptoAmt} ${state.crypto}) are held securely in BluePeak Escrow vault.`,
               time: nowTime
             });
             messages.push({
               sender: 'user',
               senderName: userProf.name,
-              text: `Hello ${offer.merchant.name}, please send ${sym}${fiatAmt} to my account:\n• Method: ${activeMethod.method}\n• Account: ${activeMethod.number}\n• Name: ${activeMethod.holder}`,
+              text: `Hello ${offer.merchant.name}, please process payment of ${sym}${fiatAmt} to my account. I will release the crypto escrow as soon as received.`,
               time: nowTime
             });
             messages.push({
               sender: 'merchant',
               senderName: offer.merchant.name,
-              text: `Received details! Processing payout of ${sym}${fiatAmt} to ${activeMethod.holder}. I will notify you once transferred.`,
+              text: `Received trade notification! Processing payout of ${sym}${fiatAmt}. I will notify you once transferred.`,
               time: nowTime
             });
           } else {
@@ -1426,7 +1713,8 @@
           network: assetObj.network,
           userName: userProf.name,
           merchantName: offer.merchant.name,
-          timeLeft: (offer.timeWindow || 15) * 60,
+          timeLeft: (offer.timeWindow || 20) * 60,
+          confirmDeadline: Date.now() + (offer.timeWindow || 20) * 60 * 1000,
           status: 'Escrow Locked',
           date: new Date().toLocaleDateString() + ' ' + nowTime,
           messages
@@ -1445,67 +1733,56 @@
 
     function openUserPaymentMethodModal() {
       const curr = CURRENCIES.find(c => c.code === state.fiat) || CURRENCIES[0];
-      const sel = $('#userPayMethodTypeSelect');
-      sel.innerHTML = curr.methods.map(m => `<option value="${m}">${m}</option>`).join('');
+      const select = $('#userPayMethodTypeSelect');
+      select.innerHTML = ALL_PAYMENT_METHODS.map(m => `<option value="${m}">${m}</option>`).join('');
+
       openSheet('userPaymentMethodModal');
+
+      $('#saveUserPaymentDetailsBtn').onclick = () => {
+        const method = $('#userPayMethodTypeSelect').value;
+        const number = $('#userPayAccountNumber').value.trim();
+        const holder = $('#userPayAccountHolder').value.trim();
+        const extra = $('#userPayExtraInfo').value.trim();
+
+        if (!number || !holder) {
+          showToast('Please fill in required payout fields.');
+          return;
+        }
+
+        const newMethod = { method, number, holder, extra };
+        const list = getUserPaymentMethods();
+        list.unshift(newMethod);
+        saveUserPaymentMethods(list);
+
+        const preview = $('#payoutDetailsPreview');
+        if (preview) {
+          preview.innerHTML = `<strong>${method}</strong>: ${number} (${holder})`;
+        }
+        closeSheet('userPaymentMethodModal');
+        renderProfilePaymentMethods();
+        showToast('Payment method saved.');
+      };
     }
 
-    $('#saveUserPaymentDetailsBtn').addEventListener('click', () => {
-      const method = $('#userPayMethodTypeSelect').value;
-      const number = $('#userPayAccountNumber').value.trim();
-      const holder = $('#userPayAccountHolder').value.trim();
-      const extra = $('#userPayExtraInfo').value.trim();
-
-      if (!number || !holder) return alert('Please enter account number and holder name.');
-
-      const list = getUserPaymentMethods();
-      list.unshift({ method, number, holder, extra });
-      saveUserPaymentMethods(list);
-
-      closeSheet('userPaymentMethodModal');
-      renderProfilePaymentMethods();
-      showToast('Payout details saved to profile!');
-
-      const box = $('#userPayoutBox');
-      if (box) {
-        box.innerHTML = `
-          <div class="user-payout-header">
-            <strong>${method}</strong>
-            <button type="button" class="user-payout-edit-btn" id="changeUserPayoutBtn">Edit Account</button>
-          </div>
-          <div class="user-payout-details">
-            <div>Account: <strong>${number}</strong></div>
-            <div>Name: <strong>${holder}</strong></div>
-            ${extra ? `<div style="font-size:11px;color:var(--gray-500);">${extra}</div>` : ''}
-          </div>
-        `;
-        $('#changeUserPayoutBtn')?.addEventListener('click', openUserPaymentMethodModal);
-      }
-    });
-
     function saveOrderToHistory(order) {
-      let orders = JSON.parse(localStorage.getItem('bp_p2p_orders') || '[]');
-      const existingIdx = orders.findIndex(x => x.id === order.id);
-      const record = {
-        id: order.id,
-        mode: order.mode,
-        crypto: order.crypto,
-        cryptoAmount: order.cryptoAmount,
-        fiat: order.fiat,
-        fiatAmount: order.fiatAmount,
-        merchantName: order.merchantName,
-        userName: order.userName || 'Institutional Trader',
-        status: order.status,
-        date: order.date,
-        srcType: order.srcType
-      };
-      if (existingIdx >= 0) {
-        orders[existingIdx] = Object.assign(orders[existingIdx], record);
-      } else {
-        orders.unshift(record);
-      }
-      localStorage.setItem('bp_p2p_orders', JSON.stringify(orders));
-      renderOrdersHistory();
+      try {
+        let orders = JSON.parse(localStorage.getItem('bp_p2p_orders') || '[]');
+        const idx = orders.findIndex(o => o.id === order.id);
+        const record = {
+          id: order.id,
+          mode: order.mode,
+          crypto: order.crypto,
+          cryptoAmount: order.cryptoAmount,
+          fiat: order.fiat,
+          fiatAmount: order.fiatAmount,
+          merchantName: order.merchantName,
+          status: order.status,
+          date: order.date
+        };
+        if (idx >= 0) orders[idx] = record; else orders.unshift(record);
+        localStorage.setItem('bp_p2p_orders', JSON.stringify(orders));
+        renderOrdersHistory();
+      } catch (e) {}
     }
 
     function syncOrderStorage(order) {
@@ -1521,7 +1798,7 @@
         id: 'chat-' + order.id,
         order: order.id,
         merchant: order.merchantName,
-        buyer: order.userName || 'Institutional Trader',
+        buyer: order.userName || 'P2P Trader',
         asset: order.crypto,
         amount: order.cryptoAmount,
         usdAmount: parseFloat(order.fiatAmount),
@@ -1577,31 +1854,17 @@
                 <span class="network-pill">${m.network}</span>
                 <div class="addr-line">${m.address}</div>
                 <button class="copy-chip" onclick="copyText('${m.address}')">📋 Copy Address</button>
-              </div>` : ''}
-            <span class="meta">${m.time || ''}</span>
+              </div>
+            ` : ''}
+            <span class="meta">${m.time}</span>
           </div>
         `;
       }).join('');
     }
 
-    function copyText(txt) {
-      navigator.clipboard.writeText(txt).then(() => showToast('Escrow Address Copied!'));
-    }
-
-    function startTimer() {
-      if (state.orderTimerInterval) clearInterval(state.orderTimerInterval);
-      state.orderTimerInterval = setInterval(() => {
-        if (state.activeOrder && state.activeOrder.timeLeft > 0) {
-          state.activeOrder.timeLeft--;
-          const el = $('#orderTimerDisplay');
-          if (el) {
-            const m = Math.floor(state.activeOrder.timeLeft / 60);
-            const s = state.activeOrder.timeLeft % 60;
-            el.textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-          }
-        }
-      }, 1000);
-    }
+    window.copyText = function(txt) {
+      navigator.clipboard.writeText(txt).then(() => showToast('Address copied to clipboard.'));
+    };
 
     function renderActiveOrder() {
       const o = state.activeOrder;
@@ -1613,7 +1876,7 @@
         <div class="active-order-panel">
           <div class="order-timer-banner">
             <h4>Trade Settlement Window</h4>
-            <div class="order-timer-value" id="orderTimerDisplay">15:00</div>
+            <div class="order-timer-value" id="orderTimerDisplay">20:00</div>
           </div>
 
           <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
@@ -1693,7 +1956,7 @@
         if (!txt) return;
         const msg = {
           sender: 'user',
-          senderName: o.userName || 'Institutional Trader',
+          senderName: o.userName || 'P2P Trader',
           text: txt,
           time: new Date().toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' })
         };
@@ -1708,51 +1971,27 @@
       $('#chatInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMsg(); });
 
       $('#cancelBtn').addEventListener('click', () => {
-        if (confirm('Cancel this trade? Funds in escrow will be released.')) {
-          if (state.orderTimerInterval) clearInterval(state.orderTimerInterval);
-          if (state.chatPollInterval) clearInterval(state.chatPollInterval);
-          state.activeOrder.status = 'Cancelled';
-          state.activeOrder.messages.push({
-            sender: 'system',
-            senderName: 'System Escrow',
-            text: '❌ Trade was cancelled by customer.',
-            time: new Date().toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' })
-          });
-          notifyTelegramOrder(state.activeOrder, 'CANCELLED');
-          saveOrderToHistory(state.activeOrder);
-          syncOrderStorage(state.activeOrder);
-          localStorage.removeItem('bp_active_order');
-          state.activeOrder = null;
-          showToast('Trade cancelled.');
-          applyFiltersAndRender();
-        }
+        openSheet('cancelReasonModal');
       });
 
       $('#confirmPaidBtn').addEventListener('click', () => {
         if (!state.activeOrder) return;
-        if (state.activeOrder.status === 'Paid') {
-          showToast('Payment already confirmed. Awaiting merchant release.');
+        if (state.activeOrder.status === 'Disputed') {
+          showToast('This order is currently under dispute mediation.');
           return;
         }
-        state.activeOrder.status = 'Paid';
-        state.activeOrder.messages.push({
-          sender: 'system',
-          senderName: 'System Escrow',
-          text: '✅ Buyer has confirmed payment. Merchant and Escrow Desk notified to verify transfer and release escrow.',
-          time: new Date().toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' })
-        });
-        saveOrderToHistory(state.activeOrder);
-        syncOrderStorage(state.activeOrder);
-        notifyTelegramOrder(state.activeOrder, 'PAID');
-        $('#chatContainer').innerHTML = renderBubbles(state.activeOrder.messages);
-        $('#chatContainer').scrollTop = $('#chatContainer').scrollHeight;
-        $('#confirmPaidBtn').textContent = '✓ Payment Marked as Sent';
-        $('#confirmPaidBtn').style.opacity = '0.75';
-        showToast('Confirmation dispatched to vendor & escrow desk.');
+        if (state.activeOrder.timeLeft <= 0 && (state.activeOrder.status === 'Paid' || state.activeOrder.status === 'Proof Submitted')) {
+          openSheet('disputeModal');
+          return;
+        }
+        if (state.activeOrder.status === 'Paid' || state.activeOrder.status === 'Proof Submitted') {
+          showToast('Trade is marked paid. Counterparty has 20 mins to verify.');
+          return;
+        }
+        openSheet('paymentProofModal');
       });
     }
 
-    // ORDERS HISTORY RENDER
     function renderOrdersHistory() {
       const list = $('#ordersList');
       const orders = JSON.parse(localStorage.getItem('bp_p2p_orders') || '[]');
@@ -1783,7 +2022,6 @@
       `).join('');
     }
 
-    // ADS TAB MANAGEMENT
     function renderMyAds() {
       const list = $('#myAdsList');
       const ads = JSON.parse(localStorage.getItem('bp_my_p2p_ads') || '[]');
@@ -1821,27 +2059,371 @@
     });
 
     $('#submitNewAdBtn').addEventListener('click', () => {
-      const price = parseFloat($('#adUnitPrice').value);
-      const min = parseFloat($('#adMinLimit').value) || 50;
-      const max = parseFloat($('#adMaxLimit').value) || 3000;
-      const methods = $('#adMethods').value.trim() || 'Bank Transfer';
       const asset = $('#adAssetSelect').value;
       const fiat = $('#adFiatSelect').value;
+      const price = parseFloat($('#adUnitPrice').value);
+      const min = parseFloat($('#adMinLimit').value);
+      const max = parseFloat($('#adMaxLimit').value);
+      const methods = $('#adMethods').value.trim();
+      const escrowAddr = $('#adEscrowAddr').value.trim();
 
-      if (!price || price <= 0) return alert('Please enter a valid price.');
+      if (!price || !min || !max || !methods) {
+        showToast('Please complete all advertisement fields.');
+        return;
+      }
 
-      const newAd = { id: 'ad-' + Date.now(), side: currentAdSide, asset, fiat, price, min, max, methods };
-      let ads = JSON.parse(localStorage.getItem('bp_my_p2p_ads') || '[]');
-      ads.unshift(newAd);
-      localStorage.setItem('bp_my_p2p_ads', JSON.stringify(ads));
+      const newAd = {
+        id: 'ad-' + Date.now(),
+        side: currentAdSide,
+        asset,
+        fiat,
+        price,
+        min,
+        max,
+        methods,
+        escrowAddr
+      };
+
+      const list = JSON.parse(localStorage.getItem('bp_my_p2p_ads') || '[]');
+      list.unshift(newAd);
+      localStorage.setItem('bp_my_p2p_ads', JSON.stringify(list));
 
       closeSheet('createAdModal');
       renderMyAds();
-      applyFiltersAndRender();
       showToast('Advertisement published to marketplace!');
     });
 
-    // PROFILE VIEW PAYMENT METHODS
+    function initExpressDesk() {
+      const userBals = getUserBalances();
+      $('#expressBuyBalHint').textContent = `Bal: ${userBals[state.expressCrypto] || 0} ${state.expressCrypto}`;
+      $('#expressSellBalHint').textContent = `Available: ${userBals[state.expressCrypto] || 0} ${state.expressCrypto}`;
+
+      $('#expressBuyPayAmt').addEventListener('input', updateExpressCalculations);
+      $('#expressSellPayAmt').addEventListener('input', updateExpressCalculations);
+
+      $('#expressBuyFiatBtn').addEventListener('click', () => openCurrencyPickerForExpress('expressBuyFiat'));
+      $('#expressSellFiatBtn').addEventListener('click', () => openCurrencyPickerForExpress('expressSellFiat'));
+
+      $('#expressBuyCryptoBtn').addEventListener('click', () => openCryptoPickerForExpress('expressBuyCrypto'));
+      $('#expressSellCryptoBtn').addEventListener('click', () => openCryptoPickerForExpress('expressSellCrypto'));
+
+      $('#expressSellMaxBtn').addEventListener('click', () => {
+        const bal = userBals[state.expressCrypto] || 0;
+        $('#expressSellPayAmt').value = bal;
+        updateExpressCalculations();
+      });
+
+      $$('#expressSideToggle .express-subtab').forEach(btn => {
+        btn.addEventListener('click', () => {
+          $$('#expressSideToggle .express-subtab').forEach(b => b.classList.remove('active', 'sell'));
+          btn.classList.add('active');
+          if (btn.dataset.side === 'sell') {
+            btn.classList.add('sell');
+            $('#expressBuyForm').style.display = 'none';
+            $('#expressSellForm').style.display = 'flex';
+          } else {
+            $('#expressBuyForm').style.display = 'flex';
+            $('#expressSellForm').style.display = 'none';
+          }
+          updateExpressCalculations();
+        });
+      });
+
+      $('#executeExpressBuyBtn').addEventListener('click', () => {
+        const val = parseFloat($('#expressBuyPayAmt').value) || 0;
+        if (!val || val <= 0) {
+          showToast('Please enter an amount to buy.');
+          return;
+        }
+        state.p2pMode = 'buy';
+        state.fiat = state.expressFiat;
+        state.crypto = state.expressCrypto;
+        applyFiltersAndRender();
+
+        const expressOffer = state.filteredOffers[0];
+        if (expressOffer) {
+          switchMainView('p2p');
+          openOrderModal(expressOffer.id);
+          setTimeout(() => {
+            const inp = $('#ordInputAmt');
+            if (inp) {
+              inp.value = val;
+              inp.dispatchEvent(new Event('input'));
+            }
+          }, 300);
+        } else {
+          showToast('No active merchants available for instant matching.');
+        }
+      });
+
+      $('#executeExpressSellBtn').addEventListener('click', () => {
+        const val = parseFloat($('#expressSellPayAmt').value) || 0;
+        if (!val || val <= 0) {
+          showToast('Please enter crypto quantity to sell.');
+          return;
+        }
+        state.p2pMode = 'sell';
+        state.fiat = state.expressFiat;
+        state.crypto = state.expressCrypto;
+        applyFiltersAndRender();
+
+        const expressOffer = state.filteredOffers[0];
+        if (expressOffer) {
+          switchMainView('p2p');
+          openOrderModal(expressOffer.id);
+          setTimeout(() => {
+            const inp = $('#ordInputAmt');
+            if (inp) {
+              inp.value = val;
+              inp.dispatchEvent(new Event('input'));
+            }
+          }, 300);
+        } else {
+          showToast('No active merchants available for instant matching.');
+        }
+      });
+
+      updateExpressCalculations();
+    }
+
+    function updateExpressCalculations() {
+      const rate = getCryptoFiatRate(state.expressCrypto, state.expressFiat);
+      const sym = fiatSym(state.expressFiat);
+      const decimals = (state.expressCrypto === 'BTC' || state.expressFiat === 'NGN' || state.expressFiat === 'TZS') ? 0 : 2;
+
+      const buyPay = parseFloat($('#expressBuyPayAmt').value) || 0;
+      const buyRec = rate > 0 ? (buyPay / rate) : 0;
+      $('#expressBuyRecAmt').value = buyRec.toFixed(4);
+      $('#expressBuyRateLabel').textContent = `1 ${state.expressCrypto} ≈ ${sym}${formatNum(rate, decimals)} ${state.expressFiat}`;
+
+      const sellPay = parseFloat($('#expressSellPayAmt').value) || 0;
+      const sellRec = sellPay * rate * 0.992;
+      $('#expressSellRecAmt').value = sellRec.toFixed(decimals);
+      $('#expressSellRateLabel').textContent = `1 ${state.expressCrypto} ≈ ${sym}${formatNum(rate * 0.992, decimals)} ${state.expressFiat}`;
+    }
+
+    function openCurrencyPickerForExpress(target) {
+      $('#currencyList').innerHTML = CURRENCIES.map(c => `
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:12px;cursor:pointer;border-bottom:1px solid #eee;" onclick="selectExpressFiat('${c.code}', '${target}')">
+          <span style="font-size:22px;">${c.flag}</span>
+          <div style="flex:1;margin-left:12px;"><strong>${c.code}</strong> <span style="font-size:12px;color:#777;">${c.name}</span></div>
+          <strong>${c.symbol}</strong>
+        </div>
+      `).join('');
+      openSheet('currencyModal');
+    }
+
+    window.selectExpressFiat = function(code, target) {
+      const c = CURRENCIES.find(x => x.code === code);
+      state.expressFiat = code;
+      if (target === 'expressBuyFiat') {
+        $('#expressBuyFiatFlag').textContent = c.flag;
+        $('#expressBuyFiatLabel').textContent = c.code;
+      } else {
+        $('#expressSellFiatFlag').textContent = c.flag;
+        $('#expressSellFiatLabel').textContent = c.code;
+      }
+      closeSheet('currencyModal');
+      updateExpressCalculations();
+    };
+
+    function openCryptoPickerForExpress(target) {
+      $('#cryptoPickerList').innerHTML = ASSETS.map(a => `
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:12px;cursor:pointer;background:var(--navy-50);border-radius:10px;margin-bottom:6px;" onclick="selectExpressCrypto('${a.symbol}', '${target}')">
+          <img src="${a.icon}" style="width:32px;height:32px;">
+          <div style="flex:1;margin-left:12px;"><strong>${a.symbol}</strong> <div style="font-size:11px;color:#777;">${a.network}</div></div>
+          <strong>${fiatSym(state.expressFiat)}${formatNum(getCryptoFiatRate(a.symbol, state.expressFiat), 2)}</strong>
+        </div>
+      `).join('');
+      openSheet('cryptoModal');
+    }
+
+    window.selectExpressCrypto = function(sym, target) {
+      const a = ASSETS.find(x => x.symbol === sym);
+      state.expressCrypto = sym;
+      if (target === 'expressBuyCrypto') {
+        $('#expressBuyCryptoIcon').src = a.icon;
+        $('#expressBuyCryptoLabel').textContent = sym;
+      } else {
+        $('#expressSellCryptoIcon').src = a.icon;
+        $('#expressSellCryptoLabel').textContent = sym;
+      }
+      const userBals = getUserBalances();
+      $('#expressBuyBalHint').textContent = `Bal: ${userBals[sym] || 0} ${sym}`;
+      $('#expressSellBalHint').textContent = `Available: ${userBals[sym] || 0} ${sym}`;
+      closeSheet('cryptoModal');
+      updateExpressCalculations();
+    };
+
+    $('#fiatDropdown').addEventListener('click', () => {
+      $('#currencyList').innerHTML = CURRENCIES.map(c => `
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:12px;cursor:pointer;border-bottom:1px solid #eee;" onclick="selectFiat('${c.code}')">
+          <span style="font-size:22px;">${c.flag}</span>
+          <div style="flex:1;margin-left:12px;"><strong>${c.code}</strong> <span style="font-size:12px;color:#777;">${c.name}</span></div>
+          <strong>${c.symbol}</strong>
+        </div>
+      `).join('');
+      openSheet('currencyModal');
+    });
+
+    window.selectFiat = function(code) {
+      state.fiat = code;
+      $('#fiatLabel').textContent = code;
+      closeSheet('currencyModal');
+      updateMarketRateDisplay();
+      applyFiltersAndRender();
+    };
+
+    $('#cryptoPill').addEventListener('click', () => {
+      $('#cryptoPickerList').innerHTML = ASSETS.map(a => `
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:12px;cursor:pointer;background:var(--navy-50);border-radius:10px;margin-bottom:6px;" onclick="selectCrypto('${a.symbol}')">
+          <img src="${a.icon}" style="width:32px;height:32px;">
+          <div style="flex:1;margin-left:12px;"><strong>${a.symbol}</strong> <div style="font-size:11px;color:#777;">${a.network}</div></div>
+          <strong>${fiatSym()}${formatNum(getCryptoFiatRate(a.symbol, state.fiat), 2)}</strong>
+        </div>
+      `).join('');
+      openSheet('cryptoModal');
+    });
+
+    window.selectCrypto = function(sym) {
+      state.crypto = sym;
+      const asset = ASSETS.find(a => a.symbol === sym);
+      $('#cryptoPillLabel').textContent = sym;
+      $('#cryptoPillIcon').innerHTML = `<img src="${asset.icon}">`;
+      closeSheet('cryptoModal');
+      updateMarketRateDisplay();
+      applyFiltersAndRender();
+    };
+
+    $('#amountPill').addEventListener('click', () => {
+      $('#amountCurrencySym').textContent = fiatSym();
+      $('#amountInput').value = state.amountFilter || '';
+      openSheet('amountModal');
+    });
+
+    window.applyAmount = function() {
+      const val = parseFloat($('#amountInput').value);
+      state.amountFilter = isNaN(val) ? null : val;
+      if (state.amountFilter) {
+        $('#amountPillLabel').textContent = `${fiatSym()}${state.amountFilter}`;
+        $('#amountPill').classList.add('active-filter');
+      } else {
+        $('#amountPillLabel').textContent = 'Amount';
+        $('#amountPill').classList.remove('active-filter');
+      }
+      closeSheet('amountModal');
+      applyFiltersAndRender();
+    };
+
+    $('#paymentPill').addEventListener('click', () => {
+      renderPaymentOptions(ALL_PAYMENT_METHODS);
+      openSheet('paymentModal');
+    });
+
+    function renderPaymentOptions(list) {
+      $('#paymentPickList').innerHTML = `
+        <div style="padding:10px;cursor:pointer;border-bottom:1px solid #eee;font-weight:700;" onclick="selectPayment(null)">All Payment Methods</div>
+        ${list.map(p => `<div style="padding:10px;cursor:pointer;border-bottom:1px solid #eee;" onclick="selectPayment('${p}')">${p}</div>`).join('')}
+      `;
+    }
+
+    $('#paymentSearchInput').addEventListener('input', (e) => {
+      const q = e.target.value.toLowerCase();
+      renderPaymentOptions(ALL_PAYMENT_METHODS.filter(p => p.toLowerCase().includes(q)));
+    });
+
+    window.selectPayment = function(method) {
+      state.paymentFilter = method;
+      if (method) {
+        $('#paymentPillLabel').textContent = method;
+        $('#paymentPill').classList.add('active-filter');
+      } else {
+        $('#paymentPillLabel').textContent = 'Payment';
+        $('#paymentPill').classList.remove('active-filter');
+      }
+      closeSheet('paymentModal');
+      applyFiltersAndRender();
+    };
+
+    $('#advancedFilterPill').addEventListener('click', () => openSheet('advancedFilterModal'));
+
+    $$('#limitPeriodGrid .filter-opt-btn').forEach(b => {
+      b.addEventListener('click', () => {
+        $$('#limitPeriodGrid .filter-opt-btn').forEach(x => x.classList.remove('active'));
+        b.classList.add('active');
+        state.advPeriod = b.dataset.period;
+      });
+    });
+
+    $$('#merchantTypeGrid .filter-opt-btn').forEach(b => {
+      b.addEventListener('click', () => {
+        $$('#merchantTypeGrid .filter-opt-btn').forEach(x => x.classList.remove('active'));
+        b.classList.add('active');
+        state.advType = b.dataset.vtype;
+      });
+    });
+
+    $$('#completionGrid .filter-opt-btn').forEach(b => {
+      b.addEventListener('click', () => {
+        $$('#completionGrid .filter-opt-btn').forEach(x => x.classList.remove('active'));
+        b.classList.add('active');
+        state.advComp = parseInt(b.dataset.comp);
+      });
+    });
+
+    $('#applyAdvancedFiltersBtn').addEventListener('click', () => {
+      closeSheet('advancedFilterModal');
+      applyFiltersAndRender();
+      showToast('Filters applied.');
+    });
+
+    $$('#buySellToggle .bs-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        $$('#buySellToggle .bs-btn').forEach(b => b.classList.remove('active', 'sell-active'));
+        btn.classList.add('active');
+        state.p2pMode = btn.dataset.mode;
+        if (state.p2pMode === 'sell') btn.classList.add('sell-active');
+        applyFiltersAndRender();
+      });
+    });
+
+    $$('.promo-dot').forEach(d => {
+      d.addEventListener('click', () => {
+        const idx = parseInt(d.dataset.slide);
+        $$('.promo-slide').forEach((s, i) => s.classList.toggle('active', i === idx));
+        $$('.promo-dot').forEach((dot, i) => dot.classList.toggle('active', i === idx));
+      });
+    });
+
+    $$('.p2p-tab').forEach(t => {
+      t.addEventListener('click', () => {
+        $$('.p2p-tab').forEach(x => x.classList.remove('active'));
+        t.classList.add('active');
+        switchMainView(t.dataset.p2ptab);
+      });
+    });
+
+    function switchMainView(id) {
+      $$('.view-section').forEach(v => v.classList.remove('active'));
+      const target = $(`#view-${id}`);
+      if (target) target.classList.add('active');
+
+      $$('.p2p-tab').forEach(t => t.classList.toggle('active', t.dataset.p2ptab === id));
+      $$('.bottom-nav-item').forEach(b => b.classList.toggle('active', b.dataset.bnav === id));
+
+      if (id === 'orders') renderOrdersHistory();
+      if (id === 'ads') renderMyAds();
+      if (id === 'profile') {
+        const u = getUserProfile();
+        $('#profDisplayName').textContent = u.name;
+        $('#profAvatar').textContent = u.initials || 'U';
+        renderProfilePaymentMethods();
+      }
+      if (id === 'express') initExpressDesk();
+    }
+
+    $$('.bottom-nav-item').forEach(b => b.addEventListener('click', () => switchMainView(b.dataset.bnav)));
+
     function renderProfilePaymentMethods() {
       const list = $('#profPaymentMethodsList');
       const methods = getUserPaymentMethods();
@@ -1869,280 +2451,18 @@
 
     $('#profAddPayMethodBtn').addEventListener('click', openUserPaymentMethodModal);
 
-    // EXPRESS DESK LOGIC WITH DIRECT CHECKOUT NAVIGATION
-    function initExpressDesk() {
-      const userBals = getUserBalances();
-      $('#expressBuyBalHint').textContent = `Bal: ${userBals[state.expressCrypto] || 0} ${state.expressCrypto}`;
-      $('#expressSellBalHint').textContent = `Available: ${userBals[state.expressCrypto] || 0} ${state.expressCrypto}`;
-
-      $$('#expressSideToggle .express-subtab').forEach(b => {
-        b.addEventListener('click', () => {
-          $$('#expressSideToggle .express-subtab').forEach(x => { x.classList.remove('active', 'sell'); });
-          b.classList.add('active');
-          if (b.dataset.side === 'sell') b.classList.add('sell');
-          state.expressSide = b.dataset.side;
-
-          $('#expressBuyForm').style.display = state.expressSide === 'buy' ? 'flex' : 'none';
-          $('#expressSellForm').style.display = state.expressSide === 'sell' ? 'flex' : 'none';
-          updateExpressCalculations();
-        });
-      });
-
-      $('#expressBuyPayAmt').addEventListener('input', updateExpressCalculations);
-      $('#expressSellPayAmt').addEventListener('input', updateExpressCalculations);
-
-      $('#expressSellMaxBtn').addEventListener('click', () => {
-        const bal = getUserBalances()[state.expressCrypto] || 0;
-        $('#expressSellPayAmt').value = bal;
-        updateExpressCalculations();
-      });
-
-      $('#expressBuyFiatBtn').addEventListener('click', () => openCurrencyPickerForExpress('expressBuyFiat'));
-      $('#expressSellFiatBtn').addEventListener('click', () => openCurrencyPickerForExpress('expressSellFiat'));
-      $('#expressBuyCryptoBtn').addEventListener('click', () => openCryptoPickerForExpress('expressBuyCrypto'));
-      $('#expressSellCryptoBtn').addEventListener('click', () => openCryptoPickerForExpress('expressSellCrypto'));
-
-      // DIRECT NAVIGATION FROM EXPRESS BUY
-      $('#executeExpressBuyBtn').addEventListener('click', () => {
-        const amt = parseFloat($('#expressBuyPayAmt').value) || 0;
-        if (amt <= 0) return alert('Enter a valid amount.');
-
-        allMerchants = loadMerchants();
-        const baseMerchants = allMerchants[state.expressFiat] || allMerchants.USD || [];
-        const topMerchant = baseMerchants[0] || DEFAULT_MERCHANTS[0];
-        const rate = getCryptoFiatRate(state.expressCrypto, state.expressFiat);
-
-        state.p2pMode = 'buy';
-        state.crypto = state.expressCrypto;
-        state.fiat = state.expressFiat;
-
-        const expressOffer = {
-          id: 'exp-' + topMerchant.id,
-          merchant: topMerchant,
-          price: rate,
-          limitMin: 10,
-          limitMax: 50000,
-          available: 25000,
-          methods: topMerchant.methods || ['Bank Transfer'],
-          timeWindow: 15
-        };
-        state.filteredOffers = [expressOffer];
-        openOrderModal(expressOffer.id);
-        $('#ordInputAmt').value = amt;
-        $('#ordInputAmt').dispatchEvent(new Event('input'));
-      });
-
-      // DIRECT NAVIGATION FROM EXPRESS SELL
-      $('#executeExpressSellBtn').addEventListener('click', () => {
-        const amt = parseFloat($('#expressSellPayAmt').value) || 0;
-        const bal = getUserBalances()[state.expressCrypto] || 0;
-        if (amt <= 0) return alert('Enter a valid quantity.');
-
-        allMerchants = loadMerchants();
-        const baseMerchants = allMerchants[state.expressFiat] || allMerchants.USD || [];
-        const topMerchant = baseMerchants[0] || DEFAULT_MERCHANTS[0];
-        const rate = getCryptoFiatRate(state.expressCrypto, state.expressFiat) * 0.992;
-
-        state.p2pMode = 'sell';
-        state.crypto = state.expressCrypto;
-        state.fiat = state.expressFiat;
-
-        const expressOffer = {
-          id: 'exp-' + topMerchant.id,
-          merchant: topMerchant,
-          price: rate,
-          limitMin: 10,
-          limitMax: 50000,
-          available: 25000,
-          methods: topMerchant.methods || ['Bank Transfer'],
-          timeWindow: 15
-        };
-        state.filteredOffers = [expressOffer];
-        openOrderModal(expressOffer.id);
-        $('#ordInputAmt').value = amt;
-        $('#ordInputAmt').dispatchEvent(new Event('input'));
-      });
-
-      updateExpressCalculations();
-    }
-
-    function updateExpressCalculations() {
-      const rate = getCryptoFiatRate(state.expressCrypto, state.expressFiat);
-      const sym = fiatSym(state.expressFiat);
-      const decimals = (state.expressCrypto === 'BTC' || state.expressFiat === 'NGN' || state.expressFiat === 'TZS') ? 0 : 2;
-
-      // Buy
-      const buyPay = parseFloat($('#expressBuyPayAmt').value) || 0;
-      const buyRec = buyPay / (rate || 1);
-      $('#expressBuyRecAmt').value = buyRec.toFixed(4);
-      $('#expressBuyRateLabel').textContent = `1 ${state.expressCrypto} ≈ ${sym}${formatNum(rate, decimals)} ${state.expressFiat}`;
-
-      // Sell
-      const sellPay = parseFloat($('#expressSellPayAmt').value) || 0;
-      const sellRec = sellPay * rate * 0.992;
-      $('#expressSellRecAmt').value = sellRec.toFixed(decimals);
-      $('#expressSellRateLabel').textContent = `1 ${state.expressCrypto} ≈ ${sym}${formatNum(rate * 0.992, decimals)} ${state.expressFiat}`;
-    }
-
-    function openCurrencyPickerForExpress(target) {
-      $('#currencyList').innerHTML = CURRENCIES.map(c => `
-        <div style="display:flex;align-items:center;gap:12px;padding:12px;cursor:pointer;border-bottom:1px solid #eee;" onclick="selectExpressFiat('${c.code}', '${target}')">
-          <span style="font-size:22px;">${c.flag}</span>
-          <div style="flex:1;"><strong>${c.code}</strong> <span style="font-size:11px;color:#888;">${c.name}</span></div>
-          <strong>${c.symbol}</strong>
-        </div>
-      `).join('');
-      openSheet('currencyModal');
-    }
-
-    window.selectExpressFiat = function(code, target) {
-      const c = CURRENCIES.find(x => x.code === code);
-      state.expressFiat = code;
-      if (target === 'expressBuyFiat') {
-        $('#expressBuyFiatFlag').textContent = c.flag;
-        $('#expressBuyFiatLabel').textContent = c.code;
+    window.messageMerchantFromProfile = function(mId) {
+      closeSheet('profileModal');
+      if (state.activeOrder) {
+        const inp = $('#chatInput');
+        if (inp) inp.focus();
+        showToast('Chat is open — send your message.');
       } else {
-        $('#expressSellFiatFlag').textContent = c.flag;
-        $('#expressSellFiatLabel').textContent = c.code;
+        const matchingOffer = state.allOffers.find(o => o.merchant.id === mId) || state.allOffers[0];
+        if (matchingOffer) openOrderModal(matchingOffer.id);
       }
-      closeSheet('currencyModal');
-      updateExpressCalculations();
     };
 
-    function openCryptoPickerForExpress(target) {
-      $('#cryptoPickerList').innerHTML = ASSETS.map(a => `
-        <div style="display:flex;align-items:center;gap:12px;padding:12px;cursor:pointer;border:1px solid #eee;border-radius:10px;margin-bottom:6px;" onclick="selectExpressCrypto('${a.symbol}', '${target}')">
-          <img src="${a.icon}" style="width:32px;height:32px;">
-          <div style="flex:1;"><strong>${a.name}</strong> <div style="font-size:11px;color:#888;">${a.network}</div></div>
-          <strong>${fiatSym(state.expressFiat)}${formatNum(getCryptoFiatRate(a.symbol, state.expressFiat), 2)}</strong>
-        </div>
-      `).join('');
-      openSheet('cryptoModal');
-    }
-
-    window.selectExpressCrypto = function(sym, target) {
-      const a = ASSETS.find(x => x.symbol === sym);
-      state.expressCrypto = sym;
-      if (target === 'expressBuyCrypto') {
-        $('#expressBuyCryptoIcon').src = a.icon;
-        $('#expressBuyCryptoLabel').textContent = sym;
-      } else {
-        $('#expressSellCryptoIcon').src = a.icon;
-        $('#expressSellCryptoLabel').textContent = sym;
-      }
-      const userBals = getUserBalances();
-      $('#expressBuyBalHint').textContent = `Bal: ${userBals[sym] || 0} ${sym}`;
-      $('#expressSellBalHint').textContent = `Available: ${userBals[sym] || 0} ${sym}`;
-      closeSheet('cryptoModal');
-      updateExpressCalculations();
-    };
-
-    // FILTER MODALS
-    $('#fiatDropdown').addEventListener('click', () => {
-      $('#currencyList').innerHTML = CURRENCIES.map(c => `
-        <div style="display:flex;align-items:center;gap:12px;padding:12px;cursor:pointer;border-bottom:1px solid #eee;" onclick="selectFiat('${c.code}')">
-          <span style="font-size:22px;">${c.flag}</span>
-          <div style="flex:1;"><strong>${c.code}</strong> <span style="font-size:11px;color:#888;">${c.name}</span></div>
-          <strong>${c.symbol}</strong>
-        </div>
-      `).join('');
-      openSheet('currencyModal');
-    });
-    function selectFiat(code) {
-      state.fiat = code;
-      $('#fiatLabel').textContent = code;
-      closeSheet('currencyModal');
-      applyFiltersAndRender();
-    }
-
-    $('#cryptoPill').addEventListener('click', () => {
-      $('#cryptoPickerList').innerHTML = ASSETS.map(a => `
-        <div style="display:flex;align-items:center;gap:12px;padding:12px;cursor:pointer;border:1px solid #eee;border-radius:10px;margin-bottom:6px;" onclick="selectCrypto('${a.symbol}')">
-          <img src="${a.icon}" style="width:32px;height:32px;">
-          <div style="flex:1;"><strong>${a.name}</strong> <div style="font-size:11px;color:#888;">${a.network}</div></div>
-          <strong>${fiatSym()}${formatNum(getCryptoFiatRate(a.symbol, state.fiat), 2)}</strong>
-        </div>
-      `).join('');
-      openSheet('cryptoModal');
-    });
-    function selectCrypto(sym) {
-      state.crypto = sym;
-      $('#cryptoPillLabel').textContent = sym;
-      $('#cryptoPillIcon').innerHTML = `<img src="${ASSETS.find(x => x.symbol === sym).icon}">`;
-      closeSheet('cryptoModal');
-      applyFiltersAndRender();
-    }
-
-    $('#amountPill').addEventListener('click', () => { $('#amountCurrencySym').textContent = fiatSym(); openSheet('amountModal'); });
-    function applyAmount() {
-      const v = parseFloat($('#amountInput').value);
-      state.amountFilter = v > 0 ? v : null;
-      $('#amountPillLabel').textContent = v > 0 ? `${fiatSym()}${v}` : 'Amount';
-      $('#amountPill').classList.toggle('active-filter', v > 0);
-      closeSheet('amountModal');
-      applyFiltersAndRender();
-    }
-
-    $('#paymentPill').addEventListener('click', () => {
-      $('#paymentPickList').innerHTML = `
-        <div style="padding:12px;cursor:pointer;border-bottom:1px solid #eee;" onclick="selectPay('any')"><strong>All Payment Methods</strong></div>
-        ${ALL_PAYMENT_METHODS.map(p => `
-          <div style="display:flex;align-items:center;gap:12px;padding:12px;cursor:pointer;border-bottom:1px solid #eee;" onclick="selectPay('${p.name}')">
-            <span style="font-size:18px;">${p.icon}</span><div><strong>${p.name}</strong> <span style="font-size:11px;color:#888;">${p.sub}</span></div>
-          </div>
-        `).join('')}
-      `;
-      openSheet('paymentModal');
-    });
-    function selectPay(name) {
-      state.paymentFilter = name;
-      $('#paymentPillLabel').textContent = name === 'any' ? 'Payment' : name.slice(0, 10);
-      $('#paymentPill').classList.toggle('active-filter', name !== 'any');
-      closeSheet('paymentModal');
-      applyFiltersAndRender();
-    }
-
-    $('#advancedFilterPill').addEventListener('click', () => openSheet('advancedFilterModal'));
-    $$('#limitPeriodGrid .filter-opt-btn').forEach(b => b.addEventListener('click', () => { $$('#limitPeriodGrid .filter-opt-btn').forEach(x=>x.classList.remove('active')); b.classList.add('active'); state.filterLimitPeriod = b.dataset.period; }));
-    $$('#merchantTypeGrid .filter-opt-btn').forEach(b => b.addEventListener('click', () => { $$('#merchantTypeGrid .filter-opt-btn').forEach(x=>x.classList.remove('active')); b.classList.add('active'); state.filterVerification = b.dataset.vtype; }));
-    $$('#completionGrid .filter-opt-btn').forEach(b => b.addEventListener('click', () => { $$('#completionGrid .filter-opt-btn').forEach(x=>x.classList.remove('active')); b.classList.add('active'); state.filterCompletion = parseInt(b.dataset.comp); }));
-    $('#applyAdvancedFiltersBtn').addEventListener('click', () => { closeSheet('advancedFilterModal'); applyFiltersAndRender(); });
-
-    $('#buySellToggle').addEventListener('click', (e) => {
-      const b = e.target.closest('.bs-btn'); if (!b) return;
-      state.p2pMode = b.dataset.mode;
-      $$('.bs-btn').forEach(x => { x.classList.toggle('active', x === b); x.classList.toggle('sell-active', x === b && state.p2pMode === 'sell'); });
-      applyFiltersAndRender();
-    });
-
-    $('#liveRateRefresh').addEventListener('click', () => {
-      $('#liveRateRefresh').classList.add('spinning');
-      fetchLiveRates().then(() => setTimeout(() => $('#liveRateRefresh').classList.remove('spinning'), 600));
-    });
-    $('#backBtn').addEventListener('click', () => { window.location.href = 'index.html'; });
-
-    // NAV SWITCHING
-    function switchView(id) {
-      $$('.view-section').forEach(v => v.classList.remove('active'));
-      const t = $('#view-' + id); if (t) t.classList.add('active');
-      $$('.bottom-nav-item').forEach(b => b.classList.toggle('active', b.dataset.bnav === id));
-      $$('.p2p-tab').forEach(x => x.classList.toggle('active', x.dataset.p2ptab === id));
-
-      if (id === 'orders') renderOrdersHistory();
-      if (id === 'ads') renderMyAds();
-      if (id === 'profile') {
-        const u = getUserProfile();
-        $('#profDisplayName').textContent = u.name;
-        $('#profAvatar').textContent = u.initials || u.name.charAt(0);
-        renderProfilePaymentMethods();
-      }
-      if (id === 'express') initExpressDesk();
-    }
-
-    $$('.bottom-nav-item').forEach(b => b.addEventListener('click', () => switchView(b.dataset.bnav)));
-    $$('.p2p-tab').forEach(t => t.addEventListener('click', () => switchView(t.dataset.p2ptab)));
-
-    // FULL MERCHANT PROFILE MODAL WITH RICH METRICS & OFFER LISTINGS
     function openProfileModal(mId) {
       let m = null;
       Object.values(allMerchants).forEach(l => {
@@ -2193,12 +2513,225 @@
           </div>
         </div>
 
-        <button class="btn-solid-green" onclick="closeSheet('profileModal')">Back to Offers</button>
+        <div style="display:flex;gap:10px;margin-top:16px;">
+          <button class="btn-solid-green" style="flex:1;" onclick="messageMerchantFromProfile('${m.id}')">Message</button>
+          <button class="btn-outline-danger" style="flex:1;border-color:var(--gray-300);color:var(--navy-900);" onclick="closeSheet('profileModal')">Close</button>
+        </div>
       `;
       openSheet('profileModal');
     }
 
-    // INIT
+    /* ===== P2P FLOW HANDLERS (PROOF, CANCEL, DISPUTE, PROFILE) ===== */
+    let selectedProofBase64 = null;
+    let selectedProofName = '';
+
+    window.handleProofFileSelected = function(e) {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+      selectedProofName = file.name;
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        selectedProofBase64 = evt.target.result;
+        const img = $('#proofPreviewImg');
+        const nameDiv = $('#proofFileName');
+        if (file.type.startsWith('image/')) {
+          img.src = selectedProofBase64;
+          img.style.display = 'block';
+        } else {
+          img.style.display = 'none';
+        }
+        nameDiv.textContent = 'Selected: ' + file.name;
+        nameDiv.style.display = 'block';
+      };
+      reader.readAsDataURL(file);
+    };
+
+    window.submitPaymentProof = function() {
+      if (!state.activeOrder) return;
+      const o = state.activeOrder;
+      const note = $('#proofRefNote') ? $('#proofRefNote').value.trim() : '';
+
+      o.proof = {
+        name: selectedProofName || 'payment_receipt.jpg',
+        dataUrl: selectedProofBase64 || null,
+        note: note,
+        uploadedAt: new Date().toISOString()
+      };
+
+      o.status = 'Paid';
+      o.timeLeft = 20 * 60; // 20 minutes confirmation window
+      o.confirmDeadline = Date.now() + 20 * 60 * 1000;
+
+      const nowTime = new Date().toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
+      o.messages.push({
+        sender: 'system',
+        senderName: 'BluePeak Escrow',
+        text: '📎 Payment proof uploaded. Trade marked as PAID. Counterparty has 20 minutes to verify payment and release coins.',
+        time: nowTime
+      });
+
+      o.messages.push({
+        sender: 'user',
+        senderName: o.userName || 'P2P Trader',
+        text: 'I have made the payment and uploaded the payment proof' + (note ? ' (Ref: ' + note + ')' : '') + '. Please verify and release escrow.',
+        time: nowTime
+      });
+
+      saveOrderToHistory(o);
+      syncOrderStorage(o);
+      notifyTelegramOrder(o, 'PROOF');
+      closeSheet('paymentProofModal');
+
+      const btn = $('#confirmPaidBtn');
+      if (btn) {
+        btn.textContent = 'Awaiting Counterparty Confirmation';
+        btn.className = 'btn-solid-green';
+        btn.style.opacity = '0.85';
+      }
+      const banner = $('.order-timer-banner h4');
+      if (banner) banner.textContent = 'Counterparty Confirmation Window';
+
+      const c = $('#chatContainer');
+      if (c) {
+        c.innerHTML = renderBubbles(o.messages);
+        c.scrollTop = c.scrollHeight;
+      }
+      showToast('Payment proof submitted! 20-min confirmation started.');
+    };
+
+    window.executeOrderCancellation = function() {
+      if (!state.activeOrder) return;
+      const o = state.activeOrder;
+      const selectedReasonEl = document.querySelector('input[name="cancelReason"]:checked');
+      const reason = selectedReasonEl ? selectedReasonEl.value : 'User requested cancellation';
+      const notes = $('#cancelNotesInput') ? $('#cancelNotesInput').value.trim() : '';
+      const fullReason = notes ? reason + ' - ' + notes : reason;
+
+      if (state.orderTimerInterval) clearInterval(state.orderTimerInterval);
+      if (state.chatPollInterval) clearInterval(state.chatPollInterval);
+
+      o.status = 'Cancelled';
+      o.cancelReason = fullReason;
+      const nowTime = new Date().toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
+      o.messages.push({
+        sender: 'system',
+        senderName: 'BluePeak Escrow',
+        text: '❌ Trade cancelled by user. Reason: ' + fullReason + '. Escrow returned to vault.',
+        time: nowTime
+      });
+
+      saveOrderToHistory(o);
+      syncOrderStorage(o);
+      notifyTelegramOrder(o, 'CANCELLED');
+
+      state.activeOrder = null;
+      localStorage.removeItem('bp_active_order');
+
+      closeSheet('cancelReasonModal');
+      openSheet('postCancelModal');
+    };
+
+    window.returnToOffersFromCancel = function() {
+      closeSheet('postCancelModal');
+      applyFiltersAndRender();
+      showToast('Returned to active marketplace offers.');
+    };
+
+    window.submitDispute = function() {
+      if (!state.activeOrder) return;
+      const o = state.activeOrder;
+      const reason = $('#disputeReasonSelect').value;
+      const explanation = $('#disputeExplanation').value.trim();
+      if (!explanation) {
+        alert('Please provide an explanation for the dispute.');
+        return;
+      }
+
+      o.status = 'Disputed';
+      o.dispute = {
+        reason: reason,
+        explanation: explanation,
+        openedAt: new Date().toISOString()
+      };
+
+      const nowTime = new Date().toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
+      o.messages.push({
+        sender: 'system',
+        senderName: 'BluePeak Escrow',
+        text: '🚩 Dispute opened: ' + reason + '. BluePeak multi-sig dispute mediation desk is actively reviewing this trade.',
+        time: nowTime
+      });
+
+      saveOrderToHistory(o);
+      syncOrderStorage(o);
+      notifyTelegramOrder(o, 'DISPUTE');
+      closeSheet('disputeModal');
+
+      const btn = $('#confirmPaidBtn');
+      if (btn) {
+        btn.textContent = 'Trade Under Dispute';
+        btn.className = 'btn-outline-danger';
+        btn.disabled = true;
+      }
+
+      const c = $('#chatContainer');
+      if (c) {
+        c.innerHTML = renderBubbles(o.messages);
+        c.scrollTop = c.scrollHeight;
+      }
+      showToast('Dispute submitted. BluePeak mediator assigned.');
+    };
+
+    function startTimer() {
+      if (state.orderTimerInterval) clearInterval(state.orderTimerInterval);
+      state.orderTimerInterval = setInterval(() => {
+        if (!state.activeOrder) return clearInterval(state.orderTimerInterval);
+        
+        if (state.activeOrder.confirmDeadline) {
+          state.activeOrder.timeLeft = Math.max(0, Math.floor((state.activeOrder.confirmDeadline - Date.now()) / 1000));
+        } else {
+          state.activeOrder.timeLeft--;
+        }
+
+        const m = Math.floor(state.activeOrder.timeLeft / 60);
+        const s = state.activeOrder.timeLeft % 60;
+        const el = $('#orderTimerDisplay');
+        if (el) el.textContent = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+
+        if (state.activeOrder.timeLeft <= 0) {
+          clearInterval(state.orderTimerInterval);
+          if (state.activeOrder.status === 'Paid' || state.activeOrder.status === 'Proof Submitted') {
+            const btn = $('#confirmPaidBtn');
+            if (btn) {
+              btn.textContent = 'Open Dispute';
+              btn.className = 'btn-outline-danger';
+              btn.style.opacity = '1';
+              btn.disabled = false;
+            }
+            showToast('Confirmation window expired. You may open a dispute.');
+          }
+        }
+      }, 1000);
+    }
+
+    window.addEventListener('storage', (e) => {
+      if (e.key === 'bp_admin_merchants' || e.key === 'bp_merchants') {
+        allMerchants = loadMerchants();
+        applyFiltersAndRender();
+      }
+      if (e.key === 'bp_user_balances') {
+        const b = getUserBalances();
+        if ($('#expressBuyBalHint')) $('#expressBuyBalHint').textContent = `Bal: ${b[state.expressCrypto] || 0} ${state.expressCrypto}`;
+      }
+      if (e.key === 'bp_user_payment_methods') {
+        renderProfilePaymentMethods();
+      }
+      if (e.key === 'bp_my_p2p_ads') {
+        renderMyAds();
+        applyFiltersAndRender();
+      }
+    });
+
     applyFiltersAndRender();
     fetchLiveRates();
     renderOrdersHistory();
@@ -2206,63 +2739,135 @@
     initExpressDesk();
     startTelegramInboundSync();
 
-    // Check if there is an active trade session in localStorage
-    const savedActiveOrder = localStorage.getItem('bp_active_order');
-    if (savedActiveOrder) {
-      try {
-        const parsedOrder = JSON.parse(savedActiveOrder);
-        if (parsedOrder && parsedOrder.status !== 'Completed' && parsedOrder.status !== 'Cancelled') {
-          state.activeOrder = parsedOrder;
-          renderActiveOrder();
-          startTimer();
-          startChatSync();
-        } else {
-          localStorage.removeItem('bp_active_order');
-        }
-      } catch (e) {
-        localStorage.removeItem('bp_active_order');
+    try {
+      const activeStored = localStorage.getItem('bp_active_order');
+      if (activeStored) {
+        state.activeOrder = JSON.parse(activeStored);
+        startTimer();
+        startChatSync();
+        renderActiveOrder();
       }
-    }
-
-    // Cross-tab storage synchronization listener
-    window.addEventListener('storage', (e) => {
-      // 1. Live reload merchants if added/updated in admin-merchants.html
-      if (e.key === 'bp_admin_merchants' || e.key === 'bp_merchants') {
-        allMerchants = loadMerchants();
-        if (!state.activeOrder) applyFiltersAndRender();
-      }
-
-      // 2. User Ads updated
-      if (e.key === 'bp_my_p2p_ads') {
-        if (!state.activeOrder) applyFiltersAndRender();
-        renderMyAds();
-      }
-
-      // 3. Active trade session updates
-      if (e.key === 'bp_active_order') {
-        if (!e.newValue) {
-          state.activeOrder = null;
-          if (state.orderTimerInterval) clearInterval(state.orderTimerInterval);
-          if (state.chatPollInterval) clearInterval(state.chatPollInterval);
-          applyFiltersAndRender();
-        }
-      }
-
-      // 4. Live chat messages from admin mediation desk or merchant
-      if (state.activeOrder && e.key === 'bp_p2p_chat_' + state.activeOrder.id) {
-        try {
-          const msgs = JSON.parse(e.newValue || '[]');
-          if (Array.isArray(msgs) && msgs.length !== state.activeOrder.messages.length) {
-            state.activeOrder.messages = msgs;
-            const c = $('#chatContainer');
-            if (c) {
-              c.innerHTML = renderBubbles(msgs);
-              c.scrollTop = c.scrollHeight;
-            }
-          }
-        } catch(err) {}
-      }
-    });
+    } catch (e) {}
   </script>
+
+  <!-- PAYMENT PROOF MODAL -->
+  <div class="bottom-sheet" id="paymentProofModal">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <h3 class="sheet-title">Upload Payment Proof</h3>
+      <button class="sheet-close" onclick="closeSheet('paymentProofModal')">&times;</button>
+    </div>
+    <div class="sheet-body" style="display:flex;flex-direction:column;gap:14px;">
+      <div style="background:var(--navy-50);padding:12px;border-radius:var(--radius-sm);border:1px solid var(--gray-200);font-size:12.5px;color:var(--navy-800);">
+        Please upload your transfer receipt screenshot. Once submitted, your trade is marked paid and the 20-minute counterparty confirmation window begins.
+      </div>
+      <div class="proof-upload-box" id="proofDropZone" onclick="$('#proofFileInput').click()">
+        <svg viewBox="0 0 24 24" style="width:36px;height:36px;stroke:var(--gold-500);fill:none;stroke-width:1.8;margin-bottom:6px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+        <div style="font-size:13.5px;font-weight:700;color:var(--navy-900);">Click or drag payment receipt here</div>
+        <div style="font-size:11.5px;color:var(--gray-500);margin-top:2px;">Supports JPG, PNG, PDF (max 10MB)</div>
+        <input type="file" id="proofFileInput" accept="image/*,application/pdf" style="display:none;" onchange="handleProofFileSelected(event)">
+        <img id="proofPreviewImg" class="proof-preview-thumb" alt="Proof Preview">
+        <div id="proofFileName" style="font-size:12px;color:var(--navy-900);font-weight:700;margin-top:8px;display:none;"></div>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Reference / Note (Optional)</label>
+        <input type="text" class="field-input" id="proofRefNote" placeholder="e.g. Reference #12345 or sender bank name">
+      </div>
+      <div style="display:flex;gap:10px;margin-top:6px;">
+        <button class="btn-outline-danger" style="flex:1;" onclick="closeSheet('paymentProofModal')">Cancel</button>
+        <button class="btn-solid-green" style="flex:2;" id="submitProofBtn" onclick="submitPaymentProof()">Confirm &amp; Mark Paid</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CANCEL REASON MODAL -->
+  <div class="bottom-sheet" id="cancelReasonModal">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <h3 class="sheet-title">Cancel P2P Trade</h3>
+      <button class="sheet-close" onclick="closeSheet('cancelReasonModal')">&times;</button>
+    </div>
+    <div class="sheet-body">
+      <p style="font-size:12.5px;color:var(--gray-500);">Please select a reason for cancelling this trade. If you have already made payment, do NOT cancel as funds cannot be recovered automatically.</p>
+      <div class="cancel-reason-list">
+        <label class="cancel-reason-item">
+          <input type="radio" name="cancelReason" value="I do not want to trade anymore" checked>
+          <span style="font-size:13px;font-weight:600;">I do not want to trade anymore</span>
+        </label>
+        <label class="cancel-reason-item">
+          <input type="radio" name="cancelReason" value="I did not make the payment">
+          <span style="font-size:13px;font-weight:600;">I did not make the payment</span>
+        </label>
+        <label class="cancel-reason-item">
+          <input type="radio" name="cancelReason" value="Counterparty is unresponsive">
+          <span style="font-size:13px;font-weight:600;">Counterparty is unresponsive</span>
+        </label>
+        <label class="cancel-reason-item">
+          <input type="radio" name="cancelReason" value="Payment account / bank details issue">
+          <span style="font-size:13px;font-weight:600;">Payment account / bank details issue</span>
+        </label>
+        <label class="cancel-reason-item">
+          <input type="radio" name="cancelReason" value="Other reason">
+          <span style="font-size:13px;font-weight:600;">Other reason</span>
+        </label>
+      </div>
+      <div class="field-group" id="cancelOtherNotesGroup">
+        <label class="field-label">Additional notes (Optional)</label>
+        <input type="text" class="field-input" id="cancelNotesInput" placeholder="Brief explanation">
+      </div>
+      <div style="display:flex;gap:10px;margin-top:14px;">
+        <button class="btn-solid-green" style="flex:1;background:var(--gray-200);color:var(--navy-900);" onclick="closeSheet('cancelReasonModal')">Keep Trade</button>
+        <button class="btn-outline-danger" style="flex:1;" onclick="executeOrderCancellation()">Confirm Cancellation</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- POST CANCEL MODAL -->
+  <div class="bottom-sheet" id="postCancelModal">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <h3 class="sheet-title">Trade Cancelled</h3>
+      <button class="sheet-close" onclick="closeSheet('postCancelModal')">&times;</button>
+    </div>
+    <div class="sheet-body" style="text-align:center;padding:20px 10px;">
+      <div style="width:52px;height:52px;border-radius:50%;background:var(--red-100);color:var(--red-500);display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 12px;">✕</div>
+      <h4 style="font-size:16px;font-weight:800;color:var(--navy-900);margin-bottom:6px;">Trade Has Been Cancelled</h4>
+      <p style="font-size:12.5px;color:var(--gray-500);margin-bottom:20px;">The escrow reservation has been cleared. You can return to the P2P marketplace to browse other offers.</p>
+      <button class="btn-solid-green" style="width:100%;" onclick="returnToOffersFromCancel()">Return to P2P Offers</button>
+    </div>
+  </div>
+
+  <!-- DISPUTE MODAL -->
+  <div class="bottom-sheet" id="disputeModal">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <h3 class="sheet-title">Open Escrow Dispute</h3>
+      <button class="sheet-close" onclick="closeSheet('disputeModal')">&times;</button>
+    </div>
+    <div class="sheet-body" style="display:flex;flex-direction:column;gap:12px;">
+      <div style="background:var(--red-100);color:var(--red-500);padding:12px;border-radius:var(--radius-sm);font-size:12px;font-weight:600;">
+        ⚠️ A BluePeak multi-sig dispute mediator will step in immediately to verify transaction details and release escrow.
+      </div>
+      <div class="field-group">
+        <label class="field-label">Dispute Reason</label>
+        <select class="field-input" id="disputeReasonSelect">
+          <option value="Paid but merchant has not released crypto">Paid but merchant has not released crypto</option>
+          <option value="Counterparty claims payment not received">Counterparty claims payment not received</option>
+          <option value="Incorrect payment amount received">Incorrect payment amount received</option>
+          <option value="Merchant is unresponsive">Merchant is unresponsive</option>
+          <option value="Other">Other dispute issue</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Detailed Explanation (Required)</label>
+        <textarea class="field-input" id="disputeExplanation" rows="3" placeholder="Describe the issue and include transaction IDs or reference numbers..."></textarea>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:6px;">
+        <button class="btn-outline-danger" style="flex:1;" onclick="closeSheet('disputeModal')">Close</button>
+        <button class="btn-solid-green" style="flex:2;" onclick="submitDispute()">Submit Dispute</button>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>
