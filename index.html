@@ -656,6 +656,146 @@
       .selector-header { padding-top: 12px; }
       .notification-panel { max-height: 80vh; }
     }
+
+    /* ===== ADDITIONS ===== */
+    html, body { overflow-x: hidden; max-width: 100vw; }
+    .app-main, .app-header, .bottom-nav, .drawer, .selector-modal, .notification-panel, .profile-menu { max-width: 100vw; }
+    .qa-card img, .marketcap-cell-logo img, .asset-icon-wrap img, .sel-icon img, .ticker-icon img { max-width: 100%; height: auto; }
+    @media (min-width: 768px) {
+      .selector-modal { top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.95); width: 90%; max-width: 560px; height: auto; max-height: 85vh; border-radius: var(--radius-lg); opacity: 0; pointer-events: none; transition: transform .25s ease, opacity .25s ease; }
+      .selector-modal.open { transform: translate(-50%, -50%) scale(1); opacity: 1; pointer-events: auto; }
+    }
+    @media (min-width: 1024px) {
+      .selector-modal { max-width: 620px; }
+    }
+    .notification-panel, .profile-menu { max-width: min(380px, calc(100vw - 24px)); }
+    @media (min-width: 1024px) {
+      .profile-menu { min-width: 340px; }
+    }
+
+    .notif-header-unread-count {
+      display: inline-flex; align-items: center; justify-content: center;
+      background: var(--navy-50); color: var(--navy-900); font-size: 11px;
+      font-weight: 700; padding: 2px 8px; border-radius: var(--radius-pill);
+      border: 1px solid var(--gray-200); margin-left: 8px;
+    }
+    .notification-item {
+      display: flex; align-items: flex-start; gap: 12px; padding: 12px 8px;
+      border-radius: var(--radius-xs); transition: background 0.15s;
+    }
+    .notification-item.unread {
+      background: rgba(201, 168, 76, 0.06);
+    }
+    .notification-item:hover {
+      background: var(--navy-50);
+    }
+    .notif-icon-circle {
+      width: 34px; height: 34px; border-radius: 50%; background: var(--navy-50);
+      border: 1px solid var(--gray-200); display: flex; align-items: center;
+      justify-content: center; font-size: 16px; flex-shrink: 0;
+    }
+    .notif-content-wrap {
+      flex: 1; min-width: 0; font-size: 12.5px; color: var(--gray-600); line-height: 1.4;
+    }
+    .notif-content-wrap .n-title {
+      font-weight: 800; color: var(--navy-900); font-size: 13px; margin-bottom: 2px;
+    }
+    .notif-content-wrap .n-time {
+      font-size: 10.5px; color: var(--gray-400); font-weight: 600; margin-top: 4px;
+    }
+    .notif-unread-dot {
+      width: 8px; height: 8px; border-radius: 50%; background: var(--gold-500);
+      flex-shrink: 0; margin-top: 6px;
+    }
+
+    .pm-header-block {
+      display: flex; align-items: center; gap: 12px; padding: 12px 10px 14px;
+      border-bottom: 1px solid var(--gray-200); margin-bottom: 6px;
+    }
+    .pm-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--navy-800), var(--navy-900));
+      color: var(--gold-400); display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 16px; border: 2px solid var(--gold-500);
+      flex-shrink: 0; user-select: none;
+    }
+    .pm-user-details {
+      display: flex; flex-direction: column; min-width: 0; flex: 1; gap: 2px;
+    }
+    .pm-real-name {
+      font-size: 14px; font-weight: 800; color: var(--navy-900);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .pm-real-email {
+      font-size: 12px; font-weight: 500; color: var(--gray-500);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .pm-kyc-pill {
+      display: inline-flex; align-items: center; gap: 4px; font-size: 10px;
+      font-weight: 700; padding: 2px 7px; border-radius: var(--radius-pill);
+      background: var(--green-100); color: var(--green-500); width: fit-content;
+      margin-top: 3px;
+    }
+    .pm-kyc-pill.unverified {
+      background: var(--gray-100); color: var(--gray-500);
+    }
+    .pm-nav-list {
+      display: flex; flex-direction: column; gap: 2px;
+    }
+    .pm-nav-item {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%; padding: 10px 12px; border: none; background: transparent;
+      border-radius: var(--radius-xs); cursor: pointer; font-family: var(--font);
+      font-size: 13.5px; font-weight: 600; color: var(--navy-900);
+      transition: background 0.15s; -webkit-tap-highlight-color: transparent;
+    }
+    .pm-nav-item:hover {
+      background: var(--navy-50);
+    }
+    .pm-nav-item.danger {
+      color: var(--red-500);
+    }
+    .pm-nav-item.danger:hover {
+      background: var(--red-100);
+    }
+    .pm-nav-left {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .pm-nav-icon {
+      width: 20px; height: 20px; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; color: inherit;
+    }
+    .pm-nav-icon svg {
+      width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2;
+      stroke-linecap: round; stroke-linejoin: round;
+    }
+    .pm-nav-chevron {
+      width: 14px; height: 14px; color: var(--gray-400); display: flex; align-items: center;
+      justify-content: center; flex-shrink: 0;
+    }
+    .pm-nav-chevron svg {
+      width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2.2;
+      stroke-linecap: round; stroke-linejoin: round;
+    }
+    .pm-divider {
+      height: 1px; background: var(--gray-200); margin: 6px 8px;
+    }
+    .pm-signedout-box {
+      padding: 16px 12px; display: flex; flex-direction: column; gap: 12px; text-align: center;
+    }
+    .pm-signedout-text {
+      font-size: 13px; color: var(--gray-500); font-weight: 500; line-height: 1.45;
+    }
+    .pm-signedout-btn {
+      background: linear-gradient(135deg, var(--gold-500), var(--gold-400));
+      color: var(--navy-900); border: none; padding: 10px 16px; border-radius: var(--radius-pill);
+      font-family: var(--font); font-size: 13px; font-weight: 800; cursor: pointer;
+      box-shadow: var(--shadow-gold); transition: transform 0.2s, box-shadow 0.2s;
+      width: 100%; text-align: center;
+    }
+    .pm-signedout-btn:hover {
+      transform: translateY(-1px);
+    }
   </style>
 </head>
 <body>
@@ -1049,6 +1189,7 @@
         return false;
       }
       function go(url) { window.location.href = url; }
+      window.go = go;
 
       // ============================================================
       // HEADER AUTH STATE
@@ -1850,6 +1991,618 @@
         if (!document.hidden) refreshBalancePill();
       });
     })();
+
+    /* ===== ADDITIONS ===== */
+    /* ===== ADDITIONS =====
+       1. window.go exposed for nav wrapper
+       2. Identity: bp_user_profile source of truth, mirrored to bp_user_session + bp_user_*; no placeholders
+       3. Balance strictly from bp_user_balances (no session fallback)
+       4. bp_user_notifications store + real-event seeding (welcome, signin, deposit, withdraw) + unread styling + merged admin/bot view
+       5. Profile menu redesigned: real name/email/KYC, inline SVG icons, 9 nav rows + logout
+       6. Responsive safety at 320–1920
+       7. Smooth navigation guard
+    */
+
+    let isNavigating = false;
+    function navigateTo(url) {
+      if (!url || isNavigating) return;
+      isNavigating = true;
+      window.location.href = url;
+      setTimeout(() => { isNavigating = false; }, 800);
+    }
+
+    if (typeof window.go === 'function') {
+      const _origGo = window.go;
+      window.go = function(url) {
+        navigateTo(url);
+      };
+    }
+
+    const PLACEHOLDER_NAMES = ['alex vance', 'bluepeak user', 'bluepeak trader', 'your name', 'user', 'guest'];
+
+    function isPlaceholderName(n) {
+      if (!n || typeof n !== 'string') return true;
+      const lower = n.trim().toLowerCase();
+      return lower === '' || PLACEHOLDER_NAMES.includes(lower);
+    }
+
+    function deriveInitialsFromName(n) {
+      if (!n || typeof n !== 'string') return 'U';
+      const parts = n.trim().split(/\s+/).filter(Boolean);
+      if (parts.length === 0) return 'U';
+      if (parts.length === 1) return (parts[0][0] || 'U').toUpperCase();
+      return ((parts[0][0] || '') + (parts[1][0] || '')).toUpperCase() || 'U';
+    }
+
+    function resolveIdentity() {
+      let profile = null;
+      let session = null;
+      let rawName = null;
+      let rawEmail = null;
+      let rawPhone = null;
+      let rawCountry = null;
+
+      try { profile = JSON.parse(localStorage.getItem('bp_user_profile') || 'null'); } catch (e) {}
+      try { session = JSON.parse(localStorage.getItem('bp_user_session') || 'null'); } catch (e) {}
+      try { rawName = localStorage.getItem('bp_user_name'); } catch (e) {}
+      try { rawEmail = localStorage.getItem('bp_user_email'); } catch (e) {}
+      try { rawPhone = localStorage.getItem('bp_user_phone'); } catch (e) {}
+      try { rawCountry = localStorage.getItem('bp_user_country'); } catch (e) {}
+
+      let name = null;
+      if (profile && profile.name && !isPlaceholderName(profile.name)) name = profile.name.trim();
+      else if (session && session.name && !isPlaceholderName(session.name)) name = session.name.trim();
+      else if (rawName && !isPlaceholderName(rawName)) name = rawName.trim();
+
+      let email = null;
+      if (profile && profile.email && profile.email.trim()) email = profile.email.trim();
+      else if (session && session.email && session.email.trim()) email = session.email.trim();
+      else if (rawEmail && rawEmail.trim()) email = rawEmail.trim();
+
+      let phone = null;
+      if (profile && profile.phone && profile.phone.trim()) phone = profile.phone.trim();
+      else if (rawPhone && rawPhone.trim()) phone = rawPhone.trim();
+
+      let country = null;
+      if (profile && profile.country && profile.country.trim()) country = profile.country.trim();
+      else if (rawCountry && rawCountry.trim()) country = rawCountry.trim();
+
+      let kyc = (profile && profile.kyc) ? profile.kyc : null;
+
+      let initials = (profile && profile.initials && profile.initials.trim())
+        ? profile.initials.trim().toUpperCase()
+        : (name ? deriveInitialsFromName(name) : 'U');
+
+      let id = (profile && profile.id) ? profile.id : (session && (session.userId || session.id) ? (session.userId || session.id) : null);
+
+      let createdAt = (profile && profile.createdAt) ? profile.createdAt : null;
+
+      try {
+        const profileHasRealName = profile && profile.name && !isPlaceholderName(profile.name);
+        if (!profileHasRealName && name) {
+          const synthProfile = Object.assign({}, profile || {}, {
+            id: id || ('usr_' + Date.now().toString(36)),
+            name: name,
+            email: email || '',
+            phone: phone || '',
+            country: country || '',
+            kyc: kyc || 'unverified',
+            initials: initials,
+            createdAt: createdAt || new Date().toISOString()
+          });
+          localStorage.setItem('bp_user_profile', JSON.stringify(synthProfile));
+        }
+
+        if (name) {
+          if (session) {
+            let sessionChanged = false;
+            if (session.name !== name) { session.name = name; sessionChanged = true; }
+            if (email && session.email !== email) { session.email = email; sessionChanged = true; }
+            if (sessionChanged) localStorage.setItem('bp_user_session', JSON.stringify(session));
+          }
+          localStorage.setItem('bp_user_name', name);
+          if (email) localStorage.setItem('bp_user_email', email);
+          if (phone) localStorage.setItem('bp_user_phone', phone);
+          if (country) localStorage.setItem('bp_user_country', country);
+        }
+      } catch (e) {}
+
+      return { id, name, email, phone, country, kyc, initials, createdAt };
+    }
+
+    function applyResolvedIdentityUI(identity) {
+      try {
+        const resolved = identity || resolveIdentity();
+        const avatarBtn = document.getElementById('avatarBtn');
+        if (avatarBtn) avatarBtn.textContent = resolved.initials || 'U';
+
+        const pmName = document.getElementById('pmName');
+        if (pmName) {
+          pmName.textContent = resolved.name || 'Sign in to view your account';
+        }
+
+        const pmEmail = document.getElementById('pmEmail');
+        if (pmEmail) {
+          pmEmail.textContent = resolved.email || '';
+        }
+      } catch (e) {}
+    }
+
+    function handleConfirmedLogout(e) {
+      if (e) { e.preventDefault(); e.stopPropagation(); }
+      if (confirm('Sign out of Bluepeak Capital?')) {
+        try {
+          const keys = ['bp_user_session', 'bp_user_profile', 'bp_user_name', 'bp_user_email', 'bp_user_phone', 'bp_user_country'];
+          keys.forEach(k => localStorage.removeItem(k));
+        } catch (err) {}
+        navigateTo('auth.html#signin');
+      }
+    }
+
+    function wireLogoutButtons() {
+      try {
+        const pmLogout = document.getElementById('pmLogout');
+        if (pmLogout) {
+          const newPmLogout = pmLogout.cloneNode(true);
+          if (pmLogout.parentNode) pmLogout.parentNode.replaceChild(newPmLogout, pmLogout);
+          newPmLogout.addEventListener('click', handleConfirmedLogout);
+        }
+
+        const drawerLogout = document.getElementById('drawerLogout');
+        if (drawerLogout) {
+          const newDrawerLogout = drawerLogout.cloneNode(true);
+          if (drawerLogout.parentNode) drawerLogout.parentNode.replaceChild(newDrawerLogout, drawerLogout);
+          newDrawerLogout.addEventListener('click', handleConfirmedLogout);
+        }
+      } catch (e) {}
+    }
+
+    const STRICT_FALLBACK_PRICES = { USD: 1, USDT: 1, BTC: 81250, ETH: 3218, SOL: 128.70 };
+
+    function computeStrictBalance() {
+      let balances = {};
+      let prices = {};
+      try { balances = JSON.parse(localStorage.getItem('bp_user_balances') || '{}'); } catch (e) {}
+      try { prices = JSON.parse(localStorage.getItem('bp_market_prices') || '{}'); } catch (e) {}
+      let total = 0;
+      if (balances && typeof balances === 'object') {
+        Object.keys(balances).forEach(sym => {
+          const amt = parseFloat(balances[sym]) || 0;
+          const price = prices[sym] !== undefined ? prices[sym] : (STRICT_FALLBACK_PRICES[sym] || 0);
+          total += amt * price;
+        });
+      }
+      return total;
+    }
+
+    function updateStrictBalanceUI() {
+      try {
+        const el = document.getElementById('balanceDisplay');
+        if (!el) return;
+        if (el.classList.contains('masked')) {
+          el.textContent = '••••••';
+        } else {
+          const val = computeStrictBalance();
+          el.textContent = '$' + Number(val).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+      } catch (e) {}
+    }
+
+    function getStoredNotifications() {
+      try {
+        const raw = localStorage.getItem('bp_user_notifications');
+        const parsed = JSON.parse(raw || '[]');
+        return Array.isArray(parsed) ? parsed : [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function writeNotification(type, title, body, link) {
+      try {
+        const list = getStoredNotifications();
+        const item = {
+          id: 'notif_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7),
+          ts: Date.now(),
+          type: type || 'default',
+          title: title || '',
+          body: body || '',
+          link: link || '',
+          read: false
+        };
+        list.unshift(item);
+        if (list.length > 100) list.length = 100;
+        localStorage.setItem('bp_user_notifications', JSON.stringify(list));
+        renderAllNotifications();
+        return item;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function getNotificationIcon(type) {
+      switch ((type || '').toLowerCase()) {
+        case 'welcome': return '👋';
+        case 'signin': return '🔐';
+        case 'kyc': return '🪪';
+        case 'p2p': return '🤝';
+        case 'deposit': return '💰';
+        case 'withdraw': return '📤';
+        case 'admin': return '💬';
+        case 'dispute': return '🚩';
+        case 'bot': return '🤖';
+        default: return '🔔';
+      }
+    }
+
+    function escapeAdditionsHtml(str) {
+      return String(str == null ? '' : str).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    }
+
+    function formatTimeRelative(ts) {
+      const diff = Date.now() - (ts || 0);
+      if (diff < 60000) return 'just now';
+      if (diff < 3600000) return Math.floor(diff / 60000) + 'm ago';
+      if (diff < 86400000) return Math.floor(diff / 3600000) + 'h ago';
+      return Math.floor(diff / 86400000) + 'd ago';
+    }
+
+    function renderAllNotifications() {
+      try {
+        const identity = resolveIdentity();        const myName = (identity.name || '').toLowerCase();
+        const myEmail = (identity.email || '').toLowerCase();
+        const stored = getStoredNotifications();
+        const itemsMap = new Map();
+
+        stored.forEach(n => {
+          if (n && n.id) itemsMap.set(n.id, Object.assign({}, n));
+        });
+
+        let chats = [];
+        try { chats = JSON.parse(localStorage.getItem('bp_admin_chats') || '[]'); } catch (e) {}
+        chats.filter(c => {
+          const buyer = (c.buyer || '').toLowerCase();
+          return (myName && buyer.includes(myName)) || (c.buyerEmail && c.buyerEmail.toLowerCase() === myEmail);
+        }).forEach(o => {
+          if (o.unread && o.messages && o.messages.length) {
+            const last = o.messages[o.messages.length - 1];
+            if (last.from === 'merchant' || last.from === 'admin') {
+              const id = 'chat_' + o.order + '_' + (last.ts || o.created || Date.now());
+              if (!itemsMap.has(id)) {
+                itemsMap.set(id, {
+                  id: id,
+                  ts: last.ts || o.created || Date.now(),
+                  type: last.from === 'admin' ? 'admin' : 'p2p',
+                  title: last.from === 'admin' ? 'Admin replied to your order' : 'New merchant message',
+                  body: `Order ${o.order}: ${last.text}`,
+                  link: 'p2p.html',
+                  read: false
+                });
+              }
+            }
+          }
+          if (o.status === 'disputed' && o.unread) {
+            const id = 'dispute_' + o.order;
+            if (!itemsMap.has(id)) {
+              itemsMap.set(id, {
+                id: id,
+                ts: o.created || Date.now(),
+                type: 'dispute',
+                title: 'Dispute open',
+                body: `Order ${o.order} is in dispute.`,
+                link: 'p2p.html',
+                read: false
+              });
+            }
+          }
+        });
+
+        let bots = [];
+        try { bots = JSON.parse(localStorage.getItem('bp_admin_bots') || '[]'); } catch (e) {}
+        bots.filter(b => (b.ownerEmail || '').toLowerCase() === myEmail && b.status === 'error').forEach(b => {
+          const id = 'bot_' + (b.id || b.name || Math.random());
+          if (!itemsMap.has(id)) {
+            itemsMap.set(id, {
+              id: id,
+              ts: b.created || Date.now(),
+              type: 'bot',
+              title: 'Bot needs attention',
+              body: `${b.name} stopped with an error.`,
+              link: 'bots.html',
+              read: false
+            });
+          }
+        });
+
+        const merged = Array.from(itemsMap.values()).sort((a, b) => (b.ts || 0) - (a.ts || 0));
+        const unreadCount = merged.filter(n => !n.read).length;
+
+        const badge = document.getElementById('notifBadge');
+        if (badge) {
+          if (unreadCount > 0) {
+            badge.textContent = unreadCount > 9 ? '9+' : unreadCount;
+            badge.classList.add('visible');
+          } else {
+            badge.classList.remove('visible');
+          }
+        }
+
+        const panelTitle = document.querySelector('#notificationPanel .panel-title');
+        if (panelTitle) {
+          let chip = panelTitle.querySelector('.notif-header-unread-count');
+          if (!chip) {
+            chip = document.createElement('span');
+            chip.className = 'notif-header-unread-count';
+            const clearBtn = document.getElementById('clearNotifBtn');
+            if (clearBtn) panelTitle.insertBefore(chip, clearBtn);
+            else panelTitle.appendChild(chip);
+          }
+          chip.textContent = unreadCount > 9 ? '9+ unread' : unreadCount + ' unread';
+          chip.style.display = unreadCount > 0 ? 'inline-flex' : 'none';
+        }
+
+        const listEl = document.getElementById('notificationList');
+        if (listEl) {
+          if (merged.length === 0) {
+            listEl.innerHTML = '<div class="notification-empty">No new notifications</div>';
+          } else {
+            const top10 = merged.slice(0, 10);
+            listEl.innerHTML = top10.map(item => {
+              const unread = !item.read;
+              return `<div class="notification-item ${unread ? 'unread' : ''}" data-id="${escapeAdditionsHtml(item.id)}" data-link="${escapeAdditionsHtml(item.link || '')}">
+      <div class="notif-icon-circle">${getNotificationIcon(item.type)}</div>
+      <div class="notif-content-wrap">
+        <div class="n-title">${escapeAdditionsHtml(item.title)}</div><div>${escapeAdditionsHtml(item.body)}</div>
+        <div class="n-time">${formatTimeRelative(item.ts)}</div>
+      </div>
+      ${unread ? '<div class="notif-unread-dot"></div>' : ''}
+    </div>`;
+            }).join('');
+
+            listEl.querySelectorAll('.notification-item').forEach(el => {
+              el.addEventListener('click', () => {
+                const id = el.dataset.id;
+                const link = el.dataset.link;
+                try {
+                  const storedList = getStoredNotifications();
+                  let changed = false;
+                  storedList.forEach(n => {
+                    if (n.id === id && !n.read) { n.read = true; changed = true; }
+                  });
+                  if (changed) localStorage.setItem('bp_user_notifications', JSON.stringify(storedList));
+                } catch (e) {}
+                renderAllNotifications();
+                if (link) navigateTo(link);
+              });
+            });
+          }
+        }
+      } catch (e) {}
+    }
+
+    function seedNotificationsIfNeeded(resolved) {
+      if (!resolved || !resolved.name) return;
+      try {
+        const stored = getStoredNotifications();
+        if (stored.length === 0) {
+          writeNotification('welcome', 'Welcome to BluePeak Capital', 'Your account is ready. Explore P2P, Swap, and Trade from the home screen.', 'index.html');
+        }
+        let session = null;
+        try { session = JSON.parse(localStorage.getItem('bp_user_session') || 'null'); } catch (e) {}
+        if (session && session.loggedInAt) {
+          const loginTs = typeof session.loggedInAt === 'number' ? session.loggedInAt : new Date(session.loggedInAt).getTime();
+          if (!isNaN(loginTs)) {
+            const currentStored = getStoredNotifications();
+            const hasRecentSignin = currentStored.some(n => n.type === 'signin' && Math.abs(n.ts - loginTs) < 60000);
+            if (!hasRecentSignin) {
+              writeNotification('signin', 'New sign-in detected', 'You are signed in to BluePeak Capital from this device.', 'settings.html');
+            }
+          }
+        }
+      } catch (e) {}
+    }
+
+    function wireClearNotifications() {
+      const clearBtn = document.getElementById('clearNotifBtn');
+      if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+          try {
+            const stored = getStoredNotifications();
+            stored.forEach(n => { n.read = true; });
+            localStorage.setItem('bp_user_notifications', JSON.stringify(stored));
+          } catch (e) {}
+          try {
+            const chats = JSON.parse(localStorage.getItem('bp_admin_chats') || '[]');
+            const identity = resolveIdentity();
+            const myName = (identity.name || '').toLowerCase();
+            const myEmail = (identity.email || '').toLowerCase();
+            chats.forEach(c => {
+              const buyer = (c.buyer || '').toLowerCase();
+              if ((myName && buyer.includes(myName)) || (c.buyerEmail && c.buyerEmail.toLowerCase() === myEmail)) {
+                c.unread = false;
+              }
+            });
+            localStorage.setItem('bp_admin_chats', JSON.stringify(chats));
+          } catch (e) {}
+          renderAllNotifications();
+        });
+      }
+    }
+
+    let lastBalancesSnapshot = {};
+    let lastWithdrawalsCount = 0;
+
+    function initSnapshots() {
+      try { lastBalancesSnapshot = JSON.parse(localStorage.getItem('bp_user_balances') || '{}'); } catch (e) { lastBalancesSnapshot = {}; }
+      try {
+        const withdrawals = JSON.parse(localStorage.getItem('bp_withdrawals') || '[]');
+        lastWithdrawalsCount = Array.isArray(withdrawals) ? withdrawals.length : 0;
+      } catch (e) { lastWithdrawalsCount = 0; }
+    }
+
+    function checkBalancesSnapshot() {
+      try {
+        const newBalances = JSON.parse(localStorage.getItem('bp_user_balances') || '{}');
+        if (newBalances && typeof newBalances === 'object') {
+          Object.keys(newBalances).forEach(sym => {
+            const prev = parseFloat(lastBalancesSnapshot[sym]);
+            const curr = parseFloat(newBalances[sym]);
+            if (!isNaN(prev) && prev > 0 && !isNaN(curr) && curr > prev) {
+              const diff = curr - prev;
+              writeNotification('deposit', 'Deposit Confirmed', `Received +${diff.toFixed(4)} ${sym}. Your balance has been updated.`, 'wallet.html');
+            }
+          });
+          lastBalancesSnapshot = Object.assign({}, newBalances);
+        }
+      } catch (e) {}
+    }
+
+    function checkWithdrawalsSnapshot() {
+      try {
+        const newWithdrawals = JSON.parse(localStorage.getItem('bp_withdrawals') || '[]');
+        if (Array.isArray(newWithdrawals) && newWithdrawals.length > lastWithdrawalsCount) {
+          const newest = newWithdrawals[0] || newWithdrawals[newWithdrawals.length - 1] || {};
+          const amt = newest.amount || newest.amt || '';
+          const asset = newest.asset || newest.symbol || newest.currency || '';
+          const desc = (amt && asset) ? `Withdrawal of ${amt} ${asset} processed.` : 'A withdrawal request has been submitted.';
+          writeNotification('withdraw', 'Withdrawal Processed', desc, 'wallet.html');
+          lastWithdrawalsCount = newWithdrawals.length;
+        }
+      } catch (e) {}
+    }
+
+    function rebuildProfileMenu() {
+      const pm = document.getElementById('profileMenu');
+      if (!pm) return;
+      const identity = resolveIdentity();
+      const session = localStorage.getItem('bp_user_session');
+      const isSignedIn = !!(session || identity.name);
+
+      if (!isSignedIn) {
+        pm.innerHTML = `<div class="pm-signedout-box">
+  <div class="pm-signedout-text">Sign in to view your profile, portfolio balance, and account settings.</div>
+  <button class="pm-signedout-btn" id="pmSignInBtn">Sign in to BluePeak</button>
+</div>`;
+        const signInBtn = document.getElementById('pmSignInBtn');
+        if (signInBtn) signInBtn.addEventListener('click', () => navigateTo('auth.html#signin'));
+        return;
+      }
+
+      const kycStr = (identity.kyc || 'unverified').toString().toLowerCase();
+      const isVerified = kycStr.includes('tier 2') || kycStr.includes('verified');
+      const kycClass = isVerified ? 'pm-kyc-pill' : 'pm-kyc-pill unverified';
+      const kycText = isVerified ? 'Verified' : 'Unverified';
+
+      const navItems = [
+        { label: 'Profile', href: 'profile.html', icon: '<svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>' },
+        { label: 'Transactions', href: 'transaction-history.html', icon: '<svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>' },
+        { label: 'Wallet', href: 'wallet.html', icon: '<svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="14" rx="3"/><path d="M16 13h.01"/><path d="M2 9h20"/></svg>' },
+        { label: 'Deposit', href: 'deposit.html', icon: '<svg viewBox="0 0 24 24"><path d="M12 3v12m0 0l4-4m-4 4l-4-4"/><path d="M5 21h14"/></svg>' },
+        { label: 'Withdraw', href: 'withdraw.html', icon: '<svg viewBox="0 0 24 24"><path d="M12 17V5m0 0l4 4m-4-4l-4 4"/><path d="M5 21h14"/></svg>' },
+        { label: 'KYC Verification', href: 'kyc.html', icon: '<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><line x1="15" y1="8" x2="17" y2="8"/><line x1="15" y1="12" x2="17" y2="12"/><line x1="7" y1="16" x2="17" y2="16"/></svg>' },
+        { label: 'Settings', href: 'settings.html', icon: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>' },
+        { label: 'Help Center', href: 'help.html', icon: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>' },
+      ];
+
+      const rowsHtml = navItems.map(item => `
+        <button class="pm-nav-item" data-href="${item.href}">
+          <div class="pm-nav-left">
+            <span class="pm-nav-icon">${item.icon}</span>
+            <span>${item.label}</span>
+          </div>
+          <span class="pm-nav-chevron"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></span>
+        </button>
+      `).join('');
+
+      pm.innerHTML = `
+        <div class="pm-header-block">
+          <div class="pm-avatar">${escapeAdditionsHtml(identity.initials || 'U')}</div>
+          <div class="pm-user-details">
+            <div class="pm-real-name">${escapeAdditionsHtml(identity.name || 'Account')}</div>
+            <div class="pm-real-email">${escapeAdditionsHtml(identity.email || '')}</div>
+            <div class="${kycClass}">${kycText}</div>
+          </div>
+        </div>
+        <div class="pm-nav-list">
+          ${rowsHtml}
+          <div class="pm-divider"></div>
+          <button class="pm-nav-item danger" id="pmLogout">
+            <div class="pm-nav-left">
+              <span class="pm-nav-icon"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>
+              <span>Logout</span>
+            </div>
+            <span class="pm-nav-chevron"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></span>
+          </button>
+        </div>
+      `;
+
+      pm.querySelectorAll('.pm-nav-item[data-href]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          pm.classList.remove('open');
+          navigateTo(btn.dataset.href);
+        });
+      });
+
+      wireLogoutButtons();
+    }
+
+    function initAdditions() {
+      try {
+        initSnapshots();
+        const identity = resolveIdentity();
+        applyResolvedIdentityUI(identity);
+        rebuildProfileMenu();
+        seedNotificationsIfNeeded(identity);
+        updateStrictBalanceUI();
+        renderAllNotifications();
+        wireClearNotifications();
+        wireLogoutButtons();
+
+        const eyeToggle = document.getElementById('eyeToggle');
+        if (eyeToggle) {
+          eyeToggle.addEventListener('click', () => {
+            setTimeout(updateStrictBalanceUI, 0);
+          });
+        }
+
+        window.addEventListener('storage', (e) => {
+          try {
+            if (e.key === 'bp_user_balances') {
+              checkBalancesSnapshot();
+              updateStrictBalanceUI();
+            } else if (e.key === 'bp_market_prices') {
+              updateStrictBalanceUI();
+            } else if (e.key === 'bp_withdrawals') {
+              checkWithdrawalsSnapshot();
+            } else if (e.key === 'bp_admin_chats' || e.key === 'bp_admin_bots' || e.key === 'bp_user_notifications' || e.key === 'bp_p2p_orders') {
+              renderAllNotifications();
+            } else if (e.key === 'bp_user_profile' || e.key === 'bp_user_session') {
+              const updated = resolveIdentity();
+              applyResolvedIdentityUI(updated);
+              rebuildProfileMenu();
+              renderAllNotifications();
+            }
+          } catch (err) {}
+        });
+
+        window.addEventListener('focus', () => {
+          updateStrictBalanceUI();
+          renderAllNotifications();
+        });
+
+        if (document.documentElement.scrollWidth > window.innerWidth + 1) {
+          console.warn('Responsive overflow detected: scrollWidth=' + document.documentElement.scrollWidth + ', innerWidth=' + window.innerWidth);
+        }
+      } catch (err) {
+        console.error('initAdditions error:', err);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initAdditions);
+    } else {
+      initAdditions();
+    }
   </script>
 </body>
 </html>
