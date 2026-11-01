@@ -530,8 +530,415 @@
       .profile-main { max-width: 640px; padding: 20px 24px 0; }
       .bottom-nav { max-width: 900px; border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
     }
-  </style>
-</head>
+  
+    /* ===== ADDITIONS ===== */
+    /* WALLET BALANCE STRIP (Change 6) */
+    .wallet-strip-wrap {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+    .wallet-strip-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .wallet-strip-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--navy-900);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .wallet-strip-title::before {
+      content: '';
+      width: 3px;
+      height: 14px;
+      background: var(--gold-500);
+      border-radius: 2px;
+    }
+    .wallet-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .wallet-chip {
+      background: var(--navy-50);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      padding: 8px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+    .wallet-chip-sym {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--gray-500);
+    }
+    .wallet-chip-val {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--navy-900);
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .wallet-actions-row {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+      padding-top: 4px;
+      border-top: 1px dashed var(--gray-200);
+    }
+    .wallet-action-link {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--blue-500);
+      text-decoration: none;
+      padding: 5px 12px;
+      border-radius: var(--radius-pill);
+      background: var(--blue-100);
+      transition: all 0.15s;
+    }
+    .wallet-action-link:hover {
+      background: var(--blue-500);
+      color: var(--white);
+    }
+
+    /* REFERRAL CARD (Change 4) */
+    .referral-card {
+      background: linear-gradient(135deg, var(--navy-900) 0%, var(--navy-800) 100%);
+      border-radius: var(--radius-lg);
+      padding: 22px 20px;
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .referral-card::before {
+      content: '';
+      position: absolute;
+      top: -30%;
+      right: -15%;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201, 168, 76, 0.25), transparent 70%);
+      pointer-events: none;
+    }
+    .referral-eyebrow {
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--gold-400);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .referral-heading {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.4px;
+      margin-top: 2px;
+      color: var(--white);
+    }
+    .referral-subtext {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--gray-300);
+      line-height: 1.5;
+      margin-top: 4px;
+    }
+    .referral-code-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(201, 168, 76, 0.4);
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      font-family: monospace;
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--gold-400);
+      letter-spacing: 1px;
+      width: fit-content;
+    }
+    .referral-link-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .referral-link-input {
+      flex: 1;
+      min-width: 180px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      color: var(--white);
+      font-size: 12px;
+      font-family: monospace;
+      outline: none;
+    }
+    .referral-btn {
+      background: var(--gold-500);
+      color: var(--navy-900);
+      border: none;
+      padding: 10px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .referral-btn:hover {
+      background: var(--gold-400);
+      transform: translateY(-1px);
+    }
+    .referral-btn-secondary {
+      background: rgba(255, 255, 255, 0.12);
+      color: var(--white);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .referral-btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+    .referral-share-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .share-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 12px;
+      border-radius: var(--radius-pill);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: var(--white);
+      font-size: 11px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+    .share-btn:hover {
+      background: rgba(255, 255, 255, 0.18);
+      border-color: var(--gold-400);
+    }
+    .referral-ladder {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    @media (min-width: 500px) {
+      .referral-ladder {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    .referral-step {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .referral-step-reward {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--gold-400);
+    }
+    .referral-step-desc {
+      font-size: 10.5px;
+      font-weight: 500;
+      color: var(--gray-300);
+      line-height: 1.35;
+    }
+    .referral-counter {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--gold-300);
+      padding: 8px 12px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: var(--radius-sm);
+    }
+    .referral-footer {
+      font-size: 10.5px;
+      color: var(--gray-400);
+      font-style: italic;
+    }
+
+    /* REVIEWS & EMPTY STATE (Change 5) */
+    .reputation-stars .star.empty {
+      color: var(--gray-300);
+    }
+    .reviews-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 14px;
+      border-top: 1px solid var(--gray-100);
+      padding-top: 14px;
+    }
+    .review-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 10px 12px;
+      background: var(--navy-50);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--gray-200);
+    }
+    .review-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .review-comment {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--navy-900);
+      line-height: 1.45;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .review-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 10.5px;
+      color: var(--gray-500);
+      margin-top: 2px;
+    }
+    .view-all-reviews-btn {
+      margin-top: 12px;
+      width: 100%;
+      padding: 9px;
+      background: var(--navy-50);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-pill);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--navy-900);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .view-all-reviews-btn:hover {
+      background: var(--navy-900);
+      color: var(--white);
+      border-color: var(--navy-900);
+    }
+
+    /* REVIEWS BOTTOM SHEET (Change 5) */
+    .reviews-sheet-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 26, 47, 0.65);
+      backdrop-filter: blur(5px);
+      z-index: 70;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s;
+    }
+    .reviews-sheet-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .reviews-bottom-sheet {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      max-height: 85vh;
+      background: var(--white);
+      z-index: 75;
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      transform: translateY(100%);
+      transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-lg);
+    }
+    .reviews-bottom-sheet.open {
+      transform: translateY(0);
+    }
+    @media (min-width: 700px) {
+      .reviews-bottom-sheet {
+        left: 50%;
+        transform: translateX(-50%) translateY(100%);
+        max-width: 600px;
+        border-radius: var(--radius-lg);
+      }
+      .reviews-bottom-sheet.open {
+        transform: translateX(-50%) translateY(0);
+      }
+    }
+    .sheet-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .sheet-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--navy-900);
+    }
+    .sheet-close {
+      background: var(--navy-50);
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      font-size: 15px;
+      cursor: pointer;
+      color: var(--navy-900);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .sheet-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* ACCOUNT INFO ADD LINK (Change 7) */
+    .account-info-add-link {
+      color: var(--blue-500);
+      text-decoration: underline;
+      font-weight: 700;
+      font-size: 11.5px;
+      margin-left: 6px;
+      cursor: pointer;
+    }
+  </style></head>
 <body>
 
   <header class="profile-header">
@@ -548,6 +955,21 @@
   </header>
 
   <main class="profile-main">
+
+    <!-- WALLET BALANCE STRIP (CHANGE 6) -->
+    <div class="wallet-strip-wrap" id="walletStripWrap">
+      <div class="wallet-strip-header">
+        <span class="wallet-strip-title">Portfolio Balances</span>
+        <div class="wallet-actions-row">
+          <a href="deposit.html" class="wallet-action-link">+ Deposit</a>
+          <a href="wallet.html" class="wallet-action-link">Wallet &rarr;</a>
+        </div>
+      </div>
+      <div class="wallet-strip" id="walletStrip">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+
 
     <!-- PROFILE HERO -->
     <div class="profile-hero">
@@ -709,6 +1131,73 @@
         <div class="quick-action-title">Refer & Earn</div>
         <div class="quick-action-sub">Invite friends, earn rewards</div>
       </div>
+
+      <div class="quick-action" data-action="deposit">
+        <div class="quick-action-icon blue">💰</div>
+        <div class="quick-action-title">Deposit</div>
+        <div class="quick-action-sub">Add funds to wallet</div>
+      </div>
+      <div class="quick-action" data-action="withdraw">
+        <div class="quick-action-icon green">📤</div>
+        <div class="quick-action-title">Withdraw</div>
+        <div class="quick-action-sub">Send funds to external account</div>
+      </div>
+    </div>
+
+
+    <!-- REFERRAL CARD (CHANGE 4) -->
+    <div class="referral-card" id="referralCard">
+      <div>
+        <div class="referral-eyebrow">PARTNER PROGRAM</div>
+        <h3 class="referral-heading">Earn as a BluePeak Partner</h3>
+        <p class="referral-subtext">Invite friends and earn rewards on every verified signup and their first trade.</p>
+      </div>
+
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--gray-400);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;">Your Unique Referral Code</div>
+        <div class="referral-code-chip" id="refCodeDisplay">BP-XXXXXX</div>
+      </div>
+
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--gray-400);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;">Referral Link</div>
+        <div class="referral-link-row">
+          <input type="text" class="referral-link-input" id="refLinkInput" readonly value="">
+          <button class="referral-btn" id="copyRefLinkBtn">Copy Link</button>
+          <button class="referral-btn referral-btn-secondary" id="copyRefCodeBtn">Copy Code</button>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--gray-400);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">Share via</div>
+        <div class="referral-share-row">
+          <a href="#" class="share-btn" id="shareWhatsApp" target="_blank" rel="noopener">💬 WhatsApp</a>
+          <a href="#" class="share-btn" id="shareTelegram" target="_blank" rel="noopener">✈️ Telegram</a>
+          <a href="#" class="share-btn" id="shareTwitter" target="_blank" rel="noopener">🐦 X (Twitter)</a>
+          <a href="#" class="share-btn" id="shareEmail">✉️ Email</a>
+        </div>
+      </div>
+
+      <div class="referral-ladder">
+        <div class="referral-step">
+          <span class="referral-step-reward">$10 Reward</span>
+          <span class="referral-step-desc">When your friend signs up and verifies their email</span>
+        </div>
+        <div class="referral-step">
+          <span class="referral-step-reward">$25 Reward</span>
+          <span class="referral-step-desc">When they complete their first P2P trade</span>
+        </div>
+        <div class="referral-step">
+          <span class="referral-step-reward">$100 Bonus</span>
+          <span class="referral-step-desc">When they reach $1,000 trading volume</span>
+        </div>
+      </div>
+
+      <div class="referral-counter">
+        <span id="refCountLabel">Referred so far: 0</span>
+        <span id="refEarnedLabel">Total earned: $0</span>
+      </div>
+
+      <div class="referral-footer">Rewards are credited to your BluePeak wallet after each milestone is verified.</div>
     </div>
 
     <!-- REPUTATION -->
@@ -755,6 +1244,8 @@
           <div class="rep-bar-track"><div class="rep-bar-fill gold" style="width:85%"></div></div>
         </div>
       </div>
+      <!-- REVIEWS CONTAINER (CHANGE 5) -->
+      <div id="reviewsContainer"></div>
     </div>
 
     <!-- ACCOUNT INFO -->
@@ -815,6 +1306,19 @@
       <span>Wallet</span>
     </button>
   </nav>
+
+
+  <!-- REVIEWS MODAL SHEET (CHANGE 5) -->
+  <div class="reviews-sheet-overlay" id="reviewsSheetOverlay"></div>
+  <div class="reviews-bottom-sheet" id="reviewsSheet">
+    <div class="sheet-header">
+      <h3 class="sheet-title">User Reviews</h3>
+      <button class="sheet-close" id="closeReviewsSheetBtn">&times;</button>
+    </div>
+    <div class="sheet-body" id="reviewsSheetList">
+      <!-- Injected dynamically -->
+    </div>
+  </div>
 
   <div class="toast" id="toast"></div>
 
@@ -973,6 +1477,625 @@
       loadStats();
 
     })();
+
+    /* Profile page — ADDITIONS
+       1. Real user identity from bp_user_profile (name, email, phone, country, UID, createdAt)
+       2. Daily limit → $20,000
+       3. Quick actions → real navigation (My Orders, My Ads, Transaction History, Deposit, Withdraw) + Referral scrolls to card
+       4. Referral card (code, link, share, reward ladder, live counter)
+       5. Reviews read from bp_user_reviews; professional empty state; view-all sheet
+       6. Stats recomputed from bp_p2p_orders (fiatAmount) + withdrawals + deposits; wallet strip from bp_user_balances
+       7. Account info: remove hardcoded phone/email, add User ID and KYC Status rows
+       8. Bottom nav — remove Wallet active class on this page
+    */
+    (function() {
+      'use strict';
+
+      const $ = (s) => document.querySelector(s);
+      const $$ = (s) => document.querySelectorAll(s);
+
+      function showToast(msg) {
+        const toastEl = $('#toast');
+        if (!toastEl) return;
+        toastEl.textContent = msg;
+        toastEl.classList.add('show');
+        clearTimeout(toastEl._t);
+        toastEl._t = setTimeout(() => toastEl.classList.remove('show'), 2600);
+      }
+
+      // --- HELPER: Resolve Real User Profile ---
+      function resolveUserProfile() {
+        let p = {};
+        try {
+          const raw = localStorage.getItem('bp_user_profile');
+          if (raw) p = JSON.parse(raw);
+        } catch (e) {}
+
+        const legacyName = localStorage.getItem('bp_user_name');
+        const legacyEmail = localStorage.getItem('bp_user_email');
+        const legacyPhone = localStorage.getItem('bp_user_phone');
+        const legacyCountry = localStorage.getItem('bp_user_country');
+
+        const name = p.name || legacyName || 'Your Name';
+        const email = p.email || (legacyEmail !== 'user@example.com' ? legacyEmail : null);
+        const phone = p.phone || (legacyPhone !== '+254 712 345 678' ? legacyPhone : null);
+        const country = p.country || legacyCountry || null;
+
+        // Initials
+        let initials = p.initials;
+        if (!initials && name) {
+          const words = name.trim().split(/\s+/);
+          if (words.length === 1) {
+            initials = words[0].slice(0, 2).toUpperCase();
+          } else {
+            initials = (words[0][0] + words[words.length - 1][0]).toUpperCase();
+          }
+        }
+        if (!initials) initials = 'U';
+
+        // UID resolution
+        let uid = p.id || localStorage.getItem('bp_user_id') || localStorage.getItem('bp_user_uid') || p.uid;
+        if (!uid) {
+          uid = 'BP' + Math.floor(1000000 + Math.random() * 9000000);
+          try { localStorage.setItem('bp_user_id', uid); } catch(e) {}
+        }
+
+        // Member since
+        const createdAt = p.createdAt || localStorage.getItem('bp_user_created') || null;
+        const kyc = p.kyc || 'Tier 2 Verified';
+        const tier = p.tier || 'Tier 1';
+
+        return { name, email, phone, country, initials, uid, createdAt, kyc, tier };
+      }
+
+      // --- CHANGE 1 & 7: Refresh User Identity & Account Info ---
+      function refreshRealUserIdentity() {
+        try {
+          const u = resolveUserProfile();
+
+          // Profile name & VIP badge
+          const nameEl = $('.profile-name');
+          if (nameEl) {
+            nameEl.innerHTML = `${u.name} <span class="vip-badge">★ ${u.tier}</span>`;
+          }
+
+          // Profile avatar
+          const avEl = $('.profile-avatar');
+          if (avEl) {
+            avEl.innerHTML = `${u.initials}<span class="verified-tick">✓</span>`;
+          }
+
+          // UID line
+          const uidEl = $('.profile-uid');
+          if (uidEl) {
+            uidEl.innerHTML = `ID: ${u.uid} · <span class="copy-id" id="copyUidBtn">Copy ID</span>`;
+            const copyBtn = $('#copyUidBtn');
+            if (copyBtn) {
+              copyBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (navigator.clipboard) {
+                  navigator.clipboard.writeText(u.uid).then(() => showToast('User ID copied'));
+                } else {
+                  showToast('User ID copied');
+                }
+              });
+            }
+          }
+
+          // Member since
+          const joinedEl = $('.profile-joined');
+          if (joinedEl) {
+            if (u.createdAt) {
+              const d = new Date(u.createdAt);
+              const formatted = !isNaN(d.getTime())
+                ? d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
+                : u.createdAt;
+              joinedEl.textContent = 'Member since ' + formatted;
+              joinedEl.style.display = '';
+            } else {
+              joinedEl.style.display = 'none';
+            }
+          }
+
+          // CHANGE 7: Account Information Rows
+          const emailEl = $('#infoEmail');
+          if (emailEl) {
+            if (u.email && u.email !== 'user@example.com') {
+              emailEl.textContent = u.email;
+            } else {
+              emailEl.innerHTML = 'Not set <a href="settings.html" class="account-info-add-link">Add</a>';
+            }
+          }
+
+          const phoneEl = $('#infoPhone');
+          if (phoneEl) {
+            if (u.phone && u.phone !== '+254 712 345 678') {
+              phoneEl.textContent = u.phone;
+            } else {
+              phoneEl.innerHTML = 'Not set <a href="settings.html" class="account-info-add-link">Add</a>';
+            }
+          }
+
+          const countryEl = $('#infoCountry');
+          if (countryEl) {
+            if (u.country) {
+              countryEl.textContent = u.country;
+            } else {
+              countryEl.innerHTML = 'Not set <a href="settings.html" class="account-info-add-link">Add</a>';
+            }
+          }
+
+          // Member Since in Account Info
+          const allInfoRows = $$('.account-info-card .info-row');
+          allInfoRows.forEach(row => {
+            const lbl = row.querySelector('.info-label');
+            const val = row.querySelector('.info-value');
+            if (lbl && lbl.textContent.trim() === 'Member Since') {
+              if (u.createdAt) {
+                const d = new Date(u.createdAt);
+                val.textContent = !isNaN(d.getTime())
+                  ? d.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
+                  : u.createdAt;
+              } else {
+                val.textContent = '—';
+              }
+            }
+          });
+
+          // Insert User ID & KYC Status rows if not already present
+          const infoCard = $('.account-info-card');
+          if (infoCard && !$('#infoRowUid')) {
+            const lastLoginRow = $('#infoLastLogin') ? $('#infoLastLogin').closest('.info-row') : null;
+            
+            const uidRow = document.createElement('div');
+            uidRow.className = 'info-row';
+            uidRow.id = 'infoRowUid';
+            uidRow.innerHTML = `<span class="info-label">User ID</span><span class="info-value">${u.uid}</span>`;
+
+            const kycRow = document.createElement('div');
+            kycRow.className = 'info-row';
+            kycRow.id = 'infoRowKyc';
+            kycRow.innerHTML = `<span class="info-label">KYC Status</span><span class="info-value" style="color:var(--green-500);">${u.kyc}</span>`;
+
+            if (lastLoginRow) {
+              infoCard.insertBefore(uidRow, lastLoginRow);
+              infoCard.insertBefore(kycRow, lastLoginRow);
+            } else {
+              infoCard.appendChild(uidRow);
+              infoCard.appendChild(kycRow);
+            }
+          }
+        } catch(err) {
+          console.warn('refreshRealUserIdentity error:', err);
+        }
+      }
+
+      // --- CHANGE 2: Enforce Daily Limit $20,000 ---
+      function refreshDailyLimit() {
+        try {
+          const limitRows = $$('.tier-limit-row');
+          limitRows.forEach(row => {
+            const label = row.querySelector('span');
+            const val = row.querySelector('strong');
+            if (label && label.textContent.toLowerCase().includes('daily withdrawal')) {
+              if (val) val.textContent = '$20,000';
+            }
+          });
+
+          // Replace $1,000,000 in tier cards if present
+          $$('.tier-item .tier-limits span strong').forEach(el => {
+            if (el.textContent.includes('1,000,000')) {
+              el.textContent = '$20,000';
+            }
+          });
+        } catch(err) {
+          console.warn('refreshDailyLimit error:', err);
+        }
+      }
+
+      // --- CHANGE 6: Real Stats Calculation ---
+      function refreshRealStats() {
+        try {
+          const p2pOrders = JSON.parse(localStorage.getItem('bp_p2p_orders') || '[]');
+          const withdrawals = JSON.parse(localStorage.getItem('bp_withdrawals') || '[]');
+          const deposits = JSON.parse(localStorage.getItem('bp_deposits') || '[]');
+          const swaps = JSON.parse(localStorage.getItem('bp_recent_swaps') || '[]');
+
+          const totalP2P = p2pOrders.length;
+          const swapsCount = swaps.length;
+          const tradeCount = totalP2P + swapsCount;
+
+          const completedP2P = p2pOrders.filter(o => o.status === 'Completed').length;
+          const totalTradesDenom = totalP2P + swapsCount;
+          const completion = totalTradesDenom > 0
+            ? Math.round(((completedP2P + swapsCount) / totalTradesDenom) * 100)
+            : 0;
+
+          // Volume sum (best-effort USD sum across P2P fiat amounts, withdrawals, and deposits)
+          let totalVol = 0;
+          p2pOrders.forEach(o => {
+            totalVol += parseFloat(o.fiatAmount) || 0;
+          });
+          withdrawals.forEach(w => {
+            totalVol += parseFloat(w.amount) || 0;
+          });
+          deposits.forEach(d => {
+            totalVol += parseFloat(d.amountUSD || d.amount) || 0;
+          });
+
+          let volStr = '$0';
+          if (totalVol >= 1000000) {
+            volStr = '$' + (totalVol / 1000000).toFixed(1) + 'M';
+          } else if (totalVol >= 1000) {
+            volStr = '$' + (totalVol / 1000).toFixed(1) + 'K';
+          } else {
+            volStr = '$' + totalVol.toFixed(2);
+          }
+
+          const stTrades = $('#statTrades');
+          if (stTrades) stTrades.textContent = tradeCount;
+
+          const stComp = $('#statCompletion');
+          if (stComp) stComp.textContent = completion + '%';
+
+          const stVol = $('#statVolume');
+          if (stVol) stVol.textContent = volStr;
+
+          const repComp = $('#repCompletion');
+          if (repComp) repComp.textContent = completion + '%';
+
+          const repBar = $('#repCompletionBar');
+          if (repBar) repBar.style.width = completion + '%';
+        } catch(err) {
+          console.warn('refreshRealStats error:', err);
+        }
+      }
+
+      // --- CHANGE 6: Wallet Balance Strip ---
+      function refreshWalletStrip() {
+        try {
+          const container = $('#walletStrip');
+          if (!container) return;
+
+          let bals = {};
+          try {
+            const raw = localStorage.getItem('bp_user_balances');
+            if (raw) bals = JSON.parse(raw);
+          } catch(e) {}
+
+          const coins = [
+            { sym: 'USDT', dec: 2 },
+            { sym: 'BTC', dec: 4 },
+            { sym: 'ETH', dec: 4 },
+            { sym: 'SOL', dec: 4 },
+            { sym: 'BNB', dec: 4 }
+          ];
+
+          container.innerHTML = coins.map(c => {
+            const val = Number(bals[c.sym]) || 0;
+            return `
+              <div class="wallet-chip">
+                <span class="wallet-chip-sym">${c.sym}</span>
+                <span class="wallet-chip-val">${val.toLocaleString('en-US', { minimumFractionDigits: c.dec, maximumFractionDigits: c.dec })}</span>
+              </div>
+            `;
+          }).join('');
+        } catch(err) {
+          console.warn('refreshWalletStrip error:', err);
+        }
+      }
+
+      // --- CHANGE 5: Reviews Renderer & Modal Sheet ---
+      function refreshReviews() {
+        try {
+          let reviews = [];
+          try {
+            const raw = localStorage.getItem('bp_user_reviews');
+            if (raw) reviews = JSON.parse(raw);
+          } catch(e) {}
+
+          const scoreEl = $('.reputation-score');
+          const scoreLabelEl = $('.reputation-score-label');
+          const starsWrap = $('.reputation-stars');
+          const reviewsCountLine = starsWrap ? starsWrap.parentElement.querySelector('div') : null;
+          const container = $('#reviewsContainer');
+
+          if (Array.isArray(reviews) && reviews.length > 0) {
+            const sum = reviews.reduce((acc, r) => acc + (Number(r.rating) || 5), 0);
+            const avg = (sum / reviews.length).toFixed(1);
+            const roundedStars = Math.round(Number(avg));
+
+            if (scoreEl) scoreEl.textContent = avg;
+            if (scoreLabelEl) scoreLabelEl.textContent = 'out of 5.0';
+
+            if (starsWrap) {
+              starsWrap.innerHTML = [1, 2, 3, 4, 5].map(i => `
+                <span class="star ${i <= roundedStars ? '' : 'empty'}">★</span>
+              `).join('');
+            }
+
+            if (reviewsCountLine) {
+              reviewsCountLine.innerHTML = `Based on <strong style="color:var(--navy-900);">${reviews.length} review${reviews.length === 1 ? '' : 's'}</strong>`;
+            }
+
+            // Render up to 3 recent reviews
+            if (container) {
+              const recent = reviews.slice(0, 3);
+              container.innerHTML = `
+                <div class="reviews-list">
+                  ${recent.map(r => {
+                    const stars = Math.round(Number(r.rating) || 5);
+                    const starsHtml = [1,2,3,4,5].map(i => `<span class="star ${i<=stars?'':'empty'}">★</span>`).join('');
+                    const author = r.author || (r.verified ? 'Verified Trader' : 'Trader');
+                    const date = r.date || 'Recent';
+                    return `
+                      <div class="review-item">
+                        <div class="review-top">
+                          <div class="review-stars">${starsHtml}</div>
+                          <span class="review-date">${date}</span>
+                        </div>
+                        <p class="review-comment">${r.comment || 'Smooth and rapid transaction.'}</p>
+                        <div class="review-meta">
+                          <span class="review-author">By ${author}</span>
+                          ${r.verified ? '<span style="color:var(--green-500);font-weight:700;">✓ Verified</span>' : ''}
+                        </div>
+                      </div>
+                    `;
+                  }).join('')}
+                </div>
+                <button class="view-all-reviews-btn" id="viewAllReviewsBtn">View All Reviews (${reviews.length})</button>
+              `;
+
+              const viewAllBtn = $('#viewAllReviewsBtn');
+              if (viewAllBtn) {
+                viewAllBtn.addEventListener('click', openReviewsSheet);
+              }
+            }
+
+            // Populate bottom sheet
+            const sheetList = $('#reviewsSheetList');
+            if (sheetList) {
+              sheetList.innerHTML = reviews.map(r => {
+                const stars = Math.round(Number(r.rating) || 5);
+                const starsHtml = [1,2,3,4,5].map(i => `<span class="star ${i<=stars?'':'empty'}">★</span>`).join('');
+                const author = r.author || (r.verified ? 'Verified Trader' : 'Trader');
+                const date = r.date || 'Recent';
+                return `
+                  <div class="review-item">
+                    <div class="review-top">
+                      <div class="review-stars">${starsHtml}</div>
+                      <span class="review-date">${date}</span>
+                    </div>
+                    <p class="review-comment" style="-webkit-line-clamp:none;">${r.comment || 'Smooth transaction.'}</p>
+                    <div class="review-meta">
+                      <span class="review-author">By ${author}</span>
+                      ${r.verified ? '<span style="color:var(--green-500);font-weight:700;">✓ Verified</span>' : ''}
+                    </div>
+                  </div>
+                `;
+              }).join('');
+            }
+
+          } else {
+            // Empty State
+            if (scoreEl) scoreEl.textContent = '—';
+            if (scoreLabelEl) scoreLabelEl.textContent = 'No reviews yet';
+            if (starsWrap) {
+              starsWrap.innerHTML = [1, 2, 3, 4, 5].map(() => '<span class="star empty">★</span>').join('');
+            }
+            if (reviewsCountLine) {
+              reviewsCountLine.innerHTML = 'Your first 5-star review will appear here after a completed trade.';
+            }
+            if (container) {
+              container.innerHTML = '';
+            }
+          }
+
+          // Check Account Age / Member Since label in reputation bars
+          const u = resolveUserProfile();
+          const allRepLabels = $$('.rep-bar-label');
+          allRepLabels.forEach(bar => {
+            const span = bar.querySelector('span');
+            const strong = bar.querySelector('strong');
+            if (span && span.textContent.includes('Account Age') && u.createdAt) {
+              const diffMs = Date.now() - new Date(u.createdAt).getTime();
+              const years = (diffMs / (1000 * 60 * 60 * 24 * 365)).toFixed(1);
+              span.textContent = 'Member Since';
+              if (strong) strong.textContent = years + ' years';
+            }
+          });
+        } catch(err) {
+          console.warn('refreshReviews error:', err);
+        }
+      }
+
+      function openReviewsSheet() {
+        const sheet = $('#reviewsSheet');
+        const overlay = $('#reviewsSheetOverlay');
+        if (sheet && overlay) {
+          overlay.classList.add('open');
+          sheet.classList.add('open');
+        }
+      }
+
+      function closeReviewsSheet() {
+        const sheet = $('#reviewsSheet');
+        const overlay = $('#reviewsSheetOverlay');
+        if (sheet && overlay) {
+          overlay.classList.remove('open');
+          sheet.classList.remove('open');
+        }
+      }
+
+      // --- CHANGE 3: Quick Actions with Direct Smooth Navigation ---
+      function wireQuickActions() {
+        try {
+          const actionTargets = {
+            'my-orders': 'p2p.html#orders',
+            'my-ads': 'p2p.html#ads',
+            'transaction-history': 'transaction-history.html',
+            'deposit': 'deposit.html',
+            'withdraw': 'withdraw.html'
+          };
+
+          $$('.quick-action').forEach(tile => {
+            const clone = tile.cloneNode(true);
+            tile.parentNode.replaceChild(clone, tile);
+
+            clone.addEventListener('click', () => {
+              const action = clone.dataset.action;
+              if (action === 'referrals') {
+                const refCard = document.getElementById('referralCard');
+                if (refCard) {
+                  refCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+              } else if (actionTargets[action]) {
+                window.location.href = actionTargets[action];
+              } else {
+                showToast('Opening...');
+              }
+            });
+          });
+        } catch(err) {
+          console.warn('wireQuickActions error:', err);
+        }
+      }
+
+      // --- CHANGE 4: Referral Card Wiring ---
+      function wireReferralCard() {
+        try {
+          const u = resolveUserProfile();
+          let refCode = localStorage.getItem('bp_referral_code');
+          if (!refCode) {
+            refCode = 'BP-' + (u.uid.replace(/^BP-?/, '').slice(-6) || '789234').toUpperCase();
+            try { localStorage.setItem('bp_referral_code', refCode); } catch(e) {}
+          }
+
+          const codeEl = $('#refCodeDisplay');
+          if (codeEl) codeEl.textContent = refCode;
+
+          const refUrl = window.location.origin + '/auth.html?ref=' + refCode;
+          const inputEl = $('#refLinkInput');
+          if (inputEl) inputEl.value = refUrl;
+
+          // Copy link & code
+          const copyLinkBtn = $('#copyRefLinkBtn');
+          if (copyLinkBtn) {
+            copyLinkBtn.addEventListener('click', () => {
+              if (navigator.clipboard) {
+                navigator.clipboard.writeText(refUrl).then(() => showToast('Referral link copied!'));
+              } else {
+                showToast('Referral link copied!');
+              }
+            });
+          }
+
+          const copyCodeBtn = $('#copyRefCodeBtn');
+          if (copyCodeBtn) {
+            copyCodeBtn.addEventListener('click', () => {
+              if (navigator.clipboard) {
+                navigator.clipboard.writeText(refCode).then(() => showToast('Referral code copied!'));
+              } else {
+                showToast('Referral code copied!');
+              }
+            });
+          }
+
+          // Social share links
+          const shareText = encodeURIComponent('Join me on BluePeak Capital for zero-fee multi-sig P2P trading and crypto investments! Sign up with my link:');
+          const encodedUrl = encodeURIComponent(refUrl);
+
+          const waBtn = $('#shareWhatsApp');
+          if (waBtn) waBtn.href = `https://wa.me/?text=${shareText}%20${encodedUrl}`;
+
+          const tgBtn = $('#shareTelegram');
+          if (tgBtn) tgBtn.href = `https://t.me/share/url?url=${encodedUrl}&text=${shareText}`;
+
+          const twBtn = $('#shareTwitter');
+          if (twBtn) twBtn.href = `https://twitter.com/intent/tweet?text=${shareText}&url=${encodedUrl}`;
+
+          const emBtn = $('#shareEmail');
+          if (emBtn) emBtn.href = `mailto:?subject=Join%20BluePeak%20Capital&body=${shareText}%20${encodedUrl}`;
+
+          // Live counters
+          let refs = [];
+          try {
+            const rawRefs = localStorage.getItem('bp_referrals');
+            if (rawRefs) refs = JSON.parse(rawRefs);
+          } catch(e) {}
+
+          const count = Array.isArray(refs) ? refs.length : 0;
+          let earned = 0;
+          if (Array.isArray(refs)) {
+            refs.forEach(r => {
+              earned += parseFloat(r.rewardUSD || r.reward || 0);
+            });
+          }
+
+          const countLbl = $('#refCountLabel');
+          if (countLbl) countLbl.textContent = 'Referred so far: ' + count;
+
+          const earnLbl = $('#refEarnedLabel');
+          if (earnLbl) earnLbl.textContent = 'Total earned: $' + earned.toFixed(0);
+        } catch(err) {
+          console.warn('wireReferralCard error:', err);
+        }
+      }
+
+      // --- CHANGE 8: Bottom Nav Wallet Active Class Removal ---
+      function fixBottomNavActive() {
+        try {
+          const walletItem = document.querySelector('.bottom-nav-item[data-nav="wallet"]');
+          if (walletItem) {
+            walletItem.classList.remove('active');
+          }
+        } catch(err) {}
+      }
+
+      // --- INITIALIZE ALL ADDITIONS ---
+      function initAdditions() {
+        refreshRealUserIdentity();
+        refreshDailyLimit();
+        refreshRealStats();
+        refreshWalletStrip();
+        refreshReviews();
+        wireQuickActions();
+        wireReferralCard();
+        fixBottomNavActive();
+
+        // Wire reviews sheet listeners
+        const closeBtn = $('#closeReviewsSheetBtn');
+        if (closeBtn) closeBtn.addEventListener('click', closeReviewsSheet);
+        const overlay = $('#reviewsSheetOverlay');
+        if (overlay) overlay.addEventListener('click', closeReviewsSheet);
+
+        // Storage listener
+        window.addEventListener('storage', (e) => {
+          if (e.key === 'bp_user_balances' || e.key === 'bp_p2p_orders') {
+            refreshWalletStrip();
+            refreshRealStats();
+          }
+          if (e.key === 'bp_user_profile' || e.key === 'bp_user_name' || e.key === 'bp_user_email' || e.key === 'bp_user_id') {
+            refreshRealUserIdentity();
+            wireReferralCard();
+          }
+          if (e.key === 'bp_user_reviews') {
+            refreshReviews();
+          }
+          if (e.key === 'bp_referrals' || e.key === 'bp_referral_code') {
+            wireReferralCard();
+          }
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initAdditions);
+      } else {
+        initAdditions();
+      }
+
+    })();
+
   </script>
 </body>
 </html>
