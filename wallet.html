@@ -56,9 +56,7 @@
       flex-direction: column; overflow-x: hidden;
     }
 
-    /* ============================================================
-       HEADER
-       ============================================================ */
+    /* HEADER */
     .wallet-header {
       background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(12px);
       padding: 10px 16px; display: flex; align-items: center;
@@ -76,18 +74,14 @@
     .icon-btn svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
     .header-title { font-size: 18px; font-weight: 800; color: var(--navy-900); letter-spacing: -0.4px; margin-left: 4px; }
 
-    /* ============================================================
-       MAIN
-       ============================================================ */
+    /* MAIN */
     .wallet-main {
       flex: 1; padding: 16px 16px 0; max-width: 600px;
       margin: 0 auto; width: 100%;
       display: flex; flex-direction: column; gap: 16px;
     }
 
-    /* ============================================================
-       TOTAL BALANCE CARD
-       ============================================================ */
+    /* BALANCE CARD */
     .balance-card {
       background: linear-gradient(135deg, var(--navy-900), var(--navy-800));
       border-radius: var(--radius-lg); padding: 24px 22px;
@@ -124,15 +118,11 @@
     .bal-action-btn.withdraw { background: rgba(255, 255, 255, 0.12); color: #fff; border: 1px solid rgba(255, 255, 255, 0.18); }
     .bal-action-btn.withdraw:hover { background: rgba(255, 255, 255, 0.18); }
 
-    /* ============================================================
-       SECTION TITLES
-       ============================================================ */
+    /* SECTION TITLES */
     .section-title { font-size: 16px; font-weight: 800; color: var(--navy-900); letter-spacing: -0.3px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 2px; }
     .section-title .sub { font-size: 12px; font-weight: 600; color: var(--gray-500); }
 
-    /* ============================================================
-       ASSET LIST
-       ============================================================ */
+    /* ASSET LIST */
     .asset-card {
       background: var(--white); border: 1px solid var(--gray-200);
       border-radius: var(--radius-lg); box-shadow: var(--shadow-sm);
@@ -159,9 +149,7 @@
     .asset-row-amount { font-size: 14.5px; font-weight: 800; color: var(--navy-900); font-variant-numeric: tabular-nums; }
     .asset-row-usd { font-size: 11.5px; font-weight: 600; color: var(--gray-500); margin-top: 2px; font-variant-numeric: tabular-nums; }
 
-    /* ============================================================
-       TRANSACTIONS
-       ============================================================ */
+    /* TRANSACTIONS */
     .tx-filter-row {
       display: flex; gap: 8px; overflow-x: auto;
       padding-bottom: 4px; scrollbar-width: none; margin-bottom: 8px;
@@ -212,9 +200,7 @@
       color: var(--gray-500); font-size: 13px; font-weight: 500;
     }
 
-    /* ============================================================
-       MODAL
-       ============================================================ */
+    /* MODAL */
     .modal-overlay {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
       background: rgba(10, 26, 47, 0.6); backdrop-filter: blur(4px);
@@ -299,9 +285,7 @@
     }
     .copy-btn:hover { background: var(--navy-800); }
 
-    /* ============================================================
-       BOTTOM NAV
-       ============================================================ */
+    /* BOTTOM NAV */
     .bottom-nav {
       position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
       width: 100%; max-width: 600px; background: rgba(255, 255, 255, 0.97);
@@ -331,9 +315,7 @@
       stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round;
     }
 
-    /* ============================================================
-       TOAST
-       ============================================================ */
+    /* TOAST */
     .toast {
       position: fixed; bottom: 100px; left: 50%;
       transform: translateX(-50%) translateY(20px);
@@ -355,8 +337,88 @@
       .wallet-main { max-width: 640px; padding: 20px 24px 0; gap: 18px; }
       .bottom-nav { max-width: 640px; border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
     }
-  </style>
-</head>
+
+    /* ===== ADDITIONS ===== */
+    .asset-row { position: relative; }
+    .asset-row-dots {
+      flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%;
+      background: transparent; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gray-500); transition: background 0.15s;
+      font-size: 18px; font-weight: 800; line-height: 1;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .asset-row-dots:hover { background: var(--navy-50); color: var(--navy-900); }
+    .asset-row .asset-row-balance { margin-right: 4px; }
+
+    .asset-live-price {
+      font-size: 10.5px; font-weight: 600; color: var(--gray-400);
+      margin-top: 1px; font-variant-numeric: tabular-nums;
+    }
+
+    /* Asset action sheet */
+    .asset-action-row {
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .asset-action-btn {
+      display: flex; align-items: center; gap: 12px;
+      padding: 16px; border-radius: var(--radius-md);
+      background: var(--white); border: 1.5px solid var(--gray-200);
+      font-family: var(--font); font-size: 14px; font-weight: 800;
+      color: var(--navy-900); cursor: pointer; text-align: left;
+      transition: all 0.18s;
+    }
+    .asset-action-btn:hover { border-color: var(--gold-500); background: var(--gold-100); }
+    .asset-action-btn .aab-icon {
+      width: 36px; height: 36px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; flex-shrink: 0;
+    }
+    .asset-action-btn.deposit .aab-icon { background: var(--green-100); color: var(--green-500); }
+    .asset-action-btn.withdraw .aab-icon { background: var(--red-100); color: var(--red-500); }
+    .asset-action-btn .aab-sub { display: block; font-size: 11.5px; font-weight: 600; color: var(--gray-500); margin-top: 1px; }
+
+    /* Transaction detail */
+    .tx-detail-row {
+      display: flex; justify-content: space-between; gap: 12px;
+      padding: 10px 0; border-bottom: 1px solid var(--gray-200);
+      font-size: 13px;
+    }
+    .tx-detail-row:last-child { border-bottom: none; }
+    .tx-detail-row .k { color: var(--gray-500); font-weight: 600; }
+    .tx-detail-row .v { color: var(--navy-900); font-weight: 800; text-align: right; word-break: break-all; font-variant-numeric: tabular-nums; }
+    .tx-status-pill {
+      display: inline-block; padding: 3px 10px; border-radius: var(--radius-pill);
+      font-size: 10.5px; font-weight: 800; letter-spacing: 0.4px; text-transform: uppercase;
+    }
+    .tx-status-pill.completed { background: var(--green-100); color: var(--green-500); }
+    .tx-status-pill.pending { background: var(--gold-100); color: var(--gold-500); }
+    .tx-status-pill.failed { background: var(--red-100); color: var(--red-500); }
+
+    .tx-item { cursor: pointer; position: relative; }
+    .tx-item-arrow {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--navy-50); color: var(--gray-500);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 800; flex-shrink: 0; margin-left: 6px;
+    }
+    .tx-item:hover .tx-item-arrow { background: var(--navy-900); color: var(--gold-400); }
+
+    .activity-type-pill {
+      display: inline-block; font-size: 10px; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.5px;
+      padding: 2px 8px; border-radius: var(--radius-pill); margin-top: 3px;
+    }
+    .activity-type-pill.deposit { background: var(--green-100); color: var(--green-500); }
+    .activity-type-pill.withdraw { background: var(--red-100); color: var(--red-500); }
+    .activity-type-pill.swap { background: var(--gold-100); color: var(--gold-500); }
+    .activity-type-pill.trade { background: var(--navy-50); color: var(--navy-700); }
+    .activity-type-pill.p2p { background: var(--gold-100); color: var(--gold-500); }
+
+    @media (min-width: 700px) {
+      .asset-row { padding: 18px 20px; }
+    }
+  </style></head>
 <body>
 
   <!-- MODAL OVERLAYS -->
@@ -457,7 +519,7 @@
       <div class="balance-card-value" id="totalBalance">$0.00</div>
       <div class="balance-card-sub">
         <span style="color:var(--green-500);">+0.00%</span>
-        <span class="stat">· Available: $0.00</span>
+        <span class="stat" id="availableBalanceText">· Available: $0.00</span>
       </div>
       <div class="balance-card-actions">
         <button class="bal-action-btn deposit" id="depositBtn">↓ Deposit</button>
@@ -471,9 +533,7 @@
         Your Assets
         <span class="sub" id="assetCount">4 assets</span>
       </div>
-      <div class="asset-card" id="assetList">
-        <!-- Rendered by JS -->
-      </div>
+      <div class="asset-card" id="assetList"></div>
     </div>
 
     <!-- TRANSACTIONS -->
@@ -489,9 +549,7 @@
         <button class="tx-filter" data-txfilter="swap">Swaps</button>
         <button class="tx-filter" data-txfilter="trade">Trades</button>
       </div>
-      <div class="tx-list" id="txList">
-        <!-- Rendered by JS -->
-      </div>
+      <div class="tx-list" id="txList"></div>
     </div>
 
   </main>
@@ -520,6 +578,44 @@
     </button>
   </nav>
 
+  <!-- ASSET ACTION SHEET (per asset ⋮ menu) -->
+  <div class="bottom-sheet" id="assetActionSheet">
+    <div class="sheet-header">
+      <h3 id="assetActionTitle">Asset</h3>
+      <button class="sheet-close" id="assetActionClose">✕</button>
+    </div>
+    <div class="sheet-body">
+      <div class="asset-action-row">
+        <button class="asset-action-btn deposit" id="assetActionDeposit">
+          <span class="aab-icon">↓</span>
+          <span>
+            Deposit
+            <span class="aab-sub" id="assetActionDepositSub">Receive into your wallet</span>
+          </span>
+        </button>
+        <button class="asset-action-btn withdraw" id="assetActionWithdraw">
+          <span class="aab-icon">↑</span>
+          <span>
+            Withdraw
+            <span class="aab-sub" id="assetActionWithdrawSub">Send to an external wallet</span>
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TX DETAIL SHEET -->
+  <div class="bottom-sheet" id="txDetailSheet">
+    <div class="sheet-header">
+      <h3 id="txDetailTitle">Transaction Details</h3>
+      <button class="sheet-close" id="txDetailClose">✕</button>
+    </div>
+    <div class="sheet-body" id="txDetailBody"></div>
+  </div>
+
+  <!-- TX DETAIL OVERLAY -->
+  <div class="modal-overlay" id="sheetOverlay"></div>
+
   <div class="toast" id="toast"></div>
 
   <script>
@@ -531,7 +627,7 @@
       const toastEl = $('#toast');
 
       // ============================================================
-      // ASSETS (demo — replace with real data from backend)
+      // ASSETS (demo defaults — real values overlaid by ADDITIONS)
       // ============================================================
       const ASSETS = [
         { symbol: 'USDT', name: 'Tether', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/usdt.svg', balance: 0, price: 1 },
@@ -540,15 +636,11 @@
         { symbol: 'SOL',  name: 'Solana', icon: 'https://blockchains.tatum.io/assets/img/solana.svg', balance: 0, price: 150 },
       ];
 
-      // Demo transactions
       const TX = [];
 
       let balanceVisible = true;
       let currentTxFilter = 'all';
 
-      // ============================================================
-      // TOAST
-      // ============================================================
       function showToast(msg) {
         toastEl.textContent = msg;
         toastEl.classList.add('show');
@@ -557,22 +649,16 @@
       }
       window.showToast = showToast;
 
-      // ============================================================
-      // FORMAT
-      // ============================================================
       function fmtUSD(n) {
-        return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        return '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
       }
       function fmtAmt(n) {
         if (n === 0) return '0.00';
-        if (n >= 1000) return n.toLocaleString('en-US', { maximumFractionDigits: 2 });
-        if (n >= 1) return n.toFixed(4);
-        return n.toFixed(6);
+        if (n >= 1000) return Number(n).toLocaleString('en-US', { maximumFractionDigits: 2 });
+        if (n >= 1) return Number(n).toFixed(4);
+        return Number(n).toFixed(6);
       }
 
-      // ============================================================
-      // BALANCE VISIBILITY
-      // ============================================================
       function updateBalanceVisibility() {
         const el = $('#totalBalance');
         const icon = $('#balanceEyeIcon');
@@ -591,9 +677,6 @@
         updateBalanceVisibility();
       });
 
-      // ============================================================
-      // ASSET LIST
-      // ============================================================
       function renderAssets() {
         $('#assetList').innerHTML = ASSETS.map(a => {
           const usdValue = a.balance * a.price;
@@ -603,11 +686,13 @@
               <div class="asset-row-info">
                 <div class="asset-row-name">${a.name}</div>
                 <div class="asset-row-symbol">${a.symbol}</div>
+                <div class="asset-live-price">1 ${a.symbol} ≈ ${fmtUSD(a.price)}</div>
               </div>
               <div class="asset-row-balance">
                 <div class="asset-row-amount">${fmtAmt(a.balance)} ${a.symbol}</div>
                 <div class="asset-row-usd">≈ ${fmtUSD(usdValue)}</div>
               </div>
+              <button class="asset-row-dots" data-asset-menu="${a.symbol}" aria-label="Asset actions">⋮</button>
             </div>
           `;
         }).join('');
@@ -615,16 +700,21 @@
         $('#assetCount').textContent = ASSETS.length + ' assets';
 
         $$('.asset-row').forEach(row => {
-          row.addEventListener('click', () => {
+          row.addEventListener('click', (e) => {
+            if (e.target.closest('.asset-row-dots')) return;
             const sym = row.dataset.asset;
-            showToast(`${sym} details — integration point`);
+            navigateTo('deposit.html?asset=' + encodeURIComponent(sym));
+          });
+        });
+
+        $$('.asset-row-dots').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            openAssetActionSheet(btn.dataset.assetMenu);
           });
         });
       }
 
-      // ============================================================
-      // TRANSACTIONS
-      // ============================================================
       function renderTx() {
         const filtered = currentTxFilter === 'all'
           ? TX
@@ -636,30 +726,35 @@
         }
 
         $('#txList').innerHTML = filtered.map(t => {
-          const iconClass = t.type;
-          const iconEmoji = {
-            deposit: '↓',
-            withdraw: '↑',
-            swap: '⇄',
-            trade: '📈',
-          }[t.type] || '•';
+          const iconEmoji = { deposit: '↓', withdraw: '↑', swap: '⇄', trade: '📈' }[t.type] || '•';
           const sign = t.type === 'deposit' || t.type === 'trade' ? '+' : '-';
           const cls = sign === '+' ? 'positive' : 'negative';
           const statusClass = t.status === 'completed' ? '' : t.status;
+          const typeLabel = { deposit: 'Deposit', withdraw: 'Withdrawal', swap: 'Swap', trade: 'Trade' }[t.type] || t.type;
           return `
-            <div class="tx-item">
-              <div class="tx-icon ${iconClass}">${iconEmoji}</div>
+            <div class="tx-item" data-txid="${t.id || ''}">
+              <div class="tx-icon ${t.type}">${iconEmoji}</div>
               <div class="tx-info">
                 <div class="tx-title">${t.title}</div>
                 <div class="tx-date">${t.date}</div>
+                <span class="activity-type-pill ${t.type}">${typeLabel}</span>
               </div>
               <div class="tx-amount">
                 <div class="tx-amount-val ${cls}">${sign}${t.amount} ${t.symbol}</div>
                 <div class="tx-status ${statusClass}">${t.status}</div>
               </div>
+              <div class="tx-item-arrow">›</div>
             </div>
           `;
         }).join('');
+
+        $$('.tx-item').forEach(item => {
+          item.addEventListener('click', () => {
+            const id = item.dataset.txid;
+            const rec = TX.find(x => String(x.id) === String(id));
+            if (rec) openTxDetail(rec);
+          });
+        });
       }
 
       $$('.tx-filter').forEach(btn => {
@@ -671,9 +766,6 @@
         });
       });
 
-      // ============================================================
-      // DEPOSIT / WITHDRAW
-      // ============================================================
       const depositModal = $('#depositModal');
       const depositOverlay = $('#depositModalOverlay');
       const withdrawModal = $('#withdrawModal');
@@ -699,11 +791,16 @@
       }
       function updateDepositAddress() {
         const sym = $('#depositAssetSelect').value;
-        $('#depositAddress').textContent = DEPOSIT_ADDRESSES[sym] || '—';
+        const platformAddrs = (function() {
+          try {
+            return JSON.parse(localStorage.getItem('bp_platform_deposit_addresses') || '{}');
+          } catch (e) { return {}; }
+        })();
+        $('#depositAddress').textContent = platformAddrs[sym] || DEPOSIT_ADDRESSES[sym] || '—';
         $('#depositAssetNote').textContent = sym;
       }
       $('#depositAssetSelect').addEventListener('change', updateDepositAddress);
-      $('#depositBtn').addEventListener('click', openDeposit);
+      $('#depositBtn').addEventListener('click', () => navigateTo('deposit.html'));
       $('#depositModalClose').addEventListener('click', closeDeposit);
       depositOverlay.addEventListener('click', closeDeposit);
       $('#copyDepositBtn').addEventListener('click', () => {
@@ -729,13 +826,10 @@
         withdrawModal.classList.remove('open');
         document.body.style.overflow = '';
       }
-      $('#withdrawBtn').addEventListener('click', openWithdraw);
+      $('#withdrawBtn').addEventListener('click', () => navigateTo('withdraw.html'));
       $('#withdrawModalClose').addEventListener('click', closeWithdraw);
       withdrawOverlay.addEventListener('click', closeWithdraw);
 
-      // ============================================================
-      // BACK & HISTORY
-      // ============================================================
       $('#backBtn').addEventListener('click', () => {
         window.location.href = 'index.html';
       });
@@ -743,30 +837,276 @@
         document.querySelector('.tx-list').scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
 
-      // ============================================================
-      // BOTTOM NAV
-      // ============================================================
       $$('.bottom-nav-item').forEach(btn => {
         btn.addEventListener('click', () => {
           const nav = btn.dataset.nav;
           if (nav === 'wallet') return;
-          if (nav === 'home') window.location.href = 'index.html';
-          if (nav === 'p2p') window.location.href = 'p2p.html';
-          if (nav === 'trade') { window.location.href = 'index.html#trade'; }
-          if (nav === 'swap') { window.location.href = 'index.html#swap'; }
+          if (nav === 'home') navigateTo('index.html');
+          if (nav === 'p2p') navigateTo('p2p.html');
+          if (nav === 'trade') navigateTo('trade.html');
+          if (nav === 'swap') navigateTo('swap.html');
         });
       });
 
-      // ============================================================
-      // INIT
-      // ============================================================
-      updateBalanceVisibility();
-      renderAssets();
-      renderTx();
+      // ===== ADDITIONS =====
 
-      window.addEventListener('resize', () => {
-        document.body.style.overflowX = 'hidden';
+      let isNavigating = false;
+      function navigateTo(url) {
+        if (!url || isNavigating) return;
+        isNavigating = true;
+        window.location.href = url;
+        setTimeout(() => { isNavigating = false; }, 800);
+      }
+
+      const FALLBACK_PRICES = { USDT: 1, BTC: 81000, ETH: 3200, SOL: 150 };
+
+      function readBalances() {
+        try {
+          return JSON.parse(localStorage.getItem('bp_user_balances') || '{}') || {};
+        } catch (e) { return {}; }
+      }
+      function readPrices() {
+        try {
+          return JSON.parse(localStorage.getItem('bp_market_prices') || '{}') || {};
+        } catch (e) { return {}; }
+      }
+
+      function refreshLiveBalances() {
+        const balances = readBalances();
+        const prices = readPrices();
+
+        ASSETS.forEach(a => {
+          const raw = balances[a.symbol];
+          a.balance = isNaN(parseFloat(raw)) ? 0 : parseFloat(raw);
+          const p = parseFloat(prices[a.symbol]);
+          a.price = (!isNaN(p) && p > 0) ? p : (FALLBACK_PRICES[a.symbol] || 0);
+        });
+
+        const total = ASSETS.reduce((sum, a) => sum + a.balance * a.price, 0);
+        const availableEl = $('#availableBalanceText');
+        if (availableEl) availableEl.textContent = '· Available: ' + fmtUSD(total);
+
+        renderAssets();
+        updateBalanceVisibility();
+      }
+
+      function readJSON(key) {
+        try {
+          const v = JSON.parse(localStorage.getItem(key) || '[]');
+          return Array.isArray(v) ? v : [];
+        } catch (e) { return []; }
+      }
+
+      function normalizeActivities() {
+        const list = [];
+
+        readJSON('bp_deposits').forEach((d, i) => {
+          const amt = parseFloat(d.amount || d.amountUSD || 0);
+          const sym = d.symbol || d.asset || 'USDT';
+          list.push({
+            id: 'dep-' + i + '-' + (d.txid || d.id || ''),
+            type: 'deposit',
+            title: 'Deposit · ' + sym,
+            date: d.date || d.createdAt || d.timestamp || '—',
+            amount: isNaN(amt) ? '0.00' : amt.toFixed(2),
+            symbol: sym,
+            status: (d.status || 'completed').toLowerCase(),
+            raw: d
+          });
+        });
+
+        readJSON('bp_withdrawals').forEach((w, i) => {
+          const amt = parseFloat(w.amount || 0);
+          const sym = w.symbol || w.asset || 'USDT';
+          list.push({
+            id: 'wd-' + i + '-' + (w.txid || w.id || ''),
+            type: 'withdraw',
+            title: 'Withdrawal · ' + sym,
+            date: w.date || w.createdAt || w.timestamp || '—',
+            amount: isNaN(amt) ? '0.00' : amt.toFixed(2),
+            symbol: sym,
+            status: (w.status || 'pending').toLowerCase(),
+            raw: w
+          });
+        });
+
+        readJSON('bp_recent_swaps').forEach((s, i) => {
+          const fromSym = s.from || s.fromSymbol || '—';
+          const toSym = s.to || s.toSymbol || '—';
+          const amt = parseFloat(s.fromAmount || s.amount || 0);
+          list.push({
+            id: 'sw-' + i + '-' + (s.id || ''),
+            type: 'swap',
+            title: 'Swap · ' + fromSym + ' → ' + toSym,
+            date: s.date || s.createdAt || s.timestamp || '—',
+            amount: isNaN(amt) ? '0.00' : amt.toFixed(4),
+            symbol: fromSym,
+            status: (s.status || 'completed').toLowerCase(),
+            raw: s
+          });
+        });
+
+        readJSON('bp_p2p_orders').forEach((o, i) => {
+          const amt = parseFloat(o.cryptoAmount || o.fiatAmount || 0);
+          const sym = o.crypto || '—';
+          const side = (o.mode || '').toLowerCase() === 'sell' ? 'Sell' : 'Buy';
+          list.push({
+            id: 'p2p-' + i + '-' + (o.id || ''),
+            type: 'trade',
+            title: 'P2P ' + side + ' · ' + sym,
+            date: o.date || o.createdAt || '—',
+            amount: isNaN(amt) ? '0.00' : amt.toFixed(4),
+            symbol: sym,
+            status: (o.status || 'pending').toLowerCase(),
+            raw: o
+          });
+        });
+
+        list.sort((a, b) => {
+          const da = Date.parse(a.date) || 0;
+          const db = Date.parse(b.date) || 0;
+          return db - da;
+        });
+
+        return list;
+      }
+
+      function refreshActivity() {
+        const acts = normalizeActivities();
+        TX.length = 0;
+        acts.forEach(a => TX.push(a));
+        renderTx();
+      }
+
+      // --- Asset action sheet ---
+      let currentAssetSymbol = null;
+
+      function openAssetActionSheet(sym) {
+        currentAssetSymbol = sym;
+        const a = ASSETS.find(x => x.symbol === sym);
+        const sheet = $('#assetActionSheet');
+        const overlay = $('#sheetOverlay');
+        if (!sheet || !overlay) return;
+        $('#assetActionTitle').textContent = (a ? a.name : sym) + ' · ' + sym;
+        $('#assetActionDepositSub').textContent = 'Receive ' + sym + ' into your wallet';
+        $('#assetActionWithdrawSub').textContent = 'Send ' + sym + ' to an external wallet';
+        sheet.classList.add('open');
+        overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeAssetActionSheet() {
+        const sheet = $('#assetActionSheet');
+        const overlay = $('#sheetOverlay');
+        if (sheet) sheet.classList.remove('open');
+        if (overlay) overlay.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+      const aac = $('#assetActionClose');
+      if (aac) aac.addEventListener('click', closeAssetActionSheet);
+      const aad = $('#assetActionDeposit');
+      if (aad) aad.addEventListener('click', () => {
+        closeAssetActionSheet();
+        if (currentAssetSymbol) navigateTo('deposit.html?asset=' + encodeURIComponent(currentAssetSymbol));
       });
+      const aaw = $('#assetActionWithdraw');
+      if (aaw) aaw.addEventListener('click', () => {
+        closeAssetActionSheet();
+        if (currentAssetSymbol) navigateTo('withdraw.html?asset=' + encodeURIComponent(currentAssetSymbol));
+      });
+
+      // --- TX detail sheet ---
+      function openTxDetail(rec) {
+        const sheet = $('#txDetailSheet');
+        const overlay = $('#sheetOverlay');
+        const body = $('#txDetailBody');
+        if (!sheet || !overlay || !body) return;
+
+        const typeLabel = { deposit: 'Deposit', withdraw: 'Withdrawal', swap: 'Swap', trade: 'Trade' }[rec.type] || rec.type;
+        const statusClass = (rec.status === 'completed' || rec.status === 'paid' || rec.status === 'completed') ? 'completed'
+                          : (rec.status === 'failed' || rec.status === 'cancelled' || rec.status === 'disputed') ? 'failed'
+                          : 'pending';
+
+        const raw = rec.raw || {};
+        const rows = [];
+
+        rows.push(['Activity', typeLabel]);
+        rows.push(['Asset', rec.symbol || '—']);
+        rows.push(['Amount', rec.amount + ' ' + (rec.symbol || '')]);
+        if (raw.fiatAmount) rows.push(['Fiat amount', raw.fiatAmount + ' ' + (raw.fiat || '')]);
+        if (raw.price) rows.push(['Price', raw.price]);
+        if (raw.merchantName) rows.push(['Counterparty', raw.merchantName]);
+        if (raw.paymentMethod) rows.push(['Payment method', raw.paymentMethod]);
+        if (raw.address) rows.push(['Destination', raw.address]);
+        if (raw.network) rows.push(['Network', raw.network]);
+        if (raw.txid) rows.push(['Tx Hash', raw.txid]);
+        if (raw.order) rows.push(['Order ID', raw.order]);
+        rows.push(['Date', rec.date]);
+
+        const statusPill = '<span class="tx-status-pill ' + statusClass + '">' + (rec.status || '—').toUpperCase() + '</span>';
+
+        let html = rows.map(r => `
+          <div class="tx-detail-row">
+            <div class="k">${r[0]}</div>
+            <div class="v">${String(r[1])}</div>
+          </div>
+        `).join('');
+        html += `<div class="tx-detail-row"><div class="k">Status</div><div class="v">${statusPill}</div></div>`;
+
+        if (raw.proof || raw.dispute) {
+          html += `<div class="info-box" style="margin-top:10px;">
+            <div class="ib-icon">${raw.dispute ? '🚩' : '📎'}</div>
+            <div class="ib-text"><strong>${raw.dispute ? 'Dispute opened' : 'Proof attached'}</strong><br>${raw.dispute ? (raw.dispute.reason || 'Under mediation') : 'Payment proof on file'}</div>
+          </div>`;
+        }
+
+        const sectionMap = { deposit: 'transaction-history.html', withdraw: 'transaction-history.html', swap: 'swap.html', trade: 'p2p.html' };
+        const dest = sectionMap[rec.type] || 'transaction-history.html';
+        html += `<button class="btn-primary" style="margin-top:14px;" onclick="window.location.href='${dest}'">Open in ${rec.type === 'trade' ? 'P2P Orders' : 'Transactions'}</button>`;
+
+        body.innerHTML = html;
+        $('#txDetailTitle').textContent = typeLabel + ' Details';
+        sheet.classList.add('open');
+        overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeTxDetail() {
+        const sheet = $('#txDetailSheet');
+        const overlay = $('#sheetOverlay');
+        if (sheet) sheet.classList.remove('open');
+        if (overlay) overlay.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+      const tdc = $('#txDetailClose');
+      if (tdc) tdc.addEventListener('click', closeTxDetail);
+      const sheetOverlayEl = $('#sheetOverlay');
+      if (sheetOverlayEl) sheetOverlayEl.addEventListener('click', () => {
+        closeAssetActionSheet();
+        closeTxDetail();
+      });
+
+      // --- Live storage sync ---
+      window.addEventListener('storage', (e) => {
+        if (!e || !e.key) return;
+        if (['bp_user_balances', 'bp_market_prices'].indexOf(e.key) !== -1) {
+          refreshLiveBalances();
+        }
+        if (['bp_deposits', 'bp_withdrawals', 'bp_recent_swaps', 'bp_p2p_orders'].indexOf(e.key) !== -1) {
+          refreshActivity();
+        }
+      });
+      window.addEventListener('focus', () => {
+        refreshLiveBalances();
+        refreshActivity();
+      });
+
+      // --- Init ---
+      try {
+        refreshLiveBalances();
+        refreshActivity();
+      } catch (err) {
+        console.warn('[wallet] additions init failed', err);
+      }
+
     })();
   </script>
 </body>
