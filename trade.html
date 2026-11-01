@@ -7,7 +7,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -53,7 +52,6 @@
       flex-direction: column; overflow-x: hidden;
     }
 
-    /* HEADER */
     .trade-header {
       background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(12px);
       padding: 10px 16px; display: flex; align-items: center;
@@ -74,7 +72,6 @@
     .header-balance .bal-label { font-size: 10px; font-weight: 700; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.4px; }
     .header-balance .bal-value { font-size: 15px; font-weight: 800; color: var(--navy-900); font-variant-numeric: tabular-nums; letter-spacing: -0.3px; }
 
-    /* SUB NAV */
     .sub-nav {
       background: var(--white); border-bottom: 1px solid var(--gray-200);
       display: flex; overflow-x: auto; scrollbar-width: none;
@@ -94,7 +91,6 @@
       height: 3px; background: var(--gold-500); border-radius: 3px 3px 0 0;
     }
 
-    /* MAIN */
     .trade-main {
       flex: 1; padding: 12px 12px 0; max-width: 700px;
       margin: 0 auto; width: 100%;
@@ -103,7 +99,6 @@
     .view-pane { display: none; flex-direction: column; gap: 12px; }
     .view-pane.active { display: flex; }
 
-    /* SECTION CARD */
     .section-card {
       background: var(--white); border: 1px solid var(--gray-200);
       border-radius: var(--radius-md); box-shadow: var(--shadow-sm);
@@ -117,7 +112,6 @@
     .tag-mini.locked { background: var(--red-100); color: var(--red-500); }
     .tag-mini.demo { background: var(--gold-100); color: var(--gold-500); }
 
-    /* BOT */
     .bot-overview-card {
       background: linear-gradient(135deg, var(--navy-900), var(--navy-800));
       border-radius: var(--radius-lg); padding: 22px 20px;
@@ -154,7 +148,6 @@
     .bot-action-btn.secondary:hover { background: rgba(255, 255, 255, 0.18); }
     .bot-action-btn.danger { background: linear-gradient(135deg, var(--red-500), #B03333); color: #fff; }
 
-    /* SUBTABS */
     .bot-subtabs { display: flex; gap: 4px; background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-sm); padding: 4px; margin-bottom: 4px; }
     .bot-subtab { flex: 1; padding: 10px 8px; border: none; background: transparent; border-radius: var(--radius-xs); font-family: var(--font); font-size: 12.5px; font-weight: 700; color: var(--gray-500); cursor: pointer; transition: all 0.2s; }
     .bot-subtab:hover { color: var(--navy-900); }
@@ -162,7 +155,6 @@
     .bot-subpane { display: none; flex-direction: column; gap: 12px; }
     .bot-subpane.active { display: flex; }
 
-    /* ASSETS */
     .asset-picker-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
     .asset-pick { display: flex; align-items: center; gap: 10px; padding: 12px; border-radius: var(--radius-sm); border: 1.5px solid var(--gray-200); background: var(--white); cursor: pointer; transition: all 0.15s; position: relative; }
     .asset-pick:hover { border-color: var(--gold-500); }
@@ -184,13 +176,11 @@
     .paid-asset-chip { display: flex; align-items: center; gap: 6px; padding: 6px 10px; background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-pill); flex-shrink: 0; font-size: 11.5px; font-weight: 700; color: var(--navy-900); }
     .paid-asset-chip img { width: 16px; height: 16px; border-radius: 50%; }
 
-    /* PASSKEY */
     .passkey-card-short { background: var(--navy-50); border: 1.5px dashed var(--gray-300); border-radius: var(--radius-sm); padding: 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
     .passkey-card-short code { font-family: 'SF Mono', 'Consolas', monospace; font-size: 15px; font-weight: 800; color: var(--navy-900); letter-spacing: 2px; }
     .copy-btn { background: var(--navy-900); color: var(--gold-400); border: none; padding: 8px 14px; border-radius: var(--radius-xs); font-family: var(--font); font-size: 11.5px; font-weight: 700; cursor: pointer; flex-shrink: 0; transition: background 0.2s; }
     .copy-btn:hover { background: var(--navy-800); }
 
-    /* LOGS */
     .log-container { background: var(--navy-900); border-radius: var(--radius-sm); padding: 12px 14px; max-height: 240px; overflow-y: auto; font-family: 'SF Mono', 'Consolas', monospace; font-size: 11.5px; line-height: 1.7; color: var(--gray-300); }
     .log-line { display: flex; gap: 8px; }
     .log-time { color: var(--gray-500); flex-shrink: 0; }
@@ -199,7 +189,6 @@
     .log-msg.sell { color: var(--red-500); }
     .log-msg.info { color: var(--gold-400); }
 
-    /* MARKETS */
     .markets-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); }
     .markets-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid var(--gray-200); }
     .markets-header h3 { font-size: 15px; font-weight: 800; color: var(--navy-900); display: flex; align-items: center; gap: 8px; }
@@ -216,43 +205,24 @@
     .market-name { font-size: 14px; font-weight: 800; color: var(--navy-900); }
     .market-symbol { font-size: 11.5px; font-weight: 600; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.3px; margin-top: 1px; }
     .market-price-col { text-align: right; flex-shrink: 0; }
-    .market-price { font-size: 14px; font-weight: 800; color: var(--navy-900); font-variant-numeric: tabular-nums; }
+    .market-price { font-size: 14px; font-weight: 800; color: var(--navy-900); font-variant-numeric: tabular-nums; transition: color 0.3s; }
     .market-change { font-size: 11.5px; font-weight: 700; margin-top: 2px; font-variant-numeric: tabular-nums; }
     .market-change.positive { color: var(--green-500); }
     .market-change.negative { color: var(--red-500); }
 
-    /* CHART */
-    .chart-card {
-      background: var(--white); border: 1px solid var(--gray-200);
-      border-radius: var(--radius-md); box-shadow: var(--shadow-sm);
-      overflow: hidden; display: flex; flex-direction: column;
-    }
-    .chart-topbar { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; border-bottom: 1px solid var(--gray-200); flex-shrink: 0; }
+    .chart-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); overflow: hidden; display: flex; flex-direction: column; }
+    .chart-topbar { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; border-bottom: 1px solid var(--gray-200); flex-shrink: 0; gap: 8px; flex-wrap: wrap; }
     .timeframe-row { display: flex; gap: 4px; }
     .tf-btn { padding: 5px 10px; border-radius: var(--radius-xs); background: transparent; border: none; font-family: var(--font); font-size: 11.5px; font-weight: 700; color: var(--gray-500); cursor: pointer; transition: all 0.15s; }
     .tf-btn:hover { background: var(--navy-50); color: var(--navy-900); }
     .tf-btn.active { background: var(--navy-900); color: var(--white); }
 
-    /* CRITICAL: chart containers must have explicit height */
-    #spotChart, #futuresChart {
-      width: 100%;
-      height: 260px;
-      min-height: 260px;
-      display: block;
-      position: relative;
-    }
+    #spotChart, #futuresChart { width: 100%; height: 340px; min-height: 340px; display: block; position: relative; }
 
-    .pair-selector {
-      display: flex; align-items: center; gap: 6px;
-      background: var(--navy-50); border: 1px solid var(--gray-200);
-      border-radius: var(--radius-pill); padding: 8px 14px;
-      font-family: var(--font); font-size: 14px; font-weight: 800;
-      color: var(--navy-900); cursor: pointer; transition: border 0.2s;
-    }
+    .pair-selector { display: flex; align-items: center; gap: 6px; background: var(--navy-50); border: 1px solid var(--gray-200); border-radius: var(--radius-pill); padding: 8px 14px; font-family: var(--font); font-size: 14px; font-weight: 800; color: var(--navy-900); cursor: pointer; transition: border 0.2s; }
     .pair-selector:hover { border-color: var(--gold-500); }
     .pair-selector svg { width: 14px; height: 14px; stroke: var(--gray-500); fill: none; stroke-width: 2.5; }
 
-    /* ORDER FORM */
     .order-form-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); padding: 16px; display: flex; flex-direction: column; gap: 12px; }
     .order-tabs { display: flex; background: var(--navy-50); border-radius: var(--radius-sm); padding: 4px; gap: 2px; }
     .order-tab { flex: 1; padding: 9px; border: none; background: transparent; border-radius: var(--radius-xs); font-family: var(--font); font-size: 13px; font-weight: 800; color: var(--gray-500); cursor: pointer; transition: all 0.18s; }
@@ -280,7 +250,6 @@
     .btn-order.sell { background: linear-gradient(135deg, var(--red-500), #B03333); color: #fff; box-shadow: 0 4px 16px rgba(209, 67, 67, 0.3); }
     .btn-order.sell:hover { transform: translateY(-1px); }
 
-    /* ORDER BOOK & RECENT TRADES */
     .market-depth-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     @media (max-width: 500px) { .market-depth-grid { grid-template-columns: 1fr; } }
     .depth-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; }
@@ -303,7 +272,6 @@
     .recent-trade-row .time { color: var(--gray-500); }
     .recent-trade-row .amount { color: var(--gray-600); }
 
-    /* OPEN ORDERS / HISTORY */
     .tab-bar { display: flex; gap: 4px; border-bottom: 1px solid var(--gray-200); margin-bottom: 12px; }
     .tab-bar-btn { padding: 10px 14px; background: none; border: none; font-family: var(--font); font-size: 12.5px; font-weight: 700; color: var(--gray-500); cursor: pointer; position: relative; transition: color 0.2s; }
     .tab-bar-btn.active { color: var(--navy-900); font-weight: 800; }
@@ -312,11 +280,9 @@
     .tab-content.active { display: flex; }
     .empty-state { text-align: center; padding: 24px 12px; color: var(--gray-500); font-size: 12.5px; font-weight: 500; }
 
-    /* TOAST */
     .toast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--navy-900); color: var(--white); padding: 12px 20px; border-radius: var(--radius-pill); font-size: 13px; font-weight: 700; z-index: 200; opacity: 0; pointer-events: none; transition: all 0.3s; max-width: calc(100% - 40px); text-align: center; box-shadow: 0 8px 24px rgba(10, 26, 47, 0.3); }
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-    /* BOTTOM NAV */
     .bottom-nav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 700px; background: rgba(255, 255, 255, 0.97); backdrop-filter: blur(16px); border-top: 1px solid var(--gray-200); display: flex; justify-content: space-around; align-items: center; padding: 8px 8px calc(8px + env(safe-area-inset-bottom, 0px)); z-index: 40; box-shadow: 0 -4px 20px rgba(10, 26, 47, 0.06); }
     .bottom-nav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; background: none; border: none; cursor: pointer; padding: 6px 8px; border-radius: var(--radius-sm); transition: all 0.2s; flex: 1; max-width: 80px; color: var(--gray-500); font-family: var(--font); font-size: 10px; font-weight: 600; letter-spacing: 0.2px; }
     .bottom-nav-item.active { color: var(--navy-900); font-weight: 800; }
@@ -325,7 +291,6 @@
     .bn-icon-wrap { width: 38px; height: 26px; border-radius: var(--radius-xs); display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
     .bottom-nav-item svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
 
-    /* MODAL */
     .modal-overlay { position: fixed; inset: 0; background: rgba(10, 26, 47, 0.6); backdrop-filter: blur(4px); z-index: 70; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
     .modal-overlay.open { opacity: 1; pointer-events: auto; }
     .bottom-sheet { position: fixed; bottom: 0; left: 0; width: 100%; max-height: 85vh; background: var(--white); z-index: 75; border-radius: var(--radius-lg) var(--radius-lg) 0 0; transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1); display: flex; flex-direction: column; overflow: hidden; }
@@ -344,20 +309,331 @@
     .pair-option-price { font-size: 14px; font-weight: 800; color: var(--navy-900); font-variant-numeric: tabular-nums; }
 
     @media (max-width: 500px) {
-      #spotChart, #futuresChart { height: 220px; min-height: 220px; }
+      #spotChart, #futuresChart { height: 300px; min-height: 300px; }
       .asset-picker-grid { grid-template-columns: 1fr 1fr; }
     }
     @media (min-width: 700px) {
       body { padding-bottom: 100px; }
       .trade-main { max-width: 900px; padding: 16px 24px 0; }
       .bottom-nav { max-width: 900px; border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
-      #spotChart, #futuresChart { height: 380px; min-height: 380px; }
+      #spotChart, #futuresChart { height: 440px; min-height: 440px; }
       .asset-picker-grid { grid-template-columns: 1fr 1fr 1fr; }
     }
-  </style>
+
+    /* ===== ADDITIONS ===== */
+    /* Bot unlock modal */
+    .bot-modal-box {
+      position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.95);
+      width: 92%; max-width: 460px; background: var(--white);
+      border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);
+      z-index: 90; padding: 22px; opacity: 0; pointer-events: none;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+      max-height: 88vh; overflow-y: auto;
+    }
+    .bot-modal-box.open { opacity: 1; pointer-events: auto; transform: translate(-50%, -50%) scale(1); }
+    .bot-modal-close { position: absolute; top: 12px; right: 12px; background: var(--navy-50); border: none; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; color: var(--navy-900); font-size: 15px; display: flex; align-items: center; justify-content: center; }
+    .bot-modal-hero { text-align: center; margin-bottom: 16px; }
+    .bot-modal-hero .ico { width: 56px; height: 56px; border-radius: 16px; background: linear-gradient(135deg, var(--navy-900), var(--navy-800)); color: var(--gold-400); display: inline-flex; align-items: center; justify-content: center; font-size: 26px; margin-bottom: 10px; }
+    .bot-modal-hero h2 { font-size: 20px; font-weight: 800; color: var(--navy-900); letter-spacing: -0.4px; }
+    .bot-modal-hero p { font-size: 12.5px; font-weight: 500; color: var(--gray-500); margin-top: 4px; line-height: 1.5; }
+
+    .plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 14px 0 12px; }
+    .plan-card { border: 1.5px solid var(--gray-200); border-radius: var(--radius-md); padding: 12px; cursor: pointer; transition: all 0.15s; background: var(--white); }
+    .plan-card.selected { border-color: var(--gold-500); background: var(--gold-100); box-shadow: var(--shadow-gold); }
+    .plan-card h4 { font-size: 13px; font-weight: 800; color: var(--navy-900); display: flex; align-items: center; justify-content: space-between; }
+    .plan-card .plan-tag { font-size: 8.5px; font-weight: 800; letter-spacing: 0.4px; padding: 2px 6px; border-radius: var(--radius-pill); text-transform: uppercase; }
+    .plan-card .plan-tag.std { background: var(--navy-50); color: var(--navy-700); }
+    .plan-card .plan-tag.qnt { background: linear-gradient(135deg, var(--gold-500), var(--gold-400)); color: var(--navy-900); }
+    .plan-card p { font-size: 11px; color: var(--gray-500); line-height: 1.4; margin-top: 4px; }
+    .plan-card .plan-feat { font-size: 10.5px; color: var(--navy-700); margin-top: 6px; display: flex; flex-direction: column; gap: 2px; }
+    .plan-card .plan-feat span::before { content: '✓ '; color: var(--green-500); font-weight: 800; }
+
+    .passkey-input-wrap {
+      display: flex; gap: 8px; align-items: center;
+      background: var(--navy-50); border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-sm); padding: 12px 14px; margin: 8px 0;
+    }
+    .passkey-input-wrap input {
+      flex: 1; border: none; background: transparent; outline: none;
+      font-family: 'SF Mono', 'Consolas', monospace; font-size: 14px;
+      font-weight: 700; color: var(--navy-900); letter-spacing: 1px;
+      text-transform: uppercase; min-width: 0;
+    }
+    .passkey-input-wrap input::placeholder {
+      color: var(--gray-400); letter-spacing: 0.5px; text-transform: none; font-family: var(--font); font-weight: 500; font-size: 12.5px;
+    }
+
+    .passkey-hint {
+      background: var(--gold-100); border: 1px solid rgba(201,168,76,0.35);
+      border-radius: var(--radius-sm); padding: 12px 14px; margin: 8px 0 14px;
+      font-size: 11.5px; color: var(--navy-800); line-height: 1.5;
+    }
+    .passkey-hint code { font-family: 'SF Mono', 'Consolas', monospace; font-size: 13px; font-weight: 800; color: var(--navy-900); background: var(--white); padding: 2px 6px; border-radius: 4px; }
+    .passkey-hint .inline-copy { background: var(--navy-900); color: var(--gold-400); border: none; padding: 4px 10px; border-radius: var(--radius-xs); font-family: var(--font); font-size: 10.5px; font-weight: 800; cursor: pointer; margin-left: 6px; }
+
+    .bot-unlock-actions { display: flex; gap: 8px; margin-top: 12px; }
+    .bot-unlock-actions .btn-solid { flex: 2; padding: 13px; border-radius: var(--radius-pill); background: linear-gradient(135deg, var(--green-500), #0B8A5E); color: #fff; border: none; font-family: var(--font); font-size: 14px; font-weight: 800; cursor: pointer; }
+    .bot-unlock-actions .btn-outline { flex: 1; padding: 13px; border-radius: var(--radius-pill); background: transparent; border: 1.5px solid var(--gray-200); color: var(--navy-900); font-family: var(--font); font-size: 13px; font-weight: 700; cursor: pointer; }
+
+    /* Bot settings card */
+    .bot-settings-card {
+      background: var(--white); border: 1px solid var(--gray-200);
+      border-radius: var(--radius-md); box-shadow: var(--shadow-sm);
+      padding: 16px; display: flex; flex-direction: column; gap: 12px;
+    }
+    .bot-settings-card h3 {
+      font-size: 15px; font-weight: 800; color: var(--navy-900);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .bot-settings-card h3::before {
+      content: ''; width: 3px; height: 16px; background: var(--gold-500); border-radius: 2px;
+    }
+    .bot-stake-row {
+      display: flex; gap: 8px; align-items: center;
+    }
+    .bot-stake-input {
+      flex: 1; padding: 12px 14px; border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-sm); font-family: var(--font);
+      font-size: 16px; font-weight: 800; color: var(--navy-900);
+      outline: none; font-variant-numeric: tabular-nums;
+    }
+    .bot-stake-input:focus { border-color: var(--gold-500); box-shadow: 0 0 0 3px rgba(201,168,76,0.15); }
+    .bot-stake-suffix {
+      font-size: 12px; font-weight: 700; color: var(--gray-500);
+      padding: 0 6px;
+    }
+    .bot-asset-picker-btn {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 14px; border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-sm); background: var(--white);
+      cursor: pointer; transition: all 0.15s;
+      font-family: var(--font); font-size: 13.5px; font-weight: 700;
+      color: var(--navy-900); width: 100%;
+    }
+    .bot-asset-picker-btn:hover { border-color: var(--gold-500); background: var(--gold-100); }
+    .bot-asset-picker-btn .left { display: flex; align-items: center; gap: 10px; }
+    .bot-asset-picker-btn .chev { width: 18px; height: 18px; stroke: var(--gray-500); fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* Asset picker sheet */
+    .asset-picker-search-wrap {
+      padding: 10px 20px; background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .asset-picker-search {
+      width: 100%; padding: 11px 14px; border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-sm); font-family: var(--font);
+      font-size: 14px; font-weight: 500; background: var(--navy-50);
+      color: var(--navy-900); outline: none;
+    }
+    .asset-picker-search:focus { border-color: var(--gold-500); }
+    .asset-picker-bulk {
+      display: flex; gap: 8px; padding: 10px 20px;
+      background: var(--white); border-bottom: 1px solid var(--gray-200);
+    }
+    .asset-picker-bulk button {
+      flex: 1; padding: 8px; border-radius: var(--radius-xs);
+      background: var(--navy-50); border: 1px solid var(--gray-200);
+      font-family: var(--font); font-size: 11.5px; font-weight: 700;
+      color: var(--navy-900); cursor: pointer;
+    }
+    .asset-picker-bulk button:hover { background: var(--gold-100); border-color: var(--gold-500); }
+    .asset-list-container { flex: 1; overflow-y: auto; padding: 8px 16px 20px; }
+    .asset-pick-row {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 8px; border-radius: var(--radius-sm);
+      cursor: pointer; transition: background 0.15s;
+    }
+    .asset-pick-row:hover { background: var(--navy-50); }
+    .asset-pick-row.selected { background: var(--green-100); }
+    .asset-pick-row img { width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0; }
+    .asset-pick-row .emoji-icon {
+      width: 32px; height: 32px; border-radius: 50%; background: var(--gold-100);
+      display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0;
+    }
+    .asset-pick-row .info { flex: 1; min-width: 0; }
+    .asset-pick-row .name { font-size: 13.5px; font-weight: 800; color: var(--navy-900); }
+    .asset-pick-row .sym { font-size: 10.5px; font-weight: 600; color: var(--gray-500); text-transform: uppercase; margin-top: 1px; }
+    .asset-pick-row .check {
+      width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--gray-300);
+      flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+    }
+    .asset-pick-row.selected .check { background: var(--green-500); border-color: var(--green-500); }
+    .asset-pick-row.selected .check::after { content: '✓'; color: #fff; font-size: 12px; font-weight: 800; }
+
+    /* Live logs window */
+    .bot-live-logs-window {
+      background: var(--navy-900); border-radius: var(--radius-md);
+      padding: 0; overflow: hidden; display: flex; flex-direction: column;
+      box-shadow: var(--shadow-md);
+    }
+    .bot-live-logs-head {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 14px; background: rgba(255,255,255,0.05);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      font-size: 11.5px; font-weight: 800; color: var(--gold-400);
+      text-transform: uppercase; letter-spacing: 0.8px;
+    }
+    .bot-live-logs-head .right { display: flex; align-items: center; gap: 6px; font-size: 10px; color: var(--gray-400); text-transform: none; letter-spacing: 0; }
+    .bot-live-logs-head .right .live-dot {
+      width: 6px; height: 6px; border-radius: 50%; background: var(--green-500);
+      animation: pulse 1.5s infinite;
+    }
+    .bot-live-logs-body {
+      max-height: 240px; overflow-y: auto; padding: 8px 14px;
+      font-family: 'SF Mono', 'Consolas', monospace; font-size: 11.5px;
+      line-height: 1.7; color: var(--gray-300);
+    }
+    .bot-log-line {
+      display: flex; gap: 10px; padding: 3px 0;
+      border-bottom: 1px dashed rgba(255,255,255,0.04);
+    }
+    .bot-log-line:last-child { border-bottom: none; }
+    .bot-log-line .t { color: var(--gray-500); flex-shrink: 0; }
+    .bot-log-line .m { flex: 1; word-break: break-word; }
+    .bot-log-line.profit .m { color: var(--green-500); font-weight: 700; }
+    .bot-log-line.loss .m { color: var(--red-500); font-weight: 700; }
+    .bot-log-line.info .m { color: var(--gold-400); }
+
+    /* Session history */
+    .session-history-card {
+      background: var(--white); border: 1px solid var(--gray-200);
+      border-radius: var(--radius-md); box-shadow: var(--shadow-sm);
+      padding: 16px; display: flex; flex-direction: column; gap: 12px;
+    }
+    .session-history-card h3 {
+      font-size: 15px; font-weight: 800; color: var(--navy-900);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .session-history-card h3::before {
+      content: ''; width: 3px; height: 16px; background: var(--gold-500); border-radius: 2px;
+    }
+    .session-row {
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 8px; padding: 12px; border-radius: var(--radius-sm);
+      background: var(--navy-50); font-size: 12px;
+    }
+    .session-row .time { font-size: 10.5px; color: var(--gray-500); font-weight: 600; }
+    .session-row .meta { display: flex; gap: 12px; margin-top: 4px; font-size: 11px; color: var(--gray-500); font-weight: 600; }
+    .session-row .meta strong { color: var(--navy-900); font-weight: 800; }
+    .session-row .pnl { font-size: 15px; font-weight: 800; text-align: right; font-variant-numeric: tabular-nums; }
+    .session-row .pnl.pos { color: var(--green-500); }
+    .session-row .pnl.neg { color: var(--red-500); }
+
+    /* Quantum mini banner */
+    .quantum-banner {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      padding: 14px; border-radius: var(--radius-md);
+      background: linear-gradient(135deg, var(--navy-900), var(--navy-800));
+      color: var(--white); cursor: pointer; margin-top: 4px;
+      box-shadow: var(--shadow-md); border: 1px solid var(--gold-500);
+    }
+    .quantum-banner .qb-text h5 { font-size: 13px; font-weight: 800; color: var(--gold-400); }
+    .quantum-banner .qb-text p { font-size: 11px; color: var(--gray-300); margin-top: 2px; line-height: 1.4; }
+    .quantum-banner .qb-arrow {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--gold-500); color: var(--navy-900);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; flex-shrink: 0;
+    }
+
+    /* Price flash animation */
+    .market-price.flash-up { animation: flashUp 0.6s ease; }
+    .market-price.flash-down { animation: flashDown 0.6s ease; }
+    @keyframes flashUp { 0% { color: var(--green-500); } 100% { color: var(--navy-900); } }
+    @keyframes flashDown { 0% { color: var(--red-500); } 100% { color: var(--navy-900); } }
+
+    /* ===== ADDITIONS V2 ===== */
+    .asset-pick-row-v2 {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 10px; border-radius: var(--radius-sm);
+      cursor: pointer; transition: background 0.15s;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .asset-pick-row-v2:last-child { border-bottom: none; }
+    .asset-pick-row-v2:hover { background: var(--navy-50); }
+    .asset-pick-row-v2.selected { background: var(--green-100); }
+    .asset-pick-row-v2 img { width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0; object-fit: contain; }
+    .asset-pick-row-v2 .emoji-icon {
+      width: 34px; height: 34px; border-radius: 50%; background: var(--gold-100);
+      display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0;
+    }
+    .asset-pick-row-v2 .info { flex: 1; min-width: 0; }
+    .asset-pick-row-v2 .pair-line { display: flex; align-items: center; gap: 6px; }
+    .asset-pick-row-v2 .pair-line .pair { font-size: 13.5px; font-weight: 800; color: var(--navy-900); }
+    .asset-pick-row-v2 .pair-line .name { font-size: 11px; font-weight: 600; color: var(--gray-500); }
+    .asset-pick-row-v2 .meta-line { font-size: 10.5px; font-weight: 500; color: var(--gray-500); text-transform: uppercase; margin-top: 2px; }
+    .asset-pick-row-v2 .status-pill {
+      font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;
+      padding: 2px 7px; border-radius: var(--radius-pill); flex-shrink: 0;
+    }
+    .asset-pick-row-v2 .status-pill.open { background: var(--green-100); color: var(--green-500); }
+    .asset-pick-row-v2 .status-pill.closed { background: var(--red-100); color: var(--red-500); }
+    .asset-pick-row-v2 .check {
+      width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--gray-300);
+      flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+    }
+    .asset-pick-row-v2.selected .check { background: var(--green-500); border-color: var(--green-500); }
+    .asset-pick-row-v2.selected .check::after { content: '✓'; color: #fff; font-size: 12px; font-weight: 800; }
+
+    .bot-start-hint {
+      font-size: 11.5px; font-weight: 700; text-align: center; margin-top: 8px;
+      min-height: 16px; color: var(--gold-400); position: relative; z-index: 1;
+    }
+    .bot-start-hint.warn { color: var(--red-500); }
+    .bot-start-hint.ok { color: var(--green-500); }
+
+    .quantum-sub-hero { text-align: center; padding: 14px 10px; }
+    .quantum-badge {
+      display: inline-block; font-size: 11px; font-weight: 800; padding: 4px 10px;
+      background: var(--gold-100); color: var(--navy-900); border-radius: var(--radius-pill);
+      letter-spacing: 0.4px; text-transform: uppercase; margin-bottom: 8px;
+    }
+    .quantum-price-big {
+      font-size: 38px; font-weight: 800; color: var(--navy-900);
+      letter-spacing: -1px; line-height: 1; margin: 6px 0;
+    }
+    .quantum-price-big .per { font-size: 14px; font-weight: 600; color: var(--gray-500); letter-spacing: 0; }
+    .quantum-sub-tagline { font-size: 12px; color: var(--gray-500); font-weight: 500; }
+    .quantum-feat-list {
+      background: var(--navy-50); border: 1px solid var(--gray-200);
+      border-radius: var(--radius-md); padding: 12px 16px; display: flex;
+      flex-direction: column; gap: 8px; margin: 12px 0;
+    }
+    .quantum-feat-row { font-size: 12.5px; font-weight: 600; color: var(--navy-900); display: flex; align-items: center; gap: 8px; }
+    .quantum-feat-row .tick { color: var(--green-500); font-weight: 800; }
+    .quantum-balance-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 4px; font-size: 12.5px; color: var(--gray-500); font-weight: 600;
+      border-top: 1px solid var(--gray-200);
+    }
+    .quantum-balance-row strong { color: var(--navy-900); font-weight: 800; font-size: 14px; font-variant-numeric: tabular-nums; }
+    .quantum-notice {
+      font-size: 12px; font-weight: 700; text-align: center; padding: 8px 10px;
+      border-radius: var(--radius-xs); margin: 6px 0 12px; min-height: 32px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .quantum-notice.warn { background: var(--red-100); color: var(--red-500); }
+    .quantum-notice.ok { background: var(--gold-100); color: var(--navy-900); }
+    .quantum-cta {
+      width: 100%; padding: 14px; border-radius: var(--radius-pill);
+      background: linear-gradient(135deg, var(--gold-500), #A8862F); color: var(--white);
+      border: none; font-family: var(--font); font-size: 14.5px; font-weight: 800;
+      cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 16px rgba(201, 168, 76, 0.3);
+      margin-bottom: 8px;
+    }
+    .quantum-cta:hover { transform: translateY(-1px); }
+    .quantum-cta-outline {
+      width: 100%; padding: 12px; border-radius: var(--radius-pill);
+      background: transparent; border: 1.5px solid var(--gray-200);
+      color: var(--navy-900); font-family: var(--font); font-size: 13px;
+      font-weight: 700; cursor: pointer; transition: all 0.15s;
+    }
+    .quantum-cta-outline:hover { background: var(--navy-50); }
+  </style>  <script src="https://s3.tradingview.com/tv.js"></script>
 </head>
 <body>
 
+  <!-- PAIR MODAL -->
   <div class="modal-overlay" id="pairModalOverlay"></div>
   <div class="bottom-sheet" id="pairModal">
     <div class="sheet-header">
@@ -367,6 +643,46 @@
     <div class="sheet-body" id="pairList"></div>
   </div>
 
+  <!-- BOT ONBOARDING MODAL -->
+  <div class="modal-overlay" id="botOnboardingOverlay"></div>
+  <div class="bot-modal-box" id="botOnboardingModal">
+    <button class="bot-modal-close" id="botOnboardingClose">✕</button>
+    <div class="bot-modal-hero">
+      <div class="ico">🤖</div>
+      <h2>Meet the Bluepeak AI Bot</h2>
+      <p>Automated 24/7 trading with adaptive strategies, live risk management, and hands-free execution across your selected assets.</p>
+    </div>
+    <div class="passkey-hint">
+      <strong>Bot Passkey</strong>
+      <br>
+      Your unique passkey: <code id="botOnboardingPasskey">BP-BOT-2025-STD</code>
+      <button class="inline-copy" id="botOnboardingCopy">Copy</button>
+      <br>
+      <span style="font-size:11px;opacity:0.85;margin-top:6px;display:inline-block;">You'll paste this to unlock the bot. You can retrieve it again any time from Settings.</span>
+    </div>
+    <div class="bot-unlock-actions">
+      <button class="btn-solid" id="botOnboardingGo">Go to Bot</button>
+      <button class="btn-outline" id="botOnboardingLater">I'll do this later</button>
+    </div>
+  </div>
+
+  <!-- BOT ASSET PICKER SHEET -->
+  <div class="bottom-sheet" id="botAssetSheet">
+    <div class="sheet-header">
+      <h3>Select Trading Assets</h3>
+      <button class="sheet-close" id="botAssetSheetClose">✕</button>
+    </div>
+    <div class="asset-picker-search-wrap">
+      <input type="text" class="asset-picker-search" id="botAssetSearch" placeholder="Search assets…">
+    </div>
+    <div class="asset-picker-bulk">
+      <button id="botAssetSelectAll">Select All</button>
+      <button id="botAssetClearAll">Clear</button>
+    </div>
+    <div class="asset-list-container" id="botAssetList"></div>
+  </div>
+
+  <!-- HEADER -->
   <header class="trade-header">
     <div class="trade-header-left">
       <button class="icon-btn" id="backBtn" aria-label="Back">
@@ -406,10 +722,10 @@
             <button class="tf-btn" data-spot-tf="1440">1D</button>
           </div>
         </div>
-        <div id="spotChart"></div>
+        <div id="spotChart" style="display:none;"></div>
+        <div id="tvSpotChart" style="width:100%;height:340px;"></div>
       </div>
 
-      <!-- Price + stats -->
       <div style="background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-md);padding:12px 16px;display:flex;justify-content:space-between;align-items:center;box-shadow:var(--shadow-sm);">
         <div>
           <div style="font-size:22px;font-weight:800;color:var(--navy-900);letter-spacing:-0.5px;font-variant-numeric:tabular-nums;" id="spotBigPrice">—</div>
@@ -458,7 +774,6 @@
         <button class="btn-order buy" id="spotSubmitBtn">Buy BTC</button>
       </div>
 
-      <!-- Order Book + Recent Trades -->
       <div class="market-depth-grid">
         <div class="depth-card">
           <div class="depth-title">
@@ -480,7 +795,6 @@
         </div>
       </div>
 
-      <!-- Open Orders / History -->
       <div class="section-card">
         <div class="tab-bar">
           <button class="tab-bar-btn active" data-spot-tab="open">Open Orders</button>
@@ -499,94 +813,112 @@
          VIEW: AI BOT
          ============================================================ -->
     <div class="view-pane" id="view-ai-bot">
-      <div class="bot-overview-card">
-        <div class="bot-tag"><span class="pulse"></span>Bluepeak AI · v2.1</div>
-        <h2>AI Trading Bot</h2>
-        <p>Automated 24/7 trading with adaptive strategies, real-time risk management, and hands-free profit optimization.</p>
-        <div class="bot-overview-stats">
-          <div class="bot-stat"><div class="val" id="botTotalTrades">0</div><div class="lbl">Trades</div></div>
-          <div class="bot-stat"><div class="val" id="botWinRate">—</div><div class="lbl">Win Rate</div></div>
-          <div class="bot-stat"><div class="val" id="botTotalPnl">$0.00</div><div class="lbl">Total P&L</div></div>
-        </div>
-        <div class="bot-status-row">
-          <div class="status locked" id="botStatusIndicator">
-            <span class="dot"></span>
-            <span id="botStatusText">Locked · Verify passkey to unlock</span>
+
+      <!-- UNLOCK GATE -->
+      <div id="botUnlockGate">
+        <div class="bot-overview-card">
+          <div class="bot-tag"><span class="pulse"></span>Bluepeak AI · Quantum Ready</div>
+          <h2>AI Trading Bot</h2>
+          <p>Automated 24/7 trading with adaptive strategies, real-time risk management, and hands-free profit optimization.</p>
+          <div class="plan-grid">
+            <div class="plan-card selected" data-plan="standard">
+              <h4>Standard <span class="plan-tag std">Included</span></h4>
+              <p>Steady automated grid scalping on your selected pairs.</p>
+              <div class="plan-feat">
+                <span>Auto risk management</span>
+                <span id="botStdWinRate">84% win rate</span>
+                <span>Multi-asset coverage</span>
+              </div>
+            </div>
+            <div class="plan-card" data-plan="quantum">
+              <h4>Quantum <span class="plan-tag qnt">Premium</span></h4>
+              <p>Advanced predictive signals with MEV protection.</p>
+              <div class="plan-feat">
+                <span id="botQntWinRate">92% win rate</span>
+                <span>MEV protection</span>
+                <span>Priority execution</span>
+              </div>
+            </div>
           </div>
-          <div class="balance-mini" id="botBalanceDisplay">Bal: $0.00</div>
-        </div>
-        <div class="bot-actions">
-          <button class="bot-action-btn primary" id="botStartBtn">Unlock AI Bot</button>
-          <button class="bot-action-btn secondary" id="botSelectAssetsBtn">Select Assets</button>
+          <div class="passkey-input-wrap">
+            <input type="text" id="botPasskeyInput" placeholder="Paste your bot passkey to unlock...">
+          </div>
+          <div class="passkey-hint">
+            <strong>Where to get your passkey:</strong> Copy the sample below, or open Settings to view your saved passkey.
+            <br>
+            Sample passkey: <code id="botSamplePasskey">BP-BOT-2025-STD</code>
+            <button class="inline-copy" id="copyBotPasskeyBtn">Copy</button>
+          </div>
+          <button class="bot-action-btn primary" id="botUnlockBtn" style="width:100%;padding:14px;">Unlock AI Bot</button>
         </div>
       </div>
 
-      <div class="bot-subtabs">
-        <button class="bot-subtab active" data-botsub="overview">Overview</button>
-        <button class="bot-subtab" data-botsub="settings">Settings</button>
-        <button class="bot-subtab" data-botsub="logs">Live Logs</button>
-      </div>
+      <!-- UNLOCKED CONTENT -->
+      <div id="botUnlockedContent" style="display:none;">
 
-      <div class="bot-subpane active" id="botsub-overview">
-        <div class="section-card">
-          <div class="section-card-title">
-            <h3>Bot Trading Assets</h3>
-            <span class="tag-mini demo" id="assetSelectTag">0 selected</span>
+        <div class="bot-overview-card">
+          <div class="bot-tag"><span class="pulse"></span>Bluepeak AI · <span id="botPlanLabel">Standard</span></div>
+          <h2>AI Trading Bot</h2>
+          <div class="bot-overview-stats">
+            <div class="bot-stat"><div class="val" id="botTotalTrades">0</div><div class="lbl">Trades</div></div>
+            <div class="bot-stat"><div class="val" id="botWinRate">84.0%</div><div class="lbl">Win Rate</div></div>
+            <div class="bot-stat"><div class="val" id="botTotalPnl">$0.00</div><div class="lbl">Total P&L</div></div>
           </div>
-          <p style="font-size:12px;font-weight:500;color:var(--gray-500);line-height:1.5;">Select at least one asset for the AI bot to trade. It will only place trades on your selected assets.</p>
-          <div class="asset-picker-grid" id="assetPickerGrid"></div>
+          <div class="bot-status-row">
+            <div class="status ready" id="botStatusIndicator">
+              <span class="dot"></span>
+              <span id="botStatusText">Ready · Set stake and start</span>
+            </div>
+            <div class="balance-mini" id="botBalanceDisplay">Bal: $0.00</div>
+          </div>
+          <div class="bot-actions">
+            <button class="bot-action-btn primary" id="botStartBtn">Start Bot</button>
+            <button class="bot-action-btn danger" id="botStopBtn" style="display:none;">Stop Bot</button>
+          </div>
+          <div class="quantum-banner" id="quantumUpgradeBanner">
+            <div class="qb-text">
+              <h5>⭐ Upgrade to Quantum AI</h5>
+              <p>Higher win rate · MEV protection · Predictive signals</p>
+            </div>
+            <div class="qb-arrow">→</div>
+          </div>
         </div>
 
-        <div class="paid-assets-card">
-          <div class="paid-assets-header">
-            <h4>⭐ Paid Assets <span class="badge-gold">Premium</span></h4>
+        <div class="bot-settings-card">
+          <h3>Bot Settings</h3>
+          <div class="field-group">
+            <label class="field-label">Amount to stake (USDT)</label>
+            <div class="bot-stake-row">
+              <input type="number" class="bot-stake-input" id="botStakeInput" placeholder="10" value="10">
+              <span class="bot-stake-suffix">USDT</span>
+            </div>
           </div>
-          <div class="paid-asset-list" id="paidAssetList"></div>
+          <div class="field-group">
+            <label class="field-label">Trading Assets</label>
+            <button class="bot-asset-picker-btn" id="botAssetPickerBtn">
+              <span class="left"><span id="botAssetPickerCount">0 selected</span></span>
+              <svg class="chev" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </div>
         </div>
-      </div>
 
-      <div class="bot-subpane" id="botsub-settings">
-        <div class="section-card">
-          <div class="section-card-title">
-            <h3>Bot Settings</h3>
-            <span class="tag-mini locked" id="botLockTag">Locked</span>
+        <div class="bot-live-logs-window">
+          <div class="bot-live-logs-head">
+            <span>Live Trade Logs</span>
+            <span class="right"><span class="live-dot"></span>Real-time</span>
           </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-            <div style="background:var(--navy-50);border:1px solid var(--gray-200);border-radius:var(--radius-sm);padding:12px;">
-              <div style="font-size:10.5px;font-weight:700;color:var(--gray-500);text-transform:uppercase;letter-spacing:0.4px;">Strategy</div>
-              <div style="font-size:14px;font-weight:800;color:var(--navy-900);margin-top:2px;">Grid Scalper</div>
-            </div>
-            <div style="background:var(--navy-50);border:1px solid var(--gray-200);border-radius:var(--radius-sm);padding:12px;">
-              <div style="font-size:10.5px;font-weight:700;color:var(--gray-500);text-transform:uppercase;letter-spacing:0.4px;">Risk Level</div>
-              <div style="font-size:14px;font-weight:800;color:var(--navy-900);margin-top:2px;">Medium</div>
-            </div>
-            <div style="background:var(--navy-50);border:1px solid var(--gray-200);border-radius:var(--radius-sm);padding:12px;">
-              <div style="font-size:10.5px;font-weight:700;color:var(--gray-500);text-transform:uppercase;letter-spacing:0.4px;">Max Trade</div>
-              <div style="font-size:14px;font-weight:800;color:var(--navy-900);margin-top:2px;">$50</div>
-            </div>
-            <div style="background:var(--navy-50);border:1px solid var(--gray-200);border-radius:var(--radius-sm);padding:12px;">
-              <div style="font-size:10.5px;font-weight:700;color:var(--gray-500);text-transform:uppercase;letter-spacing:0.4px;">Assets</div>
-              <div style="font-size:14px;font-weight:800;color:var(--navy-900);margin-top:2px;" id="botAssetCount">0</div>
-            </div>
+          <div class="bot-live-logs-body" id="botLiveLogsBody">
+            <div class="bot-log-line info"><span class="t">--:--:--</span><span class="m">Waiting for bot to start…</span></div>
           </div>
-          <div class="passkey-card-short">
-            <code id="botPasskeyInline">BP-AI-9K7X</code>
-            <button class="copy-btn" id="copyInlinePasskey">Copy</button>
-          </div>
-          <button class="bot-action-btn primary" style="padding:12px;" id="verifyPasskeyBtn">Verify Passkey</button>
         </div>
-      </div>
 
-      <div class="bot-subpane" id="botsub-logs">
-        <div class="section-card">
-          <div class="section-card-title">
-            <h3>Live Trade Logs</h3>
-            <span class="tag-mini live">Live</span>
-          </div>
-          <div class="log-container" id="botLiveLogs">
-            <div class="log-line"><span class="log-time">--:--:--</span><span class="log-msg info">Awaiting bot activation...</span></div>
+        <div class="session-history-card">
+          <h3>Session History</h3>
+          <div id="botSessionList">
+            <div class="empty-state">No sessions yet.</div>
           </div>
         </div>
+
       </div>
     </div>
 
@@ -607,7 +939,8 @@
             <button class="tf-btn" data-futures-tf="1440">1D</button>
           </div>
         </div>
-        <div id="futuresChart"></div>
+        <div id="futuresChart" style="display:none;"></div>
+        <div id="tvFuturesChart" style="width:100%;height:340px;"></div>
       </div>
 
       <div style="background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-md);padding:12px 16px;display:flex;justify-content:space-between;align-items:center;box-shadow:var(--shadow-sm);">
@@ -695,7 +1028,6 @@
   <script>
     (function() {
       'use strict';
-
       const $ = (s) => document.querySelector(s);
       const $$ = (s) => document.querySelectorAll(s);
       const toastEl = $('#toast');
@@ -708,26 +1040,46 @@
       }
       window.showToast = showToast;
 
-      // SHARED WALLET BALANCE
+      // ============ WALLET BALANCE — reads bp_user_balances ============
+      function readBalancesSafe() {
+        try { return JSON.parse(localStorage.getItem('bp_user_balances') || '{}') || {}; } catch (e) { return {}; }
+      }
+      function readPricesSafe() {
+        try { return JSON.parse(localStorage.getItem('bp_market_prices') || '{}') || {}; } catch (e) { return {}; }
+      }
+      const PRICE_FALLBACK = { USDT: 1, BTC: 81000, ETH: 3200, SOL: 150, BNB: 590, XRP: 0.55, ADA: 0.45, DOGE: 0.12 };
+
+      function portfolioUsd() {
+        const balances = readBalancesSafe();
+        const prices = readPricesSafe();
+        let total = 0;
+        Object.keys(balances).forEach(sym => {
+          const amt = parseFloat(balances[sym]) || 0;
+          const p = parseFloat(prices[sym]) || PRICE_FALLBACK[sym] || 0;
+          total += amt * p;
+        });
+        return total;
+      }
       function getWalletBalance() {
-        const saved = localStorage.getItem('bp_wallet_balance');
-        return saved ? parseFloat(saved) : 0;
+        const balances = readBalancesSafe();
+        return parseFloat(balances.USDT) || 0;
       }
       function setWalletBalance(v) {
-        localStorage.setItem('bp_wallet_balance', String(v));
-        $('#headerBalance').textContent = '$' + v.toFixed(2);
+        const balances = readBalancesSafe();
+        balances.USDT = parseFloat(v) || 0;
+        try { localStorage.setItem('bp_user_balances', JSON.stringify(balances)); } catch (e) {}
+        refreshHeaderBalance();
       }
+      function refreshHeaderBalance() {
+        const el = $('#headerBalance');
+        if (el) el.textContent = '$' + portfolioUsd().toFixed(2);
+      }
+      window.getWalletBalance = getWalletBalance;
+      window.setWalletBalance = setWalletBalance;
+      window.refreshHeaderBalance = refreshHeaderBalance;
 
       const state = {
         activeView: 'spot',
-        botLocked: true,
-        botRunning: false,
-        botBalance: getWalletBalance(),
-        botTradeCount: 0,
-        botWinRate: 0,
-        botPnl: 0,
-        botTodayPnl: 0,
-        botSelectedAssets: [],
         spotPair: 'BTCUSDT',
         futuresPair: 'BTCUSDT',
         spotSide: 'buy',
@@ -737,11 +1089,7 @@
         spotTf: 15,
         futuresTf: 15,
         markets: {},
-        spotChart: null, spotSeries: null,
-        futuresChart: null, futuresSeries: null,
         spotLogTimer: null,
-        futuresLogTimer: null,
-        botLogTimer: null,
         pairContext: 'spot',
         spotOrdersOpen: [],
         spotOrdersHistory: [],
@@ -762,17 +1110,17 @@
         { id: 'UNIUSDT', base: 'UNI', quote: 'USDT', name: 'Uniswap', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/uni.svg', cgId: 'uniswap' },
       ];
 
-      const PAID_ASSETS = ['BTCUSDT', 'ETHUSDT', 'SOLUSDT', 'BNBUSDT'];
-
-      // VIEW SWITCHING
       function switchView(view) {
         state.activeView = view;
         $$('.sub-nav-btn').forEach(b => b.classList.toggle('active', b.dataset.view === view));
         $$('.view-pane').forEach(p => p.classList.remove('active'));
-        $('#view-' + view).classList.add('active');
-        if (view === 'spot') { initSpotChartIfNeeded(); startSpotOrderTrades(); }
-        if (view === 'futures') { initFuturesChartIfNeeded(); }
+        const v = $('#view-' + view);
+        if (v) v.classList.add('active');
+        if (view === 'spot') startSpotOrderTrades();
         if (view === 'markets') renderMarkets();
+        if (view === 'ai-bot' && window.BluepeakBot && window.BluepeakBot.onEnter) {
+          try { window.BluepeakBot.onEnter(); } catch (e) {}
+        }
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
       window.switchView = switchView;
@@ -781,23 +1129,27 @@
         btn.addEventListener('click', () => switchView(btn.dataset.view));
       });
 
-      // FETCH MARKETS
       async function fetchMarkets() {
         const ids = PAIRS.map(p => p.cgId).join(',');
         try {
-          const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd&include_24hr_change=true&include_24hr_vol=true`);
+          const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=' + ids + '&vs_currencies=usd&include_24hr_change=true&include_24hr_vol=true');
           const data = await res.json();
+          const prev = { ...state.markets };
           PAIRS.forEach(p => {
             const d = data[p.cgId];
             if (d) state.markets[p.id] = { price: d.usd, change: d.usd_24h_change || 0, volume: d.usd_24h_vol || 0 };
           });
-          renderMarkets();
-          renderAssetPicker();
-          renderPaidAssets();
+          // Persist to global price cache
+          const priceMap = readPricesSafe();
+          PAIRS.forEach(p => { if (state.markets[p.id]) priceMap[p.base] = state.markets[p.id].price; });
+          priceMap['XAUUSD'] = priceMap['XAUUSD'] || 2650;
+          try { localStorage.setItem('bp_market_prices', JSON.stringify(priceMap)); } catch (e) {}
+          renderMarkets(prev);
           updateSpotHeader();
           updateFuturesHeader();
           updateSpotStats();
           updateFuturesStats();
+          refreshHeaderBalance();
         } catch (e) {
           console.warn('Market fetch failed:', e);
         }
@@ -806,7 +1158,6 @@
       function updateSpotStats() {
         const m = state.markets[state.spotPair];
         if (!m) return;
-        const pair = PAIRS.find(p => p.id === state.spotPair);
         $('#spotBigPrice').textContent = '$' + m.price.toLocaleString('en-US', { maximumFractionDigits: 2 });
         const chg = $('#spotBigChange');
         chg.textContent = (m.change >= 0 ? '+' : '') + m.change.toFixed(2) + '%';
@@ -826,10 +1177,10 @@
         $('#futuresVol').textContent = '$' + (m.volume / 1e6).toFixed(1) + 'M';
       }
 
-      function renderMarkets() {
+      function renderMarkets(prev) {
         const list = $('#marketsList');
         if (Object.keys(state.markets).length === 0) {
-          list.innerHTML = `<div style="padding:20px;text-align:center;font-size:13px;color:var(--gray-500);font-weight:500;">Loading markets…</div>`;
+          list.innerHTML = '<div style="padding:20px;text-align:center;font-size:13px;color:var(--gray-500);font-weight:500;">Loading markets…</div>';
           return;
         }
         list.innerHTML = PAIRS.map(p => {
@@ -843,326 +1194,39 @@
                 <div class="market-symbol">${p.base} / ${p.quote}</div>
               </div>
               <div class="market-price-col">
-                <div class="market-price">$${m.price.toLocaleString('en-US', { maximumFractionDigits: 2 })}</div>
+                <div class="market-price" data-price-sym="${p.id}">$${m.price.toLocaleString('en-US', { maximumFractionDigits: 2 })}</div>
                 <div class="market-change ${m.change >= 0 ? 'positive' : 'negative'}">${m.change >= 0 ? '+' : ''}${m.change.toFixed(2)}%</div>
               </div>
             </div>
           `;
         }).join('');
+        // Flash changed prices
+        if (prev) {
+          PAIRS.forEach(p => {
+            const oldM = prev[p.id];
+            const newM = state.markets[p.id];
+            if (!oldM || !newM || oldM.price === newM.price) return;
+            const el = list.querySelector('[data-price-sym="' + p.id + '"]');
+            if (!el) return;
+            el.classList.remove('flash-up', 'flash-down');
+            void el.offsetWidth;
+            el.classList.add(newM.price > oldM.price ? 'flash-up' : 'flash-down');
+          });
+        }
         $$('.market-row[data-marketpair]').forEach(row => {
           row.addEventListener('click', () => {
             const id = row.dataset.marketpair;
             state.spotPair = id;
             updateSpotHeader();
             switchView('spot');
-            setTimeout(() => { if (!state.spotChart) initSpotChart(); generateSpotData(); }, 50);
+            if (window.BluepeakTradingView) {
+              window.BluepeakTradingView.setSpotSymbol('BINANCE:' + id);
+            }
           });
         });
       }
 
       $('#marketsRefreshBtn').addEventListener('click', () => { fetchMarkets(); showToast('Markets refreshed'); });
-
-      // ASSET PICKER
-      function renderAssetPicker() {
-        const grid = $('#assetPickerGrid');
-        if (!grid) return;
-        grid.innerHTML = PAIRS.slice(0, 9).map(p => {
-          const isSelected = state.botSelectedAssets.includes(p.id);
-          return `
-            <div class="asset-pick ${isSelected ? 'selected' : ''}" data-assetpick="${p.id}">
-              <img src="${p.icon}" alt="${p.base}">
-              <div class="asset-pick-info">
-                <div class="asset-pick-name">${p.name}</div>
-                <div class="asset-pick-symbol">${p.base}</div>
-              </div>
-              <div class="asset-pick-check"></div>
-            </div>
-          `;
-        }).join('');
-        grid.querySelectorAll('.asset-pick').forEach(el => {
-          el.addEventListener('click', () => {
-            const id = el.dataset.assetpick;
-            const idx = state.botSelectedAssets.indexOf(id);
-            if (idx >= 0) state.botSelectedAssets.splice(idx, 1);
-            else state.botSelectedAssets.push(id);
-            renderAssetPicker();
-            $('#assetSelectTag').textContent = state.botSelectedAssets.length + ' selected';
-            $('#botAssetCount').textContent = state.botSelectedAssets.length;
-          });
-        });
-        $('#assetSelectTag').textContent = state.botSelectedAssets.length + ' selected';
-        $('#botAssetCount').textContent = state.botSelectedAssets.length;
-      }
-
-      function renderPaidAssets() {
-        const list = $('#paidAssetList');
-        if (!list) return;
-        list.innerHTML = PAID_ASSETS.map(id => {
-          const p = PAIRS.find(x => x.id === id);
-          if (!p) return '';
-          return `<div class="paid-asset-chip"><img src="${p.icon}" alt="${p.base}">${p.base}</div>`;
-        }).join('');
-      }
-
-      function updateBotUI() {
-        const statusEl = $('#botStatusIndicator');
-        const statusTxt = $('#botStatusText');
-        const startBtn = $('#botStartBtn');
-        const lockTag = $('#botLockTag');
-
-        statusEl.classList.remove('running', 'locked', 'ready');
-        if (state.botLocked) {
-          statusEl.classList.add('locked');
-          statusTxt.textContent = 'Locked · Verify passkey to unlock';
-          startBtn.textContent = 'Unlock AI Bot';
-          startBtn.className = 'bot-action-btn primary';
-          lockTag.textContent = 'Locked';
-          lockTag.className = 'tag-mini locked';
-        } else if (!state.botRunning) {
-          statusEl.classList.add('ready');
-          statusTxt.textContent = 'Ready · Select assets and start';
-          startBtn.textContent = 'Start Bot';
-          startBtn.className = 'bot-action-btn primary';
-          lockTag.textContent = 'Unlocked';
-          lockTag.className = 'tag-mini live';
-        } else {
-          statusEl.classList.add('running');
-          statusTxt.textContent = 'Running · Trading 24/7';
-          startBtn.textContent = 'Stop Bot';
-          startBtn.className = 'bot-action-btn danger';
-          lockTag.textContent = 'Active';
-          lockTag.className = 'tag-mini live';
-        }
-        $('#botTotalTrades').textContent = state.botTradeCount;
-        $('#botWinRate').textContent = state.botTradeCount > 0 ? state.botWinRate.toFixed(1) + '%' : '—';
-        $('#botTotalPnl').textContent = (state.botPnl >= 0 ? '+$' : '-$') + Math.abs(state.botPnl).toFixed(2);
-        $('#botBalanceDisplay').textContent = 'Bal: $' + state.botBalance.toFixed(2);
-        $('#headerBalance').textContent = '$' + state.botBalance.toFixed(2);
-      }
-
-      $$('.bot-subtab').forEach(tab => {
-        tab.addEventListener('click', () => {
-          $$('.bot-subtab').forEach(t => t.classList.remove('active'));
-          tab.classList.add('active');
-          $$('.bot-subpane').forEach(p => p.classList.remove('active'));
-          $('#botsub-' + tab.dataset.botsub).classList.add('active');
-        });
-      });
-
-      $('#verifyPasskeyBtn').addEventListener('click', () => {
-        state.botLocked = false;
-        updateBotUI();
-        showToast('Passkey verified — bot unlocked!');
-      });
-      $('#copyInlinePasskey').addEventListener('click', () => {
-        const txt = $('#botPasskeyInline').textContent;
-        if (navigator.clipboard) {
-          navigator.clipboard.writeText(txt).then(() => {
-            showToast('Passkey copied!');
-            $('#copyInlinePasskey').textContent = 'Copied!';
-            setTimeout(() => { $('#copyInlinePasskey').textContent = 'Copy'; }, 1500);
-          });
-        }
-      });
-      $('#botSelectAssetsBtn').addEventListener('click', () => {
-        document.querySelector('#assetPickerGrid').scrollIntoView({ behavior: 'smooth', block: 'center' });
-      });
-
-      $('#botStartBtn').addEventListener('click', () => {
-        if (state.botLocked) {
-          document.querySelector('.bot-subtab[data-botsub="settings"]').click();
-          showToast('Verify your passkey to unlock the bot.');
-          return;
-        }
-        if (!state.botRunning) {
-          if (state.botSelectedAssets.length === 0) {
-            document.querySelector('.bot-subtab[data-botsub="overview"]').click();
-            document.querySelector('#assetPickerGrid').scrollIntoView({ behavior: 'smooth', block: 'center' });
-            showToast('Select at least one asset first.');
-            return;
-          }
-          if (state.botBalance < 10) {
-            showToast('You need at least $10 to start. Please deposit via Wallet.');
-            setTimeout(() => window.location.href = 'wallet.html', 1200);
-            return;
-          }
-          state.botRunning = true;
-          updateBotUI();
-          startBotLogs();
-          showToast('AI Trading Bot is now running!');
-        } else {
-          state.botRunning = false;
-          stopBotLogs();
-          updateBotUI();
-          showToast('Bot stopped.');
-        }
-      });
-
-      const BOT_LOG_MESSAGES = [
-        { type: 'info', text: 'Scanning market for optimal entry...' },
-        { type: 'info', text: 'Analyzing RSI divergence on 15m chart...' },
-        { type: 'buy', text: 'BUY signal · Executing at market price' },
-        { type: 'sell', text: 'SELL signal · Taking profit at +1.8%' },
-        { type: 'buy', text: 'Grid entry filled · Stop-loss set' },
-        { type: 'info', text: 'Risk manager adjusted position size' },
-        { type: 'sell', text: 'Trailing stop triggered · Position closed' },
-        { type: 'info', text: 'Rebalancing portfolio across assets...' },
-        { type: 'buy', text: 'Momentum breakout · Adding to position' },
-        { type: 'sell', text: 'Mean reversion · Exiting with +2.4% gain' },
-      ];
-
-      function startBotLogs() {
-        if (state.botLogTimer) return;
-        pushBotLog('Bot started · Monitoring ' + state.botSelectedAssets.length + ' asset(s)...', 'info');
-        state.botLogTimer = setInterval(() => {
-          const msg = BOT_LOG_MESSAGES[Math.floor(Math.random() * BOT_LOG_MESSAGES.length)];
-          pushBotLog(msg.text, msg.type);
-          state.botTradeCount++;
-          if (Math.random() > 0.35) state.botWinRate = Math.min(95, state.botWinRate + Math.random() * 0.8);
-          const delta = (Math.random() - 0.35) * 2.5;
-          state.botPnl += delta;
-          state.botTodayPnl += delta;
-          state.botBalance += delta * 0.1;
-          setWalletBalance(state.botBalance);
-          updateBotUI();
-        }, 2200);
-      }
-      function stopBotLogs() {
-        if (state.botLogTimer) { clearInterval(state.botLogTimer); state.botLogTimer = null; }
-        pushBotLog('Bot stopped by user.', 'info');
-      }
-      function pushBotLog(msg, type) {
-        const container = $('#botLiveLogs');
-        const now = new Date();
-        const time = now.toTimeString().slice(0, 8);
-        const line = document.createElement('div');
-        line.className = 'log-line';
-        line.innerHTML = `<span class="log-time">${time}</span><span class="log-msg ${type || ''}">${msg}</span>`;
-        container.appendChild(line);
-        container.scrollTop = container.scrollHeight;
-        while (container.children.length > 60) container.removeChild(container.firstChild);
-      }
-
-      // ============================================================
-      // CHART INIT — bulletproof with explicit height check
-      // ============================================================
-      function initSpotChartIfNeeded() {
-        if (state.spotChart) return;
-        const container = $('#spotChart');
-        if (!container) return;
-        // Force explicit height
-        container.style.height = '260px';
-        container.style.minHeight = '260px';
-        container.innerHTML = '';
-        const width = container.clientWidth || 300;
-        const height = container.clientHeight || 260;
-        if (!window.LightweightCharts) {
-          console.warn('LightweightCharts not loaded yet');
-          setTimeout(initSpotChartIfNeeded, 200);
-          return;
-        }
-        try {
-          state.spotChart = LightweightCharts.createChart(container, {
-            width: width, height: height,
-            layout: { background: { color: '#fff' }, textColor: '#64748B', fontFamily: 'Inter, sans-serif', fontSize: 11 },
-            grid: { vertLines: { color: '#F1F4F9' }, horzLines: { color: '#F1F4F9' } },
-            rightPriceScale: { borderColor: '#E3E8EF' },
-            timeScale: { borderColor: '#E3E8EF', timeVisible: true, secondsVisible: false },
-          });
-          state.spotSeries = state.spotChart.addCandlestickSeries({
-            upColor: '#0F9D6E', downColor: '#D14343',
-            borderUpColor: '#0F9D6E', borderDownColor: '#D14343',
-            wickUpColor: '#0F9D6E', wickDownColor: '#D14343',
-          });
-          generateSpotData();
-          const resize = () => {
-            if (state.spotChart) {
-              const c = $('#spotChart');
-              if (c) state.spotChart.applyOptions({ width: c.clientWidth, height: c.clientHeight });
-            }
-          };
-          window.addEventListener('resize', resize);
-          setTimeout(resize, 100);
-        } catch (e) {
-          console.error('Spot chart init failed:', e);
-        }
-      }
-
-      function initFuturesChartIfNeeded() {
-        if (state.futuresChart) return;
-        const container = $('#futuresChart');
-        if (!container) return;
-        container.style.height = '260px';
-        container.style.minHeight = '260px';
-        container.innerHTML = '';
-        const width = container.clientWidth || 300;
-        const height = container.clientHeight || 260;
-        if (!window.LightweightCharts) {
-          setTimeout(initFuturesChartIfNeeded, 200);
-          return;
-        }
-        try {
-          state.futuresChart = LightweightCharts.createChart(container, {
-            width: width, height: height,
-            layout: { background: { color: '#fff' }, textColor: '#64748B', fontFamily: 'Inter, sans-serif', fontSize: 11 },
-            grid: { vertLines: { color: '#F1F4F9' }, horzLines: { color: '#F1F4F9' } },
-            rightPriceScale: { borderColor: '#E3E8EF' },
-            timeScale: { borderColor: '#E3E8EF', timeVisible: true, secondsVisible: false },
-          });
-          state.futuresSeries = state.futuresChart.addCandlestickSeries({
-            upColor: '#0F9D6E', downColor: '#D14343',
-            borderUpColor: '#0F9D6E', borderDownColor: '#D14343',
-            wickUpColor: '#0F9D6E', wickDownColor: '#D14343',
-          });
-          generateFuturesData();
-          const resize = () => {
-            if (state.futuresChart) {
-              const c = $('#futuresChart');
-              if (c) state.futuresChart.applyOptions({ width: c.clientWidth, height: c.clientHeight });
-            }
-          };
-          window.addEventListener('resize', resize);
-          setTimeout(resize, 100);
-        } catch (e) {
-          console.error('Futures chart init failed:', e);
-        }
-      }
-
-      function generateSpotData() {
-        const base = state.markets[state.spotPair]?.price || 50000;
-        const now = Math.floor(Date.now() / 1000);
-        const interval = state.spotTf * 60;
-        const candles = [];
-        let price = base;
-        for (let i = 80; i >= 0; i--) {
-          const t = now - i * interval;
-          const chg = (Math.random() - 0.5) * price * 0.012;
-          const o = price, c = price + chg;
-          const h = Math.max(o, c) * (1 + Math.random() * 0.003);
-          const l = Math.min(o, c) * (1 - Math.random() * 0.003);
-          candles.push({ time: t, open: o, high: h, low: l, close: c });
-          price = c;
-        }
-        if (state.spotSeries) { state.spotSeries.setData(candles); state.spotChart.timeScale().fitContent(); }
-      }
-
-      function generateFuturesData() {
-        const base = state.markets[state.futuresPair]?.price || 50000;
-        const now = Math.floor(Date.now() / 1000);
-        const interval = state.futuresTf * 60;
-        const candles = [];
-        let price = base;
-        for (let i = 80; i >= 0; i--) {
-          const t = now - i * interval;
-          const chg = (Math.random() - 0.5) * price * 0.015;
-          const o = price, c = price + chg;
-          const h = Math.max(o, c) * (1 + Math.random() * 0.004);
-          const l = Math.min(o, c) * (1 - Math.random() * 0.004);
-          candles.push({ time: t, open: o, high: h, low: l, close: c });
-          price = c;
-        }
-        if (state.futuresSeries) { state.futuresSeries.setData(candles); state.futuresChart.timeScale().fitContent(); }
-      }
 
       function updateSpotHeader() {
         const pair = PAIRS.find(p => p.id === state.spotPair) || PAIRS[0];
@@ -1177,17 +1241,23 @@
         $('#futuresSubmitBtn').textContent = (state.futuresSide === 'buy' ? 'Open Long ' : 'Open Short ') + pair.base;
       }
 
-      // SPOT TIMEFRAMES
       $$('[data-spot-tf]').forEach(b => {
         b.addEventListener('click', () => {
           $$('[data-spot-tf]').forEach(x => x.classList.remove('active'));
           b.classList.add('active');
           state.spotTf = parseInt(b.dataset.spotTf);
-          generateSpotData();
+          if (window.BluepeakTradingView) window.BluepeakTradingView.setSpotInterval(b.dataset.spotTf);
+        });
+      });
+      $$('[data-futures-tf]').forEach(b => {
+        b.addEventListener('click', () => {
+          $$('[data-futures-tf]').forEach(x => x.classList.remove('active'));
+          b.classList.add('active');
+          state.futuresTf = parseInt(b.dataset.futuresTf);
+          if (window.BluepeakTradingView) window.BluepeakTradingView.setFuturesInterval(b.dataset.futuresTf);
         });
       });
 
-      // SPOT SIDE
       $$('[data-spot-side]').forEach(tab => {
         tab.addEventListener('click', () => {
           state.spotSide = tab.dataset.spotSide;
@@ -1199,8 +1269,18 @@
           updateSpotHeader();
         });
       });
+      $$('[data-futures-side]').forEach(tab => {
+        tab.addEventListener('click', () => {
+          state.futuresSide = tab.dataset.futuresSide;
+          $$('[data-futures-side]').forEach(t => {
+            t.classList.remove('active-buy', 'active-sell');
+            if (t === tab) t.classList.add(state.futuresSide === 'buy' ? 'active-buy' : 'active-sell');
+          });
+          $('#futuresSubmitBtn').className = 'btn-order ' + state.futuresSide;
+          updateFuturesHeader();
+        });
+      });
 
-      // SPOT TYPE
       $$('[data-spot-type]').forEach(btn => {
         btn.addEventListener('click', () => {
           state.spotType = btn.dataset.spotType;
@@ -1220,8 +1300,8 @@
         b.addEventListener('click', () => {
           const pct = parseFloat(b.dataset.spotPct) / 100;
           const price = state.markets[state.spotPair]?.price || 1;
-          const demoBalance = getWalletBalance();
-          $('#spotAmount').value = ((demoBalance * pct) / price).toFixed(6);
+          const bal = getWalletBalance();
+          $('#spotAmount').value = ((bal * pct) / price).toFixed(6);
           $('#spotAmount').dispatchEvent(new Event('input'));
         });
       });
@@ -1236,12 +1316,9 @@
           const bal = getWalletBalance();
           if (total > bal) { showToast('Insufficient balance'); return; }
           setWalletBalance(bal - total);
-          state.botBalance = getWalletBalance();
         } else {
           setWalletBalance(getWalletBalance() + total);
-          state.botBalance = getWalletBalance();
         }
-        // Add to history
         state.spotOrdersHistory.unshift({
           pair: pair.base + '/' + pair.quote,
           side: state.spotSide.toUpperCase(),
@@ -1259,32 +1336,31 @@
 
       $('#spotPairBtn').addEventListener('click', () => openPairModal('spot'));
 
-      // SPOT TABS
       $$('[data-spot-tab]').forEach(t => {
         t.addEventListener('click', () => {
           $$('[data-spot-tab]').forEach(x => x.classList.remove('active'));
           t.classList.add('active');
           $$('#view-spot .tab-content').forEach(c => c.classList.remove('active'));
-          $('#spotTab' + t.dataset.spotTab.charAt(0).toUpperCase() + t.dataset.spotTab.slice(1)).classList.add('active');
+          const el = $('#spotTab' + t.dataset.spotTab.charAt(0).toUpperCase() + t.dataset.spotTab.slice(1));
+          if (el) el.classList.add('active');
         });
       });
 
       function renderSpotOrders() {
         const openEl = $('#spotTabOpen');
         const histEl = $('#spotTabHistory');
-        if (state.spotOrdersOpen.length === 0) {
-          openEl.innerHTML = '<div class="empty-state">No open orders.</div>';
-        } else {
-          openEl.innerHTML = state.spotOrdersOpen.map(o => `<div style="display:flex;justify-content:space-between;font-size:12px;padding:6px 0;border-bottom:1px solid var(--gray-100);"><span>${o.side} ${o.amount} @ ${o.price}</span><span style="color:var(--gray-500);">${o.time}</span></div>`).join('');
+        if (openEl) {
+          openEl.innerHTML = state.spotOrdersOpen.length === 0
+            ? '<div class="empty-state">No open orders.</div>'
+            : state.spotOrdersOpen.map(o => `<div style="display:flex;justify-content:space-between;font-size:12px;padding:6px 0;border-bottom:1px solid var(--gray-100);"><span>${o.side} ${o.amount} @ ${o.price}</span><span style="color:var(--gray-500);">${o.time}</span></div>`).join('');
         }
-        if (state.spotOrdersHistory.length === 0) {
-          histEl.innerHTML = '<div class="empty-state">No order history yet.</div>';
-        } else {
-          histEl.innerHTML = state.spotOrdersHistory.map(o => `<div style="display:flex;justify-content:space-between;font-size:12px;padding:6px 0;border-bottom:1px solid var(--gray-100);"><span>${o.side} ${o.amount} @ ${o.price}</span><span style="color:var(--gray-500);">${o.time}</span></div>`).join('');
+        if (histEl) {
+          histEl.innerHTML = state.spotOrdersHistory.length === 0
+            ? '<div class="empty-state">No order history yet.</div>'
+            : state.spotOrdersHistory.map(o => `<div style="display:flex;justify-content:space-between;font-size:12px;padding:6px 0;border-bottom:1px solid var(--gray-100);"><span>${o.side} ${o.amount} @ ${o.price}</span><span style="color:var(--gray-500);">${o.time}</span></div>`).join('');
         }
       }
 
-      // ORDER BOOK + RECENT TRADES
       function startSpotOrderTrades() {
         if (state.spotLogTimer) return;
         state.spotLogTimer = setInterval(() => {
@@ -1308,7 +1384,6 @@
         const spread = ((asks[0].price - bids[0].price) / base * 100).toFixed(3);
         $('#depthSpread').textContent = 'Spread: ' + spread + '%';
         $('#depthMid').textContent = '$' + base.toLocaleString('en-US', { maximumFractionDigits: 2 });
-
         $('#asksList').innerHTML = asks.reverse().map(a => `
           <div class="depth-row ask">
             <span class="price">${a.price.toFixed(2)}</span>
@@ -1341,28 +1416,6 @@
         container.innerHTML = rows.join('');
       }
 
-      // FUTURES
-      $$('[data-futures-tf]').forEach(b => {
-        b.addEventListener('click', () => {
-          $$('[data-futures-tf]').forEach(x => x.classList.remove('active'));
-          b.classList.add('active');
-          state.futuresTf = parseInt(b.dataset.futuresTf);
-          generateFuturesData();
-        });
-      });
-
-      $$('[data-futures-side]').forEach(tab => {
-        tab.addEventListener('click', () => {
-          state.futuresSide = tab.dataset.futuresSide;
-          $$('[data-futures-side]').forEach(t => {
-            t.classList.remove('active-buy', 'active-sell');
-            if (t === tab) t.classList.add(state.futuresSide === 'buy' ? 'active-buy' : 'active-sell');
-          });
-          $('#futuresSubmitBtn').className = 'btn-order ' + state.futuresSide;
-          updateFuturesHeader();
-        });
-      });
-
       $$('[data-lev]').forEach(b => {
         b.addEventListener('click', () => {
           $$('[data-lev]').forEach(x => x.classList.remove('active'));
@@ -1384,7 +1437,6 @@
         const bal = getWalletBalance();
         if (margin > bal) { showToast('Insufficient balance'); return; }
         setWalletBalance(bal - margin);
-        state.botBalance = getWalletBalance();
         const pair = PAIRS.find(p => p.id === state.futuresPair) || PAIRS[0];
         showToast(`${state.futuresSide === 'buy' ? 'Long' : 'Short'} ${state.futuresLeverage}x opened for ${pair.base}!`);
         $('#futuresAmount').value = '';
@@ -1393,7 +1445,6 @@
 
       $('#futuresPairBtn').addEventListener('click', () => openPairModal('futures'));
 
-      // PAIR MODAL
       const pairModal = $('#pairModal');
       const pairModalOverlay = $('#pairModalOverlay');
 
@@ -1415,8 +1466,17 @@
         $$('.pair-option').forEach(opt => {
           opt.addEventListener('click', () => {
             const id = opt.dataset.pairid;
-            if (state.pairContext === 'spot') { state.spotPair = id; updateSpotHeader(); generateSpotData(); updateSpotStats(); }
-            else if (state.pairContext === 'futures') { state.futuresPair = id; updateFuturesHeader(); generateFuturesData(); updateFuturesStats(); }
+            if (state.pairContext === 'spot') {
+              state.spotPair = id;
+              updateSpotHeader();
+              updateSpotStats();
+              if (window.BluepeakTradingView) window.BluepeakTradingView.setSpotSymbol('BINANCE:' + id);
+            } else if (state.pairContext === 'futures') {
+              state.futuresPair = id;
+              updateFuturesHeader();
+              updateFuturesStats();
+              if (window.BluepeakTradingView) window.BluepeakTradingView.setFuturesSymbol('BINANCE:' + id + '.P');
+            }
             closePairModal();
           });
         });
@@ -1432,42 +1492,943 @@
       $('#pairModalClose').addEventListener('click', closePairModal);
       pairModalOverlay.addEventListener('click', closePairModal);
 
-      // BOTTOM NAV
+      // Bottom nav — all navigations route through navigateTo (defined in ADDITIONS)
       $$('.bottom-nav-item').forEach(btn => {
         btn.addEventListener('click', () => {
           const nav = btn.dataset.nav;
           if (nav === 'trade') return;
-          if (nav === 'home') window.location.href = 'index.html';
-          if (nav === 'p2p') window.location.href = 'p2p.html';
-          if (nav === 'swap') window.location.href = 'index.html#swap';
-          if (nav === 'wallet') window.location.href = 'wallet.html';
+          const targets = { home: 'index.html', p2p: 'p2p.html', swap: 'swap.html', wallet: 'wallet.html' };
+          if (targets[nav]) {
+            if (typeof window.navigateTo === 'function') window.navigateTo(targets[nav]);
+            else window.location.href = targets[nav];
+          }
         });
       });
 
-      $('#backBtn').addEventListener('click', () => window.location.href = 'index.html');
+      $('#backBtn').addEventListener('click', () => {
+        if (typeof window.navigateTo === 'function') window.navigateTo('index.html');
+        else window.location.href = 'index.html';
+      });
 
-      // INIT
-      setWalletBalance(getWalletBalance());
-      state.botBalance = getWalletBalance();
-      updateBotUI();
+      refreshHeaderBalance();
+      updateSpotHeader();
+      updateFuturesHeader();
+      startSpotOrderTrades();
+      fetchMarkets();
+      setInterval(fetchMarkets, 10000);
 
-      // Wait for DOM + LightweightCharts before initializing chart
+      window.addEventListener('storage', (e) => {
+        if (!e.key) return;
+        if (e.key === 'bp_user_balances' || e.key === 'bp_market_prices') refreshHeaderBalance();
+      });
+      window.addEventListener('focus', refreshHeaderBalance);
+
+    })();
+
+    /* ===== ADDITIONS ===== */
+
+    // 1) Navigation guard
+    (function() {
+      let isNav = false;
+      window.navigateTo = function(url) {
+        if (!url || isNav) return;
+        isNav = true;
+        window.location.href = url;
+        setTimeout(() => { isNav = false; }, 800);
+      };
+    })();
+
+    // 2) TradingView chart manager
+    (function() {
+      function initTV(containerId, symbol, interval) {
+        const el = document.getElementById(containerId);
+        if (!el) return null;
+        el.innerHTML = '';
+        if (!window.TradingView || !TradingView.widget) return null;
+        try {
+          return new TradingView.widget({
+            container_id: containerId,
+            autosize: true,
+            symbol: symbol,
+            interval: interval,
+            timezone: 'Etc/UTC',
+            theme: 'light',
+            style: '1',
+            locale: 'en',
+            toolbar_bg: '#F1F4F9',
+            enable_publishing: false,
+            allow_symbol_change: true,
+            hide_side_toolbar: false,
+            withdateranges: true,
+            save_image: false,
+          });
+        } catch (e) { console.warn('TV init error:', e); return null; }
+      }
+      let spotWidget = null;
+      let futuresWidget = null;
+      let spotSym = 'BINANCE:BTCUSDT';
+      let futuresSym = 'BINANCE:BTCUSDT.P';
+      let spotInterval = '15';
+      let futuresInterval = '15';
+
+      function ensureSpot() {
+        if (!spotWidget) spotWidget = initTV('tvSpotChart', spotSym, spotInterval);
+      }
+      function ensureFutures() {
+        if (!futuresWidget) futuresWidget = initTV('tvFuturesChart', futuresSym, futuresInterval);
+      }
       function initWhenReady() {
-        if (window.LightweightCharts) {
-          initSpotChartIfNeeded();
-          startSpotOrderTrades();
+        if (window.TradingView && TradingView.widget) {
+          ensureSpot();
+          ensureFutures();
         } else {
-          setTimeout(initWhenReady, 150);
+          setTimeout(initWhenReady, 200);
         }
       }
+      window.BluepeakTradingView = {
+        setSpotSymbol(sym) { spotSym = sym; initTV('tvSpotChart', sym, spotInterval); spotWidget = 'set'; },
+        setFuturesSymbol(sym) { futuresSym = sym; initTV('tvFuturesChart', sym, futuresInterval); futuresWidget = 'set'; },
+        setSpotInterval(iv) { spotInterval = iv; initTV('tvSpotChart', spotSym, iv); },
+        setFuturesInterval(iv) { futuresInterval = iv; initTV('tvFuturesChart', futuresSym, iv); },
+      };
       if (document.readyState === 'complete') initWhenReady();
       else window.addEventListener('load', initWhenReady);
+    })();
 
-      fetchMarkets();
-      setInterval(fetchMarkets, 20000);
+    // 3) Bot config + engine + UI
+    (function() {
+      // Bot config (admin-editable via bp_bot_config)
+      const DEFAULT_CFG = {
+        defaultWinRate: 0.84,
+        quantumWinRate: 0.92,
+        defaultStake: 10,
+        minBalance: 10,
+        quantumEnabled: true,
+        allowAnyPasskey: true,
+      };
+      const CFG = Object.assign({}, DEFAULT_CFG);
+      try {
+        const stored = JSON.parse(localStorage.getItem('bp_bot_config') || '{}');
+        Object.keys(stored).forEach(k => { if (stored[k] !== undefined && stored[k] !== null) CFG[k] = stored[k]; });
+      } catch (e) {}
+      window.BluepeakBotConfig = CFG;
 
-      window.addEventListener('resize', () => { document.body.style.overflowX = 'hidden'; });
+      // Asset universe including gold
+      const BOT_ASSETS = [
+        { sym: 'BTCUSDT', name: 'Bitcoin', icon: 'https://blockchains.tatum.io/assets/img/bitcoin.svg' },
+        { sym: 'ETHUSDT', name: 'Ethereum', icon: 'https://blockchains.tatum.io/assets/img/ethereum.svg' },
+        { sym: 'SOLUSDT', name: 'Solana', icon: 'https://blockchains.tatum.io/assets/img/solana.svg' },
+        { sym: 'BNBUSDT', name: 'BNB', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/bnb.svg' },
+        { sym: 'XRPUSDT', name: 'XRP', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/xrp.svg' },
+        { sym: 'ADAUSDT', name: 'Cardano', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/ada.svg' },
+        { sym: 'DOGEUSDT', name: 'Dogecoin', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/doge.svg' },
+        { sym: 'AVAXUSDT', name: 'Avalanche', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/avax.svg' },
+        { sym: 'DOTUSDT', name: 'Polkadot', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/dot.svg' },
+        { sym: 'LINKUSDT', name: 'Chainlink', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/link.svg' },
+        { sym: 'LTCUSDT', name: 'Litecoin', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/ltc.svg' },
+        { sym: 'XAUUSD', name: 'Gold', icon: '🥇' },
+      ];
 
+      // ============ Mock engine ============
+      const Engine = {
+        running: false,
+        session: null,
+        timer: null,
+        start(opts) {
+          if (this.running) return;
+          const cfg = window.BluepeakBotConfig;
+          const winRate = opts.plan === 'quantum' ? cfg.quantumWinRate : cfg.defaultWinRate;
+          this.session = {
+            id: 'sess_' + Date.now(),
+            plan: opts.plan || 'standard',
+            startedAt: Date.now(),
+            stake: parseFloat(opts.stake) || cfg.defaultStake,
+            assets: opts.assets.slice(),
+            winRate: winRate,
+            trades: 0, wins: 0, pnl: 0,
+            logs: [],
+          };
+          this.running = true;
+          this._log('info', 'Session started · Plan: ' + this.session.plan.toUpperCase() + ' · Stake: ' + this.session.stake + ' USDT');
+          this.timer = setInterval(() => this._tick(), 3200);
+          this._saveActive();
+        },
+        stop() {
+          if (!this.running) return;
+          this.running = false;
+          clearInterval(this.timer);
+          this.timer = null;
+          if (this.session) {
+            this.session.endedAt = Date.now();
+            this._log('info', 'Session ended · Final P&L: ' + (this.session.pnl >= 0 ? '+' : '') + this.session.pnl.toFixed(2) + ' USDT');
+            const hist = JSON.parse(localStorage.getItem('bp_bot_sessions') || '[]');
+            hist.unshift(this.session);
+            localStorage.setItem('bp_bot_sessions', JSON.stringify(hist.slice(0, 30)));
+            this.session = null;
+            localStorage.removeItem('bp_bot_active_session');
+            renderSessionHistory();
+          }
+          updateBotStats();
+        },
+        _tick() {
+          if (!this.running || !this.session) return;
+          const s = this.session;
+          const asset = s.assets[Math.floor(Math.random() * s.assets.length)];
+          const isWin = Math.random() < s.winRate;
+          const tradeSize = s.stake * 0.15;
+          const pnl = isWin ? tradeSize * (0.6 + Math.random() * 1.2) : -tradeSize * (0.35 + Math.random() * 0.55);
+          s.trades++;
+          if (isWin) s.wins++;
+          s.pnl += pnl;
+          // Apply to USDT balance
+          try {
+            const balances = JSON.parse(localStorage.getItem('bp_user_balances') || '{}');
+            balances.USDT = Math.max(0, (parseFloat(balances.USDT) || 0) + pnl);
+            localStorage.setItem('bp_user_balances', JSON.stringify(balances));
+          } catch (e) {}
+          this._log(isWin ? 'profit' : 'loss',
+            (isWin ? '✅ WIN ' : '❌ LOSS ') + '· ' + asset + ' · ' + (pnl >= 0 ? '+' : '') + pnl.toFixed(2) + ' USDT');
+          this._saveActive();
+        },
+        _log(type, msg) {
+          if (!this.session) return;
+          const time = new Date().toTimeString().slice(0, 8);
+          this.session.logs.push({ time, type, msg });
+          const body = document.getElementById('botLiveLogsBody');
+          if (body) {
+            const line = document.createElement('div');
+            line.className = 'bot-log-line ' + type;
+            line.innerHTML = '<span class="t">' + time + '</span><span class="m">' + msg + '</span>';
+            body.appendChild(line);
+            body.scrollTop = body.scrollHeight;
+            while (body.children.length > 100) body.removeChild(body.firstChild);
+          }
+          updateBotStats();
+        },
+        _saveActive() {
+          try { localStorage.setItem('bp_bot_active_session', JSON.stringify(this.session)); } catch (e) {}
+        }
+      };
+      window.BluepeakBotEngine = Engine;
+
+      // ============ Bot user state ============
+      function readBotUser() {
+        try { return JSON.parse(localStorage.getItem('bp_bot_user') || '{}') || {}; } catch (e) { return {}; }
+      }
+      function writeBotUser(data) {
+        try { localStorage.setItem('bp_bot_user', JSON.stringify(data)); } catch (e) {}
+      }
+
+      // ============ UI refs ============
+      const unlockGate = document.getElementById('botUnlockGate');
+      const unlockedContent = document.getElementById('botUnlockedContent');
+      const passkeyInput = document.getElementById('botPasskeyInput');
+      const samplePasskeyEl = document.getElementById('botSamplePasskey');
+      const unlockBtn = document.getElementById('botUnlockBtn');
+      const copyPasskeyBtn = document.getElementById('copyBotPasskeyBtn');
+      const planCards = document.querySelectorAll('.plan-card');
+      const startBtn = document.getElementById('botStartBtn');
+      const stopBtn = document.getElementById('botStopBtn');
+      const stakeInput = document.getElementById('botStakeInput');
+      const assetPickerBtn = document.getElementById('botAssetPickerBtn');
+      const assetSheet = document.getElementById('botAssetSheet');
+      const assetSheetClose = document.getElementById('botAssetSheetClose');
+      const assetList = document.getElementById('botAssetList');
+      const assetSearch = document.getElementById('botAssetSearch');
+      const assetSelectAll = document.getElementById('botAssetSelectAll');
+      const assetClearAll = document.getElementById('botAssetClearAll');
+      const onboardingModal = document.getElementById('botOnboardingModal');
+      const onboardingOverlay = document.getElementById('botOnboardingOverlay');
+
+      // Seed sample passkey
+      if (samplePasskeyEl) {
+        const user = readBotUser();
+        samplePasskeyEl.textContent = user.passkey || 'BP-BOT-2025-STD';
+      }
+      // Update win rates from admin config
+      const stdWR = document.getElementById('botStdWinRate');
+      const qntWR = document.getElementById('botQntWinRate');
+      if (stdWR) stdWR.textContent = Math.round(window.BluepeakBotConfig.defaultWinRate * 100) + '% win rate';
+      if (qntWR) qntWR.textContent = Math.round(window.BluepeakBotConfig.quantumWinRate * 100) + '% win rate';
+
+      // ============ Onboarding modal (first visit) ============
+      function maybeShowOnboarding() {
+        let shown = false;
+        try { shown = localStorage.getItem('bp_bot_onboarding_shown') === '1'; } catch (e) {}
+        if (shown) return;
+        if (!onboardingModal || !onboardingOverlay) return;
+        const onbPk = document.getElementById('botOnboardingPasskey');
+        if (onbPk) {
+          const u = readBotUser();
+          onbPk.textContent = u.passkey || 'BP-BOT-2025-STD';
+        }
+        onboardingOverlay.classList.add('open');
+        onboardingModal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeOnboarding() {
+        if (onboardingModal) onboardingModal.classList.remove('open');
+        if (onboardingOverlay) onboardingOverlay.classList.remove('open');
+        document.body.style.overflow = '';
+        try { localStorage.setItem('bp_bot_onboarding_shown', '1'); } catch (e) {}
+      }
+      const onbClose = document.getElementById('botOnboardingClose');
+      if (onbClose) onbClose.addEventListener('click', closeOnboarding);
+      if (onboardingOverlay) onboardingOverlay.addEventListener('click', closeOnboarding);
+      const onbGo = document.getElementById('botOnboardingGo');
+      if (onbGo) onbGo.addEventListener('click', () => { closeOnboarding(); });
+      const onbLater = document.getElementById('botOnboardingLater');
+      if (onbLater) onbLater.addEventListener('click', closeOnboarding);
+      const onbCopy = document.getElementById('botOnboardingCopy');
+      if (onbCopy) onbCopy.addEventListener('click', () => {
+        const pk = document.getElementById('botOnboardingPasskey').textContent;
+        navigator.clipboard.writeText(pk).then(() => {
+          onbCopy.textContent = 'Copied!';
+          setTimeout(() => { onbCopy.textContent = 'Copy'; }, 1400);
+        });
+      });
+
+      // ============ Unlock flow ============
+      let selectedPlan = 'standard';
+      planCards.forEach(card => {
+        card.addEventListener('click', () => {
+          planCards.forEach(c => c.classList.remove('selected'));
+          card.classList.add('selected');
+          selectedPlan = card.dataset.plan;
+        });
+      });
+
+      const copySample = () => {
+        const pk = samplePasskeyEl ? samplePasskeyEl.textContent : 'BP-BOT-2025-STD';
+        navigator.clipboard.writeText(pk).then(() => {
+          if (copyPasskeyBtn) {
+            copyPasskeyBtn.textContent = 'Copied!';
+            setTimeout(() => { copyPasskeyBtn.textContent = 'Copy'; }, 1400);
+          }
+        });
+      };
+      if (copyPasskeyBtn) copyPasskeyBtn.addEventListener('click', copySample);
+
+      function showUnlocked() {
+        if (unlockGate) unlockGate.style.display = 'none';
+        if (unlockedContent) unlockedContent.style.display = 'flex';
+        unlockedContent.style.flexDirection = 'column';
+        unlockedContent.style.gap = '12px';
+        const user = readBotUser();
+        const planLabel = document.getElementById('botPlanLabel');
+        if (planLabel) planLabel.textContent = (user.plan || 'standard').replace(/^\w/, c => c.toUpperCase());
+        const s = document.getElementById('botStakeInput');
+        if (s && user.stake) s.value = user.stake;
+        renderSessionHistory();
+        updateBotStats();
+        refreshBotAssetCount();
+      }
+      function showLocked() {
+        if (unlockGate) unlockGate.style.display = 'block';
+        if (unlockedContent) unlockedContent.style.display = 'none';
+      }
+
+      if (unlockBtn) {
+        unlockBtn.addEventListener('click', () => {
+          const pk = (passkeyInput.value || '').trim().toUpperCase();
+          const cfg = window.BluepeakBotConfig;
+          const user = readBotUser();
+          const expectedPk = (user.passkey || 'BP-BOT-2025-STD').toUpperCase();
+          const valid = cfg.allowAnyPasskey ? pk.length >= 4 : pk === expectedPk;
+          if (!valid) { showToast('Invalid passkey. Copy the sample passkey to proceed.'); return; }
+          user.passkey = pk;
+          user.plan = selectedPlan;
+          user.unlocked = true;
+          user.unlockedAt = Date.now();
+          if (!user.stake) user.stake = cfg.defaultStake;
+          if (!user.assets) user.assets = ['BTCUSDT'];
+          writeBotUser(user);
+          showUnlocked();
+          showToast('Bot unlocked · ' + selectedPlan.toUpperCase() + ' plan');
+        });
+      }
+
+      // ============ Stats ============
+      function readHistory() {
+        try { return JSON.parse(localStorage.getItem('bp_bot_sessions') || '[]') || []; } catch (e) { return []; }
+      }
+      function updateBotStats() {
+        const hist = readHistory();
+        const active = Engine.session;
+        let totalTrades = 0, totalWins = 0, totalPnl = 0;
+        hist.forEach(s => { totalTrades += s.trades || 0; totalWins += s.wins || 0; totalPnl += s.pnl || 0; });
+        if (active) { totalTrades += active.trades; totalWins += active.wins; totalPnl += active.pnl; }
+        const winRate = totalTrades > 0 ? (totalWins / totalTrades * 100) : (window.BluepeakBotConfig.defaultWinRate * 100);
+        const tEl = document.getElementById('botTotalTrades');
+        const wEl = document.getElementById('botWinRate');
+        const pEl = document.getElementById('botTotalPnl');
+        const balEl = document.getElementById('botBalanceDisplay');
+        const statusEl = document.getElementById('botStatusIndicator');
+        const statusTxt = document.getElementById('botStatusText');
+        if (tEl) tEl.textContent = totalTrades;
+        if (wEl) wEl.textContent = winRate.toFixed(1) + '%';
+        if (pEl) {
+          pEl.textContent = (totalPnl >= 0 ? '+$' : '-$') + Math.abs(totalPnl).toFixed(2);
+          pEl.style.color = totalPnl >= 0 ? 'var(--gold-400)' : 'var(--red-500)';
+        }
+        if (balEl) balEl.textContent = 'Bal: $' + (window.getWalletBalance ? window.getWalletBalance() : 0).toFixed(2);
+        if (statusEl) {
+          statusEl.classList.remove('running', 'locked', 'ready');
+          if (Engine.running) {
+            statusEl.classList.add('running');
+            if (statusTxt) statusTxt.textContent = 'Running · ' + (active ? active.assets.length : 0) + ' assets · Staking ' + (active ? active.stake : 0) + ' USDT';
+            if (startBtn) startBtn.style.display = 'none';
+            if (stopBtn) stopBtn.style.display = 'flex';
+          } else {
+            statusEl.classList.add('ready');
+            if (statusTxt) statusTxt.textContent = 'Ready · Set stake and start';
+            if (startBtn) startBtn.style.display = 'flex';
+            if (stopBtn) stopBtn.style.display = 'none';
+          }
+        }
+      }
+
+      // ============ Start / stop ============
+      if (startBtn) {
+        startBtn.addEventListener('click', () => {
+          const user = readBotUser();
+          const stake = parseFloat(stakeInput.value) || window.BluepeakBotConfig.defaultStake;
+          const bal = window.getWalletBalance ? window.getWalletBalance() : 0;
+          if (bal < window.BluepeakBotConfig.minBalance) {
+            showToast('Minimum balance required: $' + window.BluepeakBotConfig.minBalance);
+            return;
+          }
+          if (stake > bal) { showToast('Stake exceeds your USDT balance'); return; }
+          if (!user.assets || user.assets.length === 0) { showToast('Select at least one asset'); openAssetSheet(); return; }
+          user.stake = stake;
+          writeBotUser(user);
+          Engine.start({ plan: user.plan || 'standard', stake, assets: user.assets });
+          updateBotStats();
+          showToast('Bot started');
+        });
+      }
+      if (stopBtn) {
+        stopBtn.addEventListener('click', () => {
+          Engine.stop();
+          updateBotStats();
+          showToast('Bot stopped');
+        });
+      }
+      if (stakeInput) {
+        stakeInput.addEventListener('change', () => {
+          const v = parseFloat(stakeInput.value) || 0;
+          if (v <= 0) stakeInput.value = window.BluepeakBotConfig.defaultStake;
+          const user = readBotUser();
+          user.stake = parseFloat(stakeInput.value);
+          writeBotUser(user);
+        });
+      }
+
+      // ============ Asset picker sheet ============
+      function refreshBotAssetCount() {
+        const user = readBotUser();
+        const count = (user.assets || []).length;
+        const el = document.getElementById('botAssetPickerCount');
+        if (el) el.textContent = count + ' selected';
+      }
+      function renderAssetPickerList(filter) {
+        if (!assetList) return;
+        const user = readBotUser();
+        const selected = user.assets || [];
+        const q = (filter || '').toLowerCase().trim();
+        const filtered = BOT_ASSETS.filter(a => !q || a.name.toLowerCase().includes(q) || a.sym.toLowerCase().includes(q));
+        assetList.innerHTML = filtered.map(a => {
+          const isSel = selected.includes(a.sym);
+          const icon = a.icon.startsWith('http') ? '<img src="' + a.icon + '" alt="' + a.sym + '">' : '<div class="emoji-icon">' + a.icon + '</div>';
+          return `
+            <div class="asset-pick-row ${isSel ? 'selected' : ''}" data-asset-sym="${a.sym}">
+              ${icon}
+              <div class="info">
+                <div class="name">${a.name}</div>
+                <div class="sym">${a.sym}</div>
+              </div>
+              <div class="check"></div>
+            </div>
+          `;
+        }).join('') || '<div class="empty-state">No assets match.</div>';
+        assetList.querySelectorAll('.asset-pick-row').forEach(row => {
+          row.addEventListener('click', () => {
+            const sym = row.dataset.assetSym;
+            const u = readBotUser();
+            const list = u.assets || [];
+            const idx = list.indexOf(sym);
+            if (idx >= 0) list.splice(idx, 1); else list.push(sym);
+            u.assets = list;
+            writeBotUser(u);
+            renderAssetPickerList(assetSearch ? assetSearch.value : '');
+            refreshBotAssetCount();
+          });
+        });
+      }
+      function openAssetSheet() {
+        if (!assetSheet) return;
+        assetSheet.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        renderAssetPickerList('');
+      }
+      function closeAssetSheet() {
+        if (!assetSheet) return;
+        assetSheet.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+      if (assetPickerBtn) assetPickerBtn.addEventListener('click', openAssetSheet);
+      if (assetSheetClose) assetSheetClose.addEventListener('click', closeAssetSheet);
+      if (assetSearch) assetSearch.addEventListener('input', () => renderAssetPickerList(assetSearch.value));
+      if (assetSelectAll) assetSelectAll.addEventListener('click', () => {
+        const u = readBotUser();
+        u.assets = BOT_ASSETS.map(a => a.sym);
+        writeBotUser(u);
+        renderAssetPickerList(assetSearch ? assetSearch.value : '');
+        refreshBotAssetCount();
+      });
+      if (assetClearAll) assetClearAll.addEventListener('click', () => {
+        const u = readBotUser();
+        u.assets = [];
+        writeBotUser(u);
+        renderAssetPickerList(assetSearch ? assetSearch.value : '');
+        refreshBotAssetCount();
+      });
+
+      // ============ Session history ============
+      function renderSessionHistory() {
+        const list = document.getElementById('botSessionList');
+        if (!list) return;
+        const hist = readHistory();
+        if (hist.length === 0) {
+          list.innerHTML = '<div class="empty-state">No sessions yet.</div>';
+          return;
+        }
+        list.innerHTML = hist.slice(0, 20).map(s => {
+          const dur = s.endedAt && s.startedAt ? Math.round((s.endedAt - s.startedAt) / 60000) + ' min' : '—';
+          const wr = s.trades > 0 ? (s.wins / s.trades * 100).toFixed(1) : '0.0';
+          const start = s.startedAt ? new Date(s.startedAt).toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '—';
+          const pnl = s.pnl || 0;
+          return `
+            <div class="session-row">
+              <div>
+                <div class="time">${start} · ${dur} · ${(s.plan || 'standard').toUpperCase()}</div>
+                <div class="meta">Trades <strong>${s.trades || 0}</strong> · Win rate <strong>${wr}%</strong> · Stake <strong>${s.stake || 0} USDT</strong></div>
+              </div>
+              <div class="pnl ${pnl >= 0 ? 'pos' : 'neg'}">${pnl >= 0 ? '+' : ''}${pnl.toFixed(2)}</div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // ============ On enter AI Bot view ============
+      window.BluepeakBot = {
+        onEnter() {
+          const user = readBotUser();
+          if (user.unlocked) showUnlocked(); else showLocked();
+          maybeShowOnboarding();
+          updateBotStats();
+        }
+      };
+
+      // Restore active session on reload
+      try {
+        const active = JSON.parse(localStorage.getItem('bp_bot_active_session') || 'null');
+        if (active && active.startedAt) {
+          Engine.session = active;
+          Engine.running = true;
+          Engine.timer = setInterval(() => Engine._tick(), 3200);
+        }
+      } catch (e) {}
+
+      // Initial render
+      refreshBotAssetCount();
+      updateBotStats();
+      renderSessionHistory();
+    })();
+
+    /* ===== ADDITIONS V2 ===== */
+    (function() {
+      'use strict';
+      try {
+        const BOT_ASSETS_V2 = [
+          { sym: 'BTCUSDT', base: 'BTC', quote: 'USDT', name: 'Bitcoin', icon: 'https://blockchains.tatum.io/assets/img/bitcoin.svg', market: 'crypto' },
+          { sym: 'ETHUSDT', base: 'ETH', quote: 'USDT', name: 'Ethereum', icon: 'https://blockchains.tatum.io/assets/img/ethereum.svg', market: 'crypto' },
+          { sym: 'SOLUSDT', base: 'SOL', quote: 'USDT', name: 'Solana', icon: 'https://blockchains.tatum.io/assets/img/solana.svg', market: 'crypto' },
+          { sym: 'BNBUSDT', base: 'BNB', quote: 'USDT', name: 'BNB', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/bnb.svg', market: 'crypto' },
+          { sym: 'XRPUSDT', base: 'XRP', quote: 'USDT', name: 'XRP', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/xrp.svg', market: 'crypto' },
+          { sym: 'ADAUSDT', base: 'ADA', quote: 'USDT', name: 'Cardano', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/ada.svg', market: 'crypto' },
+          { sym: 'DOGEUSDT', base: 'DOGE', quote: 'USDT', name: 'Dogecoin', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/doge.svg', market: 'crypto' },
+          { sym: 'AVAXUSDT', base: 'AVAX', quote: 'USDT', name: 'Avalanche', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/avax.svg', market: 'crypto' },
+          { sym: 'DOTUSDT', base: 'DOT', quote: 'USDT', name: 'Polkadot', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/dot.svg', market: 'crypto' },
+          { sym: 'LINKUSDT', base: 'LINK', quote: 'USDT', name: 'Chainlink', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/link.svg', market: 'crypto' },
+          { sym: 'LTCUSDT', base: 'LTC', quote: 'USDT', name: 'Litecoin', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/ltc.svg', market: 'crypto' },
+          { sym: 'XAUUSD', base: 'XAU', quote: 'USD', name: 'Gold', icon: '🥇', market: 'metals' },
+        ];
+
+        function isMarketOpen(asset) {
+          if (!asset || asset.market !== 'metals') return true;
+          const now = new Date();
+          const d = now.getUTCDay(); // 0=Sun, 6=Sat
+          const h = now.getUTCHours();
+          if (d === 6) return false;
+          if (d === 0) return false;
+          if (d === 5 && h >= 22) return false;
+          return true;
+        }
+
+        function readBotUserV2() {
+          try { return JSON.parse(localStorage.getItem('bp_bot_user') || '{}') || {}; } catch(e) { return {}; }
+        }
+
+        function refreshBotAssetCountV2() {
+          const user = readBotUserV2();
+          const count = (user.assets || []).length;
+          const el = document.getElementById('botAssetPickerCount');
+          if (el) el.textContent = count + ' pair(s) selected';
+        }
+
+        function renderAssetPickerListV2(filter) {
+          const assetList = document.getElementById('botAssetList');
+          if (!assetList) return;
+          const user = readBotUserV2();
+          const selected = user.assets || [];
+          const q = (filter || '').toLowerCase().trim();
+          const filtered = BOT_ASSETS_V2.filter(a => {
+            if (!q) return true;
+            return a.name.toLowerCase().includes(q) ||
+                   a.sym.toLowerCase().includes(q) ||
+                   a.base.toLowerCase().includes(q) ||
+                   a.quote.toLowerCase().includes(q) ||
+                   a.market.toLowerCase().includes(q);
+          });
+
+          if (filtered.length === 0) {
+            assetList.innerHTML = '<div class="empty-state">No assets match.</div>';
+            return;
+          }
+
+          assetList.innerHTML = filtered.map(a => {
+            const isSel = selected.includes(a.sym);
+            const open = isMarketOpen(a);
+            const iconHtml = a.icon.startsWith('http')
+              ? `<img src="${a.icon}" alt="${a.sym}">`
+              : `<div class="emoji-icon">${a.icon}</div>`;
+            return `
+              <div class="asset-pick-row-v2 ${isSel ? 'selected' : ''}" data-asset-sym="${a.sym}">
+                ${iconHtml}
+                <div class="info">
+                  <div class="pair-line">
+                    <span class="pair">${a.base} / ${a.quote}</span>
+                    <span class="name">· ${a.name}</span>
+                  </div>
+                  <div class="meta-line">${a.sym} · ${a.market}</div>
+                </div>
+                <span class="status-pill ${open ? 'open' : 'closed'}">${open ? 'OPEN' : 'CLOSED'}</span>
+                <div class="check"></div>
+              </div>
+            `;
+          }).join('');
+
+          assetList.querySelectorAll('.asset-pick-row-v2').forEach(row => {
+            row.addEventListener('click', () => {
+              const sym = row.dataset.assetSym;
+              const u = readBotUserV2();
+              const list = u.assets || [];
+              const idx = list.indexOf(sym);
+              if (idx >= 0) list.splice(idx, 1); else list.push(sym);
+              u.assets = list;
+              try { localStorage.setItem('bp_bot_user', JSON.stringify(u)); } catch(e) {}
+              const search = document.getElementById('botAssetSearch');
+              renderAssetPickerListV2(search ? search.value : '');
+              refreshBotAssetCountV2();
+            });
+          });
+        }
+
+        // Quantum Upgrade Subscription Modal
+        function ensureQuantumModal() {
+          if (document.getElementById('quantumSubModal')) return;
+          const overlay = document.createElement('div');
+          overlay.id = 'quantumSubOverlay';
+          overlay.className = 'modal-overlay';
+
+          const modal = document.createElement('div');
+          modal.id = 'quantumSubModal';
+          modal.className = 'bottom-sheet';
+          modal.style.maxHeight = '88vh';
+          modal.innerHTML = `
+            <div class="sheet-header">
+              <h3>Upgrade to Quantum AI</h3>
+              <button class="sheet-close" id="quantumSubClose">✕</button>
+            </div>
+            <div class="sheet-body">
+              <div class="quantum-sub-hero">
+                <span class="quantum-badge">⭐ Premium Plan</span>
+                <div class="quantum-price-big">$119<span class="per">/month</span></div>
+                <p class="quantum-sub-tagline">Cancel anytime. Billed monthly from your wallet.</p>
+              </div>
+              <div class="quantum-feat-list">
+                <div class="quantum-feat-row"><span class="tick">✓</span> Higher win rate (up to 92%)</div>
+                <div class="quantum-feat-row"><span class="tick">✓</span> MEV protection on all trades</div>
+                <div class="quantum-feat-row"><span class="tick">✓</span> Priority execution queue</div>
+                <div class="quantum-feat-row"><span class="tick">✓</span> Advanced risk management</div>
+                <div class="quantum-feat-row"><span class="tick">✓</span> Predictive signal engine</div>
+              </div>
+              <div class="quantum-balance-row">
+                <span>Available USDT balance</span>
+                <strong id="quantumSubBalance">$0.00</strong>
+              </div>
+              <div class="quantum-notice" id="quantumSubNotice"></div>
+              <button class="quantum-cta" id="quantumSubPay">Subscribe for $119</button>
+              <button class="quantum-cta-outline" id="quantumSubDeposit">Deposit First</button>
+            </div>
+          `;
+          document.body.appendChild(overlay);
+          document.body.appendChild(modal);
+
+          const closeBtn = document.getElementById('quantumSubClose');
+          if (closeBtn) closeBtn.addEventListener('click', closeQuantumModal);
+          overlay.addEventListener('click', closeQuantumModal);
+
+          const depositBtn = document.getElementById('quantumSubDeposit');
+          if (depositBtn) {
+            depositBtn.addEventListener('click', () => {
+              closeQuantumModal();
+              if (typeof window.navigateTo === 'function') window.navigateTo('deposit.html');
+              else window.location.href = 'deposit.html';
+            });
+          }
+
+          const payBtn = document.getElementById('quantumSubPay');
+          if (payBtn) {
+            payBtn.addEventListener('click', () => {
+              const bal = typeof window.getWalletBalance === 'function' ? window.getWalletBalance() : 0;
+              if (bal < 119) {
+                if (typeof window.showToast === 'function') window.showToast('Insufficient USDT balance');
+                return;
+              }
+              if (typeof window.setWalletBalance === 'function') {
+                window.setWalletBalance(bal - 119);
+              }
+              try {
+                const u = readBotUserV2();
+                u.plan = 'quantum';
+                localStorage.setItem('bp_bot_user', JSON.stringify(u));
+              } catch(e) {}
+              const planLabel = document.getElementById('botPlanLabel');
+              if (planLabel) planLabel.textContent = 'Quantum';
+              closeQuantumModal();
+              if (typeof window.showToast === 'function') {
+                window.showToast('Quantum plan activated. $119 charged.');
+              }
+              updateStartHint();
+            });
+          }
+        }
+
+        function openQuantumModal() {
+          ensureQuantumModal();
+          const overlay = document.getElementById('quantumSubOverlay');
+          const modal = document.getElementById('quantumSubModal');
+          const balEl = document.getElementById('quantumSubBalance');
+          const noticeEl = document.getElementById('quantumSubNotice');
+          const payBtn = document.getElementById('quantumSubPay');
+
+          const bal = typeof window.getWalletBalance === 'function' ? window.getWalletBalance() : 0;
+          if (balEl) balEl.textContent = '$' + bal.toFixed(2);
+
+          if (noticeEl && payBtn) {
+            noticeEl.classList.remove('warn', 'ok');
+            if (bal >= 119) {
+              noticeEl.textContent = "You'll be charged $119 USDT from your wallet immediately.";
+              noticeEl.classList.add('ok');
+              payBtn.style.pointerEvents = 'auto';
+              payBtn.style.opacity = '1';
+            } else {
+              noticeEl.textContent = 'Insufficient wallet balance. You need at least $119 USDT.';
+              noticeEl.classList.add('warn');
+              payBtn.style.pointerEvents = 'none';
+              payBtn.style.opacity = '0.5';
+            }
+          }
+
+          if (overlay) overlay.classList.add('open');
+          if (modal) modal.classList.add('open');
+          document.body.style.overflow = 'hidden';
+        }
+
+        function closeQuantumModal() {
+          const overlay = document.getElementById('quantumSubOverlay');
+          const modal = document.getElementById('quantumSubModal');
+          if (overlay) overlay.classList.remove('open');
+          if (modal) modal.classList.remove('open');
+          document.body.style.overflow = '';
+        }
+
+        function updateStartHint() {
+          const hint = document.getElementById('botStartHint');
+          if (!hint) return;
+          const bal = typeof window.getWalletBalance === 'function' ? window.getWalletBalance() : 0;
+          const sInput = document.getElementById('botStakeInput');
+          const stakeVal = sInput ? parseFloat(sInput.value) : 10;
+          const isRunning = window.BluepeakBotEngine && window.BluepeakBotEngine.running;
+
+          hint.classList.remove('warn', 'ok');
+          if (bal < 10) {
+            hint.textContent = 'Minimum $10 wallet balance required to start.';
+            hint.classList.add('warn');
+          } else if (isNaN(stakeVal) || stakeVal < 10) {
+            hint.textContent = 'Minimum stake is 10 USDT.';
+            hint.classList.add('warn');
+          } else if (isRunning) {
+            hint.textContent = 'Bot is running.';
+            hint.classList.add('ok');
+          } else {
+            hint.textContent = 'Ready to start.';
+          }
+        }
+
+        function initV2() {
+          // Insert hint element below Start/Stop button row in overview card
+          const botActions = document.querySelector('#botUnlockedContent .bot-actions');
+          if (botActions && !document.getElementById('botStartHint')) {
+            const hint = document.createElement('div');
+            hint.id = 'botStartHint';
+            hint.className = 'bot-start-hint';
+            botActions.insertAdjacentElement('afterend', hint);
+          }
+
+          // Stake input constraints
+          const stakeInput = document.getElementById('botStakeInput');
+          if (stakeInput) {
+            stakeInput.setAttribute('min', '10');
+            stakeInput.addEventListener('change', () => {
+              const v = parseFloat(stakeInput.value);
+              if (isNaN(v) || v < 10) {
+                stakeInput.value = '10';
+                try {
+                  const u = readBotUserV2();
+                  u.stake = 10;
+                  localStorage.setItem('bp_bot_user', JSON.stringify(u));
+                } catch(e) {}
+                if (typeof window.showToast === 'function') {
+                  window.showToast('Minimum stake is 10 USDT.');
+                }
+              }
+              updateStartHint();
+            });
+            stakeInput.addEventListener('input', updateStartHint);
+          }
+
+          // Start button guard (capture phase)
+          const startBtn = document.getElementById('botStartBtn');
+          if (startBtn) {
+            startBtn.addEventListener('click', function(e) {
+              const bal = typeof window.getWalletBalance === 'function' ? window.getWalletBalance() : 0;
+              const sInp = document.getElementById('botStakeInput');
+              const stakeVal = sInp ? parseFloat(sInp.value) : 10;
+
+              if (bal < 10) {
+                e.stopImmediatePropagation();
+                if (window.BluepeakBotEngine && window.BluepeakBotEngine.running) {
+                  window.BluepeakBotEngine.stop();
+                }
+                if (typeof window.showToast === 'function') {
+                  window.showToast('Minimum wallet balance to start the bot is $10. Please deposit first.');
+                }
+                updateStartHint();
+                return;
+              }
+
+              if (isNaN(stakeVal) || stakeVal < 10) {
+                if (sInp) sInp.value = '10';
+                try {
+                  const u = readBotUserV2();
+                  u.stake = 10;
+                  localStorage.setItem('bp_bot_user', JSON.stringify(u));
+                } catch(err) {}
+                if (typeof window.showToast === 'function') {
+                  window.showToast('Minimum stake is 10 USDT.');
+                }
+              }
+            }, true);
+          }
+
+          // Ensure logs autoscroll on new entries
+          const logsBody = document.getElementById('botLiveLogsBody');
+          if (logsBody) {
+            const logObserver = new MutationObserver(() => {
+              logsBody.scrollTop = logsBody.scrollHeight;
+            });
+            logObserver.observe(logsBody, { childList: true });
+          }
+
+          // Asset picker overrides
+          const assetPickerBtn = document.getElementById('botAssetPickerBtn');
+          if (assetPickerBtn) {
+            assetPickerBtn.addEventListener('click', () => {
+              setTimeout(() => {
+                const search = document.getElementById('botAssetSearch');
+                renderAssetPickerListV2(search ? search.value : '');
+              }, 0);
+            });
+          }
+
+          const assetSearch = document.getElementById('botAssetSearch');
+          if (assetSearch) {
+            assetSearch.addEventListener('input', () => {
+              renderAssetPickerListV2(assetSearch.value);
+            });
+          }
+
+          const assetSelectAll = document.getElementById('botAssetSelectAll');
+          if (assetSelectAll) {
+            assetSelectAll.addEventListener('click', () => {
+              setTimeout(() => {
+                const search = document.getElementById('botAssetSearch');
+                renderAssetPickerListV2(search ? search.value : '');
+                refreshBotAssetCountV2();
+              }, 0);
+            });
+          }
+
+          const assetClearAll = document.getElementById('botAssetClearAll');
+          if (assetClearAll) {
+            assetClearAll.addEventListener('click', () => {
+              setTimeout(() => {
+                const search = document.getElementById('botAssetSearch');
+                renderAssetPickerListV2(search ? search.value : '');
+                refreshBotAssetCountV2();
+              }, 0);
+            });
+          }
+
+          // Quantum upgrade banner click
+          const qBanner = document.getElementById('quantumUpgradeBanner');
+          if (qBanner) {
+            qBanner.addEventListener('click', openQuantumModal);
+          }
+
+          refreshBotAssetCountV2();
+          updateStartHint();
+          setInterval(updateStartHint, 1000);
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', initV2);
+        } else {
+          initV2();
+        }
+
+        window.BluepeakBotV2 = {
+          isMarketOpen,
+          BOT_ASSETS_V2,
+          openQuantumModal,
+          updateStartHint
+        };
+      } catch (err) {
+        console.error('ADDITIONS V2 init error:', err);
+      }
     })();
   </script>
 </body>
