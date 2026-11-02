@@ -206,6 +206,10 @@
     .tx-badge.completed { background: var(--green-100); color: var(--green-500); }
     .tx-badge.pending { background: var(--gold-100); color: var(--gold-500); }
     .tx-badge.failed { background: var(--red-100); color: var(--red-500); }
+    .tx-badge.active { background: var(--blue-100); color: var(--blue-500); }
+    .tx-badge.profit { background: var(--green-100); color: var(--green-500); }
+    .tx-badge.loss { background: var(--red-100); color: var(--red-500); }
+
     .tx-meta {
       font-size: 11.5px; font-weight: 500; color: var(--gray-500);
       margin-top: 2px; display: flex; align-items: center; gap: 6px;
@@ -296,6 +300,7 @@
     .detail-status-badge.completed { background: var(--green-100); color: var(--green-500); }
     .detail-status-badge.pending { background: var(--gold-100); color: var(--gold-500); }
     .detail-status-badge.failed { background: var(--red-100); color: var(--red-500); }
+    .detail-status-badge.active { background: var(--blue-100); color: var(--blue-500); }
 
     .detail-rows {
       display: flex; flex-direction: column; gap: 2px;
@@ -391,6 +396,34 @@
       .history-main { max-width: 640px; padding: 20px 24px 0; }
       .bottom-nav { max-width: 900px; border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
     }
+
+    /* ===== ADDITIONS ===== */
+    .tx-badge.active { background: var(--blue-100); color: var(--blue-500); }
+    .tx-badge.profit { background: var(--green-100); color: var(--green-500); }
+    .tx-badge.loss { background: var(--red-100); color: var(--red-500); }
+    .detail-status-badge.active { background: var(--blue-100); color: var(--blue-500); }
+    .detail-status-badge.profit { background: var(--green-100); color: var(--green-500); }
+    .detail-status-badge.loss { background: var(--red-100); color: var(--red-500); }
+
+    .tx-icon.bot { background: var(--navy-50); color: var(--navy-700); }
+    .detail-icon.bot { background: var(--navy-50); color: var(--navy-700); }
+
+    .live-updated-badge {
+      position: absolute; top: 8px; right: 8px;
+      font-size: 9px; font-weight: 800; letter-spacing: 0.4px;
+      padding: 2px 6px; border-radius: var(--radius-pill);
+      background: var(--green-100); color: var(--green-500);
+      opacity: 0; transition: opacity 0.3s;
+      text-transform: uppercase;
+    }
+    .live-updated-badge.visible { opacity: 1; }
+
+    .history-main { position: relative; }
+
+    .session-detail-meta {
+      font-size: 12px; color: var(--gray-500); font-weight: 600;
+      text-align: center; margin-top: 2px;
+    }
   </style>
 </head>
 <body>
@@ -419,6 +452,8 @@
 
   <main class="history-main">
 
+    <div class="live-updated-badge" id="liveBadge">Updated</div>
+
     <!-- STATS -->
     <div class="stats-grid">
       <div class="stat-card">
@@ -445,6 +480,7 @@
       <button class="filter-tab" data-filter="swap">Swaps</button>
       <button class="filter-tab" data-filter="trade">Trades</button>
       <button class="filter-tab" data-filter="p2p">P2P</button>
+      <button class="filter-tab" data-filter="bot">Bot</button>
     </div>
 
     <!-- LIST -->
@@ -491,92 +527,140 @@
         clearTimeout(toastEl._t);
         toastEl._t = setTimeout(() => toastEl.classList.remove('show'), 2600);
       }
+      window.showToast = showToast;
 
-      // ============================================================
-      // LOAD TRANSACTIONS from localStorage (real user data)
-      // ============================================================
+      // ====== ACTUAL DATA LOADERS (real storage shapes) ======
+      function readJSON(key) {
+        try {
+          const v = JSON.parse(localStorage.getItem(key) || '[]');
+          return Array.isArray(v) ? v : [];
+        } catch (e) { return []; }
+      }
+      function readPrices() {
+        try { return JSON.parse(localStorage.getItem('bp_market_prices') || '{}') || {}; } catch (e) { return {}; }
+      }
+      const PRICE_FALLBACK = { USDT: 1, USD: 1, BTC: 81000, ETH: 3200, SOL: 150, BNB: 590, XRP: 0.55, ADA: 0.45, DOGE: 0.12, XAUUSD: 2650 };
+      function priceOf(sym) {
+        if (!sym) return 0;
+        const prices = readPrices();
+        return parseFloat(prices[sym]) || PRICE_FALLBACK[sym] || 0;
+      }
+      function toUSD(amount, symbol) {
+        const a = parseFloat(amount) || 0;
+        const p = priceOf(symbol) || 0;
+        return a * p;
+      }
+
       function loadTransactions() {
         const txs = [];
 
         // Withdrawals
-        const withdrawals = JSON.parse(localStorage.getItem('bp_withdrawals') || '[]');
-        withdrawals.forEach((w, i) => {
+        readJSON('bp_withdrawals').forEach((w, i) => {
+          const amt = parseFloat(w.amount) || 0;
+          const sym = w.asset || w.symbol || 'USDT';
           txs.push({
-            id: 'w-' + i,
+            id: w.txid || w.id || ('w-' + i),
             type: 'withdraw',
-            title: 'Withdraw ' + w.asset,
-            asset: w.asset,
-            amount: w.amount,
-            amountUSD: 0, // simplified
-            network: w.network,
-            status: w.status || 'pending',
-            date: w.time,
+            title: 'Withdraw ' + sym,
+            asset: sym,
+            amount: amt,
+            amountUSD: toUSD(amt, sym),
+            network: w.network || '—',
+            status: (w.status || 'pending').toLowerCase(),
+            date: w.date || w.createdAt || w.timestamp || new Date().toISOString(),
             address: w.address,
             fee: w.fee,
           });
         });
 
-        // Recent swaps
-        const swaps = JSON.parse(localStorage.getItem('bp_recent_swaps') || '[]');
-        swaps.forEach((s, i) => {
+        // Deposits
+        readJSON('bp_deposits').forEach((d, i) => {
+          const amt = parseFloat(d.amount || d.amountUSD || 0);
+          const sym = d.asset || d.symbol || 'USDT';
           txs.push({
-            id: 's-' + i,
-            type: 'swap',
-            title: s.from + ' → ' + s.to,
-            asset: s.to.split(' ')[1] || '',
-            amount: s.to,
-            amountUSD: 0,
-            network: '—',
-            status: 'completed',
-            date: s.date + ' ' + s.time,
-            rate: s.rate,
-          });
-        });
-
-        // Deposits (from history)
-        const deposits = JSON.parse(localStorage.getItem('bp_deposits') || '[]');
-        deposits.forEach((d, i) => {
-          txs.push({
-            id: 'd-' + i,
+            id: d.txid || d.id || ('d-' + i),
             type: 'deposit',
-            title: 'Deposit ' + d.asset,
-            asset: d.asset,
-            amount: d.amount,
-            amountUSD: d.amountUSD || 0,
-            network: d.network,
-            status: d.status || 'completed',
-            date: d.time,
+            title: 'Deposit ' + sym,
+            asset: sym,
+            amount: amt,
+            amountUSD: toUSD(amt, sym),
+            network: d.network || '—',
+            status: (d.status || 'completed').toLowerCase(),
+            date: d.date || d.createdAt || d.timestamp || new Date().toISOString(),
             address: d.address,
           });
         });
 
-        // P2P orders
-        const p2pOrders = JSON.parse(localStorage.getItem('bp_p2p_orders') || '[]');
-        p2pOrders.forEach((o, i) => {
+        // Swaps
+        readJSON('bp_recent_swaps').forEach((s, i) => {
+          const fromSym = s.from || s.fromSymbol || '—';
+          const toSym = s.to || s.toSymbol || '—';
+          const fromAmt = parseFloat(s.fromAmount || s.amount || 0);
+          const toAmt = parseFloat(s.toAmount || 0);
+          const usd = toUSD(fromAmt, fromSym) || toUSD(toAmt, toSym);
           txs.push({
-            id: 'p-' + i,
-            type: 'p2p',
-            title: (o.side === 'buy' ? 'Buy' : 'Sell') + ' ' + o.asset,
-            asset: o.asset,
-            amount: o.amount,
-            amountUSD: o.amountUSD || 0,
-            network: o.network || '—',
-            status: o.status || 'completed',
-            date: o.time,
-            counterparty: o.counterparty,
+            id: s.id || ('s-' + i),
+            type: 'swap',
+            title: fromSym + ' → ' + toSym,
+            asset: toSym,
+            amount: toAmt || fromAmt,
+            amountUSD: usd,
+            network: '—',
+            status: (s.status || 'completed').toLowerCase(),
+            date: s.date || s.createdAt || s.timestamp || new Date().toISOString(),
+            rate: s.rate,
           });
         });
 
-        // Demo transactions if empty
-        if (txs.length === 0) {
-          txs.push(
-            { id: 'demo1', type: 'deposit', title: 'Deposit USDT', asset: 'USDT', amount: '500.00', amountUSD: 500, network: 'TRC20', status: 'completed', date: new Date(Date.now() - 3600000).toISOString(), address: 'TXk7bF9m...' },
-            { id: 'demo2', type: 'swap', title: 'USDT → BTC', asset: 'BTC', amount: '0.0061', amountUSD: 500, network: '—', status: 'completed', date: new Date(Date.now() - 7200000).toISOString(), rate: '1 USDT ≈ 0.0000123 BTC' },
-            { id: 'demo3', type: 'p2p', title: 'Buy USDT', asset: 'USDT', amount: '100.00', amountUSD: 103, network: 'M-Pesa', status: 'completed', date: new Date(Date.now() - 86400000).toISOString(), counterparty: 'Kwame_P2P' },
-            { id: 'demo4', type: 'withdraw', title: 'Withdraw USDT', asset: 'USDT', amount: '200.00', amountUSD: 200, network: 'TRC20', status: 'pending', date: new Date(Date.now() - 172800000).toISOString(), address: 'TKy8cG0n...', fee: 1 },
-            { id: 'demo5', type: 'trade', title: 'Buy BTC', asset: 'BTC', amount: '0.05', amountUSD: 4050, network: '—', status: 'completed', date: new Date(Date.now() - 259200000).toISOString() }
-          );
-        }
+        // P2P orders
+        readJSON('bp_p2p_orders').forEach((o, i) => {
+          const mode = (o.mode || '').toLowerCase() === 'sell' ? 'sell' : 'buy';
+          const crypto = o.crypto || o.asset || 'USDT';
+          const cryptoAmt = parseFloat(o.cryptoAmount || o.amount || 0);
+          const fiat = o.fiat || 'USD';
+          const fiatAmt = parseFloat(o.fiatAmount || o.amountUSD || 0);
+          const usd = toUSD(cryptoAmt, crypto) || (fiat === 'USD' ? fiatAmt : 0);
+          txs.push({
+            id: o.id || ('p-' + i),
+            type: 'p2p',
+            title: (mode === 'buy' ? 'Buy ' : 'Sell ') + crypto,
+            asset: crypto,
+            amount: cryptoAmt,
+            amountUSD: usd,
+            network: o.paymentMethod || '—',
+            status: (o.status || 'pending').toLowerCase(),
+            date: o.date || o.createdAt || new Date().toISOString(),
+            counterparty: o.merchantName,
+            fiat: fiat,
+            fiatAmount: fiatAmt,
+          });
+        });
+
+        // Bot sessions
+        readJSON('bp_bot_sessions').forEach((s, i) => {
+          const pnl = parseFloat(s.pnl || 0);
+          const plan = (s.plan || 'standard').toUpperCase();
+          const trades = parseInt(s.trades || 0);
+          const wins = parseInt(s.wins || 0);
+          const winRate = trades > 0 ? ((wins / trades) * 100).toFixed(1) : '0.0';
+          txs.push({
+            id: s.id || ('b-' + i),
+            type: 'bot',
+            title: 'AI Bot · ' + plan,
+            asset: 'USDT',
+            amount: Math.abs(pnl),
+            amountUSD: Math.abs(pnl),
+            network: trades + ' trades · ' + winRate + '% win',
+            status: pnl >= 0 ? 'profit' : 'loss',
+            date: s.endedAt || s.startedAt || new Date().toISOString(),
+            pnlSign: pnl >= 0 ? '+' : '-',
+            pnlAbs: Math.abs(pnl),
+            plan: plan,
+            trades: trades,
+            winRate: winRate,
+            stake: s.stake || 0,
+          });
+        });
 
         return txs;
       }
@@ -587,28 +671,18 @@
         search: '',
       };
 
-      // ============================================================
-      // FORMAT
-      // ============================================================
       function fmtUSD(n) {
         return '$' + Number(n || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
       }
-
       function fmtAmount(n) {
         const num = parseFloat(n) || 0;
         if (num >= 1000) return num.toLocaleString('en-US', { maximumFractionDigits: 2 });
         if (num >= 1) return num.toFixed(2);
         return num.toFixed(6);
       }
-
       function parseDate(d) {
-        try {
-          return new Date(d);
-        } catch (e) {
-          return new Date();
-        }
+        try { return new Date(d); } catch (e) { return new Date(); }
       }
-
       function formatRelativeTime(d) {
         const date = parseDate(d);
         const now = new Date();
@@ -619,7 +693,6 @@
         if (diff < 604800) return Math.floor(diff / 86400) + ' day' + (Math.floor(diff / 86400) > 1 ? 's' : '') + ' ago';
         return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
       }
-
       function formatDateGroup(d) {
         const date = parseDate(d);
         const now = new Date();
@@ -627,7 +700,6 @@
         const yesterday = new Date(today);
         yesterday.setDate(yesterday.getDate() - 1);
         const dDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-
         if (dDate.getTime() === today.getTime()) return 'Today';
         if (dDate.getTime() === yesterday.getTime()) return 'Yesterday';
         if (date.getFullYear() === now.getFullYear()) {
@@ -635,57 +707,39 @@
         }
         return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
       }
-
-      // ============================================================
-      // ICONS
-      // ============================================================
       function getIcon(type) {
-        const map = {
-          deposit: '↓',
-          withdraw: '↑',
-          swap: '⇄',
-          trade: '📈',
-          p2p: '🤝',
-          bot: '🤖',
-        };
+        const map = { deposit: '↓', withdraw: '↑', swap: '⇄', trade: '📈', p2p: '🤝', bot: '🤖' };
         return map[type] || '•';
       }
+      function getIconClass(type) { return type; }
 
-      function getIconClass(type) {
-        return type;
-      }
-
-      // ============================================================
-      // FILTER & SEARCH
-      // ============================================================
       function getFiltered() {
         let list = state.txs;
-        if (state.filter !== 'all') {
-          list = list.filter(t => t.type === state.filter);
-        }
+        if (state.filter !== 'all') list = list.filter(t => t.type === state.filter);
         if (state.search) {
           const q = state.search.toLowerCase();
           list = list.filter(t =>
             (t.title || '').toLowerCase().includes(q) ||
             (t.asset || '').toLowerCase().includes(q) ||
             (t.address || '').toLowerCase().includes(q) ||
-            (t.id || '').toLowerCase().includes(q)
+            (t.id || '').toLowerCase().includes(q) ||
+            (t.counterparty || '').toLowerCase().includes(q)
           );
         }
-        // Sort by date desc
         list.sort((a, b) => parseDate(b.date) - parseDate(a.date));
         return list;
       }
 
-      // ============================================================
-      // RENDER
-      // ============================================================
       function updateStats() {
         let totalIn = 0, totalOut = 0;
         state.txs.forEach(t => {
           const usd = parseFloat(t.amountUSD) || 0;
-          if (t.type === 'deposit' || t.type === 'trade') {
-            totalIn += usd;
+          if (t.type === 'deposit') totalIn += usd;
+          else if (t.type === 'trade') {
+            if ((t.amountUSD || 0) >= 0) totalIn += usd;
+          } else if (t.type === 'bot') {
+            if ((t.pnlAbs || 0) >= 0 && (t.pnlSign === '+')) totalIn += usd;
+            else totalOut += usd;
           } else {
             totalOut += usd;
           }
@@ -704,13 +758,12 @@
             <div class="empty-state">
               <div class="icon">📭</div>
               <h3>No transactions found</h3>
-              <p>Try adjusting your filters or search. Your transactions will appear here after you make them.</p>
+              <p>${state.filter === 'all' && !state.search ? 'Your transactions will appear here after you deposit, withdraw, swap, or trade.' : 'Try adjusting your filters or search.'}</p>
             </div>
           `;
           return;
         }
 
-        // Group by date
         const groups = {};
         list.forEach(t => {
           const label = formatDateGroup(t.date);
@@ -723,16 +776,17 @@
           html += `<div class="tx-group">
             <div class="tx-group-label">${label}</div>`;
           groups[label].forEach(t => {
-            const isPositive = t.type === 'deposit' || t.type === 'trade';
+            const isPositive = t.type === 'deposit' || t.type === 'trade' || (t.type === 'bot' && t.pnlSign === '+');
             const sign = isPositive ? '+' : '-';
             const cls = isPositive ? 'positive' : 'negative';
+            const badgeClass = t.status === 'profit' ? 'profit' : (t.status === 'loss' ? 'loss' : t.status);
             html += `
               <div class="tx-item" data-tx-id="${t.id}">
                 <div class="tx-icon ${getIconClass(t.type)}">${getIcon(t.type)}</div>
                 <div class="tx-content">
                   <div class="tx-title-row">
                     <div class="tx-title">${t.title}</div>
-                    <span class="tx-badge ${t.status}">${t.status}</span>
+                    <span class="tx-badge ${badgeClass}">${t.status}</span>
                   </div>
                   <div class="tx-meta">
                     <span>${formatRelativeTime(t.date)}</span>
@@ -752,7 +806,6 @@
 
         container.innerHTML = html;
 
-        // Bind clicks
         container.querySelectorAll('.tx-item').forEach(el => {
           el.addEventListener('click', () => {
             const id = el.dataset.txId;
@@ -762,17 +815,15 @@
         });
       }
 
-      // ============================================================
-      // DETAIL MODAL
-      // ============================================================
       const detailModal = $('#detailModal');
       const detailOverlay = $('#detailOverlay');
       const detailBody = $('#detailBody');
 
       function openDetail(tx) {
-        const isPositive = tx.type === 'deposit' || tx.type === 'trade';
+        const isPositive = tx.type === 'deposit' || tx.type === 'trade' || (tx.type === 'bot' && tx.pnlSign === '+');
         const sign = isPositive ? '+' : '-';
         const cls = isPositive ? 'positive' : 'negative';
+        const badgeClass = tx.status === 'profit' ? 'profit' : (tx.status === 'loss' ? 'loss' : tx.status);
 
         let extraRows = '';
         if (tx.address) {
@@ -780,40 +831,61 @@
             <div class="detail-row">
               <span class="dr-label">Address</span>
               <span class="dr-value"><code>${tx.address}</code></span>
-            </div>
-          `;
+            </div>`;
         }
         if (tx.network && tx.network !== '—') {
           extraRows += `
             <div class="detail-row">
               <span class="dr-label">Network</span>
               <span class="dr-value">${tx.network}</span>
-            </div>
-          `;
+            </div>`;
         }
         if (tx.counterparty) {
           extraRows += `
             <div class="detail-row">
               <span class="dr-label">Counterparty</span>
               <span class="dr-value">${tx.counterparty}</span>
-            </div>
-          `;
+            </div>`;
+        }
+        if (tx.fiat && tx.fiatAmount) {
+          extraRows += `
+            <div class="detail-row">
+              <span class="dr-label">Fiat Amount</span>
+              <span class="dr-value">${tx.fiatAmount} ${tx.fiat}</span>
+            </div>`;
         }
         if (tx.rate) {
           extraRows += `
             <div class="detail-row">
               <span class="dr-label">Rate</span>
               <span class="dr-value">${tx.rate}</span>
-            </div>
-          `;
+            </div>`;
         }
         if (tx.fee) {
           extraRows += `
             <div class="detail-row">
               <span class="dr-label">Network Fee</span>
               <span class="dr-value">${fmtAmount(tx.fee)} ${tx.asset}</span>
+            </div>`;
+        }
+        if (tx.type === 'bot') {
+          extraRows += `
+            <div class="detail-row">
+              <span class="dr-label">Plan</span>
+              <span class="dr-value">${tx.plan || 'STANDARD'}</span>
             </div>
-          `;
+            <div class="detail-row">
+              <span class="dr-label">Trades</span>
+              <span class="dr-value">${tx.trades || 0}</span>
+            </div>
+            <div class="detail-row">
+              <span class="dr-label">Win Rate</span>
+              <span class="dr-value">${tx.winRate || '0.0'}%</span>
+            </div>
+            <div class="detail-row">
+              <span class="dr-label">Stake</span>
+              <span class="dr-value">${tx.stake || 0} USDT</span>
+            </div>`;
         }
 
         detailBody.innerHTML = `
@@ -821,7 +893,7 @@
             <div class="detail-icon ${tx.type}">${getIcon(tx.type)}</div>
             <div class="detail-amount ${cls}">${sign}${fmtAmount(tx.amount)} ${tx.asset}</div>
             <div class="detail-usd">${fmtUSD(tx.amountUSD)}</div>
-            <div class="detail-status-badge ${tx.status}">${tx.status}</div>
+            <div class="detail-status-badge ${badgeClass}">${tx.status}</div>
           </div>
           <div class="detail-rows">
             <div class="detail-row">
@@ -845,30 +917,18 @@
           </div>
         `;
 
-        // Bind mini copy
         detailBody.querySelectorAll('[data-copy]').forEach(btn => {
           btn.addEventListener('click', () => {
             const val = btn.dataset.copy;
-            if (navigator.clipboard) {
-              navigator.clipboard.writeText(val).then(() => showToast('Copied!'));
-            }
+            if (navigator.clipboard) navigator.clipboard.writeText(val).then(() => showToast('Copied!'));
           });
         });
-
         const vbtn = detailBody.querySelector('#viewBlockchainBtn');
-        if (vbtn) {
-          vbtn.addEventListener('click', () => showToast('Opening block explorer…'));
-        }
-
+        if (vbtn) vbtn.addEventListener('click', () => showToast('Opening block explorer…'));
         const shareBtn = detailBody.querySelector('#shareBtn');
-        if (shareBtn) {
-          shareBtn.addEventListener('click', () => showToast('Receipt link copied!'));
-        }
-
+        if (shareBtn) shareBtn.addEventListener('click', () => showToast('Receipt link copied!'));
         const supportBtn = detailBody.querySelector('#supportBtn');
-        if (supportBtn) {
-          supportBtn.addEventListener('click', () => showToast('Opening support chat…'));
-        }
+        if (supportBtn) supportBtn.addEventListener('click', () => showToast('Opening support chat…'));
 
         detailOverlay.classList.add('open');
         detailModal.classList.add('open');
@@ -880,13 +940,9 @@
         detailModal.classList.remove('open');
         document.body.style.overflow = '';
       }
-
       detailOverlay.addEventListener('click', closeDetail);
       $('#detailClose').addEventListener('click', closeDetail);
 
-      // ============================================================
-      // FILTERS
-      // ============================================================
       $$('.filter-tab').forEach(tab => {
         tab.addEventListener('click', () => {
           $$('.filter-tab').forEach(t => t.classList.remove('active'));
@@ -896,28 +952,21 @@
         });
       });
 
-      // ============================================================
-      // SEARCH
-      // ============================================================
       $('#searchInput').addEventListener('input', (e) => {
         state.search = e.target.value.trim();
         renderList();
       });
 
-      // ============================================================
-      // EXPORT
-      // ============================================================
       $('#exportBtn').addEventListener('click', () => {
         const list = getFiltered();
-        if (list.length === 0) {
-          showToast('No transactions to export');
-          return;
-        }
-        const csv = ['ID,Type,Title,Asset,Amount,USD,Status,Date,Network']
-          .concat(list.map(t =>
-            `${t.id},${t.type},"${t.title}",${t.asset},${t.amount},${t.amountUSD},${t.status},${t.date},${t.network || ''}`
-          )).join('\n');
-
+        if (list.length === 0) { showToast('No transactions to export'); return; }
+        const header = ['ID','Type','Title','Asset','Amount','USD','Fiat','Fiat Amount','Status','Date','Network'];
+        const rows = list.map(t => [
+          t.id, t.type, '"' + (t.title || '').replace(/"/g, '""') + '"',
+          t.asset, t.amount, t.amountUSD, t.fiat || '', t.fiatAmount || '',
+          t.status, t.date, t.network || ''
+        ].join(','));
+        const csv = [header.join(',')].concat(rows).join('\n');
         const blob = new Blob([csv], { type: 'text/csv' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
@@ -930,10 +979,7 @@
         showToast('Exported ' + list.length + ' transactions');
       });
 
-      // ============================================================
-      // NAV
-      // ============================================================
-      $('#backBtn').addEventListener('click', () => window.location.href = 'wallet.html');
+      $('#backBtn').addEventListener('click', () => { window.location.href = 'wallet.html'; });
       $$('.bottom-nav-item').forEach(btn => {
         btn.addEventListener('click', () => {
           const nav = btn.dataset.nav;
@@ -945,9 +991,34 @@
         });
       });
 
-      // ============================================================
-      // INIT
-      // ============================================================
+      // ====== ADDITIONS ======
+      let liveBadgeTimer = null;
+      function flashLiveBadge() {
+        const b = document.getElementById('liveBadge');
+        if (!b) return;
+        b.classList.add('visible');
+        clearTimeout(liveBadgeTimer);
+        liveBadgeTimer = setTimeout(() => b.classList.remove('visible'), 1200);
+      }
+
+      function refreshTransactions() {
+        try {
+          state.txs = loadTransactions();
+          updateStats();
+          renderList();
+          flashLiveBadge();
+        } catch (e) { console.warn('[tx-history] refresh failed', e); }
+      }
+
+      window.addEventListener('storage', (e) => {
+        if (!e.key) return;
+        if (['bp_withdrawals','bp_deposits','bp_recent_swaps','bp_p2p_orders','bp_bot_sessions','bp_user_balances','bp_market_prices'].indexOf(e.key) !== -1) {
+          refreshTransactions();
+        }
+      });
+      window.addEventListener('focus', refreshTransactions);
+
+      // Init
       updateStats();
       renderList();
 
