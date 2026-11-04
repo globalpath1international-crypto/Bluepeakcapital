@@ -746,7 +746,7 @@
       top: 0;
       right: 0;
       height: 100%;
-      width: 520px;
+      width: 560px;
       max-width: 100%;
       background: var(--white);
       z-index: 85;
@@ -808,6 +808,7 @@
       border-bottom: 1px solid var(--gray-200);
       flex-shrink: 0;
       background: var(--navy-50);
+      overflow-x: auto;
     }
     .drawer-tab {
       padding: 12px 14px;
@@ -819,6 +820,7 @@
       color: var(--gray-500);
       cursor: pointer;
       position: relative;
+      white-space: nowrap;
     }
     .drawer-tab:hover { color: var(--navy-900); }
     .drawer-tab.active { color: var(--navy-900); font-weight: 800; }
@@ -915,7 +917,7 @@
       transform: translate(-50%, -50%) scale(0.96);
       background: var(--white);
       border-radius: var(--radius-xl);
-      width: 580px;
+      width: 640px;
       max-width: 95vw;
       max-height: 90vh;
       display: flex;
@@ -1007,6 +1009,154 @@
       border-color: var(--navy-900);
     }
 
+    /* ===== ADDITIONS ===== */
+    /* Offers + Payment Accounts + Escrow rows */
+    .repeater-row {
+      display: grid;
+      gap: 8px;
+      padding: 10px;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-md);
+      background: var(--navy-50);
+      margin-bottom: 8px;
+    }
+    .repeater-row .rr-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--gray-500);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      margin-bottom: 4px;
+    }
+    .rr-delete {
+      background: transparent;
+      border: 1px solid rgba(209, 67, 67, 0.3);
+      color: var(--red-500);
+      padding: 3px 8px;
+      border-radius: var(--radius-pill);
+      font-family: var(--font);
+      font-size: 10.5px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .rr-delete:hover { background: var(--red-100); border-color: var(--red-500); }
+
+    .rr-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .rr-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+    .rr-grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 8px; }
+    @media (max-width: 640px) {
+      .rr-grid-2, .rr-grid-3, .rr-grid-4 { grid-template-columns: 1fr; }
+    }
+
+    .add-row-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: var(--radius-pill);
+      border: 1.5px dashed var(--gray-300);
+      background: var(--white);
+      color: var(--navy-900);
+      font-family: var(--font);
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .add-row-btn:hover { border-color: var(--gold-500); background: var(--gold-100); }
+
+    .offer-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--gray-500);
+      cursor: pointer;
+      user-select: none;
+    }
+    .offer-toggle input { accent-color: var(--green-500); }
+
+    /* Offers in drawer */
+    .offers-list-wrap { display: flex; flex-direction: column; gap: 8px; }
+    .offer-item {
+      background: var(--navy-50);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .offer-item .o-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+    .offer-item .o-side {
+      font-size: 9.5px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+    .offer-item .o-side.sell { background: var(--red-100); color: var(--red-500); }
+    .offer-item .o-side.buy { background: var(--green-100); color: var(--green-500); }
+    .offer-item .o-price {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--navy-900);
+      font-variant-numeric: tabular-nums;
+    }
+    .offer-item .o-meta {
+      font-size: 11px;
+      color: var(--gray-500);
+      font-weight: 600;
+    }
+    .offer-item .o-actions {
+      display: flex;
+      gap: 6px;
+      margin-top: 2px;
+    }
+    .offer-item .o-actions button {
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      font-family: var(--font);
+      font-size: 10.5px;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid var(--gray-200);
+      background: var(--white);
+      color: var(--navy-900);
+    }
+    .offer-item .o-actions button:hover { background: var(--gold-100); border-color: var(--gold-500); }
+    .offer-item .o-actions button.danger { border-color: rgba(209, 67, 67, 0.3); color: var(--red-500); }
+    .offer-item .o-actions button.danger:hover { background: var(--red-100); border-color: var(--red-500); }
+
+    .offer-card-preview {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+    .offer-badge {
+      font-size: 10px;
+      font-weight: 800;
+      padding: 3px 9px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--gray-200);
+      background: var(--white);
+      color: var(--gray-600);
+    }
+    .offer-badge.sell { background: var(--red-100); color: var(--red-500); border-color: rgba(209, 67, 67, 0.25); }
+    .offer-badge.buy { background: var(--green-100); color: var(--green-500); border-color: rgba(15, 157, 110, 0.25); }
+    .offer-badge.none { background: var(--gray-100); color: var(--gray-500); }
+
     /* TOAST */
     .toast {
       position: fixed;
@@ -1062,7 +1212,6 @@
 
   <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-  <!-- SIDEBAR -->
   <aside class="sidebar" id="sidebar">
     <div class="brand">
       <div class="brand-logo">BP</div>
@@ -1092,9 +1241,7 @@
     </div>
   </aside>
 
-  <!-- MAIN -->
   <div class="main-wrap">
-    <!-- TOPBAR -->
     <header class="topbar">
       <div class="topbar-left">
         <button class="menu-toggle" id="menuToggle" aria-label="Menu">
@@ -1118,10 +1265,7 @@
       </div>
     </header>
 
-    <!-- CONTENT -->
     <main class="content">
-
-      <!-- STATS -->
       <div class="stats-row">
         <div class="stat-card">
           <div class="stat-label">Active Merchants <span style="font-size:14px;">🏪</span></div>
@@ -1145,7 +1289,6 @@
         </div>
       </div>
 
-      <!-- TOOLBAR -->
       <div class="toolbar">
         <div class="toolbar-row">
           <div class="toolbar-left-group">
@@ -1189,20 +1332,20 @@
             <button class="filter-pill" data-status="active">Active <span class="count" id="countActive">0</span></button>
             <button class="filter-pill" data-status="verified">Verified <span class="count" id="countVerified">0</span></button>
             <button class="filter-pill" data-status="suspended">Suspended <span class="count" id="countSuspended">0</span></button>
+            <button class="filter-pill" data-status="hasSell">Has Sell Offers <span class="count" id="countHasSell">0</span></button>
+            <button class="filter-pill" data-status="hasBuy">Has Buy Offers <span class="count" id="countHasBuy">0</span></button>
           </div>
           <button class="action-header-btn" id="syncPortalBtn" title="Sync changes to P2P Trading portal"><span>🔄</span> Force P2P Sync</button>
         </div>
       </div>
 
-      <!-- CARDS CONTAINER -->
       <div class="merchants-grid" id="merchantsGrid"></div>
 
-      <!-- TABLE CONTAINER -->
       <div class="table-card" id="merchantsTable">
         <div class="table-header">
           <div>Merchant</div>
           <div>Status</div>
-          <div>Trades</div>
+          <div>Offers</div>
           <div>Completion</div>
           <div>Payment Methods</div>
           <div class="col-time">Avg Speed</div>
@@ -1210,7 +1353,6 @@
         </div>
         <div id="merchantsTableBody"></div>
       </div>
-
     </main>
   </div>
 
@@ -1266,13 +1408,27 @@
           </div>
 
           <div class="form-group">
-            <label>Supported Payment Methods (Comma Separated)</label>
-            <input type="text" class="form-input" id="mMethods" placeholder="e.g. Bank Transfer, Zelle, M-Pesa, Cash App, Venmo" value="Bank Transfer, Zelle">
+            <label style="display:flex; justify-content:space-between; align-items:center;">
+              Payment Accounts (Visible to users on P2P)
+              <button type="button" class="add-row-btn" onclick="addPaymentRow()">+ Add Account</button>
+            </label>
+            <div id="paymentAccountsWrap"></div>
           </div>
 
           <div class="form-group">
-            <label>Default Escrow Crypto Address (TRC20 / ERC20)</label>
-            <input type="text" class="form-input" id="mEscrowAddr" placeholder="TTx882KLa92mZbQpP004NqK599eL" value="TTx882KLa92mZbQpP004NqK599eL">
+            <label style="display:flex; justify-content:space-between; align-items:center;">
+              Escrow Addresses (per asset / network)
+              <button type="button" class="add-row-btn" onclick="addEscrowRow()">+ Add Escrow Address</button>
+            </label>
+            <div id="escrowWrap"></div>
+          </div>
+
+          <div class="form-group">
+            <label style="display:flex; justify-content:space-between; align-items:center;">
+              Active Offers (Buy/Sell)
+              <button type="button" class="add-row-btn" onclick="addOfferRow()">+ Add Offer</button>
+            </label>
+            <div id="offersWrap"></div>
           </div>
 
           <div class="form-row">
@@ -1345,80 +1501,57 @@
 
     <div class="drawer-tabs">
       <button class="drawer-tab active" data-tab="overview">Overview</button>
-      <button class="drawer-tab" data-tab="orders">Orders &amp; Chats</button>
+      <button class="drawer-tab" data-tab="offers">Offers</button>
+      <button class="drawer-tab" data-tab="orders">Orders</button>
       <button class="drawer-tab" data-tab="methods">Payment Details</button>
       <button class="drawer-tab" data-tab="actions">Desk Controls</button>
     </div>
 
     <div class="drawer-body">
-      <!-- PANEL 1: OVERVIEW -->
       <div class="detail-panel active" id="panel-overview">
         <div class="detail-section">
           <h4>Performance &amp; Status</h4>
-          <div class="detail-row">
-            <span class="lbl">Account Status</span>
-            <span class="val" id="dStatusBadge">-</span>
-          </div>
-          <div class="detail-row">
-            <span class="lbl">Presence</span>
-            <span class="val" id="dOnlineBadge">-</span>
-          </div>
-          <div class="detail-row">
-            <span class="lbl">Total Trades</span>
-            <span class="val" id="dTrades">0</span>
-          </div>
-          <div class="detail-row">
-            <span class="lbl">Completion Rate</span>
-            <span class="val" id="dCompletion">0%</span>
-          </div>
-          <div class="detail-row">
-            <span class="lbl">Positive Feedback</span>
-            <span class="val" id="dPositive">99%</span>
-          </div>
-          <div class="detail-row">
-            <span class="lbl">Avg. Release Speed</span>
-            <span class="val" id="dTime">15 min</span>
-          </div>
+          <div class="detail-row"><span class="lbl">Account Status</span><span class="val" id="dStatusBadge">-</span></div>
+          <div class="detail-row"><span class="lbl">Presence</span><span class="val" id="dOnlineBadge">-</span></div>
+          <div class="detail-row"><span class="lbl">Total Trades</span><span class="val" id="dTrades">0</span></div>
+          <div class="detail-row"><span class="lbl">Completion Rate</span><span class="val" id="dCompletion">0%</span></div>
+          <div class="detail-row"><span class="lbl">Positive Feedback</span><span class="val" id="dPositive">99%</span></div>
+          <div class="detail-row"><span class="lbl">Avg. Release Speed</span><span class="val" id="dTime">15 min</span></div>
         </div>
 
         <div class="detail-section">
-          <h4>Settlement &amp; Wallet</h4>
-          <div class="detail-row">
-            <span class="lbl">Escrow Wallet Address</span>
-            <span class="val" id="dEscrowAddr" style="font-family:monospace; font-size:11px;">-</span>
-          </div>
-          <div class="detail-row">
-            <span class="lbl">Telegram Dispatch</span>
-            <span class="val" id="dTelegram">-</span>
-          </div>
-          <div class="detail-row">
-            <span class="lbl">Country</span>
-            <span class="val" id="dCountry">-</span>
-          </div>
-          <div class="detail-row">
-            <span class="lbl">Currencies</span>
-            <span class="val" id="dCurrencies">-</span>
-          </div>
+          <h4>Offers Summary</h4>
+          <div id="dOffersSummary" style="font-size:12px; color:var(--gray-500);">No offers</div>
+        </div>
+
+        <div class="detail-section">
+          <h4>Escrow Addresses</h4>
+          <div id="dEscrowList" style="font-size:12px; color:var(--gray-500);">No escrow addresses set</div>
         </div>
 
         <div class="detail-section">
           <h4>Account Identification</h4>
-          <div class="detail-row">
-            <span class="lbl">Email</span>
-            <span class="val" id="dEmail">-</span>
-          </div>
-          <div class="detail-row">
-            <span class="lbl">Phone</span>
-            <span class="val" id="dPhone">-</span>
-          </div>
-          <div class="detail-row">
-            <span class="lbl">Registered On</span>
-            <span class="val" id="dJoined">-</span>
+          <div class="detail-row"><span class="lbl">Email</span><span class="val" id="dEmail">-</span></div>
+          <div class="detail-row"><span class="lbl">Phone</span><span class="val" id="dPhone">-</span></div>
+          <div class="detail-row"><span class="lbl">Country</span><span class="val" id="dCountry">-</span></div>
+          <div class="detail-row"><span class="lbl">Currencies</span><span class="val" id="dCurrencies">-</span></div>
+          <div class="detail-row"><span class="lbl">Telegram</span><span class="val" id="dTelegram">-</span></div>
+          <div class="detail-row"><span class="lbl">Registered</span><span class="val" id="dJoined">-</span></div>
+        </div>
+      </div>
+
+      <div class="detail-panel" id="panel-offers">
+        <div class="detail-section">
+          <h4 style="display:flex; justify-content:space-between; align-items:center;">
+            Active Offers
+            <button class="btn-action-sm primary" id="dAddOfferBtn" style="padding:5px 10px; font-size:11px;">+ Add Offer</button>
+          </h4>
+          <div id="drawerOffersList" class="offers-list-wrap">
+            <div style="font-size:12px; color:var(--gray-500); text-align:center; padding:16px 0;">No offers live.</div>
           </div>
         </div>
       </div>
 
-      <!-- PANEL 2: ORDERS -->
       <div class="detail-panel" id="panel-orders">
         <div class="detail-section">
           <h4>Recent Orders Linked to Merchant</h4>
@@ -1428,15 +1561,13 @@
         </div>
       </div>
 
-      <!-- PANEL 3: PAYMENT METHODS -->
       <div class="detail-panel" id="panel-methods">
         <div class="detail-section">
-          <h4>Active Payment Channels</h4>
+          <h4>Payment Accounts (visible to users)</h4>
           <div id="drawerMethodsList" style="display:flex; flex-direction:column; gap:6px;"></div>
         </div>
       </div>
 
-      <!-- PANEL 4: DESK CONTROLS -->
       <div class="detail-panel" id="panel-actions">
         <div class="detail-section">
           <h4>Administrative Actions</h4>
@@ -1445,7 +1576,7 @@
             <button class="btn-action-sm" id="actToggleOnlineBtn">🟢 Toggle Online</button>
             <button class="btn-action-sm" id="actToggleVerifyBtn">🛡️ Toggle Verification</button>
             <button class="btn-action-sm danger" id="actToggleSuspendBtn">⏸️ Suspend Merchant</button>
-            <button class="btn-action-sm" id="actPingTgBtn">✈️ Send Test Bot Ping</button>
+            <button class="btn-action-sm" id="actPingTgBtn">✈️ Send Test Ping</button>
             <button class="btn-action-sm danger" id="actDeleteBtn">🗑️ Delete Merchant</button>
           </div>
         </div>
@@ -1453,7 +1584,6 @@
     </div>
   </div>
 
-  <!-- TOAST -->
   <div class="toast" id="toast"></div>
 
   <script>
@@ -1461,7 +1591,6 @@
        BLUEPEAK ADMIN MERCHANTS DESK - CORE ENGINE
        ============================================================ */
 
-    // Fallback Admin Session
     function getAdminSession() {
       try {
         const s = localStorage.getItem('bp_admin_session');
@@ -1474,123 +1603,95 @@
 
     const DEFAULT_SEED_MERCHANTS = [
       {
-        id: 'm_usd1',
-        name: 'DavidSwift',
-        email: 'david.swift@swiftliquidity.io',
-        phone: '+1 (415) 890-2134',
-        country: 'United States',
-        initial: 'D',
-        verified: true,
-        isOnline: true,
-        lastActive: 'Just now',
-        trades: 9840,
-        completion: 99.1,
-        positive: 98,
-        time: '15 min',
-        status: 'active',
+        id: 'm_usd1', name: 'DavidSwift', email: 'david.swift@swiftliquidity.io', phone: '+1 (415) 890-2134',
+        country: 'United States', initial: 'D', verified: true, isOnline: true, lastActive: 'Just now',
+        trades: 9840, completion: 99.1, positive: 98, time: '15 min', status: 'active',
         currencies: ['USD', 'EUR'],
         methods: ['Zelle', 'Venmo', 'Cash App', 'Bank Transfer'],
-        escrowAddr: 'TTx882KLa92mZbQpP004NqK599eL',
-        telegram: '-10028491829',
-        totalVolume: 4820000,
-        joined: '2024-01-15'
+        paymentDetails: [
+          { method: 'Zelle', account: 'david.swift@swiftliquidity.io', holder: 'David Swift', extra: '' },
+          { method: 'Bank Transfer', account: '1098472918', holder: 'David Swift', extra: 'Chase Bank' },
+        ],
+        escrowAddresses: {
+          USDT: { network: 'TRC20', address: 'TTx882KLa92mZbQpP004NqK599eL' },
+        },
+        offers: [
+          { side: 'sell', asset: 'USDT', fiat: 'USD', price: 1.03, min: 50, max: 5500, methods: ['Zelle', 'Venmo'], active: true },
+          { side: 'sell', asset: 'USDT', fiat: 'EUR', price: 0.95, min: 50, max: 4000, methods: ['Bank Transfer'], active: true },
+          { side: 'buy', asset: 'USDT', fiat: 'USD', price: 0.97, min: 50, max: 4000, methods: ['Zelle'], active: true },
+        ],
+        escrowAddr: 'TTx882KLa92mZbQpP004NqK599eL', telegram: '-10028491829', totalVolume: 4820000, joined: '2024-01-15'
       },
       {
-        id: 'm_usd2',
-        name: 'SarahTrade',
-        email: 'sarah@peakequity.com',
-        phone: '+1 (212) 555-0199',
-        country: 'United States',
-        initial: 'S',
-        verified: true,
-        isOnline: true,
-        lastActive: '3 min ago',
-        trades: 3210,
-        completion: 98.5,
-        positive: 99,
-        time: '30 min',
-        status: 'active',
-        currencies: ['USD'],
-        methods: ['Apple Pay', 'Bank Transfer', 'Zelle'],
-        escrowAddr: 'TTx882KLa92mZbQpP004NqK599eL',
-        telegram: '@SarahTradeDesk',
-        totalVolume: 1250000,
-        joined: '2024-03-22'
+        id: 'm_usd2', name: 'SarahTrade', email: 'sarah@peakequity.com', phone: '+1 (212) 555-0199',
+        country: 'United States', initial: 'S', verified: true, isOnline: true, lastActive: '3 min ago',
+        trades: 3210, completion: 98.5, positive: 99, time: '30 min', status: 'active',
+        currencies: ['USD'], methods: ['Apple Pay', 'Bank Transfer', 'Zelle'],
+        paymentDetails: [
+          { method: 'Apple Pay', account: 'sarah@peakequity.com', holder: 'Sarah Trade', extra: '' },
+          { method: 'Zelle', account: 'sarah@peakequity.com', holder: 'Sarah Trade', extra: '' },
+        ],
+        escrowAddresses: { USDT: { network: 'TRC20', address: 'TTx882KLa92mZbQpP004NqK599eL' } },
+        offers: [
+          { side: 'sell', asset: 'USDT', fiat: 'USD', price: 1.02, min: 100, max: 3000, methods: ['Apple Pay'], active: true },
+          { side: 'buy', asset: 'USDT', fiat: 'USD', price: 0.98, min: 100, max: 3000, methods: ['Bank Transfer'], active: true },
+        ],
+        escrowAddr: 'TTx882KLa92mZbQpP004NqK599eL', telegram: '@SarahTradeDesk', totalVolume: 1250000, joined: '2024-03-22'
       },
       {
-        id: 'm_kes1',
-        name: 'Kwame_P2P',
-        email: 'kwame@peakafrica.co.ke',
-        phone: '+254 712 345 678',
-        country: 'Kenya',
-        initial: 'K',
-        verified: true,
-        isOnline: true,
-        lastActive: 'Just now',
-        trades: 12840,
-        completion: 99.4,
-        positive: 99,
-        time: '15 min',
-        status: 'active',
-        currencies: ['KES', 'UGX'],
-        methods: ['M-Pesa (Safaricom)', 'Airtel Money', 'Bank Transfer'],
-        escrowAddr: 'TTx882KLa92mZbQpP004NqK599eL',
-        telegram: '-10048291048',
-        totalVolume: 8940000,
-        joined: '2023-11-04'
+        id: 'm_kes1', name: 'Kwame_P2P', email: 'kwame@peakafrica.co.ke', phone: '+254 712 345 678',
+        country: 'Kenya', initial: 'K', verified: true, isOnline: true, lastActive: 'Just now',
+        trades: 12840, completion: 99.4, positive: 99, time: '15 min', status: 'active',
+        currencies: ['KES', 'UGX'], methods: ['M-Pesa (Safaricom)', 'Airtel Money', 'Bank Transfer'],
+        paymentDetails: [
+          { method: 'M-Pesa (Safaricom)', account: '0712345678', holder: 'Kwame Mwangi', extra: '' },
+          { method: 'Bank Transfer', account: '0123456789', holder: 'Kwame Mwangi', extra: 'KCB Bank' },
+        ],
+        escrowAddresses: { USDT: { network: 'TRC20', address: 'TTx882KLa92mZbQpP004NqK599eL' } },
+        offers: [
+          { side: 'sell', asset: 'USDT', fiat: 'KES', price: 132.5, min: 500, max: 100000, methods: ['M-Pesa (Safaricom)'], active: true },
+          { side: 'buy', asset: 'USDT', fiat: 'KES', price: 129.8, min: 500, max: 80000, methods: ['Bank Transfer'], active: true },
+        ],
+        escrowAddr: 'TTx882KLa92mZbQpP004NqK599eL', telegram: '-10048291048', totalVolume: 8940000, joined: '2023-11-04'
       },
       {
-        id: 'm_ngn1',
-        name: 'OluwaP2P',
-        email: 'oluwa@apexlagos.ng',
-        phone: '+234 803 123 4567',
-        country: 'Nigeria',
-        initial: 'O',
-        verified: true,
-        isOnline: true,
-        lastActive: 'Just now',
-        trades: 4120,
-        completion: 99.5,
-        positive: 99,
-        time: '15 min',
-        status: 'active',
-        currencies: ['NGN', 'GHS'],
-        methods: ['OPay', 'PalmPay', 'Bank Transfer'],
-        escrowAddr: 'TTx882KLa92mZbQpP004NqK599eL',
-        telegram: '-10039281729',
-        totalVolume: 3410000,
-        joined: '2024-02-18'
+        id: 'm_ngn1', name: 'OluwaP2P', email: 'oluwa@apexlagos.ng', phone: '+234 803 123 4567',
+        country: 'Nigeria', initial: 'O', verified: true, isOnline: true, lastActive: 'Just now',
+        trades: 4120, completion: 99.5, positive: 99, time: '15 min', status: 'active',
+        currencies: ['NGN', 'GHS'], methods: ['OPay', 'PalmPay', 'Bank Transfer'],
+        paymentDetails: [
+          { method: 'OPay', account: '08012345678', holder: 'Oluwa Adebayo', extra: '' },
+          { method: 'Bank Transfer', account: '1234567890', holder: 'Oluwa Adebayo', extra: 'GTBank' },
+        ],
+        escrowAddresses: { USDT: { network: 'TRC20', address: 'TTx882KLa92mZbQpP004NqK599eL' } },
+        offers: [
+          { side: 'sell', asset: 'USDT', fiat: 'NGN', price: 1490, min: 1000, max: 500000, methods: ['OPay', 'PalmPay'], active: true },
+          { side: 'buy', asset: 'USDT', fiat: 'NGN', price: 1470, min: 1000, max: 400000, methods: ['Bank Transfer'], active: true },
+        ],
+        escrowAddr: 'TTx882KLa92mZbQpP004NqK599eL', telegram: '-10039281729', totalVolume: 3410000, joined: '2024-02-18'
       },
       {
-        id: 'm_eur1',
-        name: 'EuroExpress_OTC',
-        email: 'desk@euroexpress-crypto.eu',
-        phone: '+49 30 901820',
-        country: 'Germany',
-        initial: 'E',
-        verified: true,
-        isOnline: false,
-        lastActive: '45 min ago',
-        trades: 5410,
-        completion: 98.9,
-        positive: 99,
-        time: '15 min',
-        status: 'active',
-        currencies: ['EUR', 'GBP'],
-        methods: ['SEPA', 'Revolut', 'Wise'],
-        escrowAddr: 'TTx882KLa92mZbQpP004NqK599eL',
-        telegram: '@EuroExpressDesk',
-        totalVolume: 6100000,
-        joined: '2023-09-12'
+        id: 'm_eur1', name: 'EuroExpress_OTC', email: 'desk@euroexpress-crypto.eu', phone: '+49 30 901820',
+        country: 'Germany', initial: 'E', verified: true, isOnline: false, lastActive: '45 min ago',
+        trades: 5410, completion: 98.9, positive: 99, time: '15 min', status: 'active',
+        currencies: ['EUR', 'GBP'], methods: ['SEPA', 'Revolut', 'Wise'],
+        paymentDetails: [
+          { method: 'SEPA', account: 'DE89370400440532013000', holder: 'EuroExpress OTC', extra: 'SEPA Instant' },
+          { method: 'Revolut', account: 'euroexpress@revolut.com', holder: 'EuroExpress OTC', extra: '' },
+        ],
+        escrowAddresses: { USDT: { network: 'TRC20', address: 'TTx882KLa92mZbQpP004NqK599eL' } },
+        offers: [
+          { side: 'sell', asset: 'USDT', fiat: 'EUR', price: 0.94, min: 100, max: 5000, methods: ['SEPA'], active: true },
+        ],
+        escrowAddr: 'TTx882KLa92mZbQpP004NqK599eL', telegram: '@EuroExpressDesk', totalVolume: 6100000, joined: '2023-09-12'
       }
     ];
 
     let merchants = [];
     let activeFilterStatus = 'all';
-    let currentView = 'grid'; // 'grid' | 'table'
+    let currentView = 'grid';
     let selectedMerchant = null;
 
-    // Load master merchants
     function loadMerchants() {
       try {
         const stored = localStorage.getItem('bp_admin_merchants');
@@ -1603,19 +1704,23 @@
       saveMerchants();
     }
 
-    // Save and sync with bp_merchants (for customer p2p.html portal)
     function saveMerchants() {
       localStorage.setItem('bp_admin_merchants', JSON.stringify(merchants));
       syncToCustomerPortal();
     }
 
+    // Merge with existing bp_merchants (does not wipe unknown merchants)
     function syncToCustomerPortal() {
-      const grouped = {};
+      let existing = {};
+      try { existing = JSON.parse(localStorage.getItem('bp_merchants') || '{}') || {}; } catch (e) {}
+
+      // Build the admin-provided map
+      const adminMap = {};
       merchants.forEach(m => {
         if (m.status !== 'suspended') {
           (m.currencies || ['USD']).forEach(curr => {
-            if (!grouped[curr]) grouped[curr] = [];
-            grouped[curr].push({
+            if (!adminMap[curr]) adminMap[curr] = [];
+            adminMap[curr].push({
               id: m.id,
               name: m.name,
               initial: m.initial || m.name.charAt(0).toUpperCase(),
@@ -1627,58 +1732,76 @@
               positive: m.positive || 98,
               time: m.time || '15 min',
               methods: m.methods || ['Bank Transfer'],
+              paymentDetails: m.paymentDetails || [],
+              escrowAddresses: m.escrowAddresses || {},
+              offers: m.offers || [],
               escrowAddr: m.escrowAddr || 'TTx882KLa92mZbQpP004NqK599eL'
             });
           });
         }
       });
-      localStorage.setItem('bp_merchants', JSON.stringify(grouped));
+
+      // Merge: for each currency, admin-provided merchants replace same-id entries,
+      // unknown merchants from existing stay in place.
+      const result = {};
+      const allCurrencies = new Set([...Object.keys(existing), ...Object.keys(adminMap)]);
+      allCurrencies.forEach(curr => {
+        const oldList = existing[curr] || [];
+        const adminList = adminMap[curr] || [];
+        const adminIds = new Set(adminList.map(m => m.id));
+        const kept = oldList.filter(m => !adminIds.has(m.id));
+        result[curr] = [...adminList, ...kept];
+      });
+
+      localStorage.setItem('bp_merchants', JSON.stringify(result));
     }
 
-    // Load and update sidebar live badges
     function updateSidebarBadges() {
       try {
         const orders = JSON.parse(localStorage.getItem('bp_p2p_orders') || '[]');
         const activeOrders = orders.filter(o => o.status === 'pending' || o.status === 'paid' || o.status === 'disputed').length;
         const b = document.getElementById('ordersBadge');
-        if (b) {
-          b.textContent = activeOrders;
-          b.style.display = activeOrders > 0 ? 'inline-block' : 'none';
-        }
+        if (b) { b.textContent = activeOrders; b.style.display = activeOrders > 0 ? 'inline-block' : 'none'; }
 
         const users = JSON.parse(localStorage.getItem('bp_users') || '[]');
         const pendingKyc = users.filter(u => u.kycStatus === 'pending').length;
         const kb = document.getElementById('kycBadge');
-        if (kb) {
-          kb.textContent = pendingKyc;
-          kb.style.display = pendingKyc > 0 ? 'inline-block' : 'none';
-        }
+        if (kb) { kb.textContent = pendingKyc; kb.style.display = pendingKyc > 0 ? 'inline-block' : 'none'; }
       } catch (e) {}
     }
 
-    // Format currency
     function fmtMoney(amount) {
       return '$' + Number(amount || 0).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
     }
 
-    // Render Stats
+    // Count helpers
+    function hasSellOffers(m) {
+      return (m.offers || []).some(o => o.active && o.side === 'sell');
+    }
+    function hasBuyOffers(m) {
+      return (m.offers || []).some(o => o.active && o.side === 'buy');
+    }
+    function bestPrice(m, side, fiat) {
+      const list = (m.offers || []).filter(o => o.active && o.side === side && (!fiat || o.fiat === fiat));
+      if (!list.length) return null;
+      return side === 'sell' ? Math.min(...list.map(o => o.price)) : Math.max(...list.map(o => o.price));
+    }
+
     function renderStats() {
       const total = merchants.length;
       const online = merchants.filter(m => m.isOnline).length;
       const verified = merchants.filter(m => m.verified).length;
       const active = merchants.filter(m => m.status === 'active').length;
       const suspended = merchants.filter(m => m.status === 'suspended').length;
+      const hasSell = merchants.filter(hasSellOffers).length;
+      const hasBuy = merchants.filter(hasBuyOffers).length;
 
-      let totalTrades = 0;
-      let totalVol = 0;
-      let totalComp = 0;
-
+      let totalTrades = 0, totalVol = 0, totalComp = 0;
       merchants.forEach(m => {
         totalTrades += (m.trades || 0);
         totalVol += (m.totalVolume || ((m.trades || 0) * 450));
         totalComp += (m.completion || 99);
       });
-
       const avgComp = total > 0 ? (totalComp / total).toFixed(1) : 0;
 
       document.getElementById('statTotalMerchants').textContent = total;
@@ -1692,30 +1815,28 @@
       document.getElementById('countActive').textContent = active;
       document.getElementById('countVerified').textContent = verified;
       document.getElementById('countSuspended').textContent = suspended;
+      document.getElementById('countHasSell').textContent = hasSell;
+      document.getElementById('countHasBuy').textContent = hasBuy;
 
       document.getElementById('merchantCountSub').textContent =
         `Managing ${total} institutional liquidity providers across global fiat escrow routes`;
     }
 
-    // Filter and Sort Merchants
     function getFilteredMerchants() {
       const q = document.getElementById('searchInput').value.trim().toLowerCase();
       const curr = document.getElementById('currencyFilter').value;
       const sort = document.getElementById('sortBy').value;
 
       return merchants.filter(m => {
-        // Status filter
         if (activeFilterStatus === 'online' && !m.isOnline) return false;
         if (activeFilterStatus === 'active' && m.status !== 'active') return false;
         if (activeFilterStatus === 'verified' && !m.verified) return false;
         if (activeFilterStatus === 'suspended' && m.status !== 'suspended') return false;
+        if (activeFilterStatus === 'hasSell' && !hasSellOffers(m)) return false;
+        if (activeFilterStatus === 'hasBuy' && !hasBuyOffers(m)) return false;
 
-        // Currency filter
-        if (curr !== 'all') {
-          if (!m.currencies || !m.currencies.includes(curr)) return false;
-        }
+        if (curr !== 'all' && (!m.currencies || !m.currencies.includes(curr))) return false;
 
-        // Query filter
         if (q) {
           const matchName = m.name && m.name.toLowerCase().includes(q);
           const matchEmail = m.email && m.email.toLowerCase().includes(q);
@@ -1724,7 +1845,6 @@
           const matchCurrs = m.currencies && m.currencies.some(c => c.toLowerCase().includes(q));
           if (!matchName && !matchEmail && !matchCountry && !matchMethods && !matchCurrs) return false;
         }
-
         return true;
       }).sort((a, b) => {
         if (sort === 'trades-desc') return (b.trades || 0) - (a.trades || 0);
@@ -1735,7 +1855,22 @@
       });
     }
 
-    // Render Grid Cards
+    function renderOfferBadges(m) {
+      const sellCount = (m.offers || []).filter(o => o.active && o.side === 'sell').length;
+      const buyCount = (m.offers || []).filter(o => o.active && o.side === 'buy').length;
+      const parts = [];
+      if (sellCount > 0) {
+        const bp = bestPrice(m, 'sell', m.currencies?.[0]);
+        parts.push(`<span class="offer-badge sell">Sell ${sellCount}${bp ? ' · ' + bp : ''}</span>`);
+      }
+      if (buyCount > 0) {
+        const bp = bestPrice(m, 'buy', m.currencies?.[0]);
+        parts.push(`<span class="offer-badge buy">Buy ${buyCount}${bp ? ' · ' + bp : ''}</span>`);
+      }
+      if (!parts.length) parts.push(`<span class="offer-badge none">No offers live</span>`);
+      return parts.join('');
+    }
+
     function renderGrid(list) {
       const container = document.getElementById('merchantsGrid');
       if (!list.length) {
@@ -1744,17 +1879,14 @@
             <div style="font-size: 32px; margin-bottom: 8px;">🏪</div>
             <div style="font-size: 14px; font-weight: 800; color: var(--navy-900);">No merchants match your filter</div>
             <div style="font-size: 12px; color: var(--gray-500); margin-top: 4px;">Adjust your search or click "+ Add Merchant" to register a new liquidity provider.</div>
-          </div>
-        `;
+          </div>`;
         return;
       }
-
       container.innerHTML = list.map(m => {
         const initial = m.initial || m.name.charAt(0).toUpperCase();
         const currs = (m.currencies || ['USD']).map(c => `<span class="method-chip curr">${c}</span>`).join('');
         const methods = (m.methods || []).slice(0, 3).map(meth => `<span class="method-chip">${meth}</span>`).join('');
         const extraMethods = (m.methods || []).length > 3 ? `<span class="method-chip">+${m.methods.length - 3}</span>` : '';
-
         return `
           <div class="merchant-card" onclick="openDrawer('${m.id}')">
             <div class="card-top">
@@ -1779,19 +1911,12 @@
             </div>
 
             <div class="card-metrics-grid">
-              <div class="c-metric">
-                <span class="num">${(m.trades || 0).toLocaleString()}</span>
-                <span class="lbl">Trades</span>
-              </div>
-              <div class="c-metric">
-                <span class="num">${m.completion || 99}%</span>
-                <span class="lbl">Completion</span>
-              </div>
-              <div class="c-metric">
-                <span class="num">${m.time || '15 min'}</span>
-                <span class="lbl">Avg Speed</span>
-              </div>
+              <div class="c-metric"><span class="num">${(m.trades || 0).toLocaleString()}</span><span class="lbl">Trades</span></div>
+              <div class="c-metric"><span class="num">${m.completion || 99}%</span><span class="lbl">Completion</span></div>
+              <div class="c-metric"><span class="num">${m.time || '15 min'}</span><span class="lbl">Avg Speed</span></div>
             </div>
+
+            <div class="offer-card-preview">${renderOfferBadges(m)}</div>
 
             <div class="card-methods-row">
               ${currs}
@@ -1808,61 +1933,42 @@
                 <button class="btn-card-action primary" onclick="openDrawer('${m.id}')">Details</button>
               </div>
             </div>
-          </div>
-        `;
+          </div>`;
       }).join('');
     }
 
-    // Render Table View
     function renderTable(list) {
       const tbody = document.getElementById('merchantsTableBody');
       if (!list.length) {
-        tbody.innerHTML = `
-          <div style="padding: 40px; text-align: center; color: var(--gray-500); font-weight: 500;">
-            No merchants match your filter parameters.
-          </div>
-        `;
+        tbody.innerHTML = `<div style="padding: 40px; text-align: center; color: var(--gray-500); font-weight: 500;">No merchants match your filter parameters.</div>`;
         return;
       }
-
       tbody.innerHTML = list.map(m => {
         const initial = m.initial || m.name.charAt(0).toUpperCase();
+        const sellCount = (m.offers || []).filter(o => o.active && o.side === 'sell').length;
+        const buyCount = (m.offers || []).filter(o => o.active && o.side === 'buy').length;
         const methods = (m.methods || []).slice(0, 2).map(meth => `<span class="method-chip">${meth}</span>`).join(' ') +
           ((m.methods || []).length > 2 ? ` <span class="method-chip">+${m.methods.length - 2}</span>` : '');
-
         return `
           <div class="table-row" onclick="openDrawer('${m.id}')">
             <div class="t-user-cell">
-              <div class="t-avatar">
-                ${initial}
-                <div class="online-indicator ${m.isOnline ? 'online' : ''}" style="width:9px; height:9px;"></div>
-              </div>
+              <div class="t-avatar">${initial}<div class="online-indicator ${m.isOnline ? 'online' : ''}" style="width:9px;height:9px;"></div></div>
               <div class="t-name-wrap">
-                <div class="t-name">
-                  ${m.name}
-                  ${m.verified ? `<span class="badge-verified" style="width:14px; height:14px; font-size:9px;">✓</span>` : ''}
-                </div>
+                <div class="t-name">${m.name}${m.verified ? `<span class="badge-verified" style="width:14px;height:14px;font-size:9px;">✓</span>` : ''}</div>
                 <div class="t-sub">${m.country || 'Global'} &bull; ${(m.currencies || ['USD']).join(', ')}</div>
               </div>
             </div>
-            <div>
-              <span class="card-badge-status ${m.status}">${m.status}</span>
+            <div><span class="card-badge-status ${m.status}">${m.status}</span></div>
+            <div style="font-weight:800; font-variant-numeric:tabular-nums; font-size:11.5px;">
+              <span style="color:var(--red-500);">S ${sellCount}</span> / <span style="color:var(--green-500);">B ${buyCount}</span>
             </div>
-            <div style="font-weight: 800; font-variant-numeric: tabular-nums;">
-              ${(m.trades || 0).toLocaleString()}
-            </div>
-            <div style="font-weight: 800; color: var(--navy-900); font-variant-numeric: tabular-nums;">
-              ${m.completion || 99}%
-            </div>
+            <div style="font-weight:800; color:var(--navy-900); font-variant-numeric:tabular-nums;">${m.completion || 99}%</div>
             <div>${methods}</div>
-            <div class="col-time" style="font-size: 11.5px; font-weight: 600; color: var(--gray-600);">
-              ${m.time || '15 min'}
+            <div class="col-time" style="font-size:11.5px; font-weight:600; color:var(--gray-600);">${m.time || '15 min'}</div>
+            <div style="text-align:right;" onclick="event.stopPropagation();">
+              <button class="btn-card-action primary" onclick="openDrawer('${m.id}')" style="padding:4px 9px;">View</button>
             </div>
-            <div style="text-align: right;" onclick="event.stopPropagation();">
-              <button class="btn-card-action primary" onclick="openDrawer('${m.id}')" style="padding: 4px 9px;">View</button>
-            </div>
-          </div>
-        `;
+          </div>`;
       }).join('');
     }
 
@@ -1881,12 +1987,11 @@
     }
 
     /* ============================================================
-       DRAWER MANAGEMENT
+       DRAWER
        ============================================================ */
     function openDrawer(id) {
       selectedMerchant = merchants.find(m => m.id === id);
       if (!selectedMerchant) return;
-
       const m = selectedMerchant;
       const initial = m.initial || m.name.charAt(0).toUpperCase();
 
@@ -1896,74 +2001,112 @@
 
       document.getElementById('dStatusBadge').innerHTML = `<span class="card-badge-status ${m.status}">${m.status}</span>`;
       document.getElementById('dOnlineBadge').innerHTML = m.isOnline
-        ? `<span style="color:var(--green-500); font-weight:800;">● Online (Fast responder)</span>`
+        ? `<span style="color:var(--green-500); font-weight:800;">● Online</span>`
         : `<span style="color:var(--gray-400); font-weight:700;">○ Offline</span>`;
       document.getElementById('dTrades').textContent = (m.trades || 0).toLocaleString();
       document.getElementById('dCompletion').textContent = `${m.completion || 99}%`;
       document.getElementById('dPositive').textContent = `${m.positive || 99}%`;
       document.getElementById('dTime').textContent = m.time || '15 min';
-
-      document.getElementById('dEscrowAddr').textContent = m.escrowAddr || 'TTx882KLa92mZbQpP004NqK599eL';
-      document.getElementById('dTelegram').textContent = m.telegram || 'Not bound';
-      document.getElementById('dCountry').textContent = m.country || 'Global';
+      document.getElementById('dEmail').textContent = m.email || '—';
+      document.getElementById('dPhone').textContent = m.phone || '—';
+      document.getElementById('dCountry').textContent = m.country || '—';
       document.getElementById('dCurrencies').textContent = (m.currencies || ['USD']).join(', ');
+      document.getElementById('dTelegram').textContent = m.telegram || 'Not bound';
+      document.getElementById('dJoined').textContent = m.joined || '—';
 
-      document.getElementById('dEmail').textContent = m.email || 'Not provided';
-      document.getElementById('dPhone').textContent = m.phone || 'Not provided';
-      document.getElementById('dJoined').textContent = m.joined || '2024-01-01';
+      // Offers summary
+      const sellCount = (m.offers || []).filter(o => o.active && o.side === 'sell').length;
+      const buyCount = (m.offers || []).filter(o => o.active && o.side === 'buy').length;
+      document.getElementById('dOffersSummary').innerHTML = `
+        <div class="detail-row"><span class="lbl">Sell offers</span><span class="val">${sellCount}</span></div>
+        <div class="detail-row"><span class="lbl">Buy offers</span><span class="val">${buyCount}</span></div>
+      `;
 
-      // Load orders linked to merchant
+      // Escrow
+      const escrows = m.escrowAddresses || {};
+      const escrowKeys = Object.keys(escrows);
+      document.getElementById('dEscrowList').innerHTML = escrowKeys.length
+        ? escrowKeys.map(asset => `
+            <div class="detail-row" style="align-items:flex-start;">
+              <span class="lbl">${asset} (${escrows[asset].network || '—'})</span>
+              <span class="val" style="font-family:monospace; font-size:10.5px; max-width:60%;">${escrows[asset].address || '—'}</span>
+            </div>`).join('')
+        : '<div style="font-size:12px; color:var(--gray-500);">No escrow addresses set.</div>';
+
+      renderDrawerOffers(m);
       renderDrawerOrders(m);
-
-      // Load payment methods
       renderDrawerMethods(m);
 
-      // Switch to overview tab
       switchDrawerTab('overview');
-
       document.getElementById('drawerOverlay').classList.add('open');
       document.getElementById('drawer').classList.add('open');
     }
-
     function closeDrawer() {
       document.getElementById('drawerOverlay').classList.remove('open');
       document.getElementById('drawer').classList.remove('open');
     }
-
     function switchDrawerTab(tabId) {
-      document.querySelectorAll('.drawer-tab').forEach(t => {
-        t.classList.toggle('active', t.getAttribute('data-tab') === tabId);
-      });
-      document.querySelectorAll('.detail-panel').forEach(p => {
-        p.classList.toggle('active', p.id === `panel-${tabId}`);
-      });
+      document.querySelectorAll('.drawer-tab').forEach(t => t.classList.toggle('active', t.getAttribute('data-tab') === tabId));
+      document.querySelectorAll('.detail-panel').forEach(p => p.classList.toggle('active', p.id === `panel-${tabId}`));
+    }
+
+    function renderDrawerOffers(m) {
+      const el = document.getElementById('drawerOffersList');
+      const list = m.offers || [];
+      if (!list.length) {
+        el.innerHTML = '<div style="font-size:12px; color:var(--gray-500); text-align:center; padding:16px 0;">No offers live.</div>';
+        return;
+      }
+      el.innerHTML = list.map((o, idx) => `
+        <div class="offer-item">
+          <div class="o-head">
+            <span class="o-side ${o.side}">${o.side}</span>
+            <span class="o-price">${o.price} ${o.fiat}</span>
+          </div>
+          <div class="o-meta">${o.asset} · Min ${o.min} · Max ${o.max} · ${(o.methods || []).join(', ')}</div>
+          <div class="o-meta">${o.active ? '● Active' : '○ Paused'}</div>
+          <div class="o-actions">
+            <button onclick="toggleOfferActive(${idx})">${o.active ? 'Pause' : 'Activate'}</button>
+            <button class="danger" onclick="deleteOffer(${idx})">Delete</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function toggleOfferActive(idx) {
+      if (!selectedMerchant) return;
+      selectedMerchant.offers[idx].active = !selectedMerchant.offers[idx].active;
+      saveMerchants();
+      render();
+      openDrawer(selectedMerchant.id);
+      showToast('Offer updated');
+    }
+    function deleteOffer(idx) {
+      if (!selectedMerchant) return;
+      if (!confirm('Delete this offer?')) return;
+      selectedMerchant.offers.splice(idx, 1);
+      saveMerchants();
+      render();
+      openDrawer(selectedMerchant.id);
+      showToast('Offer deleted');
     }
 
     function renderDrawerOrders(m) {
       const container = document.getElementById('drawerOrdersList');
       try {
         const allOrders = JSON.parse(localStorage.getItem('bp_p2p_orders') || '[]');
-        const linked = allOrders.filter(o => o.merchant === m.name || o.merchantId === m.id);
-
+        const linked = allOrders.filter(o => o.merchant === m.name || o.merchantName === m.name || o.merchantId === m.id);
         if (!linked.length) {
-          container.innerHTML = `
-            <div style="font-size:12px; color:var(--gray-500); padding:16px 0; text-align:center;">
-              No recent P2P orders found for this merchant.
-            </div>
-          `;
+          container.innerHTML = `<div style="font-size:12px; color:var(--gray-500); padding:16px 0; text-align:center;">No recent P2P orders found for this merchant.</div>`;
           return;
         }
-
         container.innerHTML = linked.slice(0, 5).map(o => `
           <div style="background:var(--navy-50); border:1px solid var(--gray-200); border-radius:var(--radius-sm); padding:10px 12px; display:flex; justify-content:space-between; align-items:center;">
             <div>
-              <div style="font-weight:800; font-size:12.5px; color:var(--navy-900);">Order #${o.id} &bull; ${o.type ? o.type.toUpperCase() : 'BUY'} ${o.cryptoAmount || o.crypto || 'USDT'}</div>
-              <div style="font-size:11px; color:var(--gray-500); margin-top:2px;">User: ${o.user || 'Alex Vance'} &bull; ${o.fiatAmount ? '$' + o.fiatAmount : '$500'}</div>
+              <div style="font-weight:800; font-size:12.5px; color:var(--navy-900);">Order #${o.id}</div>
+              <div style="font-size:11px; color:var(--gray-500); margin-top:2px;">${o.fiatAmount ? 'Amount: ' + o.fiatAmount + ' ' + (o.fiat || '') : ''}</div>
             </div>
-            <div style="display:flex; align-items:center; gap:6px;">
-              <span class="card-badge-status ${o.status}">${o.status}</span>
-              <a href="admin-p2p-orders.html?orderId=${o.id}" class="btn-card-action" style="text-decoration:none; font-size:10.5px; padding:3px 8px;">Desk &rarr;</a>
-            </div>
+            <a href="admin-p2p-orders.html?orderId=${o.id}" class="btn-card-action" style="text-decoration:none; font-size:10.5px; padding:3px 8px;">Desk →</a>
           </div>
         `).join('');
       } catch (e) {
@@ -1973,15 +2116,17 @@
 
     function renderDrawerMethods(m) {
       const container = document.getElementById('drawerMethodsList');
-      if (!m.methods || !m.methods.length) {
-        container.innerHTML = `<div style="font-size:12px; color:var(--gray-500);">No specific payment methods configured.</div>`;
+      const details = m.paymentDetails || [];
+      if (!details.length) {
+        container.innerHTML = `<div style="font-size:12px; color:var(--gray-500);">No payment accounts configured.</div>`;
         return;
       }
-
-      container.innerHTML = m.methods.map(meth => `
-        <div style="background:var(--navy-50); border:1px solid var(--gray-200); border-radius:var(--radius-sm); padding:9px 12px; display:flex; justify-content:space-between; align-items:center;">
-          <div style="font-weight:700; font-size:12.5px; color:var(--navy-900);">${meth}</div>
-          <span style="font-size:11px; font-weight:600; color:var(--green-600);">● Enabled</span>
+      container.innerHTML = details.map(p => `
+        <div style="background:var(--navy-50); border:1px solid var(--gray-200); border-radius:var(--radius-sm); padding:10px 12px;">
+          <div style="font-weight:800; font-size:12.5px; color:var(--navy-900);">${p.method}</div>
+          <div style="font-size:11px; color:var(--gray-600); margin-top:2px;">Account: <strong>${p.account}</strong></div>
+          <div style="font-size:11px; color:var(--gray-600);">Holder: <strong>${p.holder}</strong></div>
+          ${p.extra ? `<div style="font-size:11px; color:var(--gray-500); margin-top:2px;">${p.extra}</div>` : ''}
         </div>
       `).join('');
     }
@@ -1989,6 +2134,185 @@
     /* ============================================================
        MODAL: ADD / EDIT MERCHANT
        ============================================================ */
+    function renderPaymentRows(list) {
+      const wrap = document.getElementById('paymentAccountsWrap');
+      wrap.innerHTML = '';
+      (list && list.length ? list : [{ method: 'Bank Transfer', account: '', holder: '', extra: '' }]).forEach((p, idx) => {
+        const row = document.createElement('div');
+        row.className = 'repeater-row';
+        row.innerHTML = `
+          <div class="rr-head"><span>Account ${idx + 1}</span><button type="button" class="rr-delete" onclick="this.closest('.repeater-row').remove()">Remove</button></div>
+          <div class="rr-grid-2">
+            <div class="form-group"><label>Method</label><input type="text" class="form-input pay-method" value="${p.method || ''}" placeholder="Zelle, Bank Transfer..."></div>
+            <div class="form-group"><label>Account</label><input type="text" class="form-input pay-account" value="${p.account || ''}" placeholder="Account / phone / email"></div>
+          </div>
+          <div class="rr-grid-2">
+            <div class="form-group"><label>Holder</label><input type="text" class="form-input pay-holder" value="${p.holder || ''}" placeholder="Account holder name"></div>
+            <div class="form-group"><label>Extra</label><input type="text" class="form-input pay-extra" value="${p.extra || ''}" placeholder="Bank name, note..."></div>
+          </div>
+        `;
+        wrap.appendChild(row);
+      });
+    }
+    function addPaymentRow() {
+      const wrap = document.getElementById('paymentAccountsWrap');
+      const row = document.createElement('div');
+      row.className = 'repeater-row';
+      row.innerHTML = `
+        <div class="rr-head"><span>New Account</span><button type="button" class="rr-delete" onclick="this.closest('.repeater-row').remove()">Remove</button></div>
+        <div class="rr-grid-2">
+          <div class="form-group"><label>Method</label><input type="text" class="form-input pay-method" placeholder="Zelle, Bank Transfer..."></div>
+          <div class="form-group"><label>Account</label><input type="text" class="form-input pay-account" placeholder="Account / phone / email"></div>
+        </div>
+        <div class="rr-grid-2">
+          <div class="form-group"><label>Holder</label><input type="text" class="form-input pay-holder" placeholder="Account holder name"></div>
+          <div class="form-group"><label>Extra</label><input type="text" class="form-input pay-extra" placeholder="Bank name, note..."></div>
+        </div>
+      `;
+      wrap.appendChild(row);
+    }
+
+    function renderEscrowRows(map) {
+      const wrap = document.getElementById('escrowWrap');
+      wrap.innerHTML = '';
+      const entries = Object.entries(map || {});
+      if (!entries.length) entries.push(['USDT', { network: 'TRC20', address: '' }]);
+      entries.forEach(([asset, obj]) => {
+        const row = document.createElement('div');
+        row.className = 'repeater-row';
+        row.innerHTML = `
+          <div class="rr-head"><span>Escrow address</span><button type="button" class="rr-delete" onclick="this.closest('.repeater-row').remove()">Remove</button></div>
+          <div class="rr-grid-3">
+            <div class="form-group"><label>Asset</label><input type="text" class="form-input esc-asset" value="${asset}" placeholder="USDT, BTC, ETH..."></div>
+            <div class="form-group"><label>Network</label><input type="text" class="form-input esc-network" value="${obj.network || ''}" placeholder="TRC20, ERC20..."></div>
+            <div class="form-group"><label>Address</label><input type="text" class="form-input esc-address" value="${obj.address || ''}" placeholder="Wallet address"></div>
+          </div>
+        `;
+        wrap.appendChild(row);
+      });
+    }
+    function addEscrowRow() {
+      const wrap = document.getElementById('escrowWrap');
+      const row = document.createElement('div');
+      row.className = 'repeater-row';
+      row.innerHTML = `
+        <div class="rr-head"><span>New escrow address</span><button type="button" class="rr-delete" onclick="this.closest('.repeater-row').remove()">Remove</button></div>
+        <div class="rr-grid-3">
+          <div class="form-group"><label>Asset</label><input type="text" class="form-input esc-asset" placeholder="USDT, BTC..."></div>
+          <div class="form-group"><label>Network</label><input type="text" class="form-input esc-network" placeholder="TRC20, ERC20..."></div>
+          <div class="form-group"><label>Address</label><input type="text" class="form-input esc-address" placeholder="Wallet address"></div>
+        </div>
+      `;
+      wrap.appendChild(row);
+    }
+
+    function renderOfferRows(list) {
+      const wrap = document.getElementById('offersWrap');
+      wrap.innerHTML = '';
+      (list || []).forEach((o, idx) => {
+        const row = document.createElement('div');
+        row.className = 'repeater-row';
+        row.innerHTML = `
+          <div class="rr-head">
+            <span>Offer ${idx + 1}</span>
+            <button type="button" class="rr-delete" onclick="this.closest('.repeater-row').remove()">Remove</button>
+          </div>
+          <div class="rr-grid-3">
+            <div class="form-group"><label>Side</label>
+              <select class="form-select off-side">
+                <option value="sell" ${o.side === 'sell' ? 'selected' : ''}>Sell</option>
+                <option value="buy" ${o.side === 'buy' ? 'selected' : ''}>Buy</option>
+              </select>
+            </div>
+            <div class="form-group"><label>Asset</label><input type="text" class="form-input off-asset" value="${o.asset || 'USDT'}" placeholder="USDT"></div>
+            <div class="form-group"><label>Fiat</label><input type="text" class="form-input off-fiat" value="${o.fiat || 'USD'}" placeholder="USD"></div>
+          </div>
+          <div class="rr-grid-3">
+            <div class="form-group"><label>Price</label><input type="number" step="0.0001" class="form-input off-price" value="${o.price || 0}"></div>
+            <div class="form-group"><label>Min</label><input type="number" class="form-input off-min" value="${o.min || 0}"></div>
+            <div class="form-group"><label>Max</label><input type="number" class="form-input off-max" value="${o.max || 0}"></div>
+          </div>
+          <div class="rr-grid-2">
+            <div class="form-group"><label>Payment Methods (comma)</label><input type="text" class="form-input off-methods" value="${(o.methods || []).join(', ')}" placeholder="Zelle, Bank Transfer"></div>
+            <div class="form-group"><label>Active</label>
+              <label class="offer-toggle"><input type="checkbox" class="off-active" ${o.active !== false ? 'checked' : ''}> Offer is live</label>
+            </div>
+          </div>
+        `;
+        wrap.appendChild(row);
+      });
+    }
+    function addOfferRow() {
+      const wrap = document.getElementById('offersWrap');
+      const row = document.createElement('div');
+      row.className = 'repeater-row';
+      row.innerHTML = `
+        <div class="rr-head">
+          <span>New offer</span>
+          <button type="button" class="rr-delete" onclick="this.closest('.repeater-row').remove()">Remove</button>
+        </div>
+        <div class="rr-grid-3">
+          <div class="form-group"><label>Side</label>
+            <select class="form-select off-side">
+              <option value="sell">Sell</option>
+              <option value="buy">Buy</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Asset</label><input type="text" class="form-input off-asset" value="USDT"></div>
+          <div class="form-group"><label>Fiat</label><input type="text" class="form-input off-fiat" value="USD"></div>
+        </div>
+        <div class="rr-grid-3">
+          <div class="form-group"><label>Price</label><input type="number" step="0.0001" class="form-input off-price" value="0"></div>
+          <div class="form-group"><label>Min</label><input type="number" class="form-input off-min" value="0"></div>
+          <div class="form-group"><label>Max</label><input type="number" class="form-input off-max" value="0"></div>
+        </div>
+        <div class="rr-grid-2">
+          <div class="form-group"><label>Payment Methods (comma)</label><input type="text" class="form-input off-methods" placeholder="Zelle, Bank Transfer"></div>
+          <div class="form-group"><label>Active</label>
+            <label class="offer-toggle"><input type="checkbox" class="off-active" checked> Offer is live</label>
+          </div>
+        </div>
+      `;
+      wrap.appendChild(row);
+    }
+
+    function collectPaymentRows() {
+      const out = [];
+      document.querySelectorAll('#paymentAccountsWrap .repeater-row').forEach(row => {
+        const method = row.querySelector('.pay-method').value.trim();
+        const account = row.querySelector('.pay-account').value.trim();
+        const holder = row.querySelector('.pay-holder').value.trim();
+        const extra = row.querySelector('.pay-extra').value.trim();
+        if (method && account) out.push({ method, account, holder, extra });
+      });
+      return out;
+    }
+    function collectEscrowRows() {
+      const out = {};
+      document.querySelectorAll('#escrowWrap .repeater-row').forEach(row => {
+        const asset = row.querySelector('.esc-asset').value.trim().toUpperCase();
+        const network = row.querySelector('.esc-network').value.trim();
+        const address = row.querySelector('.esc-address').value.trim();
+        if (asset && address) out[asset] = { network, address };
+      });
+      return out;
+    }
+    function collectOfferRows() {
+      const out = [];
+      document.querySelectorAll('#offersWrap .repeater-row').forEach(row => {
+        const side = row.querySelector('.off-side').value;
+        const asset = row.querySelector('.off-asset').value.trim().toUpperCase();
+        const fiat = row.querySelector('.off-fiat').value.trim().toUpperCase();
+        const price = parseFloat(row.querySelector('.off-price').value) || 0;
+        const min = parseFloat(row.querySelector('.off-min').value) || 0;
+        const max = parseFloat(row.querySelector('.off-max').value) || 0;
+        const methods = row.querySelector('.off-methods').value.split(',').map(s => s.trim()).filter(Boolean);
+        const active = row.querySelector('.off-active').checked;
+        if (price > 0) out.push({ side, asset, fiat, price, min, max, methods, active });
+      });
+      return out;
+    }
+
     function openAddModal() {
       document.getElementById('modalTitle').textContent = 'Register New Merchant';
       document.getElementById('editMerchantId').value = '';
@@ -1996,19 +2320,20 @@
       document.getElementById('mCountry').value = '';
       document.getElementById('mEmail').value = '';
       document.getElementById('mPhone').value = '';
-      document.getElementById('mMethods').value = 'Bank Transfer, Zelle';
-      document.getElementById('mEscrowAddr').value = 'TTx882KLa92mZbQpP004NqK599eL';
       document.getElementById('mTelegram').value = '';
-      document.getElementById('mTrades').value = '1200';
+      document.getElementById('mTrades').value = '0';
       document.getElementById('mCompletion').value = '99.2';
       document.getElementById('mReleaseTime').value = '15 min';
       document.getElementById('mStatus').value = 'active';
       document.getElementById('mIsOnline').value = 'true';
 
-      // Reset currency choices
       document.querySelectorAll('#currencyTags .tag-choice').forEach(t => {
         t.classList.toggle('selected', t.getAttribute('data-val') === 'USD');
       });
+
+      renderPaymentRows([{ method: 'Bank Transfer', account: '', holder: '', extra: '' }]);
+      renderEscrowRows({});
+      renderOfferRows([]);
 
       document.getElementById('merchantModalOverlay').classList.add('open');
     }
@@ -2016,31 +2341,27 @@
     function openEditModal(id) {
       const m = merchants.find(x => x.id === id);
       if (!m) return;
-
       document.getElementById('modalTitle').textContent = `Edit Merchant: ${m.name}`;
       document.getElementById('editMerchantId').value = m.id;
       document.getElementById('mName').value = m.name || '';
       document.getElementById('mCountry').value = m.country || '';
       document.getElementById('mEmail').value = m.email || '';
       document.getElementById('mPhone').value = m.phone || '';
-      document.getElementById('mMethods').value = (m.methods || []).join(', ');
-      document.getElementById('mEscrowAddr').value = m.escrowAddr || 'TTx882KLa92mZbQpP004NqK599eL';
       document.getElementById('mTelegram').value = m.telegram || '';
       document.getElementById('mTrades').value = m.trades || 0;
       document.getElementById('mCompletion').value = m.completion || 99;
       document.getElementById('mReleaseTime').value = m.time || '15 min';
       document.getElementById('mStatus').value = m.status || 'active';
       document.getElementById('mIsOnline').value = m.isOnline ? 'true' : 'false';
-
-      // Currencies
       const currs = m.currencies || ['USD'];
       document.querySelectorAll('#currencyTags .tag-choice').forEach(t => {
         t.classList.toggle('selected', currs.includes(t.getAttribute('data-val')));
       });
-
+      renderPaymentRows(m.paymentDetails || [{ method: 'Bank Transfer', account: '', holder: '', extra: '' }]);
+      renderEscrowRows(m.escrowAddresses || {});
+      renderOfferRows(m.offers || []);
       document.getElementById('merchantModalOverlay').classList.add('open');
     }
-
     function closeModal() {
       document.getElementById('merchantModalOverlay').classList.remove('open');
     }
@@ -2051,7 +2372,6 @@
       const country = document.getElementById('mCountry').value.trim();
       const email = document.getElementById('mEmail').value.trim();
       const phone = document.getElementById('mPhone').value.trim();
-      const escrowAddr = document.getElementById('mEscrowAddr').value.trim();
       const telegram = document.getElementById('mTelegram').value.trim();
       const time = document.getElementById('mReleaseTime').value;
       const trades = parseInt(document.getElementById('mTrades').value) || 0;
@@ -2059,67 +2379,47 @@
       const status = document.getElementById('mStatus').value;
       const isOnline = document.getElementById('mIsOnline').value === 'true';
 
-      const rawMethods = document.getElementById('mMethods').value.split(',').map(s => s.trim()).filter(Boolean);
-      const methods = rawMethods.length ? rawMethods : ['Bank Transfer'];
-
       const selectedCurrs = [];
-      document.querySelectorAll('#currencyTags .tag-choice.selected').forEach(t => {
-        selectedCurrs.push(t.getAttribute('data-val'));
-      });
+      document.querySelectorAll('#currencyTags .tag-choice.selected').forEach(t => selectedCurrs.push(t.getAttribute('data-val')));
       if (!selectedCurrs.length) selectedCurrs.push('USD');
 
-      if (!name) {
-        showToast('Merchant name is required');
-        return;
-      }
+      const paymentDetails = collectPaymentRows();
+      const escrowAddresses = collectEscrowRows();
+      const offers = collectOfferRows();
+      const methods = paymentDetails.map(p => p.method);
+
+      if (!name) { showToast('Merchant name is required'); return; }
 
       if (id) {
-        // Update existing
         const idx = merchants.findIndex(m => m.id === id);
         if (idx !== -1) {
           merchants[idx] = {
             ...merchants[idx],
-            name, country, email, phone, escrowAddr, telegram, time, trades, completion, status, isOnline,
-            methods, currencies: selectedCurrs,
+            name, country, email, phone, telegram, time, trades, completion, status, isOnline,
+            methods, paymentDetails, escrowAddresses, offers,
+            currencies: selectedCurrs,
             initial: name.charAt(0).toUpperCase()
           };
           showToast(`Merchant ${name} updated`);
         }
       } else {
-        // Create new
         const newId = 'm_' + Date.now().toString(36);
-        const newMerchant = {
-          id: newId,
-          name,
-          country: country || 'Global Desk',
-          email,
-          phone,
-          initial: name.charAt(0).toUpperCase(),
-          verified: true,
-          isOnline,
-          lastActive: 'Just now',
-          trades,
-          completion,
-          positive: 99,
-          time,
-          status,
-          currencies: selectedCurrs,
-          methods,
-          escrowAddr: escrowAddr || 'TTx882KLa92mZbQpP004NqK599eL',
-          telegram,
-          totalVolume: trades * 450,
-          joined: new Date().toISOString().split('T')[0]
-        };
-        merchants.unshift(newMerchant);
-        showToast(`Merchant ${name} added successfully`);
+        merchants.unshift({
+          id: newId, name, country: country || 'Global Desk', email, phone,
+          initial: name.charAt(0).toUpperCase(), verified: true, isOnline,
+          lastActive: 'Just now', trades, completion, positive: 99, time,
+          status, currencies: selectedCurrs, methods,
+          paymentDetails, escrowAddresses, offers,
+          escrowAddr: Object.values(escrowAddresses)[0]?.address || 'TTx882KLa92mZbQpP004NqK599eL',
+          telegram, totalVolume: trades * 450, joined: new Date().toISOString().split('T')[0]
+        });
+        showToast(`Merchant ${name} added`);
       }
 
       saveMerchants();
       closeModal();
       render();
-      if (selectedMerchant && selectedMerchant.id === id) {
-        openDrawer(id);
-      }
+      if (selectedMerchant && selectedMerchant.id === id) openDrawer(id);
     }
 
     /* ============================================================
@@ -2129,97 +2429,57 @@
       if (!selectedMerchant) return;
       selectedMerchant.isOnline = !selectedMerchant.isOnline;
       selectedMerchant.lastActive = selectedMerchant.isOnline ? 'Just now' : '1 min ago';
-      saveMerchants();
-      render();
-      openDrawer(selectedMerchant.id);
+      saveMerchants(); render(); openDrawer(selectedMerchant.id);
       showToast(`${selectedMerchant.name} is now ${selectedMerchant.isOnline ? 'ONLINE' : 'OFFLINE'}`);
     }
-
     function toggleVerification() {
       if (!selectedMerchant) return;
       selectedMerchant.verified = !selectedMerchant.verified;
-      saveMerchants();
-      render();
-      openDrawer(selectedMerchant.id);
+      saveMerchants(); render(); openDrawer(selectedMerchant.id);
       showToast(`${selectedMerchant.name} verification: ${selectedMerchant.verified ? 'VERIFIED' : 'UNVERIFIED'}`);
     }
-
     function toggleSuspension() {
       if (!selectedMerchant) return;
-      if (selectedMerchant.status === 'suspended') {
-        selectedMerchant.status = 'active';
-        showToast(`${selectedMerchant.name} reactivated`);
-      } else {
-        selectedMerchant.status = 'suspended';
-        showToast(`${selectedMerchant.name} suspended from P2P matching`);
-      }
-      saveMerchants();
-      render();
-      openDrawer(selectedMerchant.id);
+      if (selectedMerchant.status === 'suspended') { selectedMerchant.status = 'active'; showToast(`${selectedMerchant.name} reactivated`); }
+      else { selectedMerchant.status = 'suspended'; showToast(`${selectedMerchant.name} suspended`); }
+      saveMerchants(); render(); openDrawer(selectedMerchant.id);
     }
-
     function deleteMerchant() {
       if (!selectedMerchant) return;
-      if (!confirm(`Are you sure you want to permanently delete merchant "${selectedMerchant.name}"?`)) return;
-
+      if (!confirm(`Permanently delete merchant "${selectedMerchant.name}"?`)) return;
       const name = selectedMerchant.name;
       merchants = merchants.filter(m => m.id !== selectedMerchant.id);
-      saveMerchants();
-      closeDrawer();
-      render();
+      saveMerchants(); closeDrawer(); render();
       showToast(`Merchant ${name} removed`);
     }
-
     function pingTelegramTest() {
       if (!selectedMerchant) return;
-      const tg = selectedMerchant.telegram;
-      if (!tg) {
-        showToast('No Telegram chat/thread ID configured for this merchant');
-        return;
-      }
-      showToast(`🔔 Test ping sent to Telegram (${tg})`);
+      if (!selectedMerchant.telegram) { showToast('No Telegram ID configured'); return; }
+      showToast(`🔔 Test ping sent to ${selectedMerchant.telegram}`);
     }
 
-    /* ============================================================
-       CSV EXPORT
-       ============================================================ */
     function exportCsv() {
-      if (!merchants.length) {
-        showToast('No merchant data to export');
-        return;
-      }
-
-      const headers = ['Merchant ID', 'Name', 'Email', 'Phone', 'Country', 'Status', 'Online', 'Trades', 'Completion Rate', 'Currencies', 'Payment Methods', 'Telegram', 'Escrow Address'];
-      const rows = merchants.map(m => [
-        `"${m.id}"`,
-        `"${m.name}"`,
-        `"${m.email || ''}"`,
-        `"${m.phone || ''}"`,
-        `"${m.country || ''}"`,
-        `"${m.status}"`,
-        `"${m.isOnline ? 'Yes' : 'No'}"`,
-        m.trades || 0,
-        `"${m.completion || 99}%"`,
-        `"${(m.currencies || []).join(';')}"`,
-        `"${(m.methods || []).join(';')}"`,
-        `"${m.telegram || ''}"`,
-        `"${m.escrowAddr || ''}"`
-      ]);
-
-      const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
-      const encodedUri = encodeURI(csvContent);
+      if (!merchants.length) { showToast('No merchants to export'); return; }
+      const headers = ['ID','Name','Email','Phone','Country','Status','Online','Trades','Completion','Currencies','Payment Accounts','Escrow Addresses','Sell Offers','Buy Offers','Telegram'];
+      const rows = merchants.map(m => {
+        const sellCount = (m.offers || []).filter(o => o.active && o.side === 'sell').length;
+        const buyCount = (m.offers || []).filter(o => o.active && o.side === 'buy').length;
+        const pays = (m.paymentDetails || []).map(p => `${p.method}:${p.account}(${p.holder})`).join(';');
+        const esc = Object.entries(m.escrowAddresses || {}).map(([k,v]) => `${k}:${v.network}:${v.address}`).join(';');
+        return [
+          `"${m.id}"`,`"${m.name}"`,`"${m.email||''}"`,`"${m.phone||''}"`,`"${m.country||''}"`,
+          `"${m.status}"`,`"${m.isOnline?'Yes':'No'}"`,m.trades||0,`"${m.completion||99}%"`,
+          `"${(m.currencies||[]).join(';')}"`,`"${pays}"`,`"${esc}"`,sellCount,buyCount,`"${m.telegram||''}"`
+        ];
+      });
+      const csv = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
       const link = document.createElement('a');
-      link.setAttribute('href', encodedUri);
+      link.setAttribute('href', encodeURI(csv));
       link.setAttribute('download', `bluepeak_merchants_${new Date().toISOString().split('T')[0]}.csv`);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      showToast('Merchant roster CSV exported');
+      document.body.appendChild(link); link.click(); document.body.removeChild(link);
+      showToast('Merchant CSV exported');
     }
 
-    /* ============================================================
-       TOAST
-       ============================================================ */
     let toastTimer = null;
     function showToast(msg) {
       const t = document.getElementById('toast');
@@ -2229,38 +2489,21 @@
       toastTimer = setTimeout(() => t.classList.remove('show'), 3200);
     }
 
-    /* ============================================================
-       EVENT LISTENERS & BOOTSTRAP
-       ============================================================ */
     document.addEventListener('DOMContentLoaded', () => {
-      // Admin session setup
       const session = getAdminSession();
-      if (document.getElementById('adminName')) document.getElementById('adminName').textContent = session.name;
-      if (document.getElementById('adminAvatar')) document.getElementById('adminAvatar').textContent = session.initial || 'A';
+      document.getElementById('adminName').textContent = session.name;
+      document.getElementById('adminAvatar').textContent = session.initial || 'A';
 
-      // Load merchants
       loadMerchants();
       updateSidebarBadges();
       render();
 
-      // Mobile sidebar toggle
       const menuToggle = document.getElementById('menuToggle');
       const sidebar = document.getElementById('sidebar');
       const sidebarOverlay = document.getElementById('sidebarOverlay');
-      if (menuToggle) {
-        menuToggle.addEventListener('click', () => {
-          sidebar.classList.toggle('open');
-          sidebarOverlay.classList.toggle('open');
-        });
-      }
-      if (sidebarOverlay) {
-        sidebarOverlay.addEventListener('click', () => {
-          sidebar.classList.remove('open');
-          sidebarOverlay.classList.remove('open');
-        });
-      }
+      if (menuToggle) menuToggle.addEventListener('click', () => { sidebar.classList.toggle('open'); sidebarOverlay.classList.toggle('open'); });
+      if (sidebarOverlay) sidebarOverlay.addEventListener('click', () => { sidebar.classList.remove('open'); sidebarOverlay.classList.remove('open'); });
 
-      // Logout button
       document.getElementById('logoutBtn').addEventListener('click', () => {
         if (confirm('Sign out from Bluepeak Capital Admin Desk?')) {
           localStorage.removeItem('bp_admin_session');
@@ -2268,7 +2511,6 @@
         }
       });
 
-      // Filter pills
       document.querySelectorAll('.filter-pill').forEach(pill => {
         pill.addEventListener('click', () => {
           document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
@@ -2278,12 +2520,10 @@
         });
       });
 
-      // Search and Select filters
       document.getElementById('searchInput').addEventListener('input', render);
       document.getElementById('currencyFilter').addEventListener('change', render);
       document.getElementById('sortBy').addEventListener('change', render);
 
-      // View switcher
       document.getElementById('viewGridBtn').addEventListener('click', () => {
         currentView = 'grid';
         document.getElementById('viewGridBtn').classList.add('active');
@@ -2297,50 +2537,28 @@
         render();
       });
 
-      // Force Sync Button
-      document.getElementById('syncPortalBtn').addEventListener('click', () => {
-        syncToCustomerPortal();
-        showToast('✅ Forced sync with P2P Trading portal completed');
-      });
-
-      // CSV Export
+      document.getElementById('syncPortalBtn').addEventListener('click', () => { syncToCustomerPortal(); showToast('✅ Forced P2P sync complete'); });
       document.getElementById('exportCsvBtn').addEventListener('click', exportCsv);
-
-      // Add Merchant Modal triggers
       document.getElementById('openAddMerchantBtn').addEventListener('click', openAddModal);
       document.getElementById('closeModalBtn').addEventListener('click', closeModal);
       document.getElementById('cancelModalBtn').addEventListener('click', closeModal);
-      document.getElementById('merchantModalOverlay').addEventListener('click', (e) => {
-        if (e.target === document.getElementById('merchantModalOverlay')) closeModal();
-      });
+      document.getElementById('merchantModalOverlay').addEventListener('click', (e) => { if (e.target === e.currentTarget) closeModal(); });
 
-      // Tag selection in modal
-      document.querySelectorAll('#currencyTags .tag-choice').forEach(t => {
-        t.addEventListener('click', () => {
-          t.classList.toggle('selected');
-        });
-      });
+      document.querySelectorAll('#currencyTags .tag-choice').forEach(t => t.addEventListener('click', () => t.classList.toggle('selected')));
 
-      // Drawer close & tab triggers
       document.getElementById('drawerCloseBtn').addEventListener('click', closeDrawer);
       document.getElementById('drawerOverlay').addEventListener('click', closeDrawer);
-      document.querySelectorAll('.drawer-tab').forEach(tab => {
-        tab.addEventListener('click', () => {
-          switchDrawerTab(tab.getAttribute('data-tab'));
-        });
-      });
+      document.querySelectorAll('.drawer-tab').forEach(tab => tab.addEventListener('click', () => switchDrawerTab(tab.getAttribute('data-tab'))));
 
-      // Drawer Actions
-      document.getElementById('actEditBtn').addEventListener('click', () => {
-        if (selectedMerchant) openEditModal(selectedMerchant.id);
-      });
+      document.getElementById('actEditBtn').addEventListener('click', () => { if (selectedMerchant) openEditModal(selectedMerchant.id); });
       document.getElementById('actToggleOnlineBtn').addEventListener('click', toggleOnlineStatus);
       document.getElementById('actToggleVerifyBtn').addEventListener('click', toggleVerification);
       document.getElementById('actToggleSuspendBtn').addEventListener('click', toggleSuspension);
       document.getElementById('actDeleteBtn').addEventListener('click', deleteMerchant);
       document.getElementById('actPingTgBtn').addEventListener('click', pingTelegramTest);
 
-      // Periodically refresh badges
+      document.getElementById('dAddOfferBtn').addEventListener('click', () => { if (selectedMerchant) openEditModal(selectedMerchant.id); });
+
       setInterval(updateSidebarBadges, 8000);
     });
   </script>
