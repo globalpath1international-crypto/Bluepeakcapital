@@ -298,7 +298,7 @@
       display: flex; flex-direction: column; align-items: center; gap: 3px;
       background: none; border: none; cursor: pointer;
       padding: 6px 8px; border-radius: var(--radius-sm);
-      transition: all 0.2s; flex: 1; max-width: 80px;
+      transition: all 0.2s; flex-shrink: 0; flex: 1; max-width: 80px;
       color: var(--gray-500); font-family: var(--font);
       font-size: 10px; font-weight: 600; letter-spacing: 0.2px;
     }
@@ -540,8 +540,8 @@
     <svg viewBox="0 0 24 24" style="width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2.5;"><polyline points="6 9 12 15 18 9"/></svg>
   </button>
 </div>
-      <div class="balance-card-sub">
-        <span style="color:var(--green-500);">+0.00%</span>
+      <div class="balance-card-sub" style="flex-wrap:wrap;gap:8px;">
+        <span id="balanceRateInline" style="color:var(--gold-300);font-weight:800;font-size:12px;">1 USDT ≈ $1.00</span>
         <span class="stat" id="availableBalanceText">· Available: $0.00</span>
       </div>
       <div class="balance-card-actions">
@@ -765,6 +765,7 @@
             menu.classList.remove('open');
             updateBalanceVisibility();
             if (typeof refreshLiveBalances === 'function') refreshLiveBalances();
+            if (typeof v3_renderRateLine === 'function') v3_renderRateLine();
           });
         });
         return menu;
@@ -1056,6 +1057,7 @@
 
         const totalUsd = ASSETS.reduce((sum, a) => sum + (a.balance > 0 ? a.balance * a.price : 0), 0);
 
+        // Available balance = actual real wallet total, always. No fake data.
         const availableEl = $('#availableBalanceText');
         if (availableEl) availableEl.textContent = '· Available: ' + fmtUSD(totalUsd);
 
@@ -1340,8 +1342,6 @@
       }
 
       function v3_renderRateLine() {
-        const rateEl = document.getElementById('walletRateValue');
-        if (!rateEl) return;
         const code = (typeof getSelectedTotalCurrency === 'function') ? getSelectedTotalCurrency() : 'USD';
         const cur = (typeof TOTAL_BAL_CURRENCIES !== 'undefined')
           ? TOTAL_BAL_CURRENCIES.find(c => c.code === code) || TOTAL_BAL_CURRENCIES[0]
@@ -1349,7 +1349,15 @@
         const usdtUsd = v3_getUsdtUsdRate();
         const localRate = usdtUsd * cur.fx;
         const dec = (code === 'NGN' || code === 'TZS' || code === 'UGX' || code === 'RWF') ? 0 : 2;
-        rateEl.textContent = `1 USDT ≈ ${cur.symbol}${Number(localRate).toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec })}`;
+        const rateText = `1 USDT ≈ ${cur.symbol}${Number(localRate).toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec })}`;
+
+        // Update the standalone rate line below the balance card
+        const rateEl = document.getElementById('walletRateValue');
+        if (rateEl) rateEl.textContent = rateText;
+
+        // Update the inline rate next to Available
+        const inlineEl = document.getElementById('balanceRateInline');
+        if (inlineEl) inlineEl.textContent = rateText;
       }
 
       async function v3_refreshLiveRate() {
