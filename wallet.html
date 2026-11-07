@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-  <title>Wallet â€” Bluepeak Capital</title>
+  <title>Wallet — Bluepeak Capital</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <style>
     /* ============================================================
-       BLUEPEAK CAPITAL â€” WALLET DASHBOARD
+       BLUEPEAK CAPITAL — WALLET DASHBOARD
        ============================================================ */
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -430,6 +430,11 @@
     /* Auto-fit scaling for professional number display */
     .balance-card-value #totalBalance{display:inline-block;transition:font-size 0.12s ease;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .asset-row-amount, .asset-row-usd { max-width:100%; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-variant-numeric: tabular-nums; }
+
+    /* ===== PATCH v3 CSS ===== */
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+    #walletRateRefresh.spinning svg { animation: spin 0.8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
   </style></head>
 <body>
 
@@ -441,13 +446,13 @@
   <div class="bottom-sheet" id="depositModal">
     <div class="sheet-header">
       <h3>Deposit</h3>
-      <button class="sheet-close" id="depositModalClose">âœ•</button>
+      <button class="sheet-close" id="depositModalClose">✕</button>
     </div>
     <div class="sheet-body">
       <div class="field-group">
         <label class="field-label">Select Asset</label>
         <select class="select-field" id="depositAssetSelect">
-          <option value="USDT">Tether (USDT â€” TRC20)</option>
+          <option value="USDT">Tether (USDT — TRC20)</option>
           <option value="BTC">Bitcoin (BTC)</option>
           <option value="ETH">Ethereum (ETH)</option>
           <option value="SOL">Solana (SOL)</option>
@@ -461,14 +466,14 @@
         </div>
       </div>
       <div class="info-box">
-        <div class="ib-icon">âš ï¸</div>
+        <div class="ib-icon">⚠️</div>
         <div class="ib-text">Only send <strong id="depositAssetNote">USDT (TRC20)</strong> to this address. Sending other assets may result in permanent loss.</div>
       </div>
       <div class="info-box">
-        <div class="ib-icon">ðŸ’¡</div>
-        <div class="ib-text">Deposits typically confirm within 1â€“3 minutes depending on network congestion.</div>
+        <div class="ib-icon">💡</div>
+        <div class="ib-text">Deposits typically confirm within 1–3 minutes depending on network congestion.</div>
       </div>
-      <button class="btn-primary" onclick="showToast('Deposit flow â€” integration point')">I Have Made the Transfer</button>
+      <button class="btn-primary" onclick="showToast('Deposit flow — integration point')">I Have Made the Transfer</button>
     </div>
   </div>
 
@@ -476,13 +481,13 @@
   <div class="bottom-sheet" id="withdrawModal">
     <div class="sheet-header">
       <h3>Withdraw</h3>
-      <button class="sheet-close" id="withdrawModalClose">âœ•</button>
+      <button class="sheet-close" id="withdrawModalClose">✕</button>
     </div>
     <div class="sheet-body">
       <div class="field-group">
         <label class="field-label">Select Asset</label>
         <select class="select-field" id="withdrawAssetSelect">
-          <option value="USDT">Tether (USDT â€” TRC20)</option>
+          <option value="USDT">Tether (USDT — TRC20)</option>
           <option value="BTC">Bitcoin (BTC)</option>
           <option value="ETH">Ethereum (ETH)</option>
           <option value="SOL">Solana (SOL)</option>
@@ -497,10 +502,10 @@
         <input type="text" class="input-field" id="withdrawAddress" placeholder="Enter wallet address">
       </div>
       <div class="info-box">
-        <div class="ib-icon">ðŸ”’</div>
+        <div class="ib-icon">🔒</div>
         <div class="ib-text">Withdrawals are processed within 30 minutes. For security, large withdrawals may require additional verification.</div>
       </div>
-      <button class="btn-primary" onclick="showToast('Withdrawal submitted â€” integration point')">Submit Withdrawal</button>
+      <button class="btn-primary" onclick="showToast('Withdrawal submitted — integration point')">Submit Withdrawal</button>
     </div>
   </div>
 
@@ -537,12 +542,24 @@
 </div>
       <div class="balance-card-sub">
         <span style="color:var(--green-500);">+0.00%</span>
-        <span class="stat" id="availableBalanceText">Â· Available: $0.00</span>
+        <span class="stat" id="availableBalanceText">· Available: $0.00</span>
       </div>
       <div class="balance-card-actions">
-        <button class="bal-action-btn deposit" id="depositBtn">â†“ Deposit</button>
-        <button class="bal-action-btn withdraw" id="withdrawBtn">â†‘ Withdraw</button>
+        <button class="bal-action-btn deposit" id="depositBtn">↓ Deposit</button>
+        <button class="bal-action-btn withdraw" id="withdrawBtn">↑ Withdraw</button>
       </div>
+    </div>
+
+    <!-- LIVE RATE LINE -->
+    <div id="walletRateLine" style="display:flex;align-items:center;justify-content:space-between;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-pill);padding:9px 16px;box-shadow:var(--shadow-xs);">
+      <div style="display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--gray-500);">
+        <span style="width:7px;height:7px;border-radius:50%;background:var(--green-500);animation:pulse 1.5s infinite;"></span>
+        Market Rate:
+        <strong id="walletRateValue" style="color:var(--navy-900);font-weight:800;">1 USDT ≈ $1.00</strong>
+      </div>
+      <button id="walletRateRefresh" type="button" aria-label="Refresh rate" style="background:none;border:none;cursor:pointer;color:var(--gray-500);display:flex;align-items:center;justify-content:center;padding:4px;">
+        <svg viewBox="0 0 24 24" style="width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2.2;"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.5 9a9 9 0 0114.9-3.4L23 10"/><path d="M20.5 15a9 9 0 01-14.9 3.4L1 14"/></svg>
+      </button>
     </div>
 
     <!-- ASSETS -->
@@ -596,23 +613,23 @@
     </button>
   </nav>
 
-  <!-- ASSET ACTION SHEET (per asset â‹® menu) -->
+  <!-- ASSET ACTION SHEET (per asset ⋮ menu) -->
   <div class="bottom-sheet" id="assetActionSheet">
     <div class="sheet-header">
       <h3 id="assetActionTitle">Asset</h3>
-      <button class="sheet-close" id="assetActionClose">âœ•</button>
+      <button class="sheet-close" id="assetActionClose">✕</button>
     </div>
     <div class="sheet-body">
       <div class="asset-action-row">
         <button class="asset-action-btn deposit" id="assetActionDeposit">
-          <span class="aab-icon">â†“</span>
+          <span class="aab-icon">↓</span>
           <span>
             Deposit
             <span class="aab-sub" id="assetActionDepositSub">Receive into your wallet</span>
           </span>
         </button>
         <button class="asset-action-btn withdraw" id="assetActionWithdraw">
-          <span class="aab-icon">â†‘</span>
+          <span class="aab-icon">↑</span>
           <span>
             Withdraw
             <span class="aab-sub" id="assetActionWithdrawSub">Send to an external wallet</span>
@@ -626,7 +643,7 @@
   <div class="bottom-sheet" id="txDetailSheet">
     <div class="sheet-header">
       <h3 id="txDetailTitle">Transaction Details</h3>
-      <button class="sheet-close" id="txDetailClose">âœ•</button>
+      <button class="sheet-close" id="txDetailClose">✕</button>
     </div>
     <div class="sheet-body" id="txDetailBody"></div>
   </div>
@@ -645,7 +662,7 @@
       const toastEl = $('#toast');
 
       // ============================================================
-      // ASSETS (demo defaults â€” real values overlaid by ADDITIONS)
+      // ASSETS (demo defaults — real values overlaid by ADDITIONS)
       // ============================================================
       const ASSETS = [
         { symbol: 'USDT', name: 'Tether', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/usdt.svg', balance: 0, price: 1 },
@@ -674,14 +691,14 @@
       // ===== Total Balance Multi-Currency =====
       const TOTAL_BAL_CURRENCIES = [
         { code: 'USD', symbol: '$',   name: 'US Dollar',           fx: 1.0 },
-        { code: 'EUR', symbol: 'â‚¬',   name: 'Euro',                fx: 0.92 },
-        { code: 'GBP', symbol: 'Â£',   name: 'British Pound',       fx: 0.79 },
+        { code: 'EUR', symbol: '€',   name: 'Euro',                fx: 0.92 },
+        { code: 'GBP', symbol: '£',   name: 'British Pound',       fx: 0.79 },
         { code: 'KES', symbol: 'KSh ',name: 'Kenyan Shilling',     fx: 130.5 },
-        { code: 'NGN', symbol: 'â‚¦',   name: 'Nigerian Naira',      fx: 1480.0 },
+        { code: 'NGN', symbol: '₦',   name: 'Nigerian Naira',      fx: 1480.0 },
         { code: 'ZAR', symbol: 'R ',  name: 'South African Rand',  fx: 18.2 },
         { code: 'TZS', symbol: 'TSh ',name: 'Tanzanian Shilling',  fx: 2600.0 },
         { code: 'UGX', symbol: 'USh ',name: 'Ugandan Shilling',    fx: 3700.0 },
-        { code: 'GHS', symbol: 'GHâ‚µ', name: 'Ghanaian Cedi',       fx: 15.2 },
+        { code: 'GHS', symbol: 'GH₵', name: 'Ghanaian Cedi',       fx: 15.2 },
         { code: 'RWF', symbol: 'FRw ',name: 'Rwandan Franc',       fx: 1380.0 },
         { code: 'AED', symbol: 'AED ',name: 'UAE Dirham',          fx: 3.67 }
       ];
@@ -818,7 +835,7 @@
           fitTotalBalanceFont();
           icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
         } else {
-          el.textContent = 'â€¢â€¢â€¢â€¢â€¢â€¢';
+          el.textContent = '••••••';
           icon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
         }
       }
@@ -837,13 +854,13 @@
               <div class="asset-row-info">
                 <div class="asset-row-name">${a.name}</div>
                 <div class="asset-row-symbol">${a.symbol}</div>
-                <div class="asset-live-price">1 ${a.symbol} â‰ˆ ${fmtUSD(a.price)}</div>
+                <div class="asset-live-price">1 ${a.symbol} ≈ ${fmtUSD(a.price)}</div>
               </div>
               <div class="asset-row-balance">
                 <div class="asset-row-amount">${fmtAmt(a.balance)} ${a.symbol}</div>
-                <div class="asset-row-usd">â‰ˆ ${fmtUSD(usdValue)}</div>
+                <div class="asset-row-usd">≈ ${fmtUSD(usdValue)}</div>
               </div>
-              <button class="asset-row-dots" data-asset-menu="${a.symbol}" aria-label="Asset actions">â‹®</button>
+              <button class="asset-row-dots" data-asset-menu="${a.symbol}" aria-label="Asset actions">⋮</button>
             </div>
           `;
         }).join('');
@@ -877,7 +894,7 @@
         }
 
         $('#txList').innerHTML = filtered.map(t => {
-          const iconEmoji = { deposit: 'â†“', withdraw: 'â†‘', swap: 'â‡„', trade: 'ðŸ“ˆ' }[t.type] || 'â€¢';
+          const iconEmoji = { deposit: '↓', withdraw: '↑', swap: '⇄', trade: '📈' }[t.type] || '•';
           const sign = t.type === 'deposit' || t.type === 'trade' ? '+' : '-';
           const cls = sign === '+' ? 'positive' : 'negative';
           const statusClass = t.status === 'completed' ? '' : t.status;
@@ -894,7 +911,7 @@
                 <div class="tx-amount-val ${cls}">${sign}${t.amount} ${t.symbol}</div>
                 <div class="tx-status ${statusClass}">${t.status}</div>
               </div>
-              <div class="tx-item-arrow">â€º</div>
+              <div class="tx-item-arrow">›</div>
             </div>
           `;
         }).join('');
@@ -947,7 +964,7 @@
             return JSON.parse(localStorage.getItem('bp_platform_deposit_addresses') || '{}');
           } catch (e) { return {}; }
         })();
-        $('#depositAddress').textContent = platformAddrs[sym] || DEPOSIT_ADDRESSES[sym] || 'â€”';
+        $('#depositAddress').textContent = platformAddrs[sym] || DEPOSIT_ADDRESSES[sym] || '—';
         $('#depositAssetNote').textContent = sym;
       }
       $('#depositAssetSelect').addEventListener('change', updateDepositAddress);
@@ -1040,7 +1057,7 @@
         const totalUsd = ASSETS.reduce((sum, a) => sum + (a.balance > 0 ? a.balance * a.price : 0), 0);
 
         const availableEl = $('#availableBalanceText');
-        if (availableEl) availableEl.textContent = 'Â· Available: ' + fmtUSD(totalUsd);
+        if (availableEl) availableEl.textContent = '· Available: ' + fmtUSD(totalUsd);
 
         renderAssets();
         updateBalanceVisibility();
@@ -1062,8 +1079,8 @@
           list.push({
             id: 'dep-' + i + '-' + (d.txid || d.id || ''),
             type: 'deposit',
-            title: 'Deposit Â· ' + sym,
-            date: d.date || d.createdAt || d.timestamp || 'â€”',
+            title: 'Deposit · ' + sym,
+            date: d.date || d.createdAt || d.timestamp || '—',
             amount: isNaN(amt) ? '0.00' : amt.toFixed(2),
             symbol: sym,
             status: (d.status || 'completed').toLowerCase(),
@@ -1077,8 +1094,8 @@
           list.push({
             id: 'wd-' + i + '-' + (w.txid || w.id || ''),
             type: 'withdraw',
-            title: 'Withdrawal Â· ' + sym,
-            date: w.date || w.createdAt || w.timestamp || 'â€”',
+            title: 'Withdrawal · ' + sym,
+            date: w.date || w.createdAt || w.timestamp || '—',
             amount: isNaN(amt) ? '0.00' : amt.toFixed(2),
             symbol: sym,
             status: (w.status || 'pending').toLowerCase(),
@@ -1087,14 +1104,14 @@
         });
 
         readJSON('bp_recent_swaps').forEach((s, i) => {
-          const fromSym = s.from || s.fromSymbol || 'â€”';
-          const toSym = s.to || s.toSymbol || 'â€”';
+          const fromSym = s.from || s.fromSymbol || '—';
+          const toSym = s.to || s.toSymbol || '—';
           const amt = parseFloat(s.fromAmount || s.amount || 0);
           list.push({
             id: 'sw-' + i + '-' + (s.id || ''),
             type: 'swap',
-            title: 'Swap Â· ' + fromSym + ' â†’ ' + toSym,
-            date: s.date || s.createdAt || s.timestamp || 'â€”',
+            title: 'Swap · ' + fromSym + ' → ' + toSym,
+            date: s.date || s.createdAt || s.timestamp || '—',
             amount: isNaN(amt) ? '0.00' : amt.toFixed(4),
             symbol: fromSym,
             status: (s.status || 'completed').toLowerCase(),
@@ -1104,13 +1121,13 @@
 
         readJSON('bp_p2p_orders').forEach((o, i) => {
           const amt = parseFloat(o.cryptoAmount || o.fiatAmount || 0);
-          const sym = o.crypto || 'â€”';
+          const sym = o.crypto || '—';
           const side = (o.mode || '').toLowerCase() === 'sell' ? 'Sell' : 'Buy';
           list.push({
             id: 'p2p-' + i + '-' + (o.id || ''),
             type: 'trade',
-            title: 'P2P ' + side + ' Â· ' + sym,
-            date: o.date || o.createdAt || 'â€”',
+            title: 'P2P ' + side + ' · ' + sym,
+            date: o.date || o.createdAt || '—',
             amount: isNaN(amt) ? '0.00' : amt.toFixed(4),
             symbol: sym,
             status: (o.status || 'pending').toLowerCase(),
@@ -1143,7 +1160,7 @@
         const sheet = $('#assetActionSheet');
         const overlay = $('#sheetOverlay');
         if (!sheet || !overlay) return;
-        $('#assetActionTitle').textContent = (a ? a.name : sym) + ' Â· ' + sym;
+        $('#assetActionTitle').textContent = (a ? a.name : sym) + ' · ' + sym;
         $('#assetActionDepositSub').textContent = 'Receive ' + sym + ' into your wallet';
         $('#assetActionWithdrawSub').textContent = 'Send ' + sym + ' to an external wallet';
         sheet.classList.add('open');
@@ -1186,7 +1203,7 @@
         const rows = [];
 
         rows.push(['Activity', typeLabel]);
-        rows.push(['Asset', rec.symbol || 'â€”']);
+        rows.push(['Asset', rec.symbol || '—']);
         rows.push(['Amount', rec.amount + ' ' + (rec.symbol || '')]);
         if (raw.fiatAmount) rows.push(['Fiat amount', raw.fiatAmount + ' ' + (raw.fiat || '')]);
         if (raw.price) rows.push(['Price', raw.price]);
@@ -1198,7 +1215,7 @@
         if (raw.order) rows.push(['Order ID', raw.order]);
         rows.push(['Date', rec.date]);
 
-        const statusPill = '<span class="tx-status-pill ' + statusClass + '">' + (rec.status || 'â€”').toUpperCase() + '</span>';
+        const statusPill = '<span class="tx-status-pill ' + statusClass + '">' + (rec.status || '—').toUpperCase() + '</span>';
 
         let html = rows.map(r => `
           <div class="tx-detail-row">
@@ -1210,7 +1227,7 @@
 
         if (raw.proof || raw.dispute) {
           html += `<div class="info-box" style="margin-top:10px;">
-            <div class="ib-icon">${raw.dispute ? 'ðŸš©' : 'ðŸ“Ž'}</div>
+            <div class="ib-icon">${raw.dispute ? '🚩' : '📎'}</div>
             <div class="ib-text"><strong>${raw.dispute ? 'Dispute opened' : 'Proof attached'}</strong><br>${raw.dispute ? (raw.dispute.reason || 'Under mediation') : 'Payment proof on file'}</div>
           </div>`;
         }
@@ -1262,6 +1279,160 @@
       } catch (err) {
         console.warn('[wallet] additions init failed', err);
       }
+
+      /* ===== PATCH v3 ===== */
+
+      // --- v3.1: Zero-safe balance enforcement ---
+      // Ensure bp_user_balances exists with all-zero defaults for new accounts.
+      // Runs once on load; never overwrites non-zero balances.
+      (function v3_ensureBalanceKey() {
+        try {
+          const raw = localStorage.getItem('bp_user_balances');
+          if (!raw) {
+            localStorage.setItem('bp_user_balances', JSON.stringify({
+              USDT: 0, BTC: 0, ETH: 0, SOL: 0, BNB: 0, USD: 0
+            }));
+            return;
+          }
+          const parsed = JSON.parse(raw);
+          if (!parsed || typeof parsed !== 'object') {
+            localStorage.setItem('bp_user_balances', JSON.stringify({
+              USDT: 0, BTC: 0, ETH: 0, SOL: 0, BNB: 0, USD: 0
+            }));
+            return;
+          }
+          // Fill in any missing keys as 0, preserve existing non-zero values
+          let changed = false;
+          const defaults = { USDT: 0, BTC: 0, ETH: 0, SOL: 0, BNB: 0, USD: 0 };
+          Object.keys(defaults).forEach(k => {
+            if (typeof parsed[k] === 'undefined') {
+              parsed[k] = 0;
+              changed = true;
+            }
+          });
+          if (changed) localStorage.setItem('bp_user_balances', JSON.stringify(parsed));
+        } catch (_) {}
+      })();
+
+      // --- v3.2: Live market rate display bound to selected currency ---
+      // Fetches live USDT/USD rate from CoinGecko, converts to selected display currency,
+      // and renders "1 USDT ≈ {rate} {currency}" under the balance card.
+      // Falls back to the currency's fxMultiplier if the network fails.
+
+      const V3_RATE_CACHE_KEY = 'bp_market_rates_cache';
+      const V3_RATE_CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+
+      function v3_getUsdtUsdRate() {
+        // 1. Check cache
+        try {
+          const cached = JSON.parse(localStorage.getItem(V3_RATE_CACHE_KEY) || 'null');
+          if (cached && cached.rate > 0 && (Date.now() - cached.ts) < V3_RATE_CACHE_TTL) {
+            return cached.rate;
+          }
+        } catch (_) {}
+        // 2. Check bp_market_prices (written by other pages)
+        try {
+          const mp = JSON.parse(localStorage.getItem('bp_market_prices') || '{}');
+          if (isFinite(mp.USDT) && mp.USDT > 0) return Number(mp.USDT);
+        } catch (_) {}
+        // 3. Default
+        return 1.0;
+      }
+
+      function v3_renderRateLine() {
+        const rateEl = document.getElementById('walletRateValue');
+        if (!rateEl) return;
+        const code = (typeof getSelectedTotalCurrency === 'function') ? getSelectedTotalCurrency() : 'USD';
+        const cur = (typeof TOTAL_BAL_CURRENCIES !== 'undefined')
+          ? TOTAL_BAL_CURRENCIES.find(c => c.code === code) || TOTAL_BAL_CURRENCIES[0]
+          : { code: 'USD', symbol: '$', fx: 1 };
+        const usdtUsd = v3_getUsdtUsdRate();
+        const localRate = usdtUsd * cur.fx;
+        const dec = (code === 'NGN' || code === 'TZS' || code === 'UGX' || code === 'RWF') ? 0 : 2;
+        rateEl.textContent = `1 USDT ≈ ${cur.symbol}${Number(localRate).toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec })}`;
+      }
+
+      async function v3_refreshLiveRate() {
+        const btn = document.getElementById('walletRateRefresh');
+        if (btn) btn.classList.add('spinning');
+        try {
+          const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=tether,bitcoin,ethereum,solana&vs_currencies=usd');
+          if (res.ok) {
+            const data = await res.json();
+            const prices = {};
+            if (data.tether?.usd) prices.USDT = data.tether.usd;
+            if (data.bitcoin?.usd) prices.BTC = data.bitcoin.usd;
+            if (data.ethereum?.usd) prices.ETH = data.ethereum.usd;
+            if (data.solana?.usd) prices.SOL = data.solana.usd;
+            if (Object.keys(prices).length > 0) {
+              try { localStorage.setItem('bp_market_prices', JSON.stringify(prices)); } catch (_) {}
+              if (prices.USDT) {
+                try { localStorage.setItem(V3_RATE_CACHE_KEY, JSON.stringify({ rate: prices.USDT, ts: Date.now() })); } catch (_) {}
+              }
+            }
+          }
+        } catch (_) {}
+        v3_renderRateLine();
+        setTimeout(() => { if (btn) btn.classList.remove('spinning'); }, 500);
+      }
+
+      // Hook: refresh rate line whenever currency changes
+      (function v3_wireRateRefresh() {
+        const btn = document.getElementById('walletRateRefresh');
+        if (btn) {
+          btn.addEventListener('click', () => { v3_refreshLiveRate(); });
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+          v3_renderRateLine();
+          setTimeout(v3_renderRateLine, 500);
+        });
+        // Re-render rate whenever user switches currency via the pill
+        document.addEventListener('click', (e) => {
+          if (e.target.closest('.tbc-item')) {
+            setTimeout(v3_renderRateLine, 60);
+          }
+        }, true);
+        // Re-render on external storage events (balance/prices changed in another tab)
+        window.addEventListener('storage', (e) => {
+          if (e.key === 'bp_market_prices' || e.key === 'bp_user_balances' || e.key === 'bp_wallet_display_currency') {
+            v3_renderRateLine();
+          }
+        });
+        // Re-render on page focus (returning from another page)
+        window.addEventListener('focus', () => {
+          v3_renderRateLine();
+        });
+      })();
+
+      // Wrap updateBalanceVisibility to also refresh the rate line
+      (function v3_wrapUpdateBalance() {
+        const orig = window.updateBalanceVisibility;
+        if (typeof orig !== 'function') return;
+        window.updateBalanceVisibility = function () {
+          const r = orig.apply(this, arguments);
+          try { v3_renderRateLine(); } catch (_) {}
+          return r;
+        };
+      })();
+
+      // Also refresh rate after refreshLiveBalances runs
+      (function v3_wrapRefreshBalances() {
+        const orig = window.refreshLiveBalances;
+        if (typeof orig !== 'function') return;
+        window.refreshLiveBalances = function () {
+          const r = orig.apply(this, arguments);
+          try { v3_renderRateLine(); } catch (_) {}
+          return r;
+        };
+      })();
+
+      // On initial page load, do one live fetch (throttled by cache TTL)
+      document.addEventListener('DOMContentLoaded', () => {
+        v3_renderRateLine();
+        setTimeout(() => { v3_refreshLiveRate(); }, 800);
+      });
+
+      /* ===== End PATCH v3 ===== */
 
     })();
   </script>
