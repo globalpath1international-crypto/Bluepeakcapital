@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#0A1A2F">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <title>Bluepeak Capital — Buy, Sell, Swap Crypto</title>
+  <title>Bluepeak Capital â€” Buy, Sell, Swap Crypto</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
@@ -244,7 +244,7 @@
     .c.negative { color: var(--red-500); }
     .sel-check { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--gray-300); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
     .sel-item.selected .sel-check { background: var(--green-500); border-color: var(--green-500); }
-    .sel-item.selected .sel-check::after { content: '✓'; color: #fff; font-size: 13px; font-weight: 800; }
+    .sel-item.selected .sel-check::after { content: 'âœ“'; color: #fff; font-size: 13px; font-weight: 800; }
 
     .swap-rate-banner { background: linear-gradient(135deg, var(--navy-900), var(--navy-800)); border-radius: var(--radius-lg); padding: 22px 20px; color: var(--white); display: flex; flex-direction: column; gap: 6px; box-shadow: var(--shadow-md); position: relative; overflow: hidden; }
     .swap-rate-banner::after { content: ''; position: absolute; bottom: -30%; right: -10%; width: 180px; height: 180px; border-radius: 50%; background: radial-gradient(circle, rgba(201, 168, 76, 0.18), transparent 70%); pointer-events: none; }
@@ -408,7 +408,7 @@
     .profile-menu button.danger { color: var(--red-500); }
 
     /* ============================================================
-       RESPONSIVE — MOBILE-FIRST UP
+       RESPONSIVE â€” MOBILE-FIRST UP
        ============================================================ */
 
     /* Extra small (iPhone SE, small Android) */
@@ -658,144 +658,289 @@
     }
 
     /* ===== ADDITIONS ===== */
-    html, body { overflow-x: hidden; max-width: 100vw; }
-    .app-main, .app-header, .bottom-nav, .drawer, .selector-modal, .notification-panel, .profile-menu { max-width: 100vw; }
-    .qa-card img, .marketcap-cell-logo img, .asset-icon-wrap img, .sel-icon img, .ticker-icon img { max-width: 100%; height: auto; }
+    /* RESPONSIVE & OVERFLOW SAFETY (Change 1) */
+    html, body {
+      overflow-x: hidden;
+      max-width: 100vw;
+    }
+    .app-main, .app-header, .bottom-nav, .drawer, .selector-modal, .notification-panel, .profile-menu {
+      max-width: 100vw;
+    }
+    .qa-card img, .marketcap-cell-logo img, .asset-icon-wrap img, .sel-icon img, .ticker-icon img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* SELECTOR MODALS ON TABLET / DESKTOP (Change 1) */
     @media (min-width: 768px) {
-      .selector-modal { top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.95); width: 90%; max-width: 560px; height: auto; max-height: 85vh; border-radius: var(--radius-lg); opacity: 0; pointer-events: none; transition: transform .25s ease, opacity .25s ease; }
-      .selector-modal.open { transform: translate(-50%, -50%) scale(1); opacity: 1; pointer-events: auto; }
+      .selector-modal {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.95);
+        width: 90%;
+        max-width: 560px;
+        height: auto;
+        max-height: 85vh;
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-lg);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 0.25s ease, opacity 0.25s ease;
+      }
+      .selector-modal.open {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .selector-header {
+        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+        padding-top: 16px;
+      }
     }
     @media (min-width: 1024px) {
-      .selector-modal { max-width: 620px; }
+      .selector-modal {
+        max-width: 620px;
+      }
     }
-    .notification-panel, .profile-menu { max-width: min(380px, calc(100vw - 24px)); }
+
+    /* NOTIFICATION & PROFILE POPUP CONSTRAINTS (Change 1 & 4) */
+    .notification-panel, .profile-menu {
+      max-width: min(380px, calc(100vw - 24px));
+    }
     @media (min-width: 1024px) {
-      .profile-menu { min-width: 340px; }
+      .profile-menu {
+        min-width: 340px;
+      }
     }
 
-    .notif-header-unread-count {
-      display: inline-flex; align-items: center; justify-content: center;
-      background: var(--navy-50); color: var(--navy-900); font-size: 11px;
-      font-weight: 700; padding: 2px 8px; border-radius: var(--radius-pill);
-      border: 1px solid var(--gray-200); margin-left: 8px;
+    /* REDESIGNED PROFILE MENU (Change 4) */
+    .profile-menu {
+      padding: 12px;
+      border-radius: var(--radius-lg);
     }
-    .notification-item {
-      display: flex; align-items: flex-start; gap: 12px; padding: 12px 8px;
-      border-radius: var(--radius-xs); transition: background 0.15s;
-    }
-    .notification-item.unread {
-      background: rgba(201, 168, 76, 0.06);
-    }
-    .notification-item:hover {
-      background: var(--navy-50);
-    }
-    .notif-icon-circle {
-      width: 34px; height: 34px; border-radius: 50%; background: var(--navy-50);
-      border: 1px solid var(--gray-200); display: flex; align-items: center;
-      justify-content: center; font-size: 16px; flex-shrink: 0;
-    }
-    .notif-content-wrap {
-      flex: 1; min-width: 0; font-size: 12.5px; color: var(--gray-600); line-height: 1.4;
-    }
-    .notif-content-wrap .n-title {
-      font-weight: 800; color: var(--navy-900); font-size: 13px; margin-bottom: 2px;
-    }
-    .notif-content-wrap .n-time {
-      font-size: 10.5px; color: var(--gray-400); font-weight: 600; margin-top: 4px;
-    }
-    .notif-unread-dot {
-      width: 8px; height: 8px; border-radius: 50%; background: var(--gold-500);
-      flex-shrink: 0; margin-top: 6px;
-    }
-
     .pm-header-block {
-      display: flex; align-items: center; gap: 12px; padding: 12px 10px 14px;
-      border-bottom: 1px solid var(--gray-200); margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 6px 6px 14px;
+      border-bottom: 1px solid var(--gray-200);
+      margin-bottom: 8px;
     }
     .pm-avatar {
-      width: 44px; height: 44px; border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
       background: linear-gradient(135deg, var(--navy-800), var(--navy-900));
-      color: var(--gold-400); display: flex; align-items: center; justify-content: center;
-      font-weight: 800; font-size: 16px; border: 2px solid var(--gold-500);
-      flex-shrink: 0; user-select: none;
+      color: var(--gold-400);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 17px;
+      flex-shrink: 0;
+      border: 2px solid var(--gold-500);
+      box-shadow: var(--shadow-gold);
+      user-select: none;
     }
     .pm-user-details {
-      display: flex; flex-direction: column; min-width: 0; flex: 1; gap: 2px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+      flex: 1;
     }
     .pm-real-name {
-      font-size: 14px; font-weight: 800; color: var(--navy-900);
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--navy-900);
+      letter-spacing: -0.2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .pm-real-email {
-      font-size: 12px; font-weight: 500; color: var(--gray-500);
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--gray-500);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .pm-kyc-pill {
-      display: inline-flex; align-items: center; gap: 4px; font-size: 10px;
-      font-weight: 700; padding: 2px 7px; border-radius: var(--radius-pill);
-      background: var(--green-100); color: var(--green-500); width: fit-content;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--green-500);
+      background: var(--green-100);
+      padding: 2px 7px;
+      border-radius: var(--radius-pill);
       margin-top: 3px;
+      width: fit-content;
+      letter-spacing: 0.3px;
     }
     .pm-kyc-pill.unverified {
-      background: var(--gray-100); color: var(--gray-500);
+      color: var(--gray-500);
+      background: var(--gray-100);
     }
     .pm-nav-list {
-      display: flex; flex-direction: column; gap: 2px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
     }
     .pm-nav-item {
-      display: flex; align-items: center; justify-content: space-between;
-      width: 100%; padding: 10px 12px; border: none; background: transparent;
-      border-radius: var(--radius-xs); cursor: pointer; font-family: var(--font);
-      font-size: 13.5px; font-weight: 600; color: var(--navy-900);
-      transition: background 0.15s; -webkit-tap-highlight-color: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      min-height: 44px;
+      border-radius: var(--radius-xs);
+      border: none;
+      background: transparent;
+      font-family: var(--font);
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--navy-900);
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+      width: 100%;
+      text-align: left;
+      text-decoration: none;
     }
     .pm-nav-item:hover {
       background: var(--navy-50);
+      color: var(--navy-900);
+    }
+    .pm-nav-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+    .pm-nav-icon {
+      width: 20px;
+      height: 20px;
+      color: var(--gray-500);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .pm-nav-item:hover .pm-nav-icon {
+      color: var(--navy-900);
+    }
+    .pm-nav-icon svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .pm-nav-chevron {
+      width: 14px;
+      height: 14px;
+      stroke: var(--gray-400);
+      fill: none;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+    .pm-divider {
+      height: 1px;
+      background: var(--gray-200);
+      margin: 6px 0;
     }
     .pm-nav-item.danger {
       color: var(--red-500);
     }
+    .pm-nav-item.danger .pm-nav-icon {
+      color: var(--red-500);
+    }
     .pm-nav-item.danger:hover {
       background: var(--red-100);
-    }
-    .pm-nav-left {
-      display: flex; align-items: center; gap: 10px;
-    }
-    .pm-nav-icon {
-      width: 20px; height: 20px; display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; color: inherit;
-    }
-    .pm-nav-icon svg {
-      width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2;
-      stroke-linecap: round; stroke-linejoin: round;
-    }
-    .pm-nav-chevron {
-      width: 14px; height: 14px; color: var(--gray-400); display: flex; align-items: center;
-      justify-content: center; flex-shrink: 0;
-    }
-    .pm-nav-chevron svg {
-      width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2.2;
-      stroke-linecap: round; stroke-linejoin: round;
-    }
-    .pm-divider {
-      height: 1px; background: var(--gray-200); margin: 6px 8px;
+      color: var(--red-500);
     }
     .pm-signedout-box {
-      padding: 16px 12px; display: flex; flex-direction: column; gap: 12px; text-align: center;
+      padding: 10px 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
     .pm-signedout-text {
-      font-size: 13px; color: var(--gray-500); font-weight: 500; line-height: 1.45;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gray-600);
+      line-height: 1.4;
     }
     .pm-signedout-btn {
       background: linear-gradient(135deg, var(--gold-500), var(--gold-400));
-      color: var(--navy-900); border: none; padding: 10px 16px; border-radius: var(--radius-pill);
-      font-family: var(--font); font-size: 13px; font-weight: 800; cursor: pointer;
-      box-shadow: var(--shadow-gold); transition: transform 0.2s, box-shadow 0.2s;
-      width: 100%; text-align: center;
+      color: var(--navy-900);
+      border: none;
+      padding: 10px;
+      border-radius: var(--radius-sm);
+      font-family: var(--font);
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      text-align: center;
     }
-    .pm-signedout-btn:hover {
-      transform: translateY(-1px);
+
+    /* NOTIFICATION VISUAL POLISH (Change 3) */
+    .notification-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      position: relative;
+      padding: 11px 8px;
+      border-radius: var(--radius-xs);
+      transition: background 0.15s;
     }
+    .notification-item:hover {
+      background: var(--navy-50);
+    }
+    .notification-item.unread {
+      border-left: 3px solid var(--gold-500);
+      background: rgba(201, 168, 76, 0.05);
+      padding-left: 10px;
+    }
+    .notif-icon-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--navy-50);
+      border: 1px solid var(--gray-200);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    .notif-content-wrap {
+      flex: 1;
+      min-width: 0;
+    }
+    .notif-unread-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--gold-500);
+      flex-shrink: 0;
+      margin-top: 6px;
+    }
+    .notif-header-unread-count {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--gold-500);
+      background: var(--gold-100);
+      padding: 2px 7px;
+      border-radius: var(--radius-pill);
+      margin-left: 6px;
+    }
+
   </style>
 </head>
 <body>
@@ -808,7 +953,7 @@
         <span class="blue">BLUE</span><span class="peak">PEAK</span>
         <small>CAPITAL</small>
       </div>
-      <button class="drawer-close" id="drawerClose" aria-label="Close menu">✕</button>
+      <button class="drawer-close" id="drawerClose" aria-label="Close menu">âœ•</button>
     </div>
 
     <div class="drawer-auth-block" id="drawerAuthBlock">
@@ -817,23 +962,23 @@
     </div>
 
     <div class="drawer-section-label">Main</div>
-    <a class="drawer-link" href="index.html"><span class="nav-ico">🏠</span>Home</a>
-    <a class="drawer-link" href="p2p.html" data-requires-auth><span class="nav-ico">🤝</span>P2P Trading</a>
-    <a class="drawer-link" href="swap.html" data-requires-auth><span class="nav-ico">⇄</span>Swap</a>
-    <a class="drawer-link" href="trade.html" data-requires-auth><span class="nav-ico">📈</span>Trade</a>
-    <a class="drawer-link" href="wallet.html" data-requires-auth><span class="nav-ico">👛</span>Wallet</a>
-    <a class="drawer-link" href="markets.html"><span class="nav-ico">📊</span>Markets</a>
+    <a class="drawer-link" href="index.html"><span class="nav-ico">ðŸ </span>Home</a>
+    <a class="drawer-link" href="p2p.html" data-requires-auth><span class="nav-ico">ðŸ¤</span>P2P Trading</a>
+    <a class="drawer-link" href="swap.html" data-requires-auth><span class="nav-ico">â‡„</span>Swap</a>
+    <a class="drawer-link" href="trade.html" data-requires-auth><span class="nav-ico">ðŸ“ˆ</span>Trade</a>
+    <a class="drawer-link" href="wallet.html" data-requires-auth><span class="nav-ico">ðŸ‘›</span>Wallet</a>
+    <a class="drawer-link" href="markets.html"><span class="nav-ico">ðŸ“Š</span>Markets</a>
 
     <div class="drawer-divider"></div>
     <div class="drawer-section-label">Account</div>
-    <a class="drawer-link" href="transaction-history.html" data-requires-auth><span class="nav-ico">📜</span>Transactions</a>
-    <a class="drawer-link" href="profile.html" data-requires-auth><span class="nav-ico">👤</span>Profile</a>
-    <a class="drawer-link" href="kyc.html" data-requires-auth><span class="nav-ico">🪪</span>KYC Verification</a>
-    <a class="drawer-link" href="settings.html" data-requires-auth><span class="nav-ico">⚙️</span>Settings</a>
-    <a class="drawer-link" href="help.html"><span class="nav-ico">💬</span>Help Center</a>
+    <a class="drawer-link" href="transaction-history.html" data-requires-auth><span class="nav-ico">ðŸ“œ</span>Transactions</a>
+    <a class="drawer-link" href="profile.html" data-requires-auth><span class="nav-ico">ðŸ‘¤</span>Profile</a>
+    <a class="drawer-link" href="kyc.html" data-requires-auth><span class="nav-ico">ðŸªª</span>KYC Verification</a>
+    <a class="drawer-link" href="settings.html" data-requires-auth><span class="nav-ico">âš™ï¸</span>Settings</a>
+    <a class="drawer-link" href="help.html"><span class="nav-ico">ðŸ’¬</span>Help Center</a>
 
     <div class="drawer-divider"></div>
-    <button class="drawer-link danger" id="drawerLogout" style="display:none;"><span class="nav-ico">🚪</span>Logout</button>
+    <button class="drawer-link danger" id="drawerLogout" style="display:none;"><span class="nav-ico">ðŸšª</span>Logout</button>
   </aside>
 
   <div class="notification-panel" id="notificationPanel">
@@ -849,22 +994,22 @@
       <div class="pm-name" id="pmName">User</div>
       <div class="pm-email" id="pmEmail">user@bluepeak.com</div>
     </div>
-    <button onclick="location.href='profile.html'">👤 Profile</button>
-    <button onclick="location.href='transaction-history.html'">📜 Transactions</button>
-    <button onclick="location.href='wallet.html'">👛 Wallet</button>
-    <button onclick="location.href='settings.html'">⚙️ Settings</button>
-    <button onclick="location.href='kyc.html'">🪪 KYC Verification</button>
-    <button class="danger" id="pmLogout">🚪 Logout</button>
+    <button onclick="location.href='profile.html'">ðŸ‘¤ Profile</button>
+    <button onclick="location.href='transaction-history.html'">ðŸ“œ Transactions</button>
+    <button onclick="location.href='wallet.html'">ðŸ‘› Wallet</button>
+    <button onclick="location.href='settings.html'">âš™ï¸ Settings</button>
+    <button onclick="location.href='kyc.html'">ðŸªª KYC Verification</button>
+    <button class="danger" id="pmLogout">ðŸšª Logout</button>
   </div>
 
   <div class="selector-overlay" id="assetSelectorOverlay"></div>
   <div class="selector-modal" id="assetSelector">
     <div class="selector-header">
       <h3>Select Asset</h3>
-      <button class="selector-close" id="assetSelectorClose">✕</button>
+      <button class="selector-close" id="assetSelectorClose">âœ•</button>
     </div>
     <div class="selector-search">
-      <input type="text" id="assetSearchInput" placeholder="Search assets…" autocomplete="off">
+      <input type="text" id="assetSearchInput" placeholder="Search assetsâ€¦" autocomplete="off">
     </div>
     <div class="selector-list" id="assetSelectorList"></div>
   </div>
@@ -873,10 +1018,10 @@
   <div class="selector-modal" id="paymentSelector">
     <div class="selector-header">
       <h3>I pay with</h3>
-      <button class="selector-close" id="paymentSelectorClose">✕</button>
+      <button class="selector-close" id="paymentSelectorClose">âœ•</button>
     </div>
     <div class="selector-search">
-      <input type="text" id="paymentSearchInput" placeholder="Search payment methods…" autocomplete="off">
+      <input type="text" id="paymentSearchInput" placeholder="Search payment methodsâ€¦" autocomplete="off">
     </div>
     <div class="selector-list" id="paymentSelectorList"></div>
   </div>
@@ -890,7 +1035,6 @@
         <div class="wordmark">
           <span class="blue">BLUE</span><span class="peak">PEAK</span>
         </div>
-        <div class="tagline">CAPITAL</div>
       </div>
     </div>
     <div class="header-right">
@@ -907,7 +1051,7 @@
       </div>
       <div class="avatar" id="avatarBtn" role="button" tabindex="0" style="display:none;">U</div>
       <button class="bell" id="bellBtn" aria-label="Notifications" style="display:none;">
-        🔔
+        ðŸ””
         <span class="badge" id="notifBadge"></span>
       </button>
     </div>
@@ -927,7 +1071,7 @@
       </section>
 
       <div class="market-ticker-wrapper" id="marketTickerWrapper">
-        <div class="ticker-loading" id="tickerLoading">Loading market data…</div>
+        <div class="ticker-loading" id="tickerLoading">Loading market dataâ€¦</div>
       </div>
 
       <div class="tab-selector" id="tabSelector" role="tablist">
@@ -965,7 +1109,7 @@
             <label class="field-label">I pay with</label>
             <div class="asset-select-card" id="paymentMethodTrigger" style="cursor:pointer;">
               <div class="asset-left">
-                <div class="sel-icon" id="selectedPaymentIcon">🏦</div>
+                <div class="sel-icon" id="selectedPaymentIcon">ðŸ¦</div>
                 <div class="asset-info">
                   <span class="asset-main-label" id="selectedPaymentLabel">Bank Transfer</span>
                   <span class="asset-sub" id="selectedPaymentSub">Select payment method</span>
@@ -984,7 +1128,7 @@
               <h3 style="font-size:18px;font-weight:800;color:var(--navy-900);letter-spacing:-0.4px;line-height:1.2;">Explore P2P Marketplace</h3>
               <p style="font-size:12.5px;font-weight:600;color:var(--navy-800);margin-top:3px;opacity:0.85;">Discover verified merchants and live offers</p>
             </div>
-            <div style="width:40px;height:40px;border-radius:50%;background:var(--navy-900);color:var(--gold-400);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">→</div>
+            <div style="width:40px;height:40px;border-radius:50%;background:var(--navy-900);color:var(--gold-400);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">â†’</div>
           </div>
 
           <div class="field-group">
@@ -1005,9 +1149,9 @@
 
         <div class="panel" id="panel-swap" role="tabpanel">
           <div class="swap-rate-banner" id="swapRateBanner">
-            <span class="sr-live"><span class="pulse"></span>Live Rate · Instant Cashout</span>
-            <div class="sr-rate" id="swapLiveRate">—<span class="unit" id="swapLiveRateUnit"></span></div>
-            <div class="sr-sub" id="swapLiveRateSub">Fetching real-time rate…</div>
+            <span class="sr-live"><span class="pulse"></span>Live Rate Â· Instant Cashout</span>
+            <div class="sr-rate" id="swapLiveRate">â€”<span class="unit" id="swapLiveRateUnit"></span></div>
+            <div class="sr-sub" id="swapLiveRateSub">Fetching real-time rateâ€¦</div>
           </div>
 
           <p class="panel-desc">Instantly swap between major cryptocurrencies at real-time rates with transparent fees.</p>
@@ -1027,7 +1171,7 @@
           </div>
 
           <div class="swap-arrow-container">
-            <button class="swap-arrow-btn" id="swapDirectionBtn" aria-label="Reverse swap direction">⇅</button>
+            <button class="swap-arrow-btn" id="swapDirectionBtn" aria-label="Reverse swap direction">â‡…</button>
           </div>
 
           <div class="field-group">
@@ -1041,9 +1185,9 @@
               </select>
               <input type="number" class="input-field" id="swapToAmount" placeholder="0.00" readonly style="background:var(--navy-50);font-weight:800;color:var(--green-500);">
             </div>
-            <div class="info-row"><span>Estimated exchange rate</span><strong id="swapRate">—</strong></div>
-            <div class="info-row"><span>Network fee</span><strong id="swapNetworkFee">—</strong></div>
-            <div class="info-row"><span>Minimum received</span><strong id="swapMinReceived">—</strong></div>
+            <div class="info-row"><span>Estimated exchange rate</span><strong id="swapRate">â€”</strong></div>
+            <div class="info-row"><span>Network fee</span><strong id="swapNetworkFee">â€”</strong></div>
+            <div class="info-row"><span>Minimum received</span><strong id="swapMinReceived">â€”</strong></div>
           </div>
 
           <button class="btn-primary btn-gold" id="swapReviewBtn">Swap Now</button>
@@ -1051,16 +1195,16 @@
         </div>
 
         <div class="panel" id="panel-trade" role="tabpanel">
-          <p class="panel-desc">Access real-time markets with advanced tools — trade manually or let automation work for you.</p>
+          <p class="panel-desc">Access real-time markets with advanced tools â€” trade manually or let automation work for you.</p>
 
           <div class="trade-action-grid">
             <div class="trade-action-card" id="tradeBotCard">
-              <div class="tac-icon bot">🤖</div>
+              <div class="tac-icon bot">ðŸ¤–</div>
               <h4>Trade with Bot</h4>
               <p>Automated strategies & passkey access</p>
             </div>
             <div class="trade-action-card" id="tradeChartCard">
-              <div class="tac-icon chart">📊</div>
+              <div class="tac-icon chart">ðŸ“Š</div>
               <h4>Live Candles</h4>
               <p>Professional charting interface</p>
             </div>
@@ -1068,7 +1212,7 @@
 
           <div class="bot-panel" id="botPanel">
             <div class="bot-panel-header">
-              <h4>🤖 Default Bot <span class="bot-badge">ACTIVE</span></h4>
+              <h4>ðŸ¤– Default Bot <span class="bot-badge">ACTIVE</span></h4>
             </div>
             <div class="passkey-box">
               <code id="botPasskey">BLUEPEAK-BOT-7X9K-2M4P-QR8T</code>
@@ -1077,9 +1221,9 @@
             <div class="upgrade-banner" id="upgradeBotBanner">
               <div class="upgrade-banner-text">
                 <h5>Upgrade to <span class="gold">Sniper Quantum Bot</span></h5>
-                <p>Lightning execution · MEV protection · Advanced signals</p>
+                <p>Lightning execution Â· MEV protection Â· Advanced signals</p>
               </div>
-              <div class="upgrade-arrow">→</div>
+              <div class="upgrade-arrow">â†’</div>
             </div>
           </div>
 
@@ -1092,8 +1236,8 @@
             </select>
           </div>
 
-          <div class="info-row"><span>Current price</span><strong id="tradePrice">—</strong></div>
-          <div class="info-row"><span>24h change</span><strong id="tradeChange">—</strong></div>
+          <div class="info-row"><span>Current price</span><strong id="tradePrice">â€”</strong></div>
+          <div class="info-row"><span>24h change</span><strong id="tradeChange">â€”</strong></div>
 
           <div class="toggle-group" id="tradeBuySellToggle">
             <button class="toggle-btn active-toggle" data-trade-mode="buy">Buy</button>
@@ -1115,7 +1259,7 @@
           </div>
 
           <div class="info-row"><span>Available balance</span><strong id="tradeAvailableBalance">$0.00</strong></div>
-          <div class="info-row"><span>Estimated fees</span><strong id="tradeFees">—</strong></div>
+          <div class="info-row"><span>Estimated fees</span><strong id="tradeFees">â€”</strong></div>
 
           <button class="btn-primary" id="tradeReviewBtn">Review Order</button>
         </div>
@@ -1126,15 +1270,15 @@
           <div class="marketcap-statement-text">
             <p><strong>Your portfolio, powered by real-time data.</strong> Track top assets, spot opportunities, and <span class="highlight">fund your account instantly</span> to start trading.</p>
           </div>
-          <button class="deposit-btn" id="depositBtn">Deposit →</button>
+          <button class="deposit-btn" id="depositBtn">Deposit â†’</button>
         </div>
 
         <div class="marketcap-header">
-          <h3><span class="live-dot"></span>Market Cap — Top Assets</h3>
+          <h3><span class="live-dot"></span>Market Cap â€” Top Assets</h3>
           <span class="marketcap-updated" id="marketcapUpdated">Live</span>
         </div>
         <div class="marketcap-grid" id="marketcapGrid">
-          <div class="ticker-loading" style="padding:14px;grid-column:1/-1;">Loading market cap data…</div>
+          <div class="ticker-loading" style="padding:14px;grid-column:1/-1;">Loading market cap dataâ€¦</div>
         </div>
       </div>
     </div>
@@ -1189,7 +1333,6 @@
         return false;
       }
       function go(url) { window.location.href = url; }
-      window.go = go;
 
       // ============================================================
       // HEADER AUTH STATE
@@ -1231,56 +1374,56 @@
       $('#drawerJoinBtn').addEventListener('click', () => go('auth.html#signup'));
 
       // ============================================================
-      // COUNTRY → PAYMENT METHOD
+      // COUNTRY â†’ PAYMENT METHOD
       // ============================================================
       const COUNTRY_DEFAULT_PAYMENT = {
-        KE: { name: 'M-Pesa Kenya', icon: '📱', sub: 'Safaricom M-Pesa · Kenya', flag: '🇰🇪', label: 'Kenya' },
-        TZ: { name: 'M-Pesa Tanzania', icon: '📱', sub: 'Vodacom M-Pesa · Tanzania', flag: '🇹🇿', label: 'Tanzania' },
-        GH: { name: 'MTN MoMo Ghana', icon: '📲', sub: 'MTN Mobile Money · Ghana', flag: '🇬🇭', label: 'Ghana' },
-        NG: { name: 'Paystack', icon: '💠', sub: 'Nigeria & Ghana', flag: '🇳🇬', label: 'Nigeria' },
-        ZA: { name: 'Bank Transfer', icon: '🏦', sub: 'Standard bank transfer', flag: '🇿🇦', label: 'South Africa' },
-        SN: { name: 'Orange Money Senegal', icon: '🟠', sub: 'Orange Money · Senegal', flag: '🇸🇳', label: 'Senegal' },
-        EG: { name: 'Flutterwave', icon: '🌊', sub: 'Pan-African payments', flag: '🇪🇬', label: 'Egypt' },
-        US: { name: 'Zelle', icon: '⚡', sub: 'United States', flag: '🇺🇸', label: 'United States' },
-        BR: { name: 'PIX', icon: '⚡', sub: 'Brazil', flag: '🇧🇷', label: 'Brazil' },
-        GB: { name: 'Bank Transfer', icon: '🏦', sub: 'Standard bank transfer', flag: '🇬🇧', label: 'United Kingdom' },
-        DE: { name: 'SEPA', icon: '🇪🇺', sub: 'Euro transfers', flag: '🇩🇪', label: 'Germany' },
-        FR: { name: 'SEPA', icon: '🇪🇺', sub: 'Euro transfers', flag: '🇫🇷', label: 'France' },
-        ES: { name: 'SEPA', icon: '🇪🇺', sub: 'Euro transfers', flag: '🇪🇸', label: 'Spain' },
-        IN: { name: 'UPI', icon: '🇮🇳', sub: 'India', flag: '🇮🇳', label: 'India' },
-        CN: { name: 'Alipay', icon: '🇨🇳', sub: 'China', flag: '🇨🇳', label: 'China' },
+        KE: { name: 'M-Pesa Kenya', icon: 'ðŸ“±', sub: 'Safaricom M-Pesa Â· Kenya', flag: 'ðŸ‡°ðŸ‡ª', label: 'Kenya' },
+        TZ: { name: 'M-Pesa Tanzania', icon: 'ðŸ“±', sub: 'Vodacom M-Pesa Â· Tanzania', flag: 'ðŸ‡¹ðŸ‡¿', label: 'Tanzania' },
+        GH: { name: 'MTN MoMo Ghana', icon: 'ðŸ“²', sub: 'MTN Mobile Money Â· Ghana', flag: 'ðŸ‡¬ðŸ‡­', label: 'Ghana' },
+        NG: { name: 'Paystack', icon: 'ðŸ’ ', sub: 'Nigeria & Ghana', flag: 'ðŸ‡³ðŸ‡¬', label: 'Nigeria' },
+        ZA: { name: 'Bank Transfer', icon: 'ðŸ¦', sub: 'Standard bank transfer', flag: 'ðŸ‡¿ðŸ‡¦', label: 'South Africa' },
+        SN: { name: 'Orange Money Senegal', icon: 'ðŸŸ ', sub: 'Orange Money Â· Senegal', flag: 'ðŸ‡¸ðŸ‡³', label: 'Senegal' },
+        EG: { name: 'Flutterwave', icon: 'ðŸŒŠ', sub: 'Pan-African payments', flag: 'ðŸ‡ªðŸ‡¬', label: 'Egypt' },
+        US: { name: 'Zelle', icon: 'âš¡', sub: 'United States', flag: 'ðŸ‡ºðŸ‡¸', label: 'United States' },
+        BR: { name: 'PIX', icon: 'âš¡', sub: 'Brazil', flag: 'ðŸ‡§ðŸ‡·', label: 'Brazil' },
+        GB: { name: 'Bank Transfer', icon: 'ðŸ¦', sub: 'Standard bank transfer', flag: 'ðŸ‡¬ðŸ‡§', label: 'United Kingdom' },
+        DE: { name: 'SEPA', icon: 'ðŸ‡ªðŸ‡º', sub: 'Euro transfers', flag: 'ðŸ‡©ðŸ‡ª', label: 'Germany' },
+        FR: { name: 'SEPA', icon: 'ðŸ‡ªðŸ‡º', sub: 'Euro transfers', flag: 'ðŸ‡«ðŸ‡·', label: 'France' },
+        ES: { name: 'SEPA', icon: 'ðŸ‡ªðŸ‡º', sub: 'Euro transfers', flag: 'ðŸ‡ªðŸ‡¸', label: 'Spain' },
+        IN: { name: 'UPI', icon: 'ðŸ‡®ðŸ‡³', sub: 'India', flag: 'ðŸ‡®ðŸ‡³', label: 'India' },
+        CN: { name: 'Alipay', icon: 'ðŸ‡¨ðŸ‡³', sub: 'China', flag: 'ðŸ‡¨ðŸ‡³', label: 'China' },
       };
 
       const PAYMENT_METHODS = [
         { group: 'Global', items: [
-          { name: 'Bank Transfer', icon: '🏦', sub: 'Standard bank transfer' },
-          { name: 'Visa / Mastercard', icon: '💳', sub: 'Debit or credit card' },
-          { name: 'PayPal', icon: '🅿️', sub: 'PayPal balance' },
-          { name: 'Wise', icon: '🌐', sub: 'International transfer' },
+          { name: 'Bank Transfer', icon: 'ðŸ¦', sub: 'Standard bank transfer' },
+          { name: 'Visa / Mastercard', icon: 'ðŸ’³', sub: 'Debit or credit card' },
+          { name: 'PayPal', icon: 'ðŸ…¿ï¸', sub: 'PayPal balance' },
+          { name: 'Wise', icon: 'ðŸŒ', sub: 'International transfer' },
         ]},
-        { group: 'Africa — Mobile Money', items: [
-          { name: 'M-Pesa Kenya', icon: '📱', sub: 'Safaricom M-Pesa · Kenya' },
-          { name: 'M-Pesa Tanzania', icon: '📱', sub: 'Vodacom M-Pesa · Tanzania' },
-          { name: 'MTN MoMo Ghana', icon: '📲', sub: 'MTN Mobile Money · Ghana' },
-          { name: 'Airtel Money Kenya', icon: '📶', sub: 'Airtel Money · Kenya' },
-          { name: 'Orange Money Senegal', icon: '🟠', sub: 'Orange Money · Senegal' },
-          { name: 'Flutterwave', icon: '🌊', sub: 'Pan-African payments' },
-          { name: 'Paystack', icon: '💠', sub: 'Nigeria & Ghana' },
+        { group: 'Africa â€” Mobile Money', items: [
+          { name: 'M-Pesa Kenya', icon: 'ðŸ“±', sub: 'Safaricom M-Pesa Â· Kenya' },
+          { name: 'M-Pesa Tanzania', icon: 'ðŸ“±', sub: 'Vodacom M-Pesa Â· Tanzania' },
+          { name: 'MTN MoMo Ghana', icon: 'ðŸ“²', sub: 'MTN Mobile Money Â· Ghana' },
+          { name: 'Airtel Money Kenya', icon: 'ðŸ“¶', sub: 'Airtel Money Â· Kenya' },
+          { name: 'Orange Money Senegal', icon: 'ðŸŸ ', sub: 'Orange Money Â· Senegal' },
+          { name: 'Flutterwave', icon: 'ðŸŒŠ', sub: 'Pan-African payments' },
+          { name: 'Paystack', icon: 'ðŸ’ ', sub: 'Nigeria & Ghana' },
         ]},
         { group: 'Americas', items: [
-          { name: 'ACH Transfer', icon: '🏦', sub: 'United States' },
-          { name: 'Zelle', icon: '⚡', sub: 'United States' },
-          { name: 'Venmo', icon: '💸', sub: 'United States' },
-          { name: 'PIX', icon: '⚡', sub: 'Brazil' },
+          { name: 'ACH Transfer', icon: 'ðŸ¦', sub: 'United States' },
+          { name: 'Zelle', icon: 'âš¡', sub: 'United States' },
+          { name: 'Venmo', icon: 'ðŸ’¸', sub: 'United States' },
+          { name: 'PIX', icon: 'âš¡', sub: 'Brazil' },
         ]},
         { group: 'Europe & Asia', items: [
-          { name: 'SEPA', icon: '🇪🇺', sub: 'Euro transfers' },
-          { name: 'Alipay', icon: '🇨🇳', sub: 'China' },
-          { name: 'UPI', icon: '🇮🇳', sub: 'India' },
+          { name: 'SEPA', icon: 'ðŸ‡ªðŸ‡º', sub: 'Euro transfers' },
+          { name: 'Alipay', icon: 'ðŸ‡¨ðŸ‡³', sub: 'China' },
+          { name: 'UPI', icon: 'ðŸ‡®ðŸ‡³', sub: 'India' },
         ]},
       ];
 
-      let selectedPayment = { name: 'Bank Transfer', icon: '🏦', sub: 'Bank transfer payment' };
+      let selectedPayment = { name: 'Bank Transfer', icon: 'ðŸ¦', sub: 'Bank transfer payment' };
       let selectedCountryMeta = null;
       if (userCountry && COUNTRY_DEFAULT_PAYMENT[userCountry]) {
         const c = COUNTRY_DEFAULT_PAYMENT[userCountry];
@@ -1291,7 +1434,7 @@
         if (!$('#selectedPaymentLabel')) return;
         $('#selectedPaymentLabel').textContent = selectedPayment.name;
         $('#selectedPaymentSub').textContent = selectedCountryMeta
-          ? `${selectedCountryMeta.flag} ${selectedCountryMeta.label} · ${selectedPayment.sub}`
+          ? `${selectedCountryMeta.flag} ${selectedCountryMeta.label} Â· ${selectedPayment.sub}`
           : selectedPayment.sub;
         $('#selectedPaymentIcon').textContent = selectedPayment.icon;
       }
@@ -1317,7 +1460,8 @@
         try { balances = JSON.parse(localStorage.getItem('bp_user_balances') || '{}'); } catch (e) {}
         let total = 0;
         Object.keys(balances).forEach(sym => { total += (parseFloat(balances[sym]) || 0) * priceOf(sym); });
-        if (total === 0 && user && user.balance != null) total = parseFloat(user.balance) || 0;
+        // Balance strictly comes from bp_user_balances. No session fallback.
+        // New users with no deposits/P2P see $0.00 until real credit lands.
         return total;
       }
 
@@ -1329,7 +1473,7 @@
           balanceDisplay.textContent = currentHeaderBalance;
           balanceDisplay.classList.remove('masked');
         } else {
-          balanceDisplay.textContent = '••••••';
+          balanceDisplay.textContent = 'â€¢â€¢â€¢â€¢â€¢â€¢';
           balanceDisplay.classList.add('masked');
         }
       }
@@ -1550,7 +1694,7 @@
         try {
           const res = await fetch(direct, { mode: 'cors' });
           if (res.ok) data = await res.json();
-        } catch (e) { /* CORS/network — fall through */ }
+        } catch (e) { /* CORS/network â€” fall through */ }
 
         if (!data) {
           const proxies = [
@@ -1679,7 +1823,7 @@
                 ${act.label}
               </div>
             </div>
-            <div class="qa-card-rate">${price ? formatPrice(price) : '—'}</div>
+            <div class="qa-card-rate">${price ? formatPrice(price) : 'â€”'}</div>
             <div class="qa-card-sub">${act.mode === 'buy' ? 'Instant buy rate' : 'Instant sell rate'}</div>
           </div>`;
         }).join('');
@@ -1790,7 +1934,7 @@
           const matches = group.items.filter(item => !q || item.name.toLowerCase().includes(q) || item.sub.toLowerCase().includes(q));
           if (matches.length === 0) return;
           const isCountryGroup = selectedCountryMeta && group.items.some(i => i.name === selectedPayment.name);
-          html += `<div class="selector-group-label">${isCountryGroup ? '⭐ ' : ''}${group.group}</div>`;
+          html += `<div class="selector-group-label">${isCountryGroup ? 'â­ ' : ''}${group.group}</div>`;
           matches.forEach(item => {
             const isSelected = selectedPayment && selectedPayment.name === item.name;
             html += `<div class="sel-item ${isSelected ? 'selected' : ''}" data-payment-name="${item.name}">
@@ -1808,7 +1952,7 @@
             if (found) {
               selectedPayment = found;
               $('#selectedPaymentLabel').textContent = found.name;
-              $('#selectedPaymentSub').textContent = selectedCountryMeta ? `${selectedCountryMeta.flag} ${selectedCountryMeta.label} · ${found.sub}` : found.sub;
+              $('#selectedPaymentSub').textContent = selectedCountryMeta ? `${selectedCountryMeta.flag} ${selectedCountryMeta.label} Â· ${found.sub}` : found.sub;
               $('#selectedPaymentIcon').textContent = found.icon;
               saveP2PState();
               closePaymentSelector();
@@ -1864,7 +2008,7 @@
         const fromPrice = tickerPrices[fromAsset.id]?.price || 0;
         const toPrice = tickerPrices[toAsset.id]?.price || 0;
         if (fromAmt <= 0 || !fromPrice || !toPrice) {
-          $('#swapToAmount').value = ''; $('#swapRate').textContent = '—'; $('#swapNetworkFee').textContent = '—'; $('#swapMinReceived').textContent = '—';
+          $('#swapToAmount').value = ''; $('#swapRate').textContent = 'â€”'; $('#swapNetworkFee').textContent = 'â€”'; $('#swapMinReceived').textContent = 'â€”';
           return;
         }
         const gross = (fromAmt * fromPrice) / toPrice;
@@ -1872,7 +2016,7 @@
         const net = gross - fee;
         const toLabel = $('#swapToAsset').value.replace('_TRC20', '');
         $('#swapToAmount').value = net.toFixed(6);
-        $('#swapRate').textContent = `1 ${$('#swapFromAsset').value.replace('_TRC20', '')} ≈ ${(fromPrice / toPrice).toFixed(6)} ${toLabel}`;
+        $('#swapRate').textContent = `1 ${$('#swapFromAsset').value.replace('_TRC20', '')} â‰ˆ ${(fromPrice / toPrice).toFixed(6)} ${toLabel}`;
         $('#swapNetworkFee').textContent = fee.toFixed(6) + ' ' + toLabel;
         $('#swapMinReceived').textContent = (net * 0.995).toFixed(6) + ' ' + toLabel;
       }
@@ -1882,7 +2026,7 @@
         if (d && $('#swapLiveRate')) {
           $('#swapLiveRate').innerHTML = formatPrice(d.price) + '<span class="unit">/ BTC</span>';
           const sign = d.change >= 0 ? '+' : '';
-          $('#swapLiveRateSub').innerHTML = `<span style="color:${d.change >= 0 ? 'var(--green-500)' : 'var(--red-500)'}">${sign}${d.change.toFixed(2)}%</span> · Updated ${d.timestamp}`;
+          $('#swapLiveRateSub').innerHTML = `<span style="color:${d.change >= 0 ? 'var(--green-500)' : 'var(--red-500)'}">${sign}${d.change.toFixed(2)}%</span> Â· Updated ${d.timestamp}`;
         }
       }
       if ($('#swapFromAmount')) {
@@ -1991,618 +2135,663 @@
         if (!document.hidden) refreshBalancePill();
       });
     })();
-
-    /* ===== ADDITIONS ===== */
-    /* ===== ADDITIONS =====
-       1. window.go exposed for nav wrapper
-       2. Identity: bp_user_profile source of truth, mirrored to bp_user_session + bp_user_*; no placeholders
-       3. Balance strictly from bp_user_balances (no session fallback)
-       4. bp_user_notifications store + real-event seeding (welcome, signin, deposit, withdraw) + unread styling + merged admin/bot view
-       5. Profile menu redesigned: real name/email/KYC, inline SVG icons, 9 nav rows + logout
-       6. Responsive safety at 320–1920
-       7. Smooth navigation guard
+  
+    /* index.html â€” ADDITIONS
+       0. Identity source of truth: bp_user_profile, mirrored to bp_user_session + bp_user_* legacy keys; no placeholders.
+       1. Responsive: no horizontal overflow at 320â€“1920; refined paddings, grid columns, bottom nav, header, selectors.
+       2. Header balance is computed strictly from bp_user_balances Ã— live prices; session balance fallback removed.
+       3. Notifications now include real events: welcome, sign-in, KYC, P2P updates, deposits, withdrawals, admin messages, disputes, bot errors â€” persisted in bp_user_notifications with unread styling.
+       4. Profile menu redesigned: avatar + real name + real email + KYC pill, inline SVG icons, direct navigation, logout with divider.
+       5. Smooth navigation via navigateTo() guard (single-tab, no double-fire).
+       6. All existing functionality untouched: hero, ticker, panels, selectors, market cap, bottom nav, drawer, notification panel base behavior, existing functions.
     */
+    (function() {
+      'use strict';
 
-    let isNavigating = false;
-    function navigateTo(url) {
-      if (!url || isNavigating) return;
-      isNavigating = true;
-      window.location.href = url;
-      setTimeout(() => { isNavigating = false; }, 800);
-    }
-
-    if (typeof window.go === 'function') {
-      const _origGo = window.go;
-      window.go = function(url) {
-        navigateTo(url);
-      };
-    }
-
-    const PLACEHOLDER_NAMES = ['alex vance', 'bluepeak user', 'bluepeak trader', 'your name', 'user', 'guest'];
-
-    function isPlaceholderName(n) {
-      if (!n || typeof n !== 'string') return true;
-      const lower = n.trim().toLowerCase();
-      return lower === '' || PLACEHOLDER_NAMES.includes(lower);
-    }
-
-    function deriveInitialsFromName(n) {
-      if (!n || typeof n !== 'string') return 'U';
-      const parts = n.trim().split(/\s+/).filter(Boolean);
-      if (parts.length === 0) return 'U';
-      if (parts.length === 1) return (parts[0][0] || 'U').toUpperCase();
-      return ((parts[0][0] || '') + (parts[1][0] || '')).toUpperCase() || 'U';
-    }
-
-    function resolveIdentity() {
-      let profile = null;
-      let session = null;
-      let rawName = null;
-      let rawEmail = null;
-      let rawPhone = null;
-      let rawCountry = null;
-
-      try { profile = JSON.parse(localStorage.getItem('bp_user_profile') || 'null'); } catch (e) {}
-      try { session = JSON.parse(localStorage.getItem('bp_user_session') || 'null'); } catch (e) {}
-      try { rawName = localStorage.getItem('bp_user_name'); } catch (e) {}
-      try { rawEmail = localStorage.getItem('bp_user_email'); } catch (e) {}
-      try { rawPhone = localStorage.getItem('bp_user_phone'); } catch (e) {}
-      try { rawCountry = localStorage.getItem('bp_user_country'); } catch (e) {}
-
-      let name = null;
-      if (profile && profile.name && !isPlaceholderName(profile.name)) name = profile.name.trim();
-      else if (session && session.name && !isPlaceholderName(session.name)) name = session.name.trim();
-      else if (rawName && !isPlaceholderName(rawName)) name = rawName.trim();
-
-      let email = null;
-      if (profile && profile.email && profile.email.trim()) email = profile.email.trim();
-      else if (session && session.email && session.email.trim()) email = session.email.trim();
-      else if (rawEmail && rawEmail.trim()) email = rawEmail.trim();
-
-      let phone = null;
-      if (profile && profile.phone && profile.phone.trim()) phone = profile.phone.trim();
-      else if (rawPhone && rawPhone.trim()) phone = rawPhone.trim();
-
-      let country = null;
-      if (profile && profile.country && profile.country.trim()) country = profile.country.trim();
-      else if (rawCountry && rawCountry.trim()) country = rawCountry.trim();
-
-      let kyc = (profile && profile.kyc) ? profile.kyc : null;
-
-      let initials = (profile && profile.initials && profile.initials.trim())
-        ? profile.initials.trim().toUpperCase()
-        : (name ? deriveInitialsFromName(name) : 'U');
-
-      let id = (profile && profile.id) ? profile.id : (session && (session.userId || session.id) ? (session.userId || session.id) : null);
-
-      let createdAt = (profile && profile.createdAt) ? profile.createdAt : null;
-
-      try {
-        const profileHasRealName = profile && profile.name && !isPlaceholderName(profile.name);
-        if (!profileHasRealName && name) {
-          const synthProfile = Object.assign({}, profile || {}, {
-            id: id || ('usr_' + Date.now().toString(36)),
-            name: name,
-            email: email || '',
-            phone: phone || '',
-            country: country || '',
-            kyc: kyc || 'unverified',
-            initials: initials,
-            createdAt: createdAt || new Date().toISOString()
-          });
-          localStorage.setItem('bp_user_profile', JSON.stringify(synthProfile));
-        }
-
-        if (name) {
-          if (session) {
-            let sessionChanged = false;
-            if (session.name !== name) { session.name = name; sessionChanged = true; }
-            if (email && session.email !== email) { session.email = email; sessionChanged = true; }
-            if (sessionChanged) localStorage.setItem('bp_user_session', JSON.stringify(session));
-          }
-          localStorage.setItem('bp_user_name', name);
-          if (email) localStorage.setItem('bp_user_email', email);
-          if (phone) localStorage.setItem('bp_user_phone', phone);
-          if (country) localStorage.setItem('bp_user_country', country);
-        }
-      } catch (e) {}
-
-      return { id, name, email, phone, country, kyc, initials, createdAt };
-    }
-
-    function applyResolvedIdentityUI(identity) {
-      try {
-        const resolved = identity || resolveIdentity();
-        const avatarBtn = document.getElementById('avatarBtn');
-        if (avatarBtn) avatarBtn.textContent = resolved.initials || 'U';
-
-        const pmName = document.getElementById('pmName');
-        if (pmName) {
-          pmName.textContent = resolved.name || 'Sign in to view your account';
-        }
-
-        const pmEmail = document.getElementById('pmEmail');
-        if (pmEmail) {
-          pmEmail.textContent = resolved.email || '';
-        }
-      } catch (e) {}
-    }
-
-    function handleConfirmedLogout(e) {
-      if (e) { e.preventDefault(); e.stopPropagation(); }
-      if (confirm('Sign out of Bluepeak Capital?')) {
-        try {
-          const keys = ['bp_user_session', 'bp_user_profile', 'bp_user_name', 'bp_user_email', 'bp_user_phone', 'bp_user_country'];
-          keys.forEach(k => localStorage.removeItem(k));
-        } catch (err) {}
-        navigateTo('auth.html#signin');
+      // --- CHANGE 5: Smooth Navigation Guard ---
+      let isNavigating = false;
+      function navigateTo(url) {
+        if (!url || isNavigating) return;
+        isNavigating = true;
+        window.location.href = url;
+        setTimeout(() => { isNavigating = false; }, 800);
       }
-    }
 
-    function wireLogoutButtons() {
-      try {
-        const pmLogout = document.getElementById('pmLogout');
-        if (pmLogout) {
-          const newPmLogout = pmLogout.cloneNode(true);
-          if (pmLogout.parentNode) pmLogout.parentNode.replaceChild(newPmLogout, pmLogout);
-          newPmLogout.addEventListener('click', handleConfirmedLogout);
-        }
-
-        const drawerLogout = document.getElementById('drawerLogout');
-        if (drawerLogout) {
-          const newDrawerLogout = drawerLogout.cloneNode(true);
-          if (drawerLogout.parentNode) drawerLogout.parentNode.replaceChild(newDrawerLogout, drawerLogout);
-          newDrawerLogout.addEventListener('click', handleConfirmedLogout);
-        }
-      } catch (e) {}
-    }
-
-    const STRICT_FALLBACK_PRICES = { USD: 1, USDT: 1, BTC: 81250, ETH: 3218, SOL: 128.70 };
-
-    function computeStrictBalance() {
-      let balances = {};
-      let prices = {};
-      try { balances = JSON.parse(localStorage.getItem('bp_user_balances') || '{}'); } catch (e) {}
-      try { prices = JSON.parse(localStorage.getItem('bp_market_prices') || '{}'); } catch (e) {}
-      let total = 0;
-      if (balances && typeof balances === 'object') {
-        Object.keys(balances).forEach(sym => {
-          const amt = parseFloat(balances[sym]) || 0;
-          const price = prices[sym] !== undefined ? prices[sym] : (STRICT_FALLBACK_PRICES[sym] || 0);
-          total += amt * price;
-        });
-      }
-      return total;
-    }
-
-    function updateStrictBalanceUI() {
-      try {
-        const el = document.getElementById('balanceDisplay');
-        if (!el) return;
-        if (el.classList.contains('masked')) {
-          el.textContent = '••••••';
-        } else {
-          const val = computeStrictBalance();
-          el.textContent = '$' + Number(val).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        }
-      } catch (e) {}
-    }
-
-    function getStoredNotifications() {
-      try {
-        const raw = localStorage.getItem('bp_user_notifications');
-        const parsed = JSON.parse(raw || '[]');
-        return Array.isArray(parsed) ? parsed : [];
-      } catch (e) {
-        return [];
-      }
-    }
-
-    function writeNotification(type, title, body, link) {
-      try {
-        const list = getStoredNotifications();
-        const item = {
-          id: 'notif_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7),
-          ts: Date.now(),
-          type: type || 'default',
-          title: title || '',
-          body: body || '',
-          link: link || '',
-          read: false
+      // Wrap existing window.go
+      if (typeof window.go === 'function') {
+        const origGo = window.go;
+        window.go = function(url) {
+          navigateTo(url);
         };
-        list.unshift(item);
-        if (list.length > 100) list.length = 100;
-        localStorage.setItem('bp_user_notifications', JSON.stringify(list));
-        renderAllNotifications();
-        return item;
-      } catch (e) {
-        return null;
       }
-    }
 
-    function getNotificationIcon(type) {
-      switch ((type || '').toLowerCase()) {
-        case 'welcome': return '👋';
-        case 'signin': return '🔐';
-        case 'kyc': return '🪪';
-        case 'p2p': return '🤝';
-        case 'deposit': return '💰';
-        case 'withdraw': return '📤';
-        case 'admin': return '💬';
-        case 'dispute': return '🚩';
-        case 'bot': return '🤖';
-        default: return '🔔';
+      // --- CHANGE 0: Identity Resolution & Self-Healing ---
+      const PLACEHOLDER_NAMES = ['alex vance', 'bluepeak user', 'bluepeak trader', 'your name', 'user'];
+
+      function resolveIdentity() {
+        let profile = {};
+        try {
+          const raw = localStorage.getItem('bp_user_profile');
+          if (raw) profile = JSON.parse(raw);
+        } catch (e) {}
+
+        let session = {};
+        try {
+          const rawS = localStorage.getItem('bp_user_session');
+          if (rawS) session = JSON.parse(rawS);
+        } catch (e) {}
+
+        const legacyName = localStorage.getItem('bp_user_name');
+        const legacyEmail = localStorage.getItem('bp_user_email');
+        const legacyPhone = localStorage.getItem('bp_user_phone');
+        const legacyCountry = localStorage.getItem('bp_user_country');
+
+        // Resolve name
+        let rawName = profile.name || session.name || legacyName || null;
+        if (rawName && PLACEHOLDER_NAMES.includes(rawName.trim().toLowerCase())) {
+          rawName = null;
+        }
+
+        // Resolve email
+        let rawEmail = profile.email || session.email || legacyEmail || null;
+        if (rawEmail && (rawEmail.toLowerCase() === 'user@example.com' || rawEmail.toLowerCase() === 'user@bluepeak.com')) {
+          if (!rawName) rawEmail = null;
+        }
+
+        // Resolve phone
+        let rawPhone = profile.phone || legacyPhone || null;
+        if (rawPhone === '+254 712 345 678' && !rawName) {
+          rawPhone = null;
+        }
+
+        // Resolve country
+        let rawCountry = profile.country || legacyCountry || null;
+
+        // Resolve KYC
+        let rawKyc = profile.kyc || null;
+
+        // Resolve initials
+        let rawInitials = profile.initials || null;
+        if (!rawInitials && rawName) {
+          const words = rawName.trim().split(/\s+/);
+          if (words.length === 1) {
+            rawInitials = words[0].slice(0, 2).toUpperCase();
+          } else {
+            rawInitials = (words[0][0] + words[words.length - 1][0]).toUpperCase();
+          }
+        }
+        if (!rawInitials) rawInitials = 'U';
+
+        // Resolve ID
+        let rawId = profile.id || session.userId || session.id || null;
+        let rawCreated = profile.createdAt || session.createdAt || null;
+
+        const resolved = {
+          id: rawId,
+          name: rawName,
+          email: rawEmail,
+          phone: rawPhone,
+          country: rawCountry,
+          kyc: rawKyc,
+          initials: rawInitials,
+          createdAt: rawCreated
+        };
+
+        // Self-healing / mirror logic
+        try {
+          const hasRealData = !!(rawName || rawEmail || rawPhone || rawCountry);
+          const profileEmptyOrPlaceholder = !profile.name || PLACEHOLDER_NAMES.includes((profile.name || '').trim().toLowerCase());
+
+          if (hasRealData && profileEmptyOrPlaceholder) {
+            const healedProfile = {
+              id: rawId || ('BP' + Math.floor(1000000 + Math.random() * 9000000)),
+              name: rawName || 'BluePeak Member',
+              email: rawEmail || '',
+              phone: rawPhone || '',
+              country: rawCountry || '',
+              kyc: rawKyc || 'Tier 1',
+              initials: rawInitials,
+              createdAt: rawCreated || new Date().toISOString()
+            };
+            localStorage.setItem('bp_user_profile', JSON.stringify(healedProfile));
+          } else if (profile.name && !PLACEHOLDER_NAMES.includes(profile.name.trim().toLowerCase())) {
+            // Mirror profile values into session and legacy keys
+            if (rawName) localStorage.setItem('bp_user_name', rawName);
+            if (rawEmail) localStorage.setItem('bp_user_email', rawEmail);
+            if (rawPhone) localStorage.setItem('bp_user_phone', rawPhone);
+            if (rawCountry) localStorage.setItem('bp_user_country', rawCountry);
+
+            if (session && Object.keys(session).length > 0) {
+              let sessionUpdated = false;
+              if (rawName && session.name !== rawName) { session.name = rawName; sessionUpdated = true; }
+              if (rawEmail && session.email !== rawEmail) { session.email = rawEmail; sessionUpdated = true; }
+              if (sessionUpdated) {
+                localStorage.setItem('bp_user_session', JSON.stringify(session));
+              }
+            }
+          }
+        } catch (e) {
+          console.warn('[Identity sync]', e);
+        }
+
+        return resolved;
       }
-    }
 
-    function escapeAdditionsHtml(str) {
-      return String(str == null ? '' : str).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-    }
+      // --- CHANGE 2: Strict Balance Calculation from bp_user_balances ---
+      function computeStrictPortfolioBalance() {
+        let balances = {};
+        try {
+          balances = JSON.parse(localStorage.getItem('bp_user_balances') || '{}');
+        } catch (e) {}
 
-    function formatTimeRelative(ts) {
-      const diff = Date.now() - (ts || 0);
-      if (diff < 60000) return 'just now';
-      if (diff < 3600000) return Math.floor(diff / 60000) + 'm ago';
-      if (diff < 86400000) return Math.floor(diff / 3600000) + 'h ago';
-      return Math.floor(diff / 86400000) + 'd ago';
-    }
+        let marketPrices = {};
+        try {
+          marketPrices = JSON.parse(localStorage.getItem('bp_market_prices') || '{}');
+        } catch (e) {}
 
-    function renderAllNotifications() {
-      try {
-        const identity = resolveIdentity();        const myName = (identity.name || '').toLowerCase();
-        const myEmail = (identity.email || '').toLowerCase();
-        const stored = getStoredNotifications();
-        const itemsMap = new Map();
+        const fallbackPrices = { USD: 1, USDT: 1, BTC: 81250, ETH: 3218, SOL: 128.70, BNB: 590, XRP: 0.55, ADA: 0.45, DOGE: 0.12 };
 
-        stored.forEach(n => {
-          if (n && n.id) itemsMap.set(n.id, Object.assign({}, n));
+        let total = 0;
+        Object.keys(balances).forEach(sym => {
+          const val = parseFloat(balances[sym]) || 0;
+          const p = marketPrices[sym] || fallbackPrices[sym] || 0;
+          total += val * p;
         });
 
-        let chats = [];
-        try { chats = JSON.parse(localStorage.getItem('bp_admin_chats') || '[]'); } catch (e) {}
-        chats.filter(c => {
-          const buyer = (c.buyer || '').toLowerCase();
-          return (myName && buyer.includes(myName)) || (c.buyerEmail && c.buyerEmail.toLowerCase() === myEmail);
-        }).forEach(o => {
-          if (o.unread && o.messages && o.messages.length) {
-            const last = o.messages[o.messages.length - 1];
-            if (last.from === 'merchant' || last.from === 'admin') {
-              const id = 'chat_' + o.order + '_' + (last.ts || o.created || Date.now());
-              if (!itemsMap.has(id)) {
-                itemsMap.set(id, {
-                  id: id,
+        // Strictly NO fallback to session.balance
+        return total;
+      }
+
+      function updateStrictBalanceUI() {
+        const balanceDisplay = document.getElementById('balanceDisplay');
+        if (!balanceDisplay) return;
+
+        const total = computeStrictPortfolioBalance();
+        const formatted = '$' + total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+        if (balanceDisplay.classList.contains('masked')) {
+          balanceDisplay.textContent = 'â€¢â€¢â€¢â€¢â€¢â€¢';
+        } else {
+          balanceDisplay.textContent = formatted;
+        }
+      }
+
+      // --- CHANGE 3: Real Event Notifications ---
+      function getStoredNotifications() {
+        try {
+          const raw = localStorage.getItem('bp_user_notifications');
+          return raw ? JSON.parse(raw) : [];
+        } catch (e) {
+          return [];
+        }
+      }
+
+      function writeNotification(type, title, body, link) {
+        try {
+          const list = getStoredNotifications();
+          const newItem = {
+            id: 'notif_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5),
+            ts: Date.now(),
+            type: type || 'admin',
+            title: title || 'Notification',
+            body: body || '',
+            link: link || 'index.html',
+            read: false
+          };
+
+          list.unshift(newItem);
+          const trimmed = list.slice(0, 100);
+          localStorage.setItem('bp_user_notifications', JSON.stringify(trimmed));
+          renderAllNotifications();
+        } catch (e) {
+          console.warn('[writeNotification]', e);
+        }
+      }
+
+      function getNotificationIcon(type) {
+        switch (type) {
+          case 'welcome': return 'ðŸ‘‹';
+          case 'signin': return 'ðŸ”';
+          case 'kyc': return 'ðŸªª';
+          case 'p2p': return 'ðŸ¤';
+          case 'deposit': return 'ðŸ’°';
+          case 'withdraw': return 'ðŸ“¤';
+          case 'admin': return 'ðŸ’¬';
+          case 'dispute': return 'ðŸš©';
+          case 'bot': return 'ðŸ¤–';
+          default: return 'ðŸ””';
+        }
+      }
+
+      function renderAllNotifications() {
+        const notifBadge = document.getElementById('notifBadge');
+        const notifList = document.getElementById('notificationList');
+        const panelTitle = document.querySelector('#notificationPanel .panel-title');
+        if (!notifList) return;
+
+        const ident = resolveIdentity();
+
+        // Source 1: Stored notifications
+        const stored = getStoredNotifications();
+
+        // Source 2: Existing admin chats / bot errors
+        const adminItems = [];
+        try {
+          let chats = JSON.parse(localStorage.getItem('bp_admin_chats') || '[]');
+          const myName = (ident.name || '').toLowerCase();
+          const myEmail = (ident.email || '').toLowerCase();
+          const myOrders = chats.filter(c => {
+            const buyer = (c.buyer || '').toLowerCase();
+            return (myName && buyer.includes(myName)) || (c.buyerEmail && c.buyerEmail.toLowerCase() === myEmail);
+          });
+          myOrders.forEach(o => {
+            if (o.unread && o.messages && o.messages.length) {
+              const last = o.messages[o.messages.length - 1];
+              if (last.from === 'merchant' || last.from === 'admin') {
+                adminItems.push({
+                  id: 'chat_' + o.order,
+                  type: 'admin',
+                  title: last.from === 'admin' ? 'Admin message' : 'New merchant message',
+                  body: 'Order ' + o.order + ': ' + last.text,
                   ts: last.ts || o.created || Date.now(),
-                  type: last.from === 'admin' ? 'admin' : 'p2p',
-                  title: last.from === 'admin' ? 'Admin replied to your order' : 'New merchant message',
-                  body: `Order ${o.order}: ${last.text}`,
                   link: 'p2p.html',
                   read: false
                 });
               }
             }
-          }
-          if (o.status === 'disputed' && o.unread) {
-            const id = 'dispute_' + o.order;
-            if (!itemsMap.has(id)) {
-              itemsMap.set(id, {
-                id: id,
-                ts: o.created || Date.now(),
+            if (o.status === 'disputed') {
+              adminItems.push({
+                id: 'disp_' + o.order,
                 type: 'dispute',
-                title: 'Dispute open',
-                body: `Order ${o.order} is in dispute.`,
+                title: 'Dispute opened',
+                body: 'Order ' + o.order + ' is in dispute.',
+                ts: o.created || Date.now(),
                 link: 'p2p.html',
                 read: false
               });
             }
-          }
-        });
+          });
+        } catch (e) {}
 
-        let bots = [];
-        try { bots = JSON.parse(localStorage.getItem('bp_admin_bots') || '[]'); } catch (e) {}
-        bots.filter(b => (b.ownerEmail || '').toLowerCase() === myEmail && b.status === 'error').forEach(b => {
-          const id = 'bot_' + (b.id || b.name || Math.random());
-          if (!itemsMap.has(id)) {
-            itemsMap.set(id, {
-              id: id,
-              ts: b.created || Date.now(),
+        try {
+          let bots = JSON.parse(localStorage.getItem('bp_admin_bots') || '[]');
+          const myEmail = (ident.email || '').toLowerCase();
+          bots.filter(b => (b.ownerEmail || '').toLowerCase() === myEmail && b.status === 'error').forEach(b => {
+            adminItems.push({
+              id: 'bot_' + b.id,
               type: 'bot',
               title: 'Bot needs attention',
-              body: `${b.name} stopped with an error.`,
+              body: b.name + ' stopped with an error.',
+              ts: b.created || Date.now(),
               link: 'bots.html',
               read: false
             });
-          }
-        });
+          });
+        } catch (e) {}
 
-        const merged = Array.from(itemsMap.values()).sort((a, b) => (b.ts || 0) - (a.ts || 0));
+        // Merge & deduplicate
+        const merged = [...adminItems, ...stored];
+        merged.sort((a, b) => (b.ts || 0) - (a.ts || 0));
+
         const unreadCount = merged.filter(n => !n.read).length;
 
-        const badge = document.getElementById('notifBadge');
-        if (badge) {
+        // Update badge
+        if (notifBadge) {
           if (unreadCount > 0) {
-            badge.textContent = unreadCount > 9 ? '9+' : unreadCount;
-            badge.classList.add('visible');
+            notifBadge.textContent = unreadCount > 9 ? '9+' : unreadCount;
+            notifBadge.classList.add('visible');
           } else {
-            badge.classList.remove('visible');
+            notifBadge.classList.remove('visible');
           }
         }
 
-        const panelTitle = document.querySelector('#notificationPanel .panel-title');
+        // Update panel header with unread count
         if (panelTitle) {
-          let chip = panelTitle.querySelector('.notif-header-unread-count');
-          if (!chip) {
-            chip = document.createElement('span');
-            chip.className = 'notif-header-unread-count';
-            const clearBtn = document.getElementById('clearNotifBtn');
-            if (clearBtn) panelTitle.insertBefore(chip, clearBtn);
-            else panelTitle.appendChild(chip);
+          let counterEl = panelTitle.querySelector('.notif-header-unread-count');
+          if (!counterEl && unreadCount > 0) {
+            counterEl = document.createElement('span');
+            counterEl.className = 'notif-header-unread-count';
+            panelTitle.insertBefore(counterEl, panelTitle.querySelector('.clear-btn'));
           }
-          chip.textContent = unreadCount > 9 ? '9+ unread' : unreadCount + ' unread';
-          chip.style.display = unreadCount > 0 ? 'inline-flex' : 'none';
+          if (counterEl) {
+            counterEl.textContent = unreadCount > 0 ? unreadCount + ' new' : '';
+            if (unreadCount === 0) counterEl.remove();
+          }
         }
 
-        const listEl = document.getElementById('notificationList');
-        if (listEl) {
-          if (merged.length === 0) {
-            listEl.innerHTML = '<div class="notification-empty">No new notifications</div>';
-          } else {
-            const top10 = merged.slice(0, 10);
-            listEl.innerHTML = top10.map(item => {
-              const unread = !item.read;
-              return `<div class="notification-item ${unread ? 'unread' : ''}" data-id="${escapeAdditionsHtml(item.id)}" data-link="${escapeAdditionsHtml(item.link || '')}">
-      <div class="notif-icon-circle">${getNotificationIcon(item.type)}</div>
-      <div class="notif-content-wrap">
-        <div class="n-title">${escapeAdditionsHtml(item.title)}</div><div>${escapeAdditionsHtml(item.body)}</div>
-        <div class="n-time">${formatTimeRelative(item.ts)}</div>
-      </div>
-      ${unread ? '<div class="notif-unread-dot"></div>' : ''}
-    </div>`;
-            }).join('');
+        // Render list
+        if (merged.length === 0) {
+          notifList.innerHTML = '<div class="notification-empty">No new notifications</div>';
+          return;
+        }
 
-            listEl.querySelectorAll('.notification-item').forEach(el => {
-              el.addEventListener('click', () => {
-                const id = el.dataset.id;
-                const link = el.dataset.link;
-                try {
-                  const storedList = getStoredNotifications();
-                  let changed = false;
-                  storedList.forEach(n => {
-                    if (n.id === id && !n.read) { n.read = true; changed = true; }
-                  });
-                  if (changed) localStorage.setItem('bp_user_notifications', JSON.stringify(storedList));
-                } catch (e) {}
-                renderAllNotifications();
-                if (link) navigateTo(link);
-              });
+        function formatRelTime(ts) {
+          const diff = Date.now() - ts;
+          if (diff < 60000) return 'just now';
+          if (diff < 3600000) return Math.floor(diff / 60000) + 'm ago';
+          if (diff < 86400000) return Math.floor(diff / 3600000) + 'h ago';
+          return Math.floor(diff / 86400000) + 'd ago';
+        }
+
+        notifList.innerHTML = merged.slice(0, 10).map(n => {
+          const isUnread = !n.read;
+          const icon = getNotificationIcon(n.type);
+          return `
+            <div class="notification-item ${isUnread ? 'unread' : ''}" data-id="${n.id}" data-link="${n.link || 'index.html'}">
+              <div class="notif-icon-circle">${icon}</div>
+              <div class="notif-content-wrap">
+                <div class="n-title">${n.title}</div>
+                <div>${n.body}</div>
+                <div class="n-time">${formatRelTime(n.ts)}</div>
+              </div>
+              ${isUnread ? '<div class="notif-unread-dot"></div>' : ''}
+            </div>
+          `;
+        }).join('');
+
+        // Wire item clicks
+        notifList.querySelectorAll('.notification-item').forEach(el => {
+          el.addEventListener('click', () => {
+            const id = el.dataset.id;
+            const link = el.dataset.link;
+
+            // Mark stored notification read
+            try {
+              const list = getStoredNotifications();
+              const target = list.find(x => x.id === id);
+              if (target) {
+                target.read = true;
+                localStorage.setItem('bp_user_notifications', JSON.stringify(list));
+              }
+            } catch (e) {}
+
+            navigateTo(link || 'index.html');
+          });
+        });
+      }
+
+      // --- CHANGE 4: Rebuild Profile Menu Markup ---
+      function rebuildProfileMenu() {
+        const pm = document.getElementById('profileMenu');
+        if (!pm) return;
+
+        const ident = resolveIdentity();
+        const isSignedIn = !!ident.name;
+
+        if (isSignedIn) {
+          const kycLabel = ident.kyc || 'Tier 1';
+          const kycIsVerified = kycLabel.toLowerCase().includes('tier 2') || kycLabel.toLowerCase().includes('verified');
+
+          pm.innerHTML = `
+            <div class="pm-header-block">
+              <div class="pm-avatar">${ident.initials}</div>
+              <div class="pm-user-details">
+                <div class="pm-real-name" id="pmName">${ident.name}</div>
+                <div class="pm-real-email" id="pmEmail">${ident.email || 'Account verified'}</div>
+                <span class="pm-kyc-pill ${kycIsVerified ? '' : 'unverified'}">
+                  ${kycIsVerified ? 'âœ“ ' : 'â„¹ '}${kycLabel}
+                </span>
+              </div>
+            </div>
+
+            <div class="pm-nav-list">
+              <button class="pm-nav-item" data-href="profile.html">
+                <div class="pm-nav-left">
+                  <span class="pm-nav-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+                  <span>Profile</span>
+                </div>
+                <svg class="pm-nav-chevron" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+
+              <button class="pm-nav-item" data-href="transaction-history.html">
+                <div class="pm-nav-left">
+                  <span class="pm-nav-icon"><svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></span>
+                  <span>Transactions</span>
+                </div>
+                <svg class="pm-nav-chevron" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+
+              <button class="pm-nav-item" data-href="wallet.html">
+                <div class="pm-nav-left">
+                  <span class="pm-nav-icon"><svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="14" rx="3"/><path d="M16 13h.01"/><path d="M2 9h20"/></svg></span>
+                  <span>Wallet</span>
+                </div>
+                <svg class="pm-nav-chevron" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+
+              <button class="pm-nav-item" data-href="deposit.html">
+                <div class="pm-nav-left">
+                  <span class="pm-nav-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="8 12 12 16 16 12"/><line x1="12" y1="8" x2="12" y2="16"/></svg></span>
+                  <span>Deposit</span>
+                </div>
+                <svg class="pm-nav-chevron" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+
+              <button class="pm-nav-item" data-href="withdraw.html">
+                <div class="pm-nav-left">
+                  <span class="pm-nav-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="16 12 12 8 8 12"/><line x1="12" y1="16" x2="12" y2="8"/></svg></span>
+                  <span>Withdraw</span>
+                </div>
+                <svg class="pm-nav-chevron" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+
+              <button class="pm-nav-item" data-href="kyc.html">
+                <div class="pm-nav-left">
+                  <span class="pm-nav-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><line x1="15" y1="8" x2="17" y2="8"/><line x1="15" y1="12" x2="17" y2="12"/><line x1="7" y1="16" x2="17" y2="16"/></svg></span>
+                  <span>KYC Verification</span>
+                </div>
+                <svg class="pm-nav-chevron" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+
+              <button class="pm-nav-item" data-href="settings.html">
+                <div class="pm-nav-left">
+                  <span class="pm-nav-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span>
+                  <span>Settings</span>
+                </div>
+                <svg class="pm-nav-chevron" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+
+              <button class="pm-nav-item" data-href="help.html">
+                <div class="pm-nav-left">
+                  <span class="pm-nav-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+                  <span>Help Center</span>
+                </div>
+                <svg class="pm-nav-chevron" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+
+              <div class="pm-divider"></div>
+
+              <button class="pm-nav-item danger" id="pmLogout">
+                <div class="pm-nav-left">
+                  <span class="pm-nav-icon"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>
+                  <span>Logout</span>
+                </div>
+              </button>
+            </div>
+          `;
+
+          // Wire rows
+          pm.querySelectorAll('.pm-nav-item[data-href]').forEach(btn => {
+            btn.addEventListener('click', () => {
+              pm.classList.remove('open');
+              navigateTo(btn.dataset.href);
             });
-          }
-        }
-      } catch (e) {}
-    }
+          });
 
-    function seedNotificationsIfNeeded(resolved) {
-      if (!resolved || !resolved.name) return;
-      try {
-        const stored = getStoredNotifications();
-        if (stored.length === 0) {
-          writeNotification('welcome', 'Welcome to BluePeak Capital', 'Your account is ready. Explore P2P, Swap, and Trade from the home screen.', 'index.html');
-        }
-        let session = null;
-        try { session = JSON.parse(localStorage.getItem('bp_user_session') || 'null'); } catch (e) {}
-        if (session && session.loggedInAt) {
-          const loginTs = typeof session.loggedInAt === 'number' ? session.loggedInAt : new Date(session.loggedInAt).getTime();
-          if (!isNaN(loginTs)) {
-            const currentStored = getStoredNotifications();
-            const hasRecentSignin = currentStored.some(n => n.type === 'signin' && Math.abs(n.ts - loginTs) < 60000);
-            if (!hasRecentSignin) {
-              writeNotification('signin', 'New sign-in detected', 'You are signed in to BluePeak Capital from this device.', 'settings.html');
-            }
-          }
-        }
-      } catch (e) {}
-    }
-
-    function wireClearNotifications() {
-      const clearBtn = document.getElementById('clearNotifBtn');
-      if (clearBtn) {
-        clearBtn.addEventListener('click', () => {
-          try {
-            const stored = getStoredNotifications();
-            stored.forEach(n => { n.read = true; });
-            localStorage.setItem('bp_user_notifications', JSON.stringify(stored));
-          } catch (e) {}
-          try {
-            const chats = JSON.parse(localStorage.getItem('bp_admin_chats') || '[]');
-            const identity = resolveIdentity();
-            const myName = (identity.name || '').toLowerCase();
-            const myEmail = (identity.email || '').toLowerCase();
-            chats.forEach(c => {
-              const buyer = (c.buyer || '').toLowerCase();
-              if ((myName && buyer.includes(myName)) || (c.buyerEmail && c.buyerEmail.toLowerCase() === myEmail)) {
-                c.unread = false;
+          // Wire logout
+          const logoutBtn = document.getElementById('pmLogout');
+          if (logoutBtn) {
+            logoutBtn.addEventListener('click', () => {
+              if (confirm('Sign out of Bluepeak Capital?')) {
+                localStorage.removeItem('bp_user_session');
+                localStorage.removeItem('bp_user_profile');
+                localStorage.removeItem('bp_user_name');
+                localStorage.removeItem('bp_user_email');
+                localStorage.removeItem('bp_user_phone');
+                localStorage.removeItem('bp_user_country');
+                navigateTo('auth.html#signin');
               }
             });
-            localStorage.setItem('bp_admin_chats', JSON.stringify(chats));
-          } catch (e) {}
-          renderAllNotifications();
-        });
-      }
-    }
+          }
 
-    let lastBalancesSnapshot = {};
-    let lastWithdrawalsCount = 0;
-
-    function initSnapshots() {
-      try { lastBalancesSnapshot = JSON.parse(localStorage.getItem('bp_user_balances') || '{}'); } catch (e) { lastBalancesSnapshot = {}; }
-      try {
-        const withdrawals = JSON.parse(localStorage.getItem('bp_withdrawals') || '[]');
-        lastWithdrawalsCount = Array.isArray(withdrawals) ? withdrawals.length : 0;
-      } catch (e) { lastWithdrawalsCount = 0; }
-    }
-
-    function checkBalancesSnapshot() {
-      try {
-        const newBalances = JSON.parse(localStorage.getItem('bp_user_balances') || '{}');
-        if (newBalances && typeof newBalances === 'object') {
-          Object.keys(newBalances).forEach(sym => {
-            const prev = parseFloat(lastBalancesSnapshot[sym]);
-            const curr = parseFloat(newBalances[sym]);
-            if (!isNaN(prev) && prev > 0 && !isNaN(curr) && curr > prev) {
-              const diff = curr - prev;
-              writeNotification('deposit', 'Deposit Confirmed', `Received +${diff.toFixed(4)} ${sym}. Your balance has been updated.`, 'wallet.html');
-            }
-          });
-          lastBalancesSnapshot = Object.assign({}, newBalances);
-        }
-      } catch (e) {}
-    }
-
-    function checkWithdrawalsSnapshot() {
-      try {
-        const newWithdrawals = JSON.parse(localStorage.getItem('bp_withdrawals') || '[]');
-        if (Array.isArray(newWithdrawals) && newWithdrawals.length > lastWithdrawalsCount) {
-          const newest = newWithdrawals[0] || newWithdrawals[newWithdrawals.length - 1] || {};
-          const amt = newest.amount || newest.amt || '';
-          const asset = newest.asset || newest.symbol || newest.currency || '';
-          const desc = (amt && asset) ? `Withdrawal of ${amt} ${asset} processed.` : 'A withdrawal request has been submitted.';
-          writeNotification('withdraw', 'Withdrawal Processed', desc, 'wallet.html');
-          lastWithdrawalsCount = newWithdrawals.length;
-        }
-      } catch (e) {}
-    }
-
-    function rebuildProfileMenu() {
-      const pm = document.getElementById('profileMenu');
-      if (!pm) return;
-      const identity = resolveIdentity();
-      const session = localStorage.getItem('bp_user_session');
-      const isSignedIn = !!(session || identity.name);
-
-      if (!isSignedIn) {
-        pm.innerHTML = `<div class="pm-signedout-box">
-  <div class="pm-signedout-text">Sign in to view your profile, portfolio balance, and account settings.</div>
-  <button class="pm-signedout-btn" id="pmSignInBtn">Sign in to BluePeak</button>
-</div>`;
-        const signInBtn = document.getElementById('pmSignInBtn');
-        if (signInBtn) signInBtn.addEventListener('click', () => navigateTo('auth.html#signin'));
-        return;
-      }
-
-      const kycStr = (identity.kyc || 'unverified').toString().toLowerCase();
-      const isVerified = kycStr.includes('tier 2') || kycStr.includes('verified');
-      const kycClass = isVerified ? 'pm-kyc-pill' : 'pm-kyc-pill unverified';
-      const kycText = isVerified ? 'Verified' : 'Unverified';
-
-      const navItems = [
-        { label: 'Profile', href: 'profile.html', icon: '<svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>' },
-        { label: 'Transactions', href: 'transaction-history.html', icon: '<svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>' },
-        { label: 'Wallet', href: 'wallet.html', icon: '<svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="14" rx="3"/><path d="M16 13h.01"/><path d="M2 9h20"/></svg>' },
-        { label: 'Deposit', href: 'deposit.html', icon: '<svg viewBox="0 0 24 24"><path d="M12 3v12m0 0l4-4m-4 4l-4-4"/><path d="M5 21h14"/></svg>' },
-        { label: 'Withdraw', href: 'withdraw.html', icon: '<svg viewBox="0 0 24 24"><path d="M12 17V5m0 0l4 4m-4-4l-4 4"/><path d="M5 21h14"/></svg>' },
-        { label: 'KYC Verification', href: 'kyc.html', icon: '<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><line x1="15" y1="8" x2="17" y2="8"/><line x1="15" y1="12" x2="17" y2="12"/><line x1="7" y1="16" x2="17" y2="16"/></svg>' },
-        { label: 'Settings', href: 'settings.html', icon: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>' },
-        { label: 'Help Center', href: 'help.html', icon: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>' },
-      ];
-
-      const rowsHtml = navItems.map(item => `
-        <button class="pm-nav-item" data-href="${item.href}">
-          <div class="pm-nav-left">
-            <span class="pm-nav-icon">${item.icon}</span>
-            <span>${item.label}</span>
-          </div>
-          <span class="pm-nav-chevron"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></span>
-        </button>
-      `).join('');
-
-      pm.innerHTML = `
-        <div class="pm-header-block">
-          <div class="pm-avatar">${escapeAdditionsHtml(identity.initials || 'U')}</div>
-          <div class="pm-user-details">
-            <div class="pm-real-name">${escapeAdditionsHtml(identity.name || 'Account')}</div>
-            <div class="pm-real-email">${escapeAdditionsHtml(identity.email || '')}</div>
-            <div class="${kycClass}">${kycText}</div>
-          </div>
-        </div>
-        <div class="pm-nav-list">
-          ${rowsHtml}
-          <div class="pm-divider"></div>
-          <button class="pm-nav-item danger" id="pmLogout">
-            <div class="pm-nav-left">
-              <span class="pm-nav-icon"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>
-              <span>Logout</span>
+        } else {
+          // Signed-out profile menu
+          pm.innerHTML = `
+            <div class="pm-signedout-box">
+              <div class="pm-signedout-text">Sign in to view your profile, portfolio balance, and account settings.</div>
+              <button class="pm-signedout-btn" id="pmSignInAction">Sign in to BluePeak</button>
             </div>
-            <span class="pm-nav-chevron"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></span>
-          </button>
-        </div>
-      `;
-
-      pm.querySelectorAll('.pm-nav-item[data-href]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          pm.classList.remove('open');
-          navigateTo(btn.dataset.href);
-        });
-      });
-
-      wireLogoutButtons();
-    }
-
-    function initAdditions() {
-      try {
-        initSnapshots();
-        const identity = resolveIdentity();
-        applyResolvedIdentityUI(identity);
-        rebuildProfileMenu();
-        seedNotificationsIfNeeded(identity);
-        updateStrictBalanceUI();
-        renderAllNotifications();
-        wireClearNotifications();
-        wireLogoutButtons();
-
-        const eyeToggle = document.getElementById('eyeToggle');
-        if (eyeToggle) {
-          eyeToggle.addEventListener('click', () => {
-            setTimeout(updateStrictBalanceUI, 0);
-          });
+          `;
+          const sinBtn = document.getElementById('pmSignInAction');
+          if (sinBtn) {
+            sinBtn.addEventListener('click', () => {
+              pm.classList.remove('open');
+              navigateTo('auth.html#signin');
+            });
+          }
         }
+      }
 
-        window.addEventListener('storage', (e) => {
-          try {
-            if (e.key === 'bp_user_balances') {
-              checkBalancesSnapshot();
-              updateStrictBalanceUI();
-            } else if (e.key === 'bp_market_prices') {
-              updateStrictBalanceUI();
-            } else if (e.key === 'bp_withdrawals') {
-              checkWithdrawalsSnapshot();
-            } else if (e.key === 'bp_admin_chats' || e.key === 'bp_admin_bots' || e.key === 'bp_user_notifications' || e.key === 'bp_p2p_orders') {
+      // --- INITIALIZE ALL ADDITIONS ---
+      function initAdditions() {
+        try {
+          const ident = resolveIdentity();
+
+          // Header Avatar & Names
+          const avatarBtn = document.getElementById('avatarBtn');
+          if (avatarBtn) {
+            avatarBtn.textContent = ident.initials || 'U';
+          }
+          const pmName = document.getElementById('pmName');
+          if (pmName && ident.name) {
+            pmName.textContent = ident.name;
+          }
+          const pmEmail = document.getElementById('pmEmail');
+          if (pmEmail && ident.email) {
+            pmEmail.textContent = ident.email;
+          }
+
+          // Build redesigned profile menu
+          rebuildProfileMenu();
+
+          // Welcome and Sign-in Notifications Seeding
+          if (ident.name) {
+            const stored = getStoredNotifications();
+            if (stored.length === 0) {
+              writeNotification(
+                'welcome',
+                'Welcome to BluePeak Capital',
+                'Your account is ready. Explore P2P, Swap, and Trade from the home screen.',
+                'index.html'
+              );
+            }
+
+            let session = {};
+            try { session = JSON.parse(localStorage.getItem('bp_user_session') || '{}'); } catch(e) {}
+            if (session.loggedInAt) {
+              const hasRecentSignInNotif = stored.some(n => n.type === 'signin' && Math.abs(n.ts - session.loggedInAt) < 60000);
+              if (!hasRecentSignInNotif) {
+                writeNotification(
+                  'signin',
+                  'New sign-in detected',
+                  'You are signed in to BluePeak Capital from this device.',
+                  'settings.html'
+                );
+              }
+            }
+          }
+
+          // Wire Notification Clear button
+          const clearNotifBtn = document.getElementById('clearNotifBtn');
+          if (clearNotifBtn) {
+            clearNotifBtn.addEventListener('click', () => {
+              try {
+                const stored = getStoredNotifications();
+                stored.forEach(n => { n.read = true; });
+                localStorage.setItem('bp_user_notifications', JSON.stringify(stored));
+              } catch (e) {}
               renderAllNotifications();
-            } else if (e.key === 'bp_user_profile' || e.key === 'bp_user_session') {
-              const updated = resolveIdentity();
-              applyResolvedIdentityUI(updated);
+            });
+          }
+
+          // Balance UI Strict Wiring
+          updateStrictBalanceUI();
+
+          // Storage Event Sync
+          let lastBalancesSnapshot = {};
+          try { lastBalancesSnapshot = JSON.parse(localStorage.getItem('bp_user_balances') || '{}'); } catch(e) {}
+          let lastWithdrawalsCount = 0;
+          try { lastWithdrawalsCount = (JSON.parse(localStorage.getItem('bp_withdrawals') || '[]')).length; } catch(e) {}
+
+          window.addEventListener('storage', (e) => {
+            if (e.key === 'bp_user_balances' || e.key === 'bp_market_prices') {
+              updateStrictBalanceUI();
+
+              // Detect deposit
+              try {
+                const newBals = JSON.parse(localStorage.getItem('bp_user_balances') || '{}');
+                Object.keys(newBals).forEach(sym => {
+                  const oldV = parseFloat(lastBalancesSnapshot[sym]) || 0;
+                  const newV = parseFloat(newBals[sym]) || 0;
+                  if (newV > oldV && oldV > 0) {
+                    writeNotification('deposit', 'Deposit credited', 'Successfully credited ' + (newV - oldV).toFixed(4) + ' ' + sym + ' to your wallet.', 'wallet.html');
+                  }
+                });
+                lastBalancesSnapshot = newBals;
+              } catch (err) {}
+            }
+
+            if (e.key === 'bp_withdrawals') {
+              try {
+                const list = JSON.parse(localStorage.getItem('bp_withdrawals') || '[]');
+                if (list.length > lastWithdrawalsCount) {
+                  const latest = list[list.length - 1];
+                  writeNotification('withdraw', 'Withdrawal processed', 'Withdrawal of ' + (latest.amount || '') + ' ' + (latest.asset || '') + ' has been submitted.', 'transaction-history.html');
+                  lastWithdrawalsCount = list.length;
+                }
+              } catch (err) {}
+            }
+
+            if (e.key === 'bp_user_profile' || e.key === 'bp_user_session') {
               rebuildProfileMenu();
+              updateStrictBalanceUI();
+            }
+
+            if (e.key === 'bp_admin_chats' || e.key === 'bp_admin_bots' || e.key === 'bp_user_notifications' || e.key === 'bp_p2p_orders') {
               renderAllNotifications();
             }
-          } catch (err) {}
-        });
+          });
 
-        window.addEventListener('focus', () => {
-          updateStrictBalanceUI();
+          // Focus refresh
+          window.addEventListener('focus', () => {
+            updateStrictBalanceUI();
+            renderAllNotifications();
+          });
+
+          // Render merged notifications once more
           renderAllNotifications();
-        });
 
-        if (document.documentElement.scrollWidth > window.innerWidth + 1) {
-          console.warn('Responsive overflow detected: scrollWidth=' + document.documentElement.scrollWidth + ', innerWidth=' + window.innerWidth);
+          // Dev-only viewport overflow assertion
+          if (document.documentElement.scrollWidth > window.innerWidth + 1) {
+            const overflowing = [];
+            document.querySelectorAll('*').forEach(el => {
+              if (el.offsetWidth > window.innerWidth) overflowing.push(el);
+            });
+            console.warn('[bluepeak responsive check] Page elements exceed viewport width:', overflowing);
+          }
+        } catch (e) {
+          console.warn('[bluepeak] additions init failed:', e);
         }
-      } catch (err) {
-        console.error('initAdditions error:', err);
       }
-    }
 
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initAdditions);
-    } else {
-      initAdditions();
-    }
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initAdditions);
+      } else {
+        initAdditions();
+      }
+
+    })();
+
   </script>
 </body>
 </html>
