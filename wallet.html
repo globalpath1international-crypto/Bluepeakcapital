@@ -1,17 +1,15 @@
-Conversation Log
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-  <title>Wallet — Bluepeak Capital</title>
+  <title>Wallet â€” Bluepeak Capital</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <style>
     /* ============================================================
-       BLUEPEAK CAPITAL — WALLET DASHBOARD
+       BLUEPEAK CAPITAL â€” WALLET DASHBOARD
        ============================================================ */
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -420,6 +418,18 @@ Conversation Log
     @media (min-width: 700px) {
       .asset-row { padding: 18px 20px; }
     }
+
+    /* Total Balance currency dropdown */
+    .total-bal-currency-menu{position:absolute;top:calc(100% + 8px);right:0;min-width:230px;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-md);box-shadow:var(--shadow-lg);z-index:90;overflow:hidden;max-height:340px;overflow-y:auto;display:none}
+    .total-bal-currency-menu.open{display:block}
+    .total-bal-currency-menu .tbc-item{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;cursor:pointer;font-size:13px;font-weight:700;color:var(--navy-900);border-bottom:1px solid var(--gray-200);transition:background 0.12s;font-family:var(--font)}
+    .total-bal-currency-menu .tbc-item:last-child{border-bottom:none}
+    .total-bal-currency-menu .tbc-item:hover{background:var(--navy-50)}
+    .total-bal-currency-menu .tbc-item.active{background:var(--gold-100)}
+    .total-bal-currency-menu .tbc-sym{color:var(--gray-500);font-weight:600;font-size:11.5px;margin-left:8px}
+    /* Auto-fit scaling for professional number display */
+    .balance-card-value #totalBalance{display:inline-block;transition:font-size 0.12s ease;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .asset-row-amount, .asset-row-usd { max-width:100%; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-variant-numeric: tabular-nums; }
   </style></head>
 <body>
 
@@ -431,13 +441,13 @@ Conversation Log
   <div class="bottom-sheet" id="depositModal">
     <div class="sheet-header">
       <h3>Deposit</h3>
-      <button class="sheet-close" id="depositModalClose">✕</button>
+      <button class="sheet-close" id="depositModalClose">âœ•</button>
     </div>
     <div class="sheet-body">
       <div class="field-group">
         <label class="field-label">Select Asset</label>
         <select class="select-field" id="depositAssetSelect">
-          <option value="USDT">Tether (USDT — TRC20)</option>
+          <option value="USDT">Tether (USDT â€” TRC20)</option>
           <option value="BTC">Bitcoin (BTC)</option>
           <option value="ETH">Ethereum (ETH)</option>
           <option value="SOL">Solana (SOL)</option>
@@ -451,14 +461,14 @@ Conversation Log
         </div>
       </div>
       <div class="info-box">
-        <div class="ib-icon">⚠️</div>
+        <div class="ib-icon">âš ï¸</div>
         <div class="ib-text">Only send <strong id="depositAssetNote">USDT (TRC20)</strong> to this address. Sending other assets may result in permanent loss.</div>
       </div>
       <div class="info-box">
-        <div class="ib-icon">💡</div>
-        <div class="ib-text">Deposits typically confirm within 1–3 minutes depending on network congestion.</div>
+        <div class="ib-icon">ðŸ’¡</div>
+        <div class="ib-text">Deposits typically confirm within 1â€“3 minutes depending on network congestion.</div>
       </div>
-      <button class="btn-primary" onclick="showToast('Deposit flow — integration point')">I Have Made the Transfer</button>
+      <button class="btn-primary" onclick="showToast('Deposit flow â€” integration point')">I Have Made the Transfer</button>
     </div>
   </div>
 
@@ -466,13 +476,13 @@ Conversation Log
   <div class="bottom-sheet" id="withdrawModal">
     <div class="sheet-header">
       <h3>Withdraw</h3>
-      <button class="sheet-close" id="withdrawModalClose">✕</button>
+      <button class="sheet-close" id="withdrawModalClose">âœ•</button>
     </div>
     <div class="sheet-body">
       <div class="field-group">
         <label class="field-label">Select Asset</label>
         <select class="select-field" id="withdrawAssetSelect">
-          <option value="USDT">Tether (USDT — TRC20)</option>
+          <option value="USDT">Tether (USDT â€” TRC20)</option>
           <option value="BTC">Bitcoin (BTC)</option>
           <option value="ETH">Ethereum (ETH)</option>
           <option value="SOL">Solana (SOL)</option>
@@ -487,10 +497,10 @@ Conversation Log
         <input type="text" class="input-field" id="withdrawAddress" placeholder="Enter wallet address">
       </div>
       <div class="info-box">
-        <div class="ib-icon">🔒</div>
+        <div class="ib-icon">ðŸ”’</div>
         <div class="ib-text">Withdrawals are processed within 30 minutes. For security, large withdrawals may require additional verification.</div>
       </div>
-      <button class="btn-primary" onclick="showToast('Withdrawal submitted — integration point')">Submit Withdrawal</button>
+      <button class="btn-primary" onclick="showToast('Withdrawal submitted â€” integration point')">Submit Withdrawal</button>
     </div>
   </div>
 
@@ -518,14 +528,20 @@ Conversation Log
           <svg id="balanceEyeIcon" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
         </button>
       </div>
-      <div class="balance-card-value" id="totalBalance">$0.00</div>
+      <div class="balance-card-value" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+  <span id="totalBalance">$0.00</span>
+  <button id="totalBalCurrencyBtn" type="button" style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.18);color:var(--gold-400);font-family:var(--font);font-size:12px;font-weight:800;padding:5px 10px;border-radius:999px;cursor:pointer;display:inline-flex;align-items:center;gap:5px;">
+    <span id="totalBalCurrencyLabel">USD</span>
+    <svg viewBox="0 0 24 24" style="width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2.5;"><polyline points="6 9 12 15 18 9"/></svg>
+  </button>
+</div>
       <div class="balance-card-sub">
         <span style="color:var(--green-500);">+0.00%</span>
-        <span class="stat" id="availableBalanceText">· Available: $0.00</span>
+        <span class="stat" id="availableBalanceText">Â· Available: $0.00</span>
       </div>
       <div class="balance-card-actions">
-        <button class="bal-action-btn deposit" id="depositBtn">↓ Deposit</button>
-        <button class="bal-action-btn withdraw" id="withdrawBtn">↑ Withdraw</button>
+        <button class="bal-action-btn deposit" id="depositBtn">â†“ Deposit</button>
+        <button class="bal-action-btn withdraw" id="withdrawBtn">â†‘ Withdraw</button>
       </div>
     </div>
 
@@ -580,23 +596,23 @@ Conversation Log
     </button>
   </nav>
 
-  <!-- ASSET ACTION SHEET (per asset ⋮ menu) -->
+  <!-- ASSET ACTION SHEET (per asset â‹® menu) -->
   <div class="bottom-sheet" id="assetActionSheet">
     <div class="sheet-header">
       <h3 id="assetActionTitle">Asset</h3>
-      <button class="sheet-close" id="assetActionClose">✕</button>
+      <button class="sheet-close" id="assetActionClose">âœ•</button>
     </div>
     <div class="sheet-body">
       <div class="asset-action-row">
         <button class="asset-action-btn deposit" id="assetActionDeposit">
-          <span class="aab-icon">↓</span>
+          <span class="aab-icon">â†“</span>
           <span>
             Deposit
             <span class="aab-sub" id="assetActionDepositSub">Receive into your wallet</span>
           </span>
         </button>
         <button class="asset-action-btn withdraw" id="assetActionWithdraw">
-          <span class="aab-icon">↑</span>
+          <span class="aab-icon">â†‘</span>
           <span>
             Withdraw
             <span class="aab-sub" id="assetActionWithdrawSub">Send to an external wallet</span>
@@ -610,7 +626,7 @@ Conversation Log
   <div class="bottom-sheet" id="txDetailSheet">
     <div class="sheet-header">
       <h3 id="txDetailTitle">Transaction Details</h3>
-      <button class="sheet-close" id="txDetailClose">✕</button>
+      <button class="sheet-close" id="txDetailClose">âœ•</button>
     </div>
     <div class="sheet-body" id="txDetailBody"></div>
   </div>
@@ -629,7 +645,7 @@ Conversation Log
       const toastEl = $('#toast');
 
       // ============================================================
-      // ASSETS (demo defaults — real values overlaid by ADDITIONS)
+      // ASSETS (demo defaults â€” real values overlaid by ADDITIONS)
       // ============================================================
       const ASSETS = [
         { symbol: 'USDT', name: 'Tether', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/usdt.svg', balance: 0, price: 1 },
@@ -654,527 +670,18 @@ Conversation Log
       function fmtUSD(n) {
         return '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
       }
-      function fmtAmt(n) {
-        if (n === 0) return '0.00';
-        if (n >= 1000) return Number(n).toLocaleString('en-US', { maximumFractionDigits: 2 });
-        if (n >= 1) return Number(n).toFixed(4);
-        return Number(n).toFixed(6);
-      }
-
-      function updateBalanceVisibility() {
-        const el = $('#totalBalance');
-        const icon = $('#balanceEyeIcon');
-        if (balanceVisible) {
-          const total = ASSETS.reduce((sum, a) => sum + a.balance * a.price, 0);
-          el.textContent = fmtUSD(total);
-          icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
-        } else {
-          el.textContent = '••••••';
-          icon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
-        }
-      }
-
-      $('#balanceEyeToggle').addEventListener('click', () => {
-        balanceVisible = !balanceVisible;
-        updateBalanceVisibility();
-      });
-
-      function renderAssets() {
-        $('#assetList').innerHTML = ASSETS.map(a => {
-          const usdValue = a.balance * a.price;
-          return `
-            <div class="asset-row" data-asset="${a.symbol}">
-              <div class="asset-row-icon"><img src="${a.icon}" alt="${a.symbol}"></div>
-              <div class="asset-row-info">
-                <div class="asset-row-name">${a.name}</div>
-                <div class="asset-row-symbol">${a.symbol}</div>
-                <div class="asset-live-price">1 ${a.symbol} ≈ ${fmtUSD(a.price)}</div>
-              </div>
-              <div class="asset-row-balance">
-                <div class="asset-row-amount">${fmtAmt(a.balance)} ${a.symbol}</div>
-                <div class="asset-row-usd">≈ ${fmtUSD(usdValue)}</div>
-              </div>
-              <button class="asset-row-dots" data-asset-menu="${a.symbol}" aria-label="Asset actions">⋮</button>
-            </div>
-          `;
-        }).join('');
-
-        $('#assetCount').textContent = ASSETS.length + ' assets';
-
-        $$('.asset-row').forEach(row => {
-          row.addEventListener('click', (e) => {
-            if (e.target.closest('.asset-row-dots')) return;
-            const sym = row.dataset.asset;
-            navigateTo('deposit.html?asset=' + encodeURIComponent(sym));
-          });
-        });
-
-        $$('.asset-row-dots').forEach(btn => {
-          btn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            openAssetActionSheet(btn.dataset.assetMenu);
-          });
-        });
-      }
-
-      function renderTx() {
-        const filtered = currentTxFilter === 'all'
-          ? TX
-          : TX.filter(t => t.type === currentTxFilter);
-
-        if (filtered.length === 0) {
-          $('#txList').innerHTML = `<div class="empty-tx">No transactions yet.</div>`;
-          return;
-        }
-
-        $('#txList').innerHTML = filtered.map(t => {
-          const iconEmoji = { deposit: '↓', withdraw: '↑', swap: '⇄', trade: '📈' }[t.type] || '•';
-          const sign = t.type === 'deposit' || t.type === 'trade' ? '+' : '-';
-          const cls = sign === '+' ? 'positive' : 'negative';
-          const statusClass = t.status === 'completed' ? '' : t.status;
-          const typeLabel = { deposit: 'Deposit', withdraw: 'Withdrawal', swap: 'Swap', trade: 'Trade' }[t.type] || t.type;
-          return `
-            <div class="tx-item" data-txid="${t.id || ''}">
-              <div class="tx-icon ${t.type}">${iconEmoji}</div>
-              <div class="tx-info">
-                <div class="tx-title">${t.title}</div>
-                <div class="tx-date">${t.date}</div>
-                <span class="activity-type-pill ${t.type}">${typeLabel}</span>
-              </div>
-              <div class="tx-amount">
-                <div class="tx-amount-val ${cls}">${sign}${t.amount} ${t.symbol}</div>
-                <div class="tx-status ${statusClass}">${t.status}</div>
-              </div>
-              <div class="tx-item-arrow">›</div>
-            </div>
-          `;
-        }).join('');
-
-        $$('.tx-item').forEach(item => {
-          item.addEventListener('click', () => {
-            const id = item.dataset.txid;
-            const rec = TX.find(x => String(x.id) === String(id));
-            if (rec) openTxDetail(rec);
-          });
-        });
-      }
-
-      $$('.tx-filter').forEach(btn => {
-        btn.addEventListener('click', () => {
-          $$('.tx-filter').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          currentTxFilter = btn.dataset.txfilter;
-          renderTx();
-        });
-      });
-
-      const depositModal = $('#depositModal');
-      const depositOverlay = $('#depositModalOverlay');
-      const withdrawModal = $('#withdrawModal');
-      const withdrawOverlay = $('#withdrawModalOverlay');
-
-      const DEPOSIT_ADDRESSES = {
-        USDT: 'TXk7bF9m2Kp4qWnE8v3Ls6HjR5tYcB2pQd',
-        BTC: 'bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh',
-        ETH: '0x71C7656EC7ab88b098defB751B7401B5f6d8976F',
-        SOL: 'DYw8jCTfwHNRJhhmFcbXvVDTqWMEVFBX6ZKUmG5CNSKK',
-      };
-
-      function openDeposit() {
-        depositOverlay.classList.add('open');
-        depositModal.classList.add('open');
-        document.body.style.overflow = 'hidden';
-        updateDepositAddress();
-      }
-      function closeDeposit() {
-        depositOverlay.classList.remove('open');
-        depositModal.classList.remove('open');
-        document.body.style.overflow = '';
-      }
-      function updateDepositAddress() {
-        const sym = $('#depositAssetSelect').value;
-        const platformAddrs = (function() {
-          try {
-            return JSON.parse(localStorage.getItem('bp_platform_deposit_addresses') || '{}');
-          } catch (e) { return {}; }
-        })();
-        $('#depositAddress').textContent = platformAddrs[sym] || DEPOSIT_ADDRESSES[sym] || '—';
-        $('#depositAssetNote').textContent = sym;
-      }
-      $('#depositAssetSelect').addEventListener('change', updateDepositAddress);
-      $('#depositBtn').addEventListener('click', () => navigateTo('deposit.html'));
-      $('#depositModalClose').addEventListener('click', closeDeposit);
-      depositOverlay.addEventListener('click', closeDeposit);
-      $('#copyDepositBtn').addEventListener('click', () => {
-        const addr = $('#depositAddress').textContent;
-        if (navigator.clipboard) {
-          navigator.clipboard.writeText(addr).then(() => {
-            showToast('Address copied!');
-            $('#copyDepositBtn').textContent = 'Copied!';
-            setTimeout(() => { $('#copyDepositBtn').textContent = 'Copy'; }, 1500);
-          });
-        } else {
-          showToast('Address copied!');
-        }
-      });
-
-      function openWithdraw() {
-        withdrawOverlay.classList.add('open');
-        withdrawModal.classList.add('open');
-        document.body.style.overflow = 'hidden';
-      }
-      function closeWithdraw() {
-        withdrawOverlay.classList.remove('open');
-        withdrawModal.classList.remove('open');
-        document.body.style.overflow = '';
-      }
-      $('#withdrawBtn').addEventListener('click', () => navigateTo('withdraw.html'));
-      $('#withdrawModalClose').addEventListener('click', closeWithdraw);
-      withdrawOverlay.addEventListener('click', closeWithdraw);
-
-      $('#backBtn').addEventListener('click', () => {
-        window.location.href = 'index.html';
-      });
-      $('#historyBtn').addEventListener('click', () => {
-        document.querySelector('.tx-list').scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-
-      $$('.bottom-nav-item').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const nav = btn.dataset.nav;
-          if (nav === 'wallet') return;
-          if (nav === 'home') navigateTo('index.html');
-          if (nav === 'p2p') navigateTo('p2p.html');
-          if (nav === 'trade') navigateTo('trade.html');
-          if (nav === 'swap') navigateTo('swap.html');
-        });
-      });
-
-      // ===== ADDITIONS =====
-
-      let isNavigating = false;
-      function navigateTo(url) {
-        if (!url || isNavigating) return;
-        isNavigating = true;
-        window.location.href = url;
-        setTimeout(() => { isNavigating = false; }, 800);
-      }
-
-      const FALLBACK_PRICES = { USDT: 1, BTC: 81000, ETH: 3200, SOL: 150 };
-
-      function readBalances() {
-        try {
-          return JSON.parse(localStorage.getItem('bp_user_balances') || '{}') || {};
-        } catch (e) { return {}; }
-      }
-      function readPrices() {
-        try {
-          return JSON.parse(localStorage.getItem('bp_market_prices') || '{}') || {};
-        } catch (e) { return {}; }
-      }
-
-      function refreshLiveBalances() {
-        const balances = readBalances();
-        const prices = readPrices();
-
-        ASSETS.forEach(a => {
-          const raw = balances[a.symbol];
-          a.balance = isNaN(parseFloat(raw)) ? 0 : parseFloat(raw);
-          const p = parseFloat(prices[a.symbol]);
-          a.price = (!isNaN(p) && p > 0) ? p : (FALLBACK_PRICES[a.symbol] || 0);
-        });
-
-        const total = ASSETS.reduce((sum, a) => sum + a.balance * a.price, 0);
-        const availableEl = $('#availableBalanceText');
-        if (availableEl) availableEl.textContent = '· Available: ' + fmtUSD(total);
-
-        renderAssets();
-        updateBalanceVisibility();
-      }
-
-      function readJSON(key) {
-        try {
-          const v = JSON.parse(localStorage.getItem(key) || '[]');
-          return Array.isArray(v) ? v : [];
-        } catch (e) { return []; }
-      }
-
-      function normalizeActivities() {
-        const list = [];
-
-        readJSON('bp_deposits').forEach((d, i) => {
-          const amt = parseFloat(d.amount || d.amountUSD || 0);
-          const sym = d.symbol || d.asset || 'USDT';
-          list.push({
-            id: 'dep-' + i + '-' + (d.txid || d.id || ''),
-            type: 'deposit',
-            title: 'Deposit · ' + sym,
-            date: d.date || d.createdAt || d.timestamp || '—',
-            amount: isNaN(amt) ? '0.00' : amt.toFixed(2),
-            symbol: sym,
-            status: (d.status || 'completed').toLowerCase(),
-            raw: d
-          });
-        });
-
-        readJSON('bp_withdrawals').forEach((w, i) => {
-          const amt = parseFloat(w.amount || 0);
-          const sym = w.symbol || w.asset || 'USDT';
-          list.push({
-            id: 'wd-' + i + '-' + (w.txid || w.id || ''),
-            type: 'withdraw',
-            title: 'Withdrawal · ' + sym,
-            date: w.date || w.createdAt || w.timestamp || '—',
-            amount: isNaN(amt) ? '0.00' : amt.toFixed(2),
-            symbol: sym,
-            status: (w.status || 'pending').toLowerCase(),
-            raw: w
-          });
-        });
-
-        readJSON('bp_recent_swaps').forEach((s, i) => {
-          const fromSym = s.from || s.fromSymbol || '—';
-          const toSym = s.to || s.toSymbol || '—';
-          const amt = parseFloat(s.fromAmount || s.amount || 0);
-          list.push({
-            id: 'sw-' + i + '-' + (s.id || ''),
-            type: 'swap',
-            title: 'Swap · ' + fromSym + ' → ' + toSym,
-            date: s.date || s.createdAt || s.timestamp || '—',
-            amount: isNaN(amt) ? '0.00' : amt.toFixed(4),
-            symbol: fromSym,
-            status: (s.status || 'completed').toLowerCase(),
-            raw: s
-          });
-        });
-
-        readJSON('bp_p2p_orders').forEach((o, i) => {
-          const amt = parseFloat(o.cryptoAmount || o.fiatAmount || 0);
-          const sym = o.crypto || '—';
-          const side = (o.mode || '').toLowerCase() === 'sell' ? 'Sell' : 'Buy';
-          list.push({
-            id: 'p2p-' + i + '-' + (o.id || ''),
-            type: 'trade',
-            title: 'P2P ' + side + ' · ' + sym,
-            date: o.date || o.createdAt || '—',
-            amount: isNaN(amt) ? '0.00' : amt.toFixed(4),
-            symbol: sym,
-            status: (o.status || 'pending').toLowerCase(),
-            raw: o
-          });
-        });
-
-        list.sort((a, b) => {
-          const da = Date.parse(a.date) || 0;
-          const db = Date.parse(b.date) || 0;
-          return db - da;
-        });
-
-        return list;
-      }
-
-      function refreshActivity() {
-        const acts = normalizeActivities();
-        TX.length = 0;
-        acts.forEach(a => TX.push(a));
-        renderTx();
-      }
-
-      // --- Asset action sheet ---
-      let currentAssetSymbol = null;
-
-      function openAssetActionSheet(sym) {
-        currentAssetSymbol = sym;
-        const a = ASSETS.find(x => x.symbol === sym);
-        const sheet = $('#assetActionSheet');
-        const overlay = $('#sheetOverlay');
-        if (!sheet || !overlay) return;
-        $('#assetActionTitle').textContent = (a ? a.name : sym) + ' · ' + sym;
-        $('#assetActionDepositSub').textContent = 'Receive ' + sym + ' into your wallet';
-        $('#assetActionWithdrawSub').textContent = 'Send ' + sym + ' to an external wallet';
-        sheet.classList.add('open');
-        overlay.classList.add('open');
-        document.body.style.overflow = 'hidden';
-      }
-      function closeAssetActionSheet() {
-        const sheet = $('#assetActionSheet');
-        const overlay = $('#sheetOverlay');
-        if (sheet) sheet.classList.remove('open');
-        if (overlay) overlay.classList.remove('open');
-        document.body.style.overflow = '';
-      }
-      const aac = $('#assetActionClose');
-      if (aac) aac.addEventListener('click', closeAssetActionSheet);
-      const aad = $('#assetActionDeposit');
-      if (aad) aad.addEventListener('click', () => {
-        closeAssetActionSheet();
-        if (currentAssetSymbol) navigateTo('deposit.html?asset=' + encodeURIComponent(currentAssetSymbol));
-      });
-      const aaw = $('#assetActionWithdraw');
-      if (aaw) aaw.addEventListener('click', () => {
-        closeAssetActionSheet();
-        if (currentAssetSymbol) navigateTo('withdraw.html?asset=' + encodeURIComponent(currentAssetSymbol));
-      });
-
-      // --- TX detail sheet ---
-      function openTxDetail(rec) {
-        const sheet = $('#txDetailSheet');
-        const overlay = $('#sheetOverlay');
-        const body = $('#txDetailBody');
-        if (!sheet || !overlay || !body) return;
-
-        const typeLabel = { deposit: 'Deposit', withdraw: 'Withdrawal', swap: 'Swap', trade: 'Trade' }[rec.type] || rec.type;
-        const statusClass = (rec.status === 'completed' || rec.status === 'paid' || rec.status === 'completed') ? 'completed'
-                          : (rec.status === 'failed' || rec.status === 'cancelled' || rec.status === 'disputed') ? 'failed'
-                          : 'pending';
-
-        const raw = rec.raw || {};
-        const rows = [];
-
-        rows.push(['Activity', typeLabel]);
-        rows.push(['Asset', rec.symbol || '—']);
-        rows.push(['Amount', rec.amount + ' ' + (rec.symbol || '')]);
-        if (raw.fiatAmount) rows.push(['Fiat amount', raw.fiatAmount + ' ' + (raw.fiat || '')]);
-        if (raw.price) rows.push(['Price', raw.price]);
-        if (raw.merchantName) rows.push(['Counterparty', raw.merchantName]);
-        if (raw.paymentMethod) rows.push(['Payment method', raw.paymentMethod]);
-        if (raw.address) rows.push(['Destination', raw.address]);
-        if (raw.network) rows.push(['Network', raw.network]);
-        if (raw.txid) rows.push(['Tx Hash', raw.txid]);
-        if (raw.order) rows.push(['Order ID', raw.order]);
-        rows.push(['Date', rec.date]);
-
-        const statusPill = '<span class="tx-status-pill ' + statusClass + '">' + (rec.status || '—').toUpperCase() + '</span>';
-
-        let html = rows.map(r => `
-          <div class="tx-detail-row">
-            <div class="k">${r[0]}</div>
-            <div class="v">${String(r[1])}</div>
-          </div>
-        `).join('');
-        html += `<div class="tx-detail-row"><div class="k">Status</div><div class="v">${statusPill}</div></div>`;
-
-        if (raw.proof || raw.dispute) {
-          html += `<div class="info-box" style="margin-top:10px;">
-            <div class="ib-icon">${raw.dispute ? '🚩' : '📎'}</div>
-            <div class="ib-text"><strong>${raw.dispute ? 'Dispute opened' : 'Proof attached'}</strong><br>${raw.dispute ? (raw.dispute.reason || 'Under mediation') : 'Payment proof on file'}</div>
-          </div>`;
-        }
-
-        const sectionMap = { deposit: 'transaction-history.html', withdraw: 'transaction-history.html', swap: 'swap.html', trade: 'p2p.html' };
-        const dest = sectionMap[rec.type] || 'transaction-history.html';
-        html += `<button class="btn-primary" style="margin-top:14px;" onclick="window.location.href='${dest}'">Open in ${rec.type === 'trade' ? 'P2P Orders' : 'Transactions'}</button>`;
-
-        body.innerHTML = html;
-        $('#txDetailTitle').textContent = typeLabel + ' Details';
-        sheet.classList.add('open');
-        overlay.classList.add('open');
-        document.body.style.overflow = 'hidden';
-      }
-      function closeTxDetail() {
-        const sheet = $('#txDetailSheet');
-        const overlay = $('#sheetOverlay');
-        if (sheet) sheet.classList.remove('open');
-        if (overlay) overlay.classList.remove('open');
-        document.body.style.overflow = '';
-      }
-      const tdc = $('#txDetailClose');
-      if (tdc) tdc.addEventListener('click', closeTxDetail);
-      const sheetOverlayEl = $('#sheetOverlay');
-      if (sheetOverlayEl) sheetOverlayEl.addEventListener('click', () => {
-        closeAssetActionSheet();
-        closeTxDetail();
-      });
-
-      // --- Live storage sync ---
-      window.addEventListener('storage', (e) => {
-        if (!e || !e.key) return;
-        if (['bp_user_balances', 'bp_market_prices'].indexOf(e.key) !== -1) {
-          refreshLiveBalances();
-        }
-        if (['bp_deposits', 'bp_withdrawals', 'bp_recent_swaps', 'bp_p2p_orders'].indexOf(e.key) !== -1) {
-          refreshActivity();
-        }
-      });
-      window.addEventListener('focus', () => {
-        refreshLiveBalances();
-        refreshActivity();
-      });
-
-      // --- Init ---
-      try {
-        refreshLiveBalances();
-        refreshActivity();
-      } catch (err) {
-        console.warn('[wallet] additions init failed', err);
-      }
-
-    })();
-  </script>
-</body>
-</html>
-Patch the attached `wallet.html` only. **Write the result to disk at this exact path** and confirm with a one-line reply: `Saved to C:\Users\ADMIN\.gemini\antigravity\scratch\bluepeak-capital\wallet.html · <bytes> bytes`. Do not paste the file back in chat.
-
-**Do not change colours, fonts, spacing, layout, sheet order, bottom nav, existing modals, or any existing feature.** Only the changes listed below are permitted. Do not remove existing storage keys. Do not rename any existing function, element ID, or class.
-
-## §1 — Currency selector pill next to Total Balance (HTML)
-
-Find:
-```html
-<div class="balance-card-value" id="totalBalance">$0.00</div>
-```
-
-Replace with:
-```html
-<div class="balance-card-value" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-  <span id="totalBalance">$0.00</span>
-  <button id="totalBalCurrencyBtn" type="button" style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.18);color:var(--gold-400);font-family:var(--font);font-size:12px;font-weight:800;padding:5px 10px;border-radius:999px;cursor:pointer;display:inline-flex;align-items:center;gap:5px;">
-    <span id="totalBalCurrencyLabel">USD</span>
-    <svg viewBox="0 0 24 24" style="width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2.5;"><polyline points="6 9 12 15 18 9"/></svg>
-  </button>
-</div>
-```
-
-## §2 — Dropdown CSS
-
-Append immediately before the closing `</style>`:
-```css
-    /* Total Balance currency dropdown */
-    .total-bal-currency-menu{position:absolute;top:calc(100% + 8px);right:0;min-width:230px;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-md);box-shadow:var(--shadow-lg);z-index:90;overflow:hidden;max-height:340px;overflow-y:auto;display:none}
-    .total-bal-currency-menu.open{display:block}
-    .total-bal-currency-menu .tbc-item{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;cursor:pointer;font-size:13px;font-weight:700;color:var(--navy-900);border-bottom:1px solid var(--gray-200);transition:background 0.12s;font-family:var(--font)}
-    .total-bal-currency-menu .tbc-item:last-child{border-bottom:none}
-    .total-bal-currency-menu .tbc-item:hover{background:var(--navy-50)}
-    .total-bal-currency-menu .tbc-item.active{background:var(--gold-100)}
-    .total-bal-currency-menu .tbc-sym{color:var(--gray-500);font-weight:600;font-size:11.5px;margin-left:8px}
-    /* Auto-fit scaling for professional number display */
-    .balance-card-value #totalBalance{display:inline-block;transition:font-size 0.12s ease;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-```
-
-## §3 — Currency system (JavaScript)
-
-Find this exact function:
-```js
-      function fmtUSD(n) {
-        return '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      }
-```
-
-Immediately after its closing `}`, insert this block verbatim:
-
-```js
 
       // ===== Total Balance Multi-Currency =====
       const TOTAL_BAL_CURRENCIES = [
         { code: 'USD', symbol: '$',   name: 'US Dollar',           fx: 1.0 },
-        { code: 'EUR', symbol: '€',   name: 'Euro',                fx: 0.92 },
-        { code: 'GBP', symbol: '£',   name: 'British Pound',       fx: 0.79 },
+        { code: 'EUR', symbol: 'â‚¬',   name: 'Euro',                fx: 0.92 },
+        { code: 'GBP', symbol: 'Â£',   name: 'British Pound',       fx: 0.79 },
         { code: 'KES', symbol: 'KSh ',name: 'Kenyan Shilling',     fx: 130.5 },
-        { code: 'NGN', symbol: '₦',   name: 'Nigerian Naira',      fx: 1480.0 },
+        { code: 'NGN', symbol: 'â‚¦',   name: 'Nigerian Naira',      fx: 1480.0 },
         { code: 'ZAR', symbol: 'R ',  name: 'South African Rand',  fx: 18.2 },
         { code: 'TZS', symbol: 'TSh ',name: 'Tanzanian Shilling',  fx: 2600.0 },
         { code: 'UGX', symbol: 'USh ',name: 'Ugandan Shilling',    fx: 3700.0 },
-        { code: 'GHS', symbol: 'GH₵', name: 'Ghanaian Cedi',       fx: 15.2 },
+        { code: 'GHS', symbol: 'GHâ‚µ', name: 'Ghanaian Cedi',       fx: 15.2 },
         { code: 'RWF', symbol: 'FRw ',name: 'Rwandan Franc',       fx: 1380.0 },
         { code: 'AED', symbol: 'AED ',name: 'UAE Dirham',          fx: 3.67 }
       ];
@@ -1268,111 +775,7 @@ Immediately after its closing `}`, insert this block verbatim:
       });
       window.addEventListener('resize', fitTotalBalanceFont);
       // ===== End Total Balance Multi-Currency =====
-```
 
-## §4 — Replace `updateBalanceVisibility` (zero-safe + currency-aware + auto-fit)
-
-Find the entire existing function (from `function updateBalanceVisibility() {` to its matching `}`):
-
-```js
-      function updateBalanceVisibility() {
-        const el = $('#totalBalance');
-        const icon = $('#balanceEyeIcon');
-        if (balanceVisible) {
-          const total = ASSETS.reduce((sum, a) => sum + a.balance * a.price, 0);
-          el.textContent = fmtUSD(total);
-          icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
-        } else {
-          el.textContent = '••••••';
-          icon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
-        }
-      }
-```
-
-Replace with:
-
-```js
-      function updateBalanceVisibility() {
-        const el = $('#totalBalance');
-        const icon = $('#balanceEyeIcon');
-        if (balanceVisible) {
-          const total = ASSETS.reduce((sum, a) => {
-            const bal = isFinite(a.balance) && a.balance > 0 ? a.balance : 0;
-            const price = isFinite(a.price) && a.price > 0 ? a.price : 0;
-            return sum + bal * price;
-          }, 0);
-          el.textContent = formatInDisplayCurrency(total);
-          fitTotalBalanceFont();
-          icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
-        } else {
-          el.textContent = '••••••';
-          icon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
-        }
-      }
-```
-
-## §5 — Replace `refreshLiveBalances` (zero-safe, no fake fallback inflation)
-
-Find the entire existing function (from `function refreshLiveBalances() {` to its matching `}`):
-
-```js
-      function refreshLiveBalances() {
-        const balances = readBalances();
-        const prices = readPrices();
-
-        ASSETS.forEach(a => {
-          const raw = balances[a.symbol];
-          a.balance = isNaN(parseFloat(raw)) ? 0 : parseFloat(raw);
-          const p = parseFloat(prices[a.symbol]);
-          a.price = (!isNaN(p) && p > 0) ? p : (FALLBACK_PRICES[a.symbol] || 0);
-        });
-
-        const total = ASSETS.reduce((sum, a) => sum + a.balance * a.price, 0);
-        const availableEl = $('#availableBalanceText');
-        if (availableEl) availableEl.textContent = '· Available: ' + fmtUSD(total);
-
-        renderAssets();
-        updateBalanceVisibility();
-      }
-```
-
-Replace with:
-
-```js
-      function refreshLiveBalances() {
-        const balances = readBalances();
-        const prices = readPrices();
-
-        const anyBalance =
-          balances && Object.keys(balances).length > 0 &&
-          Object.keys(balances).some(k => isFinite(parseFloat(balances[k])) && parseFloat(balances[k]) > 0);
-
-        ASSETS.forEach(a => {
-          const raw = balances[a.symbol];
-          a.balance = (anyBalance && isFinite(parseFloat(raw)) && parseFloat(raw) > 0) ? parseFloat(raw) : 0;
-          const p = parseFloat(prices[a.symbol]);
-          a.price = (!isNaN(p) && p > 0) ? p : (FALLBACK_PRICES[a.symbol] || 0);
-        });
-
-        const totalUsd = ASSETS.reduce((sum, a) => sum + (a.balance > 0 ? a.balance * a.price : 0), 0);
-
-        const availableEl = $('#availableBalanceText');
-        if (availableEl) availableEl.textContent = '· Available: ' + fmtUSD(totalUsd);
-
-        renderAssets();
-        updateBalanceVisibility();
-      }
-```
-
-## §6 — Also scale asset-row amounts so large values don't overflow (CSS + JS)
-
-Append to the `<style>` block (after §2 CSS):
-```css
-    .asset-row-amount, .asset-row-usd { max-width:100%; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-variant-numeric: tabular-nums; }
-```
-
-Then append this small helper inside the script (after §3 block):
-```js
       (function assetRowAutoFit() {
         function fit() {
           document.querySelectorAll('.asset-row-amount').forEach(el => {
@@ -1394,30 +797,396 @@ Then append this small helper inside the script (after §3 block):
           if (list) mo.observe(list, { childList: true, subtree: true });
         });
       })();
-```
 
-## ACCEPTANCE
+      function fmtAmt(n) {
+        if (n === 0) return '0.00';
+        if (n >= 1000) return Number(n).toLocaleString('en-US', { maximumFractionDigits: 2 });
+        if (n >= 1) return Number(n).toFixed(4);
+        return Number(n).toFixed(6);
+      }
 
-1. Load with `localStorage.clear()` then reload — total shows `$0.00`. Available: `$0.00`. No console errors.
-2. Click the currency pill next to total — dropdown opens with 11 currencies.
-3. Pick **KES** — total shows `KSh 0`. Reload → pill still shows KES.
-4. Console: `localStorage.setItem('bp_user_balances', JSON.stringify({USDT:100,BTC:0,ETH:0,SOL:0})); location.reload();`
-5. Total shows `KSh 13,050` (100 × 130.5). Available: `· Available: $100.00`. Asset row USDT shows `100.00 USDT` / `≈ $100.00`.
-6. In Console: `localStorage.setItem('bp_user_balances', JSON.stringify({USDT:999999999.99,BTC:0,ETH:0,SOL:0})); location.reload();`
-7. Total shows a very large number **without breaking the card** — the font shrinks so it fits. Asset row `999,999,999.99 USDT` — font shrinks so it fits.
-8. Switch display to USD → total shows `$999,999,999.99` and still fits within the card at some readable size.
-9. All existing features unchanged: asset list rows clickable, ⋮ menu opens deposit/withdraw sheet, activity list filters, tx detail sheet, back button → `index.html`, bottom nav, eye toggle (hides total).
-10. No console errors after any step.
+      function updateBalanceVisibility() {
+        const el = $('#totalBalance');
+        const icon = $('#balanceEyeIcon');
+        if (balanceVisible) {
+          const total = ASSETS.reduce((sum, a) => {
+            const bal = isFinite(a.balance) && a.balance > 0 ? a.balance : 0;
+            const price = isFinite(a.price) && a.price > 0 ? a.price : 0;
+            return sum + bal * price;
+          }, 0);
+          el.textContent = formatInDisplayCurrency(total);
+          fitTotalBalanceFont();
+          icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+        } else {
+          el.textContent = 'â€¢â€¢â€¢â€¢â€¢â€¢';
+          icon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
+        }
+      }
 
-Write the patched file to disk. Reply only with: `Saved to C:\Users\ADMIN\.gemini\antigravity\scratch\bluepeak-capital\wallet.html · <bytes> bytes`.
+      $('#balanceEyeToggle').addEventListener('click', () => {
+        balanceVisible = !balanceVisible;
+        updateBalanceVisibility();
+      });
 
+      function renderAssets() {
+        $('#assetList').innerHTML = ASSETS.map(a => {
+          const usdValue = a.balance * a.price;
+          return `
+            <div class="asset-row" data-asset="${a.symbol}">
+              <div class="asset-row-icon"><img src="${a.icon}" alt="${a.symbol}"></div>
+              <div class="asset-row-info">
+                <div class="asset-row-name">${a.name}</div>
+                <div class="asset-row-symbol">${a.symbol}</div>
+                <div class="asset-live-price">1 ${a.symbol} â‰ˆ ${fmtUSD(a.price)}</div>
+              </div>
+              <div class="asset-row-balance">
+                <div class="asset-row-amount">${fmtAmt(a.balance)} ${a.symbol}</div>
+                <div class="asset-row-usd">â‰ˆ ${fmtUSD(usdValue)}</div>
+              </div>
+              <button class="asset-row-dots" data-asset-menu="${a.symbol}" aria-label="Asset actions">â‹®</button>
+            </div>
+          `;
+        }).join('');
 
+        $('#assetCount').textContent = ASSETS.length + ' assets';
 
-Saved to C:\Users\ADMIN.gemini\antigravity\scratch\bluepeak-capital\wallet.html · 58113 bytes
+        $$('.asset-row').forEach(row => {
+          row.addEventListener('click', (e) => {
+            if (e.target.closest('.asset-row-dots')) return;
+            const sym = row.dataset.asset;
+            navigateTo('deposit.html?asset=' + encodeURIComponent(sym));
+          });
+        });
 
-Review
+        $$('.asset-row-dots').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            openAssetActionSheet(btn.dataset.assetMenu);
+          });
+        });
+      }
+
+      function renderTx() {
+        const filtered = currentTxFilter === 'all'
+          ? TX
+          : TX.filter(t => t.type === currentTxFilter);
+
+        if (filtered.length === 0) {
+          $('#txList').innerHTML = `<div class="empty-tx">No transactions yet.</div>`;
+          return;
+        }
+
+        $('#txList').innerHTML = filtered.map(t => {
+          const iconEmoji = { deposit: 'â†“', withdraw: 'â†‘', swap: 'â‡„', trade: 'ðŸ“ˆ' }[t.type] || 'â€¢';
+          const sign = t.type === 'deposit' || t.type === 'trade' ? '+' : '-';
+          const cls = sign === '+' ? 'positive' : 'negative';
+          const statusClass = t.status === 'completed' ? '' : t.status;
+          const typeLabel = { deposit: 'Deposit', withdraw: 'Withdrawal', swap: 'Swap', trade: 'Trade' }[t.type] || t.type;
+          return `
+            <div class="tx-item" data-txid="${t.id || ''}">
+              <div class="tx-icon ${t.type}">${iconEmoji}</div>
+              <div class="tx-info">
+                <div class="tx-title">${t.title}</div>
+                <div class="tx-date">${t.date}</div>
+                <span class="activity-type-pill ${t.type}">${typeLabel}</span>
+              </div>
+              <div class="tx-amount">
+                <div class="tx-amount-val ${cls}">${sign}${t.amount} ${t.symbol}</div>
+                <div class="tx-status ${statusClass}">${t.status}</div>
+              </div>
+              <div class="tx-item-arrow">â€º</div>
+            </div>
+          `;
+        }).join('');
+
+        $$('.tx-item').forEach(item => {
+          item.addEventListener('click', () => {
+            const id = item.dataset.txid;
+            const rec = TX.find(x => String(x.id) === String(id));
+            if (rec) openTxDetail(rec);
+          });
+        });
+      }
+
+      $$('.tx-filter').forEach(btn => {
+        btn.addEventListener('click', () => {
+          $$('.tx-filter').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentTxFilter = btn.dataset.txfilter;
+          renderTx();
+        });
+      });
+
+      const depositModal = $('#depositModal');
+      const depositOverlay = $('#depositModalOverlay');
+      const withdrawModal = $('#withdrawModal');
+      const withdrawOverlay = $('#withdrawModalOverlay');
+
+      const DEPOSIT_ADDRESSES = {
+        USDT: 'TXk7bF9m2Kp4qWnE8v3Ls6HjR5tYcB2pQd',
+        BTC: 'bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh',
+        ETH: '0x71C7656EC7ab88b098defB751B7401B5f6d8976F',
+        SOL: 'DYw8jCTfwHNRJhhmFcbXvVDTqWMEVFBX6ZKUmG5CNSKK',
+      };
+
+      function openDeposit() {
+        depositOverlay.classList.add('open');
+        depositModal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        updateDepositAddress();
+      }
+      function closeDeposit() {
+        depositOverlay.classList.remove('open');
+        depositModal.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+      function updateDepositAddress() {
+        const sym = $('#depositAssetSelect').value;
+        const platformAddrs = (function() {
+          try {
+            return JSON.parse(localStorage.getItem('bp_platform_deposit_addresses') || '{}');
+          } catch (e) { return {}; }
+        })();
+        $('#depositAddress').textContent = platformAddrs[sym] || DEPOSIT_ADDRESSES[sym] || 'â€”';
+        $('#depositAssetNote').textContent = sym;
+      }
+      $('#depositAssetSelect').addEventListener('change', updateDepositAddress);
+      $('#depositBtn').addEventListener('click', () => navigateTo('deposit.html'));
+      $('#depositModalClose').addEventListener('click', closeDeposit);
+      depositOverlay.addEventListener('click', closeDeposit);
+      $('#copyDepositBtn').addEventListener('click', () => {
+        const addr = $('#depositAddress').textContent;
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(addr).then(() => {
+            showToast('Address copied!');
+            $('#copyDepositBtn').textContent = 'Copied!';
+            setTimeout(() => { $('#copyDepositBtn').textContent = 'Copy'; }, 1500);
+          });
+        } else {
+          showToast('Address copied!');
+        }
+      });
+
+      function openWithdraw() {
+        withdrawOverlay.classList.add('open');
+        withdrawModal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeWithdraw() {
+        withdrawOverlay.classList.remove('open');
+        withdrawModal.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+      $('#withdrawBtn').addEventListener('click', () => navigateTo('withdraw.html'));
+      $('#withdrawModalClose').addEventListener('click', closeWithdraw);
+      withdrawOverlay.addEventListener('click', closeWithdraw);
+
+      $('#backBtn').addEventListener('click', () => {
+        window.location.href = 'index.html';
+      });
+      $('#historyBtn').addEventListener('click', () => {
+        document.querySelector('.tx-list').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+
+      $$('.bottom-nav-item').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const nav = btn.dataset.nav;
+          if (nav === 'wallet') return;
+          if (nav === 'home') navigateTo('index.html');
+          if (nav === 'p2p') navigateTo('p2p.html');
+          if (nav === 'trade') navigateTo('trade.html');
+          if (nav === 'swap') navigateTo('swap.html');
+        });
+      });
+
+      // ===== ADDITIONS =====
+
+      let isNavigating = false;
+      function navigateTo(url) {
+        if (!url || isNavigating) return;
+        isNavigating = true;
+        window.location.href = url;
+        setTimeout(() => { isNavigating = false; }, 800);
+      }
+
+      const FALLBACK_PRICES = { USDT: 1, BTC: 81000, ETH: 3200, SOL: 150 };
+
+      function readBalances() {
+        try {
+          return JSON.parse(localStorage.getItem('bp_user_balances') || '{}') || {};
+        } catch (e) { return {}; }
+      }
+      function readPrices() {
+        try {
+          return JSON.parse(localStorage.getItem('bp_market_prices') || '{}') || {};
+        } catch (e) { return {}; }
+      }
+
+      function refreshLiveBalances() {
+        const balances = readBalances();
+        const prices = readPrices();
+
+        const anyBalance =
+          balances && Object.keys(balances).length > 0 &&
+          Object.keys(balances).some(k => isFinite(parseFloat(balances[k])) && parseFloat(balances[k]) > 0);
+
+        ASSETS.forEach(a => {
+          const raw = balances[a.symbol];
+          a.balance = (anyBalance && isFinite(parseFloat(raw)) && parseFloat(raw) > 0) ? parseFloat(raw) : 0;
+          const p = parseFloat(prices[a.symbol]);
+          a.price = (!isNaN(p) && p > 0) ? p : (FALLBACK_PRICES[a.symbol] || 0);
+        });
+
+        const totalUsd = ASSETS.reduce((sum, a) => sum + (a.balance > 0 ? a.balance * a.price : 0), 0);
+
+        const availableEl = $('#availableBalanceText');
+        if (availableEl) availableEl.textContent = 'Â· Available: ' + fmtUSD(totalUsd);
+
+        renderAssets();
+        updateBalanceVisibility();
+      }
+
+      function readJSON(key) {
+        try {
+          const v = JSON.parse(localStorage.getItem(key) || '[]');
+          return Array.isArray(v) ? v : [];
+        } catch (e) { return []; }
+      }
+
+      function normalizeActivities() {
+        const list = [];
+
+        readJSON('bp_deposits').forEach((d, i) => {
+          const amt = parseFloat(d.amount || d.amountUSD || 0);
+          const sym = d.symbol || d.asset || 'USDT';
+          list.push({
+            id: 'dep-' + i + '-' + (d.txid || d.id || ''),
+            type: 'deposit',
+            title: 'Deposit Â· ' + sym,
+            date: d.date || d.createdAt || d.timestamp || 'â€”',
+            amount: isNaN(amt) ? '0.00' : amt.toFixed(2),
+            symbol: sym,
+            status: (d.status || 'completed').toLowerCase(),
+            raw: d
+          });
+        });
+
+        readJSON('bp_withdrawals').forEach((w, i) => {
+          const amt = parseFloat(w.amount || 0);
+          const sym = w.symbol || w.asset || 'USDT';
+          list.push({
+            id: 'wd-' + i + '-' + (w.txid || w.id || ''),
+            type: 'withdraw',
+            title: 'Withdrawal Â· ' + sym,
+            date: w.date || w.createdAt || w.timestamp || 'â€”',
+            amount: isNaN(amt) ? '0.00' : amt.toFixed(2),
+            symbol: sym,
+            status: (w.status || 'pending').toLowerCase(),
+            raw: w
+          });
+        });
+
+        readJSON('bp_recent_swaps').forEach((s, i) => {
+          const fromSym = s.from || s.fromSymbol || 'â€”';
+          const toSym = s.to || s.toSymbol || 'â€”';
+          const amt = parseFloat(s.fromAmount || s.amount || 0);
+          list.push({
+            id: 'sw-' + i + '-' + (s.id || ''),
+            type: 'swap',
+            title: 'Swap Â· ' + fromSym + ' â†’ ' + toSym,
+            date: s.date || s.createdAt || s.timestamp || 'â€”',
+            amount: isNaN(amt) ? '0.00' : amt.toFixed(4),
+            symbol: fromSym,
+            status: (s.status || 'completed').toLowerCase(),
+            raw: s
+          });
+        });
+
+        readJSON('bp_p2p_orders').forEach((o, i) => {
+          const amt = parseFloat(o.cryptoAmount || o.fiatAmount || 0);
+          const sym = o.crypto || 'â€”';
+          const side = (o.mode || '').toLowerCase() === 'sell' ? 'Sell' : 'Buy';
+          list.push({
+            id: 'p2p-' + i + '-' + (o.id || ''),
+            type: 'trade',
+            title: 'P2P ' + side + ' Â· ' + sym,
+            date: o.date || o.createdAt || 'â€”',
+            amount: isNaN(amt) ? '0.00' : amt.toFixed(4),
+            symbol: sym,
+            status: (o.status || 'pending').toLowerCase(),
+            raw: o
+          });
+        });
+
+        list.sort((a, b) => {
+          const da = Date.parse(a.date) || 0;
+          const db = Date.parse(b.date) || 0;
+          return db - da;
+        });
+
+        return list;
+      }
+
+      function refreshActivity() {
+        const acts = normalizeActivities();
+        TX.length = 0;
+        acts.forEach(a => TX.push(a));
+        renderTx();
+      }
+
+      // --- Asset action sheet ---
+      let currentAssetSymbol = null;
+
+      function openAssetActionSheet(sym) {
+        currentAssetSymbol = sym;
+        const a = ASSETS.find(x => x.symbol === sym);
+        const sheet = $('#assetActionSheet');
+        const overlay = $('#sheetOverlay');
+        if (!sheet || !overlay) return;
+        $('#assetActionTitle').textContent = (a ? a.name : sym) + ' Â· ' + sym;
+        $('#assetActionDepositSub').textContent = 'Receive ' + sym + ' into your wallet';
+        $('#assetActionWithdrawSub').textContent = 'Send ' + sym + ' to an external wallet';
+        sheet.classList.add('open');
+        overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeAssetActionSheet() {
+        const sheet = $('#assetActionSheet');
+        const overlay = $('#sheetOverlay');
+        if (sheet) sheet.classList.remove('open');
+        if (overlay) overlay.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+      const aac = $('#assetActionClose');
+      if (aac) aac.addEventListener('click', closeAssetActionSheet);
+      const aad = $('#assetActionDeposit');
+      if (aad) aad.addEventListener('click', () => {
+        closeAssetActionSheet();
+        if (currentAssetSymbol) navigateTo('deposit.html?asset=' + encodeURIComponent(currentAssetSymbol));
+      });
+      const aaw = $('#assetActionWithdraw');
+      if (aaw) aaw.addEventListener('click', () => {
+        closeAssetActionSheet();
+        if (currentAssetSymbol) navigateTo('withdraw.html?asset=' + encodeURIComponent(currentAssetSymbol));
+      });
+
+      // --- TX detail sheet ---
+      function openTxDetail(rec) {
+        const sheet = $('#txDetailSheet');
+        const overlay = $('#sheetOverlay');
+        const body = $('#txDetailBody');
+        if (!sheet || !overlay || !body) return;
+
+        const typeLabel = { deposit: 'Deposit', withdraw: 'Withdrawal', swap: 'Swap', trade: 'Trade' }[rec.type] || rec.type;
+        const statusClass = (rec.status === 'completed' || rec.status === 'paid' || rec.status === 'completed') ? 'completed'
+                          : (rec.status === 'failed' || rec.status === 'cancelled' || rec.status === 'disputed') ? 'failed'
+                          : 'pending';
+
+        const raw = rec.raw || {};
+        const rows = [];
+
         rows.push(['Activity', typeLabel]);
-        rows.push(['Asset', rec.symbol || '—']);
+        rows.push(['Asset', rec.symbol || 'â€”']);
         rows.push(['Amount', rec.amount + ' ' + (rec.symbol || '')]);
         if (raw.fiatAmount) rows.push(['Fiat amount', raw.fiatAmount + ' ' + (raw.fiat || '')]);
         if (raw.price) rows.push(['Price', raw.price]);
@@ -1428,7 +1197,9 @@ Review
         if (raw.txid) rows.push(['Tx Hash', raw.txid]);
         if (raw.order) rows.push(['Order ID', raw.order]);
         rows.push(['Date', rec.date]);
-        const statusPill = '<span class="tx-status-pill ' + statusClass + '">' + (rec.status || '—').toUpperCase() + '</span>';
+
+        const statusPill = '<span class="tx-status-pill ' + statusClass + '">' + (rec.status || 'â€”').toUpperCase() + '</span>';
+
         let html = rows.map(r => `
           <div class="tx-detail-row">
             <div class="k">${r[0]}</div>
@@ -1436,15 +1207,18 @@ Review
           </div>
         `).join('');
         html += `<div class="tx-detail-row"><div class="k">Status</div><div class="v">${statusPill}</div></div>`;
+
         if (raw.proof || raw.dispute) {
           html += `<div class="info-box" style="margin-top:10px;">
-            <div class="ib-icon">${raw.dispute ? '🚩' : '📎'}</div>
+            <div class="ib-icon">${raw.dispute ? 'ðŸš©' : 'ðŸ“Ž'}</div>
             <div class="ib-text"><strong>${raw.dispute ? 'Dispute opened' : 'Proof attached'}</strong><br>${raw.dispute ? (raw.dispute.reason || 'Under mediation') : 'Payment proof on file'}</div>
           </div>`;
         }
+
         const sectionMap = { deposit: 'transaction-history.html', withdraw: 'transaction-history.html', swap: 'swap.html', trade: 'p2p.html' };
         const dest = sectionMap[rec.type] || 'transaction-history.html';
         html += `<button class="btn-primary" style="margin-top:14px;" onclick="window.location.href='${dest}'">Open in ${rec.type === 'trade' ? 'P2P Orders' : 'Transactions'}</button>`;
+
         body.innerHTML = html;
         $('#txDetailTitle').textContent = typeLabel + ' Details';
         sheet.classList.add('open');
@@ -1465,6 +1239,7 @@ Review
         closeAssetActionSheet();
         closeTxDetail();
       });
+
       // --- Live storage sync ---
       window.addEventListener('storage', (e) => {
         if (!e || !e.key) return;
@@ -1475,3 +1250,20 @@ Review
           refreshActivity();
         }
       });
+      window.addEventListener('focus', () => {
+        refreshLiveBalances();
+        refreshActivity();
+      });
+
+      // --- Init ---
+      try {
+        refreshLiveBalances();
+        refreshActivity();
+      } catch (err) {
+        console.warn('[wallet] additions init failed', err);
+      }
+
+    })();
+  </script>
+</body>
+</html>
