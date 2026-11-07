@@ -449,6 +449,75 @@
     #balancePctChange.positive{color:var(--green-500);}
     #balancePctChange.negative{color:var(--red-500);}
     #balancePctChange.neutral{color:var(--gray-400);}
+
+    /* ===== PATCH v6 CSS ===== */
+    /* Total balance currency menu — anchored to the pill, viewport-safe */
+    .total-bal-currency-menu{
+      position:absolute;
+      top:calc(100% + 8px);
+      left:0;
+      right:auto;
+      min-width:220px;
+      max-width:calc(100vw - 32px);
+      background:var(--white);
+      border:1px solid var(--gray-200);
+      border-radius:var(--radius-md);
+      box-shadow:var(--shadow-lg);
+      z-index:120;
+      overflow-y:auto;
+      max-height:60vh;
+      display:none;
+    }
+    .total-bal-currency-menu.open{display:block;}
+    .total-bal-currency-menu .tbc-item{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:11px 14px;cursor:pointer;font-size:13px;font-weight:700;
+      color:var(--navy-900);border-bottom:1px solid var(--gray-200);
+      transition:background 0.12s;font-family:var(--font);
+    }
+    .total-bal-currency-menu .tbc-item:last-child{border-bottom:none;}
+    .total-bal-currency-menu .tbc-item:hover{background:var(--navy-50);}
+    .total-bal-currency-menu .tbc-item.active{background:var(--gold-100);}
+    .total-bal-currency-menu .tbc-sym{color:var(--gray-500);font-weight:600;font-size:11.5px;margin-left:8px;}
+
+    /* On narrow phones, snap menu to full width of the balance card */
+    @media (max-width: 380px) {
+      .total-bal-currency-menu{
+        left:0;right:0;
+        min-width:0;
+        width:100%;
+        max-width:100%;
+      }
+    }
+
+    /* Percentage line: shrink when text grows (long currency % values) */
+    #balancePctChange{
+      display:inline-block;
+      max-width:100%;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      transition:font-size 0.12s ease;
+    }
+
+    /* Available line: also shrink on overflow */
+    #availableBalanceText{
+      display:inline-block;
+      max-width:100%;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      transition:font-size 0.12s ease;
+    }
+
+    /* Rate strip: keep on one line, prevent overflow */
+    #walletRateLine #walletRateValue{
+      display:inline-block;
+      max-width:100%;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
   </style></head>
 <body>
 
@@ -547,16 +616,17 @@
           <svg id="balanceEyeIcon" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
         </button>
       </div>
-      <div class="balance-card-value" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+      <div class="balance-card-value" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;position:relative;">
   <span id="totalBalance">$0.00</span>
-  <button id="totalBalCurrencyBtn" type="button" style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.18);color:var(--gold-400);font-family:var(--font);font-size:12px;font-weight:800;padding:5px 10px;border-radius:999px;cursor:pointer;display:inline-flex;align-items:center;gap:5px;">
+  <button id="totalBalCurrencyBtn" type="button" aria-label="Change display currency" style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.18);color:var(--gold-400);font-family:var(--font);font-size:12px;font-weight:800;padding:5px 10px;border-radius:999px;cursor:pointer;display:inline-flex;align-items:center;gap:5px;">
     <span id="totalBalCurrencyLabel">USD</span>
     <svg viewBox="0 0 24 24" style="width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2.5;"><polyline points="6 9 12 15 18 9"/></svg>
   </button>
+  <div id="totalBalCurrencyMenu" class="total-bal-currency-menu" role="menu" aria-label="Currency list"></div>
 </div>
       <div class="balance-card-sub" style="flex-wrap:wrap;gap:8px;">
-        <span id="balancePctChange" style="color:var(--green-500);font-weight:800;font-size:12px;">+0.00%</span>
-        <span class="stat" id="availableBalanceText">· Available: $0.00</span>
+        <span id="balancePctChange" style="color:var(--green-500);font-weight:800;font-size:12px;display:inline-block;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">+0.00%</span>
+        <span class="stat" id="availableBalanceText" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;">· Available: $0.00</span>
       </div>
       <div class="balance-card-actions">
         <button class="bal-action-btn deposit" id="depositBtn">↓ Deposit</button>
@@ -570,10 +640,6 @@
         <span style="width:7px;height:7px;border-radius:50%;background:var(--green-500);animation:pulse 1.5s infinite;flex-shrink:0;"></span>
         Market Rate:
         <strong id="walletRateValue" style="color:var(--navy-900);font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">1 USDT ≈ $1.00</strong>
-        <button id="walletRateCurrencyBtn" type="button" style="background:var(--navy-50);border:1px solid var(--gray-200);color:var(--navy-900);font-family:var(--font);font-size:11px;font-weight:800;padding:3px 8px;border-radius:999px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;flex-shrink:0;">
-          <span id="walletRateCurrencyLabel">USD</span>
-          <svg viewBox="0 0 24 24" style="width:9px;height:9px;stroke:currentColor;fill:none;stroke-width:2.5;"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
       </div>
       <button id="walletRateRefresh" type="button" aria-label="Refresh rate" style="background:none;border:none;cursor:pointer;color:var(--gray-500);display:flex;align-items:center;justify-content:center;padding:4px;">
         <svg viewBox="0 0 24 24" style="width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2.2;"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.5 9a9 9 0 0114.9-3.4L23 10"/><path d="M20.5 15a9 9 0 01-14.9 3.4L1 14"/></svg>
@@ -613,7 +679,7 @@
       <div class="bn-icon-wrap"><svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9 21v-6h6v6"/></svg></div>
       <span>Home</span>
     </button>
-    <button class="bottom-nav-item" data-nav="p2p" aria-label="P2P">
+    <button class="bottom-nav-item data-nav="p2p" aria-label="P2P">
       <div class="bn-icon-wrap"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M2.5 20c.8-3.5 3.2-5.5 6.5-5.5s5.7 2 6.5 5.5"/><circle cx="17.5" cy="8" r="2.8"/><path d="M15.5 14c2.5 0 4.8 1.5 5.5 4.5"/></svg></div>
       <span>P2P</span>
     </button>
@@ -758,32 +824,28 @@
         }
       }
       function renderTotalBalanceCurrencyMenu() {
-        let menu = document.getElementById('totalBalCurrencyMenu');
-        if (!menu) {
-          menu = document.createElement('div');
-          menu.id = 'totalBalCurrencyMenu';
-          menu.className = 'total-bal-currency-menu';
-          const wrap = document.getElementById('totalBalance')?.parentElement?.parentElement;
-          if (wrap) {
-            wrap.style.position = 'relative';
-            wrap.appendChild(menu);
-          }
-        }
+        const menu = document.getElementById('totalBalCurrencyMenu');
+        if (!menu) return null;
+        menu.classList.add('total-bal-currency-menu');
         const active = getSelectedTotalCurrency();
         menu.innerHTML = TOTAL_BAL_CURRENCIES.map(c =>
-          `<div class="tbc-item ${c.code === active ? 'active' : ''}" data-curcode="${c.code}">
+          `<div class="tbc-item ${c.code === active ? 'active' : ''}" data-curcode="${c.code}" role="menuitem">
              <span>${c.name}</span>
              <span class="tbc-sym">${c.code}</span>
            </div>`
         ).join('');
         menu.querySelectorAll('.tbc-item').forEach(it => {
-          it.addEventListener('click', () => {
-            setSelectedTotalCurrency(it.dataset.curcode);
-            document.getElementById('totalBalCurrencyLabel').textContent = it.dataset.curcode;
+          it.addEventListener('click', (ev) => {
+            ev.stopPropagation();
+            const code = it.dataset.curcode;
+            setSelectedTotalCurrency(code);
+            const labelEl = document.getElementById('totalBalCurrencyLabel');
+            if (labelEl) labelEl.textContent = code;
             menu.classList.remove('open');
-            updateBalanceVisibility();
-            if (typeof refreshLiveBalances === 'function') refreshLiveBalances();
-            if (typeof v3_renderRateLine === 'function') v3_renderRateLine();
+            try { updateBalanceVisibility(); } catch (_) {}
+            try { if (typeof refreshLiveBalances === 'function') refreshLiveBalances(); } catch (_) {}
+            try { if (typeof v3_renderRateLine === 'function') v3_renderRateLine(); } catch (_) {}
+            try { if (typeof fitTotalBalanceFont === 'function') fitTotalBalanceFont(); } catch (_) {}
           });
         });
         return menu;
@@ -797,7 +859,11 @@
           btn.addEventListener('click', (e) => {
             e.stopPropagation();
             const menu = document.getElementById('totalBalCurrencyMenu');
-            if (menu) menu.classList.toggle('open');
+            if (!menu) return;
+            const isOpen = menu.classList.contains('open');
+            // Re-render before opening so current active currency is highlighted
+            if (!isOpen) renderTotalBalanceCurrencyMenu();
+            menu.classList.toggle('open');
           });
         }
         document.addEventListener('click', (e) => {
@@ -806,6 +872,14 @@
             menu.classList.remove('open');
           }
         });
+        // Close on scroll of the wallet main (prevents menu lingering over content)
+        const mainEl = document.querySelector('.wallet-main');
+        if (mainEl) {
+          mainEl.addEventListener('scroll', () => {
+            const menu = document.getElementById('totalBalCurrencyMenu');
+            if (menu) menu.classList.remove('open');
+          }, { passive: true });
+        }
         setTimeout(fitTotalBalanceFont, 60);
         setTimeout(fitTotalBalanceFont, 300);
       });
@@ -852,7 +926,7 @@
           }, 0);
           el.textContent = formatInDisplayCurrency(total);
           fitTotalBalanceFont();
-          icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+          icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="13" r="3"/>';
         } else {
           el.textContent = '••••••';
           icon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
@@ -1483,16 +1557,16 @@
       // OR (for demo responsiveness) uses a short-window delta (~5 min) so users see real movement immediately.
 
       const V5_PREV_PRICES_KEY = 'bp_market_prev_prices';
-      const V5_PREV_WINDOW_MS = 5 * 60 * 1000; // 5 min demo window
+      const V5_PREV_WINDOW_MS = 5 * 60 * 1000;
       const V5_TRUE_24H_WINDOW_MS = 24 * 60 * 60 * 1000;
+      const V5_24H_CACHE_KEY = 'bp_market_24h_change';
+      const V5_24H_CACHE_TTL = 10 * 60 * 1000; // 10 min
 
       function v5_recordPriceSnapshot() {
         try {
           const spot = parseFloat(JSON.parse(localStorage.getItem('bp_market_prices') || '{}').USDT) || 1;
           const prev = JSON.parse(localStorage.getItem(V5_PREV_PRICES_KEY) || 'null');
-          // Store if no prev, or if prev is older than the window
           if (!prev || (Date.now() - prev.ts) > V5_PREV_WINDOW_MS) {
-            // When overwriting, roll the previous into "prev24h" slot
             const nextState = {
               prevUsdt: prev ? prev.spot : spot,
               prevTs: prev ? prev.ts : Date.now(),
@@ -1508,15 +1582,49 @@
         }
       }
 
-      function v5_getUsdtPctChange() {
+      // Fetch live 24h percentage change for USDT from CoinGecko, cache 10 min.
+      async function v5_fetch24hChange() {
+        try {
+          const cached = JSON.parse(localStorage.getItem(V5_24H_CACHE_KEY) || 'null');
+          if (cached && isFinite(cached.pct) && (Date.now() - cached.ts) < V5_24H_CACHE_TTL) {
+            return cached.pct;
+          }
+          const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=tether&vs_currencies=usd&include_24hr_change=true');
+          if (res.ok) {
+            const data = await res.json();
+            const pct = data?.tether?.usd_24h_change;
+            if (isFinite(pct)) {
+              try { localStorage.setItem(V5_24H_CACHE_KEY, JSON.stringify({ pct: pct, ts: Date.now() })); } catch (_) {}
+              return pct;
+            }
+          }
+        } catch (_) {}
+        // Fall back to spot vs. prev snapshot
         try {
           const state = v5_recordPriceSnapshot();
           if (!state) return null;
           const prevSpot = parseFloat(state.prevUsdt) || 0;
           const curSpot = parseFloat(state.spot) || 1;
           if (prevSpot <= 0) return null;
-          const pct = ((curSpot - prevSpot) / prevSpot) * 100;
-          return pct;
+          return ((curSpot - prevSpot) / prevSpot) * 100;
+        } catch (_) {
+          return null;
+        }
+      }
+
+      function v5_getUsdtPctChange() {
+        // Sync read from cache; async fetch updates on load.
+        try {
+          const cached = JSON.parse(localStorage.getItem(V5_24H_CACHE_KEY) || 'null');
+          if (cached && isFinite(cached.pct)) return cached.pct;
+        } catch (_) {}
+        try {
+          const state = v5_recordPriceSnapshot();
+          if (!state) return null;
+          const prevSpot = parseFloat(state.prevUsdt) || 0;
+          const curSpot = parseFloat(state.spot) || 1;
+          if (prevSpot <= 0) return null;
+          return ((curSpot - prevSpot) / prevSpot) * 100;
         } catch (_) {
           return null;
         }
@@ -1531,6 +1639,7 @@
           el.textContent = '+0.00%';
           el.className = 'neutral';
           el.style.color = 'var(--gray-400)';
+          el.style.fontSize = '12px';
           return;
         }
         const sign = pct >= 0 ? '+' : '';
@@ -1545,95 +1654,51 @@
           el.className = 'neutral';
           el.style.color = 'var(--gray-400)';
         }
+        // Auto-shrink when the % string is long (e.g. +1024.35%)
+        let px = 12;
+        el.style.fontSize = px + 'px';
+        const parentW = el.parentElement?.clientWidth || 280;
+        while (el.scrollWidth > parentW - 140 && px > 9) {
+          px -= 0.5;
+          el.style.fontSize = px + 'px';
+        }
       }
 
       // --- v5.4: Render rate strip using per-currency rate (independent of display currency) ---
       function v5_renderRateStrip() {
         const rateEl = document.getElementById('walletRateValue');
-        const labelEl = document.getElementById('walletRateCurrencyLabel');
         if (!rateEl) return;
-        const code = v5_getRateCurrency();
+        const code = getSelectedTotalCurrency();
         const cur = TOTAL_BAL_CURRENCIES.find(c => c.code === code) || TOTAL_BAL_CURRENCIES[0];
-        if (labelEl) labelEl.textContent = code;
         const usdtUsd = v3_getUsdtUsdRate();
         const localRate = usdtUsd * cur.fx;
-        const dec = (code === 'NGN' || code === 'TZS' || code === 'UGX' || code === 'RWF') ? 0 : (code === 'BTC' ? 2 : 2);
-        rateEl.textContent = `1 USDT ≈ ${cur.symbol}${Number(localRate).toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec })} ${code}`;
+        const dec = (code === 'NGN' || code === 'TZS' || code === 'UGX' || code === 'RWF') ? 0 : 2;
+        rateEl.textContent = `1 USDT ≈ ${cur.symbol}${Number(localRate).toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec })}`;
       }
 
-      // --- v5.5: Render the currency dropdown for the rate strip (all 11 currencies with current rate) ---
+      // --- v5.5: Rate currency menu removed in v6 (single source: balance pill) ---
       function v5_renderRateCurrencyMenu() {
-        let menu = document.getElementById('rateCurrencyMenu');
-        if (!menu) {
-          menu = document.createElement('div');
-          menu.id = 'rateCurrencyMenu';
-          menu.className = 'rate-currency-menu';
-          const wrap = document.getElementById('walletRateLine');
-          if (wrap) {
-            wrap.style.position = 'relative';
-            wrap.appendChild(menu);
-          }
-        }
-        const active = v5_getRateCurrency();
-        const usdtUsd = v3_getUsdtUsdRate();
-        menu.innerHTML = TOTAL_BAL_CURRENCIES.map(c => {
-          const localRate = usdtUsd * c.fx;
-          const dec = (c.code === 'NGN' || c.code === 'TZS' || c.code === 'UGX' || c.code === 'RWF') ? 0 : 2;
-          const rateStr = `${c.symbol}${Number(localRate).toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec })}`;
-          return `<div class="rcm-item ${c.code === active ? 'active' : ''}" data-ratecode="${c.code}">
-            <span>${c.name}</span>
-            <span class="rcm-sym">${c.code}</span>
-            <span class="rcm-rate">${rateStr}</span>
-          </div>`;
-        }).join('');
-        menu.querySelectorAll('.rcm-item').forEach(it => {
-          it.addEventListener('click', () => {
-            v5_setRateCurrency(it.dataset.ratecode);
-            menu.classList.remove('open');
-            v5_renderRateStrip();
-            v5_renderRateCurrencyMenu();
-          });
-        });
-        return menu;
+        return null;
       }
 
-      // --- v5.6: Wire the rate currency button + click-away + refresh hooks ---
-      (function v5_wireRateCurrencyButton() {
-        const btn = document.getElementById('walletRateCurrencyBtn');
-        if (btn) {
-          btn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const menu = document.getElementById('rateCurrencyMenu');
-            if (menu) menu.classList.toggle('open');
-            else {
-              v5_renderRateCurrencyMenu();
-              setTimeout(() => {
-                const m = document.getElementById('rateCurrencyMenu');
-                if (m) m.classList.add('open');
-              }, 30);
-            }
-          });
-        }
-        document.addEventListener('click', (e) => {
-          const menu = document.getElementById('rateCurrencyMenu');
-          if (menu && !e.target.closest('#walletRateCurrencyBtn') && !e.target.closest('#rateCurrencyMenu')) {
-            menu.classList.remove('open');
-          }
-        });
-      })();
+      // --- v5.6: Rate currency button removed in v6 ---
 
       // --- v5.7: Refresh everything on the refresh button click ---
       (function v5_wrapRefreshBtn() {
         const btn = document.getElementById('walletRateRefresh');
         if (!btn) return;
-        const orig = btn.onclick;
         btn.addEventListener('click', () => {
-          // Let the existing v3 handler do its thing; then update our UI
           setTimeout(() => {
             v5_renderRateStrip();
             v5_renderPctChange();
-            v5_renderRateCurrencyMenu();
           }, 900);
+          // After refresh, also fetch fresh 24h change
+          setTimeout(() => {
+            v5_fetch24hChange().then(() => {
+              try { localStorage.removeItem(V5_24H_CACHE_KEY); } catch (_) {}
+              v5_fetch24hChange().then(() => v5_renderPctChange());
+            });
+          }, 1200);
         });
       })();
 
@@ -1662,6 +1727,17 @@
         setTimeout(v5_renderRateStrip, 500);
         setTimeout(v5_renderPctChange, 1500);
         setTimeout(v5_renderRateStrip, 1500);
+        // Async 24h change fetch
+        v5_fetch24hChange().then(pct => {
+          if (pct === null) return;
+          try {
+            const cached = JSON.parse(localStorage.getItem(V5_24H_CACHE_KEY) || 'null');
+            if (!cached || !isFinite(cached.pct)) {
+              localStorage.setItem(V5_24H_CACHE_KEY, JSON.stringify({ pct: pct, ts: Date.now() }));
+            }
+          } catch (_) {}
+          v5_renderPctChange();
+        });
       });
 
       // --- v5.10: Also refresh whenever v3 refreshes ---
@@ -1676,6 +1752,8 @@
       })();
 
       /* ===== End PATCH v5 ===== */
+
+      /* ===== PATCH v6 ===== */
 
     })();
   </script>
