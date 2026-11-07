@@ -435,6 +435,20 @@
     @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
     #walletRateRefresh.spinning svg { animation: spin 0.8s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ===== PATCH v5 CSS ===== */
+    .rate-currency-menu{position:absolute;top:calc(100% + 6px);left:0;min-width:220px;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-md);box-shadow:var(--shadow-lg);z-index:95;overflow:hidden;max-height:320px;overflow-y:auto;display:none}
+    .rate-currency-menu.open{display:block}
+    .rate-currency-menu .rcm-item{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;cursor:pointer;font-size:12.5px;font-weight:700;color:var(--navy-900);border-bottom:1px solid var(--gray-200);transition:background 0.12s;font-family:var(--font)}
+    .rate-currency-menu .rcm-item:last-child{border-bottom:none}
+    .rate-currency-menu .rcm-item:hover{background:var(--navy-50)}
+    .rate-currency-menu .rcm-item.active{background:var(--gold-100)}
+    .rate-currency-menu .rcm-sym{color:var(--gray-500);font-weight:600;font-size:11px;margin-left:8px}
+    .rate-currency-menu .rcm-rate{color:var(--green-600);font-weight:700;font-size:11px;margin-left:auto;padding-left:8px;}
+    #walletRateLine{position:relative;}
+    #balancePctChange.positive{color:var(--green-500);}
+    #balancePctChange.negative{color:var(--red-500);}
+    #balancePctChange.neutral{color:var(--gray-400);}
   </style></head>
 <body>
 
@@ -518,7 +532,7 @@
       <span class="header-title">Wallet</span>
     </div>
     <button class="icon-btn" id="historyBtn" aria-label="History">
-      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 15 15 15"/></svg>
     </button>
   </header>
 
@@ -541,7 +555,7 @@
   </button>
 </div>
       <div class="balance-card-sub" style="flex-wrap:wrap;gap:8px;">
-        <span id="balanceRateInline" style="color:var(--gold-300);font-weight:800;font-size:12px;">1 USDT ≈ $1.00</span>
+        <span id="balancePctChange" style="color:var(--green-500);font-weight:800;font-size:12px;">+0.00%</span>
         <span class="stat" id="availableBalanceText">· Available: $0.00</span>
       </div>
       <div class="balance-card-actions">
@@ -552,10 +566,14 @@
 
     <!-- LIVE RATE LINE -->
     <div id="walletRateLine" style="display:flex;align-items:center;justify-content:space-between;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-pill);padding:9px 16px;box-shadow:var(--shadow-xs);">
-      <div style="display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--gray-500);">
-        <span style="width:7px;height:7px;border-radius:50%;background:var(--green-500);animation:pulse 1.5s infinite;"></span>
+      <div style="display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--gray-500);flex:1;min-width:0;overflow:hidden;">
+        <span style="width:7px;height:7px;border-radius:50%;background:var(--green-500);animation:pulse 1.5s infinite;flex-shrink:0;"></span>
         Market Rate:
-        <strong id="walletRateValue" style="color:var(--navy-900);font-weight:800;">1 USDT ≈ $1.00</strong>
+        <strong id="walletRateValue" style="color:var(--navy-900);font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">1 USDT ≈ $1.00</strong>
+        <button id="walletRateCurrencyBtn" type="button" style="background:var(--navy-50);border:1px solid var(--gray-200);color:var(--navy-900);font-family:var(--font);font-size:11px;font-weight:800;padding:3px 8px;border-radius:999px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;flex-shrink:0;">
+          <span id="walletRateCurrencyLabel">USD</span>
+          <svg viewBox="0 0 24 24" style="width:9px;height:9px;stroke:currentColor;fill:none;stroke-width:2.5;"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
       </div>
       <button id="walletRateRefresh" type="button" aria-label="Refresh rate" style="background:none;border:none;cursor:pointer;color:var(--gray-500);display:flex;align-items:center;justify-content:center;padding:4px;">
         <svg viewBox="0 0 24 24" style="width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2.2;"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.5 9a9 9 0 0114.9-3.4L23 10"/><path d="M20.5 15a9 9 0 01-14.9 3.4L1 14"/></svg>
@@ -1355,9 +1373,7 @@
         const rateEl = document.getElementById('walletRateValue');
         if (rateEl) rateEl.textContent = rateText;
 
-        // Update the inline rate next to Available
-        const inlineEl = document.getElementById('balanceRateInline');
-        if (inlineEl) inlineEl.textContent = rateText;
+        // Inline rate element removed in v5 (replaced by #balancePctChange). No-op here.
       }
 
       async function v3_refreshLiveRate() {
@@ -1441,6 +1457,225 @@
       });
 
       /* ===== End PATCH v3 ===== */
+
+      /* ===== PATCH v5 ===== */
+
+      // --- v5.1: Full currency rate map (per-currency, live-updated) ---
+      // In addition to the display currency, allows the rate strip to show ANY currency's rate.
+      // Reuses bp_market_rates_cache + bp_market_prices. Fetches live CoinGecko once per 5 min.
+
+      const V5_RATE_CURRENCY_KEY = 'bp_wallet_rate_currency';
+
+      function v5_getRateCurrency() {
+        try {
+          const s = localStorage.getItem(V5_RATE_CURRENCY_KEY);
+          if (s && TOTAL_BAL_CURRENCIES.find(c => c.code === s)) return s;
+        } catch (_) {}
+        return getSelectedTotalCurrency();
+      }
+      function v5_setRateCurrency(code) {
+        try { localStorage.setItem(V5_RATE_CURRENCY_KEY, code); } catch (_) {}
+      }
+
+      // --- v5.2: Compute real percentage change from 24h price history ---
+      // Uses cached spot price vs. a 24h-ago snapshot stored in bp_market_prev_prices.
+      // If no snapshot exists yet, stores current price with timestamp; returns null until 24h have passed
+      // OR (for demo responsiveness) uses a short-window delta (~5 min) so users see real movement immediately.
+
+      const V5_PREV_PRICES_KEY = 'bp_market_prev_prices';
+      const V5_PREV_WINDOW_MS = 5 * 60 * 1000; // 5 min demo window
+      const V5_TRUE_24H_WINDOW_MS = 24 * 60 * 60 * 1000;
+
+      function v5_recordPriceSnapshot() {
+        try {
+          const spot = parseFloat(JSON.parse(localStorage.getItem('bp_market_prices') || '{}').USDT) || 1;
+          const prev = JSON.parse(localStorage.getItem(V5_PREV_PRICES_KEY) || 'null');
+          // Store if no prev, or if prev is older than the window
+          if (!prev || (Date.now() - prev.ts) > V5_PREV_WINDOW_MS) {
+            // When overwriting, roll the previous into "prev24h" slot
+            const nextState = {
+              prevUsdt: prev ? prev.spot : spot,
+              prevTs: prev ? prev.ts : Date.now(),
+              spot: spot,
+              ts: Date.now()
+            };
+            localStorage.setItem(V5_PREV_PRICES_KEY, JSON.stringify(nextState));
+            return nextState;
+          }
+          return prev;
+        } catch (_) {
+          return null;
+        }
+      }
+
+      function v5_getUsdtPctChange() {
+        try {
+          const state = v5_recordPriceSnapshot();
+          if (!state) return null;
+          const prevSpot = parseFloat(state.prevUsdt) || 0;
+          const curSpot = parseFloat(state.spot) || 1;
+          if (prevSpot <= 0) return null;
+          const pct = ((curSpot - prevSpot) / prevSpot) * 100;
+          return pct;
+        } catch (_) {
+          return null;
+        }
+      }
+
+      // --- v5.3: Render live percentage next to balance ---
+      function v5_renderPctChange() {
+        const el = document.getElementById('balancePctChange');
+        if (!el) return;
+        const pct = v5_getUsdtPctChange();
+        if (pct === null || !isFinite(pct)) {
+          el.textContent = '+0.00%';
+          el.className = 'neutral';
+          el.style.color = 'var(--gray-400)';
+          return;
+        }
+        const sign = pct >= 0 ? '+' : '';
+        el.textContent = sign + pct.toFixed(2) + '%';
+        if (pct > 0.005) {
+          el.className = 'positive';
+          el.style.color = 'var(--green-500)';
+        } else if (pct < -0.005) {
+          el.className = 'negative';
+          el.style.color = 'var(--red-500)';
+        } else {
+          el.className = 'neutral';
+          el.style.color = 'var(--gray-400)';
+        }
+      }
+
+      // --- v5.4: Render rate strip using per-currency rate (independent of display currency) ---
+      function v5_renderRateStrip() {
+        const rateEl = document.getElementById('walletRateValue');
+        const labelEl = document.getElementById('walletRateCurrencyLabel');
+        if (!rateEl) return;
+        const code = v5_getRateCurrency();
+        const cur = TOTAL_BAL_CURRENCIES.find(c => c.code === code) || TOTAL_BAL_CURRENCIES[0];
+        if (labelEl) labelEl.textContent = code;
+        const usdtUsd = v3_getUsdtUsdRate();
+        const localRate = usdtUsd * cur.fx;
+        const dec = (code === 'NGN' || code === 'TZS' || code === 'UGX' || code === 'RWF') ? 0 : (code === 'BTC' ? 2 : 2);
+        rateEl.textContent = `1 USDT ≈ ${cur.symbol}${Number(localRate).toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec })} ${code}`;
+      }
+
+      // --- v5.5: Render the currency dropdown for the rate strip (all 11 currencies with current rate) ---
+      function v5_renderRateCurrencyMenu() {
+        let menu = document.getElementById('rateCurrencyMenu');
+        if (!menu) {
+          menu = document.createElement('div');
+          menu.id = 'rateCurrencyMenu';
+          menu.className = 'rate-currency-menu';
+          const wrap = document.getElementById('walletRateLine');
+          if (wrap) {
+            wrap.style.position = 'relative';
+            wrap.appendChild(menu);
+          }
+        }
+        const active = v5_getRateCurrency();
+        const usdtUsd = v3_getUsdtUsdRate();
+        menu.innerHTML = TOTAL_BAL_CURRENCIES.map(c => {
+          const localRate = usdtUsd * c.fx;
+          const dec = (c.code === 'NGN' || c.code === 'TZS' || c.code === 'UGX' || c.code === 'RWF') ? 0 : 2;
+          const rateStr = `${c.symbol}${Number(localRate).toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec })}`;
+          return `<div class="rcm-item ${c.code === active ? 'active' : ''}" data-ratecode="${c.code}">
+            <span>${c.name}</span>
+            <span class="rcm-sym">${c.code}</span>
+            <span class="rcm-rate">${rateStr}</span>
+          </div>`;
+        }).join('');
+        menu.querySelectorAll('.rcm-item').forEach(it => {
+          it.addEventListener('click', () => {
+            v5_setRateCurrency(it.dataset.ratecode);
+            menu.classList.remove('open');
+            v5_renderRateStrip();
+            v5_renderRateCurrencyMenu();
+          });
+        });
+        return menu;
+      }
+
+      // --- v5.6: Wire the rate currency button + click-away + refresh hooks ---
+      (function v5_wireRateCurrencyButton() {
+        const btn = document.getElementById('walletRateCurrencyBtn');
+        if (btn) {
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const menu = document.getElementById('rateCurrencyMenu');
+            if (menu) menu.classList.toggle('open');
+            else {
+              v5_renderRateCurrencyMenu();
+              setTimeout(() => {
+                const m = document.getElementById('rateCurrencyMenu');
+                if (m) m.classList.add('open');
+              }, 30);
+            }
+          });
+        }
+        document.addEventListener('click', (e) => {
+          const menu = document.getElementById('rateCurrencyMenu');
+          if (menu && !e.target.closest('#walletRateCurrencyBtn') && !e.target.closest('#rateCurrencyMenu')) {
+            menu.classList.remove('open');
+          }
+        });
+      })();
+
+      // --- v5.7: Refresh everything on the refresh button click ---
+      (function v5_wrapRefreshBtn() {
+        const btn = document.getElementById('walletRateRefresh');
+        if (!btn) return;
+        const orig = btn.onclick;
+        btn.addEventListener('click', () => {
+          // Let the existing v3 handler do its thing; then update our UI
+          setTimeout(() => {
+            v5_renderRateStrip();
+            v5_renderPctChange();
+            v5_renderRateCurrencyMenu();
+          }, 900);
+        });
+      })();
+
+      // --- v5.8: Update the percentage whenever balances/prices change ---
+      (function v5_wireStorageSync() {
+        window.addEventListener('storage', (e) => {
+          if (['bp_market_prices', 'bp_market_prev_prices', 'bp_wallet_display_currency', V5_RATE_CURRENCY_KEY].indexOf(e.key) !== -1) {
+            v5_renderPctChange();
+            v5_renderRateStrip();
+            v5_renderRateCurrencyMenu();
+          }
+        });
+        window.addEventListener('focus', () => {
+          v5_renderPctChange();
+          v5_renderRateStrip();
+          v5_renderRateCurrencyMenu();
+        });
+      })();
+
+      // --- v5.9: Init on load ---
+      document.addEventListener('DOMContentLoaded', () => {
+        v5_renderPctChange();
+        v5_renderRateStrip();
+        v5_renderRateCurrencyMenu();
+        setTimeout(v5_renderPctChange, 500);
+        setTimeout(v5_renderRateStrip, 500);
+        setTimeout(v5_renderPctChange, 1500);
+        setTimeout(v5_renderRateStrip, 1500);
+      });
+
+      // --- v5.10: Also refresh whenever v3 refreshes ---
+      (function v5_wrapV3Refresh() {
+        if (typeof window.v3_refreshLiveRate !== 'function') return;
+        const orig = window.v3_refreshLiveRate;
+        window.v3_refreshLiveRate = async function () {
+          const r = await orig.apply(this, arguments);
+          try { v5_renderPctChange(); v5_renderRateStrip(); v5_renderRateCurrencyMenu(); } catch (_) {}
+          return r;
+        };
+      })();
+
+      /* ===== End PATCH v5 ===== */
 
     })();
   </script>
