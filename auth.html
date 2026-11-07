@@ -246,6 +246,17 @@
       // Not signed in — reveal the auth form
       document.body.classList.add('ready');
 
+      // Ensure zero balances exist even before signup/login (safe — only if key missing)
+      (function ensureZeroOnLoad() {
+        try {
+          if (!localStorage.getItem('bp_user_balances')) {
+            localStorage.setItem('bp_user_balances', JSON.stringify({
+              USDT: 0, BTC: 0, ETH: 0, SOL: 0, BNB: 0, USD: 0
+            }));
+          }
+        } catch (_) {}
+      })();
+
       const tabLogin = $('#tabLogin');
       const tabSignup = $('#tabSignup');
       const loginForm = $('#loginForm');
@@ -332,6 +343,65 @@
         } catch (e) {}
       }
 
+      // ===== Auth helpers (added) =====
+      function hashPassword(pw) {
+        try {
+          let h = 5381;
+          for (let i = 0; i < pw.length; i++) {
+            h = ((h << 5) + h + pw.charCodeAt(i)) >>> 0;
+          }
+          return 'h' + h.toString(16);
+        } catch (_) {
+          return '';
+        }
+      }
+
+      function showInlineError(formEl, msg) {
+        try {
+          const old = formEl.querySelector('.auth-inline-error');
+          if (old) old.remove();
+          const err = document.createElement('div');
+          err.className = 'auth-inline-error';
+          err.style.cssText = 'margin:8px 0 12px;padding:10px 12px;background:#FDECEC;border:1px solid rgba(209,67,67,0.35);border-radius:12px;color:#D14343;font-size:12.5px;font-weight:700;line-height:1.4;';
+          err.textContent = msg;
+          const submitBtn = formEl.querySelector('button[type="submit"]');
+          if (submitBtn && submitBtn.parentNode) {
+            submitBtn.parentNode.insertBefore(err, submitBtn);
+          } else {
+            formEl.appendChild(err);
+          }
+          const inputs = formEl.querySelectorAll('input, select');
+          inputs.forEach(inp => {
+            inp.addEventListener('input', () => {
+              const e2 = formEl.querySelector('.auth-inline-error');
+              if (e2) e2.remove();
+            }, { once: true });
+          });
+        } catch (_) {}
+      }
+
+      function ensureZeroBalancesSeed() {
+        // Seeds bp_user_balances with all zeros ONLY if the key does not exist yet.
+        // Never overwrites an existing balance (deposits, P2P credits stay intact).
+        try {
+          if (!localStorage.getItem('bp_user_balances')) {
+            localStorage.setItem('bp_user_balances', JSON.stringify({
+              USDT: 0, BTC: 0, ETH: 0, SOL: 0, BNB: 0, USD: 0
+            }));
+          }
+        } catch (_) {}
+      }
+
+      function ensureEmptyTxListsSeed() {
+        // Seeds empty transaction arrays ONLY if missing. Never overwrites.
+        try {
+          if (!localStorage.getItem('bp_deposits')) localStorage.setItem('bp_deposits', '[]');
+          if (!localStorage.getItem('bp_withdrawals')) localStorage.setItem('bp_withdrawals', '[]');
+          if (!localStorage.getItem('bp_recent_swaps')) localStorage.setItem('bp_recent_swaps', '[]');
+          if (!localStorage.getItem('bp_p2p_orders')) localStorage.setItem('bp_p2p_orders', '[]');
+        } catch (_) {}
+      }
+
       // ============================================================
       // LOGIN
       // ============================================================
@@ -341,11 +411,47 @@
         const password = $('#loginPassword').value;
         if (!email || !password) return;
 
+        // BLOCK: only existing accounts can log in
         const known = lookupAccount(email);
+        if (!known) {
+          showInlineError(loginForm, 'No account found for this email. Please create an account first.');
+          return;
+        }
+
+        // BLOCK: password must match the signup password
+        if (known.pwHash && hashPassword(password) !== known.pwHash) {
+          showInlineError(loginForm, 'Incorrect password. Please try again.');
+          return;
+        }
+
+        // Ensure new user has zeros (safe — only if key missing)
+        ensureZeroBalancesSeed();
+        ensureEmptyTxListsSeed();
+
+        // Ensure bp_user_profile exists so other pages know identity
+        try {
+          if (!localStorage.getItem('bp_user_profile') || (known && known.name)) {
+            const initials = (known && known.name)
+              ? known.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase()
+              : 'U';
+            const existing = (() => {
+              try { return JSON.parse(localStorage.getItem('bp_user_profile') || 'null'); } catch (_) { return null; }
+            })();
+            const profile = existing || {};
+            profile.id = profile.id || (known && known.id) || '';
+            profile.name = profile.name || (known && known.name) || '';
+            profile.email = profile.email || email;
+            profile.kyc = profile.kyc || 'Unverified';
+            profile.initials = profile.initials || initials;
+            localStorage.setItem('bp_user_profile', JSON.stringify(profile));
+          }
+        } catch (_) {}
+
         writeSession({
+          id: (known && known.id) || '',
           email: email,
-          name: known ? known.name : '',
-          country: known ? known.country : ''
+          name: (known && known.name) || '',
+          country: (known && known.country) || ''
         });
         goToDashboard();
       });
@@ -364,19 +470,53 @@
         const agreed = $('#agreeTerms').checked;
 
         if (!firstName || !lastName || !email || !country || !phone || !password || !agreed) {
+          showInlineError(signupForm, 'Please fill in all fields and accept the terms.');
           return;
         }
+
+        // BLOCK: prevent duplicate signup
+        if (lookupAccount(email)) {
+          showInlineError(signupForm, 'An account with this email already exists. Please log in instead.');
+          return;
+        }
+
+        // Generate a stable user id
+        const userId = 'u_' + (crypto?.randomUUID ? crypto.randomUUID() : (Date.now() + '_' + Math.random().toString(36).slice(2)));
 
         const fullName = (firstName + ' ' + lastName).trim();
         const dial = countrySelect.options[countrySelect.selectedIndex].getAttribute('data-dial') || '';
         const account = {
+          id: userId,
           name: fullName,
           email: email,
           country: country,
-          phone: dial + phone
+          phone: dial + phone,
+          pwHash: hashPassword(password),
+          createdAt: new Date().toISOString()
         };
         rememberAccount(email, account);
-        writeSession(account);
+
+        // Zero balances for new user (safe — only if key missing)
+        ensureZeroBalancesSeed();
+        ensureEmptyTxListsSeed();
+
+        // Seed profile for downstream pages
+        try {
+          localStorage.setItem('bp_user_profile', JSON.stringify({
+            id: userId,
+            name: fullName,
+            email: email,
+            kyc: 'Unverified',
+            initials: ((firstName[0] || '') + (lastName[0] || '')).toUpperCase()
+          }));
+        } catch (_) {}
+
+        writeSession({
+          id: userId,
+          name: fullName,
+          email: email,
+          country: country
+        });
         goToDashboard();
       });
 
