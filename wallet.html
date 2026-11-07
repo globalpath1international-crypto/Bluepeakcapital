@@ -1,3 +1,5 @@
+Conversation Log
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1111,3 +1113,365 @@
   </script>
 </body>
 </html>
+Patch the attached `wallet.html` only. **Write the result to disk at this exact path** and confirm with a one-line reply: `Saved to C:\Users\ADMIN\.gemini\antigravity\scratch\bluepeak-capital\wallet.html · <bytes> bytes`. Do not paste the file back in chat.
+
+**Do not change colours, fonts, spacing, layout, sheet order, bottom nav, existing modals, or any existing feature.** Only the changes listed below are permitted. Do not remove existing storage keys. Do not rename any existing function, element ID, or class.
+
+## §1 — Currency selector pill next to Total Balance (HTML)
+
+Find:
+```html
+<div class="balance-card-value" id="totalBalance">$0.00</div>
+```
+
+Replace with:
+```html
+<div class="balance-card-value" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+  <span id="totalBalance">$0.00</span>
+  <button id="totalBalCurrencyBtn" type="button" style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.18);color:var(--gold-400);font-family:var(--font);font-size:12px;font-weight:800;padding:5px 10px;border-radius:999px;cursor:pointer;display:inline-flex;align-items:center;gap:5px;">
+    <span id="totalBalCurrencyLabel">USD</span>
+    <svg viewBox="0 0 24 24" style="width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2.5;"><polyline points="6 9 12 15 18 9"/></svg>
+  </button>
+</div>
+```
+
+## §2 — Dropdown CSS
+
+Append immediately before the closing `</style>`:
+```css
+    /* Total Balance currency dropdown */
+    .total-bal-currency-menu{position:absolute;top:calc(100% + 8px);right:0;min-width:230px;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-md);box-shadow:var(--shadow-lg);z-index:90;overflow:hidden;max-height:340px;overflow-y:auto;display:none}
+    .total-bal-currency-menu.open{display:block}
+    .total-bal-currency-menu .tbc-item{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;cursor:pointer;font-size:13px;font-weight:700;color:var(--navy-900);border-bottom:1px solid var(--gray-200);transition:background 0.12s;font-family:var(--font)}
+    .total-bal-currency-menu .tbc-item:last-child{border-bottom:none}
+    .total-bal-currency-menu .tbc-item:hover{background:var(--navy-50)}
+    .total-bal-currency-menu .tbc-item.active{background:var(--gold-100)}
+    .total-bal-currency-menu .tbc-sym{color:var(--gray-500);font-weight:600;font-size:11.5px;margin-left:8px}
+    /* Auto-fit scaling for professional number display */
+    .balance-card-value #totalBalance{display:inline-block;transition:font-size 0.12s ease;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+```
+
+## §3 — Currency system (JavaScript)
+
+Find this exact function:
+```js
+      function fmtUSD(n) {
+        return '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      }
+```
+
+Immediately after its closing `}`, insert this block verbatim:
+
+```js
+
+      // ===== Total Balance Multi-Currency =====
+      const TOTAL_BAL_CURRENCIES = [
+        { code: 'USD', symbol: '$',   name: 'US Dollar',           fx: 1.0 },
+        { code: 'EUR', symbol: '€',   name: 'Euro',                fx: 0.92 },
+        { code: 'GBP', symbol: '£',   name: 'British Pound',       fx: 0.79 },
+        { code: 'KES', symbol: 'KSh ',name: 'Kenyan Shilling',     fx: 130.5 },
+        { code: 'NGN', symbol: '₦',   name: 'Nigerian Naira',      fx: 1480.0 },
+        { code: 'ZAR', symbol: 'R ',  name: 'South African Rand',  fx: 18.2 },
+        { code: 'TZS', symbol: 'TSh ',name: 'Tanzanian Shilling',  fx: 2600.0 },
+        { code: 'UGX', symbol: 'USh ',name: 'Ugandan Shilling',    fx: 3700.0 },
+        { code: 'GHS', symbol: 'GH₵', name: 'Ghanaian Cedi',       fx: 15.2 },
+        { code: 'RWF', symbol: 'FRw ',name: 'Rwandan Franc',       fx: 1380.0 },
+        { code: 'AED', symbol: 'AED ',name: 'UAE Dirham',          fx: 3.67 }
+      ];
+      function getSelectedTotalCurrency() {
+        try {
+          const s = localStorage.getItem('bp_wallet_display_currency');
+          if (s && TOTAL_BAL_CURRENCIES.find(c => c.code === s)) return s;
+        } catch (_) {}
+        return 'USD';
+      }
+      function setSelectedTotalCurrency(c) {
+        try { localStorage.setItem('bp_wallet_display_currency', c); } catch (_) {}
+      }
+      function formatInDisplayCurrency(usd) {
+        const code = getSelectedTotalCurrency();
+        const cur = TOTAL_BAL_CURRENCIES.find(c => c.code === code) || TOTAL_BAL_CURRENCIES[0];
+        const conv = Number(usd || 0) * cur.fx;
+        const dec = (code === 'NGN' || code === 'TZS' || code === 'UGX' || code === 'RWF') ? 0 : 2;
+        return cur.symbol + Number(conv).toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec });
+      }
+      function fitTotalBalanceFont() {
+        const el = document.getElementById('totalBalance');
+        if (!el) return;
+        const container = el.closest('.balance-card-value');
+        if (!container) return;
+        const available = container.clientWidth - (document.getElementById('totalBalCurrencyBtn')?.offsetWidth || 0) - 24;
+        let px = 38;
+        el.style.fontSize = px + 'px';
+        while (el.scrollWidth > available && px > 16) {
+          px -= 1;
+          el.style.fontSize = px + 'px';
+        }
+        if (available > 0 && el.scrollWidth < available && px < 38) {
+          // restore up if there is extra room
+          while (px < 38 && el.scrollWidth + 8 < available) {
+            px += 1;
+            el.style.fontSize = px + 'px';
+          }
+        }
+      }
+      function renderTotalBalanceCurrencyMenu() {
+        let menu = document.getElementById('totalBalCurrencyMenu');
+        if (!menu) {
+          menu = document.createElement('div');
+          menu.id = 'totalBalCurrencyMenu';
+          menu.className = 'total-bal-currency-menu';
+          const wrap = document.getElementById('totalBalance')?.parentElement?.parentElement;
+          if (wrap) {
+            wrap.style.position = 'relative';
+            wrap.appendChild(menu);
+          }
+        }
+        const active = getSelectedTotalCurrency();
+        menu.innerHTML = TOTAL_BAL_CURRENCIES.map(c =>
+          `<div class="tbc-item ${c.code === active ? 'active' : ''}" data-curcode="${c.code}">
+             <span>${c.name}</span>
+             <span class="tbc-sym">${c.code}</span>
+           </div>`
+        ).join('');
+        menu.querySelectorAll('.tbc-item').forEach(it => {
+          it.addEventListener('click', () => {
+            setSelectedTotalCurrency(it.dataset.curcode);
+            document.getElementById('totalBalCurrencyLabel').textContent = it.dataset.curcode;
+            menu.classList.remove('open');
+            updateBalanceVisibility();
+            if (typeof refreshLiveBalances === 'function') refreshLiveBalances();
+          });
+        });
+        return menu;
+      }
+      document.addEventListener('DOMContentLoaded', () => {
+        const btn = document.getElementById('totalBalCurrencyBtn');
+        const label = document.getElementById('totalBalCurrencyLabel');
+        if (label) label.textContent = getSelectedTotalCurrency();
+        renderTotalBalanceCurrencyMenu();
+        if (btn) {
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const menu = document.getElementById('totalBalCurrencyMenu');
+            if (menu) menu.classList.toggle('open');
+          });
+        }
+        document.addEventListener('click', (e) => {
+          const menu = document.getElementById('totalBalCurrencyMenu');
+          if (menu && !e.target.closest('#totalBalCurrencyBtn') && !e.target.closest('#totalBalCurrencyMenu')) {
+            menu.classList.remove('open');
+          }
+        });
+        setTimeout(fitTotalBalanceFont, 60);
+        setTimeout(fitTotalBalanceFont, 300);
+      });
+      window.addEventListener('resize', fitTotalBalanceFont);
+      // ===== End Total Balance Multi-Currency =====
+```
+
+## §4 — Replace `updateBalanceVisibility` (zero-safe + currency-aware + auto-fit)
+
+Find the entire existing function (from `function updateBalanceVisibility() {` to its matching `}`):
+
+```js
+      function updateBalanceVisibility() {
+        const el = $('#totalBalance');
+        const icon = $('#balanceEyeIcon');
+        if (balanceVisible) {
+          const total = ASSETS.reduce((sum, a) => sum + a.balance * a.price, 0);
+          el.textContent = fmtUSD(total);
+          icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+        } else {
+          el.textContent = '••••••';
+          icon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
+        }
+      }
+```
+
+Replace with:
+
+```js
+      function updateBalanceVisibility() {
+        const el = $('#totalBalance');
+        const icon = $('#balanceEyeIcon');
+        if (balanceVisible) {
+          const total = ASSETS.reduce((sum, a) => {
+            const bal = isFinite(a.balance) && a.balance > 0 ? a.balance : 0;
+            const price = isFinite(a.price) && a.price > 0 ? a.price : 0;
+            return sum + bal * price;
+          }, 0);
+          el.textContent = formatInDisplayCurrency(total);
+          fitTotalBalanceFont();
+          icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+        } else {
+          el.textContent = '••••••';
+          icon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
+        }
+      }
+```
+
+## §5 — Replace `refreshLiveBalances` (zero-safe, no fake fallback inflation)
+
+Find the entire existing function (from `function refreshLiveBalances() {` to its matching `}`):
+
+```js
+      function refreshLiveBalances() {
+        const balances = readBalances();
+        const prices = readPrices();
+
+        ASSETS.forEach(a => {
+          const raw = balances[a.symbol];
+          a.balance = isNaN(parseFloat(raw)) ? 0 : parseFloat(raw);
+          const p = parseFloat(prices[a.symbol]);
+          a.price = (!isNaN(p) && p > 0) ? p : (FALLBACK_PRICES[a.symbol] || 0);
+        });
+
+        const total = ASSETS.reduce((sum, a) => sum + a.balance * a.price, 0);
+        const availableEl = $('#availableBalanceText');
+        if (availableEl) availableEl.textContent = '· Available: ' + fmtUSD(total);
+
+        renderAssets();
+        updateBalanceVisibility();
+      }
+```
+
+Replace with:
+
+```js
+      function refreshLiveBalances() {
+        const balances = readBalances();
+        const prices = readPrices();
+
+        const anyBalance =
+          balances && Object.keys(balances).length > 0 &&
+          Object.keys(balances).some(k => isFinite(parseFloat(balances[k])) && parseFloat(balances[k]) > 0);
+
+        ASSETS.forEach(a => {
+          const raw = balances[a.symbol];
+          a.balance = (anyBalance && isFinite(parseFloat(raw)) && parseFloat(raw) > 0) ? parseFloat(raw) : 0;
+          const p = parseFloat(prices[a.symbol]);
+          a.price = (!isNaN(p) && p > 0) ? p : (FALLBACK_PRICES[a.symbol] || 0);
+        });
+
+        const totalUsd = ASSETS.reduce((sum, a) => sum + (a.balance > 0 ? a.balance * a.price : 0), 0);
+
+        const availableEl = $('#availableBalanceText');
+        if (availableEl) availableEl.textContent = '· Available: ' + fmtUSD(totalUsd);
+
+        renderAssets();
+        updateBalanceVisibility();
+      }
+```
+
+## §6 — Also scale asset-row amounts so large values don't overflow (CSS + JS)
+
+Append to the `<style>` block (after §2 CSS):
+```css
+    .asset-row-amount, .asset-row-usd { max-width:100%; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-variant-numeric: tabular-nums; }
+```
+
+Then append this small helper inside the script (after §3 block):
+```js
+      (function assetRowAutoFit() {
+        function fit() {
+          document.querySelectorAll('.asset-row-amount').forEach(el => {
+            el.style.fontSize = '';
+            let px = 14.5;
+            el.style.fontSize = px + 'px';
+            const max = el.closest('.asset-row-balance')?.clientWidth || 120;
+            while (el.scrollWidth > max && px > 10) {
+              px -= 0.5;
+              el.style.fontSize = px + 'px';
+            }
+          });
+        }
+        window.addEventListener('resize', fit);
+        document.addEventListener('DOMContentLoaded', () => { setTimeout(fit, 100); setTimeout(fit, 500); });
+        const mo = new MutationObserver(() => { clearTimeout(fit._t); fit._t = setTimeout(fit, 60); });
+        document.addEventListener('DOMContentLoaded', () => {
+          const list = document.getElementById('assetList');
+          if (list) mo.observe(list, { childList: true, subtree: true });
+        });
+      })();
+```
+
+## ACCEPTANCE
+
+1. Load with `localStorage.clear()` then reload — total shows `$0.00`. Available: `$0.00`. No console errors.
+2. Click the currency pill next to total — dropdown opens with 11 currencies.
+3. Pick **KES** — total shows `KSh 0`. Reload → pill still shows KES.
+4. Console: `localStorage.setItem('bp_user_balances', JSON.stringify({USDT:100,BTC:0,ETH:0,SOL:0})); location.reload();`
+5. Total shows `KSh 13,050` (100 × 130.5). Available: `· Available: $100.00`. Asset row USDT shows `100.00 USDT` / `≈ $100.00`.
+6. In Console: `localStorage.setItem('bp_user_balances', JSON.stringify({USDT:999999999.99,BTC:0,ETH:0,SOL:0})); location.reload();`
+7. Total shows a very large number **without breaking the card** — the font shrinks so it fits. Asset row `999,999,999.99 USDT` — font shrinks so it fits.
+8. Switch display to USD → total shows `$999,999,999.99` and still fits within the card at some readable size.
+9. All existing features unchanged: asset list rows clickable, ⋮ menu opens deposit/withdraw sheet, activity list filters, tx detail sheet, back button → `index.html`, bottom nav, eye toggle (hides total).
+10. No console errors after any step.
+
+Write the patched file to disk. Reply only with: `Saved to C:\Users\ADMIN\.gemini\antigravity\scratch\bluepeak-capital\wallet.html · <bytes> bytes`.
+
+
+
+Saved to C:\Users\ADMIN.gemini\antigravity\scratch\bluepeak-capital\wallet.html · 58113 bytes
+
+Review
+        rows.push(['Activity', typeLabel]);
+        rows.push(['Asset', rec.symbol || '—']);
+        rows.push(['Amount', rec.amount + ' ' + (rec.symbol || '')]);
+        if (raw.fiatAmount) rows.push(['Fiat amount', raw.fiatAmount + ' ' + (raw.fiat || '')]);
+        if (raw.price) rows.push(['Price', raw.price]);
+        if (raw.merchantName) rows.push(['Counterparty', raw.merchantName]);
+        if (raw.paymentMethod) rows.push(['Payment method', raw.paymentMethod]);
+        if (raw.address) rows.push(['Destination', raw.address]);
+        if (raw.network) rows.push(['Network', raw.network]);
+        if (raw.txid) rows.push(['Tx Hash', raw.txid]);
+        if (raw.order) rows.push(['Order ID', raw.order]);
+        rows.push(['Date', rec.date]);
+        const statusPill = '<span class="tx-status-pill ' + statusClass + '">' + (rec.status || '—').toUpperCase() + '</span>';
+        let html = rows.map(r => `
+          <div class="tx-detail-row">
+            <div class="k">${r[0]}</div>
+            <div class="v">${String(r[1])}</div>
+          </div>
+        `).join('');
+        html += `<div class="tx-detail-row"><div class="k">Status</div><div class="v">${statusPill}</div></div>`;
+        if (raw.proof || raw.dispute) {
+          html += `<div class="info-box" style="margin-top:10px;">
+            <div class="ib-icon">${raw.dispute ? '🚩' : '📎'}</div>
+            <div class="ib-text"><strong>${raw.dispute ? 'Dispute opened' : 'Proof attached'}</strong><br>${raw.dispute ? (raw.dispute.reason || 'Under mediation') : 'Payment proof on file'}</div>
+          </div>`;
+        }
+        const sectionMap = { deposit: 'transaction-history.html', withdraw: 'transaction-history.html', swap: 'swap.html', trade: 'p2p.html' };
+        const dest = sectionMap[rec.type] || 'transaction-history.html';
+        html += `<button class="btn-primary" style="margin-top:14px;" onclick="window.location.href='${dest}'">Open in ${rec.type === 'trade' ? 'P2P Orders' : 'Transactions'}</button>`;
+        body.innerHTML = html;
+        $('#txDetailTitle').textContent = typeLabel + ' Details';
+        sheet.classList.add('open');
+        overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeTxDetail() {
+        const sheet = $('#txDetailSheet');
+        const overlay = $('#sheetOverlay');
+        if (sheet) sheet.classList.remove('open');
+        if (overlay) overlay.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+      const tdc = $('#txDetailClose');
+      if (tdc) tdc.addEventListener('click', closeTxDetail);
+      const sheetOverlayEl = $('#sheetOverlay');
+      if (sheetOverlayEl) sheetOverlayEl.addEventListener('click', () => {
+        closeAssetActionSheet();
+        closeTxDetail();
+      });
+      // --- Live storage sync ---
+      window.addEventListener('storage', (e) => {
+        if (!e || !e.key) return;
+        if (['bp_user_balances', 'bp_market_prices'].indexOf(e.key) !== -1) {
+          refreshLiveBalances();
+        }
+        if (['bp_deposits', 'bp_withdrawals', 'bp_recent_swaps', 'bp_p2p_orders'].indexOf(e.key) !== -1) {
+          refreshActivity();
+        }
+      });
