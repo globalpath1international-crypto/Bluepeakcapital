@@ -248,15 +248,36 @@
     .asset-trigger-right { display: flex; align-items: center; gap: 6px; color: var(--gray-500); font-size: 12px; font-weight: 700; flex-shrink: 0; }
     .asset-trigger-right svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
 
-    /* NETWORK LIST */
-    .network-list { display: flex; flex-direction: column; gap: 6px; }
+    /* COMPACT NETWORK TRIGGER & ACCORDION */
+    .network-trigger {
+      display: flex; align-items: center; justify-content: space-between;
+      background: var(--navy-50); border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-md); padding: 14px;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .network-trigger:hover { border-color: var(--gold-500); background: var(--gold-100); }
+    .network-trigger-left { display: flex; align-items: center; gap: 10px; }
+    .network-trigger-left .net-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold-500); }
+    .network-trigger-info { display: flex; flex-direction: column; }
+    .network-trigger-name { font-size: 14px; font-weight: 800; color: var(--navy-900); }
+    .network-trigger-label { font-size: 11px; font-weight: 600; color: var(--gray-500); margin-top: 1px; }
+    .network-trigger-right { display: flex; align-items: center; gap: 6px; color: var(--gray-500); font-size: 12px; font-weight: 700; }
+    .network-trigger-right svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.2s; }
+    .network-trigger.open .network-trigger-right svg { transform: rotate(180deg); }
+
+    .network-options-wrapper {
+      display: none; flex-direction: column; gap: 6px; margin-top: 6px;
+      animation: fadeIn 0.2s ease;
+    }
+    .network-options-wrapper.open { display: flex; }
+
     .network-item {
       display: flex; align-items: center; justify-content: space-between;
       padding: 12px 14px; border-radius: var(--radius-sm);
       background: var(--white); border: 1.5px solid var(--gray-200);
       cursor: pointer; transition: all 0.15s;
     }
-    .network-item:hover { border-color: var(--gold-500); }
+    .network-item:hover { border-color: var(--gold-500); background: var(--navy-50); }
     .network-item.active { background: var(--navy-900); border-color: var(--navy-900); }
     .network-item-left { display: flex; align-items: center; gap: 10px; }
     .network-item-left .net-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gray-300); }
@@ -310,22 +331,12 @@
     .timer-note strong { color: var(--white); font-weight: 800; }
 
     .qr-box {
-      width: 180px; height: 180px; margin: 0 auto;
+      width: 190px; height: 190px; margin: 0 auto;
       background: var(--white); border: 1.5px solid var(--gray-200);
-      border-radius: var(--radius-md); padding: 12px;
+      border-radius: var(--radius-md); padding: 10px;
       display: flex; align-items: center; justify-content: center;
     }
-    .qr-inner {
-      width: 100%; height: 100%;
-      background-image:
-        linear-gradient(45deg, var(--navy-900) 25%, transparent 25%),
-        linear-gradient(-45deg, var(--navy-900) 25%, transparent 25%),
-        linear-gradient(45deg, transparent 75%, var(--navy-900) 75%),
-        linear-gradient(-45deg, transparent 75%, var(--navy-900) 75%);
-      background-size: 10px 10px;
-      background-position: 0 0, 0 5px, 5px -5px, -5px 0;
-      opacity: 0.9; border-radius: 4px;
-    }
+    .qr-box img { width: 100%; height: 100%; object-fit: contain; }
 
     .address-block {
       background: var(--navy-50); border: 1.5px dashed var(--gray-300);
@@ -347,6 +358,18 @@
     }
     .copy-btn:hover { background: var(--navy-800); }
 
+    /* CONFIRM DEPOSIT BUTTON */
+    .btn-confirm-deposit {
+      padding: 14px; border-radius: var(--radius-pill);
+      background: linear-gradient(135deg, var(--gold-500), var(--gold-400));
+      color: var(--navy-900); border: none; font-family: var(--font);
+      font-weight: 800; font-size: 14.5px; cursor: pointer;
+      box-shadow: var(--shadow-gold); transition: all 0.2s;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .btn-confirm-deposit:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(201, 168, 76, 0.4); }
+    .btn-confirm-deposit.checking { opacity: 0.7; cursor: wait; }
+
     .info-box {
       background: var(--gold-100); border: 1px solid rgba(201, 168, 76, 0.3);
       border-radius: var(--radius-sm); padding: 12px 14px;
@@ -356,248 +379,87 @@
     .info-box .ib-text { font-size: 11.5px; font-weight: 600; color: var(--navy-800); line-height: 1.55; }
     .info-box .ib-text strong { font-weight: 800; }
 
-    /* ============================================================
-       NEED CRYPTO FIRST — WALLETS SECTION
-       ============================================================ */
+    /* WALLETS SECTION */
     .wallets-section {
       background: var(--white); border: 1px solid var(--gray-200);
       border-radius: var(--radius-lg); overflow: hidden;
       box-shadow: var(--shadow-sm);
     }
-
     .wallets-callout {
       background: linear-gradient(135deg, var(--navy-900), var(--navy-800));
-      padding: 20px 18px;
-      color: var(--white);
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      gap: 14px;
-      align-items: flex-start;
+      padding: 20px 18px; color: var(--white); position: relative;
+      overflow: hidden; display: flex; gap: 14px; align-items: flex-start;
     }
     .wallets-callout::before {
-      content: '';
-      position: absolute;
-      top: -40%;
-      right: -20%;
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
+      content: ''; position: absolute; top: -40%; right: -20%;
+      width: 200px; height: 200px; border-radius: 50%;
       background: radial-gradient(circle, rgba(201, 168, 76, 0.22), transparent 70%);
       pointer-events: none;
     }
     .wallets-callout .wc-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
+      width: 44px; height: 44px; border-radius: 12px;
       background: linear-gradient(135deg, var(--gold-500), var(--gold-400));
-      color: var(--navy-900);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-      flex-shrink: 0;
-      position: relative;
-      z-index: 1;
-      box-shadow: 0 6px 20px rgba(201, 168, 76, 0.35);
+      color: var(--navy-900); display: flex; align-items: center;
+      justify-content: center; font-size: 22px; flex-shrink: 0;
+      position: relative; z-index: 1; box-shadow: 0 6px 20px rgba(201, 168, 76, 0.35);
     }
-    .wallets-callout .wc-text {
-      flex: 1;
-      min-width: 0;
-      position: relative;
-      z-index: 1;
-    }
+    .wallets-callout .wc-text { flex: 1; min-width: 0; position: relative; z-index: 1; }
     .wallets-callout .wc-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 9.5px;
-      font-weight: 800;
-      letter-spacing: 0.8px;
-      text-transform: uppercase;
-      color: var(--gold-400);
-      margin-bottom: 6px;
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 9.5px; font-weight: 800; letter-spacing: 0.8px;
+      text-transform: uppercase; color: var(--gold-400); margin-bottom: 6px;
     }
-    .wallets-callout .wc-eyebrow .dot {
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: var(--gold-400);
-    }
-    .wallets-callout h3 {
-      font-size: 18px;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      line-height: 1.2;
-      margin-bottom: 4px;
-    }
-    .wallets-callout h3 .gold {
-      color: var(--gold-400);
-    }
-    .wallets-callout p {
-      font-size: 12.5px;
-      font-weight: 500;
-      color: var(--gray-300);
-      line-height: 1.5;
-    }
-
-    .wallets-body {
-      padding: 16px 18px 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .wallets-meta {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      padding-bottom: 4px;
-    }
+    .wallets-callout .wc-eyebrow .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold-400); }
+    .wallets-callout h3 { font-size: 18px; font-weight: 800; letter-spacing: -0.5px; line-height: 1.2; margin-bottom: 4px; }
+    .wallets-callout h3 .gold { color: var(--gold-400); }
+    .wallets-callout p { font-size: 12.5px; font-weight: 500; color: var(--gray-300); line-height: 1.5; }
+    .wallets-body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 12px; }
+    .wallets-meta { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-bottom: 4px; }
     .wallets-meta-label {
-      font-size: 11px;
-      font-weight: 800;
-      color: var(--gray-500);
-      text-transform: uppercase;
-      letter-spacing: 0.6px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      font-size: 11px; font-weight: 800; color: var(--gray-500);
+      text-transform: uppercase; letter-spacing: 0.6px;
+      display: flex; align-items: center; gap: 6px;
     }
-    .wallets-meta-label::before {
-      content: '';
-      width: 3px;
-      height: 12px;
-      background: var(--gold-500);
-      border-radius: 2px;
-    }
+    .wallets-meta-label::before { content: ''; width: 3px; height: 12px; background: var(--gold-500); border-radius: 2px; }
     .country-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      background: var(--gold-100);
-      color: var(--gold-500);
-      font-size: 10.5px;
-      font-weight: 800;
-      padding: 4px 10px;
-      border-radius: var(--radius-pill);
-      letter-spacing: 0.3px;
-      flex-shrink: 0;
-      white-space: nowrap;
-      border: 1px solid rgba(201, 168, 76, 0.3);
+      display: inline-flex; align-items: center; gap: 4px;
+      background: var(--gold-100); color: var(--gold-500);
+      font-size: 10.5px; font-weight: 800; padding: 4px 10px;
+      border-radius: var(--radius-pill); letter-spacing: 0.3px;
+      flex-shrink: 0; white-space: nowrap; border: 1px solid rgba(201, 168, 76, 0.3);
     }
-
-    .wallet-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
+    .wallet-list { display: flex; flex-direction: column; gap: 8px; }
     .wallet-card {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px 14px;
-      border-radius: var(--radius-md);
-      background: var(--navy-50);
-      border: 1px solid var(--gray-200);
-      transition: all 0.15s;
+      display: flex; align-items: center; gap: 12px; padding: 12px 14px;
+      border-radius: var(--radius-md); background: var(--navy-50);
+      border: 1px solid var(--gray-200); transition: all 0.15s;
     }
-    .wallet-card:hover {
-      border-color: var(--gold-500);
-      background: var(--gold-100);
-    }
+    .wallet-card:hover { border-color: var(--gold-500); background: var(--gold-100); }
     .wallet-logo {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      background: var(--white);
-      border: 1px solid var(--gray-200);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      flex-shrink: 0;
+      width: 40px; height: 40px; border-radius: 10px; background: var(--white);
+      border: 1px solid var(--gray-200); display: flex; align-items: center;
+      justify-content: center; font-size: 18px; flex-shrink: 0;
     }
-    .wallet-info {
-      flex: 1;
-      min-width: 0;
-    }
-    .wallet-name-row {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .wallet-name {
-      font-size: 13.5px;
-      font-weight: 800;
-      color: var(--navy-900);
-    }
+    .wallet-info { flex: 1; min-width: 0; }
+    .wallet-name-row { display: flex; align-items: center; gap: 6px; }
+    .wallet-name { font-size: 13.5px; font-weight: 800; color: var(--navy-900); }
     .wallet-badge {
-      font-size: 8.5px;
-      font-weight: 800;
-      padding: 2px 6px;
-      border-radius: var(--radius-pill);
-      text-transform: uppercase;
-      letter-spacing: 0.4px;
-      flex-shrink: 0;
+      font-size: 8.5px; font-weight: 800; padding: 2px 6px;
+      border-radius: var(--radius-pill); text-transform: uppercase; letter-spacing: 0.4px; flex-shrink: 0;
     }
-    .wallet-badge.recommended {
-      background: var(--green-100);
-      color: var(--green-500);
-    }
-    .wallet-badge.popular {
-      background: var(--gold-100);
-      color: var(--gold-500);
-    }
-    .wallet-desc {
-      font-size: 11px;
-      font-weight: 500;
-      color: var(--gray-500);
-      margin-top: 2px;
-      line-height: 1.4;
-    }
-    .wallet-type {
-      font-size: 9.5px;
-      font-weight: 700;
-      color: var(--gray-500);
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
-      margin-top: 3px;
-    }
+    .wallet-badge.recommended { background: var(--green-100); color: var(--green-500); }
+    .wallet-badge.popular { background: var(--gold-100); color: var(--gold-500); }
+    .wallet-desc { font-size: 11px; font-weight: 500; color: var(--gray-500); margin-top: 2px; line-height: 1.4; }
+    .wallet-type { font-size: 9.5px; font-weight: 700; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.3px; margin-top: 3px; }
     .wallet-get-btn {
-      background: var(--navy-900);
-      color: var(--white);
-      border: none;
-      padding: 8px 14px;
-      border-radius: var(--radius-xs);
-      font-family: var(--font);
-      font-size: 11px;
-      font-weight: 800;
-      cursor: pointer;
-      flex-shrink: 0;
-      transition: background 0.2s;
-      white-space: nowrap;
+      background: var(--navy-900); color: var(--white); border: none;
+      padding: 8px 14px; border-radius: var(--radius-xs); font-family: var(--font);
+      font-size: 11px; font-weight: 800; cursor: pointer; flex-shrink: 0;
+      transition: background 0.2s; white-space: nowrap;
     }
-    .wallet-get-btn:hover {
-      background: var(--navy-800);
-    }
-
-    .wallets-note {
-      display: flex;
-      gap: 8px;
-      align-items: flex-start;
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--gray-500);
-      line-height: 1.5;
-      padding: 4px 2px 0;
-    }
-    .wallets-note .icon {
-      font-size: 13px;
-      flex-shrink: 0;
-      line-height: 1.4;
-    }
+    .wallet-get-btn:hover { background: var(--navy-800); }
+    .wallets-note { display: flex; gap: 8px; align-items: flex-start; font-size: 11px; font-weight: 600; color: var(--gray-500); line-height: 1.5; padding: 4px 2px 0; }
+    .wallets-note .icon { font-size: 13px; flex-shrink: 0; line-height: 1.4; }
 
     /* GUIDE MODAL */
     .guide-overlay {
@@ -610,99 +472,39 @@
     .guide-card {
       background: var(--white); border-radius: var(--radius-lg);
       max-width: 440px; width: 100%; overflow: hidden;
-      box-shadow: var(--shadow-lg);
-      animation: popIn 0.3s ease;
+      box-shadow: var(--shadow-lg); animation: popIn 0.3s ease;
     }
     @keyframes popIn { from { opacity: 0; transform: scale(0.94) translateY(12px); } to { opacity: 1; transform: scale(1) translateY(0); } }
-    .guide-header {
-      padding: 20px; border-bottom: 1px solid var(--gray-200);
-      display: flex; align-items: center; justify-content: space-between;
-    }
+    .guide-header { padding: 20px; border-bottom: 1px solid var(--gray-200); display: flex; align-items: center; justify-content: space-between; }
     .guide-header h3 { font-size: 17px; font-weight: 800; color: var(--navy-900); }
-    .guide-close {
-      background: var(--navy-50); border: none; width: 32px; height: 32px;
-      border-radius: 50%; font-size: 15px; cursor: pointer; color: var(--navy-900);
-      display: flex; align-items: center; justify-content: center;
-    }
+    .guide-close { background: var(--navy-50); border: none; width: 32px; height: 32px; border-radius: 50%; font-size: 15px; cursor: pointer; color: var(--navy-900); display: flex; align-items: center; justify-content: center; }
     .guide-body { padding: 20px; display: flex; flex-direction: column; gap: 16px; }
     .guide-step { display: flex; gap: 12px; align-items: flex-start; }
-    .guide-step .gs-num {
-      width: 28px; height: 28px; border-radius: 50%;
-      background: var(--gold-100); color: var(--gold-500);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 12px; font-weight: 800; flex-shrink: 0;
-    }
+    .guide-step .gs-num { width: 28px; height: 28px; border-radius: 50%; background: var(--gold-100); color: var(--gold-500); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; flex-shrink: 0; }
     .guide-step .gs-text { font-size: 12.5px; font-weight: 500; color: var(--gray-600); line-height: 1.55; }
     .guide-step .gs-text strong { color: var(--navy-900); font-weight: 800; }
-    .guide-tip {
-      background: var(--gold-100); border: 1px solid rgba(201, 168, 76, 0.3);
-      border-radius: var(--radius-sm); padding: 12px 14px;
-      font-size: 12px; font-weight: 600; color: var(--navy-800); line-height: 1.55;
-    }
+    .guide-tip { background: var(--gold-100); border: 1px solid rgba(201, 168, 76, 0.3); border-radius: var(--radius-sm); padding: 12px 14px; font-size: 12px; font-weight: 600; color: var(--navy-800); line-height: 1.55; }
     .guide-tip strong { font-weight: 800; }
-    .guide-close-btn {
-      margin: 0 20px 20px; padding: 13px;
-      border-radius: var(--radius-pill);
-      background: linear-gradient(135deg, var(--green-500), #0B8A5E);
-      color: var(--white); border: none; font-family: var(--font);
-      font-weight: 800; font-size: 14px; cursor: pointer;
-      width: calc(100% - 40px);
-    }
+    .guide-close-btn { margin: 0 20px 20px; padding: 13px; border-radius: var(--radius-pill); background: linear-gradient(135deg, var(--green-500), #0B8A5E); color: var(--white); border: none; font-family: var(--font); font-weight: 800; font-size: 14px; cursor: pointer; width: calc(100% - 40px); }
 
     /* ASSET MODAL */
-    .modal-overlay {
-      position: fixed; inset: 0; background: rgba(10, 26, 47, 0.6);
-      backdrop-filter: blur(4px); z-index: 70;
-      opacity: 0; pointer-events: none; transition: opacity 0.25s;
-    }
+    .modal-overlay { position: fixed; inset: 0; background: rgba(10, 26, 47, 0.6); backdrop-filter: blur(4px); z-index: 70; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
     .modal-overlay.open { opacity: 1; pointer-events: auto; }
-    .bottom-sheet {
-      position: fixed; bottom: 0; left: 0; width: 100%; max-height: 88vh;
-      background: var(--white); z-index: 75;
-      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-      transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
-      display: flex; flex-direction: column; overflow: hidden;
-    }
+    .bottom-sheet { position: fixed; bottom: 0; left: 0; width: 100%; max-height: 88vh; background: var(--white); z-index: 75; border-radius: var(--radius-lg) var(--radius-lg) 0 0; transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1); display: flex; flex-direction: column; overflow: hidden; }
     .bottom-sheet.open { transform: translateY(0); }
-    .sheet-header {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 18px 20px; border-bottom: 1px solid var(--gray-200); flex-shrink: 0;
-    }
+    .sheet-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 20px; border-bottom: 1px solid var(--gray-200); flex-shrink: 0; }
     .sheet-header h3 { font-size: 17px; font-weight: 800; color: var(--navy-900); }
-    .sheet-close {
-      background: var(--navy-50); border: none; width: 34px; height: 34px;
-      border-radius: 50%; font-size: 16px; cursor: pointer; color: var(--navy-900);
-      display: flex; align-items: center; justify-content: center;
-    }
+    .sheet-close { background: var(--navy-50); border: none; width: 34px; height: 34px; border-radius: 50%; font-size: 16px; cursor: pointer; color: var(--navy-900); display: flex; align-items: center; justify-content: center; }
     .sheet-search { padding: 12px 20px; flex-shrink: 0; position: relative; }
-    .sheet-search svg {
-      position: absolute; left: 32px; top: 50%; transform: translateY(-50%);
-      width: 16px; height: 16px; stroke: var(--gray-500); fill: none;
-      stroke-width: 2; pointer-events: none;
-    }
-    .sheet-search input {
-      width: 100%; padding: 12px 16px 12px 38px;
-      border: 1.5px solid var(--gray-200); border-radius: var(--radius-sm);
-      font-family: var(--font); font-size: 14px; font-weight: 500;
-      background: var(--navy-50); color: var(--navy-900); outline: none;
-    }
+    .sheet-search svg { position: absolute; left: 32px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; stroke: var(--gray-500); fill: none; stroke-width: 2; pointer-events: none; }
+    .sheet-search input { width: 100%; padding: 12px 16px 12px 38px; border: 1.5px solid var(--gray-200); border-radius: var(--radius-sm); font-family: var(--font); font-size: 14px; font-weight: 500; background: var(--navy-50); color: var(--navy-900); outline: none; }
     .sheet-search input:focus { border-color: var(--gold-500); }
     .sheet-list { flex: 1; overflow-y: auto; padding: 0 20px 24px; }
-    .coin-option {
-      display: flex; align-items: center; gap: 14px;
-      padding: 14px 12px; border-radius: var(--radius-sm);
-      cursor: pointer; transition: background 0.15s;
-      border-bottom: 1px solid var(--gray-200);
-      position: relative;
-    }
+    .coin-option { display: flex; align-items: center; gap: 14px; padding: 14px 12px; border-radius: var(--radius-sm); cursor: pointer; transition: background 0.15s; border-bottom: 1px solid var(--gray-200); position: relative; }
     .coin-option:last-child { border-bottom: none; }
     .coin-option:hover { background: var(--navy-50); }
     .coin-option.selected { background: var(--gold-100); }
-    .coin-option.selected::after {
-      content: '✓'; position: absolute; right: 14px; top: 50%;
-      transform: translateY(-50%); color: var(--gold-500);
-      font-weight: 800; font-size: 16px;
-    }
+    .coin-option.selected::after { content: '✓'; position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: var(--gold-500); font-weight: 800; font-size: 16px; }
     .coin-option img { width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0; }
     .coin-option-info { flex: 1; }
     .coin-option-name { font-size: 15px; font-weight: 800; color: var(--navy-900); }
@@ -711,14 +513,11 @@
 
     /* TOAST */
     .toast {
-      position: fixed; bottom: 100px; left: 50%;
-      transform: translateX(-50%) translateY(20px);
-      background: var(--navy-900); color: var(--white);
-      padding: 12px 20px; border-radius: var(--radius-pill);
-      font-size: 13px; font-weight: 700; z-index: 200;
-      opacity: 0; pointer-events: none; transition: all 0.3s;
-      max-width: calc(100% - 40px); text-align: center;
-      box-shadow: 0 8px 24px rgba(10, 26, 47, 0.3);
+      position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(20px);
+      background: var(--navy-900); color: var(--white); padding: 12px 20px;
+      border-radius: var(--radius-pill); font-size: 13px; font-weight: 700;
+      z-index: 200; opacity: 0; pointer-events: none; transition: all 0.3s;
+      max-width: calc(100% - 40px); text-align: center; box-shadow: 0 8px 24px rgba(10, 26, 47, 0.3);
     }
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
@@ -733,20 +532,15 @@
     }
     .bottom-nav-item {
       display: flex; flex-direction: column; align-items: center; gap: 3px;
-      background: none; border: none; cursor: pointer;
-      padding: 6px 8px; border-radius: var(--radius-sm);
-      transition: all 0.2s; flex: 1; max-width: 80px;
-      color: var(--gray-500); font-family: var(--font);
+      background: none; border: none; cursor: pointer; padding: 6px 8px;
+      border-radius: var(--radius-sm); transition: all 0.2s; flex: 1;
+      max-width: 80px; color: var(--gray-500); font-family: var(--font);
       font-size: 10px; font-weight: 600; letter-spacing: 0.2px;
     }
     .bottom-nav-item.active { color: var(--navy-900); font-weight: 800; }
     .bottom-nav-item.active .bn-icon-wrap { background: var(--navy-900); }
     .bottom-nav-item.active .bn-icon-wrap svg { stroke: var(--gold-400); }
-    .bn-icon-wrap {
-      width: 38px; height: 26px; border-radius: var(--radius-xs);
-      display: flex; align-items: center; justify-content: center;
-      transition: background 0.2s;
-    }
+    .bn-icon-wrap { width: 38px; height: 26px; border-radius: var(--radius-xs); display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
     .bottom-nav-item svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
 
     @media (min-width: 700px) {
@@ -792,7 +586,7 @@
         </div>
         <div class="guide-step">
           <div class="gs-num">4</div>
-          <div class="gs-text"><strong>Wait for confirmation.</strong> Your deposit will be credited to your wallet after the required network confirmations.</div>
+          <div class="gs-text"><strong>Wait for confirmation.</strong> Tap "Confirm Deposit" once sent, and your account will be credited as soon as verified on the blockchain.</div>
         </div>
         <div class="guide-tip">
           💡 <strong>Important:</strong> Always double-check the asset and network before sending. Deposits sent on the wrong network cannot be recovered.
@@ -876,7 +670,7 @@
         <div class="g-icon">💡</div>
         <div class="g-text">
           <h4>Deposit in 3 simple steps</h4>
-          <p>Choose your asset and network, generate an address, then send crypto from your external wallet.</p>
+          <p>Choose your asset and network, generate a verified address, then transfer from your wallet.</p>
         </div>
       </div>
 
@@ -898,9 +692,47 @@
           </div>
         </div>
 
+        <!-- ELEGANT COMPACT NETWORK SELECTOR -->
         <div class="field-group">
           <label class="field-label">Choose Network</label>
-          <div class="network-list" id="networkList"></div>
+          <div class="network-trigger" id="networkTrigger">
+            <div class="network-trigger-left">
+              <span class="net-dot"></span>
+              <div class="network-trigger-info">
+                <div class="network-trigger-name" id="netTriggerName">TRC20</div>
+                <div class="network-trigger-label" id="netTriggerLabel">TRON (TRC20) · Instant</div>
+              </div>
+            </div>
+            <div class="network-trigger-right">
+              <span>Change</span>
+              <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </div>
+          <!-- DROPDOWN OPTIONS LIST -->
+          <div class="network-options-wrapper" id="networkOptionsWrapper"></div>
+        </div>
+
+        <!-- AMOUNT FIELD -->
+        <div class="field-group">
+          <label class="field-label">Deposit Amount (USD)</label>
+          <div style="position: relative; display: flex; align-items: center;">
+            <span style="position: absolute; left: 14px; font-weight: 800; color: var(--gold-500); font-size: 16px;">$</span>
+            <input 
+              type="number" 
+              id="depositAmountInput" 
+              placeholder="e.g. 50" 
+              value="50"
+              min="10" 
+              step="any"
+              style="width: 100%; padding: 13px 14px 13px 30px; border-radius: var(--radius-sm); border: 1.5px solid var(--gray-200); font-family: var(--font); font-size: 15px; font-weight: 700; color: var(--navy-900); background: var(--navy-50); outline: none;"
+            >
+          </div>
+          <div style="display: flex; gap: 8px; margin-top: 4px;">
+            <button type="button" class="quick-amt-btn" onclick="document.getElementById('depositAmountInput').value = 25" style="flex:1; padding:6px; border-radius:var(--radius-xs); border:1px solid var(--gray-200); background:var(--white); font-weight:700; font-size:11px; cursor:pointer; color:var(--navy-900);">$25</button>
+            <button type="button" class="quick-amt-btn" onclick="document.getElementById('depositAmountInput').value = 50" style="flex:1; padding:6px; border-radius:var(--radius-xs); border:1px solid var(--gray-200); background:var(--white); font-weight:700; font-size:11px; cursor:pointer; color:var(--navy-900);">$50</button>
+            <button type="button" class="quick-amt-btn" onclick="document.getElementById('depositAmountInput').value = 100" style="flex:1; padding:6px; border-radius:var(--radius-xs); border:1px solid var(--gray-200); background:var(--white); font-weight:700; font-size:11px; cursor:pointer; color:var(--navy-900);">$100</button>
+            <button type="button" class="quick-amt-btn" onclick="document.getElementById('depositAmountInput').value = 500" style="flex:1; padding:6px; border-radius:var(--radius-xs); border:1px solid var(--gray-200); background:var(--white); font-weight:700; font-size:11px; cursor:pointer; color:var(--navy-900);">$500</button>
+          </div>
         </div>
 
         <button class="btn-generate" id="generateBtn">
@@ -914,16 +746,25 @@
               <div class="timer-label">Address Valid For</div>
               <div class="timer-value" id="timerValue">45:00</div>
             </div>
-            <div class="timer-note">Send only <strong id="timerAsset">USDT</strong><br>via <strong id="timerNetwork">TRC20</strong></div>
+            <div class="timer-note">Send exact amount to:<br><strong id="timerNetwork">TRC20</strong></div>
           </div>
-          <div class="qr-box"><div class="qr-inner"></div></div>
+          <div class="qr-box">
+            <img id="qrImage" src="" alt="Deposit QR Code">
+          </div>
           <div class="address-block">
             <div class="address-label">Deposit Address · <span id="addressNetworkLabel">—</span></div>
             <div class="address-row">
-              <code id="depositAddress">—</code>
+              <code id="depositAddress">Connecting to network…</code>
               <button class="copy-btn" id="copyAddressBtn">Copy</button>
             </div>
           </div>
+
+          <!-- CONFIRM DEPOSIT BUTTON -->
+          <button class="btn-confirm-deposit" id="confirmDepositBtn">
+            <svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.5;"><path d="M20 6L9 17l-5-5"/></svg>
+            I Have Paid · Confirm Deposit
+          </button>
+
           <div class="info-box">
             <div class="ib-icon">⚠️</div>
             <div class="ib-text">
@@ -933,11 +774,8 @@
         </div>
       </div>
 
-      <!-- ============================================================
-           NEED CRYPTO FIRST — WALLETS
-           ============================================================ -->
+      <!-- WALLETS -->
       <div class="wallets-section">
-
         <div class="wallets-callout">
           <div class="wc-icon">🔑</div>
           <div class="wc-text">
@@ -958,7 +796,6 @@
             <span>These are third-party wallets. Bluepeak does not hold your keys — you control your crypto.</span>
           </div>
         </div>
-
       </div>
 
     </div>
@@ -1001,8 +838,16 @@
         toastEl.textContent = msg;
         toastEl.classList.add('show');
         clearTimeout(toastEl._t);
-        toastEl._t = setTimeout(() => toastEl.classList.remove('show'), 2600);
+        toastEl._t = setTimeout(() => toastEl.classList.remove('show'), 2800);
       }
+
+      // ============================================================
+      // NOWPAYMENTS CONFIGURATION
+      // ============================================================
+      const NOWPAYMENTS_API_KEY = 'WWBKQAM-PAV4QRV-JWYP6D2-W1R91N5';
+      let activePaymentId = null;
+      let activeDepositAmount = 0;
+      let pollStatusInterval = null;
 
       // ============================================================
       // VIEW SWITCHING
@@ -1023,37 +868,36 @@
       const ASSETS = [
         { id: 'tether', symbol: 'USDT', name: 'Tether', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/usdt.svg',
           networks: [
-            { name: 'TRC20', label: 'TRON (TRC20)', time: 'Instant', address: 'TXk7bF9m2Kp4qWnE8v3Ls6HjR5tYcB2pQd' },
-            { name: 'ERC20', label: 'Ethereum (ERC20)', time: '2–5 min', address: '0x71C7656EC7ab88b098defB751B7401B5f6d8976F' },
-            { name: 'BEP20', label: 'BNB Chain (BEP20)', time: '1–3 min', address: '0xbA2aE424d960c26247Dd6c32edC70B295c744C43' },
+            { name: 'TRC20', label: 'TRON (TRC20)', time: 'Instant', ticker: 'usdttrc20' },
+            { name: 'ERC20', label: 'Ethereum (ERC20)', time: '2–5 min', ticker: 'usdterc20' },
+            { name: 'BEP20', label: 'BNB Chain (BEP20)', time: '1–3 min', ticker: 'usdtbsc' },
           ]
         },
         { id: 'bitcoin', symbol: 'BTC', name: 'Bitcoin', icon: 'https://blockchains.tatum.io/assets/img/bitcoin.svg',
           networks: [
-            { name: 'Bitcoin', label: 'Bitcoin Network', time: '30–60 min', address: 'bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh' },
-            { name: 'BEP20', label: 'BNB Chain (BEP20)', time: '1–3 min', address: '0xbA2aE424d960c26247Dd6c32edC70B295c744C43' },
+            { name: 'Bitcoin', label: 'Bitcoin Network', time: '10–30 min', ticker: 'btc' },
           ]
         },
         { id: 'ethereum', symbol: 'ETH', name: 'Ethereum', icon: 'https://blockchains.tatum.io/assets/img/ethereum.svg',
           networks: [
-            { name: 'ERC20', label: 'Ethereum (ERC20)', time: '2–5 min', address: '0x71C7656EC7ab88b098defB751B7401B5f6d8976F' },
-            { name: 'BEP20', label: 'BNB Chain (BEP20)', time: '1–3 min', address: '0xbA2aE424d960c26247Dd6c32edC70B295c744C43' },
+            { name: 'ERC20', label: 'Ethereum (ERC20)', time: '2–5 min', ticker: 'eth' },
+            { name: 'BEP20', label: 'BNB Chain (BEP20)', time: '1–3 min', ticker: 'ethbsc' },
           ]
         },
         { id: 'usd-coin', symbol: 'USDC', name: 'USD Coin', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/usdc.svg',
           networks: [
-            { name: 'ERC20', label: 'Ethereum (ERC20)', time: '2–5 min', address: '0x71C7656EC7ab88b098defB751B7401B5f6d8976F' },
-            { name: 'TRC20', label: 'TRON (TRC20)', time: 'Instant', address: 'TXk7bF9m2Kp4qWnE8v3Ls6HjR5tYcB2pQd' },
+            { name: 'ERC20', label: 'Ethereum (ERC20)', time: '2–5 min', ticker: 'usdcer20' },
+            { name: 'TRC20', label: 'TRON (TRC20)', time: 'Instant', ticker: 'usdctrc20' },
           ]
         },
         { id: 'solana', symbol: 'SOL', name: 'Solana', icon: 'https://blockchains.tatum.io/assets/img/solana.svg',
           networks: [
-            { name: 'Solana', label: 'Solana Network', time: 'Instant', address: 'DYw8jCTfwHNRJhhmFcbXvVDTqWMEVFBX6ZKUmG5CNSKK' },
+            { name: 'Solana', label: 'Solana Network', time: 'Instant', ticker: 'sol' },
           ]
         },
         { id: 'binancecoin', symbol: 'BNB', name: 'BNB', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/bnb.svg',
           networks: [
-            { name: 'BEP20', label: 'BNB Chain (BEP20)', time: '1–3 min', address: '0xbA2aE424d960c26247Dd6c32edC70B295c744C43' },
+            { name: 'BEP20', label: 'BNB Chain (BEP20)', time: '1–3 min', ticker: 'bnbbsc' },
           ]
         },
       ];
@@ -1226,7 +1070,7 @@
       assetSearchInput.addEventListener('input', (e) => renderAssetList(e.target.value));
 
       // ============================================================
-      // UPDATE UI
+      // STATE & UI
       // ============================================================
       const state = {
         asset: ASSETS[0],
@@ -1241,16 +1085,21 @@
         $('#assetIcon').src = a.icon;
         $('#assetName').textContent = a.name;
         $('#assetSymbol').textContent = a.symbol;
-        renderNetworkList();
+        renderNetworkTrigger();
         resetAddressPanel();
       }
 
-      function renderNetworkList() {
+      // Compact Network Trigger + Toggle
+      function renderNetworkTrigger() {
         const a = state.asset;
-        if (!a) return;
-        const container = $('#networkList');
-        container.innerHTML = a.networks.map(n => {
-          const isActive = state.network && state.network.name === n.name;
+        if (!a || !state.network) return;
+
+        $('#netTriggerName').textContent = state.network.name;
+        $('#netTriggerLabel').textContent = `${state.network.label} · ${state.network.time}`;
+
+        const wrapper = $('#networkOptionsWrapper');
+        wrapper.innerHTML = a.networks.map(n => {
+          const isActive = state.network.name === n.name;
           return `
             <div class="network-item ${isActive ? 'active' : ''}" data-net-name="${n.name}">
               <div class="network-item-left">
@@ -1264,24 +1113,37 @@
             </div>
           `;
         }).join('');
-        container.querySelectorAll('.network-item').forEach(opt => {
+
+        wrapper.querySelectorAll('.network-item').forEach(opt => {
           opt.addEventListener('click', () => {
             const netName = opt.dataset.netName;
             const net = a.networks.find(n => n.name === netName);
             if (net) {
               state.network = net;
-              renderNetworkList();
+              $('#networkTrigger').classList.remove('open');
+              wrapper.classList.remove('open');
+              renderNetworkTrigger();
               resetAddressPanel();
             }
           });
         });
       }
 
+      $('#networkTrigger').addEventListener('click', () => {
+        $('#networkTrigger').classList.toggle('open');
+        $('#networkOptionsWrapper').classList.toggle('open');
+      });
+
       function resetAddressPanel() {
         if (state.timerInterval) {
           clearInterval(state.timerInterval);
           state.timerInterval = null;
         }
+        if (pollStatusInterval) {
+          clearInterval(pollStatusInterval);
+          pollStatusInterval = null;
+        }
+        activePaymentId = null;
         state.secondsLeft = 45 * 60;
         $('#timerValue').textContent = '45:00';
         $('#timerValue').classList.remove('warning');
@@ -1289,35 +1151,162 @@
       }
 
       // ============================================================
-      // GENERATE
+      // GENERATE ADDRESS VIA REAL NOWPAYMENTS API
       // ============================================================
-      $('#generateBtn').addEventListener('click', () => {
+      $('#generateBtn').addEventListener('click', async () => {
         if (!state.asset || !state.network) {
-          showToast('Please choose an asset and network first');
+          showToast('Please select asset and network');
           return;
         }
+
+        const amtVal = parseFloat($('#depositAmountInput').value);
+        if (!amtVal || amtVal <= 0) {
+          showToast('Please enter a valid amount');
+          $('#depositAmountInput').focus();
+          return;
+        }
+        activeDepositAmount = amtVal;
+
         const btn = $('#generateBtn');
         btn.classList.add('generating');
-        btn.innerHTML = 'Generating address…';
+        btn.innerHTML = 'Connecting to blockchain…';
         btn.disabled = true;
-        setTimeout(() => {
+
+        try {
+          // Request live address from NOWPayments
+          const response = await fetch('https://api.nowpayments.io/v1/payment', {
+            method: 'POST',
+            headers: {
+              'x-api-key': NOWPAYMENTS_API_KEY,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              price_amount: amtVal,
+              price_currency: 'usd',
+              pay_currency: state.network.ticker || state.asset.symbol.toLowerCase(),
+              order_id: 'BP_' + Date.now(),
+              order_description: `Deposit ${amtVal} USD for Bluepeak Wallet`
+            })
+          });
+
+          const data = await response.json();
+
+          if (!response.ok || !data.pay_address) {
+            throw new Error(data.message || 'Payment provider unavailable');
+          }
+
+          activePaymentId = data.payment_id;
+
+          // Render Live Address & Network Info
           $('#addressPanel').classList.add('visible');
-          $('#depositAddress').textContent = state.network.address;
+          $('#depositAddress').textContent = data.pay_address;
           $('#addressNetworkLabel').textContent = state.network.label;
           $('#infoAsset').textContent = state.asset.symbol;
           $('#infoNetwork').textContent = state.network.name;
-          $('#timerAsset').textContent = state.asset.symbol;
           $('#timerNetwork').textContent = state.network.name;
+
+          // Render Real QR Code
+          $('#qrImage').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&margin=4&data=${encodeURIComponent(data.pay_address)}`;
+
+          // Reset and Start 45-min Countdown
           state.secondsLeft = 45 * 60;
           updateTimerDisplay();
           startTimer();
-          setTimeout(() => { $('#addressPanel').scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 100);
-          showToast(`Address generated for ${state.asset.symbol} on ${state.network.name}`);
+
+          // Scroll smoothly to address
+          setTimeout(() => { $('#addressPanel').scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 120);
+          showToast(`Deposit address ready. Transfer funds within 45 minutes.`);
+
           btn.classList.remove('generating');
-          btn.innerHTML = '<svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.5 9a9 9 0 0114.9-3.4L23 10"/><path d="M20.5 15a9 9 0 01-14.9 3.4L1 14"/></svg> Generate New Address';
+          btn.innerHTML = 'Address Generated ✓';
           btn.disabled = false;
-        }, 1200);
+
+        } catch (err) {
+          console.error(err);
+          showToast(err.message || 'Error connecting to blockchain. Please try again.');
+          btn.classList.remove('generating');
+          btn.innerHTML = 'Generate Deposit Address';
+          btn.disabled = false;
+        }
       });
+
+      // ============================================================
+      // CONFIRM DEPOSIT & BLOCKCHAIN VERIFICATION
+      // ============================================================
+      $('#confirmDepositBtn').addEventListener('click', async () => {
+        if (!activePaymentId) {
+          showToast('Please generate an address first');
+          return;
+        }
+        await verifyBlockchainPayment(true);
+      });
+
+      async function verifyBlockchainPayment(manualClick = false) {
+        const confirmBtn = $('#confirmDepositBtn');
+        if (manualClick) {
+          confirmBtn.classList.add('checking');
+          confirmBtn.textContent = 'Verifying on blockchain…';
+        }
+
+        try {
+          const res = await fetch(`https://api.nowpayments.io/v1/payment/${activePaymentId}`, {
+            headers: { 'x-api-key': NOWPAYMENTS_API_KEY }
+          });
+          const payment = await res.json();
+
+          if (payment.payment_status === 'finished' || payment.payment_status === 'confirmed') {
+            // Success! Clear timers
+            if (state.timerInterval) clearInterval(state.timerInterval);
+            if (pollStatusInterval) clearInterval(pollStatusInterval);
+
+            // 1. UPDATE USER BALANCE IN LOCALSTORAGE (Universal source for wallet & P2P)
+            let currentBal = parseFloat(localStorage.getItem('bp_user_balance') || '0');
+            currentBal += activeDepositAmount;
+            localStorage.setItem('bp_user_balance', currentBal.toFixed(2));
+
+            // Also keep standard 'user_balance' key updated in case other files read it
+            localStorage.setItem('user_balance', currentBal.toFixed(2));
+
+            // 2. LOG TRANSACTION TO TRANSACTION HISTORY
+            let history = JSON.parse(localStorage.getItem('bp_transactions') || '[]');
+            history.unshift({
+              id: payment.payment_id || 'TX_' + Date.now().toString().slice(-6),
+              type: 'Deposit',
+              amount: activeDepositAmount,
+              symbol: state.asset.symbol,
+              network: state.network.name,
+              status: 'Completed',
+              txHash: payment.pay_address,
+              date: new Date().toLocaleString()
+            });
+            localStorage.setItem('bp_transactions', JSON.stringify(history));
+
+            showToast('Deposit Confirmed! Reflecting on your wallet…');
+            confirmBtn.textContent = 'Deposit Confirmed ✓';
+            confirmBtn.style.background = 'var(--green-500)';
+            confirmBtn.style.color = 'var(--white)';
+
+            setTimeout(() => {
+              window.location.href = 'wallet.html';
+            }, 1800);
+
+          } else if (payment.payment_status === 'waiting') {
+            if (manualClick) {
+              showToast('Transfer not detected yet. Please send funds and check again.');
+            }
+          } else if (payment.payment_status === 'confirming') {
+            showToast('Transaction detected on blockchain! Awaiting required block confirmations…');
+          }
+
+        } catch (e) {
+          if (manualClick) showToast('Checking blockchain node… please try again in a moment');
+        } finally {
+          if (manualClick && $('#confirmDepositBtn').textContent !== 'Deposit Confirmed ✓') {
+            confirmBtn.classList.remove('checking');
+            confirmBtn.innerHTML = '<svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.5;"><path d="M20 6L9 17l-5-5"/></svg> I Have Paid · Confirm Deposit';
+          }
+        }
+      }
 
       function startTimer() {
         if (state.timerInterval) clearInterval(state.timerInterval);
@@ -1329,7 +1318,7 @@
             state.timerInterval = null;
             $('#timerValue').textContent = '00:00';
             $('#timerValue').classList.add('warning');
-            showToast('Address expired. Please generate a new one.');
+            showToast('Address expired. Please generate a fresh address.');
           }
         }, 1000);
       }
@@ -1355,7 +1344,7 @@
       });
 
       // ============================================================
-      // GUIDE
+      // GUIDE MODAL
       // ============================================================
       const guideOverlay = $('#guideOverlay');
       $('#guideBtn').addEventListener('click', () => guideOverlay.classList.add('open'));
@@ -1377,7 +1366,7 @@
       $('#exploreP2PBtn').addEventListener('click', () => window.location.href = 'p2p.html');
 
       // ============================================================
-      // NAV
+      // NAVIGATION
       // ============================================================
       $('#backBtn').addEventListener('click', () => window.location.href = 'wallet.html');
       $$('.bottom-nav-item').forEach(btn => {
