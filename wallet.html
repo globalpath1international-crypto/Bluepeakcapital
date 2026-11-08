@@ -52,7 +52,7 @@
       font-family: var(--font); background-color: var(--bg-main);
       color: var(--navy-900); line-height: 1.45;
       -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
-      padding-bottom: 92px; min-height: 100vh; display: flex;
+      padding-bottom: 96px; min-height: 100vh; display: flex;
       flex-direction: column; overflow-x: hidden;
     }
 
@@ -103,13 +103,32 @@
     }
     .balance-card-label .eye-toggle-inline:hover { background: rgba(255,255,255,0.2); }
     .balance-card-label .eye-toggle-inline svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-    .balance-card-value { font-size: 38px; font-weight: 800; letter-spacing: -1.4px; margin-top: 6px; position: relative; z-index: 1; font-variant-numeric: tabular-nums; }
-    .balance-card-sub { font-size: 12.5px; font-weight: 600; color: var(--green-500); margin-top: 6px; position: relative; z-index: 1; display: flex; align-items: center; gap: 4px; }
+    
+    .balance-card-value {
+      font-size: 38px; font-weight: 800; letter-spacing: -1.4px;
+      margin-top: 8px; position: relative; z-index: 1;
+      font-variant-numeric: tabular-nums; display: flex; align-items: center;
+      gap: 10px; flex-wrap: wrap;
+    }
+    .currency-pill-btn {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      color: var(--gold-400); font-family: var(--font);
+      font-size: 12px; font-weight: 800; padding: 5px 12px;
+      border-radius: var(--radius-pill); cursor: pointer;
+      display: inline-flex; align-items: center; gap: 6px;
+      transition: all 0.2s;
+    }
+    .currency-pill-btn:hover { background: rgba(255, 255, 255, 0.2); border-color: var(--gold-400); }
+    .currency-pill-btn svg { width: 11px; height: 11px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+
+    .balance-card-sub { font-size: 12.5px; font-weight: 600; color: var(--green-500); margin-top: 6px; position: relative; z-index: 1; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
     .balance-card-sub .stat { color: var(--gray-300); }
+    
     .balance-card-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 18px; position: relative; z-index: 1; }
     .bal-action-btn {
       padding: 13px; border-radius: var(--radius-pill); font-family: var(--font);
-      font-weight: 800; font-size: 14px; cursor: pointer;
+      font-weight: 800; font-size: 14.5px; cursor: pointer;
       transition: all 0.2s; border: none;
       display: flex; align-items: center; justify-content: center; gap: 6px;
     }
@@ -117,6 +136,21 @@
     .bal-action-btn.deposit:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(15, 157, 110, 0.42); }
     .bal-action-btn.withdraw { background: rgba(255, 255, 255, 0.12); color: #fff; border: 1px solid rgba(255, 255, 255, 0.18); }
     .bal-action-btn.withdraw:hover { background: rgba(255, 255, 255, 0.18); }
+
+    /* RATE STRIP */
+    .rate-strip {
+      display: flex; align-items: center; justify-content: space-between;
+      background: var(--white); border: 1px solid var(--gray-200);
+      border-radius: var(--radius-pill); padding: 10px 16px; box-shadow: var(--shadow-xs);
+    }
+    .rate-strip-left { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; color: var(--gray-500); flex: 1; min-width: 0; }
+    .rate-strip-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green-500); animation: pulse 1.5s infinite; flex-shrink: 0; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+    .rate-strip-value { color: var(--navy-900); font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .rate-strip-refresh { background: none; border: none; cursor: pointer; color: var(--gray-500); display: flex; align-items: center; justify-content: center; padding: 4px; transition: color 0.2s; }
+    .rate-strip-refresh:hover { color: var(--navy-900); }
+    .rate-strip-refresh.spinning svg { animation: spin 0.8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
     /* SECTION TITLES */
     .section-title { font-size: 16px; font-weight: 800; color: var(--navy-900); letter-spacing: -0.3px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 2px; }
@@ -131,7 +165,7 @@
     .asset-row {
       display: flex; align-items: center; gap: 14px;
       padding: 16px 18px; border-bottom: 1px solid var(--gray-200);
-      transition: background 0.15s; cursor: pointer;
+      transition: background 0.15s; cursor: pointer; position: relative;
     }
     .asset-row:last-child { border-bottom: none; }
     .asset-row:hover { background: var(--navy-50); }
@@ -145,9 +179,18 @@
     .asset-row-info { flex: 1; min-width: 0; }
     .asset-row-name { font-size: 14.5px; font-weight: 800; color: var(--navy-900); }
     .asset-row-symbol { font-size: 11.5px; font-weight: 600; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.3px; margin-top: 1px; }
-    .asset-row-balance { text-align: right; flex-shrink: 0; }
+    .asset-live-price { font-size: 10.5px; font-weight: 600; color: var(--gray-400); margin-top: 1px; font-variant-numeric: tabular-nums; }
+    .asset-row-balance { text-align: right; flex-shrink: 0; margin-right: 4px; }
     .asset-row-amount { font-size: 14.5px; font-weight: 800; color: var(--navy-900); font-variant-numeric: tabular-nums; }
     .asset-row-usd { font-size: 11.5px; font-weight: 600; color: var(--gray-500); margin-top: 2px; font-variant-numeric: tabular-nums; }
+    .asset-row-dots {
+      flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%;
+      background: transparent; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gray-500); transition: background 0.15s;
+      font-size: 18px; font-weight: 800; line-height: 1;
+    }
+    .asset-row-dots:hover { background: var(--navy-50); color: var(--navy-900); }
 
     /* TRANSACTIONS */
     .tx-filter-row {
@@ -173,6 +216,7 @@
     .tx-item {
       display: flex; align-items: center; gap: 12px;
       padding: 14px 18px; border-bottom: 1px solid var(--gray-200);
+      cursor: pointer; position: relative;
     }
     .tx-item:last-child { border-bottom: none; }
     .tx-icon {
@@ -187,6 +231,15 @@
     .tx-info { flex: 1; min-width: 0; }
     .tx-title { font-size: 14px; font-weight: 800; color: var(--navy-900); }
     .tx-date { font-size: 11.5px; font-weight: 600; color: var(--gray-500); margin-top: 1px; }
+    .activity-type-pill {
+      display: inline-block; font-size: 10px; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.5px;
+      padding: 2px 8px; border-radius: var(--radius-pill); margin-top: 3px;
+    }
+    .activity-type-pill.deposit { background: var(--green-100); color: var(--green-500); }
+    .activity-type-pill.withdraw { background: var(--red-100); color: var(--red-500); }
+    .activity-type-pill.swap { background: var(--gold-100); color: var(--gold-500); }
+    .activity-type-pill.trade { background: var(--navy-50); color: var(--navy-700); }
     .tx-amount { text-align: right; flex-shrink: 0; }
     .tx-amount-val { font-size: 14px; font-weight: 800; font-variant-numeric: tabular-nums; }
     .tx-amount-val.positive { color: var(--green-500); }
@@ -194,21 +247,24 @@
     .tx-status { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; color: var(--green-500); }
     .tx-status.pending { color: var(--gold-500); }
     .tx-status.failed { color: var(--red-500); }
-
-    .empty-tx {
-      text-align: center; padding: 40px 20px;
-      color: var(--gray-500); font-size: 13px; font-weight: 500;
+    .tx-item-arrow {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--navy-50); color: var(--gray-500);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 800; flex-shrink: 0; margin-left: 6px;
     }
+    .empty-tx { text-align: center; padding: 40px 20px; color: var(--gray-500); font-size: 13px; font-weight: 500; }
 
-    /* MODAL */
+    /* MODAL SHEETS */
     .modal-overlay {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      position: fixed; inset: 0;
       background: rgba(10, 26, 47, 0.6); backdrop-filter: blur(4px);
       z-index: 70; opacity: 0; pointer-events: none; transition: opacity 0.25s;
     }
     .modal-overlay.open { opacity: 1; pointer-events: auto; }
+    
     .bottom-sheet {
-      position: fixed; bottom: 0; left: 0; width: 100%; max-height: 90vh;
+      position: fixed; bottom: 0; left: 0; width: 100%; max-height: 85vh;
       background: var(--white); z-index: 75;
       border-radius: var(--radius-lg) var(--radius-lg) 0 0;
       transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
@@ -225,65 +281,65 @@
       border-radius: 50%; font-size: 16px; cursor: pointer; color: var(--navy-900);
       display: flex; align-items: center; justify-content: center;
     }
-    .sheet-body { flex: 1; overflow-y: auto; padding: 16px 20px 24px; display: flex; flex-direction: column; gap: 16px; }
-
-    .field-group { display: flex; flex-direction: column; gap: 6px; }
-    .field-label { font-size: 11.5px; font-weight: 700; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.6px; }
-    .field-row { display: flex; gap: 8px; align-items: center; }
-    .input-field {
-      flex: 1; padding: 13px 15px; border: 1.5px solid var(--gray-200);
-      border-radius: var(--radius-sm); font-family: var(--font);
-      font-size: 15px; font-weight: 600; background: var(--white);
-      color: var(--navy-900); width: 100%;
-      transition: border 0.2s, box-shadow 0.2s; font-variant-numeric: tabular-nums;
+    .sheet-search { padding: 12px 20px; flex-shrink: 0; }
+    .sheet-search input {
+      width: 100%; padding: 12px 16px;
+      border: 1.5px solid var(--gray-200); border-radius: var(--radius-sm);
+      font-family: var(--font); font-size: 14px; font-weight: 500;
+      background: var(--navy-50); color: var(--navy-900); outline: none;
     }
-    .input-field:focus { outline: none; border-color: var(--gold-500); box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.15); }
-    .input-field::placeholder { color: var(--gray-300); font-weight: 500; }
-    .select-field {
-      padding: 13px 15px; border: 1.5px solid var(--gray-200);
-      border-radius: var(--radius-sm); font-family: var(--font);
-      font-size: 14px; font-weight: 600; background: var(--white);
-      color: var(--navy-900); cursor: pointer; width: 100%;
-      transition: border 0.2s; appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
-      background-repeat: no-repeat; background-position: right 14px center; padding-right: 38px;
-    }
-    .select-field:focus { outline: none; border-color: var(--gold-500); box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.15); }
+    .sheet-search input:focus { border-color: var(--gold-500); }
+    .sheet-body { flex: 1; overflow-y: auto; padding: 10px 20px 24px; display: flex; flex-direction: column; gap: 8px; }
 
-    .btn-primary {
-      background: linear-gradient(135deg, var(--green-500), #0B8A5E);
-      color: #fff; border: none; padding: 15px 24px;
-      border-radius: var(--radius-pill); font-family: var(--font);
-      font-weight: 800; font-size: 15.5px; cursor: pointer;
-      transition: all 0.22s; width: 100%; text-align: center;
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-      letter-spacing: -0.2px; box-shadow: 0 4px 16px rgba(15, 157, 110, 0.3);
-    }
-    .btn-primary:hover { box-shadow: 0 6px 24px rgba(15, 157, 110, 0.42); transform: translateY(-1px); }
-
-    .info-box {
-      background: var(--navy-50); border: 1px solid var(--gray-200);
-      border-radius: var(--radius-md); padding: 14px 16px;
-      display: flex; gap: 10px; align-items: flex-start;
-    }
-    .info-box .ib-icon { font-size: 18px; flex-shrink: 0; }
-    .info-box .ib-text { font-size: 12.5px; font-weight: 600; color: var(--gray-600); line-height: 1.5; }
-    .info-box .ib-text strong { color: var(--navy-900); font-weight: 800; }
-
-    .address-display {
-      background: var(--navy-50); border: 1.5px dashed var(--gray-300);
-      border-radius: var(--radius-sm); padding: 14px;
+    /* CURRENCY ITEM IN MODAL */
+    .currency-option {
       display: flex; align-items: center; justify-content: space-between;
-      gap: 10px;
+      padding: 13px 14px; border-radius: var(--radius-sm);
+      cursor: pointer; transition: background 0.15s;
+      border-bottom: 1px solid var(--gray-200);
     }
-    .address-display code { font-family: 'SF Mono', 'Consolas', monospace; font-size: 12.5px; font-weight: 600; color: var(--navy-800); word-break: break-all; }
-    .copy-btn {
-      background: var(--navy-900); color: var(--gold-400);
-      border: none; padding: 8px 14px; border-radius: var(--radius-xs);
-      font-family: var(--font); font-size: 11.5px; font-weight: 700;
-      cursor: pointer; flex-shrink: 0; transition: background 0.2s;
+    .currency-option:last-child { border-bottom: none; }
+    .currency-option:hover { background: var(--navy-50); }
+    .currency-option.selected { background: var(--gold-100); }
+    .currency-option.selected .curr-code { color: var(--gold-500); }
+    .curr-name { font-size: 14px; font-weight: 800; color: var(--navy-900); }
+    .curr-code { font-size: 12px; font-weight: 700; color: var(--gray-500); }
+
+    /* ASSET ACTION ROW */
+    .asset-action-row { display: flex; flex-direction: column; gap: 8px; }
+    .asset-action-btn {
+      display: flex; align-items: center; gap: 12px;
+      padding: 16px; border-radius: var(--radius-md);
+      background: var(--white); border: 1.5px solid var(--gray-200);
+      font-family: var(--font); font-size: 14px; font-weight: 800;
+      color: var(--navy-900); cursor: pointer; text-align: left;
+      transition: all 0.18s;
     }
-    .copy-btn:hover { background: var(--navy-800); }
+    .asset-action-btn:hover { border-color: var(--gold-500); background: var(--gold-100); }
+    .asset-action-btn .aab-icon {
+      width: 36px; height: 36px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; flex-shrink: 0;
+    }
+    .asset-action-btn.deposit .aab-icon { background: var(--green-100); color: var(--green-500); }
+    .asset-action-btn.withdraw .aab-icon { background: var(--red-100); color: var(--red-500); }
+    .asset-action-btn .aab-sub { display: block; font-size: 11.5px; font-weight: 600; color: var(--gray-500); margin-top: 1px; }
+
+    /* TX DETAIL */
+    .tx-detail-row {
+      display: flex; justify-content: space-between; gap: 12px;
+      padding: 10px 0; border-bottom: 1px solid var(--gray-200); font-size: 13px;
+    }
+    .tx-detail-row:last-child { border-bottom: none; }
+    .tx-detail-row .k { color: var(--gray-500); font-weight: 600; }
+    .tx-detail-row .v { color: var(--navy-900); font-weight: 800; text-align: right; word-break: break-all; }
+    .tx-status-pill {
+      display: inline-block; padding: 3px 10px; border-radius: var(--radius-pill);
+      font-size: 10.5px; font-weight: 800; letter-spacing: 0.4px; text-transform: uppercase;
+    }
+    .tx-status-pill.completed { background: var(--green-100); color: var(--green-500); }
+    .tx-status-pill.pending { background: var(--gold-100); color: var(--gold-500); }
+    .tx-status-pill.failed { background: var(--red-100); color: var(--red-500); }
 
     /* BOTTOM NAV */
     .bottom-nav {
@@ -310,10 +366,7 @@
       display: flex; align-items: center; justify-content: center;
       transition: background 0.2s;
     }
-    .bottom-nav-item svg {
-      width: 20px; height: 20px; stroke: currentColor; fill: none;
-      stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round;
-    }
+    .bottom-nav-item svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
 
     /* TOAST */
     .toast {
@@ -328,275 +381,14 @@
     }
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-    @media (max-width: 400px) {
-      .balance-card-value { font-size: 32px; }
-      .wallet-main { padding: 12px 12px 0; }
-    }
     @media (min-width: 700px) {
       body { padding-bottom: 100px; }
       .wallet-main { max-width: 640px; padding: 20px 24px 0; gap: 18px; }
       .bottom-nav { max-width: 640px; border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
     }
-
-    /* ===== ADDITIONS ===== */
-    .asset-row { position: relative; }
-    .asset-row-dots {
-      flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%;
-      background: transparent; border: none; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      color: var(--gray-500); transition: background 0.15s;
-      font-size: 18px; font-weight: 800; line-height: 1;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .asset-row-dots:hover { background: var(--navy-50); color: var(--navy-900); }
-    .asset-row .asset-row-balance { margin-right: 4px; }
-
-    .asset-live-price {
-      font-size: 10.5px; font-weight: 600; color: var(--gray-400);
-      margin-top: 1px; font-variant-numeric: tabular-nums;
-    }
-
-    /* Asset action sheet */
-    .asset-action-row {
-      display: flex; flex-direction: column; gap: 8px;
-    }
-    .asset-action-btn {
-      display: flex; align-items: center; gap: 12px;
-      padding: 16px; border-radius: var(--radius-md);
-      background: var(--white); border: 1.5px solid var(--gray-200);
-      font-family: var(--font); font-size: 14px; font-weight: 800;
-      color: var(--navy-900); cursor: pointer; text-align: left;
-      transition: all 0.18s;
-    }
-    .asset-action-btn:hover { border-color: var(--gold-500); background: var(--gold-100); }
-    .asset-action-btn .aab-icon {
-      width: 36px; height: 36px; border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 16px; flex-shrink: 0;
-    }
-    .asset-action-btn.deposit .aab-icon { background: var(--green-100); color: var(--green-500); }
-    .asset-action-btn.withdraw .aab-icon { background: var(--red-100); color: var(--red-500); }
-    .asset-action-btn .aab-sub { display: block; font-size: 11.5px; font-weight: 600; color: var(--gray-500); margin-top: 1px; }
-
-    /* Transaction detail */
-    .tx-detail-row {
-      display: flex; justify-content: space-between; gap: 12px;
-      padding: 10px 0; border-bottom: 1px solid var(--gray-200);
-      font-size: 13px;
-    }
-    .tx-detail-row:last-child { border-bottom: none; }
-    .tx-detail-row .k { color: var(--gray-500); font-weight: 600; }
-    .tx-detail-row .v { color: var(--navy-900); font-weight: 800; text-align: right; word-break: break-all; font-variant-numeric: tabular-nums; }
-    .tx-status-pill {
-      display: inline-block; padding: 3px 10px; border-radius: var(--radius-pill);
-      font-size: 10.5px; font-weight: 800; letter-spacing: 0.4px; text-transform: uppercase;
-    }
-    .tx-status-pill.completed { background: var(--green-100); color: var(--green-500); }
-    .tx-status-pill.pending { background: var(--gold-100); color: var(--gold-500); }
-    .tx-status-pill.failed { background: var(--red-100); color: var(--red-500); }
-
-    .tx-item { cursor: pointer; position: relative; }
-    .tx-item-arrow {
-      width: 22px; height: 22px; border-radius: 50%;
-      background: var(--navy-50); color: var(--gray-500);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 12px; font-weight: 800; flex-shrink: 0; margin-left: 6px;
-    }
-    .tx-item:hover .tx-item-arrow { background: var(--navy-900); color: var(--gold-400); }
-
-    .activity-type-pill {
-      display: inline-block; font-size: 10px; font-weight: 800;
-      text-transform: uppercase; letter-spacing: 0.5px;
-      padding: 2px 8px; border-radius: var(--radius-pill); margin-top: 3px;
-    }
-    .activity-type-pill.deposit { background: var(--green-100); color: var(--green-500); }
-    .activity-type-pill.withdraw { background: var(--red-100); color: var(--red-500); }
-    .activity-type-pill.swap { background: var(--gold-100); color: var(--gold-500); }
-    .activity-type-pill.trade { background: var(--navy-50); color: var(--navy-700); }
-    .activity-type-pill.p2p { background: var(--gold-100); color: var(--gold-500); }
-
-    @media (min-width: 700px) {
-      .asset-row { padding: 18px 20px; }
-    }
-
-    /* Total Balance currency dropdown */
-    .total-bal-currency-menu{position:absolute;top:calc(100% + 8px);right:0;min-width:230px;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-md);box-shadow:var(--shadow-lg);z-index:90;overflow:hidden;max-height:340px;overflow-y:auto;display:none}
-    .total-bal-currency-menu.open{display:block}
-    .total-bal-currency-menu .tbc-item{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;cursor:pointer;font-size:13px;font-weight:700;color:var(--navy-900);border-bottom:1px solid var(--gray-200);transition:background 0.12s;font-family:var(--font)}
-    .total-bal-currency-menu .tbc-item:last-child{border-bottom:none}
-    .total-bal-currency-menu .tbc-item:hover{background:var(--navy-50)}
-    .total-bal-currency-menu .tbc-item.active{background:var(--gold-100)}
-    .total-bal-currency-menu .tbc-sym{color:var(--gray-500);font-weight:600;font-size:11.5px;margin-left:8px}
-    /* Auto-fit scaling for professional number display */
-    .balance-card-value #totalBalance{display:inline-block;transition:font-size 0.12s ease;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .asset-row-amount, .asset-row-usd { max-width:100%; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-variant-numeric: tabular-nums; }
-
-    /* ===== PATCH v3 CSS ===== */
-    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-    #walletRateRefresh.spinning svg { animation: spin 0.8s linear infinite; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* ===== PATCH v5 CSS ===== */
-    .rate-currency-menu{position:absolute;top:calc(100% + 6px);left:0;min-width:220px;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-md);box-shadow:var(--shadow-lg);z-index:95;overflow:hidden;max-height:320px;overflow-y:auto;display:none}
-    .rate-currency-menu.open{display:block}
-    .rate-currency-menu .rcm-item{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;cursor:pointer;font-size:12.5px;font-weight:700;color:var(--navy-900);border-bottom:1px solid var(--gray-200);transition:background 0.12s;font-family:var(--font)}
-    .rate-currency-menu .rcm-item:last-child{border-bottom:none}
-    .rate-currency-menu .rcm-item:hover{background:var(--navy-50)}
-    .rate-currency-menu .rcm-item.active{background:var(--gold-100)}
-    .rate-currency-menu .rcm-sym{color:var(--gray-500);font-weight:600;font-size:11px;margin-left:8px}
-    .rate-currency-menu .rcm-rate{color:var(--green-600);font-weight:700;font-size:11px;margin-left:auto;padding-left:8px;}
-    #walletRateLine{position:relative;}
-    #balancePctChange.positive{color:var(--green-500);}
-    #balancePctChange.negative{color:var(--red-500);}
-    #balancePctChange.neutral{color:var(--gray-400);}
-
-    /* ===== PATCH v6 CSS ===== */
-    /* Total balance currency menu — anchored to the pill, viewport-safe */
-    .total-bal-currency-menu{
-      position:absolute;
-      bottom:calc(100% + 8px);
-      top:auto;
-      left:0;
-      right:auto;
-      min-width:220px;
-      max-width:calc(100vw - 32px);
-      background:var(--white);
-      border:1px solid var(--gray-200);
-      border-radius:var(--radius-md);
-      box-shadow:var(--shadow-lg);
-      z-index:120;
-      overflow-y:auto;
-      max-height:60vh;
-      display:none;
-    }
-    .total-bal-currency-menu.open{display:block;}
-    /* Fallback flip: when the pill is near the top of the screen, drop downward */
-    .total-bal-currency-menu.flip-down{
-      bottom:auto;
-      top:calc(100% + 8px);
-    }
-    .total-bal-currency-menu .tbc-item{
-      display:flex;align-items:center;justify-content:space-between;
-      padding:11px 14px;cursor:pointer;font-size:13px;font-weight:700;
-      color:var(--navy-900);border-bottom:1px solid var(--gray-200);
-      transition:background 0.12s;font-family:var(--font);
-    }
-    .total-bal-currency-menu .tbc-item:last-child{border-bottom:none;}
-    .total-bal-currency-menu .tbc-item:hover{background:var(--navy-50);}
-    .total-bal-currency-menu .tbc-item.active{background:var(--gold-100);}
-    .total-bal-currency-menu .tbc-sym{color:var(--gray-500);font-weight:600;font-size:11.5px;margin-left:8px;}
-
-    /* On narrow phones, snap menu to full width of the balance card */
-    @media (max-width: 380px) {
-      .total-bal-currency-menu{
-        left:0;right:0;
-        min-width:0;
-        width:100%;
-        max-width:100%;
-      }
-    }
-
-    /* Percentage line: shrink when text grows (long currency % values) */
-    #balancePctChange{
-      display:inline-block;
-      max-width:100%;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-      transition:font-size 0.12s ease;
-    }
-
-    /* Available line: also shrink on overflow */
-    #availableBalanceText{
-      display:inline-block;
-      max-width:100%;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-      transition:font-size 0.12s ease;
-    }
-
-    /* Rate strip: keep on one line, prevent overflow */
-    #walletRateLine #walletRateValue{
-      display:inline-block;
-      max-width:100%;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-  </style></head>
+  </style>
+</head>
 <body>
-
-  <!-- MODAL OVERLAYS -->
-  <div class="modal-overlay" id="depositModalOverlay"></div>
-  <div class="modal-overlay" id="withdrawModalOverlay"></div>
-
-  <!-- DEPOSIT MODAL -->
-  <div class="bottom-sheet" id="depositModal">
-    <div class="sheet-header">
-      <h3>Deposit</h3>
-      <button class="sheet-close" id="depositModalClose">✕</button>
-    </div>
-    <div class="sheet-body">
-      <div class="field-group">
-        <label class="field-label">Select Asset</label>
-        <select class="select-field" id="depositAssetSelect">
-          <option value="USDT">Tether (USDT — TRC20)</option>
-          <option value="BTC">Bitcoin (BTC)</option>
-          <option value="ETH">Ethereum (ETH)</option>
-          <option value="SOL">Solana (SOL)</option>
-        </select>
-      </div>
-      <div class="field-group">
-        <label class="field-label">Deposit Address</label>
-        <div class="address-display">
-          <code id="depositAddress">TXk7bF9m2Kp4...</code>
-          <button class="copy-btn" id="copyDepositBtn">Copy</button>
-        </div>
-      </div>
-      <div class="info-box">
-        <div class="ib-icon">⚠️</div>
-        <div class="ib-text">Only send <strong id="depositAssetNote">USDT (TRC20)</strong> to this address. Sending other assets may result in permanent loss.</div>
-      </div>
-      <div class="info-box">
-        <div class="ib-icon">💡</div>
-        <div class="ib-text">Deposits typically confirm within 1–3 minutes depending on network congestion.</div>
-      </div>
-      <button class="btn-primary" onclick="showToast('Deposit flow — integration point')">I Have Made the Transfer</button>
-    </div>
-  </div>
-
-  <!-- WITHDRAW MODAL -->
-  <div class="bottom-sheet" id="withdrawModal">
-    <div class="sheet-header">
-      <h3>Withdraw</h3>
-      <button class="sheet-close" id="withdrawModalClose">✕</button>
-    </div>
-    <div class="sheet-body">
-      <div class="field-group">
-        <label class="field-label">Select Asset</label>
-        <select class="select-field" id="withdrawAssetSelect">
-          <option value="USDT">Tether (USDT — TRC20)</option>
-          <option value="BTC">Bitcoin (BTC)</option>
-          <option value="ETH">Ethereum (ETH)</option>
-          <option value="SOL">Solana (SOL)</option>
-        </select>
-      </div>
-      <div class="field-group">
-        <label class="field-label">Amount</label>
-        <input type="number" class="input-field" id="withdrawAmount" placeholder="0.00">
-      </div>
-      <div class="field-group">
-        <label class="field-label">Destination Address</label>
-        <input type="text" class="input-field" id="withdrawAddress" placeholder="Enter wallet address">
-      </div>
-      <div class="info-box">
-        <div class="ib-icon">🔒</div>
-        <div class="ib-text">Withdrawals are processed within 30 minutes. For security, large withdrawals may require additional verification.</div>
-      </div>
-      <button class="btn-primary" onclick="showToast('Withdrawal submitted — integration point')">Submit Withdrawal</button>
-    </div>
-  </div>
 
   <!-- HEADER -->
   <header class="wallet-header">
@@ -622,32 +414,35 @@
           <svg id="balanceEyeIcon" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
         </button>
       </div>
-      <div class="balance-card-value" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;position:relative;">
-  <span id="totalBalance">$0.00</span>
-  <button id="totalBalCurrencyBtn" type="button" aria-label="Change display currency" style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.18);color:var(--gold-400);font-family:var(--font);font-size:12px;font-weight:800;padding:5px 10px;border-radius:999px;cursor:pointer;display:inline-flex;align-items:center;gap:5px;">
-    <span id="totalBalCurrencyLabel">USD</span>
-    <svg viewBox="0 0 24 24" style="width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2.5;"><polyline points="6 9 12 15 18 9"/></svg>
-  </button>
-  <div id="totalBalCurrencyMenu" class="total-bal-currency-menu" role="menu" aria-label="Currency list"></div>
-</div>
-      <div class="balance-card-sub" style="flex-wrap:wrap;gap:8px;">
-        <span id="balancePctChange" style="color:var(--green-500);font-weight:800;font-size:12px;display:inline-block;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">+0.00%</span>
-        <span class="stat" id="availableBalanceText" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;">· Available: $0.00</span>
+
+      <div class="balance-card-value">
+        <span id="totalBalance">$0.00</span>
+        <!-- PRO MODAL TRIGGER BUTTON (WON'T CLASH WITH DEPOSIT/WITHDRAW) -->
+        <button id="currencyModalTrigger" type="button" class="currency-pill-btn" aria-label="Change display currency">
+          <span id="totalBalCurrencyLabel">USD</span>
+          <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
       </div>
+
+      <div class="balance-card-sub">
+        <span id="balancePctChange" style="color:var(--green-500);font-weight:800;font-size:12px;">+0.00%</span>
+        <span class="stat" id="availableBalanceText">· Available: $0.00</span>
+      </div>
+
       <div class="balance-card-actions">
         <button class="bal-action-btn deposit" id="depositBtn">↓ Deposit</button>
         <button class="bal-action-btn withdraw" id="withdrawBtn">↑ Withdraw</button>
       </div>
     </div>
 
-    <!-- LIVE RATE LINE -->
-    <div id="walletRateLine" style="display:flex;align-items:center;justify-content:space-between;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-pill);padding:9px 16px;box-shadow:var(--shadow-xs);">
-      <div style="display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--gray-500);flex:1;min-width:0;overflow:hidden;">
-        <span style="width:7px;height:7px;border-radius:50%;background:var(--green-500);animation:pulse 1.5s infinite;flex-shrink:0;"></span>
+    <!-- LIVE RATE STRIP -->
+    <div class="rate-strip">
+      <div class="rate-strip-left">
+        <span class="rate-strip-dot"></span>
         Market Rate:
-        <strong id="walletRateValue" style="color:var(--navy-900);font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">1 USDT ≈ $1.00</strong>
+        <strong id="walletRateValue" class="rate-strip-value">1 USDT ≈ $1.00</strong>
       </div>
-      <button id="walletRateRefresh" type="button" aria-label="Refresh rate" style="background:none;border:none;cursor:pointer;color:var(--gray-500);display:flex;align-items:center;justify-content:center;padding:4px;">
+      <button id="walletRateRefresh" class="rate-strip-refresh" type="button" aria-label="Refresh rate">
         <svg viewBox="0 0 24 24" style="width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2.2;"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.5 9a9 9 0 0114.9-3.4L23 10"/><path d="M20.5 15a9 9 0 01-14.9 3.4L1 14"/></svg>
       </button>
     </div>
@@ -703,7 +498,21 @@
     </button>
   </nav>
 
+  <!-- CURRENCY SELECTOR MODAL (BOTTOM-SHEET) -->
+  <div class="modal-overlay" id="currencyModalOverlay"></div>
+  <div class="bottom-sheet" id="currencyModal">
+    <div class="sheet-header">
+      <h3>Select Display Currency</h3>
+      <button class="sheet-close" id="currencyModalClose">✕</button>
+    </div>
+    <div class="sheet-search">
+      <input type="text" id="currencySearchInput" placeholder="Search currency (e.g. USD, KES, NGN)…" autocomplete="off">
+    </div>
+    <div class="sheet-body" id="currencyList"></div>
+  </div>
+
   <!-- ASSET ACTION SHEET (per asset ⋮ menu) -->
+  <div class="modal-overlay" id="sheetOverlay"></div>
   <div class="bottom-sheet" id="assetActionSheet">
     <div class="sheet-header">
       <h3 id="assetActionTitle">Asset</h3>
@@ -713,17 +522,11 @@
       <div class="asset-action-row">
         <button class="asset-action-btn deposit" id="assetActionDeposit">
           <span class="aab-icon">↓</span>
-          <span>
-            Deposit
-            <span class="aab-sub" id="assetActionDepositSub">Receive into your wallet</span>
-          </span>
+          <span>Deposit <span class="aab-sub" id="assetActionDepositSub">Receive into your wallet</span></span>
         </button>
         <button class="asset-action-btn withdraw" id="assetActionWithdraw">
           <span class="aab-icon">↑</span>
-          <span>
-            Withdraw
-            <span class="aab-sub" id="assetActionWithdrawSub">Send to an external wallet</span>
-          </span>
+          <span>Withdraw <span class="aab-sub" id="assetActionWithdrawSub">Send to an external address</span></span>
         </button>
       </div>
     </div>
@@ -738,9 +541,6 @@
     <div class="sheet-body" id="txDetailBody"></div>
   </div>
 
-  <!-- TX DETAIL OVERLAY -->
-  <div class="modal-overlay" id="sheetOverlay"></div>
-
   <div class="toast" id="toast"></div>
 
   <script>
@@ -751,35 +551,22 @@
       const $$ = (s) => document.querySelectorAll(s);
       const toastEl = $('#toast');
 
-      // ============================================================
-      // ASSETS (demo defaults — real values overlaid by ADDITIONS)
-      // ============================================================
-      const ASSETS = [
-        { symbol: 'USDT', name: 'Tether', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/usdt.svg', balance: 0, price: 1 },
-        { symbol: 'BTC',  name: 'Bitcoin', icon: 'https://blockchains.tatum.io/assets/img/bitcoin.svg', balance: 0, price: 81000 },
-        { symbol: 'ETH',  name: 'Ethereum', icon: 'https://blockchains.tatum.io/assets/img/ethereum.svg', balance: 0, price: 3200 },
-        { symbol: 'SOL',  name: 'Solana', icon: 'https://blockchains.tatum.io/assets/img/solana.svg', balance: 0, price: 150 },
-      ];
-
-      const TX = [];
-
-      let balanceVisible = true;
-      let currentTxFilter = 'all';
-
       function showToast(msg) {
         toastEl.textContent = msg;
         toastEl.classList.add('show');
         clearTimeout(toastEl._t);
         toastEl._t = setTimeout(() => toastEl.classList.remove('show'), 2600);
       }
-      window.showToast = showToast;
 
-      function fmtUSD(n) {
-        return '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      function navigateTo(url) {
+        if (!url) return;
+        window.location.href = url;
       }
 
-      // ===== Total Balance Multi-Currency =====
-      const TOTAL_BAL_CURRENCIES = [
+      // ============================================================
+      // MULTI-CURRENCY SUPPORT
+      // ============================================================
+      const CURRENCIES = [
         { code: 'USD', symbol: '$',   name: 'US Dollar',           fx: 1.0 },
         { code: 'EUR', symbol: '€',   name: 'Euro',                fx: 0.92 },
         { code: 'GBP', symbol: '£',   name: 'British Pound',       fx: 0.79 },
@@ -792,172 +579,128 @@
         { code: 'RWF', symbol: 'FRw ',name: 'Rwandan Franc',       fx: 1380.0 },
         { code: 'AED', symbol: 'AED ',name: 'UAE Dirham',          fx: 3.67 }
       ];
-      function getSelectedTotalCurrency() {
+
+      function getSelectedCurrency() {
         try {
           const s = localStorage.getItem('bp_wallet_display_currency');
-          if (s && TOTAL_BAL_CURRENCIES.find(c => c.code === s)) return s;
+          if (s && CURRENCIES.find(c => c.code === s)) return s;
         } catch (_) {}
         return 'USD';
       }
-      function setSelectedTotalCurrency(c) {
-        try { localStorage.setItem('bp_wallet_display_currency', c); } catch (_) {}
+
+      function setSelectedCurrency(code) {
+        localStorage.setItem('bp_wallet_display_currency', code);
+        $('#totalBalCurrencyLabel').textContent = code;
+        renderCurrencies();
+        refreshAllBalances();
       }
-      function formatInDisplayCurrency(usd) {
-        const code = getSelectedTotalCurrency();
-        const cur = TOTAL_BAL_CURRENCIES.find(c => c.code === code) || TOTAL_BAL_CURRENCIES[0];
-        const conv = Number(usd || 0) * cur.fx;
-        const dec = (code === 'NGN' || code === 'TZS' || code === 'UGX' || code === 'RWF') ? 0 : 2;
-        return cur.symbol + Number(conv).toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec });
+
+      function formatMoney(usdAmount) {
+        const code = getSelectedCurrency();
+        const cur = CURRENCIES.find(c => c.code === code) || CURRENCIES[0];
+        const val = Number(usdAmount || 0) * cur.fx;
+        const noDec = ['NGN', 'TZS', 'UGX', 'RWF'].includes(code);
+        return cur.symbol + val.toLocaleString('en-US', {
+          minimumFractionDigits: noDec ? 0 : 2,
+          maximumFractionDigits: noDec ? 0 : 2
+        });
       }
-      function fitTotalBalanceFont() {
-        const el = document.getElementById('totalBalance');
-        if (!el) return;
-        const container = el.closest('.balance-card-value');
-        if (!container) return;
-        const available = container.clientWidth - (document.getElementById('totalBalCurrencyBtn')?.offsetWidth || 0) - 24;
-        let px = 38;
-        el.style.fontSize = px + 'px';
-        while (el.scrollWidth > available && px > 16) {
-          px -= 1;
-          el.style.fontSize = px + 'px';
+
+      // ============================================================
+      // ASSETS LIST (REAL ZERO-BASED INITIALIZATION)
+      // ============================================================
+      const ASSETS = [
+        { symbol: 'USDT', name: 'Tether', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/usdt.svg', price: 1.0 },
+        { symbol: 'BTC',  name: 'Bitcoin', icon: 'https://blockchains.tatum.io/assets/img/bitcoin.svg', price: 81000 },
+        { symbol: 'ETH',  name: 'Ethereum', icon: 'https://blockchains.tatum.io/assets/img/ethereum.svg', price: 3200 },
+        { symbol: 'SOL',  name: 'Solana', icon: 'https://blockchains.tatum.io/assets/img/solana.svg', price: 150 },
+      ];
+
+      let balanceVisible = true;
+      let currentTxFilter = 'all';
+      const TX = [];
+
+      // ============================================================
+      // STRICT REAL BALANCE ENGINE (NO PHANTOMS)
+      // ============================================================
+      function getRealAssetBalance(symbol) {
+        // 1. Direct symbol key (e.g., bp_balance_USDT)
+        const direct = localStorage.getItem('bp_balance_' + symbol);
+        if (direct !== null && !isNaN(parseFloat(direct))) {
+          return Math.max(0, parseFloat(direct));
         }
-        if (available > 0 && el.scrollWidth < available && px < 38) {
-          // restore up if there is extra room
-          while (px < 38 && el.scrollWidth + 8 < available) {
-            px += 1;
-            el.style.fontSize = px + 'px';
+
+        // 2. Encapsulated crypto map
+        try {
+          const map = JSON.parse(localStorage.getItem('bp_crypto_balances') || '{}');
+          if (map[symbol] !== undefined && !isNaN(parseFloat(map[symbol]))) {
+            return Math.max(0, parseFloat(map[symbol]));
           }
-        }
-      }
-      function renderTotalBalanceCurrencyMenu() {
-        const menu = document.getElementById('totalBalCurrencyMenu');
-        if (!menu) return null;
-        menu.classList.add('total-bal-currency-menu');
-        const active = getSelectedTotalCurrency();
-        menu.innerHTML = TOTAL_BAL_CURRENCIES.map(c =>
-          `<div class="tbc-item ${c.code === active ? 'active' : ''}" data-curcode="${c.code}" role="menuitem">
-             <span>${c.name}</span>
-             <span class="tbc-sym">${c.code}</span>
-           </div>`
-        ).join('');
-        menu.querySelectorAll('.tbc-item').forEach(it => {
-          it.addEventListener('click', (ev) => {
-            ev.stopPropagation();
-            const code = it.dataset.curcode;
-            setSelectedTotalCurrency(code);
-            const labelEl = document.getElementById('totalBalCurrencyLabel');
-            if (labelEl) labelEl.textContent = code;
-            menu.classList.remove('open');
-            try { updateBalanceVisibility(); } catch (_) {}
-            try { if (typeof refreshLiveBalances === 'function') refreshLiveBalances(); } catch (_) {}
-            try { if (typeof v3_renderRateLine === 'function') v3_renderRateLine(); } catch (_) {}
-            try { if (typeof fitTotalBalanceFont === 'function') fitTotalBalanceFont(); } catch (_) {}
-          });
-        });
-        return menu;
-      }
-      document.addEventListener('DOMContentLoaded', () => {
-        const btn = document.getElementById('totalBalCurrencyBtn');
-        const label = document.getElementById('totalBalCurrencyLabel');
-        if (label) label.textContent = getSelectedTotalCurrency();
-        renderTotalBalanceCurrencyMenu();
-        if (btn) {
-          btn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const menu = document.getElementById('totalBalCurrencyMenu');
-            if (!menu) return;
-            const isOpen = menu.classList.contains('open');
-            // Re-render before opening so current active currency is highlighted
-            if (!isOpen) renderTotalBalanceCurrencyMenu();
-            menu.classList.toggle('open');
-          });
-        }
-        document.addEventListener('click', (e) => {
-          const menu = document.getElementById('totalBalCurrencyMenu');
-          if (menu && !e.target.closest('#totalBalCurrencyBtn') && !e.target.closest('#totalBalCurrencyMenu')) {
-            menu.classList.remove('open');
+        } catch (_) {}
+
+        // 3. Encapsulated user balances
+        try {
+          const ub = JSON.parse(localStorage.getItem('bp_user_balances') || '{}');
+          if (ub[symbol] !== undefined && !isNaN(parseFloat(ub[symbol]))) {
+            return Math.max(0, parseFloat(ub[symbol]));
           }
-        });
-        // Close on scroll of the wallet main (prevents menu lingering over content)
-        const mainEl = document.querySelector('.wallet-main');
-        if (mainEl) {
-          mainEl.addEventListener('scroll', () => {
-            const menu = document.getElementById('totalBalCurrencyMenu');
-            if (menu) menu.classList.remove('open');
-          }, { passive: true });
-        }
-        setTimeout(fitTotalBalanceFont, 60);
-        setTimeout(fitTotalBalanceFont, 300);
-      });
-      window.addEventListener('resize', fitTotalBalanceFont);
-      // ===== End Total Balance Multi-Currency =====
+        } catch (_) {}
 
-      (function assetRowAutoFit() {
-        function fit() {
-          document.querySelectorAll('.asset-row-amount').forEach(el => {
-            el.style.fontSize = '';
-            let px = 14.5;
-            el.style.fontSize = px + 'px';
-            const max = el.closest('.asset-row-balance')?.clientWidth || 120;
-            while (el.scrollWidth > max && px > 10) {
-              px -= 0.5;
-              el.style.fontSize = px + 'px';
-            }
-          });
+        // 4. If USDT, read actual confirmed balance from deposits/P2P
+        if (symbol === 'USDT') {
+          const uBal = parseFloat(localStorage.getItem('bp_user_balance') || localStorage.getItem('user_balance') || localStorage.getItem('bp_wallet_balance') || '0');
+          return isNaN(uBal) ? 0 : Math.max(0, uBal);
         }
-        window.addEventListener('resize', fit);
-        document.addEventListener('DOMContentLoaded', () => { setTimeout(fit, 100); setTimeout(fit, 500); });
-        const mo = new MutationObserver(() => { clearTimeout(fit._t); fit._t = setTimeout(fit, 60); });
-        document.addEventListener('DOMContentLoaded', () => {
-          const list = document.getElementById('assetList');
-          if (list) mo.observe(list, { childList: true, subtree: true });
-        });
-      })();
 
-      function fmtAmt(n) {
-        if (n === 0) return '0.00';
-        if (n >= 1000) return Number(n).toLocaleString('en-US', { maximumFractionDigits: 2 });
-        if (n >= 1) return Number(n).toFixed(4);
-        return Number(n).toFixed(6);
+        // Strictly zero for random accounts with no deposit
+        return 0;
       }
 
-      function updateBalanceVisibility() {
-        const el = $('#totalBalance');
-        const icon = $('#balanceEyeIcon');
+      function refreshAllBalances() {
+        let totalPortfolioUsd = 0;
+
+        ASSETS.forEach(a => {
+          a.balance = getRealAssetBalance(a.symbol);
+          totalPortfolioUsd += (a.balance * a.price);
+        });
+
+        // Update Total Balance Card
+        const balEl = $('#totalBalance');
         if (balanceVisible) {
-          const total = ASSETS.reduce((sum, a) => {
-            const bal = isFinite(a.balance) && a.balance > 0 ? a.balance : 0;
-            const price = isFinite(a.price) && a.price > 0 ? a.price : 0;
-            return sum + bal * price;
-          }, 0);
-          el.textContent = formatInDisplayCurrency(total);
-          fitTotalBalanceFont();
-          icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="13" r="3"/>';
+          balEl.textContent = formatMoney(totalPortfolioUsd);
         } else {
-          el.textContent = '••••••';
-          icon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
+          balEl.textContent = '••••••';
         }
+
+        $('#availableBalanceText').textContent = '· Available: ' + formatMoney(totalPortfolioUsd);
+
+        renderAssets();
+        renderRateStrip();
       }
 
-      $('#balanceEyeToggle').addEventListener('click', () => {
-        balanceVisible = !balanceVisible;
-        updateBalanceVisibility();
-      });
+      // ============================================================
+      // RENDER ASSET LIST
+      // ============================================================
+      function fmtAmt(n, sym) {
+        if (n === 0) return '0.00';
+        if (sym === 'BTC' || sym === 'ETH') return Number(n).toFixed(6);
+        return Number(n).toFixed(2);
+      }
 
       function renderAssets() {
         $('#assetList').innerHTML = ASSETS.map(a => {
-          const usdValue = a.balance * a.price;
+          const usdVal = a.balance * a.price;
           return `
             <div class="asset-row" data-asset="${a.symbol}">
               <div class="asset-row-icon"><img src="${a.icon}" alt="${a.symbol}"></div>
               <div class="asset-row-info">
                 <div class="asset-row-name">${a.name}</div>
                 <div class="asset-row-symbol">${a.symbol}</div>
-                <div class="asset-live-price">1 ${a.symbol} ≈ ${fmtUSD(a.price)}</div>
+                <div class="asset-live-price">1 ${a.symbol} ≈ ${formatMoney(a.price)}</div>
               </div>
               <div class="asset-row-balance">
-                <div class="asset-row-amount">${fmtAmt(a.balance)} ${a.symbol}</div>
-                <div class="asset-row-usd">≈ ${fmtUSD(usdValue)}</div>
+                <div class="asset-row-amount">${fmtAmt(a.balance, a.symbol)} ${a.symbol}</div>
+                <div class="asset-row-usd">≈ ${formatMoney(usdVal)}</div>
               </div>
               <button class="asset-row-dots" data-asset-menu="${a.symbol}" aria-label="Asset actions">⋮</button>
             </div>
@@ -966,14 +709,15 @@
 
         $('#assetCount').textContent = ASSETS.length + ' assets';
 
+        // Row tap navigates to deposit
         $$('.asset-row').forEach(row => {
           row.addEventListener('click', (e) => {
             if (e.target.closest('.asset-row-dots')) return;
-            const sym = row.dataset.asset;
-            navigateTo('deposit.html?asset=' + encodeURIComponent(sym));
+            navigateTo('deposit.html');
           });
         });
 
+        // 3-dots action sheet
         $$('.asset-row-dots').forEach(btn => {
           btn.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -982,44 +726,216 @@
         });
       }
 
+      // ============================================================
+      // CURRENCY SELECTOR MODAL (BOTTOM-SHEET)
+      // ============================================================
+      const currencyModal = $('#currencyModal');
+      const currencyOverlay = $('#currencyModalOverlay');
+      const currencySearch = $('#currencySearchInput');
+
+      function openCurrencyModal() {
+        currencySearch.value = '';
+        renderCurrencies();
+        currencyOverlay.classList.add('open');
+        currencyModal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeCurrencyModal() {
+        currencyOverlay.classList.remove('open');
+        currencyModal.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+
+      function renderCurrencies(filter = '') {
+        const q = filter.toLowerCase().trim();
+        const active = getSelectedCurrency();
+        const list = $('#currencyList');
+
+        const filtered = CURRENCIES.filter(c => !q || c.code.toLowerCase().includes(q) || c.name.toLowerCase().includes(q));
+
+        if (!filtered.length) {
+          list.innerHTML = `<div style="text-align:center;padding:24px;font-size:13px;color:var(--gray-500);">No currencies found</div>`;
+          return;
+        }
+
+        list.innerHTML = filtered.map(c => `
+          <div class="currency-option ${c.code === active ? 'selected' : ''}" data-code="${c.code}">
+            <div>
+              <div class="curr-name">${c.name}</div>
+              <div class="curr-code">${c.symbol} · ${c.code}</div>
+            </div>
+            <div style="font-size:13px;font-weight:800;color:var(--navy-900);">${c.code === active ? '✓' : ''}</div>
+          </div>
+        `).join('');
+
+        list.querySelectorAll('.currency-option').forEach(item => {
+          item.addEventListener('click', () => {
+            setSelectedCurrency(item.dataset.code);
+            closeCurrencyModal();
+          });
+        });
+      }
+
+      $('#currencyModalTrigger').addEventListener('click', openCurrencyModal);
+      $('#currencyModalClose').addEventListener('click', closeCurrencyModal);
+      currencyOverlay.addEventListener('click', closeCurrencyModal);
+      currencySearch.addEventListener('input', (e) => renderCurrencies(e.target.value));
+
+      // ============================================================
+      // EYE TOGGLE (HIDE/SHOW BALANCE)
+      // ============================================================
+      $('#balanceEyeToggle').addEventListener('click', () => {
+        balanceVisible = !balanceVisible;
+        const icon = $('#balanceEyeIcon');
+        if (balanceVisible) {
+          icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+        } else {
+          icon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
+        }
+        refreshAllBalances();
+      });
+
+      // ============================================================
+      // RATE STRIP ENGINE
+      // ============================================================
+      function renderRateStrip() {
+        const rateEl = $('#walletRateValue');
+        if (rateEl) {
+          rateEl.textContent = `1 USDT ≈ ${formatMoney(1.00)}`;
+        }
+      }
+
+      $('#walletRateRefresh').addEventListener('click', () => {
+        const btn = $('#walletRateRefresh');
+        btn.classList.add('spinning');
+        setTimeout(() => {
+          btn.classList.remove('spinning');
+          refreshAllBalances();
+          showToast('Market rates updated');
+        }, 600);
+      });
+
+      // ============================================================
+      // RECENT ACTIVITIES (REAL TRANSACTIONS ENGINE)
+      // ============================================================
+      function readStorageJSON(key) {
+        try {
+          const v = JSON.parse(localStorage.getItem(key) || '[]');
+          return Array.isArray(v) ? v : [];
+        } catch (_) { return []; }
+      }
+
+      function loadRecentTransactions() {
+        const list = [];
+
+        // 1. Unified transactions ledger (from deposit & withdraw)
+        readStorageJSON('bp_transactions').forEach((t, i) => {
+          list.push({
+            id: t.id || ('tx-' + i),
+            type: (t.type || 'deposit').toLowerCase(),
+            title: (t.type === 'Withdrawal' ? 'Withdrawal' : 'Deposit') + ' · ' + (t.symbol || 'USDT'),
+            date: t.date || 'Recent',
+            amount: parseFloat(t.amount || 0).toFixed(2),
+            symbol: t.symbol || 'USDT',
+            status: (t.status || 'completed').toLowerCase(),
+            raw: t
+          });
+        });
+
+        // 2. Deposits
+        readStorageJSON('bp_deposits').forEach((d, i) => {
+          list.push({
+            id: 'dep-' + i,
+            type: 'deposit',
+            title: 'Deposit · ' + (d.symbol || 'USDT'),
+            date: d.date || 'Recent',
+            amount: parseFloat(d.amount || 0).toFixed(2),
+            symbol: d.symbol || 'USDT',
+            status: (d.status || 'completed').toLowerCase(),
+            raw: d
+          });
+        });
+
+        // 3. Withdrawals
+        readStorageJSON('bp_withdrawals').forEach((w, i) => {
+          list.push({
+            id: 'wd-' + i,
+            type: 'withdraw',
+            title: 'Withdrawal · ' + (w.asset || w.symbol || 'USDT'),
+            date: w.date || 'Recent',
+            amount: parseFloat(w.amount || 0).toFixed(2),
+            symbol: w.asset || w.symbol || 'USDT',
+            status: (w.status || 'pending').toLowerCase(),
+            raw: w
+          });
+        });
+
+        // 4. P2P Orders
+        readStorageJSON('bp_p2p_orders').forEach((p, i) => {
+          list.push({
+            id: 'p2p-' + i,
+            type: 'trade',
+            title: 'P2P Trade · ' + (p.crypto || 'USDT'),
+            date: p.date || 'Recent',
+            amount: parseFloat(p.cryptoAmount || p.amount || 0).toFixed(2),
+            symbol: p.crypto || 'USDT',
+            status: (p.status || 'completed').toLowerCase(),
+            raw: p
+          });
+        });
+
+        // Remove duplicate transaction IDs
+        const seen = new Set();
+        const unique = [];
+        list.forEach(item => {
+          if (!seen.has(item.id)) {
+            seen.add(item.id);
+            unique.push(item);
+          }
+        });
+
+        TX.length = 0;
+        unique.forEach(u => TX.push(u));
+        renderTx();
+      }
+
       function renderTx() {
         const filtered = currentTxFilter === 'all'
           ? TX
           : TX.filter(t => t.type === currentTxFilter);
 
-        if (filtered.length === 0) {
-          $('#txList').innerHTML = `<div class="empty-tx">No transactions yet.</div>`;
+        if (!filtered.length) {
+          $('#txList').innerHTML = `<div class="empty-tx">No transactions found.</div>`;
           return;
         }
 
         $('#txList').innerHTML = filtered.map(t => {
-          const iconEmoji = { deposit: '↓', withdraw: '↑', swap: '⇄', trade: '📈' }[t.type] || '•';
-          const sign = t.type === 'deposit' || t.type === 'trade' ? '+' : '-';
-          const cls = sign === '+' ? 'positive' : 'negative';
-          const statusClass = t.status === 'completed' ? '' : t.status;
-          const typeLabel = { deposit: 'Deposit', withdraw: 'Withdrawal', swap: 'Swap', trade: 'Trade' }[t.type] || t.type;
+          const isPos = t.type === 'deposit' || t.type === 'trade';
+          const sign = isPos ? '+' : '-';
+          const cls = isPos ? 'positive' : 'negative';
+          const icon = t.type === 'deposit' ? '↓' : (t.type === 'withdraw' ? '↑' : '⇄');
           return `
-            <div class="tx-item" data-txid="${t.id || ''}">
-              <div class="tx-icon ${t.type}">${iconEmoji}</div>
+            <div class="tx-item" data-txid="${t.id}">
+              <div class="tx-icon ${t.type}">${icon}</div>
               <div class="tx-info">
                 <div class="tx-title">${t.title}</div>
                 <div class="tx-date">${t.date}</div>
-                <span class="activity-type-pill ${t.type}">${typeLabel}</span>
+                <span class="activity-type-pill ${t.type}">${t.type}</span>
               </div>
               <div class="tx-amount">
                 <div class="tx-amount-val ${cls}">${sign}${t.amount} ${t.symbol}</div>
-                <div class="tx-status ${statusClass}">${t.status}</div>
+                <div class="tx-status ${t.status === 'completed' ? '' : 'pending'}">${t.status}</div>
               </div>
               <div class="tx-item-arrow">›</div>
             </div>
           `;
         }).join('');
 
-        $$('.tx-item').forEach(item => {
-          item.addEventListener('click', () => {
-            const id = item.dataset.txid;
-            const rec = TX.find(x => String(x.id) === String(id));
-            if (rec) openTxDetail(rec);
+        $$('.tx-item').forEach(el => {
+          el.addEventListener('click', () => {
+            const tx = TX.find(x => x.id === el.dataset.txid);
+            if (tx) openTxDetail(tx);
           });
         });
       }
@@ -1033,73 +949,83 @@
         });
       });
 
-      const depositModal = $('#depositModal');
-      const depositOverlay = $('#depositModalOverlay');
-      const withdrawModal = $('#withdrawModal');
-      const withdrawOverlay = $('#withdrawModalOverlay');
+      // ============================================================
+      // ASSET ACTION MODAL (3-DOTS)
+      // ============================================================
+      let activeActionSymbol = 'USDT';
+      const actionSheet = $('#assetActionSheet');
+      const sheetOverlay = $('#sheetOverlay');
 
-      const DEPOSIT_ADDRESSES = {
-        USDT: 'TXk7bF9m2Kp4qWnE8v3Ls6HjR5tYcB2pQd',
-        BTC: 'bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh',
-        ETH: '0x71C7656EC7ab88b098defB751B7401B5f6d8976F',
-        SOL: 'DYw8jCTfwHNRJhhmFcbXvVDTqWMEVFBX6ZKUmG5CNSKK',
-      };
-
-      function openDeposit() {
-        depositOverlay.classList.add('open');
-        depositModal.classList.add('open');
+      function openAssetActionSheet(sym) {
+        activeActionSymbol = sym;
+        const a = ASSETS.find(x => x.symbol === sym);
+        $('#assetActionTitle').textContent = (a ? a.name : sym) + ' (' + sym + ')';
+        $('#assetActionDepositSub').textContent = `Deposit ${sym} to your wallet`;
+        $('#assetActionWithdrawSub').textContent = `Withdraw ${sym} to an external address`;
+        sheetOverlay.classList.add('open');
+        actionSheet.classList.add('open');
         document.body.style.overflow = 'hidden';
-        updateDepositAddress();
       }
-      function closeDeposit() {
-        depositOverlay.classList.remove('open');
-        depositModal.classList.remove('open');
+
+      function closeAssetActionSheet() {
+        sheetOverlay.classList.remove('open');
+        actionSheet.classList.remove('open');
         document.body.style.overflow = '';
       }
-      function updateDepositAddress() {
-        const sym = $('#depositAssetSelect').value;
-        const platformAddrs = (function() {
-          try {
-            return JSON.parse(localStorage.getItem('bp_platform_deposit_addresses') || '{}');
-          } catch (e) { return {}; }
-        })();
-        $('#depositAddress').textContent = platformAddrs[sym] || DEPOSIT_ADDRESSES[sym] || '—';
-        $('#depositAssetNote').textContent = sym;
+
+      $('#assetActionClose').addEventListener('click', closeAssetActionSheet);
+      $('#assetActionDeposit').addEventListener('click', () => {
+        closeAssetActionSheet();
+        navigateTo('deposit.html');
+      });
+      $('#assetActionWithdraw').addEventListener('click', () => {
+        closeAssetActionSheet();
+        navigateTo('withdraw.html');
+      });
+
+      // ============================================================
+      // TX DETAIL MODAL
+      // ============================================================
+      const txSheet = $('#txDetailSheet');
+
+      function openTxDetail(tx) {
+        const body = $('#txDetailBody');
+        const raw = tx.raw || {};
+        $('#txDetailTitle').textContent = tx.title;
+
+        body.innerHTML = `
+          <div class="tx-detail-row"><span class="k">Reference ID</span><span class="v">${tx.id}</span></div>
+          <div class="tx-detail-row"><span class="k">Transaction Type</span><span class="v">${tx.type.toUpperCase()}</span></div>
+          <div class="tx-detail-row"><span class="k">Amount</span><span class="v">${tx.amount} ${tx.symbol}</span></div>
+          ${raw.network ? `<div class="tx-detail-row"><span class="k">Network</span><span class="v">${raw.network}</span></div>` : ''}
+          ${raw.address ? `<div class="tx-detail-row"><span class="k">Destination</span><span class="v">${raw.address}</span></div>` : ''}
+          <div class="tx-detail-row"><span class="k">Timestamp</span><span class="v">${tx.date}</span></div>
+          <div class="tx-detail-row"><span class="k">Status</span><span class="v"><span class="tx-status-pill ${tx.status === 'completed' ? 'completed' : 'pending'}">${tx.status.toUpperCase()}</span></span></div>
+        `;
+
+        sheetOverlay.classList.add('open');
+        txSheet.classList.add('open');
+        document.body.style.overflow = 'hidden';
       }
-      $('#depositAssetSelect').addEventListener('change', updateDepositAddress);
+
+      function closeTxDetail() {
+        sheetOverlay.classList.remove('open');
+        txSheet.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+
+      $('#txDetailClose').addEventListener('click', closeTxDetail);
+      sheetOverlay.addEventListener('click', () => {
+        closeAssetActionSheet();
+        closeTxDetail();
+      });
+
+      // ============================================================
+      // PRIMARY BUTTONS & NAVIGATION
+      // ============================================================
       $('#depositBtn').addEventListener('click', () => navigateTo('deposit.html'));
-      $('#depositModalClose').addEventListener('click', closeDeposit);
-      depositOverlay.addEventListener('click', closeDeposit);
-      $('#copyDepositBtn').addEventListener('click', () => {
-        const addr = $('#depositAddress').textContent;
-        if (navigator.clipboard) {
-          navigator.clipboard.writeText(addr).then(() => {
-            showToast('Address copied!');
-            $('#copyDepositBtn').textContent = 'Copied!';
-            setTimeout(() => { $('#copyDepositBtn').textContent = 'Copy'; }, 1500);
-          });
-        } else {
-          showToast('Address copied!');
-        }
-      });
-
-      function openWithdraw() {
-        withdrawOverlay.classList.add('open');
-        withdrawModal.classList.add('open');
-        document.body.style.overflow = 'hidden';
-      }
-      function closeWithdraw() {
-        withdrawOverlay.classList.remove('open');
-        withdrawModal.classList.remove('open');
-        document.body.style.overflow = '';
-      }
       $('#withdrawBtn').addEventListener('click', () => navigateTo('withdraw.html'));
-      $('#withdrawModalClose').addEventListener('click', closeWithdraw);
-      withdrawOverlay.addEventListener('click', closeWithdraw);
-
-      $('#backBtn').addEventListener('click', () => {
-        window.location.href = 'index.html';
-      });
+      $('#backBtn').addEventListener('click', () => navigateTo('index.html'));
       $('#historyBtn').addEventListener('click', () => {
         document.querySelector('.tx-list').scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
@@ -1115,707 +1041,26 @@
         });
       });
 
-      // ===== ADDITIONS =====
-
-      let isNavigating = false;
-      function navigateTo(url) {
-        if (!url || isNavigating) return;
-        isNavigating = true;
-        window.location.href = url;
-        setTimeout(() => { isNavigating = false; }, 800);
-      }
-
-      const FALLBACK_PRICES = { USDT: 1, BTC: 81000, ETH: 3200, SOL: 150 };
-
-      function readBalances() {
-        try {
-          return JSON.parse(localStorage.getItem('bp_user_balances') || '{}') || {};
-        } catch (e) { return {}; }
-      }
-      function readPrices() {
-        try {
-          return JSON.parse(localStorage.getItem('bp_market_prices') || '{}') || {};
-        } catch (e) { return {}; }
-      }
-
-      function refreshLiveBalances() {
-        const balances = readBalances();
-        const prices = readPrices();
-
-        const anyBalance =
-          balances && Object.keys(balances).length > 0 &&
-          Object.keys(balances).some(k => isFinite(parseFloat(balances[k])) && parseFloat(balances[k]) > 0);
-
-        ASSETS.forEach(a => {
-          const raw = balances[a.symbol];
-          a.balance = (anyBalance && isFinite(parseFloat(raw)) && parseFloat(raw) > 0) ? parseFloat(raw) : 0;
-          const p = parseFloat(prices[a.symbol]);
-          a.price = (!isNaN(p) && p > 0) ? p : (FALLBACK_PRICES[a.symbol] || 0);
-        });
-
-        const totalUsd = ASSETS.reduce((sum, a) => sum + (a.balance > 0 ? a.balance * a.price : 0), 0);
-
-        // Available balance = actual real wallet total, always. No fake data.
-        const availableEl = $('#availableBalanceText');
-        if (availableEl) availableEl.textContent = '· Available: ' + fmtUSD(totalUsd);
-
-        renderAssets();
-        updateBalanceVisibility();
-      }
-
-      function readJSON(key) {
-        try {
-          const v = JSON.parse(localStorage.getItem(key) || '[]');
-          return Array.isArray(v) ? v : [];
-        } catch (e) { return []; }
-      }
-
-      function normalizeActivities() {
-        const list = [];
-
-        readJSON('bp_deposits').forEach((d, i) => {
-          const amt = parseFloat(d.amount || d.amountUSD || 0);
-          const sym = d.symbol || d.asset || 'USDT';
-          list.push({
-            id: 'dep-' + i + '-' + (d.txid || d.id || ''),
-            type: 'deposit',
-            title: 'Deposit · ' + sym,
-            date: d.date || d.createdAt || d.timestamp || '—',
-            amount: isNaN(amt) ? '0.00' : amt.toFixed(2),
-            symbol: sym,
-            status: (d.status || 'completed').toLowerCase(),
-            raw: d
-          });
-        });
-
-        readJSON('bp_withdrawals').forEach((w, i) => {
-          const amt = parseFloat(w.amount || 0);
-          const sym = w.symbol || w.asset || 'USDT';
-          list.push({
-            id: 'wd-' + i + '-' + (w.txid || w.id || ''),
-            type: 'withdraw',
-            title: 'Withdrawal · ' + sym,
-            date: w.date || w.createdAt || w.timestamp || '—',
-            amount: isNaN(amt) ? '0.00' : amt.toFixed(2),
-            symbol: sym,
-            status: (w.status || 'pending').toLowerCase(),
-            raw: w
-          });
-        });
-
-        readJSON('bp_recent_swaps').forEach((s, i) => {
-          const fromSym = s.from || s.fromSymbol || '—';
-          const toSym = s.to || s.toSymbol || '—';
-          const amt = parseFloat(s.fromAmount || s.amount || 0);
-          list.push({
-            id: 'sw-' + i + '-' + (s.id || ''),
-            type: 'swap',
-            title: 'Swap · ' + fromSym + ' → ' + toSym,
-            date: s.date || s.createdAt || s.timestamp || '—',
-            amount: isNaN(amt) ? '0.00' : amt.toFixed(4),
-            symbol: fromSym,
-            status: (s.status || 'completed').toLowerCase(),
-            raw: s
-          });
-        });
-
-        readJSON('bp_p2p_orders').forEach((o, i) => {
-          const amt = parseFloat(o.cryptoAmount || o.fiatAmount || 0);
-          const sym = o.crypto || '—';
-          const side = (o.mode || '').toLowerCase() === 'sell' ? 'Sell' : 'Buy';
-          list.push({
-            id: 'p2p-' + i + '-' + (o.id || ''),
-            type: 'trade',
-            title: 'P2P ' + side + ' · ' + sym,
-            date: o.date || o.createdAt || '—',
-            amount: isNaN(amt) ? '0.00' : amt.toFixed(4),
-            symbol: sym,
-            status: (o.status || 'pending').toLowerCase(),
-            raw: o
-          });
-        });
-
-        list.sort((a, b) => {
-          const da = Date.parse(a.date) || 0;
-          const db = Date.parse(b.date) || 0;
-          return db - da;
-        });
-
-        return list;
-      }
-
-      function refreshActivity() {
-        const acts = normalizeActivities();
-        TX.length = 0;
-        acts.forEach(a => TX.push(a));
-        renderTx();
-      }
-
-      // --- Asset action sheet ---
-      let currentAssetSymbol = null;
-
-      function openAssetActionSheet(sym) {
-        currentAssetSymbol = sym;
-        const a = ASSETS.find(x => x.symbol === sym);
-        const sheet = $('#assetActionSheet');
-        const overlay = $('#sheetOverlay');
-        if (!sheet || !overlay) return;
-        $('#assetActionTitle').textContent = (a ? a.name : sym) + ' · ' + sym;
-        $('#assetActionDepositSub').textContent = 'Receive ' + sym + ' into your wallet';
-        $('#assetActionWithdrawSub').textContent = 'Send ' + sym + ' to an external wallet';
-        sheet.classList.add('open');
-        overlay.classList.add('open');
-        document.body.style.overflow = 'hidden';
-      }
-      function closeAssetActionSheet() {
-        const sheet = $('#assetActionSheet');
-        const overlay = $('#sheetOverlay');
-        if (sheet) sheet.classList.remove('open');
-        if (overlay) overlay.classList.remove('open');
-        document.body.style.overflow = '';
-      }
-      const aac = $('#assetActionClose');
-      if (aac) aac.addEventListener('click', closeAssetActionSheet);
-      const aad = $('#assetActionDeposit');
-      if (aad) aad.addEventListener('click', () => {
-        closeAssetActionSheet();
-        if (currentAssetSymbol) navigateTo('deposit.html?asset=' + encodeURIComponent(currentAssetSymbol));
-      });
-      const aaw = $('#assetActionWithdraw');
-      if (aaw) aaw.addEventListener('click', () => {
-        closeAssetActionSheet();
-        if (currentAssetSymbol) navigateTo('withdraw.html?asset=' + encodeURIComponent(currentAssetSymbol));
-      });
-
-      // --- TX detail sheet ---
-      function openTxDetail(rec) {
-        const sheet = $('#txDetailSheet');
-        const overlay = $('#sheetOverlay');
-        const body = $('#txDetailBody');
-        if (!sheet || !overlay || !body) return;
-
-        const typeLabel = { deposit: 'Deposit', withdraw: 'Withdrawal', swap: 'Swap', trade: 'Trade' }[rec.type] || rec.type;
-        const statusClass = (rec.status === 'completed' || rec.status === 'paid' || rec.status === 'completed') ? 'completed'
-                          : (rec.status === 'failed' || rec.status === 'cancelled' || rec.status === 'disputed') ? 'failed'
-                          : 'pending';
-
-        const raw = rec.raw || {};
-        const rows = [];
-
-        rows.push(['Activity', typeLabel]);
-        rows.push(['Asset', rec.symbol || '—']);
-        rows.push(['Amount', rec.amount + ' ' + (rec.symbol || '')]);
-        if (raw.fiatAmount) rows.push(['Fiat amount', raw.fiatAmount + ' ' + (raw.fiat || '')]);
-        if (raw.price) rows.push(['Price', raw.price]);
-        if (raw.merchantName) rows.push(['Counterparty', raw.merchantName]);
-        if (raw.paymentMethod) rows.push(['Payment method', raw.paymentMethod]);
-        if (raw.address) rows.push(['Destination', raw.address]);
-        if (raw.network) rows.push(['Network', raw.network]);
-        if (raw.txid) rows.push(['Tx Hash', raw.txid]);
-        if (raw.order) rows.push(['Order ID', raw.order]);
-        rows.push(['Date', rec.date]);
-
-        const statusPill = '<span class="tx-status-pill ' + statusClass + '">' + (rec.status || '—').toUpperCase() + '</span>';
-
-        let html = rows.map(r => `
-          <div class="tx-detail-row">
-            <div class="k">${r[0]}</div>
-            <div class="v">${String(r[1])}</div>
-          </div>
-        `).join('');
-        html += `<div class="tx-detail-row"><div class="k">Status</div><div class="v">${statusPill}</div></div>`;
-
-        if (raw.proof || raw.dispute) {
-          html += `<div class="info-box" style="margin-top:10px;">
-            <div class="ib-icon">${raw.dispute ? '🚩' : '📎'}</div>
-            <div class="ib-text"><strong>${raw.dispute ? 'Dispute opened' : 'Proof attached'}</strong><br>${raw.dispute ? (raw.dispute.reason || 'Under mediation') : 'Payment proof on file'}</div>
-          </div>`;
-        }
-
-        const sectionMap = { deposit: 'transaction-history.html', withdraw: 'transaction-history.html', swap: 'swap.html', trade: 'p2p.html' };
-        const dest = sectionMap[rec.type] || 'transaction-history.html';
-        html += `<button class="btn-primary" style="margin-top:14px;" onclick="window.location.href='${dest}'">Open in ${rec.type === 'trade' ? 'P2P Orders' : 'Transactions'}</button>`;
-
-        body.innerHTML = html;
-        $('#txDetailTitle').textContent = typeLabel + ' Details';
-        sheet.classList.add('open');
-        overlay.classList.add('open');
-        document.body.style.overflow = 'hidden';
-      }
-      function closeTxDetail() {
-        const sheet = $('#txDetailSheet');
-        const overlay = $('#sheetOverlay');
-        if (sheet) sheet.classList.remove('open');
-        if (overlay) overlay.classList.remove('open');
-        document.body.style.overflow = '';
-      }
-      const tdc = $('#txDetailClose');
-      if (tdc) tdc.addEventListener('click', closeTxDetail);
-      const sheetOverlayEl = $('#sheetOverlay');
-      if (sheetOverlayEl) sheetOverlayEl.addEventListener('click', () => {
-        closeAssetActionSheet();
-        closeTxDetail();
-      });
-
-      // --- Live storage sync ---
+      // Live cross-tab synchronization
       window.addEventListener('storage', (e) => {
-        if (!e || !e.key) return;
-        if (['bp_user_balances', 'bp_market_prices'].indexOf(e.key) !== -1) {
-          refreshLiveBalances();
-        }
-        if (['bp_deposits', 'bp_withdrawals', 'bp_recent_swaps', 'bp_p2p_orders'].indexOf(e.key) !== -1) {
-          refreshActivity();
+        if (!e.key) return;
+        if (['bp_user_balance', 'user_balance', 'bp_wallet_balance', 'bp_transactions', 'bp_withdrawals'].includes(e.key)) {
+          refreshAllBalances();
+          loadRecentTransactions();
         }
       });
+
       window.addEventListener('focus', () => {
-        refreshLiveBalances();
-        refreshActivity();
+        refreshAllBalances();
+        loadRecentTransactions();
       });
 
-      // --- Init ---
-      try {
-        refreshLiveBalances();
-        refreshActivity();
-      } catch (err) {
-        console.warn('[wallet] additions init failed', err);
-      }
-
-      /* ===== PATCH v3 ===== */
-
-      // --- v3.1: Zero-safe balance enforcement ---
-      // Ensure bp_user_balances exists with all-zero defaults for new accounts.
-      // Runs once on load; never overwrites non-zero balances.
-      (function v3_ensureBalanceKey() {
-        try {
-          const raw = localStorage.getItem('bp_user_balances');
-          if (!raw) {
-            localStorage.setItem('bp_user_balances', JSON.stringify({
-              USDT: 0, BTC: 0, ETH: 0, SOL: 0, BNB: 0, USD: 0
-            }));
-            return;
-          }
-          const parsed = JSON.parse(raw);
-          if (!parsed || typeof parsed !== 'object') {
-            localStorage.setItem('bp_user_balances', JSON.stringify({
-              USDT: 0, BTC: 0, ETH: 0, SOL: 0, BNB: 0, USD: 0
-            }));
-            return;
-          }
-          // Fill in any missing keys as 0, preserve existing non-zero values
-          let changed = false;
-          const defaults = { USDT: 0, BTC: 0, ETH: 0, SOL: 0, BNB: 0, USD: 0 };
-          Object.keys(defaults).forEach(k => {
-            if (typeof parsed[k] === 'undefined') {
-              parsed[k] = 0;
-              changed = true;
-            }
-          });
-          if (changed) localStorage.setItem('bp_user_balances', JSON.stringify(parsed));
-        } catch (_) {}
-      })();
-
-      // --- v3.2: Live market rate display bound to selected currency ---
-      // Fetches live USDT/USD rate from CoinGecko, converts to selected display currency,
-      // and renders "1 USDT ≈ {rate} {currency}" under the balance card.
-      // Falls back to the currency's fxMultiplier if the network fails.
-
-      const V3_RATE_CACHE_KEY = 'bp_market_rates_cache';
-      const V3_RATE_CACHE_TTL = 5 * 60 * 1000; // 5 minutes
-
-      function v3_getUsdtUsdRate() {
-        // 1. Check cache
-        try {
-          const cached = JSON.parse(localStorage.getItem(V3_RATE_CACHE_KEY) || 'null');
-          if (cached && cached.rate > 0 && (Date.now() - cached.ts) < V3_RATE_CACHE_TTL) {
-            return cached.rate;
-          }
-        } catch (_) {}
-        // 2. Check bp_market_prices (written by other pages)
-        try {
-          const mp = JSON.parse(localStorage.getItem('bp_market_prices') || '{}');
-          if (isFinite(mp.USDT) && mp.USDT > 0) return Number(mp.USDT);
-        } catch (_) {}
-        // 3. Default
-        return 1.0;
-      }
-
-      function v3_renderRateLine() {
-        const code = (typeof getSelectedTotalCurrency === 'function') ? getSelectedTotalCurrency() : 'USD';
-        const cur = (typeof TOTAL_BAL_CURRENCIES !== 'undefined')
-          ? TOTAL_BAL_CURRENCIES.find(c => c.code === code) || TOTAL_BAL_CURRENCIES[0]
-          : { code: 'USD', symbol: '$', fx: 1 };
-        const usdtUsd = v3_getUsdtUsdRate();
-        const localRate = usdtUsd * cur.fx;
-        const dec = (code === 'NGN' || code === 'TZS' || code === 'UGX' || code === 'RWF') ? 0 : 2;
-        const rateText = `1 USDT ≈ ${cur.symbol}${Number(localRate).toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec })}`;
-
-        // Update the standalone rate line below the balance card
-        const rateEl = document.getElementById('walletRateValue');
-        if (rateEl) rateEl.textContent = rateText;
-
-        // Inline rate element removed in v5 (replaced by #balancePctChange). No-op here.
-      }
-
-      async function v3_refreshLiveRate() {
-        const btn = document.getElementById('walletRateRefresh');
-        if (btn) btn.classList.add('spinning');
-        try {
-          const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=tether,bitcoin,ethereum,solana&vs_currencies=usd');
-          if (res.ok) {
-            const data = await res.json();
-            const prices = {};
-            if (data.tether?.usd) prices.USDT = data.tether.usd;
-            if (data.bitcoin?.usd) prices.BTC = data.bitcoin.usd;
-            if (data.ethereum?.usd) prices.ETH = data.ethereum.usd;
-            if (data.solana?.usd) prices.SOL = data.solana.usd;
-            if (Object.keys(prices).length > 0) {
-              try { localStorage.setItem('bp_market_prices', JSON.stringify(prices)); } catch (_) {}
-              if (prices.USDT) {
-                try { localStorage.setItem(V3_RATE_CACHE_KEY, JSON.stringify({ rate: prices.USDT, ts: Date.now() })); } catch (_) {}
-              }
-            }
-          }
-        } catch (_) {}
-        v3_renderRateLine();
-        setTimeout(() => { if (btn) btn.classList.remove('spinning'); }, 500);
-      }
-
-      // Hook: refresh rate line whenever currency changes
-      (function v3_wireRateRefresh() {
-        const btn = document.getElementById('walletRateRefresh');
-        if (btn) {
-          btn.addEventListener('click', () => { v3_refreshLiveRate(); });
-        }
-        document.addEventListener('DOMContentLoaded', () => {
-          v3_renderRateLine();
-          setTimeout(v3_renderRateLine, 500);
-        });
-        // Re-render rate whenever user switches currency via the pill
-        document.addEventListener('click', (e) => {
-          if (e.target.closest('.tbc-item')) {
-            setTimeout(v3_renderRateLine, 60);
-          }
-        }, true);
-        // Re-render on external storage events (balance/prices changed in another tab)
-        window.addEventListener('storage', (e) => {
-          if (e.key === 'bp_market_prices' || e.key === 'bp_user_balances' || e.key === 'bp_wallet_display_currency') {
-            v3_renderRateLine();
-          }
-        });
-        // Re-render on page focus (returning from another page)
-        window.addEventListener('focus', () => {
-          v3_renderRateLine();
-        });
-      })();
-
-      // Wrap updateBalanceVisibility to also refresh the rate line
-      (function v3_wrapUpdateBalance() {
-        const orig = window.updateBalanceVisibility;
-        if (typeof orig !== 'function') return;
-        window.updateBalanceVisibility = function () {
-          const r = orig.apply(this, arguments);
-          try { v3_renderRateLine(); } catch (_) {}
-          return r;
-        };
-      })();
-
-      // Also refresh rate after refreshLiveBalances runs
-      (function v3_wrapRefreshBalances() {
-        const orig = window.refreshLiveBalances;
-        if (typeof orig !== 'function') return;
-        window.refreshLiveBalances = function () {
-          const r = orig.apply(this, arguments);
-          try { v3_renderRateLine(); } catch (_) {}
-          return r;
-        };
-      })();
-
-      // On initial page load, do one live fetch (throttled by cache TTL)
-      document.addEventListener('DOMContentLoaded', () => {
-        v3_renderRateLine();
-        setTimeout(() => { v3_refreshLiveRate(); }, 800);
-      });
-
-      /* ===== End PATCH v3 ===== */
-
-      /* ===== PATCH v5 ===== */
-
-      // --- v5.1: Full currency rate map (per-currency, live-updated) ---
-      // In addition to the display currency, allows the rate strip to show ANY currency's rate.
-      // Reuses bp_market_rates_cache + bp_market_prices. Fetches live CoinGecko once per 5 min.
-
-      const V5_RATE_CURRENCY_KEY = 'bp_wallet_rate_currency';
-
-      function v5_getRateCurrency() {
-        try {
-          const s = localStorage.getItem(V5_RATE_CURRENCY_KEY);
-          if (s && TOTAL_BAL_CURRENCIES.find(c => c.code === s)) return s;
-        } catch (_) {}
-        return getSelectedTotalCurrency();
-      }
-      function v5_setRateCurrency(code) {
-        try { localStorage.setItem(V5_RATE_CURRENCY_KEY, code); } catch (_) {}
-      }
-
-      // --- v5.2: Compute real percentage change from 24h price history ---
-      // Uses cached spot price vs. a 24h-ago snapshot stored in bp_market_prev_prices.
-      // If no snapshot exists yet, stores current price with timestamp; returns null until 24h have passed
-      // OR (for demo responsiveness) uses a short-window delta (~5 min) so users see real movement immediately.
-
-      const V5_PREV_PRICES_KEY = 'bp_market_prev_prices';
-      const V5_PREV_WINDOW_MS = 5 * 60 * 1000;
-      const V5_TRUE_24H_WINDOW_MS = 24 * 60 * 60 * 1000;
-      const V5_24H_CACHE_KEY = 'bp_market_24h_change';
-      const V5_24H_CACHE_TTL = 10 * 60 * 1000; // 10 min
-
-      function v5_recordPriceSnapshot() {
-        try {
-          const spot = parseFloat(JSON.parse(localStorage.getItem('bp_market_prices') || '{}').USDT) || 1;
-          const prev = JSON.parse(localStorage.getItem(V5_PREV_PRICES_KEY) || 'null');
-          if (!prev || (Date.now() - prev.ts) > V5_PREV_WINDOW_MS) {
-            const nextState = {
-              prevUsdt: prev ? prev.spot : spot,
-              prevTs: prev ? prev.ts : Date.now(),
-              spot: spot,
-              ts: Date.now()
-            };
-            localStorage.setItem(V5_PREV_PRICES_KEY, JSON.stringify(nextState));
-            return nextState;
-          }
-          return prev;
-        } catch (_) {
-          return null;
-        }
-      }
-
-      // Fetch live 24h percentage change for USDT from CoinGecko, cache 10 min.
-      async function v5_fetch24hChange() {
-        try {
-          const cached = JSON.parse(localStorage.getItem(V5_24H_CACHE_KEY) || 'null');
-          if (cached && isFinite(cached.pct) && (Date.now() - cached.ts) < V5_24H_CACHE_TTL) {
-            return cached.pct;
-          }
-          const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=tether&vs_currencies=usd&include_24hr_change=true');
-          if (res.ok) {
-            const data = await res.json();
-            const pct = data?.tether?.usd_24h_change;
-            if (isFinite(pct)) {
-              try { localStorage.setItem(V5_24H_CACHE_KEY, JSON.stringify({ pct: pct, ts: Date.now() })); } catch (_) {}
-              return pct;
-            }
-          }
-        } catch (_) {}
-        // Fall back to spot vs. prev snapshot
-        try {
-          const state = v5_recordPriceSnapshot();
-          if (!state) return null;
-          const prevSpot = parseFloat(state.prevUsdt) || 0;
-          const curSpot = parseFloat(state.spot) || 1;
-          if (prevSpot <= 0) return null;
-          return ((curSpot - prevSpot) / prevSpot) * 100;
-        } catch (_) {
-          return null;
-        }
-      }
-
-      function v5_getUsdtPctChange() {
-        // Sync read from cache; async fetch updates on load.
-        try {
-          const cached = JSON.parse(localStorage.getItem(V5_24H_CACHE_KEY) || 'null');
-          if (cached && isFinite(cached.pct)) return cached.pct;
-        } catch (_) {}
-        try {
-          const state = v5_recordPriceSnapshot();
-          if (!state) return null;
-          const prevSpot = parseFloat(state.prevUsdt) || 0;
-          const curSpot = parseFloat(state.spot) || 1;
-          if (prevSpot <= 0) return null;
-          return ((curSpot - prevSpot) / prevSpot) * 100;
-        } catch (_) {
-          return null;
-        }
-      }
-
-      // --- v5.3: Render live percentage next to balance ---
-      function v5_renderPctChange() {
-        const el = document.getElementById('balancePctChange');
-        if (!el) return;
-        const pct = v5_getUsdtPctChange();
-
-        // ---- Realistic neutral state ----
-        if (pct === null || !isFinite(pct)) {
-          el.innerHTML = '<span style="color:var(--gray-400);font-weight:700;">0.00%</span>';
-          el.style.fontSize = '12px';
-          return;
-        }
-
-        // ---- Determine direction and colour ----
-        const isUp = pct > 0.005;
-        const isDown = pct < -0.005;
-        const isFlat = !isUp && !isDown;
-
-        let colour, arrow, sign;
-        if (isUp) {
-          colour = 'var(--green-500)';
-          arrow = '▲';
-          sign = '+';
-        } else if (isDown) {
-          colour = 'var(--red-500)';
-          arrow = '▼';
-          sign = ''; // pct is already negative
-        } else {
-          colour = 'var(--gray-400)';
-          arrow = '';
-          sign = '';
-        }
-
-        // ---- Format with full absolute value ----
-        const absVal = Math.abs(pct);
-        // Show more precision for very small movements, less for large ones
-        let decimals;
-        if (absVal < 0.01) decimals = 4;
-        else if (absVal < 0.1) decimals = 3;
-        else decimals = 2;
-
-        const absStr = absVal.toFixed(decimals);
-        const percentText = sign + absStr + '%';
-
-        // ---- Compose: arrow + percentage, aligned baseline ----
-        if (isFlat) {
-          el.innerHTML = `<span style="color:${colour};font-weight:800;letter-spacing:0.2px;">${percentText}</span>`;
-        } else {
-          el.innerHTML = `<span style="color:${colour};font-weight:800;letter-spacing:0.2px;display:inline-flex;align-items:baseline;gap:3px;">
-            <span style="font-size:0.85em;line-height:1;">${arrow}</span>
-            <span>${percentText}</span>
-          </span>`;
-        }
-
-        // ---- Auto-shrink if the string would overflow ----
-        let px = 12;
-        el.style.fontSize = px + 'px';
-        const parentW = el.parentElement?.clientWidth || 280;
-        while (el.scrollWidth > parentW - 140 && px > 9) {
-          px -= 0.5;
-          el.style.fontSize = px + 'px';
-        }
-      }
-
-      // --- v5.4: Render rate strip using per-currency rate (independent of display currency) ---
-      function v5_renderRateStrip() {
-        const rateEl = document.getElementById('walletRateValue');
-        if (!rateEl) return;
-        const code = getSelectedTotalCurrency();
-        const cur = TOTAL_BAL_CURRENCIES.find(c => c.code === code) || TOTAL_BAL_CURRENCIES[0];
-        const usdtUsd = v3_getUsdtUsdRate();
-        const localRate = usdtUsd * cur.fx;
-        const dec = (code === 'NGN' || code === 'TZS' || code === 'UGX' || code === 'RWF') ? 0 : 2;
-        rateEl.textContent = `1 USDT ≈ ${cur.symbol}${Number(localRate).toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec })}`;
-      }
-
-      // --- v5.5: Rate currency menu removed in v6 (single source: balance pill) ---
-      function v5_renderRateCurrencyMenu() {
-        return null;
-      }
-
-      // --- v5.6: Rate currency button removed in v6 ---
-
-      // --- v5.7: Refresh everything on the refresh button click ---
-      (function v5_wrapRefreshBtn() {
-        const btn = document.getElementById('walletRateRefresh');
-        if (!btn) return;
-        btn.addEventListener('click', () => {
-          setTimeout(() => {
-            v5_renderRateStrip();
-            v5_renderPctChange();
-          }, 900);
-          // After refresh, also fetch fresh 24h change
-          setTimeout(() => {
-            v5_fetch24hChange().then(() => {
-              try { localStorage.removeItem(V5_24H_CACHE_KEY); } catch (_) {}
-              v5_fetch24hChange().then(() => v5_renderPctChange());
-            });
-          }, 1200);
-        });
-      })();
-
-      // --- v5.8: Update the percentage whenever balances/prices change ---
-      (function v5_wireStorageSync() {
-        window.addEventListener('storage', (e) => {
-          if (['bp_market_prices', 'bp_market_prev_prices', 'bp_wallet_display_currency', V5_RATE_CURRENCY_KEY].indexOf(e.key) !== -1) {
-            v5_renderPctChange();
-            v5_renderRateStrip();
-            v5_renderRateCurrencyMenu();
-          }
-        });
-        window.addEventListener('focus', () => {
-          v5_renderPctChange();
-          v5_renderRateStrip();
-          v5_renderRateCurrencyMenu();
-        });
-      })();
-
-      // --- v5.9: Init on load ---
-      document.addEventListener('DOMContentLoaded', () => {
-        v5_renderPctChange();
-        v5_renderRateStrip();
-        v5_renderRateCurrencyMenu();
-        setTimeout(v5_renderPctChange, 500);
-        setTimeout(v5_renderRateStrip, 500);
-        setTimeout(v5_renderPctChange, 1500);
-        setTimeout(v5_renderRateStrip, 1500);
-        // Async 24h change fetch
-        v5_fetch24hChange().then(pct => {
-          if (pct === null) return;
-          try {
-            const cached = JSON.parse(localStorage.getItem(V5_24H_CACHE_KEY) || 'null');
-            if (!cached || !isFinite(cached.pct)) {
-              localStorage.setItem(V5_24H_CACHE_KEY, JSON.stringify({ pct: pct, ts: Date.now() }));
-            }
-          } catch (_) {}
-          v5_renderPctChange();
-        });
-      });
-
-      // --- v5.10: Also refresh whenever v3 refreshes ---
-      (function v5_wrapV3Refresh() {
-        if (typeof window.v3_refreshLiveRate !== 'function') return;
-        const orig = window.v3_refreshLiveRate;
-        window.v3_refreshLiveRate = async function () {
-          const r = await orig.apply(this, arguments);
-          try { v5_renderPctChange(); v5_renderRateStrip(); v5_renderRateCurrencyMenu(); } catch (_) {}
-          return r;
-        };
-      })();
-
-      /* ===== End PATCH v5 ===== */
-
-      /* ===== PATCH v6 ===== */
-
-      // ===== Menu flip: open above by default, flip below if pill is near viewport top =====
-      (function v6_menuFlip() {
-        const reposition = () => {
-          const menu = document.getElementById('totalBalCurrencyMenu');
-          const btn = document.getElementById('totalBalCurrencyBtn');
-          if (!menu || !btn) return;
-          const btnRect = btn.getBoundingClientRect();
-          // If the pill has more than 380px of space above it, open upward (default).
-          // Otherwise, flip downward so the menu is visible.
-          if (btnRect.top < 380) {
-            menu.classList.add('flip-down');
-          } else {
-            menu.classList.remove('flip-down');
-          }
-        };
-        document.addEventListener('DOMContentLoaded', reposition);
-        window.addEventListener('resize', reposition);
-        window.addEventListener('scroll', reposition, { passive: true });
-        // Reposition just before menu opens
-        document.addEventListener('click', (e) => {
-          if (e.target.closest && e.target.closest('#totalBalCurrencyBtn')) {
-            setTimeout(reposition, 0);
-          }
-        }, true);
-      })();
+      // ============================================================
+      // INITIALIZATION
+      // ============================================================
+      $('#totalBalCurrencyLabel').textContent = getSelectedCurrency();
+      refreshAllBalances();
+      loadRecentTransactions();
 
     })();
   </script>
