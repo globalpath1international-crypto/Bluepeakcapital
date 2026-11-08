@@ -104,25 +104,32 @@
     .balance-card-label .eye-toggle-inline:hover { background: rgba(255,255,255,0.2); }
     .balance-card-label .eye-toggle-inline svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
     
+    /* LOCKED CURRENCY BUTTON + AUTO-FIT BALANCE ROW */
     .balance-card-value {
-      font-size: 38px; font-weight: 800; letter-spacing: -1.4px;
-      margin-top: 8px; position: relative; z-index: 1;
-      font-variant-numeric: tabular-nums; display: flex; align-items: center;
-      gap: 10px; flex-wrap: wrap;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 10px; margin-top: 8px; position: relative; z-index: 1;
+      width: 100%;
+    }
+    #totalBalance {
+      font-size: 38px; font-weight: 800; letter-spacing: -1.2px;
+      font-variant-numeric: tabular-nums; white-space: nowrap;
+      overflow: hidden; text-overflow: ellipsis; flex: 1; min-width: 0;
+      transition: font-size 0.1s ease;
     }
     .currency-pill-btn {
       background: rgba(255, 255, 255, 0.12);
       border: 1px solid rgba(255, 255, 255, 0.22);
       color: var(--gold-400); font-family: var(--font);
-      font-size: 12px; font-weight: 800; padding: 5px 12px;
+      font-size: 12px; font-weight: 800; padding: 6px 12px;
       border-radius: var(--radius-pill); cursor: pointer;
       display: inline-flex; align-items: center; gap: 6px;
-      transition: all 0.2s;
+      flex-shrink: 0; transition: all 0.2s; white-space: nowrap;
     }
-    .currency-pill-btn:hover { background: rgba(255, 255, 255, 0.2); border-color: var(--gold-400); }
+    .currency-pill-btn:hover { background: rgba(255, 255, 255, 0.22); border-color: var(--gold-400); }
     .currency-pill-btn svg { width: 11px; height: 11px; stroke: currentColor; fill: none; stroke-width: 2.5; }
 
-    .balance-card-sub { font-size: 12.5px; font-weight: 600; color: var(--green-500); margin-top: 6px; position: relative; z-index: 1; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .balance-card-sub { font-size: 12.5px; font-weight: 600; margin-top: 6px; position: relative; z-index: 1; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    #balancePctChange { font-weight: 800; font-size: 12px; display: inline-flex; align-items: center; gap: 3px; }
     .balance-card-sub .stat { color: var(--gray-300); }
     
     .balance-card-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 18px; position: relative; z-index: 1; }
@@ -415,9 +422,9 @@
         </button>
       </div>
 
+      <!-- AUTO-FIT VALUE & LOCKED CURRENCY BUTTON -->
       <div class="balance-card-value">
         <span id="totalBalance">$0.00</span>
-        <!-- PRO MODAL TRIGGER BUTTON (WON'T CLASH WITH DEPOSIT/WITHDRAW) -->
         <button id="currencyModalTrigger" type="button" class="currency-pill-btn" aria-label="Change display currency">
           <span id="totalBalCurrencyLabel">USD</span>
           <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
@@ -425,7 +432,7 @@
       </div>
 
       <div class="balance-card-sub">
-        <span id="balancePctChange" style="color:var(--green-500);font-weight:800;font-size:12px;">+0.00%</span>
+        <span id="balancePctChange" style="color:var(--green-500);">0.00%</span>
         <span class="stat" id="availableBalanceText">· Available: $0.00</span>
       </div>
 
@@ -607,7 +614,29 @@
       }
 
       // ============================================================
-      // ASSETS LIST (REAL ZERO-BASED INITIALIZATION)
+      // AUTO-SCALE TEXT TO PREVENT BUTTON FROM DISPLACING
+      // ============================================================
+      function fitTotalBalanceFont() {
+        const el = document.getElementById('totalBalance');
+        const btn = document.getElementById('currencyModalTrigger');
+        if (!el || !btn) return;
+        const container = el.closest('.balance-card-value');
+        if (!container) return;
+
+        const available = container.clientWidth - btn.offsetWidth - 14;
+        let px = 38;
+        el.style.fontSize = px + 'px';
+
+        while (el.scrollWidth > available && px > 18) {
+          px -= 1;
+          el.style.fontSize = px + 'px';
+        }
+      }
+
+      window.addEventListener('resize', fitTotalBalanceFont);
+
+      // ============================================================
+      // ASSETS LIST
       // ============================================================
       const ASSETS = [
         { symbol: 'USDT', name: 'Tether', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/usdt.svg', price: 1.0 },
@@ -621,16 +650,16 @@
       const TX = [];
 
       // ============================================================
-      // STRICT REAL BALANCE ENGINE (NO PHANTOMS)
+      // STRICT REAL BALANCE ENGINE (NO PHANTOMS FOR NEW ACCOUNTS)
       // ============================================================
       function getRealAssetBalance(symbol) {
-        // 1. Direct symbol key (e.g., bp_balance_USDT)
+        // Direct symbol key
         const direct = localStorage.getItem('bp_balance_' + symbol);
         if (direct !== null && !isNaN(parseFloat(direct))) {
           return Math.max(0, parseFloat(direct));
         }
 
-        // 2. Encapsulated crypto map
+        // Encapsulated crypto map
         try {
           const map = JSON.parse(localStorage.getItem('bp_crypto_balances') || '{}');
           if (map[symbol] !== undefined && !isNaN(parseFloat(map[symbol]))) {
@@ -638,22 +667,13 @@
           }
         } catch (_) {}
 
-        // 3. Encapsulated user balances
-        try {
-          const ub = JSON.parse(localStorage.getItem('bp_user_balances') || '{}');
-          if (ub[symbol] !== undefined && !isNaN(parseFloat(ub[symbol]))) {
-            return Math.max(0, parseFloat(ub[symbol]));
-          }
-        } catch (_) {}
-
-        // 4. If USDT, read actual confirmed balance from deposits/P2P
+        // USDT: Read confirmed deposited balance from deposit.html / P2P
         if (symbol === 'USDT') {
           const uBal = parseFloat(localStorage.getItem('bp_user_balance') || localStorage.getItem('user_balance') || localStorage.getItem('bp_wallet_balance') || '0');
           return isNaN(uBal) ? 0 : Math.max(0, uBal);
         }
 
-        // Strictly zero for random accounts with no deposit
-        return 0;
+        return 0; // Strictly 0 for new user
       }
 
       function refreshAllBalances() {
@@ -664,18 +684,59 @@
           totalPortfolioUsd += (a.balance * a.price);
         });
 
-        // Update Total Balance Card
+        // Update Total Balance Display
         const balEl = $('#totalBalance');
         if (balanceVisible) {
           balEl.textContent = formatMoney(totalPortfolioUsd);
+          fitTotalBalanceFont();
         } else {
           balEl.textContent = '••••••';
+          balEl.style.fontSize = '34px';
         }
 
         $('#availableBalanceText').textContent = '· Available: ' + formatMoney(totalPortfolioUsd);
 
         renderAssets();
         renderRateStrip();
+        renderPercentageChange();
+      }
+
+      // ============================================================
+      // 24H REAL PERCENTAGE CHANGE ENGINE
+      // ============================================================
+      async function renderPercentageChange() {
+        const el = $('#balancePctChange');
+        if (!el) return;
+
+        let pct = null;
+        try {
+          const cached = JSON.parse(localStorage.getItem('bp_market_24h_change') || 'null');
+          if (cached && isFinite(cached.pct) && (Date.now() - cached.ts < 10 * 60 * 1000)) {
+            pct = cached.pct;
+          } else {
+            const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=tether&vs_currencies=usd&include_24hr_change=true');
+            if (res.ok) {
+              const data = await res.json();
+              pct = data?.tether?.usd_24h_change;
+              if (isFinite(pct)) {
+                localStorage.setItem('bp_market_24h_change', JSON.stringify({ pct, ts: Date.now() }));
+              }
+            }
+          }
+        } catch (_) {}
+
+        if (pct === null || !isFinite(pct)) {
+          el.innerHTML = '<span style="color:var(--gray-400);">0.00%</span>';
+          return;
+        }
+
+        const isUp = pct > 0.005;
+        const isDown = pct < -0.005;
+        const sign = isUp ? '+' : '';
+        const color = isUp ? 'var(--green-500)' : (isDown ? 'var(--red-500)' : 'var(--gray-400)');
+        const arrow = isUp ? '▲ ' : (isDown ? '▼ ' : '');
+
+        el.innerHTML = `<span style="color:${color};">${arrow}${sign}${pct.toFixed(2)}%</span>`;
       }
 
       // ============================================================
@@ -709,7 +770,6 @@
 
         $('#assetCount').textContent = ASSETS.length + ' assets';
 
-        // Row tap navigates to deposit
         $$('.asset-row').forEach(row => {
           row.addEventListener('click', (e) => {
             if (e.target.closest('.asset-row-dots')) return;
@@ -717,7 +777,6 @@
           });
         });
 
-        // 3-dots action sheet
         $$('.asset-row-dots').forEach(btn => {
           btn.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -783,7 +842,7 @@
       currencySearch.addEventListener('input', (e) => renderCurrencies(e.target.value));
 
       // ============================================================
-      // EYE TOGGLE (HIDE/SHOW BALANCE)
+      // EYE TOGGLE
       // ============================================================
       $('#balanceEyeToggle').addEventListener('click', () => {
         balanceVisible = !balanceVisible;
@@ -797,7 +856,7 @@
       });
 
       // ============================================================
-      // RATE STRIP ENGINE
+      // RATE STRIP
       // ============================================================
       function renderRateStrip() {
         const rateEl = $('#walletRateValue');
@@ -817,7 +876,7 @@
       });
 
       // ============================================================
-      // RECENT ACTIVITIES (REAL TRANSACTIONS ENGINE)
+      // RECENT ACTIVITY ENGINE (CONNECTED TO REAL TRANSACTIONS)
       // ============================================================
       function readStorageJSON(key) {
         try {
@@ -843,7 +902,7 @@
           });
         });
 
-        // 2. Deposits
+        // 2. Direct deposits
         readStorageJSON('bp_deposits').forEach((d, i) => {
           list.push({
             id: 'dep-' + i,
@@ -857,7 +916,7 @@
           });
         });
 
-        // 3. Withdrawals
+        // 3. Direct withdrawals
         readStorageJSON('bp_withdrawals').forEach((w, i) => {
           list.push({
             id: 'wd-' + i,
@@ -871,7 +930,7 @@
           });
         });
 
-        // 4. P2P Orders
+        // 4. P2P Trades
         readStorageJSON('bp_p2p_orders').forEach((p, i) => {
           list.push({
             id: 'p2p-' + i,
@@ -885,7 +944,7 @@
           });
         });
 
-        // Remove duplicate transaction IDs
+        // De-duplicate by ID
         const seen = new Set();
         const unique = [];
         list.forEach(item => {
@@ -950,7 +1009,7 @@
       });
 
       // ============================================================
-      // ASSET ACTION MODAL (3-DOTS)
+      // ASSET ACTION MODAL
       // ============================================================
       let activeActionSymbol = 'USDT';
       const actionSheet = $('#assetActionSheet');
@@ -1041,7 +1100,7 @@
         });
       });
 
-      // Live cross-tab synchronization
+      // Synchronize across open tabs or returning pages
       window.addEventListener('storage', (e) => {
         if (!e.key) return;
         if (['bp_user_balance', 'user_balance', 'bp_wallet_balance', 'bp_transactions', 'bp_withdrawals'].includes(e.key)) {
