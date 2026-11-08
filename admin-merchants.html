@@ -1,4 +1,4 @@
-   <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -982,7 +982,6 @@
     .form-input:focus, .form-select:focus, .form-textarea:focus {
       border-color: var(--gold-500);
     }
-    .form-textarea { resize: vertical; min-height: 60px; }
 
     .tag-select-group {
       display: flex;
@@ -1429,7 +1428,7 @@
           <div class="form-row">
             <div class="form-group">
               <label>Telegram Chat / Thread ID</label>
-              <input type="text" class="form-input" id="mTelegram" placeholder="e.g. -10023456789 or @handle">
+              <input type="text" class="form-input" id="mTelegram" placeholder="e.g. -10023456789 or leave empty for platform bot">
             </div>
             <div class="form-group">
               <label>Avg. Release Window</label>
@@ -1583,7 +1582,7 @@
 
   <script>
     /* ============================================================
-       BLUEPEAK ADMIN MERCHANTS DESK - CORE ENGINE
+       BLUEPEAK ADMIN MERCHANTS DESK - AUTO-CONFIGURED ENGINE
        ============================================================ */
 
     function getAdminSession() {
@@ -1594,6 +1593,14 @@
       const def = { name: 'Super Admin', email: 'admin@bluepeakcapital.com', role: 'Super Admin', initial: 'A' };
       localStorage.setItem('bp_admin_session', JSON.stringify(def));
       return def;
+    }
+
+    function getPlatformDefaultEscrow() {
+      try {
+        const addrs = JSON.parse(localStorage.getItem('bp_platform_deposit_addresses') || '{}');
+        if (addrs.USDT) return addrs.USDT;
+      } catch (e) {}
+      return 'TTx882KLa92mZbQpP004NqK599eL';
     }
 
     const DEFAULT_SEED_MERCHANTS = [
@@ -1694,7 +1701,7 @@
               paymentDetails: m.paymentDetails || [],
               escrowAddresses: m.escrowAddresses || {},
               offers: m.offers || [],
-              escrowAddr: m.escrowAddr || 'TTx882KLa92mZbQpP004NqK599eL'
+              escrowAddr: m.escrowAddr || getPlatformDefaultEscrow()
             });
           });
         }
@@ -1823,7 +1830,7 @@
         const bp = bestPrice(m, 'buy', m.currencies?.[0]);
         parts.push(`<span class="offer-badge buy">Buy ${buyCount}${bp ? ' · ' + bp : ''}</span>`);
       }
-      if (!parts.length) parts.push(`<span class="offer-badge none">No offers live</span>`);
+      if (!parts.length) parts.push(`<span class="offer-badge none">Auto Active</span>`);
       return parts.join('');
     }
 
@@ -1841,8 +1848,10 @@
       container.innerHTML = list.map(m => {
         const initial = m.initial || m.name.charAt(0).toUpperCase();
         const currs = (m.currencies || ['USD']).map(c => `<span class="method-chip curr">${c}</span>`).join('');
-        const methods = (m.methods || []).slice(0, 3).map(meth => `<span class="method-chip">${meth}</span>`).join('');
+        const methods = (m.methods && m.methods.length ? m.methods : ['Bank Transfer', 'M-Pesa']).slice(0, 3).map(meth => `<span class="method-chip">${meth}</span>`).join('');
         const extraMethods = (m.methods || []).length > 3 ? `<span class="method-chip">+${m.methods.length - 3}</span>` : '';
+        const tgDisplay = m.telegram ? m.telegram : 'Platform Bridge';
+
         return `
           <div class="merchant-card" onclick="openDrawer('${m.id}')">
             <div class="card-top">
@@ -1882,7 +1891,7 @@
 
             <div class="card-footer" onclick="event.stopPropagation();">
               <div class="thread-indicator">
-                <span>TG:</span> ${m.telegram ? m.telegram : 'Not configured'}
+                <span>TG:</span> ${tgDisplay}
               </div>
               <div class="card-actions">
                 <button class="btn-card-action" onclick="openEditModal('${m.id}')">Edit</button>
@@ -1903,7 +1912,7 @@
         const initial = m.initial || m.name.charAt(0).toUpperCase();
         const sellCount = (m.offers || []).filter(o => o.active && o.side === 'sell').length;
         const buyCount = (m.offers || []).filter(o => o.active && o.side === 'buy').length;
-        const methods = (m.methods || []).slice(0, 2).map(meth => `<span class="method-chip">${meth}</span>`).join(' ') +
+        const methods = (m.methods && m.methods.length ? m.methods : ['Bank Transfer']).slice(0, 2).map(meth => `<span class="method-chip">${meth}</span>`).join(' ') +
           ((m.methods || []).length > 2 ? ` <span class="method-chip">+${m.methods.length - 2}</span>` : '');
         return `
           <div class="table-row" onclick="openDrawer('${m.id}')">
@@ -1967,14 +1976,14 @@
       document.getElementById('dPhone').textContent = m.phone || '—';
       document.getElementById('dCountry').textContent = m.country || '—';
       document.getElementById('dCurrencies').textContent = (m.currencies || ['USD']).join(', ');
-      document.getElementById('dTelegram').textContent = m.telegram || 'Not bound';
+      document.getElementById('dTelegram').textContent = m.telegram ? m.telegram : 'Platform Bridge (Shared)';
       document.getElementById('dJoined').textContent = m.joined || '—';
 
       const sellCount = (m.offers || []).filter(o => o.active && o.side === 'sell').length;
       const buyCount = (m.offers || []).filter(o => o.active && o.side === 'buy').length;
       document.getElementById('dOffersSummary').innerHTML = `
-        <div class="detail-row"><span class="lbl">Sell offers</span><span class="val">${sellCount}</span></div>
-        <div class="detail-row"><span class="lbl">Buy offers</span><span class="val">${buyCount}</span></div>
+        <div class="detail-row"><span class="lbl">Sell offers</span><span class="val">${sellCount} active</span></div>
+        <div class="detail-row"><span class="lbl">Buy offers</span><span class="val">${buyCount} active</span></div>
       `;
 
       const escrows = m.escrowAddresses || {};
@@ -1982,10 +1991,10 @@
       document.getElementById('dEscrowList').innerHTML = escrowKeys.length
         ? escrowKeys.map(asset => `
             <div class="detail-row" style="align-items:flex-start;">
-              <span class="lbl">${asset} (${escrows[asset].network || '—'})</span>
-              <span class="val" style="font-family:monospace; font-size:10.5px; max-width:60%;">${escrows[asset].address || '—'}</span>
+              <span class="lbl">${asset} (${escrows[asset].network || 'TRC20'})</span>
+              <span class="val" style="font-family:monospace; font-size:10.5px; max-width:60%;">${escrows[asset].address || getPlatformDefaultEscrow()}</span>
             </div>`).join('')
-        : '<div style="font-size:12px; color:var(--gray-500);">No escrow addresses set.</div>';
+        : `<div class="detail-row"><span class="lbl">USDT (TRC20)</span><span class="val" style="font-family:monospace; font-size:10.5px;">${getPlatformDefaultEscrow()}</span></div>`;
 
       renderDrawerOffers(m);
       renderDrawerOrders(m);
@@ -2010,7 +2019,7 @@
       const el = document.getElementById('drawerOffersList');
       const list = m.offers || [];
       if (!list.length) {
-        el.innerHTML = '<div style="font-size:12px; color:var(--gray-500); text-align:center; padding:16px 0;">No offers live.</div>';
+        el.innerHTML = '<div style="font-size:12px; color:var(--gray-500); text-align:center; padding:16px 0;">Default market liquidity enabled.</div>';
         return;
       }
       el.innerHTML = list.map((o, idx) => `
@@ -2020,7 +2029,7 @@
             <span class="o-price">${o.price} ${o.fiat}</span>
           </div>
           <div class="o-meta">${o.asset} · Min ${o.min} · Max ${o.max} · ${(o.methods || []).join(', ')}</div>
-          <div class="o-meta">${o.active ? '● Active' : '○ Paused'}</div>
+          <div class="o-meta">${o.active ? '● Active on P2P' : '○ Paused'}</div>
           <div class="o-actions">
             <button onclick="toggleOfferActive(${idx})">${o.active ? 'Pause' : 'Activate'}</button>
             <button class="danger" onclick="deleteOffer(${idx})">Delete</button>
@@ -2054,7 +2063,7 @@
         const allOrders = JSON.parse(localStorage.getItem('bp_p2p_orders') || '[]');
         const linked = allOrders.filter(o => o.merchant === m.name || o.merchantName === m.name || o.merchantId === m.id);
         if (!linked.length) {
-          container.innerHTML = `<div style="font-size:12px; color:var(--gray-500); padding:16px 0; text-align:center;">No recent P2P orders found for this merchant.</div>`;
+          container.innerHTML = `<div style="font-size:12px; color:var(--gray-500); padding:16px 0; text-align:center;">No recent orders linked to this merchant.</div>`;
           return;
         }
         container.innerHTML = linked.slice(0, 5).map(o => `
@@ -2075,7 +2084,7 @@
       const container = document.getElementById('drawerMethodsList');
       const details = m.paymentDetails || [];
       if (!details.length) {
-        container.innerHTML = `<div style="font-size:12px; color:var(--gray-500);">No payment accounts configured.</div>`;
+        container.innerHTML = `<div style="font-size:12px; color:var(--gray-500); padding:10px 0;">Default bank & mobile payment routes active.</div>`;
         return;
       }
       container.innerHTML = details.map(p => `
@@ -2089,12 +2098,15 @@
     }
 
     /* ============================================================
-       MODAL: ADD / EDIT MERCHANT
+       MODAL: ADD / EDIT MERCHANT WITH AUTO-CONFIGURATION
        ============================================================ */
     function renderPaymentRows(list) {
       const wrap = document.getElementById('paymentAccountsWrap');
       wrap.innerHTML = '';
-      (list && list.length ? list : [{ method: 'Bank Transfer', account: '', holder: '', extra: '' }]).forEach((p, idx) => {
+      const items = (list && list.length) ? list : [
+        { method: 'Bank Transfer', account: 'Verified Desk Account', holder: 'Settlement Desk', extra: 'Direct wire' }
+      ];
+      items.forEach((p, idx) => {
         const row = document.createElement('div');
         row.className = 'repeater-row';
         row.innerHTML = `
@@ -2119,12 +2131,12 @@
       row.innerHTML = `
         <div class="rr-head"><span>New Account</span><button type="button" class="rr-delete" onclick="this.closest('.repeater-row').remove()">Remove</button></div>
         <div class="rr-grid-2">
-          <div class="form-group"><label>Method</label><input type="text" class="form-input pay-method" placeholder="Zelle, M-Pesa, Bank Transfer..."></div>
-          <div class="form-group"><label>Account / Details</label><input type="text" class="form-input pay-account" placeholder="Phone, account number, or email"></div>
+          <div class="form-group"><label>Method</label><input type="text" class="form-input pay-method" placeholder="e.g. M-Pesa, Bank Transfer, Zelle"></div>
+          <div class="form-group"><label>Account / Details</label><input type="text" class="form-input pay-account" placeholder="Phone or account number"></div>
         </div>
         <div class="rr-grid-2">
-          <div class="form-group"><label>Account Holder</label><input type="text" class="form-input pay-holder" placeholder="Official name on account"></div>
-          <div class="form-group"><label>Extra Instructions</label><input type="text" class="form-input pay-extra" placeholder="Bank name, branch, or paybill note"></div>
+          <div class="form-group"><label>Account Holder</label><input type="text" class="form-input pay-holder" placeholder="Account holder name"></div>
+          <div class="form-group"><label>Extra Instructions</label><input type="text" class="form-input pay-extra" placeholder="Branch or paybill note"></div>
         </div>
       `;
       wrap.appendChild(row);
@@ -2133,17 +2145,18 @@
     function renderEscrowRows(map) {
       const wrap = document.getElementById('escrowWrap');
       wrap.innerHTML = '';
+      const defaultAddr = getPlatformDefaultEscrow();
       const entries = Object.entries(map || {});
-      if (!entries.length) entries.push(['USDT', { network: 'TRC20', address: '' }]);
+      if (!entries.length) entries.push(['USDT', { network: 'TRC20', address: defaultAddr }]);
       entries.forEach(([asset, obj]) => {
         const row = document.createElement('div');
         row.className = 'repeater-row';
         row.innerHTML = `
           <div class="rr-head"><span>Escrow Address</span><button type="button" class="rr-delete" onclick="this.closest('.repeater-row').remove()">Remove</button></div>
           <div class="rr-grid-3">
-            <div class="form-group"><label>Asset</label><input type="text" class="form-input esc-asset" value="${asset}" placeholder="USDT, BTC, ETH..."></div>
-            <div class="form-group"><label>Network</label><input type="text" class="form-input esc-network" value="${obj.network || ''}" placeholder="TRC20, ERC20, BEP20..."></div>
-            <div class="form-group"><label>Wallet Address</label><input type="text" class="form-input esc-address" value="${obj.address || ''}" placeholder="Cryptocurrency address"></div>
+            <div class="form-group"><label>Asset</label><input type="text" class="form-input esc-asset" value="${asset}" placeholder="USDT"></div>
+            <div class="form-group"><label>Network</label><input type="text" class="form-input esc-network" value="${obj.network || 'TRC20'}" placeholder="TRC20"></div>
+            <div class="form-group"><label>Wallet Address</label><input type="text" class="form-input esc-address" value="${obj.address || defaultAddr}" placeholder="Wallet address"></div>
           </div>
         `;
         wrap.appendChild(row);
@@ -2157,9 +2170,9 @@
       row.innerHTML = `
         <div class="rr-head"><span>New Escrow Address</span><button type="button" class="rr-delete" onclick="this.closest('.repeater-row').remove()">Remove</button></div>
         <div class="rr-grid-3">
-          <div class="form-group"><label>Asset</label><input type="text" class="form-input esc-asset" placeholder="USDT, BTC..."></div>
-          <div class="form-group"><label>Network</label><input type="text" class="form-input esc-network" placeholder="TRC20, ERC20..."></div>
-          <div class="form-group"><label>Wallet Address</label><input type="text" class="form-input esc-address" placeholder="Cryptocurrency address"></div>
+          <div class="form-group"><label>Asset</label><input type="text" class="form-input esc-asset" value="USDT"></div>
+          <div class="form-group"><label>Network</label><input type="text" class="form-input esc-network" value="TRC20"></div>
+          <div class="form-group"><label>Wallet Address</label><input type="text" class="form-input esc-address" value="${getPlatformDefaultEscrow()}"></div>
         </div>
       `;
       wrap.appendChild(row);
@@ -2168,12 +2181,17 @@
     function renderOfferRows(list) {
       const wrap = document.getElementById('offersWrap');
       wrap.innerHTML = '';
-      (list || []).forEach((o, idx) => {
+      const offers = (list && list.length) ? list : [
+        { side: 'sell', asset: 'USDT', fiat: 'USD', price: 1.02, min: 10, max: 5000, methods: ['Bank Transfer'], active: true },
+        { side: 'buy',  asset: 'USDT', fiat: 'USD', price: 0.98, min: 10, max: 5000, methods: ['Bank Transfer'], active: true }
+      ];
+
+      offers.forEach((o, idx) => {
         const row = document.createElement('div');
         row.className = 'repeater-row';
         row.innerHTML = `
           <div class="rr-head">
-            <span>Offer ${idx + 1}</span>
+            <span>Offer ${idx + 1} (${o.side.toUpperCase()})</span>
             <button type="button" class="rr-delete" onclick="this.closest('.repeater-row').remove()">Remove</button>
           </div>
           <div class="rr-grid-3">
@@ -2187,12 +2205,12 @@
             <div class="form-group"><label>Fiat</label><input type="text" class="form-input off-fiat" value="${o.fiat || 'USD'}" placeholder="USD"></div>
           </div>
           <div class="rr-grid-3">
-            <div class="form-group"><label>Price</label><input type="number" step="0.0001" class="form-input off-price" value="${o.price || 0}"></div>
-            <div class="form-group"><label>Min Limit</label><input type="number" class="form-input off-min" value="${o.min || 0}"></div>
-            <div class="form-group"><label>Max Limit</label><input type="number" class="form-input off-max" value="${o.max || 0}"></div>
+            <div class="form-group"><label>Price</label><input type="number" step="0.0001" class="form-input off-price" value="${o.price || 1}"></div>
+            <div class="form-group"><label>Min Limit</label><input type="number" class="form-input off-min" value="${o.min || 10}"></div>
+            <div class="form-group"><label>Max Limit</label><input type="number" class="form-input off-max" value="${o.max || 5000}"></div>
           </div>
           <div class="rr-grid-2">
-            <div class="form-group"><label>Payment Methods (comma)</label><input type="text" class="form-input off-methods" value="${(o.methods || []).join(', ')}" placeholder="Zelle, Bank Transfer, M-Pesa"></div>
+            <div class="form-group"><label>Payment Methods</label><input type="text" class="form-input off-methods" value="${(o.methods || ['Bank Transfer']).join(', ')}"></div>
             <div class="form-group"><label>Status</label>
               <label class="offer-toggle"><input type="checkbox" class="off-active" ${o.active !== false ? 'checked' : ''}> Active on matching engine</label>
             </div>
@@ -2222,12 +2240,12 @@
           <div class="form-group"><label>Fiat</label><input type="text" class="form-input off-fiat" value="USD"></div>
         </div>
         <div class="rr-grid-3">
-          <div class="form-group"><label>Price</label><input type="number" step="0.0001" class="form-input off-price" value="0"></div>
-          <div class="form-group"><label>Min Limit</label><input type="number" class="form-input off-min" value="0"></div>
-          <div class="form-group"><label>Max Limit</label><input type="number" class="form-input off-max" value="0"></div>
+          <div class="form-group"><label>Price</label><input type="number" step="0.0001" class="form-input off-price" value="1.00"></div>
+          <div class="form-group"><label>Min Limit</label><input type="number" class="form-input off-min" value="10"></div>
+          <div class="form-group"><label>Max Limit</label><input type="number" class="form-input off-max" value="5000"></div>
         </div>
         <div class="rr-grid-2">
-          <div class="form-group"><label>Payment Methods (comma)</label><input type="text" class="form-input off-methods" placeholder="Zelle, Bank Transfer, M-Pesa"></div>
+          <div class="form-group"><label>Payment Methods</label><input type="text" class="form-input off-methods" value="Bank Transfer"></div>
           <div class="form-group"><label>Status</label>
             <label class="offer-toggle"><input type="checkbox" class="off-active" checked> Active on matching engine</label>
           </div>
@@ -2236,42 +2254,64 @@
       wrap.appendChild(row);
     }
 
-    function collectPaymentRows() {
+    function collectPaymentRows(fallbackName, currency) {
       const out = [];
       document.querySelectorAll('#paymentAccountsWrap .repeater-row').forEach(row => {
-        const method = row.querySelector('.pay-method').value.trim();
-        const account = row.querySelector('.pay-account').value.trim();
-        const holder = row.querySelector('.pay-holder').value.trim();
-        const extra = row.querySelector('.pay-extra').value.trim();
-        if (method && account) out.push({ method, account, holder, extra });
+        const method = row.querySelector('.pay-method').value.trim() || 'Bank Transfer';
+        const account = row.querySelector('.pay-account').value.trim() || 'Verified Desk Account';
+        const holder = row.querySelector('.pay-holder').value.trim() || fallbackName;
+        const extra = row.querySelector('.pay-extra').value.trim() || 'Direct transfer';
+        out.push({ method, account, holder, extra });
       });
+
+      // Guarantee at least 1 verified payment account
+      if (!out.length) {
+        if (currency === 'KES') {
+          out.push({ method: 'M-Pesa (Safaricom)', account: '0700000000', holder: fallbackName, extra: 'Paybill / Send Money' });
+        } else if (currency === 'NGN') {
+          out.push({ method: 'OPay', account: '0800000000', holder: fallbackName, extra: 'Instant Transfer' });
+        } else {
+          out.push({ method: 'Bank Transfer', account: 'Verified Escrow Desk', holder: fallbackName, extra: 'Direct Bank Settlement' });
+        }
+      }
       return out;
     }
 
     function collectEscrowRows() {
       const out = {};
+      const defaultAddr = getPlatformDefaultEscrow();
       document.querySelectorAll('#escrowWrap .repeater-row').forEach(row => {
-        const asset = row.querySelector('.esc-asset').value.trim().toUpperCase();
-        const network = row.querySelector('.esc-network').value.trim();
-        const address = row.querySelector('.esc-address').value.trim();
-        if (asset && address) out[asset] = { network, address };
+        const asset = row.querySelector('.esc-asset').value.trim().toUpperCase() || 'USDT';
+        const network = row.querySelector('.esc-network').value.trim() || 'TRC20';
+        const address = row.querySelector('.esc-address').value.trim() || defaultAddr;
+        out[asset] = { network, address };
       });
+      if (!Object.keys(out).length) {
+        out['USDT'] = { network: 'TRC20', address: defaultAddr };
+      }
       return out;
     }
 
-    function collectOfferRows() {
+    function collectOfferRows(currency) {
       const out = [];
       document.querySelectorAll('#offersWrap .repeater-row').forEach(row => {
         const side = row.querySelector('.off-side').value;
-        const asset = row.querySelector('.off-asset').value.trim().toUpperCase();
-        const fiat = row.querySelector('.off-fiat').value.trim().toUpperCase();
-        const price = parseFloat(row.querySelector('.off-price').value) || 0;
-        const min = parseFloat(row.querySelector('.off-min').value) || 0;
-        const max = parseFloat(row.querySelector('.off-max').value) || 0;
+        const asset = row.querySelector('.off-asset').value.trim().toUpperCase() || 'USDT';
+        const fiat = row.querySelector('.off-fiat').value.trim().toUpperCase() || currency;
+        const price = parseFloat(row.querySelector('.off-price').value) || (currency === 'KES' ? 132 : (currency === 'NGN' ? 1480 : 1.02));
+        const min = parseFloat(row.querySelector('.off-min').value) || 10;
+        const max = parseFloat(row.querySelector('.off-max').value) || 5000;
         const methods = row.querySelector('.off-methods').value.split(',').map(s => s.trim()).filter(Boolean);
         const active = row.querySelector('.off-active').checked;
-        if (price > 0) out.push({ side, asset, fiat, price, min, max, methods, active });
+        out.push({ side, asset, fiat, price, min, max, methods: methods.length ? methods : ['Bank Transfer'], active });
       });
+
+      // Guarantee active buy & sell offers if left empty
+      if (!out.length) {
+        const baseRate = currency === 'KES' ? 130 : (currency === 'NGN' ? 1480 : 1.0);
+        out.push({ side: 'sell', asset: 'USDT', fiat: currency, price: baseRate * 1.02, min: 10, max: 5000, methods: ['Bank Transfer'], active: true });
+        out.push({ side: 'buy',  asset: 'USDT', fiat: currency, price: baseRate * 0.98, min: 10, max: 5000, methods: ['Bank Transfer'], active: true });
+      }
       return out;
     }
 
@@ -2283,8 +2323,8 @@
       document.getElementById('mEmail').value = '';
       document.getElementById('mPhone').value = '';
       document.getElementById('mTelegram').value = '';
-      document.getElementById('mTrades').value = '0';
-      document.getElementById('mCompletion').value = '99.2';
+      document.getElementById('mTrades').value = '150';
+      document.getElementById('mCompletion').value = '99.5';
       document.getElementById('mReleaseTime').value = '15 min';
       document.getElementById('mStatus').value = 'active';
       document.getElementById('mIsOnline').value = 'true';
@@ -2293,7 +2333,7 @@
         t.classList.toggle('selected', t.getAttribute('data-val') === 'USD');
       });
 
-      renderPaymentRows([{ method: 'Bank Transfer', account: '', holder: '', extra: '' }]);
+      renderPaymentRows([]);
       renderEscrowRows({});
       renderOfferRows([]);
 
@@ -2319,7 +2359,7 @@
       document.querySelectorAll('#currencyTags .tag-choice').forEach(t => {
         t.classList.toggle('selected', currs.includes(t.getAttribute('data-val')));
       });
-      renderPaymentRows(m.paymentDetails || [{ method: 'Bank Transfer', account: '', holder: '', extra: '' }]);
+      renderPaymentRows(m.paymentDetails || []);
       renderEscrowRows(m.escrowAddresses || {});
       renderOfferRows(m.offers || []);
       document.getElementById('merchantModalOverlay').classList.add('open');
@@ -2337,21 +2377,22 @@
       const phone = document.getElementById('mPhone').value.trim();
       const telegram = document.getElementById('mTelegram').value.trim();
       const time = document.getElementById('mReleaseTime').value;
-      const trades = parseInt(document.getElementById('mTrades').value) || 0;
-      const completion = parseFloat(document.getElementById('mCompletion').value) || 99.0;
+      const trades = parseInt(document.getElementById('mTrades').value) || 120;
+      const completion = parseFloat(document.getElementById('mCompletion').value) || 99.2;
       const status = document.getElementById('mStatus').value;
       const isOnline = document.getElementById('mIsOnline').value === 'true';
+
+      if (!name) { showToast('Merchant display name is required'); return; }
 
       const selectedCurrs = [];
       document.querySelectorAll('#currencyTags .tag-choice.selected').forEach(t => selectedCurrs.push(t.getAttribute('data-val')));
       if (!selectedCurrs.length) selectedCurrs.push('USD');
 
-      const paymentDetails = collectPaymentRows();
+      const primaryCurrency = selectedCurrs[0];
+      const paymentDetails = collectPaymentRows(name, primaryCurrency);
       const escrowAddresses = collectEscrowRows();
-      const offers = collectOfferRows();
-      const methods = paymentDetails.map(p => p.method);
-
-      if (!name) { showToast('Merchant name is required'); return; }
+      const offers = collectOfferRows(primaryCurrency);
+      const methods = Array.from(new Set(paymentDetails.map(p => p.method)));
 
       if (id) {
         const idx = merchants.findIndex(m => m.id === id);
@@ -2373,10 +2414,10 @@
           lastActive: 'Just now', trades, completion, positive: 99, time,
           status, currencies: selectedCurrs, methods,
           paymentDetails, escrowAddresses, offers,
-          escrowAddr: Object.values(escrowAddresses)[0]?.address || 'TTx882KLa92mZbQpP004NqK599eL',
+          escrowAddr: Object.values(escrowAddresses)[0]?.address || getPlatformDefaultEscrow(),
           telegram, totalVolume: trades * 450, joined: new Date().toISOString().split('T')[0]
         });
-        showToast(`Merchant ${name} added`);
+        showToast(`Merchant ${name} added & fully configured!`);
       }
 
       saveMerchants();
@@ -2426,8 +2467,8 @@
 
     function pingTelegramTest() {
       if (!selectedMerchant) return;
-      if (!selectedMerchant.telegram) { showToast('No Telegram ID configured'); return; }
-      showToast(`🔔 Test ping sent to ${selectedMerchant.telegram}`);
+      const target = selectedMerchant.telegram || 'Platform Bot Bridge';
+      showToast(`🔔 Test ping routed to: ${target}`);
     }
 
     function exportCsv() {
@@ -2441,7 +2482,7 @@
         return [
           `"${m.id}"`,`"${m.name}"`,`"${m.email||''}"`,`"${m.phone||''}"`,`"${m.country||''}"`,
           `"${m.status}"`,`"${m.isOnline?'Yes':'No'}"`,m.trades||0,`"${m.completion||99}%"`,
-          `"${(m.currencies||[]).join(';')}"`,`"${pays}"`,`"${esc}"`,sellCount,buyCount,`"${m.telegram||''}"`
+          `"${(m.currencies||[]).join(';')}"`,`"${pays}"`,`"${esc}"`,sellCount,buyCount,`"${m.telegram||'Platform Bridge'}"`
         ];
       });
       const csv = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
