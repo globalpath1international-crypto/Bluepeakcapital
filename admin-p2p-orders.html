@@ -66,7 +66,7 @@
     .page-title-block h1 { font-size: 20px; font-weight: 800; color: var(--navy-900); letter-spacing: -0.5px; margin-bottom: 2px; }
     .page-title-block p { font-size: 12px; font-weight: 500; color: var(--gray-500); }
     .topbar-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-    
+
     .action-header-btn {
       display: flex; align-items: center; gap: 6px; background: var(--navy-50);
       border: 1px solid var(--gray-200); border-radius: var(--radius-pill);
@@ -74,6 +74,7 @@
       color: var(--navy-900); cursor: pointer; transition: all 0.15s;
     }
     .action-header-btn:hover { background: var(--gold-100); border-color: var(--gold-500); }
+    .action-header-btn.tg-active { background: var(--blue-100); border-color: rgba(37,99,235,0.3); color: var(--blue-500); }
 
     .admin-chip { display: flex; align-items: center; gap: 10px; padding: 4px 14px 4px 4px; background: var(--navy-50); border: 1px solid var(--gray-200); border-radius: var(--radius-pill); cursor: pointer; transition: all 0.15s; }
     .admin-chip:hover { background: var(--gold-100); border-color: var(--gold-500); }
@@ -82,7 +83,7 @@
     .admin-role { font-size: 9.5px; font-weight: 600; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.4px; }
 
     /* CONTENT — 2 column layout: orders list + chat panel */
-    .content { flex: 1; padding: 20px 24px 32px; display: grid; grid-template-columns: 350px 1fr; gap: 16px; max-width: 1540px; width: 100%; margin: 0 auto; align-items: start; }
+    .content { flex: 1; padding: 20px 24px 32px; display: grid; grid-template-columns: 360px 1fr; gap: 16px; max-width: 1540px; width: 100%; margin: 0 auto; align-items: start; }
 
     /* LEFT: ORDER LIST */
     .orders-panel { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-xs); display: flex; flex-direction: column; height: calc(100vh - 120px); }
@@ -167,7 +168,7 @@
       border-radius: var(--radius-pill); text-transform: uppercase;
       letter-spacing: 0.3px; flex-shrink: 0;
     }
-    .order-status-pill.active, .order-status-pill.escrow-locked { background: var(--green-100); color: var(--green-500); }
+    .order-status-pill.active, .order-status-pill.escrow-locked, .order-status-pill.paid { background: var(--green-100); color: var(--green-500); }
     .order-status-pill.disputed { background: var(--red-100); color: var(--red-500); }
     .order-status-pill.completed { background: var(--blue-100); color: var(--blue-500); }
     .order-status-pill.cancelled { background: var(--gray-200); color: var(--gray-600); }
@@ -218,7 +219,7 @@
       letter-spacing: 0.4px;
     }
     .order-status-badge-large .dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
-    .order-status-badge-large.active, .order-status-badge-large.escrow-locked { background: var(--green-100); color: var(--green-500); }
+    .order-status-badge-large.active, .order-status-badge-large.escrow-locked, .order-status-badge-large.paid { background: var(--green-100); color: var(--green-500); }
     .order-status-badge-large.disputed { background: var(--red-100); color: var(--red-500); }
     .order-status-badge-large.completed { background: var(--blue-100); color: var(--blue-500); }
     .order-status-badge-large.cancelled { background: var(--gray-200); color: var(--gray-600); }
@@ -245,7 +246,8 @@
       font-size: 11px; gap: 8px; flex-shrink: 0;
     }
     .telegram-strip-left { display: flex; align-items: center; gap: 6px; color: var(--blue-500); font-weight: 700; }
-    .telegram-strip-left .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--blue-500); }
+    .telegram-strip-left .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--blue-500); animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.9); } }
     .telegram-strip-right { display: flex; align-items: center; gap: 6px; }
     .telegram-thread-tag {
       background: var(--white); color: var(--blue-500); font-weight: 800;
@@ -284,10 +286,12 @@
       border-bottom-right-radius: 4px;
     }
     .chat-message.admin {
-      background: var(--gold-500);
-      color: var(--navy-900);
+      background: linear-gradient(135deg, var(--gold-500), var(--gold-400));
+      color: var(--navy-950);
       align-self: flex-end;
       border-bottom-right-radius: 4px;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(201, 168, 76, 0.25);
     }
     .chat-message.system {
       background: rgba(15, 157, 110, 0.1);
@@ -302,11 +306,11 @@
     }
     .chat-message .msg-label {
       font-size: 9px; font-weight: 800; text-transform: uppercase;
-      letter-spacing: 0.5px; opacity: 0.7;
+      letter-spacing: 0.5px; opacity: 0.8;
       margin-bottom: 3px; display: block;
     }
     .chat-message .msg-time {
-      font-size: 9.5px; font-weight: 600; opacity: 0.6;
+      font-size: 9.5px; font-weight: 600; opacity: 0.65;
       margin-top: 4px; display: block; text-align: right;
     }
 
@@ -330,29 +334,47 @@
     .chat-action-btn.primary:hover { transform: translateY(-1px); }
     .chat-action-btn.danger { color: var(--red-500); border-color: rgba(209, 67, 67, 0.3); }
     .chat-action-btn.danger:hover { background: var(--red-100); border-color: var(--red-500); }
-    .chat-action-btn.gold { background: var(--gold-500); color: var(--navy-900); border: none; }
+    .chat-action-btn.gold { background: var(--gold-500); color: var(--navy-900); border: none; font-weight: 800; }
     .chat-action-btn.gold:hover { background: var(--gold-400); }
+
+    /* PROFESSIONAL DUAL PERSONA SWITCHER */
+    .persona-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 8px 18px 0; background: var(--white);
+      border-top: 1px solid var(--gray-100); flex-shrink: 0;
+    }
+    .persona-segmented-ctrl {
+      display: inline-flex; background: var(--navy-50);
+      border-radius: var(--radius-pill); padding: 3px;
+      border: 1px solid var(--gray-200);
+    }
+    .persona-btn {
+      padding: 5px 14px; border-radius: var(--radius-pill);
+      background: transparent; border: none; cursor: pointer;
+      font-family: var(--font); font-size: 11px; font-weight: 700;
+      color: var(--gray-500); transition: all 0.15s; display: flex; align-items: center; gap: 6px;
+    }
+    .persona-btn.active {
+      background: var(--white); color: var(--navy-900);
+      box-shadow: 0 1px 4px rgba(10,26,47,0.1); font-weight: 800;
+    }
+    .persona-btn.active.merchant-active {
+      color: var(--navy-900);
+    }
+    .persona-btn.active.admin-active {
+      color: #926F12;
+    }
+    .persona-indicator {
+      font-size: 10px; font-weight: 700; color: var(--gray-400);
+      text-transform: uppercase; letter-spacing: 0.5px;
+    }
 
     /* CHAT INPUT */
     .chat-input-wrap {
-      display: flex; gap: 8px; padding: 12px 18px;
-      border-top: 1px solid var(--gray-200);
+      display: flex; gap: 8px; padding: 10px 18px 14px;
       background: var(--white); flex-shrink: 0;
       align-items: flex-end;
     }
-    .chat-role-selector {
-      display: flex; gap: 2px; background: var(--navy-50);
-      border-radius: var(--radius-xs); padding: 3px;
-      flex-shrink: 0;
-    }
-    .chat-role-btn {
-      padding: 5px 8px; border-radius: 6px; background: transparent;
-      border: none; cursor: pointer; font-family: var(--font);
-      font-size: 10px; font-weight: 700; color: var(--gray-500);
-      transition: all 0.15s; white-space: nowrap;
-    }
-    .chat-role-btn.active { background: var(--white); color: var(--navy-900); box-shadow: var(--shadow-xs); }
-
     .chat-input {
       flex: 1; padding: 10px 14px;
       border: 1.5px solid var(--gray-200); border-radius: var(--radius-pill);
@@ -364,15 +386,20 @@
 
     .chat-send-btn {
       padding: 0 18px; height: 38px;
-      background: linear-gradient(135deg, var(--green-500), #0B8A5E);
+      background: var(--navy-900);
       color: var(--white); border: none;
       border-radius: var(--radius-pill);
       font-family: var(--font); font-weight: 800; font-size: 12px;
       cursor: pointer; flex-shrink: 0;
       display: flex; align-items: center; gap: 6px;
-      box-shadow: 0 2px 8px rgba(15, 157, 110, 0.3);
+      transition: all 0.15s;
     }
-    .chat-send-btn:hover { transform: translateY(-1px); }
+    .chat-send-btn.admin-mode {
+      background: linear-gradient(135deg, var(--gold-500), var(--gold-400));
+      color: var(--navy-950);
+      box-shadow: 0 2px 8px rgba(201, 168, 76, 0.3);
+    }
+    .chat-send-btn:hover { transform: translateY(-1px); opacity: 0.95; }
     .chat-send-btn svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2.2; }
 
     /* MODAL BASE */
@@ -402,7 +429,7 @@
 
     /* RESPONSIVE */
     @media (max-width: 1100px) {
-      .content { grid-template-columns: 310px 1fr; }
+      .content { grid-template-columns: 320px 1fr; }
     }
     @media (max-width: 900px) {
       .sidebar { position: fixed; transform: translateX(-100%); }
@@ -431,14 +458,21 @@
       <div class="sidebar-email" id="sidebarEmail">admin@bluepeakcapital.com</div>
     </div>
     <nav class="sidebar-nav">
-      <div class="nav-section-label">P2P Desk</div>
-      <button class="nav-item active" id="navOrdersBtn"><span class="nav-ico">📋</span> Live P2P Orders <span class="nav-badge" id="ordersBadge">0</span></button>
-      <button class="nav-item" id="navMerchantsBtn"><span class="nav-ico">🤝</span> P2P Merchants</button>
+      <div class="nav-section-label">Operations</div>
+      <a href="admin-users.html" class="nav-item"><span class="nav-ico">👥</span> Users</a>
+      <a href="admin-merchants.html" class="nav-item"><span class="nav-ico">🏪</span> Merchants</a>
+      <a href="admin-p2p-orders.html" class="nav-item active"><span class="nav-ico">📋</span> Live P2P Orders <span class="nav-badge" id="ordersBadge">0</span></a>
+      <a href="admin-kyc.html" class="nav-item"><span class="nav-ico">🪪</span> KYC Reviews <span class="nav-badge" id="kycBadge">0</span></a>
+      <a href="admin-transactions.html" class="nav-item"><span class="nav-ico">💸</span> Transactions</a>
+      <a href="admin-bots.html" class="nav-item"><span class="nav-ico">🤖</span> Bot Manager</a>
+
+      <div class="nav-section-label">P2P Escrow Tools</div>
       <button class="nav-item" id="navAddressesBtn"><span class="nav-ico">📥</span> Deposit Addresses</button>
       <button class="nav-item" id="navTelegramBtn"><span class="nav-ico">✈️</span> Telegram Bot Bridge</button>
-      
-      <div class="nav-section-label">System &amp; Logs</div>
+
+      <div class="nav-section-label">System</div>
       <a href="admin-dashboard.html" class="nav-item"><span class="nav-ico">📊</span> Dashboard</a>
+      <a href="admin-settings.html" class="nav-item"><span class="nav-ico">⚙️</span> Settings</a>
       <a href="admin-audit.html" class="nav-item"><span class="nav-ico">📜</span> Audit Log</a>
       <a href="p2p.html" target="_blank" class="nav-item"><span class="nav-ico">↗️</span> Open P2P Portal</a>
     </nav>
@@ -455,12 +489,13 @@
         </button>
         <div class="page-title-block">
           <h1>P2P Orders &amp; Escrow Desk</h1>
-          <p id="orderCountSub">Live vendor chat sync, escrow release, and dispute resolution</p>
+          <p id="orderCountSub">Dual-persona messaging &bull; Telegram bot synchronization &bull; Escrow arbitration</p>
         </div>
       </div>
       <div class="topbar-right">
+        <button class="action-header-btn" id="exportOrdersCsvBtn"><span>📥</span> Export CSV</button>
+        <button class="action-header-btn" id="topTelegramBtn"><span>✈️</span> Telegram Bridge</button>
         <button class="action-header-btn" id="topAddressesBtn"><span>🔐</span> Platform Addresses</button>
-        <button class="action-header-btn" id="topMerchantsBtn"><span>⭐</span> Merchants</button>
         <div class="admin-chip" id="adminChip">
           <div class="admin-avatar" id="adminAvatar">A</div>
           <div>
@@ -476,7 +511,7 @@
       <!-- LEFT: Orders list -->
       <div class="orders-panel" id="ordersPanel">
         <div class="orders-panel-header">
-          <h2>Conversations <span class="count" id="orderCountLabel">0</span></h2>
+          <h2>Active Trades <span class="count" id="orderCountLabel">0</span></h2>
           <div class="search-wrap-mini">
             <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
             <input type="text" class="search-input-mini" id="searchInput" placeholder="Search order, user, or vendor…">
@@ -486,6 +521,7 @@
             <button class="order-filter-btn" data-filter="active">Active</button>
             <button class="order-filter-btn" data-filter="disputed">Disputed</button>
             <button class="order-filter-btn" data-filter="completed">Completed</button>
+            <button class="order-filter-btn" data-filter="cancelled">Cancelled</button>
           </div>
         </div>
         <div class="order-list" id="orderList"></div>
@@ -497,8 +533,8 @@
         <!-- Empty state -->
         <div class="chat-empty-state" id="chatEmptyState">
           <div class="icon">💬</div>
-          <h3>Select a conversation</h3>
-          <p>Pick an order from the left to read live chat, release crypto escrow, or chat with the customer pretending to be the merchant.</p>
+          <h3>Select a Trade to Open Desk</h3>
+          <p>Choose an ongoing order on the left to read customer messages, reply as the Vendor or as Bluepeak Support, or release cryptocurrency escrow.</p>
         </div>
 
         <!-- Active chat -->
@@ -524,16 +560,16 @@
             <div class="info-item"><span class="lbl">Customer:</span><span class="val" id="activeBuyer">—</span></div>
             <div class="info-item"><span class="lbl">Rate:</span><span class="val" id="activeRate">—</span></div>
             <div class="info-item"><span class="lbl">Payment:</span><span class="val" id="activePayment">—</span></div>
-            <div class="info-item"><span class="lbl">Created:</span><span class="val" id="activeCreated">—</span></div>
+            <div class="info-item"><span class="lbl">Opened:</span><span class="val" id="activeCreated">—</span></div>
           </div>
 
           <div class="telegram-strip" id="telegramStrip">
             <div class="telegram-strip-left">
               <span class="dot"></span>
-              <span id="telegramStatusText">Telegram bridge connected</span>
+              <span id="telegramStatusText">Telegram Mobile Bridge Connected</span>
             </div>
             <div class="telegram-strip-right">
-              <span class="telegram-thread-tag" id="telegramThreadTag">Thread #—</span>
+              <span class="telegram-thread-tag" id="telegramThreadTag" title="Click to test ping">Sync Live</span>
             </div>
           </div>
 
@@ -542,19 +578,28 @@
           <div class="chat-actions-bar">
             <button class="chat-action-btn" data-action="confirm-payment">✓ Confirm Payment</button>
             <button class="chat-action-btn primary" data-action="release">🔓 Release Escrow</button>
-            <button class="chat-action-btn danger" data-action="cancel">✕ Cancel Order</button>
-            <button class="chat-action-btn gold" data-action="dispute">⚖️ Open Dispute</button>
+            <button class="chat-action-btn gold" data-action="dispute">⚖️ Manage Dispute</button>
+            <button class="chat-action-btn danger" data-action="cancel">✕ Cancel Trade</button>
+          </div>
+
+          <!-- DUAL PERSONA SELECTOR BAR -->
+          <div class="persona-bar">
+            <div class="persona-segmented-ctrl">
+              <button class="persona-btn active merchant-active" id="personaMerchantBtn" data-persona="merchant">
+                <span>🏪</span> <span id="personaMerchantLabel">Reply as Vendor</span>
+              </button>
+              <button class="persona-btn" id="personaAdminBtn" data-persona="admin">
+                <span>🛡️</span> Reply as Bluepeak Desk
+              </button>
+            </div>
+            <span class="persona-indicator" id="personaIndicator">Active: Vendor Persona</span>
           </div>
 
           <div class="chat-input-wrap">
-            <div class="chat-role-selector" id="chatRoleSelector">
-              <button class="chat-role-btn active" data-role="merchant" id="roleMerchantBtn">As Merchant</button>
-              <button class="chat-role-btn" data-role="admin">As Admin</button>
-            </div>
             <textarea class="chat-input" id="chatInput" placeholder="Type reply as merchant…" rows="1"></textarea>
             <button class="chat-send-btn" id="chatSendBtn">
               <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-              Send
+              <span id="chatSendLabel">Send</span>
             </button>
           </div>
         </div>
@@ -571,7 +616,7 @@
       <button class="admin-modal-close" onclick="closeAdminModal('addressesModal')">✕</button>
     </div>
     <div class="admin-modal-body">
-      <p style="font-size:12px;color:var(--gray-500);">Modify platform cold/escrow addresses. Any changes immediately sync across P2P escrow trades and customer crypto deposits.</p>
+      <p style="font-size:12px;color:var(--gray-500);">Configure platform cold/escrow addresses. Any modifications automatically broadcast to customer deposit panels and P2P escrow routes.</p>
       
       <div class="field-group">
         <label class="field-label">Tether (USDT - TRC20)</label>
@@ -598,35 +643,6 @@
     </div>
   </div>
 
-  <!-- MERCHANTS MANAGEMENT MODAL -->
-  <div class="admin-modal-overlay" id="merchantsModalOverlay"></div>
-  <div class="admin-modal" id="merchantsModal">
-    <div class="admin-modal-header">
-      <h3>P2P Merchants Management</h3>
-      <button class="admin-modal-close" onclick="closeAdminModal('merchantsModal')">✕</button>
-    </div>
-    <div class="admin-modal-body">
-      <div style="display:flex;justify-content:space-between;align-items:center;">
-        <span style="font-size:12px;color:var(--gray-500);">Add or edit verified liquidity providers</span>
-        <button class="action-header-btn" id="openAddMerchantFormBtn">+ Add Merchant</button>
-      </div>
-
-      <div id="newMerchantForm" style="display:none;background:var(--navy-50);padding:14px;border-radius:var(--radius-sm);border:1px solid var(--gray-200);display:flex;flex-direction:column;gap:10px;">
-        <div style="font-weight:800;font-size:13px;color:var(--navy-900);">Register New Merchant</div>
-        <div class="field-group"><label class="field-label">Merchant Name</label><input type="text" class="input-field" id="mNameInp" placeholder="e.g. ApexLiquidity"></div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-          <div class="field-group"><label class="field-label">Currency</label><select class="select-field" id="mFiatInp"><option value="USD">USD</option><option value="KES">KES</option><option value="NGN">NGN</option><option value="EUR">EUR</option><option value="GBP">GBP</option><option value="GHS">GHS</option><option value="ZAR">ZAR</option></select></div>
-          <div class="field-group"><label class="field-label">Completion %</label><input type="number" class="input-field" id="mCompInp" value="99.5"></div>
-        </div>
-        <div class="field-group"><label class="field-label">Payment Methods (Comma separated)</label><input type="text" class="input-field" id="mMethodsInp" placeholder="Zelle, Bank Transfer, M-Pesa"></div>
-        <div class="field-group"><label class="field-label">Escrow Address (TRC20)</label><input type="text" class="input-field" id="mEscrowInp" placeholder="TTx882KLa92mZbQpP004NqK599eL"></div>
-        <button class="btn-solid-green" id="submitNewMerchantBtn">Save Merchant</button>
-      </div>
-
-      <div id="adminMerchantsList" style="display:flex;flex-direction:column;gap:8px;"></div>
-    </div>
-  </div>
-
   <!-- TELEGRAM BOT CONFIG MODAL -->
   <div class="admin-modal-overlay" id="telegramModalOverlay"></div>
   <div class="admin-modal" id="telegramModal">
@@ -635,22 +651,34 @@
       <button class="admin-modal-close" onclick="closeAdminModal('telegramModal')">✕</button>
     </div>
     <div class="admin-modal-body">
-      <p style="font-size:12px;color:var(--gray-500);">Connect your Telegram bot created via @BotFather. You can receive new order alerts and reply to customer chats right from your mobile Telegram.</p>
+      <p style="font-size:12px;color:var(--gray-500);">
+        Connect your Telegram bot created via <strong>@BotFather</strong>. Whenever a customer starts an order or sends a message, you get an immediate mobile alert. You can reply straight from your phone by swiping to reply!
+      </p>
 
       <div class="field-group">
         <label class="field-label">Bot Token (@BotFather)</label>
         <input type="text" class="input-field" id="tgBotToken" placeholder="123456789:ABCdefGhIJKlmNoPQRstuVWxyz">
       </div>
       <div class="field-group">
-        <label class="field-label">Admin Chat / Group ID</label>
+        <label class="field-label">Admin / Group Chat ID</label>
         <input type="text" class="input-field" id="tgChatId" placeholder="-1001234567890">
       </div>
       <div class="field-group">
-        <label class="field-label">Topic / Thread Mode</label>
-        <select class="select-field" id="tgTopicMode">
-          <option value="enabled">Enabled (Unique topic per order)</option>
-          <option value="disabled">Disabled (Single group chat)</option>
+        <label class="field-label">Inbound Reply Sync</label>
+        <select class="select-field" id="tgPollingMode">
+          <option value="enabled">Enabled (Auto-read Telegram replies into customer chat)</option>
+          <option value="disabled">Notifications Only (Send alerts without inbound listener)</option>
         </select>
+      </div>
+
+      <div style="background:var(--navy-50); border:1px solid var(--gray-200); padding:12px; border-radius:var(--radius-sm); font-size:11.5px; color:var(--gray-600); line-height:1.6;">
+        📱 <strong>2 OPTIONS TO REPLY FROM TELEGRAM:</strong><br>
+        1️⃣ <strong>Reply as Vendor (Merchant):</strong> Swipe right to reply to the bot's trade alert message.<br>
+        2️⃣ <strong>Reply as Bluepeak Admin (Support):</strong> Start your reply with <code>/admin [message]</code>.<br>
+        ⚡ <strong>Quick Actions from Phone:</strong><br>
+        &bull; <code>/release ORD-XXXX</code> &rarr; Instantly release crypto to buyer.<br>
+        &bull; <code>/dispute ORD-XXXX</code> &rarr; Freeze trade into dispute mode.<br>
+        &bull; <code>/merchant ORD-XXXX [text]</code> &rarr; Send direct vendor reply.
       </div>
 
       <div style="display:flex;gap:10px;">
@@ -660,7 +688,9 @@
     </div>
   </div>
 
-  <div class="toast" id="toast"></div>  <script>
+  <div class="toast" id="toast"></div>
+
+  <script>
     (function() {
       'use strict';
 
@@ -675,7 +705,11 @@
         t._t = setTimeout(() => t.classList.remove('show'), 2600);
       }
 
-      // AUTH CHECK (Session or default admin fallback)
+      function escapeHtml(str) {
+        return (str || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+      }
+
+      // AUTH CHECK
       let session = localStorage.getItem('bp_admin_session');
       let admin = { name: 'Super Admin', email: 'admin@bluepeakcapital.com', role: 'Head of Operations' };
       if (session) {
@@ -697,11 +731,11 @@
         $('#sidebar').classList.remove('open');
         $('#sidebarOverlay').classList.remove('open');
       });
+
       function logout() {
         if (confirm('Sign out of admin console?')) {
           localStorage.removeItem('bp_admin_session');
-          showToast('Signed out');
-          window.location.reload();
+          window.location.href = 'admin-login.html';
         }
       }
       $('#logoutBtn').addEventListener('click', logout);
@@ -722,6 +756,13 @@
           $$('.admin-modal-overlay').forEach(o => o.classList.remove('open'));
         });
       });
+
+      function logAction(action, target, details) {
+        const log = JSON.parse(localStorage.getItem('bp_audit_log') || '[]');
+        log.push({ ts: Date.now(), admin: admin.email, action, target, details });
+        if (log.length > 500) log.splice(0, log.length - 500);
+        localStorage.setItem('bp_audit_log', JSON.stringify(log));
+      }
 
       // ============================================================
       // PLATFORM DEPOSIT & ESCROW ADDRESSES
@@ -770,106 +811,58 @@
       });
 
       // ============================================================
-      // MERCHANTS MANAGEMENT
-      // ============================================================
-      function loadAllMerchants() {
-        try {
-          const m = localStorage.getItem('bp_merchants');
-          if (m) return JSON.parse(m);
-        } catch (e) {}
-        return {};
-      }
-
-      function renderAdminMerchants() {
-        const dict = loadAllMerchants();
-        const list = $('#adminMerchantsList');
-        const allList = [];
-        Object.keys(dict).forEach(fiat => {
-          dict[fiat].forEach(m => allList.push({ ...m, fiat }));
-        });
-
-        if (allList.length === 0) {
-          list.innerHTML = `<div style="text-align:center;padding:20px;font-size:12px;color:var(--gray-500);">No merchants registered yet.</div>`;
-          return;
-        }
-
-        list.innerHTML = allList.map((m, idx) => `
-          <div style="display:flex;align-items:center;justify-content:space-between;background:var(--navy-50);padding:10px 12px;border-radius:var(--radius-xs);border:1px solid var(--gray-200);">
-            <div>
-              <div style="font-weight:800;font-size:13px;color:var(--navy-900);">${escapeHtml(m.name)} <span style="font-size:10px;color:var(--gold-500);font-weight:800;">[${m.fiat}]</span></div>
-              <div style="font-size:11px;color:var(--gray-500);">${m.methods?.join(', ') || 'Bank Transfer'} · ${m.completion}%</div>
-              <div style="font-size:10px;color:var(--gray-400);font-family:monospace;">${m.escrowAddr || 'Default Escrow'}</div>
-            </div>
-            <button style="background:none;border:none;color:var(--red-500);font-size:11px;font-weight:700;cursor:pointer;" onclick="deleteMerchant('${m.fiat}', '${m.id}')">Remove</button>
-          </div>
-        `).join('');
-      }
-
-      window.deleteMerchant = function(fiat, id) {
-        const dict = loadAllMerchants();
-        if (dict[fiat]) {
-          dict[fiat] = dict[fiat].filter(x => x.id !== id);
-          localStorage.setItem('bp_merchants', JSON.stringify(dict));
-          renderAdminMerchants();
-          showToast('Merchant removed.');
-        }
-      };
-
-      $('#topMerchantsBtn').addEventListener('click', () => { renderAdminMerchants(); openAdminModal('merchantsModal'); });
-      $('#navMerchantsBtn').addEventListener('click', () => { renderAdminMerchants(); openAdminModal('merchantsModal'); });
-
-      $('#openAddMerchantFormBtn').addEventListener('click', () => {
-        const f = $('#newMerchantForm');
-        f.style.display = f.style.display === 'none' ? 'flex' : 'none';
-      });
-
-      $('#submitNewMerchantBtn').addEventListener('click', () => {
-        const name = $('#mNameInp').value.trim();
-        const fiat = $('#mFiatInp').value;
-        const comp = parseFloat($('#mCompInp').value) || 99;
-        const methods = ($('#mMethodsInp').value.trim() || 'Bank Transfer').split(',').map(s => s.trim());
-        const escrowAddr = $('#mEscrowInp').value.trim() || loadPlatformAddresses().USDT;
-
-        if (!name) return alert('Enter merchant name.');
-
-        const dict = loadAllMerchants();
-        if (!dict[fiat]) dict[fiat] = [];
-        const newM = {
-          id: 'm_' + Date.now(),
-          name,
-          initial: name.charAt(0).toUpperCase(),
-          verified: true,
-          isOnline: true,
-          trades: 120,
-          completion: comp,
-          time: '15 min',
-          methods,
-          escrowAddr
-        };
-        dict[fiat].unshift(newM);
-        localStorage.setItem('bp_merchants', JSON.stringify(dict));
-        $('#newMerchantForm').style.display = 'none';
-        $('#mNameInp').value = '';
-        renderAdminMerchants();
-        showToast('New merchant added!');
-      });
-
-      // ============================================================
-      // TELEGRAM BOT BRIDGE
+      // TELEGRAM BOT BRIDGE ENGINE (DUAL PERSONA DISPATCH & INBOUND)
       // ============================================================
       function loadTelegramConfig() {
         try {
           const c = localStorage.getItem('bp_telegram_config');
           if (c) return JSON.parse(c);
         } catch (e) {}
-        return { token: '', chatId: '', topicMode: 'enabled' };
+        return { token: '', chatId: '', pollingMode: 'enabled' };
       }
+
+      function updateTelegramUIStatus() {
+        const tg = loadTelegramConfig();
+        const tag = $('#telegramThreadTag');
+        const text = $('#telegramStatusText');
+        const btn = $('#topTelegramBtn');
+
+        if (tg.token && tg.chatId) {
+          btn.classList.add('tg-active');
+          text.textContent = 'Telegram Bridge Active (Dual Replies Enabled)';
+          tag.textContent = 'Bot Connected';
+          tag.style.background = 'var(--blue-100)';
+          tag.style.color = 'var(--blue-500)';
+        } else {
+          btn.classList.remove('tg-active');
+          text.textContent = 'Telegram Bridge Disconnected';
+          tag.textContent = 'Connect Bot';
+          tag.style.background = 'var(--gold-100)';
+          tag.style.color = 'var(--gold-500)';
+        }
+      }
+
+      $('#topTelegramBtn').addEventListener('click', () => {
+        const conf = loadTelegramConfig();
+        $('#tgBotToken').value = conf.token || '';
+        $('#tgChatId').value = conf.chatId || '';
+        $('#tgPollingMode').value = conf.pollingMode || 'enabled';
+        openAdminModal('telegramModal');
+      });
 
       $('#navTelegramBtn').addEventListener('click', () => {
         const conf = loadTelegramConfig();
         $('#tgBotToken').value = conf.token || '';
         $('#tgChatId').value = conf.chatId || '';
-        $('#tgTopicMode').value = conf.topicMode || 'enabled';
+        $('#tgPollingMode').value = conf.pollingMode || 'enabled';
+        openAdminModal('telegramModal');
+      });
+
+      $('#telegramThreadTag').addEventListener('click', () => {
+        const conf = loadTelegramConfig();
+        $('#tgBotToken').value = conf.token || '';
+        $('#tgChatId').value = conf.chatId || '';
+        $('#tgPollingMode').value = conf.pollingMode || 'enabled';
         openAdminModal('telegramModal');
       });
 
@@ -877,103 +870,300 @@
         const conf = {
           token: $('#tgBotToken').value.trim(),
           chatId: $('#tgChatId').value.trim(),
-          topicMode: $('#tgTopicMode').value
+          pollingMode: $('#tgPollingMode').value
         };
         localStorage.setItem('bp_telegram_config', JSON.stringify(conf));
         closeAdminModal('telegramModal');
+        updateTelegramUIStatus();
         showToast('Telegram bot credentials saved!');
       });
 
       $('#testTelegramBtn').addEventListener('click', async () => {
         const token = $('#tgBotToken').value.trim();
         const chatId = $('#tgChatId').value.trim();
-        if (!token || !chatId) return alert('Enter Bot Token and Chat ID to test.');
-        
+        if (!token || !chatId) return alert('Please enter both Bot Token and Chat ID.');
+
         try {
           const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               chat_id: chatId,
-              text: '🔔 BluePeak Capital P2P Admin Bridge connected successfully!'
+              text: '🔔 <b>Bluepeak Capital P2P Admin Bridge connected!</b>\n\n' +
+                    'You can reply from Telegram as <b>Vendor</b> (direct reply) or as <b>Admin</b> (start with <code>/admin</code>).',
+              parse_mode: 'HTML'
             })
           });
           const data = await res.json();
           if (data.ok) showToast('Telegram test message delivered!');
-          else alert('Telegram error: ' + (data.description || 'Unknown error'));
+          else alert('Telegram Error: ' + (data.description || 'Unknown error'));
         } catch (e) {
-          alert('Failed to contact Telegram API. Check bot token and network.');
+          alert('Could not contact Telegram servers. Check connection and token.');
         }
       });
 
-      // ============================================================
-      // ORDERS DATA & LIVE SYNC
-      // ============================================================
-      function loadOrders() {
-        let chats = JSON.parse(localStorage.getItem('bp_admin_chats') || '[]');
+      // OUTBOUND TELEGRAM ALERT
+      async function sendTelegramAlert(text) {
+        const tg = loadTelegramConfig();
+        if (!tg.token || !tg.chatId) return;
 
-        if (chats.length === 0) {
-          const now = Date.now();
-          chats = [
-            {
-              id: 'chat-1', order: 'ORD-8821', merchant: 'Kwame_P2P', merchantInitial: 'K',
-              buyer: 'Amina Okafor', buyerInitial: 'A', asset: 'USDT', amount: '100.00', usdAmount: 103,
-              side: 'Buy', rate: '$1.03 / USDT', payment: 'M-Pesa (Safaricom)', status: 'active', unread: true,
-              created: new Date(now - 1800000).toISOString(),
-              telegramThread: '4521',
-              messages: [
-                { from: 'user', senderName: 'Amina Okafor', text: 'Hi, I sent 100 USD via M-Pesa. Reference MPX8842190.', time: '14:22', ts: now - 1800000 },
-                { from: 'merchant', senderName: 'Kwame_P2P', text: 'Thanks! Confirming now, please give me a moment.', time: '14:23', ts: now - 1740000 },
-              ],
-            },
-            {
-              id: 'chat-2', order: 'ORD-8834', merchant: 'DavidSwift', merchantInitial: 'D',
-              buyer: 'Alex Vance', buyerInitial: 'A', asset: 'USDT', amount: '250.00', usdAmount: 250,
-              side: 'Sell', rate: '$1.00 / USDT', payment: 'Zelle', status: 'active', unread: true,
-              created: new Date(now - 900000).toISOString(),
-              telegramThread: '4522',
-              messages: [
-                { from: 'system', senderName: 'BluePeak Escrow', text: 'Order #ORD-8834 locked. Crypto funds (250 USDT) held in BluePeak Escrow.', time: '15:10', ts: now - 900000 },
-                { from: 'user', senderName: 'Alex Vance', text: 'Hello, please send $250.00 to my Zelle account.', time: '15:11', ts: now - 850000 },
-              ],
+        try {
+          await fetch(`https://api.telegram.org/bot${tg.token}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              chat_id: tg.chatId,
+              text: text,
+              parse_mode: 'HTML'
+            })
+          });
+        } catch (e) {
+          console.warn('Telegram outbound alert failed', e);
+        }
+      }
+
+      // INBOUND TELEGRAM POLLER (Parses mobile replies from phone)
+      let lastTelegramUpdateId = 0;
+      let isTelegramPolling = false;
+
+      async function pollTelegramInbound() {
+        const tg = loadTelegramConfig();
+        if (!tg.token || !tg.chatId || tg.pollingMode === 'disabled' || isTelegramPolling) return;
+
+        isTelegramPolling = true;
+        try {
+          const offset = lastTelegramUpdateId ? `?offset=${lastTelegramUpdateId + 1}&timeout=5` : '?timeout=5';
+          const res = await fetch(`https://api.telegram.org/bot${tg.token}/getUpdates${offset}`);
+          if (!res.ok) throw new Error('Polling error');
+          const data = await res.json();
+
+          if (data.ok && Array.isArray(data.result)) {
+            for (const upd of data.result) {
+              lastTelegramUpdateId = upd.update_id;
+              const msg = upd.message || upd.channel_post;
+              if (!msg || !msg.text) continue;
+
+              const text = msg.text.trim();
+              let targetOrderId = null;
+
+              // Check if replying to an existing bot alert containing [ORD-XXXX]
+              if (msg.reply_to_message && msg.reply_to_message.text) {
+                const match = msg.reply_to_message.text.match(/\[(ORD-[\w-]+)\]/i);
+                if (match) targetOrderId = match[1];
+              }
+
+              // Check slash commands: /reply ORD-8821 ..., /merchant ORD-8821 ..., /admin ORD-8821 ...
+              if (!targetOrderId) {
+                const cmdMatch = text.match(/^\/(?:reply|merchant|admin)\s+(ORD-[\w-]+)\s+(.+)/is);
+                if (cmdMatch) {
+                  targetOrderId = cmdMatch[1];
+                }
+              }
+
+              // Check /release ORD-8821
+              if (text.startsWith('/release')) {
+                const relMatch = text.match(/^\/release\s+(ORD-[\w-]+)/i);
+                if (relMatch) {
+                  const o = orders.find(x => x.order === relMatch[1] || x.id === relMatch[1]);
+                  if (o) {
+                    executeEscrowRelease(o, 'Telegram Bot Command');
+                    continue;
+                  }
+                }
+              }
+
+              // Check /dispute ORD-8821
+              if (text.startsWith('/dispute')) {
+                const dispMatch = text.match(/^\/dispute\s+(ORD-[\w-]+)/i);
+                if (dispMatch) {
+                  const o = orders.find(x => x.order === dispMatch[1] || x.id === dispMatch[1]);
+                  if (o) {
+                    executeDisputeFlag(o, 'Telegram Bot Mediation Trigger');
+                    continue;
+                  }
+                }
+              }
+
+              if (targetOrderId) {
+                let cleanText = text;
+                let role = 'merchant'; // Default: Vendor persona
+                
+                // If user specifies /admin or starts with [Admin]
+                if (text.startsWith('/admin') || text.toLowerCase().startsWith('[admin]')) {
+                  role = 'admin';
+                  cleanText = text.replace(/^(\/admin\s+(ORD-[\w-]+)\s*|\/admin\s+|\[admin\]\s*)/i, '');
+                } else if (text.startsWith('/merchant') || text.startsWith('/reply')) {
+                  cleanText = text.replace(/^\/(?:reply|merchant)\s+(ORD-[\w-]+)\s+/i, '');
+                }
+
+                injectIncomingReplyFromTelegram(targetOrderId, cleanText, role);
+              }
             }
-          ];
+          }
+        } catch (e) {
+          // Silent catch for background polling
+        } finally {
+          isTelegramPolling = false;
+        }
+      }
+
+      function injectIncomingReplyFromTelegram(orderRef, text, role) {
+        const order = orders.find(x => x.order === orderRef || x.id === orderRef);
+        if (!order) return;
+
+        const now = new Date();
+        const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        const senderName = role === 'admin' ? 'BluePeak Support' : order.merchant;
+
+        const newMsg = {
+          sender: role,
+          from: role,
+          senderName: senderName,
+          text: text,
+          time: time,
+          ts: now.getTime()
+        };
+
+        if (!order.messages) order.messages = [];
+        order.messages.push(newMsg);
+        saveOrders();
+        syncToUserChat(order.order, newMsg);
+
+        if (activeOrderId === order.id) {
+          renderChat(order);
+        }
+
+        const roleTitle = role === 'admin' ? 'BluePeak Support' : `Vendor (${order.merchant})`;
+        showToast(`Telegram reply delivered to ${order.order} as ${roleTitle}`);
+        sendTelegramAlert(`✓ <i>Delivered to #${order.order} as <b>${roleTitle}</b>:</i>\n"${escapeHtml(text)}"`);
+      }
+
+      // ============================================================
+      // REAL ORDER SYNCHRONIZATION WITH P2P ENGINE
+      // ============================================================
+      function syncRealOrders() {
+        const p2pOrders = JSON.parse(localStorage.getItem('bp_p2p_orders') || '[]');
+        let chats = JSON.parse(localStorage.getItem('bp_admin_chats') || '[]');
+        let hasNew = false;
+
+        p2pOrders.forEach((po, idx) => {
+          const orderId = po.id || ('ORD-' + (8820 + idx));
+          let existing = chats.find(c => c.order === orderId || c.id === orderId);
+
+          if (!existing) {
+            const now = Date.now();
+            const cryptoAmt = parseFloat(po.cryptoAmount || po.amount || 100).toFixed(2);
+            const fiatAmt = parseFloat(po.fiatAmount || (cryptoAmt * (po.rate || 1))).toFixed(2);
+
+            const newChat = {
+              id: 'chat-' + orderId,
+              order: orderId,
+              merchant: po.merchant || po.merchantName || 'Kwame_P2P',
+              merchantInitial: (po.merchant || 'K').charAt(0).toUpperCase(),
+              buyer: po.buyer || po.userName || 'Customer ' + orderId.slice(-4),
+              buyerInitial: (po.buyer || 'C').charAt(0).toUpperCase(),
+              asset: po.crypto || 'USDT',
+              amount: cryptoAmt,
+              usdAmount: parseFloat(fiatAmt),
+              side: (po.mode || 'Buy').toUpperCase(),
+              rate: po.rate ? `$${po.rate} / ${po.crypto || 'USDT'}` : '$1.00 / USDT',
+              payment: po.paymentMethod || 'Bank Transfer',
+              status: po.status || 'active',
+              unread: true,
+              created: po.date || new Date(now).toISOString(),
+              telegramThread: String(4500 + idx),
+              messages: [
+                {
+                  from: 'system',
+                  sender: 'system',
+                  senderName: 'BluePeak Escrow',
+                  text: `Order #${orderId} opened. Crypto assets (${cryptoAmt} ${po.crypto || 'USDT'}) are locked securely in escrow.`,
+                  time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                  ts: now
+                }
+              ]
+            };
+            chats.unshift(newChat);
+            hasNew = true;
+
+            // Send full Telegram Alert with Reply Options
+            sendTelegramAlert(
+              `🔔 <b>NEW P2P TRADE [${orderId}]</b>\n` +
+              `━━━━━━━━━━━━━━━━━━\n` +
+              `• <b>Action:</b> ${newChat.side} ${newChat.amount} ${newChat.asset}\n` +
+              `• <b>Fiat:</b> $${newChat.usdAmount} (${newChat.payment})\n` +
+              `• <b>Customer:</b> ${newChat.buyer}\n` +
+              `• <b>Vendor:</b> ${newChat.merchant}\n` +
+              `━━━━━━━━━━━━━━━━━━\n` +
+              `💬 <b>REPLY OPTIONS FROM PHONE:</b>\n` +
+              `1️⃣ Swipe to reply &rarr; speaks as <b>${newChat.merchant}</b>\n` +
+              `2️⃣ Start with <code>/admin</code> &rarr; speaks as <b>Bluepeak Desk</b>\n` +
+              `⚡ Send <code>/release ${orderId}</code> to authorize escrow.`
+            );
+          } else {
+            if (po.status && existing.status !== po.status) {
+              existing.status = po.status;
+              hasNew = true;
+            }
+          }
+        });
+
+        if (hasNew || chats.length === 0) {
+          if (chats.length === 0) {
+            chats = [
+              {
+                id: 'chat-ORD-8821', order: 'ORD-8821', merchant: 'Kwame_P2P', merchantInitial: 'K',
+                buyer: 'Amina Okafor', buyerInitial: 'A', asset: 'USDT', amount: '100.00', usdAmount: 103,
+                side: 'BUY', rate: '$1.03 / USDT', payment: 'M-Pesa (Safaricom)', status: 'active', unread: true,
+                created: new Date(Date.now() - 1800000).toISOString(),
+                telegramThread: '4521',
+                messages: [
+                  { from: 'user', sender: 'user', senderName: 'Amina Okafor', text: 'Hi, I sent 100 USD via M-Pesa. Reference MPX8842190.', time: '14:22', ts: Date.now() - 1800000 },
+                  { from: 'merchant', sender: 'merchant', senderName: 'Kwame_P2P', text: 'Thanks! Confirming now, please give me a moment.', time: '14:23', ts: Date.now() - 1740000 },
+                ],
+              }
+            ];
+          }
           localStorage.setItem('bp_admin_chats', JSON.stringify(chats));
         }
 
         return chats;
       }
 
-      let orders = loadOrders();
+      let orders = syncRealOrders();
       let filtered = [...orders];
       let activeFilter = 'all';
       let activeOrderId = null;
-      let chatRole = 'merchant';
+      let activePersona = 'merchant'; // 'merchant' or 'admin'
 
       function saveOrders() {
         localStorage.setItem('bp_admin_chats', JSON.stringify(orders));
       }
 
-      function logAction(action, target, details) {
-        const log = JSON.parse(localStorage.getItem('bp_audit_log') || '[]');
-        log.push({ ts: Date.now(), admin: admin.email, action, target, details });
-        if (log.length > 500) log.splice(0, log.length - 500);
-        localStorage.setItem('bp_audit_log', JSON.stringify(log));
+      function updateBadges() {
+        const unread = orders.filter(o => o.unread).length;
+        const disputed = orders.filter(o => (o.status || '').toLowerCase() === 'disputed').length;
+        $('#ordersBadge').textContent = unread || '0';
+        $('#orderCountLabel').textContent = filtered.length;
+        $('#orderCountSub').textContent = `${orders.length} total orders · ${disputed} disputed · ${unread} unread`;
       }
 
-      // ============================================================
-      // RENDER ORDER LIST
-      // ============================================================
       function applyFilters() {
-        orders = JSON.parse(localStorage.getItem('bp_admin_chats') || '[]');
+        orders = syncRealOrders();
         const q = ($('#searchInput').value || '').toLowerCase().trim();
+
         filtered = orders.filter(o => {
+          const st = (o.status || 'active').toLowerCase();
           if (activeFilter !== 'all') {
-            if (activeFilter === 'active' && o.status !== 'active' && o.status !== 'Escrow Locked') return false;
-            if (activeFilter === 'disputed' && o.status !== 'disputed') return false;
-            if (activeFilter === 'completed' && o.status !== 'completed' && o.status !== 'Completed') return false;
+            if (activeFilter === 'active' && !['active', 'escrow locked', 'paid', 'pending'].includes(st)) return false;
+            if (activeFilter === 'disputed' && st !== 'disputed') return false;
+            if (activeFilter === 'completed' && st !== 'completed') return false;
+            if (activeFilter === 'cancelled' && st !== 'cancelled') return false;
           }
-          if (q && !(o.order.toLowerCase().includes(q) || (o.buyer || '').toLowerCase().includes(q) || (o.merchant || '').toLowerCase().includes(q))) return false;
+          if (q) {
+            const hay = `${o.order} ${o.buyer || ''} ${o.merchant || ''} ${o.asset || ''}`.toLowerCase();
+            if (!hay.includes(q)) return false;
+          }
           return true;
         });
 
@@ -982,18 +1172,11 @@
           if (b.status === 'disputed' && a.status !== 'disputed') return 1;
           if (a.unread && !b.unread) return -1;
           if (b.unread && !a.unread) return 1;
-          return new Date(b.created) - new Date(a.created);
+          return new Date(b.created || 0) - new Date(a.created || 0);
         });
+
         renderOrderList();
         updateBadges();
-      }
-
-      function updateBadges() {
-        const unread = orders.filter(o => o.unread).length;
-        const disputed = orders.filter(o => o.status === 'disputed').length;
-        $('#ordersBadge').textContent = unread || '0';
-        $('#orderCountLabel').textContent = filtered.length;
-        $('#orderCountSub').textContent = `${orders.length} total orders · ${disputed} disputed · ${unread} unread`;
       }
 
       function renderOrderList() {
@@ -1002,11 +1185,12 @@
           list.innerHTML = `<div style="padding:40px 20px;text-align:center;font-size:12.5px;color:var(--gray-500);font-weight:500;">No orders match your filter</div>`;
           return;
         }
+
         list.innerHTML = filtered.map(o => {
           const lastMsg = o.messages && o.messages.length > 0 ? o.messages[o.messages.length - 1] : null;
           const preview = lastMsg ? lastMsg.text : 'No messages';
           const isActive = o.id === activeOrderId;
-          const statusCls = (o.status || 'active').toLowerCase().replace(' ', '-');
+          const statusCls = (o.status || 'active').toLowerCase().replace(/\s+/g, '-');
           return `
             <div class="order-item ${isActive ? 'active' : ''} ${o.unread ? 'unread' : ''}" data-order-id="${o.id}">
               <div class="order-avatar">${(o.buyerInitial || (o.buyer ? o.buyer.charAt(0) : 'U')).toUpperCase()}</div>
@@ -1019,7 +1203,7 @@
                 <div class="order-meta">
                   <span>${o.order}</span>
                   <span class="sep"></span>
-                  <span>${o.side || 'P2P'} ${o.asset}</span>
+                  <span>${o.side || 'P2P'} ${o.amount} ${o.asset}</span>
                 </div>
               </div>
             </div>
@@ -1031,12 +1215,8 @@
         });
       }
 
-      function escapeHtml(str) {
-        return (str || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-      }
-
       // ============================================================
-      // OPEN ORDER
+      // OPEN ORDER & CHAT DESK
       // ============================================================
       function openOrder(id) {
         const o = orders.find(x => x.id === id);
@@ -1051,26 +1231,20 @@
         $('#activeMerchant').textContent = o.buyer || 'Customer';
         $('#activeSub').innerHTML = `Order <span class="ref">${o.order}</span> · Vendor: <strong>${escapeHtml(o.merchant)}</strong>`;
         $('#activeAmount').textContent = `${o.amount} ${o.asset}`;
-        $('#activeAmountUsd').textContent = `$${(o.usdAmount || 0).toFixed(2)} USD`;
+        $('#activeAmountUsd').textContent = `$${(parseFloat(o.usdAmount) || 0).toFixed(2)} USD`;
         
-        const statusCls = (o.status || 'active').toLowerCase().replace(' ', '-');
+        const statusCls = (o.status || 'active').toLowerCase().replace(/\s+/g, '-');
         $('#activeStatus').className = 'order-status-badge-large ' + statusCls;
         $('#activeStatus').innerHTML = `<span class="dot"></span>${o.status}`;
         
         $('#activeBuyer').textContent = o.buyer || 'Customer';
         $('#activeRate').textContent = o.rate || 'Market Live';
         $('#activePayment').textContent = o.payment || 'Escrow Transfer';
-        $('#activeCreated').textContent = new Date(o.created).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+        $('#activeCreated').textContent = new Date(o.created || Date.now()).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
 
-        $('#roleMerchantBtn').textContent = `As ${o.merchant || 'Merchant'}`;
-
-        if (o.telegramThread) {
-          $('#telegramStrip').style.display = 'flex';
-          $('#telegramThreadTag').textContent = 'Thread #' + o.telegramThread;
-        } else {
-          $('#telegramStrip').style.display = 'flex';
-          $('#telegramThreadTag').textContent = 'Direct Sync';
-        }
+        // Update Persona Labels
+        $('#personaMerchantLabel').textContent = `Reply as ${o.merchant || 'Vendor'}`;
+        updatePersonaUI();
 
         $('#chatEmptyState').style.display = 'none';
         $('#chatActive').classList.add('visible');
@@ -1078,14 +1252,52 @@
         renderChat(o);
       }
 
+      function updatePersonaUI() {
+        const order = orders.find(x => x.id === activeOrderId);
+        const merchantName = order ? order.merchant : 'Vendor';
+        const input = $('#chatInput');
+        const sendBtn = $('#chatSendBtn');
+        const sendLabel = $('#chatSendLabel');
+        const indicator = $('#personaIndicator');
+
+        if (activePersona === 'merchant') {
+          $('#personaMerchantBtn').className = 'persona-btn active merchant-active';
+          $('#personaAdminBtn').className = 'persona-btn';
+          input.placeholder = `Type reply as merchant (${merchantName})…`;
+          sendBtn.className = 'chat-send-btn';
+          sendLabel.textContent = `Send as ${merchantName}`;
+          indicator.textContent = `Active: ${merchantName} (Vendor Persona)`;
+          indicator.style.color = 'var(--navy-900)';
+        } else {
+          $('#personaAdminBtn').className = 'persona-btn active admin-active';
+          $('#personaMerchantBtn').className = 'persona-btn';
+          input.placeholder = `Type official ruling or response as Bluepeak Support…`;
+          sendBtn.className = 'chat-send-btn admin-mode';
+          sendLabel.textContent = 'Send as Desk';
+          indicator.textContent = 'Active: Bluepeak Desk (Official Admin)';
+          indicator.style.color = '#926F12';
+        }
+      }
+
+      $('#personaMerchantBtn').addEventListener('click', () => {
+        activePersona = 'merchant';
+        updatePersonaUI();
+        showToast('Switched to Vendor persona');
+      });
+
+      $('#personaAdminBtn').addEventListener('click', () => {
+        activePersona = 'admin';
+        updatePersonaUI();
+        showToast('Switched to Bluepeak Desk (Official Admin) persona');
+      });
+
       function renderChat(order) {
         const body = $('#chatBody');
-        // Read directly from user key if available to ensure 100% sync
         const liveUserChat = JSON.parse(localStorage.getItem('bp_p2p_chat_' + order.order) || 'null');
         const msgs = liveUserChat || order.messages || [];
 
         if (msgs.length === 0) {
-          body.innerHTML = `<div style="text-align:center;padding:30px 20px;font-size:12px;color:var(--gray-500);font-weight:500;">No messages yet. Start the conversation below.</div>`;
+          body.innerHTML = `<div style="text-align:center;padding:30px 20px;font-size:12px;color:var(--gray-500);font-weight:500;">No messages yet. Send a response below.</div>`;
           return;
         }
 
@@ -1094,10 +1306,10 @@
           const isAdmin = m.sender === 'admin' || m.from === 'admin';
           const isSystem = m.sender === 'system' || m.from === 'system';
 
-          let label = order.merchant + ' (Merchant)';
+          let label = order.merchant + ' (Vendor)';
           if (isUser) label = (order.buyer || 'Customer') + ' (Buyer)';
-          if (isAdmin) label = 'BluePeak Admin (You)';
-          if (isSystem) label = 'BluePeak Escrow System';
+          if (isAdmin) label = 'Bluepeak Capital Desk (Official)';
+          if (isSystem) label = 'Bluepeak Escrow Protocol';
 
           let cls = 'merchant';
           if (isUser) cls = 'customer';
@@ -1108,19 +1320,22 @@
             <div class="chat-message ${cls}">
               <span class="msg-label">${escapeHtml(m.senderName || label)}</span>
               <div style="white-space:pre-wrap;">${escapeHtml(m.text)}</div>
-              ${m.isEscrowInstruction ? `
-                <div style="font-family:monospace;font-size:11px;color:var(--gold-400);margin-top:4px;word-break:break-all;">
-                  [${m.network}] ${m.address}
-                </div>` : ''}
               <span class="msg-time">${m.time || ''}</span>
             </div>
           `;
         }).join('');
+
         body.scrollTop = body.scrollHeight;
       }
 
+      function syncToUserChat(orderId, msg) {
+        let userChats = JSON.parse(localStorage.getItem('bp_p2p_chat_' + orderId) || '[]');
+        userChats.push(msg);
+        localStorage.setItem('bp_p2p_chat_' + orderId, JSON.stringify(userChats));
+      }
+
       // ============================================================
-      // SEND MESSAGE (VENDOR & ADMIN MODES)
+      // SENDING MESSAGES FROM ADMIN UI
       // ============================================================
       function sendMessage() {
         const input = $('#chatInput');
@@ -1132,11 +1347,11 @@
 
         const now = new Date();
         const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        const senderName = chatRole === 'admin' ? 'BluePeak Support' : order.merchant;
+        const senderName = activePersona === 'admin' ? 'Bluepeak Support' : order.merchant;
 
         const newMsg = {
-          sender: chatRole,
-          from: chatRole,
+          sender: activePersona,
+          from: activePersona,
           senderName: senderName,
           text: text,
           time: time,
@@ -1149,26 +1364,12 @@
         input.value = '';
         input.style.height = 'auto';
 
-        // SYNC TO USER P2P CHAT KEY
-        let userChats = JSON.parse(localStorage.getItem('bp_p2p_chat_' + order.order) || '[]');
-        userChats.push(newMsg);
-        localStorage.setItem('bp_p2p_chat_' + order.order, JSON.stringify(userChats));
-
+        syncToUserChat(order.order, newMsg);
         renderChat(order);
-        showToast(`Replied as ${senderName}`);
+        showToast(`Delivered as ${senderName}`);
 
-        // Forward to Telegram if configured
-        const tg = loadTelegramConfig();
-        if (tg.token && tg.chatId) {
-          fetch(`https://api.telegram.org/bot${tg.token}/sendMessage`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              chat_id: tg.chatId,
-              text: `💬 [${order.order}] ${senderName}:\n${text}`
-            })
-          }).catch(() => {});
-        }
+        // Forward to Telegram
+        sendTelegramAlert(`💬 [${order.order}] <b>${senderName}:</b>\n${escapeHtml(text)}`);
       }
 
       $('#chatSendBtn').addEventListener('click', sendMessage);
@@ -1184,18 +1385,105 @@
         this.style.height = Math.min(this.scrollHeight, 80) + 'px';
       });
 
-      $$('#chatRoleSelector .chat-role-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          $$('#chatRoleSelector .chat-role-btn').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          chatRole = btn.dataset.role;
-          showToast(chatRole === 'admin' ? 'Replying as BluePeak Admin' : 'Replying as Vendor');
-        });
-      });
+      // ============================================================
+      // ESCROW RELEASE & DISPUTE ACTIONS
+      // ============================================================
+      function executeEscrowRelease(order, initiator = 'Admin Dashboard') {
+        order.status = 'Completed';
+        const nowTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        const cryptoAmt = parseFloat(order.amount || 0);
 
-      // ============================================================
-      // QUICK ESCROW ACTIONS
-      // ============================================================
+        const msg = {
+          sender: 'system',
+          from: 'system',
+          senderName: 'BluePeak Escrow Protocol',
+          text: `Escrow Released! ${cryptoAmt.toFixed(2)} ${order.asset} has been credited to ${order.buyer}'s wallet. Trade completed.`,
+          time: nowTime,
+          ts: Date.now()
+        };
+        order.messages.push(msg);
+        saveOrders();
+        syncToUserChat(order.order, msg);
+
+        // Credit buyer wallet in localStorage
+        try {
+          let currentBal = parseFloat(localStorage.getItem('bp_user_balance') || '0');
+          currentBal += cryptoAmt;
+          localStorage.setItem('bp_user_balance', currentBal.toFixed(2));
+          localStorage.setItem('user_balance', currentBal.toFixed(2));
+          localStorage.setItem('bp_wallet_balance', currentBal.toFixed(2));
+
+          const symKey = 'bp_balance_' + order.asset;
+          let symBal = parseFloat(localStorage.getItem(symKey) || '0');
+          symBal += cryptoAmt;
+          localStorage.setItem(symKey, symBal.toFixed(2));
+        } catch (e) {}
+
+        // Log transaction
+        try {
+          let txs = JSON.parse(localStorage.getItem('bp_transactions') || '[]');
+          txs.unshift({
+            id: 'P2P_' + Date.now().toString().slice(-6),
+            type: 'P2P Trade',
+            amount: cryptoAmt,
+            symbol: order.asset,
+            status: 'Completed',
+            date: new Date().toLocaleString()
+          });
+          localStorage.setItem('bp_transactions', JSON.stringify(txs));
+        } catch (e) {}
+
+        updateOrderInP2PHistory(order.order, 'Completed');
+        logAction('escrow_released', order.order, { buyer: order.buyer, amount: cryptoAmt, initiator });
+
+        sendTelegramAlert(`✅ <b>ESCROW RELEASED [${order.order}]</b>\n\n${cryptoAmt} ${order.asset} transferred to ${order.buyer}.\nSource: ${initiator}`);
+
+        if (activeOrderId === order.id) {
+          renderChat(order);
+          $('#activeStatus').className = 'order-status-badge-large completed';
+          $('#activeStatus').innerHTML = `<span class="dot"></span>Completed`;
+        }
+        applyFilters();
+        showToast(`Escrow released! ${cryptoAmt} ${order.asset} credited to customer.`);
+      }
+
+      function executeDisputeFlag(order, initiator = 'Admin Desk') {
+        order.status = 'Disputed';
+        const nowTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        const msg = {
+          sender: 'admin',
+          from: 'admin',
+          senderName: 'BluePeak Escrow Mediation',
+          text: 'Trade flagged for review. Crypto assets remain frozen in escrow while compliance inspects proof of payment.',
+          time: nowTime,
+          ts: Date.now()
+        };
+        order.messages.push(msg);
+        saveOrders();
+        syncToUserChat(order.order, msg);
+        updateOrderInP2PHistory(order.order, 'Disputed');
+
+        if (activeOrderId === order.id) {
+          renderChat(order);
+          $('#activeStatus').className = 'order-status-badge-large disputed';
+          $('#activeStatus').innerHTML = `<span class="dot"></span>Disputed`;
+        }
+        applyFilters();
+        showToast('Dispute opened & assets frozen');
+        sendTelegramAlert(`⚖️ <b>DISPUTE OPENED [${order.order}]</b>\nCrypto assets frozen by ${initiator}.`);
+      }
+
+      function updateOrderInP2PHistory(orderId, newStatus) {
+        try {
+          let list = JSON.parse(localStorage.getItem('bp_p2p_orders') || '[]');
+          const item = list.find(x => x.id === orderId);
+          if (item) {
+            item.status = newStatus;
+            localStorage.setItem('bp_p2p_orders', JSON.stringify(list));
+          }
+        } catch (e) {}
+      }
+
       $$('.chat-action-btn').forEach(btn => {
         btn.addEventListener('click', () => {
           if (!activeOrderId) return;
@@ -1210,7 +1498,7 @@
               sender: 'merchant',
               from: 'merchant',
               senderName: order.merchant,
-              text: 'Payment received and verified. Preparing to release crypto from escrow.',
+              text: 'Payment verified on merchant statement. Escrow release being authorized.',
               time: nowTime,
               ts: Date.now()
             };
@@ -1219,48 +1507,68 @@
             syncToUserChat(order.order, msg);
             renderChat(order);
             showToast('Payment confirmed to customer');
+            sendTelegramAlert(`💸 [${order.order}] Vendor confirmed payment receipt.`);
           } else if (action === 'release') {
-            if (!confirm(`Release escrow for ${order.order}?\n\nThis will release ${order.amount} ${order.asset} to ${order.buyer}.`)) return;
-            
-            order.status = 'Completed';
-            const msg = {
-              sender: 'system',
-              from: 'system',
-              senderName: 'BluePeak Escrow',
-              text: `Escrow released! ${order.amount} ${order.asset} has been credited to ${order.buyer}'s wallet. Trade completed.`,
-              time: nowTime,
-              ts: Date.now()
-            };
-            order.messages.push(msg);
-            saveOrders();
-            syncToUserChat(order.order, msg);
+            if (!confirm(`Release escrow for ${order.order}?\n\nThis will transfer ${order.amount} ${order.asset} directly to ${order.buyer}.`)) return;
+            executeEscrowRelease(order, 'Web Console Release Button');
+          } else if (action === 'dispute') {
+            const disputeAction = prompt(
+              `Mediate Dispute for ${order.order}:\n\n` +
+              `Type "1" to Flag & Freeze assets\n` +
+              `Type "2" to Award & Release to Buyer\n` +
+              `Type "3" to Cancel & Refund Merchant\n` +
+              `Type "4" to Request Bank Proof Screenshot`,
+              '1'
+            );
 
-            // Update user balance in localStorage
-            try {
-              let balances = JSON.parse(localStorage.getItem('bp_user_balances') || '{}');
-              const cur = parseFloat(balances[order.asset] || 0);
-              balances[order.asset] = (cur + parseFloat(order.amount || 0)).toFixed(4);
-              localStorage.setItem('bp_user_balances', JSON.stringify(balances));
-            } catch (e) {}
-
-            // Update orders history
-            updateOrderInHistory(order.order, 'Completed');
-            logAction('escrow_released', order.order, { buyer: order.buyer, amount: order.amount, asset: order.asset });
-            
-            renderChat(order);
-            $('#activeStatus').className = 'order-status-badge-large completed';
-            $('#activeStatus').innerHTML = `<span class="dot"></span>Completed`;
-            applyFilters();
-            showToast('Escrow released and credited!');
+            if (disputeAction === '1') {
+              executeDisputeFlag(order, 'Web Admin Console');
+            } else if (disputeAction === '2') {
+              executeEscrowRelease(order, 'Mediation Resolution (Awarded to Buyer)');
+            } else if (disputeAction === '3') {
+              order.status = 'Cancelled';
+              const msg = {
+                sender: 'admin',
+                from: 'admin',
+                senderName: 'BluePeak Escrow Mediation',
+                text: 'Mediation concluded: Trade cancelled and crypto returned to merchant.',
+                time: nowTime,
+                ts: Date.now()
+              };
+              order.messages.push(msg);
+              saveOrders();
+              syncToUserChat(order.order, msg);
+              updateOrderInP2PHistory(order.order, 'Cancelled');
+              renderChat(order);
+              $('#activeStatus').className = 'order-status-badge-large cancelled';
+              $('#activeStatus').innerHTML = `<span class="dot"></span>Cancelled`;
+              applyFilters();
+              showToast('Trade cancelled and refunded to merchant');
+              sendTelegramAlert(`↩️ <b>[${order.order}] Dispute Closed</b>: Escrow refunded to vendor.`);
+            } else if (disputeAction === '4') {
+              const msg = {
+                sender: 'admin',
+                from: 'admin',
+                senderName: 'BluePeak Support',
+                text: 'Please upload or provide proof of payment transfer (PDF statement or clear screenshot with transaction reference) to proceed.',
+                time: nowTime,
+                ts: Date.now()
+              };
+              order.messages.push(msg);
+              saveOrders();
+              syncToUserChat(order.order, msg);
+              renderChat(order);
+              showToast('Proof request sent to customer');
+            }
           } else if (action === 'cancel') {
-            const reason = prompt('Reason for cancelling order:', 'Payment window timed out or unverified sender');
+            const reason = prompt('Specify cancellation reason:', 'Payment window timed out or unverified sender account');
             if (!reason) return;
-            
+
             order.status = 'Cancelled';
             const msg = {
               sender: 'admin',
               from: 'admin',
-              senderName: 'BluePeak Escrow',
+              senderName: 'BluePeak Escrow Desk',
               text: `Trade cancelled: ${reason}. Escrow funds returned to vendor.`,
               time: nowTime,
               ts: Date.now()
@@ -1268,58 +1576,41 @@
             order.messages.push(msg);
             saveOrders();
             syncToUserChat(order.order, msg);
-            updateOrderInHistory(order.order, 'Cancelled');
+            updateOrderInP2PHistory(order.order, 'Cancelled');
             logAction('order_cancelled', order.order, { reason, buyer: order.buyer });
 
             renderChat(order);
             $('#activeStatus').className = 'order-status-badge-large cancelled';
             $('#activeStatus').innerHTML = `<span class="dot"></span>Cancelled`;
             applyFilters();
-            showToast('Order cancelled');
-          } else if (action === 'dispute') {
-            order.status = 'Disputed';
-            const msg = {
-              sender: 'admin',
-              from: 'admin',
-              senderName: 'BluePeak Escrow Mediation',
-              text: 'Dispute opened. Crypto assets remain frozen in escrow while operations review proof of payment.',
-              time: nowTime,
-              ts: Date.now()
-            };
-            order.messages.push(msg);
-            saveOrders();
-            syncToUserChat(order.order, msg);
-            updateOrderInHistory(order.order, 'Disputed');
-            logAction('dispute_opened', order.order, { buyer: order.buyer });
-
-            renderChat(order);
-            $('#activeStatus').className = 'order-status-badge-large disputed';
-            $('#activeStatus').innerHTML = `<span class="dot"></span>Disputed`;
-            applyFilters();
-            showToast('Dispute opened & assets frozen');
+            showToast('Trade cancelled');
+            sendTelegramAlert(`✕ <b>TRADE CANCELLED [${order.order}]</b>\nReason: ${reason}`);
           }
         });
       });
 
-      function syncToUserChat(orderId, msg) {
-        let userChats = JSON.parse(localStorage.getItem('bp_p2p_chat_' + orderId) || '[]');
-        userChats.push(msg);
-        localStorage.setItem('bp_p2p_chat_' + orderId, JSON.stringify(userChats));
-      }
-
-      function updateOrderInHistory(orderId, newStatus) {
-        try {
-          let list = JSON.parse(localStorage.getItem('bp_p2p_orders') || '[]');
-          const item = list.find(x => x.id === orderId);
-          if (item) {
-            item.status = newStatus;
-            localStorage.setItem('bp_p2p_orders', JSON.stringify(list));
-          }
-        } catch (e) {}
-      }
+      // ============================================================
+      // CSV EXPORT
+      // ============================================================
+      $('#exportOrdersCsvBtn').addEventListener('click', () => {
+        if (!orders.length) return alert('No orders to export.');
+        const headers = ['OrderID', 'Buyer', 'Merchant', 'Side', 'Asset', 'Amount', 'FiatAmount', 'PaymentMethod', 'Status', 'Date'];
+        const rows = orders.map(o => [
+          `"${o.order}"`, `"${o.buyer || ''}"`, `"${o.merchant || ''}"`, `"${o.side || 'BUY'}"`, `"${o.asset || 'USDT'}"`,
+          o.amount, o.usdAmount, `"${o.payment || ''}"`, `"${o.status}"`, `"${o.created || ''}"`
+        ]);
+        const csv = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+        const link = document.createElement('a');
+        link.setAttribute('href', encodeURI(csv));
+        link.setAttribute('download', `bluepeak_p2p_orders_${new Date().toISOString().split('T')[0]}.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        showToast('Orders ledger exported as CSV');
+      });
 
       // ============================================================
-      // FILTERS & LIVE POLLING
+      // FILTERS & LIVE POLLING (POLLS LOCAL STORAGE & TELEGRAM BOT)
       // ============================================================
       $('#searchInput').addEventListener('input', applyFilters);
       $$('.order-filter-btn').forEach(btn => {
@@ -1331,12 +1622,21 @@
         });
       });
 
-      // Live Polling every 2 seconds for instant incoming trades & chats
+      // URL Query Auto-Select
+      const urlParams = new URLSearchParams(window.location.search);
+      const urlOrderId = urlParams.get('orderId');
+      if (urlOrderId) {
+        setTimeout(() => {
+          const match = orders.find(x => x.order === urlOrderId || x.id === urlOrderId);
+          if (match) openOrder(match.id);
+        }, 200);
+      }
+
+      // Background Polling Watcher
       setInterval(() => {
-        const stored = JSON.parse(localStorage.getItem('bp_admin_chats') || '[]');
-        if (stored.length !== orders.length) {
-          applyFilters();
-        }
+        syncRealOrders();
+        updateBadges();
+
         if (activeOrderId) {
           const ord = orders.find(x => x.id === activeOrderId);
           if (ord) {
@@ -1347,10 +1647,14 @@
             }
           }
         }
-      }, 2000);
+
+        // Poll Telegram for incoming replies from mobile
+        pollTelegramInbound();
+      }, 2500);
 
       // INIT
       applyFilters();
+      updateTelegramUIStatus();
 
     })();
   </script>
