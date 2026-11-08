@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+   <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -482,7 +482,7 @@
     /* MERCHANTS GRID */
     .merchants-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
       gap: 14px;
     }
 
@@ -678,13 +678,13 @@
       background: var(--white);
       border: 1px solid var(--gray-200);
       border-radius: var(--radius-lg);
-      overflow: hidden;
+      overflow-x: auto;
       box-shadow: var(--shadow-xs);
       display: none;
     }
     .table-header {
       display: grid;
-      grid-template-columns: 2.2fr 110px 100px 100px 1.4fr 110px 90px;
+      grid-template-columns: 2fr 100px 110px 100px 1.4fr 100px 80px;
       gap: 12px;
       padding: 12px 20px;
       background: var(--navy-50);
@@ -695,16 +695,18 @@
       text-transform: uppercase;
       letter-spacing: 0.6px;
       align-items: center;
+      min-width: 780px;
     }
     .table-row {
       display: grid;
-      grid-template-columns: 2.2fr 110px 100px 100px 1.4fr 110px 90px;
+      grid-template-columns: 2fr 100px 110px 100px 1.4fr 100px 80px;
       gap: 12px;
       padding: 14px 20px;
       align-items: center;
       border-bottom: 1px solid var(--gray-100);
       transition: background 0.15s;
       cursor: pointer;
+      min-width: 780px;
     }
     .table-row:last-child { border-bottom: none; }
     .table-row:hover { background: var(--navy-50); }
@@ -766,11 +768,7 @@
       justify-content: space-between;
       flex-shrink: 0;
     }
-    .drawer-merchant {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+    .drawer-merchant { display: flex; align-items: center; gap: 12px; }
     .drawer-avatar {
       width: 44px;
       height: 44px;
@@ -1009,8 +1007,6 @@
       border-color: var(--navy-900);
     }
 
-    /* ===== ADDITIONS ===== */
-    /* Offers + Payment Accounts + Escrow rows */
     .repeater-row {
       display: grid;
       gap: 8px;
@@ -1046,22 +1042,18 @@
 
     .rr-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
     .rr-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
-    .rr-grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 8px; }
-    @media (max-width: 640px) {
-      .rr-grid-2, .rr-grid-3, .rr-grid-4 { grid-template-columns: 1fr; }
-    }
 
     .add-row-btn {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 8px 14px;
+      padding: 7px 12px;
       border-radius: var(--radius-pill);
       border: 1.5px dashed var(--gray-300);
       background: var(--white);
       color: var(--navy-900);
       font-family: var(--font);
-      font-size: 11.5px;
+      font-size: 11px;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.15s;
@@ -1080,7 +1072,6 @@
     }
     .offer-toggle input { accent-color: var(--green-500); }
 
-    /* Offers in drawer */
     .offers-list-wrap { display: flex; flex-direction: column; gap: 8px; }
     .offer-item {
       background: var(--navy-50);
@@ -1187,10 +1178,9 @@
     }
     .sidebar-overlay.open { display: block; }
 
+    /* ADAPTIVE MOBILE & TABLET LAYOUTS */
     @media (max-width: 1200px) {
       .stats-row { grid-template-columns: repeat(2, 1fr); }
-      .table-header, .table-row { grid-template-columns: 2fr 100px 90px 90px 1fr 80px; }
-      .table-header > .col-time, .table-row > .cell-time { display: none; }
     }
     @media (max-width: 900px) {
       .sidebar { position: fixed; transform: translateX(-100%); }
@@ -1202,9 +1192,14 @@
       .admin-chip { padding: 4px; }
       .admin-chip .admin-name, .admin-chip .admin-role { display: none; }
       .drawer { width: 100%; }
-      .table-card { display: none !important; }
-      .view-switcher { display: none; }
-      .merchants-grid { display: grid !important; }
+      .merchants-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .form-row, .rr-grid-2, .rr-grid-3 { grid-template-columns: 1fr; }
+      .toolbar-row { flex-direction: column; align-items: stretch; }
+      .search-wrap { width: 100%; min-width: 0; }
+      .toolbar-left-group { width: 100%; }
+      .stats-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -1362,7 +1357,7 @@
       <div class="modal-header">
         <div>
           <div class="modal-title" id="modalTitle">Register New Merchant</div>
-          <div class="modal-subtitle">Deploy institutional liquidity provider to the P2P order matching engine</div>
+          <div class="modal-subtitle">Deploy verified liquidity provider to the P2P matching engine</div>
         </div>
         <button class="drawer-close" id="closeModalBtn">&times;</button>
       </div>
@@ -1374,22 +1369,22 @@
           <div class="form-row">
             <div class="form-group">
               <label>Merchant Display Name *</label>
-              <input type="text" class="form-input" id="mName" placeholder="e.g. DavidSwift, ApexTrade" required>
+              <input type="text" class="form-input" id="mName" placeholder="e.g. DavidSwift, Kwame_P2P" required>
             </div>
             <div class="form-group">
               <label>Country / Region</label>
-              <input type="text" class="form-input" id="mCountry" placeholder="e.g. United States, Kenya, Nigeria">
+              <input type="text" class="form-input" id="mCountry" placeholder="e.g. Kenya, Nigeria, United States">
             </div>
           </div>
 
           <div class="form-row">
             <div class="form-group">
               <label>Contact Email</label>
-              <input type="email" class="form-input" id="mEmail" placeholder="merchant@bluepeakcapital.com">
+              <input type="email" class="form-input" id="mEmail" placeholder="merchant@bluepeak.exchange">
             </div>
             <div class="form-group">
               <label>Contact Phone / WhatsApp</label>
-              <input type="text" class="form-input" id="mPhone" placeholder="+1 (555) 234-5678">
+              <input type="text" class="form-input" id="mPhone" placeholder="+254 700 000000">
             </div>
           </div>
 
@@ -1409,7 +1404,7 @@
 
           <div class="form-group">
             <label style="display:flex; justify-content:space-between; align-items:center;">
-              Payment Accounts (Visible to users on P2P)
+              Payment Accounts (Displayed to users on p2p.html)
               <button type="button" class="add-row-btn" onclick="addPaymentRow()">+ Add Account</button>
             </label>
             <div id="paymentAccountsWrap"></div>
@@ -1417,7 +1412,7 @@
 
           <div class="form-group">
             <label style="display:flex; justify-content:space-between; align-items:center;">
-              Escrow Addresses (per asset / network)
+              Escrow Addresses (per crypto network)
               <button type="button" class="add-row-btn" onclick="addEscrowRow()">+ Add Escrow Address</button>
             </label>
             <div id="escrowWrap"></div>
@@ -1425,7 +1420,7 @@
 
           <div class="form-group">
             <label style="display:flex; justify-content:space-between; align-items:center;">
-              Active Offers (Buy/Sell)
+              Active P2P Offers (Buy / Sell)
               <button type="button" class="add-row-btn" onclick="addOfferRow()">+ Add Offer</button>
             </label>
             <div id="offersWrap"></div>
@@ -1563,7 +1558,7 @@
 
       <div class="detail-panel" id="panel-methods">
         <div class="detail-section">
-          <h4>Payment Accounts (visible to users)</h4>
+          <h4>Payment Accounts (visible to users on p2p.html)</h4>
           <div id="drawerMethodsList" style="display:flex; flex-direction:column; gap:6px;"></div>
         </div>
       </div>
@@ -1603,6 +1598,22 @@
 
     const DEFAULT_SEED_MERCHANTS = [
       {
+        id: 'm_kes1', name: 'Kwame_P2P', email: 'kwame@peakafrica.co.ke', phone: '+254 712 345 678',
+        country: 'Kenya', initial: 'K', verified: true, isOnline: true, lastActive: 'Just now',
+        trades: 12840, completion: 99.4, positive: 99, time: '15 min', status: 'active',
+        currencies: ['KES', 'UGX'], methods: ['M-Pesa (Safaricom)', 'Airtel Money', 'Bank Transfer'],
+        paymentDetails: [
+          { method: 'M-Pesa (Safaricom)', account: '0712345678', holder: 'Kwame Mwangi', extra: 'Paybill 247247' },
+          { method: 'Bank Transfer', account: '0123456789', holder: 'Kwame Mwangi', extra: 'Equity Bank' },
+        ],
+        escrowAddresses: { USDT: { network: 'TRC20', address: 'TTx882KLa92mZbQpP004NqK599eL' } },
+        offers: [
+          { side: 'sell', asset: 'USDT', fiat: 'KES', price: 132.5, min: 500, max: 100000, methods: ['M-Pesa (Safaricom)'], active: true },
+          { side: 'buy', asset: 'USDT', fiat: 'KES', price: 129.8, min: 500, max: 80000, methods: ['Bank Transfer'], active: true },
+        ],
+        escrowAddr: 'TTx882KLa92mZbQpP004NqK599eL', telegram: '-10048291048', totalVolume: 8940000, joined: '2024-01-04'
+      },
+      {
         id: 'm_usd1', name: 'DavidSwift', email: 'david.swift@swiftliquidity.io', phone: '+1 (415) 890-2134',
         country: 'United States', initial: 'D', verified: true, isOnline: true, lastActive: 'Just now',
         trades: 9840, completion: 99.1, positive: 98, time: '15 min', status: 'active',
@@ -1612,47 +1623,12 @@
           { method: 'Zelle', account: 'david.swift@swiftliquidity.io', holder: 'David Swift', extra: '' },
           { method: 'Bank Transfer', account: '1098472918', holder: 'David Swift', extra: 'Chase Bank' },
         ],
-        escrowAddresses: {
-          USDT: { network: 'TRC20', address: 'TTx882KLa92mZbQpP004NqK599eL' },
-        },
+        escrowAddresses: { USDT: { network: 'TRC20', address: 'TTx882KLa92mZbQpP004NqK599eL' } },
         offers: [
           { side: 'sell', asset: 'USDT', fiat: 'USD', price: 1.03, min: 50, max: 5500, methods: ['Zelle', 'Venmo'], active: true },
-          { side: 'sell', asset: 'USDT', fiat: 'EUR', price: 0.95, min: 50, max: 4000, methods: ['Bank Transfer'], active: true },
           { side: 'buy', asset: 'USDT', fiat: 'USD', price: 0.97, min: 50, max: 4000, methods: ['Zelle'], active: true },
         ],
         escrowAddr: 'TTx882KLa92mZbQpP004NqK599eL', telegram: '-10028491829', totalVolume: 4820000, joined: '2024-01-15'
-      },
-      {
-        id: 'm_usd2', name: 'SarahTrade', email: 'sarah@peakequity.com', phone: '+1 (212) 555-0199',
-        country: 'United States', initial: 'S', verified: true, isOnline: true, lastActive: '3 min ago',
-        trades: 3210, completion: 98.5, positive: 99, time: '30 min', status: 'active',
-        currencies: ['USD'], methods: ['Apple Pay', 'Bank Transfer', 'Zelle'],
-        paymentDetails: [
-          { method: 'Apple Pay', account: 'sarah@peakequity.com', holder: 'Sarah Trade', extra: '' },
-          { method: 'Zelle', account: 'sarah@peakequity.com', holder: 'Sarah Trade', extra: '' },
-        ],
-        escrowAddresses: { USDT: { network: 'TRC20', address: 'TTx882KLa92mZbQpP004NqK599eL' } },
-        offers: [
-          { side: 'sell', asset: 'USDT', fiat: 'USD', price: 1.02, min: 100, max: 3000, methods: ['Apple Pay'], active: true },
-          { side: 'buy', asset: 'USDT', fiat: 'USD', price: 0.98, min: 100, max: 3000, methods: ['Bank Transfer'], active: true },
-        ],
-        escrowAddr: 'TTx882KLa92mZbQpP004NqK599eL', telegram: '@SarahTradeDesk', totalVolume: 1250000, joined: '2024-03-22'
-      },
-      {
-        id: 'm_kes1', name: 'Kwame_P2P', email: 'kwame@peakafrica.co.ke', phone: '+254 712 345 678',
-        country: 'Kenya', initial: 'K', verified: true, isOnline: true, lastActive: 'Just now',
-        trades: 12840, completion: 99.4, positive: 99, time: '15 min', status: 'active',
-        currencies: ['KES', 'UGX'], methods: ['M-Pesa (Safaricom)', 'Airtel Money', 'Bank Transfer'],
-        paymentDetails: [
-          { method: 'M-Pesa (Safaricom)', account: '0712345678', holder: 'Kwame Mwangi', extra: '' },
-          { method: 'Bank Transfer', account: '0123456789', holder: 'Kwame Mwangi', extra: 'KCB Bank' },
-        ],
-        escrowAddresses: { USDT: { network: 'TRC20', address: 'TTx882KLa92mZbQpP004NqK599eL' } },
-        offers: [
-          { side: 'sell', asset: 'USDT', fiat: 'KES', price: 132.5, min: 500, max: 100000, methods: ['M-Pesa (Safaricom)'], active: true },
-          { side: 'buy', asset: 'USDT', fiat: 'KES', price: 129.8, min: 500, max: 80000, methods: ['Bank Transfer'], active: true },
-        ],
-        escrowAddr: 'TTx882KLa92mZbQpP004NqK599eL', telegram: '-10048291048', totalVolume: 8940000, joined: '2023-11-04'
       },
       {
         id: 'm_ngn1', name: 'OluwaP2P', email: 'oluwa@apexlagos.ng', phone: '+234 803 123 4567',
@@ -1669,21 +1645,6 @@
           { side: 'buy', asset: 'USDT', fiat: 'NGN', price: 1470, min: 1000, max: 400000, methods: ['Bank Transfer'], active: true },
         ],
         escrowAddr: 'TTx882KLa92mZbQpP004NqK599eL', telegram: '-10039281729', totalVolume: 3410000, joined: '2024-02-18'
-      },
-      {
-        id: 'm_eur1', name: 'EuroExpress_OTC', email: 'desk@euroexpress-crypto.eu', phone: '+49 30 901820',
-        country: 'Germany', initial: 'E', verified: true, isOnline: false, lastActive: '45 min ago',
-        trades: 5410, completion: 98.9, positive: 99, time: '15 min', status: 'active',
-        currencies: ['EUR', 'GBP'], methods: ['SEPA', 'Revolut', 'Wise'],
-        paymentDetails: [
-          { method: 'SEPA', account: 'DE89370400440532013000', holder: 'EuroExpress OTC', extra: 'SEPA Instant' },
-          { method: 'Revolut', account: 'euroexpress@revolut.com', holder: 'EuroExpress OTC', extra: '' },
-        ],
-        escrowAddresses: { USDT: { network: 'TRC20', address: 'TTx882KLa92mZbQpP004NqK599eL' } },
-        offers: [
-          { side: 'sell', asset: 'USDT', fiat: 'EUR', price: 0.94, min: 100, max: 5000, methods: ['SEPA'], active: true },
-        ],
-        escrowAddr: 'TTx882KLa92mZbQpP004NqK599eL', telegram: '@EuroExpressDesk', totalVolume: 6100000, joined: '2023-09-12'
       }
     ];
 
@@ -1709,12 +1670,10 @@
       syncToCustomerPortal();
     }
 
-    // Merge with existing bp_merchants (does not wipe unknown merchants)
     function syncToCustomerPortal() {
       let existing = {};
       try { existing = JSON.parse(localStorage.getItem('bp_merchants') || '{}') || {}; } catch (e) {}
 
-      // Build the admin-provided map
       const adminMap = {};
       merchants.forEach(m => {
         if (m.status !== 'suspended') {
@@ -1741,8 +1700,6 @@
         }
       });
 
-      // Merge: for each currency, admin-provided merchants replace same-id entries,
-      // unknown merchants from existing stay in place.
       const result = {};
       const allCurrencies = new Set([...Object.keys(existing), ...Object.keys(adminMap)]);
       allCurrencies.forEach(curr => {
@@ -1774,7 +1731,6 @@
       return '$' + Number(amount || 0).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
     }
 
-    // Count helpers
     function hasSellOffers(m) {
       return (m.offers || []).some(o => o.active && o.side === 'sell');
     }
@@ -1987,7 +1943,7 @@
     }
 
     /* ============================================================
-       DRAWER
+       DRAWER CONTROLLER
        ============================================================ */
     function openDrawer(id) {
       selectedMerchant = merchants.find(m => m.id === id);
@@ -2014,7 +1970,6 @@
       document.getElementById('dTelegram').textContent = m.telegram || 'Not bound';
       document.getElementById('dJoined').textContent = m.joined || '—';
 
-      // Offers summary
       const sellCount = (m.offers || []).filter(o => o.active && o.side === 'sell').length;
       const buyCount = (m.offers || []).filter(o => o.active && o.side === 'buy').length;
       document.getElementById('dOffersSummary').innerHTML = `
@@ -2022,7 +1977,6 @@
         <div class="detail-row"><span class="lbl">Buy offers</span><span class="val">${buyCount}</span></div>
       `;
 
-      // Escrow
       const escrows = m.escrowAddresses || {};
       const escrowKeys = Object.keys(escrows);
       document.getElementById('dEscrowList').innerHTML = escrowKeys.length
@@ -2041,10 +1995,12 @@
       document.getElementById('drawerOverlay').classList.add('open');
       document.getElementById('drawer').classList.add('open');
     }
+
     function closeDrawer() {
       document.getElementById('drawerOverlay').classList.remove('open');
       document.getElementById('drawer').classList.remove('open');
     }
+
     function switchDrawerTab(tabId) {
       document.querySelectorAll('.drawer-tab').forEach(t => t.classList.toggle('active', t.getAttribute('data-tab') === tabId));
       document.querySelectorAll('.detail-panel').forEach(p => p.classList.toggle('active', p.id === `panel-${tabId}`));
@@ -2079,8 +2035,9 @@
       saveMerchants();
       render();
       openDrawer(selectedMerchant.id);
-      showToast('Offer updated');
+      showToast('Offer status updated');
     }
+
     function deleteOffer(idx) {
       if (!selectedMerchant) return;
       if (!confirm('Delete this offer?')) return;
@@ -2143,17 +2100,18 @@
         row.innerHTML = `
           <div class="rr-head"><span>Account ${idx + 1}</span><button type="button" class="rr-delete" onclick="this.closest('.repeater-row').remove()">Remove</button></div>
           <div class="rr-grid-2">
-            <div class="form-group"><label>Method</label><input type="text" class="form-input pay-method" value="${p.method || ''}" placeholder="Zelle, Bank Transfer..."></div>
-            <div class="form-group"><label>Account</label><input type="text" class="form-input pay-account" value="${p.account || ''}" placeholder="Account / phone / email"></div>
+            <div class="form-group"><label>Method</label><input type="text" class="form-input pay-method" value="${p.method || ''}" placeholder="Zelle, M-Pesa, Bank Transfer..."></div>
+            <div class="form-group"><label>Account / Details</label><input type="text" class="form-input pay-account" value="${p.account || ''}" placeholder="Phone, account number, or email"></div>
           </div>
           <div class="rr-grid-2">
-            <div class="form-group"><label>Holder</label><input type="text" class="form-input pay-holder" value="${p.holder || ''}" placeholder="Account holder name"></div>
-            <div class="form-group"><label>Extra</label><input type="text" class="form-input pay-extra" value="${p.extra || ''}" placeholder="Bank name, note..."></div>
+            <div class="form-group"><label>Account Holder</label><input type="text" class="form-input pay-holder" value="${p.holder || ''}" placeholder="Official name on account"></div>
+            <div class="form-group"><label>Extra Instructions</label><input type="text" class="form-input pay-extra" value="${p.extra || ''}" placeholder="Bank name, branch, or paybill note"></div>
           </div>
         `;
         wrap.appendChild(row);
       });
     }
+
     function addPaymentRow() {
       const wrap = document.getElementById('paymentAccountsWrap');
       const row = document.createElement('div');
@@ -2161,12 +2119,12 @@
       row.innerHTML = `
         <div class="rr-head"><span>New Account</span><button type="button" class="rr-delete" onclick="this.closest('.repeater-row').remove()">Remove</button></div>
         <div class="rr-grid-2">
-          <div class="form-group"><label>Method</label><input type="text" class="form-input pay-method" placeholder="Zelle, Bank Transfer..."></div>
-          <div class="form-group"><label>Account</label><input type="text" class="form-input pay-account" placeholder="Account / phone / email"></div>
+          <div class="form-group"><label>Method</label><input type="text" class="form-input pay-method" placeholder="Zelle, M-Pesa, Bank Transfer..."></div>
+          <div class="form-group"><label>Account / Details</label><input type="text" class="form-input pay-account" placeholder="Phone, account number, or email"></div>
         </div>
         <div class="rr-grid-2">
-          <div class="form-group"><label>Holder</label><input type="text" class="form-input pay-holder" placeholder="Account holder name"></div>
-          <div class="form-group"><label>Extra</label><input type="text" class="form-input pay-extra" placeholder="Bank name, note..."></div>
+          <div class="form-group"><label>Account Holder</label><input type="text" class="form-input pay-holder" placeholder="Official name on account"></div>
+          <div class="form-group"><label>Extra Instructions</label><input type="text" class="form-input pay-extra" placeholder="Bank name, branch, or paybill note"></div>
         </div>
       `;
       wrap.appendChild(row);
@@ -2181,26 +2139,27 @@
         const row = document.createElement('div');
         row.className = 'repeater-row';
         row.innerHTML = `
-          <div class="rr-head"><span>Escrow address</span><button type="button" class="rr-delete" onclick="this.closest('.repeater-row').remove()">Remove</button></div>
+          <div class="rr-head"><span>Escrow Address</span><button type="button" class="rr-delete" onclick="this.closest('.repeater-row').remove()">Remove</button></div>
           <div class="rr-grid-3">
             <div class="form-group"><label>Asset</label><input type="text" class="form-input esc-asset" value="${asset}" placeholder="USDT, BTC, ETH..."></div>
-            <div class="form-group"><label>Network</label><input type="text" class="form-input esc-network" value="${obj.network || ''}" placeholder="TRC20, ERC20..."></div>
-            <div class="form-group"><label>Address</label><input type="text" class="form-input esc-address" value="${obj.address || ''}" placeholder="Wallet address"></div>
+            <div class="form-group"><label>Network</label><input type="text" class="form-input esc-network" value="${obj.network || ''}" placeholder="TRC20, ERC20, BEP20..."></div>
+            <div class="form-group"><label>Wallet Address</label><input type="text" class="form-input esc-address" value="${obj.address || ''}" placeholder="Cryptocurrency address"></div>
           </div>
         `;
         wrap.appendChild(row);
       });
     }
+
     function addEscrowRow() {
       const wrap = document.getElementById('escrowWrap');
       const row = document.createElement('div');
       row.className = 'repeater-row';
       row.innerHTML = `
-        <div class="rr-head"><span>New escrow address</span><button type="button" class="rr-delete" onclick="this.closest('.repeater-row').remove()">Remove</button></div>
+        <div class="rr-head"><span>New Escrow Address</span><button type="button" class="rr-delete" onclick="this.closest('.repeater-row').remove()">Remove</button></div>
         <div class="rr-grid-3">
           <div class="form-group"><label>Asset</label><input type="text" class="form-input esc-asset" placeholder="USDT, BTC..."></div>
           <div class="form-group"><label>Network</label><input type="text" class="form-input esc-network" placeholder="TRC20, ERC20..."></div>
-          <div class="form-group"><label>Address</label><input type="text" class="form-input esc-address" placeholder="Wallet address"></div>
+          <div class="form-group"><label>Wallet Address</label><input type="text" class="form-input esc-address" placeholder="Cryptocurrency address"></div>
         </div>
       `;
       wrap.appendChild(row);
@@ -2229,26 +2188,27 @@
           </div>
           <div class="rr-grid-3">
             <div class="form-group"><label>Price</label><input type="number" step="0.0001" class="form-input off-price" value="${o.price || 0}"></div>
-            <div class="form-group"><label>Min</label><input type="number" class="form-input off-min" value="${o.min || 0}"></div>
-            <div class="form-group"><label>Max</label><input type="number" class="form-input off-max" value="${o.max || 0}"></div>
+            <div class="form-group"><label>Min Limit</label><input type="number" class="form-input off-min" value="${o.min || 0}"></div>
+            <div class="form-group"><label>Max Limit</label><input type="number" class="form-input off-max" value="${o.max || 0}"></div>
           </div>
           <div class="rr-grid-2">
-            <div class="form-group"><label>Payment Methods (comma)</label><input type="text" class="form-input off-methods" value="${(o.methods || []).join(', ')}" placeholder="Zelle, Bank Transfer"></div>
-            <div class="form-group"><label>Active</label>
-              <label class="offer-toggle"><input type="checkbox" class="off-active" ${o.active !== false ? 'checked' : ''}> Offer is live</label>
+            <div class="form-group"><label>Payment Methods (comma)</label><input type="text" class="form-input off-methods" value="${(o.methods || []).join(', ')}" placeholder="Zelle, Bank Transfer, M-Pesa"></div>
+            <div class="form-group"><label>Status</label>
+              <label class="offer-toggle"><input type="checkbox" class="off-active" ${o.active !== false ? 'checked' : ''}> Active on matching engine</label>
             </div>
           </div>
         `;
         wrap.appendChild(row);
       });
     }
+
     function addOfferRow() {
       const wrap = document.getElementById('offersWrap');
       const row = document.createElement('div');
       row.className = 'repeater-row';
       row.innerHTML = `
         <div class="rr-head">
-          <span>New offer</span>
+          <span>New Offer</span>
           <button type="button" class="rr-delete" onclick="this.closest('.repeater-row').remove()">Remove</button>
         </div>
         <div class="rr-grid-3">
@@ -2263,13 +2223,13 @@
         </div>
         <div class="rr-grid-3">
           <div class="form-group"><label>Price</label><input type="number" step="0.0001" class="form-input off-price" value="0"></div>
-          <div class="form-group"><label>Min</label><input type="number" class="form-input off-min" value="0"></div>
-          <div class="form-group"><label>Max</label><input type="number" class="form-input off-max" value="0"></div>
+          <div class="form-group"><label>Min Limit</label><input type="number" class="form-input off-min" value="0"></div>
+          <div class="form-group"><label>Max Limit</label><input type="number" class="form-input off-max" value="0"></div>
         </div>
         <div class="rr-grid-2">
-          <div class="form-group"><label>Payment Methods (comma)</label><input type="text" class="form-input off-methods" placeholder="Zelle, Bank Transfer"></div>
-          <div class="form-group"><label>Active</label>
-            <label class="offer-toggle"><input type="checkbox" class="off-active" checked> Offer is live</label>
+          <div class="form-group"><label>Payment Methods (comma)</label><input type="text" class="form-input off-methods" placeholder="Zelle, Bank Transfer, M-Pesa"></div>
+          <div class="form-group"><label>Status</label>
+            <label class="offer-toggle"><input type="checkbox" class="off-active" checked> Active on matching engine</label>
           </div>
         </div>
       `;
@@ -2287,6 +2247,7 @@
       });
       return out;
     }
+
     function collectEscrowRows() {
       const out = {};
       document.querySelectorAll('#escrowWrap .repeater-row').forEach(row => {
@@ -2297,6 +2258,7 @@
       });
       return out;
     }
+
     function collectOfferRows() {
       const out = [];
       document.querySelectorAll('#offersWrap .repeater-row').forEach(row => {
@@ -2362,6 +2324,7 @@
       renderOfferRows(m.offers || []);
       document.getElementById('merchantModalOverlay').classList.add('open');
     }
+
     function closeModal() {
       document.getElementById('merchantModalOverlay').classList.remove('open');
     }
@@ -2423,7 +2386,7 @@
     }
 
     /* ============================================================
-       ADMIN ACTIONS
+       ADMIN CONTROLS
        ============================================================ */
     function toggleOnlineStatus() {
       if (!selectedMerchant) return;
@@ -2432,18 +2395,26 @@
       saveMerchants(); render(); openDrawer(selectedMerchant.id);
       showToast(`${selectedMerchant.name} is now ${selectedMerchant.isOnline ? 'ONLINE' : 'OFFLINE'}`);
     }
+
     function toggleVerification() {
       if (!selectedMerchant) return;
       selectedMerchant.verified = !selectedMerchant.verified;
       saveMerchants(); render(); openDrawer(selectedMerchant.id);
       showToast(`${selectedMerchant.name} verification: ${selectedMerchant.verified ? 'VERIFIED' : 'UNVERIFIED'}`);
     }
+
     function toggleSuspension() {
       if (!selectedMerchant) return;
-      if (selectedMerchant.status === 'suspended') { selectedMerchant.status = 'active'; showToast(`${selectedMerchant.name} reactivated`); }
-      else { selectedMerchant.status = 'suspended'; showToast(`${selectedMerchant.name} suspended`); }
+      if (selectedMerchant.status === 'suspended') {
+        selectedMerchant.status = 'active';
+        showToast(`${selectedMerchant.name} reactivated`);
+      } else {
+        selectedMerchant.status = 'suspended';
+        showToast(`${selectedMerchant.name} suspended from matching engine`);
+      }
       saveMerchants(); render(); openDrawer(selectedMerchant.id);
     }
+
     function deleteMerchant() {
       if (!selectedMerchant) return;
       if (!confirm(`Permanently delete merchant "${selectedMerchant.name}"?`)) return;
@@ -2452,6 +2423,7 @@
       saveMerchants(); closeDrawer(); render();
       showToast(`Merchant ${name} removed`);
     }
+
     function pingTelegramTest() {
       if (!selectedMerchant) return;
       if (!selectedMerchant.telegram) { showToast('No Telegram ID configured'); return; }
@@ -2477,7 +2449,7 @@
       link.setAttribute('href', encodeURI(csv));
       link.setAttribute('download', `bluepeak_merchants_${new Date().toISOString().split('T')[0]}.csv`);
       document.body.appendChild(link); link.click(); document.body.removeChild(link);
-      showToast('Merchant CSV exported');
+      showToast('Merchant directory CSV exported');
     }
 
     let toastTimer = null;
@@ -2507,7 +2479,7 @@
       document.getElementById('logoutBtn').addEventListener('click', () => {
         if (confirm('Sign out from Bluepeak Capital Admin Desk?')) {
           localStorage.removeItem('bp_admin_session');
-          window.location.href = 'admin-users.html';
+          window.location.href = 'admin-login.html';
         }
       });
 
