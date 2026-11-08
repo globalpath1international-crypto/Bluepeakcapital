@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#0A1A2F">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <title>Bluepeak Capital â€” Buy, Sell, Swap Crypto</title>
+  <title>Bluepeak Capital — Buy, Sell, Swap Crypto</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
@@ -65,7 +65,6 @@
     .logo .wordmark .blue { color: var(--navy-900); }
     .logo .wordmark .peak { color: var(--gold-500); position: relative; display: inline-block; }
     .logo .wordmark .peak::after { content: ''; position: absolute; right: -4px; bottom: 4px; width: 4px; height: 4px; border-radius: 50%; background: var(--gold-500); }
-    .logo .tagline { font-size: 8.5px; font-weight: 700; color: var(--gray-500); letter-spacing: 1.6px; text-transform: uppercase; padding: 3px 7px; border-left: 1.5px solid var(--gold-500); line-height: 1; }
 
     .header-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
 
@@ -244,7 +243,7 @@
     .c.negative { color: var(--red-500); }
     .sel-check { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--gray-300); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
     .sel-item.selected .sel-check { background: var(--green-500); border-color: var(--green-500); }
-    .sel-item.selected .sel-check::after { content: 'âœ“'; color: #fff; font-size: 13px; font-weight: 800; }
+    .sel-item.selected .sel-check::after { content: '✓'; color: #fff; font-size: 13px; font-weight: 800; }
 
     .swap-rate-banner { background: linear-gradient(135deg, var(--navy-900), var(--navy-800)); border-radius: var(--radius-lg); padding: 22px 20px; color: var(--white); display: flex; flex-direction: column; gap: 6px; box-shadow: var(--shadow-md); position: relative; overflow: hidden; }
     .swap-rate-banner::after { content: ''; position: absolute; bottom: -30%; right: -10%; width: 180px; height: 180px; border-radius: 50%; background: radial-gradient(circle, rgba(201, 168, 76, 0.18), transparent 70%); pointer-events: none; }
@@ -408,14 +407,13 @@
     .profile-menu button.danger { color: var(--red-500); }
 
     /* ============================================================
-       RESPONSIVE â€” MOBILE-FIRST UP
+       RESPONSIVE — MOBILE-FIRST UP
        ============================================================ */
 
     /* Extra small (iPhone SE, small Android) */
     @media (max-width: 380px) {
       .app-header { padding: 10px 12px; }
       .logo .wordmark { font-size: 17px; }
-      .logo .tagline { display: none; }
       .header-right { gap: 6px; }
       .auth-btn-signin, .auth-btn-join { padding: 7px 10px; font-size: 11px; min-height: 34px; }
       .balance-wrapper { padding: 4px 4px 4px 10px; font-size: 12px; }
@@ -562,7 +560,6 @@
       body { padding-bottom: 104px; }
       .app-header { padding: 16px 48px; }
       .logo .wordmark { font-size: 26px; }
-      .logo .tagline { font-size: 9.5px; }
       .header-right { gap: 14px; }
       .balance-wrapper { font-size: 14.5px; padding: 6px 6px 6px 14px; }
       .eye-toggle { width: 28px; height: 28px; }
@@ -953,7 +950,7 @@
         <span class="blue">BLUE</span><span class="peak">PEAK</span>
         <small>CAPITAL</small>
       </div>
-      <button class="drawer-close" id="drawerClose" aria-label="Close menu">âœ•</button>
+      <button class="drawer-close" id="drawerClose" aria-label="Close menu">✕</button>
     </div>
 
     <div class="drawer-auth-block" id="drawerAuthBlock">
@@ -962,23 +959,23 @@
     </div>
 
     <div class="drawer-section-label">Main</div>
-    <a class="drawer-link" href="index.html"><span class="nav-ico">ðŸ </span>Home</a>
-    <a class="drawer-link" href="p2p.html" data-requires-auth><span class="nav-ico">ðŸ¤</span>P2P Trading</a>
-    <a class="drawer-link" href="swap.html" data-requires-auth><span class="nav-ico">â‡„</span>Swap</a>
-    <a class="drawer-link" href="trade.html" data-requires-auth><span class="nav-ico">ðŸ“ˆ</span>Trade</a>
-    <a class="drawer-link" href="wallet.html" data-requires-auth><span class="nav-ico">ðŸ‘›</span>Wallet</a>
-    <a class="drawer-link" href="markets.html"><span class="nav-ico">ðŸ“Š</span>Markets</a>
+    <a class="drawer-link" href="index.html"><span class="nav-ico">🏠</span>Home</a>
+    <a class="drawer-link" href="p2p.html" data-requires-auth><span class="nav-ico">🤝</span>P2P Trading</a>
+    <a class="drawer-link" href="swap.html" data-requires-auth><span class="nav-ico">⇄</span>Swap</a>
+    <a class="drawer-link" href="trade.html" data-requires-auth><span class="nav-ico">📈</span>Trade</a>
+    <a class="drawer-link" href="wallet.html" data-requires-auth><span class="nav-ico">👛</span>Wallet</a>
+    <a class="drawer-link" href="markets.html"><span class="nav-ico">📊</span>Markets</a>
 
     <div class="drawer-divider"></div>
     <div class="drawer-section-label">Account</div>
-    <a class="drawer-link" href="transaction-history.html" data-requires-auth><span class="nav-ico">ðŸ“œ</span>Transactions</a>
-    <a class="drawer-link" href="profile.html" data-requires-auth><span class="nav-ico">ðŸ‘¤</span>Profile</a>
-    <a class="drawer-link" href="kyc.html" data-requires-auth><span class="nav-ico">ðŸªª</span>KYC Verification</a>
-    <a class="drawer-link" href="settings.html" data-requires-auth><span class="nav-ico">âš™ï¸</span>Settings</a>
-    <a class="drawer-link" href="help.html"><span class="nav-ico">ðŸ’¬</span>Help Center</a>
+    <a class="drawer-link" href="transaction-history.html" data-requires-auth><span class="nav-ico">📜</span>Transactions</a>
+    <a class="drawer-link" href="profile.html" data-requires-auth><span class="nav-ico">👤</span>Profile</a>
+    <a class="drawer-link" href="kyc.html" data-requires-auth><span class="nav-ico">🪪</span>KYC Verification</a>
+    <a class="drawer-link" href="settings.html" data-requires-auth><span class="nav-ico">⚙️</span>Settings</a>
+    <a class="drawer-link" href="help.html"><span class="nav-ico">💬</span>Help Center</a>
 
     <div class="drawer-divider"></div>
-    <button class="drawer-link danger" id="drawerLogout" style="display:none;"><span class="nav-ico">ðŸšª</span>Logout</button>
+    <button class="drawer-link danger" id="drawerLogout" style="display:none;"><span class="nav-ico">🚪</span>Logout</button>
   </aside>
 
   <div class="notification-panel" id="notificationPanel">
@@ -994,22 +991,22 @@
       <div class="pm-name" id="pmName">User</div>
       <div class="pm-email" id="pmEmail">user@bluepeak.com</div>
     </div>
-    <button onclick="location.href='profile.html'">ðŸ‘¤ Profile</button>
-    <button onclick="location.href='transaction-history.html'">ðŸ“œ Transactions</button>
-    <button onclick="location.href='wallet.html'">ðŸ‘› Wallet</button>
-    <button onclick="location.href='settings.html'">âš™ï¸ Settings</button>
-    <button onclick="location.href='kyc.html'">ðŸªª KYC Verification</button>
-    <button class="danger" id="pmLogout">ðŸšª Logout</button>
+    <button onclick="location.href='profile.html'">👤 Profile</button>
+    <button onclick="location.href='transaction-history.html'">📜 Transactions</button>
+    <button onclick="location.href='wallet.html'">👛 Wallet</button>
+    <button onclick="location.href='settings.html'">⚙️ Settings</button>
+    <button onclick="location.href='kyc.html'">🪪 KYC Verification</button>
+    <button class="danger" id="pmLogout">🚪 Logout</button>
   </div>
 
   <div class="selector-overlay" id="assetSelectorOverlay"></div>
   <div class="selector-modal" id="assetSelector">
     <div class="selector-header">
       <h3>Select Asset</h3>
-      <button class="selector-close" id="assetSelectorClose">âœ•</button>
+      <button class="selector-close" id="assetSelectorClose">✕</button>
     </div>
     <div class="selector-search">
-      <input type="text" id="assetSearchInput" placeholder="Search assetsâ€¦" autocomplete="off">
+      <input type="text" id="assetSearchInput" placeholder="Search assets…" autocomplete="off">
     </div>
     <div class="selector-list" id="assetSelectorList"></div>
   </div>
@@ -1018,10 +1015,10 @@
   <div class="selector-modal" id="paymentSelector">
     <div class="selector-header">
       <h3>I pay with</h3>
-      <button class="selector-close" id="paymentSelectorClose">âœ•</button>
+      <button class="selector-close" id="paymentSelectorClose">✕</button>
     </div>
     <div class="selector-search">
-      <input type="text" id="paymentSearchInput" placeholder="Search payment methodsâ€¦" autocomplete="off">
+      <input type="text" id="paymentSearchInput" placeholder="Search payment methods…" autocomplete="off">
     </div>
     <div class="selector-list" id="paymentSelectorList"></div>
   </div>
@@ -1051,7 +1048,7 @@
       </div>
       <div class="avatar" id="avatarBtn" role="button" tabindex="0" style="display:none;">U</div>
       <button class="bell" id="bellBtn" aria-label="Notifications" style="display:none;">
-        ðŸ””
+        🔔
         <span class="badge" id="notifBadge"></span>
       </button>
     </div>
@@ -1071,7 +1068,7 @@
       </section>
 
       <div class="market-ticker-wrapper" id="marketTickerWrapper">
-        <div class="ticker-loading" id="tickerLoading">Loading market dataâ€¦</div>
+        <div class="ticker-loading" id="tickerLoading">Loading market data…</div>
       </div>
 
       <div class="tab-selector" id="tabSelector" role="tablist">
@@ -1109,7 +1106,7 @@
             <label class="field-label">I pay with</label>
             <div class="asset-select-card" id="paymentMethodTrigger" style="cursor:pointer;">
               <div class="asset-left">
-                <div class="sel-icon" id="selectedPaymentIcon">ðŸ¦</div>
+                <div class="sel-icon" id="selectedPaymentIcon">🏦</div>
                 <div class="asset-info">
                   <span class="asset-main-label" id="selectedPaymentLabel">Bank Transfer</span>
                   <span class="asset-sub" id="selectedPaymentSub">Select payment method</span>
@@ -1128,7 +1125,7 @@
               <h3 style="font-size:18px;font-weight:800;color:var(--navy-900);letter-spacing:-0.4px;line-height:1.2;">Explore P2P Marketplace</h3>
               <p style="font-size:12.5px;font-weight:600;color:var(--navy-800);margin-top:3px;opacity:0.85;">Discover verified merchants and live offers</p>
             </div>
-            <div style="width:40px;height:40px;border-radius:50%;background:var(--navy-900);color:var(--gold-400);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">â†’</div>
+            <div style="width:40px;height:40px;border-radius:50%;background:var(--navy-900);color:var(--gold-400);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">→</div>
           </div>
 
           <div class="field-group">
@@ -1149,9 +1146,9 @@
 
         <div class="panel" id="panel-swap" role="tabpanel">
           <div class="swap-rate-banner" id="swapRateBanner">
-            <span class="sr-live"><span class="pulse"></span>Live Rate Â· Instant Cashout</span>
-            <div class="sr-rate" id="swapLiveRate">â€”<span class="unit" id="swapLiveRateUnit"></span></div>
-            <div class="sr-sub" id="swapLiveRateSub">Fetching real-time rateâ€¦</div>
+            <span class="sr-live"><span class="pulse"></span>Live Rate · Instant Cashout</span>
+            <div class="sr-rate" id="swapLiveRate">—<span class="unit" id="swapLiveRateUnit"></span></div>
+            <div class="sr-sub" id="swapLiveRateSub">Fetching real-time rate…</div>
           </div>
 
           <p class="panel-desc">Instantly swap between major cryptocurrencies at real-time rates with transparent fees.</p>
@@ -1171,7 +1168,7 @@
           </div>
 
           <div class="swap-arrow-container">
-            <button class="swap-arrow-btn" id="swapDirectionBtn" aria-label="Reverse swap direction">â‡…</button>
+            <button class="swap-arrow-btn" id="swapDirectionBtn" aria-label="Reverse swap direction">⇅</button>
           </div>
 
           <div class="field-group">
@@ -1185,9 +1182,9 @@
               </select>
               <input type="number" class="input-field" id="swapToAmount" placeholder="0.00" readonly style="background:var(--navy-50);font-weight:800;color:var(--green-500);">
             </div>
-            <div class="info-row"><span>Estimated exchange rate</span><strong id="swapRate">â€”</strong></div>
-            <div class="info-row"><span>Network fee</span><strong id="swapNetworkFee">â€”</strong></div>
-            <div class="info-row"><span>Minimum received</span><strong id="swapMinReceived">â€”</strong></div>
+            <div class="info-row"><span>Estimated exchange rate</span><strong id="swapRate">—</strong></div>
+            <div class="info-row"><span>Network fee</span><strong id="swapNetworkFee">—</strong></div>
+            <div class="info-row"><span>Minimum received</span><strong id="swapMinReceived">—</strong></div>
           </div>
 
           <button class="btn-primary btn-gold" id="swapReviewBtn">Swap Now</button>
@@ -1195,16 +1192,16 @@
         </div>
 
         <div class="panel" id="panel-trade" role="tabpanel">
-          <p class="panel-desc">Access real-time markets with advanced tools â€” trade manually or let automation work for you.</p>
+          <p class="panel-desc">Access real-time markets with advanced tools — trade manually or let automation work for you.</p>
 
           <div class="trade-action-grid">
             <div class="trade-action-card" id="tradeBotCard">
-              <div class="tac-icon bot">ðŸ¤–</div>
+              <div class="tac-icon bot">🤖</div>
               <h4>Trade with Bot</h4>
               <p>Automated strategies & passkey access</p>
             </div>
             <div class="trade-action-card" id="tradeChartCard">
-              <div class="tac-icon chart">ðŸ“Š</div>
+              <div class="tac-icon chart">📊</div>
               <h4>Live Candles</h4>
               <p>Professional charting interface</p>
             </div>
@@ -1212,7 +1209,7 @@
 
           <div class="bot-panel" id="botPanel">
             <div class="bot-panel-header">
-              <h4>ðŸ¤– Default Bot <span class="bot-badge">ACTIVE</span></h4>
+              <h4>🤖 Default Bot <span class="bot-badge">ACTIVE</span></h4>
             </div>
             <div class="passkey-box">
               <code id="botPasskey">BLUEPEAK-BOT-7X9K-2M4P-QR8T</code>
@@ -1221,9 +1218,9 @@
             <div class="upgrade-banner" id="upgradeBotBanner">
               <div class="upgrade-banner-text">
                 <h5>Upgrade to <span class="gold">Sniper Quantum Bot</span></h5>
-                <p>Lightning execution Â· MEV protection Â· Advanced signals</p>
+                <p>Lightning execution · MEV protection · Advanced signals</p>
               </div>
-              <div class="upgrade-arrow">â†’</div>
+              <div class="upgrade-arrow">→</div>
             </div>
           </div>
 
@@ -1236,8 +1233,8 @@
             </select>
           </div>
 
-          <div class="info-row"><span>Current price</span><strong id="tradePrice">â€”</strong></div>
-          <div class="info-row"><span>24h change</span><strong id="tradeChange">â€”</strong></div>
+          <div class="info-row"><span>Current price</span><strong id="tradePrice">—</strong></div>
+          <div class="info-row"><span>24h change</span><strong id="tradeChange">—</strong></div>
 
           <div class="toggle-group" id="tradeBuySellToggle">
             <button class="toggle-btn active-toggle" data-trade-mode="buy">Buy</button>
@@ -1259,7 +1256,7 @@
           </div>
 
           <div class="info-row"><span>Available balance</span><strong id="tradeAvailableBalance">$0.00</strong></div>
-          <div class="info-row"><span>Estimated fees</span><strong id="tradeFees">â€”</strong></div>
+          <div class="info-row"><span>Estimated fees</span><strong id="tradeFees">—</strong></div>
 
           <button class="btn-primary" id="tradeReviewBtn">Review Order</button>
         </div>
@@ -1270,15 +1267,15 @@
           <div class="marketcap-statement-text">
             <p><strong>Your portfolio, powered by real-time data.</strong> Track top assets, spot opportunities, and <span class="highlight">fund your account instantly</span> to start trading.</p>
           </div>
-          <button class="deposit-btn" id="depositBtn">Deposit â†’</button>
+          <button class="deposit-btn" id="depositBtn">Deposit →</button>
         </div>
 
         <div class="marketcap-header">
-          <h3><span class="live-dot"></span>Market Cap â€” Top Assets</h3>
+          <h3><span class="live-dot"></span>Market Cap — Top Assets</h3>
           <span class="marketcap-updated" id="marketcapUpdated">Live</span>
         </div>
         <div class="marketcap-grid" id="marketcapGrid">
-          <div class="ticker-loading" style="padding:14px;grid-column:1/-1;">Loading market cap dataâ€¦</div>
+          <div class="ticker-loading" style="padding:14px;grid-column:1/-1;">Loading market cap data…</div>
         </div>
       </div>
     </div>
@@ -1374,56 +1371,56 @@
       $('#drawerJoinBtn').addEventListener('click', () => go('auth.html#signup'));
 
       // ============================================================
-      // COUNTRY â†’ PAYMENT METHOD
+      // COUNTRY → PAYMENT METHOD
       // ============================================================
       const COUNTRY_DEFAULT_PAYMENT = {
-        KE: { name: 'M-Pesa Kenya', icon: 'ðŸ“±', sub: 'Safaricom M-Pesa Â· Kenya', flag: 'ðŸ‡°ðŸ‡ª', label: 'Kenya' },
-        TZ: { name: 'M-Pesa Tanzania', icon: 'ðŸ“±', sub: 'Vodacom M-Pesa Â· Tanzania', flag: 'ðŸ‡¹ðŸ‡¿', label: 'Tanzania' },
-        GH: { name: 'MTN MoMo Ghana', icon: 'ðŸ“²', sub: 'MTN Mobile Money Â· Ghana', flag: 'ðŸ‡¬ðŸ‡­', label: 'Ghana' },
-        NG: { name: 'Paystack', icon: 'ðŸ’ ', sub: 'Nigeria & Ghana', flag: 'ðŸ‡³ðŸ‡¬', label: 'Nigeria' },
-        ZA: { name: 'Bank Transfer', icon: 'ðŸ¦', sub: 'Standard bank transfer', flag: 'ðŸ‡¿ðŸ‡¦', label: 'South Africa' },
-        SN: { name: 'Orange Money Senegal', icon: 'ðŸŸ ', sub: 'Orange Money Â· Senegal', flag: 'ðŸ‡¸ðŸ‡³', label: 'Senegal' },
-        EG: { name: 'Flutterwave', icon: 'ðŸŒŠ', sub: 'Pan-African payments', flag: 'ðŸ‡ªðŸ‡¬', label: 'Egypt' },
-        US: { name: 'Zelle', icon: 'âš¡', sub: 'United States', flag: 'ðŸ‡ºðŸ‡¸', label: 'United States' },
-        BR: { name: 'PIX', icon: 'âš¡', sub: 'Brazil', flag: 'ðŸ‡§ðŸ‡·', label: 'Brazil' },
-        GB: { name: 'Bank Transfer', icon: 'ðŸ¦', sub: 'Standard bank transfer', flag: 'ðŸ‡¬ðŸ‡§', label: 'United Kingdom' },
-        DE: { name: 'SEPA', icon: 'ðŸ‡ªðŸ‡º', sub: 'Euro transfers', flag: 'ðŸ‡©ðŸ‡ª', label: 'Germany' },
-        FR: { name: 'SEPA', icon: 'ðŸ‡ªðŸ‡º', sub: 'Euro transfers', flag: 'ðŸ‡«ðŸ‡·', label: 'France' },
-        ES: { name: 'SEPA', icon: 'ðŸ‡ªðŸ‡º', sub: 'Euro transfers', flag: 'ðŸ‡ªðŸ‡¸', label: 'Spain' },
-        IN: { name: 'UPI', icon: 'ðŸ‡®ðŸ‡³', sub: 'India', flag: 'ðŸ‡®ðŸ‡³', label: 'India' },
-        CN: { name: 'Alipay', icon: 'ðŸ‡¨ðŸ‡³', sub: 'China', flag: 'ðŸ‡¨ðŸ‡³', label: 'China' },
+        KE: { name: 'M-Pesa Kenya', icon: '📱', sub: 'Safaricom M-Pesa · Kenya', flag: '🇰🇪', label: 'Kenya' },
+        TZ: { name: 'M-Pesa Tanzania', icon: '📱', sub: 'Vodacom M-Pesa · Tanzania', flag: '🇹🇿', label: 'Tanzania' },
+        GH: { name: 'MTN MoMo Ghana', icon: '📲', sub: 'MTN Mobile Money · Ghana', flag: '🇬🇭', label: 'Ghana' },
+        NG: { name: 'Paystack', icon: '💠', sub: 'Nigeria & Ghana', flag: '🇳🇬', label: 'Nigeria' },
+        ZA: { name: 'Bank Transfer', icon: '🏦', sub: 'Standard bank transfer', flag: '🇿🇦', label: 'South Africa' },
+        SN: { name: 'Orange Money Senegal', icon: '🟠', sub: 'Orange Money · Senegal', flag: '🇸🇳', label: 'Senegal' },
+        EG: { name: 'Flutterwave', icon: '🌊', sub: 'Pan-African payments', flag: '🇪🇬', label: 'Egypt' },
+        US: { name: 'Zelle', icon: '⚡', sub: 'United States', flag: '🇺🇸', label: 'United States' },
+        BR: { name: 'PIX', icon: '⚡', sub: 'Brazil', flag: '🇧🇷', label: 'Brazil' },
+        GB: { name: 'Bank Transfer', icon: '🏦', sub: 'Standard bank transfer', flag: '🇬🇧', label: 'United Kingdom' },
+        DE: { name: 'SEPA', icon: '🇪🇺', sub: 'Euro transfers', flag: '🇩🇪', label: 'Germany' },
+        FR: { name: 'SEPA', icon: '🇪🇺', sub: 'Euro transfers', flag: '🇫🇷', label: 'France' },
+        ES: { name: 'SEPA', icon: '🇪🇺', sub: 'Euro transfers', flag: '🇪🇸', label: 'Spain' },
+        IN: { name: 'UPI', icon: '🇮🇳', sub: 'India', flag: '🇮🇳', label: 'India' },
+        CN: { name: 'Alipay', icon: '🇨🇳', sub: 'China', flag: '🇨🇳', label: 'China' },
       };
 
       const PAYMENT_METHODS = [
         { group: 'Global', items: [
-          { name: 'Bank Transfer', icon: 'ðŸ¦', sub: 'Standard bank transfer' },
-          { name: 'Visa / Mastercard', icon: 'ðŸ’³', sub: 'Debit or credit card' },
-          { name: 'PayPal', icon: 'ðŸ…¿ï¸', sub: 'PayPal balance' },
-          { name: 'Wise', icon: 'ðŸŒ', sub: 'International transfer' },
+          { name: 'Bank Transfer', icon: '🏦', sub: 'Standard bank transfer' },
+          { name: 'Visa / Mastercard', icon: '💳', sub: 'Debit or credit card' },
+          { name: 'PayPal', icon: '🅿️', sub: 'PayPal balance' },
+          { name: 'Wise', icon: '🌐', sub: 'International transfer' },
         ]},
-        { group: 'Africa â€” Mobile Money', items: [
-          { name: 'M-Pesa Kenya', icon: 'ðŸ“±', sub: 'Safaricom M-Pesa Â· Kenya' },
-          { name: 'M-Pesa Tanzania', icon: 'ðŸ“±', sub: 'Vodacom M-Pesa Â· Tanzania' },
-          { name: 'MTN MoMo Ghana', icon: 'ðŸ“²', sub: 'MTN Mobile Money Â· Ghana' },
-          { name: 'Airtel Money Kenya', icon: 'ðŸ“¶', sub: 'Airtel Money Â· Kenya' },
-          { name: 'Orange Money Senegal', icon: 'ðŸŸ ', sub: 'Orange Money Â· Senegal' },
-          { name: 'Flutterwave', icon: 'ðŸŒŠ', sub: 'Pan-African payments' },
-          { name: 'Paystack', icon: 'ðŸ’ ', sub: 'Nigeria & Ghana' },
+        { group: 'Africa — Mobile Money', items: [
+          { name: 'M-Pesa Kenya', icon: '📱', sub: 'Safaricom M-Pesa · Kenya' },
+          { name: 'M-Pesa Tanzania', icon: '📱', sub: 'Vodacom M-Pesa · Tanzania' },
+          { name: 'MTN MoMo Ghana', icon: '📲', sub: 'MTN Mobile Money · Ghana' },
+          { name: 'Airtel Money Kenya', icon: '📶', sub: 'Airtel Money · Kenya' },
+          { name: 'Orange Money Senegal', icon: '🟠', sub: 'Orange Money · Senegal' },
+          { name: 'Flutterwave', icon: '🌊', sub: 'Pan-African payments' },
+          { name: 'Paystack', icon: '💠', sub: 'Nigeria & Ghana' },
         ]},
         { group: 'Americas', items: [
-          { name: 'ACH Transfer', icon: 'ðŸ¦', sub: 'United States' },
-          { name: 'Zelle', icon: 'âš¡', sub: 'United States' },
-          { name: 'Venmo', icon: 'ðŸ’¸', sub: 'United States' },
-          { name: 'PIX', icon: 'âš¡', sub: 'Brazil' },
+          { name: 'ACH Transfer', icon: '🏦', sub: 'United States' },
+          { name: 'Zelle', icon: '⚡', sub: 'United States' },
+          { name: 'Venmo', icon: '💸', sub: 'United States' },
+          { name: 'PIX', icon: '⚡', sub: 'Brazil' },
         ]},
         { group: 'Europe & Asia', items: [
-          { name: 'SEPA', icon: 'ðŸ‡ªðŸ‡º', sub: 'Euro transfers' },
-          { name: 'Alipay', icon: 'ðŸ‡¨ðŸ‡³', sub: 'China' },
-          { name: 'UPI', icon: 'ðŸ‡®ðŸ‡³', sub: 'India' },
+          { name: 'SEPA', icon: '🇪🇺', sub: 'Euro transfers' },
+          { name: 'Alipay', icon: '🇨🇳', sub: 'China' },
+          { name: 'UPI', icon: '🇮🇳', sub: 'India' },
         ]},
       ];
 
-      let selectedPayment = { name: 'Bank Transfer', icon: 'ðŸ¦', sub: 'Bank transfer payment' };
+      let selectedPayment = { name: 'Bank Transfer', icon: '🏦', sub: 'Bank transfer payment' };
       let selectedCountryMeta = null;
       if (userCountry && COUNTRY_DEFAULT_PAYMENT[userCountry]) {
         const c = COUNTRY_DEFAULT_PAYMENT[userCountry];
@@ -1434,7 +1431,7 @@
         if (!$('#selectedPaymentLabel')) return;
         $('#selectedPaymentLabel').textContent = selectedPayment.name;
         $('#selectedPaymentSub').textContent = selectedCountryMeta
-          ? `${selectedCountryMeta.flag} ${selectedCountryMeta.label} Â· ${selectedPayment.sub}`
+          ? `${selectedCountryMeta.flag} ${selectedCountryMeta.label} · ${selectedPayment.sub}`
           : selectedPayment.sub;
         $('#selectedPaymentIcon').textContent = selectedPayment.icon;
       }
@@ -1456,12 +1453,26 @@
       let currentHeaderBalance = '$0.00';
 
       function computePortfolioValue() {
+        // Real user balance only. Strictly reads bp_user_balances.
+        // Missing key, empty object, NaN, negative, or non-numeric values → 0.
+        // No session fallback. No hardcoded seed. No demo padding.
         let balances = {};
-        try { balances = JSON.parse(localStorage.getItem('bp_user_balances') || '{}'); } catch (e) {}
+        try { balances = JSON.parse(localStorage.getItem('bp_user_balances') || '{}'); } catch (e) { balances = {}; }
+        if (!balances || typeof balances !== 'object') return 0;
+
+        const PRICE_MAP = (typeof marketPrices === 'object' && marketPrices) ? marketPrices : {};
+        const FALLBACK = (typeof FALLBACK_PRICES === 'object' && FALLBACK_PRICES) ? FALLBACK_PRICES : {};
+
         let total = 0;
-        Object.keys(balances).forEach(sym => { total += (parseFloat(balances[sym]) || 0) * priceOf(sym); });
-        // Balance strictly comes from bp_user_balances. No session fallback.
-        // New users with no deposits/P2P see $0.00 until real credit lands.
+        Object.keys(balances).forEach(sym => {
+          const raw = parseFloat(balances[sym]);
+          const amt = (isFinite(raw) && raw > 0) ? raw : 0;
+          if (amt === 0) return;
+          const p = (typeof PRICE_MAP[sym] === 'number' && PRICE_MAP[sym] > 0)
+            ? PRICE_MAP[sym]
+            : ((typeof FALLBACK[sym] === 'number' && FALLBACK[sym] > 0) ? FALLBACK[sym] : 0);
+          if (p > 0) total += amt * p;
+        });
         return total;
       }
 
@@ -1473,7 +1484,7 @@
           balanceDisplay.textContent = currentHeaderBalance;
           balanceDisplay.classList.remove('masked');
         } else {
-          balanceDisplay.textContent = 'â€¢â€¢â€¢â€¢â€¢â€¢';
+          balanceDisplay.textContent = '••••••';
           balanceDisplay.classList.add('masked');
         }
       }
@@ -1694,7 +1705,7 @@
         try {
           const res = await fetch(direct, { mode: 'cors' });
           if (res.ok) data = await res.json();
-        } catch (e) { /* CORS/network â€” fall through */ }
+        } catch (e) { /* CORS/network — fall through */ }
 
         if (!data) {
           const proxies = [
@@ -1823,7 +1834,7 @@
                 ${act.label}
               </div>
             </div>
-            <div class="qa-card-rate">${price ? formatPrice(price) : 'â€”'}</div>
+            <div class="qa-card-rate">${price ? formatPrice(price) : '—'}</div>
             <div class="qa-card-sub">${act.mode === 'buy' ? 'Instant buy rate' : 'Instant sell rate'}</div>
           </div>`;
         }).join('');
@@ -1934,7 +1945,7 @@
           const matches = group.items.filter(item => !q || item.name.toLowerCase().includes(q) || item.sub.toLowerCase().includes(q));
           if (matches.length === 0) return;
           const isCountryGroup = selectedCountryMeta && group.items.some(i => i.name === selectedPayment.name);
-          html += `<div class="selector-group-label">${isCountryGroup ? 'â­ ' : ''}${group.group}</div>`;
+          html += `<div class="selector-group-label">${isCountryGroup ? '⭐ ' : ''}${group.group}</div>`;
           matches.forEach(item => {
             const isSelected = selectedPayment && selectedPayment.name === item.name;
             html += `<div class="sel-item ${isSelected ? 'selected' : ''}" data-payment-name="${item.name}">
@@ -1952,7 +1963,7 @@
             if (found) {
               selectedPayment = found;
               $('#selectedPaymentLabel').textContent = found.name;
-              $('#selectedPaymentSub').textContent = selectedCountryMeta ? `${selectedCountryMeta.flag} ${selectedCountryMeta.label} Â· ${found.sub}` : found.sub;
+              $('#selectedPaymentSub').textContent = selectedCountryMeta ? `${selectedCountryMeta.flag} ${selectedCountryMeta.label} · ${found.sub}` : found.sub;
               $('#selectedPaymentIcon').textContent = found.icon;
               saveP2PState();
               closePaymentSelector();
@@ -2008,7 +2019,7 @@
         const fromPrice = tickerPrices[fromAsset.id]?.price || 0;
         const toPrice = tickerPrices[toAsset.id]?.price || 0;
         if (fromAmt <= 0 || !fromPrice || !toPrice) {
-          $('#swapToAmount').value = ''; $('#swapRate').textContent = 'â€”'; $('#swapNetworkFee').textContent = 'â€”'; $('#swapMinReceived').textContent = 'â€”';
+          $('#swapToAmount').value = ''; $('#swapRate').textContent = '—'; $('#swapNetworkFee').textContent = '—'; $('#swapMinReceived').textContent = '—';
           return;
         }
         const gross = (fromAmt * fromPrice) / toPrice;
@@ -2016,7 +2027,7 @@
         const net = gross - fee;
         const toLabel = $('#swapToAsset').value.replace('_TRC20', '');
         $('#swapToAmount').value = net.toFixed(6);
-        $('#swapRate').textContent = `1 ${$('#swapFromAsset').value.replace('_TRC20', '')} â‰ˆ ${(fromPrice / toPrice).toFixed(6)} ${toLabel}`;
+        $('#swapRate').textContent = `1 ${$('#swapFromAsset').value.replace('_TRC20', '')} ≈ ${(fromPrice / toPrice).toFixed(6)} ${toLabel}`;
         $('#swapNetworkFee').textContent = fee.toFixed(6) + ' ' + toLabel;
         $('#swapMinReceived').textContent = (net * 0.995).toFixed(6) + ' ' + toLabel;
       }
@@ -2026,7 +2037,7 @@
         if (d && $('#swapLiveRate')) {
           $('#swapLiveRate').innerHTML = formatPrice(d.price) + '<span class="unit">/ BTC</span>';
           const sign = d.change >= 0 ? '+' : '';
-          $('#swapLiveRateSub').innerHTML = `<span style="color:${d.change >= 0 ? 'var(--green-500)' : 'var(--red-500)'}">${sign}${d.change.toFixed(2)}%</span> Â· Updated ${d.timestamp}`;
+          $('#swapLiveRateSub').innerHTML = `<span style="color:${d.change >= 0 ? 'var(--green-500)' : 'var(--red-500)'}">${sign}${d.change.toFixed(2)}%</span> · Updated ${d.timestamp}`;
         }
       }
       if ($('#swapFromAmount')) {
@@ -2134,13 +2145,38 @@
       document.addEventListener('visibilitychange', () => {
         if (!document.hidden) refreshBalancePill();
       });
+
+      // Keep the header balance pill in sync with real wallet activity.
+      // Fires when other pages write bp_user_balances / bp_market_prices /
+      // bp_user_session / bp_user_profile in another tab or after login.
+      window.addEventListener('storage', (e) => {
+        if (!e || !e.key) return;
+        if (e.key === 'bp_user_balances' || e.key === 'bp_market_prices') {
+          try { marketPrices = JSON.parse(localStorage.getItem('bp_market_prices') || '{}'); } catch (_) {}
+          refreshBalancePill();
+        }
+        if (e.key === 'bp_user_session' || e.key === 'bp_user_profile') {
+          try { user = JSON.parse(localStorage.getItem('bp_user_session') || 'null'); } catch (_) {}
+          try { refreshBalancePill(); } catch (_) {}
+        }
+      });
+
+      window.addEventListener('focus', () => {
+        try { marketPrices = JSON.parse(localStorage.getItem('bp_market_prices') || '{}'); } catch (_) {}
+        refreshBalancePill();
+      });
+
+      // One-time recompute shortly after load, in case market prices or
+      // bp_user_balances are written milliseconds after the initial paint.
+      setTimeout(refreshBalancePill, 300);
+      setTimeout(refreshBalancePill, 1200);
     })();
   
-    /* index.html â€” ADDITIONS
+    /* index.html — ADDITIONS
        0. Identity source of truth: bp_user_profile, mirrored to bp_user_session + bp_user_* legacy keys; no placeholders.
-       1. Responsive: no horizontal overflow at 320â€“1920; refined paddings, grid columns, bottom nav, header, selectors.
-       2. Header balance is computed strictly from bp_user_balances Ã— live prices; session balance fallback removed.
-       3. Notifications now include real events: welcome, sign-in, KYC, P2P updates, deposits, withdrawals, admin messages, disputes, bot errors â€” persisted in bp_user_notifications with unread styling.
+       1. Responsive: no horizontal overflow at 320–1920; refined paddings, grid columns, bottom nav, header, selectors.
+       2. Header balance is computed strictly from bp_user_balances × live prices; session balance fallback removed.
+       3. Notifications now include real events: welcome, sign-in, KYC, P2P updates, deposits, withdrawals, admin messages, disputes, bot errors — persisted in bp_user_notifications with unread styling.
        4. Profile menu redesigned: avatar + real name + real email + KYC pill, inline SVG icons, direct navigation, logout with divider.
        5. Smooth navigation via navigateTo() guard (single-tab, no double-fire).
        6. All existing functionality untouched: hero, ticker, panels, selectors, market cap, bottom nav, drawer, notification panel base behavior, existing functions.
@@ -2293,7 +2329,8 @@
 
         let total = 0;
         Object.keys(balances).forEach(sym => {
-          const val = parseFloat(balances[sym]) || 0;
+          const raw = parseFloat(balances[sym]);
+          const val = (isFinite(raw) && raw > 0) ? raw : 0;
           const p = marketPrices[sym] || fallbackPrices[sym] || 0;
           total += val * p;
         });
@@ -2310,7 +2347,7 @@
         const formatted = '$' + total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
         if (balanceDisplay.classList.contains('masked')) {
-          balanceDisplay.textContent = 'â€¢â€¢â€¢â€¢â€¢â€¢';
+          balanceDisplay.textContent = '••••••';
         } else {
           balanceDisplay.textContent = formatted;
         }
@@ -2350,16 +2387,16 @@
 
       function getNotificationIcon(type) {
         switch (type) {
-          case 'welcome': return 'ðŸ‘‹';
-          case 'signin': return 'ðŸ”';
-          case 'kyc': return 'ðŸªª';
-          case 'p2p': return 'ðŸ¤';
-          case 'deposit': return 'ðŸ’°';
-          case 'withdraw': return 'ðŸ“¤';
-          case 'admin': return 'ðŸ’¬';
-          case 'dispute': return 'ðŸš©';
-          case 'bot': return 'ðŸ¤–';
-          default: return 'ðŸ””';
+          case 'welcome': return '👋';
+          case 'signin': return '🔐';
+          case 'kyc': return '🪪';
+          case 'p2p': return '🤝';
+          case 'deposit': return '💰';
+          case 'withdraw': return '📤';
+          case 'admin': return '💬';
+          case 'dispute': return '🚩';
+          case 'bot': return '🤖';
+          default: return '🔔';
         }
       }
 
@@ -2529,7 +2566,7 @@
                 <div class="pm-real-name" id="pmName">${ident.name}</div>
                 <div class="pm-real-email" id="pmEmail">${ident.email || 'Account verified'}</div>
                 <span class="pm-kyc-pill ${kycIsVerified ? '' : 'unverified'}">
-                  ${kycIsVerified ? 'âœ“ ' : 'â„¹ '}${kycLabel}
+                  ${kycIsVerified ? '✓ ' : 'ℹ '}${kycLabel}
                 </span>
               </div>
             </div>
