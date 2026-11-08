@@ -502,9 +502,7 @@
     .card-link:hover { text-decoration: underline; }
     .card-body { padding: 16px 18px; }
 
-    /* ============================================================
-       MERCHANT CHAT INBOX - EXPANDED & REAL-TIME
-       ============================================================ */
+    /* CHAT INBOX */
     .chat-layout {
       display: grid;
       grid-template-columns: 310px 1fr;
@@ -725,7 +723,7 @@
       text-align: right;
     }
 
-    /* QUICK CANNED REPLIES */
+    /* CANNED REPLIES */
     .canned-responses-row {
       display: flex;
       gap: 5px;
@@ -834,19 +832,8 @@
     .chat-empty h4 { font-size: 13.5px; font-weight: 800; color: var(--navy-900); margin-bottom: 4px; }
     .chat-empty p { font-size: 12px; font-weight: 500; }
 
-    /* ============================================================
-       VOLUME CHART & TIME SELECTORS
-       ============================================================ */
-    .chart-container {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .chart-header-controls {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+    /* VOLUME CHART */
+    .chart-container { display: flex; flex-direction: column; gap: 8px; }
     .chart-time-pills { display: flex; gap: 4px; }
     .chart-time-pill {
       padding: 4px 10px;
@@ -911,9 +898,7 @@
     .chart-labels-row { display: flex; gap: 8px; margin-top: 6px; }
     .chart-label-text { flex: 1; text-align: center; font-size: 10px; font-weight: 700; color: var(--gray-500); }
 
-    /* ============================================================
-       RUNNING BOTS PANEL
-       ============================================================ */
+    /* RUNNING BOTS */
     .bot-list { display: flex; flex-direction: column; gap: 8px; }
     .bot-row {
       display: flex;
@@ -979,9 +964,7 @@
     .bot-control-btn:hover { background: var(--gold-100); border-color: var(--gold-500); }
     .bot-control-btn svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2.2; }
 
-    /* ============================================================
-       ALERTS & ESCALATIONS
-       ============================================================ */
+    /* ALERTS */
     .alerts-list { display: flex; flex-direction: column; gap: 8px; }
     .alert-item {
       display: flex;
@@ -1014,14 +997,8 @@
       display: inline-block;
     }
 
-    /* ============================================================
-       ACTIVITY FEED
-       ============================================================ */
-    .activity-filter-bar {
-      display: flex;
-      gap: 4px;
-      margin-bottom: 10px;
-    }
+    /* ACTIVITY FEED */
+    .activity-filter-bar { display: flex; gap: 4px; margin-bottom: 10px; }
     .act-pill {
       font-size: 10px;
       font-weight: 700;
@@ -1074,9 +1051,7 @@
     .activity-amount.positive { color: var(--green-600); }
     .activity-amount.negative { color: var(--red-500); }
 
-    /* ============================================================
-       QUICK COMMAND MODAL (Ctrl + K)
-       ============================================================ */
+    /* COMMAND PALETTE MODAL */
     .cmd-overlay {
       position: fixed;
       inset: 0;
@@ -1221,7 +1196,7 @@
       <a href="admin-merchants.html" class="nav-item"><span class="nav-ico">🏪</span> Merchants</a>
       <a href="admin-p2p-orders.html" class="nav-item"><span class="nav-ico">📋</span> Live P2P Orders <span class="nav-badge" id="ordersBadge">0</span></a>
       <a href="admin-kyc.html" class="nav-item"><span class="nav-ico">🪪</span> KYC Reviews <span class="nav-badge" id="kycBadge">0</span></a>
-      <a href="admin-transactions.html" class="nav-item"><span class="nav-ico">💸</span> Transactions</a>
+      <a href="admin-transactions.html" class="nav-item"><span class="nav-ico">💸</span> Transactions <span class="nav-badge" id="txBadge" style="display:none;">0</span></a>
       <a href="admin-bots.html" class="nav-item"><span class="nav-ico">🤖</span> Bot Manager</a>
 
       <div class="nav-section-label">System</div>
@@ -1235,7 +1210,7 @@
     </div>
   </aside>
 
-  <!-- MAIN -->
+  <!-- MAIN WRAPPER -->
   <div class="main-wrap">
     <!-- TOPBAR -->
     <header class="topbar">
@@ -1330,32 +1305,32 @@
         <div class="stat-card" style="--kpi-tint: rgba(37, 99, 235, 0.12);">
           <div class="stat-label">Total Platform Volume <span style="font-size:14px;">📈</span></div>
           <div class="stat-value blue" id="kpiVolume">$0.00</div>
-          <div class="stat-sub positive"><span>▲ +14.8%</span> 24h rolling velocity</div>
+          <div class="stat-sub positive" id="kpiVolumeSub"><span>▲ Active</span> Net volume</div>
         </div>
 
         <div class="stat-card" style="--kpi-tint: rgba(15, 157, 110, 0.12);">
           <div class="stat-label">Active Escrow Value <span style="font-size:14px;">🛡️</span></div>
           <div class="stat-value green" id="kpiEscrow">$0.00</div>
-          <div class="stat-sub" id="kpiEscrowSub">Locked across live orders</div>
+          <div class="stat-sub" id="kpiEscrowSub">0 orders in escrow</div>
         </div>
 
         <div class="stat-card" style="--kpi-tint: rgba(201, 168, 76, 0.15);">
           <div class="stat-label">Registered Accounts <span style="font-size:14px;">👥</span></div>
           <div class="stat-value gold" id="kpiUsers">0</div>
-          <div class="stat-sub" id="kpiUsersSub">Tier 2/3 verified clients</div>
+          <div class="stat-sub" id="kpiUsersSub">Verified client accounts</div>
         </div>
 
         <div class="stat-card" style="--kpi-tint: rgba(209, 67, 67, 0.12);">
           <div class="stat-label">Pending Action Queue <span style="font-size:14px;">⏳</span></div>
           <div class="stat-value purple" id="kpiPending">0</div>
-          <div class="stat-sub danger" id="kpiPendingSub">Disputes, KYC &amp; Withdrawals</div>
+          <div class="stat-sub danger" id="kpiPendingSub">Withdrawals &amp; P2P Escrows</div>
         </div>
       </div>
 
       <!-- MAIN GRID -->
       <div class="main-grid">
 
-        <!-- LEFT COLUMN: MERCHANT CHAT INBOX & VOLUME CHART -->
+        <!-- LEFT COLUMN: MERCHANT CHAT INBOX, CHART & OPERATIONS STREAM -->
         <div style="display:flex; flex-direction:column; gap:16px;">
 
           <!-- CHAT INBOX -->
@@ -1446,7 +1421,7 @@
             </div>
           </div>
 
-          <!-- LIVE ACTIVITY TIMELINE -->
+          <!-- LIVE OPERATIONS TIMELINE (CONNECTED TO REAL DEPOSITS & WITHDRAWALS) -->
           <div class="card">
             <div class="card-header">
               <h3>Live Operations &amp; Settlement Stream</h3>
@@ -1489,7 +1464,7 @@
             </div>
           </div>
 
-          <!-- SYSTEM PLATFORM INTEGRATIONS -->
+          <!-- PLATFORM INFRASTRUCTURE -->
           <div class="card">
             <div class="card-header">
               <h3>Platform Infrastructure</h3>
@@ -1498,10 +1473,10 @@
             <div class="card-body">
               <div style="display:flex; flex-direction:column; gap:8px;">
                 <div style="display:flex; align-items:center; gap:10px; padding:10px 12px; background:var(--navy-50); border:1px solid var(--gray-200); border-radius:var(--radius-sm);">
-                  <div style="width:28px; height:28px; border-radius:6px; background:var(--white); border:1px solid var(--gray-200); display:flex; align-items:center; justify-content:center; font-size:14px;">✈️</div>
+                  <div style="width:28px; height:28px; border-radius:6px; background:var(--white); border:1px solid var(--gray-200); display:flex; align-items:center; justify-content:center; font-size:14px;">⚡</div>
                   <div style="flex:1; min-width:0;">
-                    <div style="font-size:12px; font-weight:800; color:var(--navy-900);">Telegram Merchant Bot Bridge</div>
-                    <div style="font-size:10.5px; color:var(--gray-500);">Two-way push alerts &amp; order releases</div>
+                    <div style="font-size:12px; font-weight:800; color:var(--navy-900);">NOWPayments Gateway API</div>
+                    <div style="font-size:10.5px; color:var(--gray-500);">Auto-deposits &amp; blockchain webhooks</div>
                   </div>
                   <span style="font-size:9.5px; font-weight:800; padding:2px 7px; border-radius:var(--radius-pill); background:var(--green-100); color:var(--green-600);">LIVE</span>
                 </div>
@@ -1510,7 +1485,7 @@
                   <div style="width:28px; height:28px; border-radius:6px; background:var(--white); border:1px solid var(--gray-200); display:flex; align-items:center; justify-content:center; font-size:14px;">⛓️</div>
                   <div style="flex:1; min-width:0;">
                     <div style="font-size:12px; font-weight:800; color:var(--navy-900);">TRC20 / ERC20 Vault Watcher</div>
-                    <div style="font-size:10.5px; color:var(--gray-500);">Instant escrow confirmation listener</div>
+                    <div style="font-size:10.5px; color:var(--gray-500);">Instant confirmation listener</div>
                   </div>
                   <span style="font-size:9.5px; font-weight:800; padding:2px 7px; border-radius:var(--radius-pill); background:var(--green-100); color:var(--green-600);">ACTIVE</span>
                 </div>
@@ -1534,7 +1509,7 @@
     </main>
   </div>
 
-  <!-- COMMAND PALETTE MODAL (Ctrl + K) -->
+  <!-- COMMAND PALETTE (Ctrl + K) -->
   <div class="cmd-overlay" id="cmdOverlay">
     <div class="cmd-box">
       <div class="cmd-input-row">
@@ -1546,7 +1521,6 @@
     </div>
   </div>
 
-  <!-- TOAST -->
   <div class="toast" id="toast"></div>
 
   <script>
@@ -1564,7 +1538,6 @@
       return def;
     }
 
-    // Toast
     let toastTimer = null;
     function showToast(msg) {
       const t = document.getElementById('toast');
@@ -1574,21 +1547,26 @@
       toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
     }
 
-    // Escape HTML helper
     function escapeHtml(str) {
       return (str || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
     }
 
+    function readStorage(key, fallback = []) {
+      try {
+        const v = localStorage.getItem(key);
+        return v ? JSON.parse(v) : fallback;
+      } catch (e) {
+        return fallback;
+      }
+    }
+
     /* ============================================================
-       SEED & LOAD DATA
+       CHAT THREADS & ESCROW INBOX
        ============================================================ */
     function loadChatThreads() {
-      let chats = [];
-      try {
-        chats = JSON.parse(localStorage.getItem('bp_admin_chats') || '[]');
-      } catch (e) {}
+      let chats = readStorage('bp_admin_chats', []);
 
-      if (!chats || !chats.length) {
+      if (!chats.length) {
         chats = [
           {
             id: 'chat-1',
@@ -1624,42 +1602,6 @@
             messages: [
               { from: 'system', text: '0.045 BTC deposited to escrow wallet.', time: '15:05', ts: Date.now() - 950000 },
               { from: 'customer', text: 'Zelle transfer completed to david@swiftliquidity.io.', time: '15:10', ts: Date.now() - 900000 }
-            ]
-          },
-          {
-            id: 'chat-3',
-            order: 'ORD-8845',
-            merchant: 'OluwaP2P',
-            merchantInitial: 'O',
-            buyer: 'Chidi Okonkwo',
-            asset: 'USDT',
-            amount: '1,200.00',
-            fiat: '1,860,000 NGN',
-            side: 'BUY',
-            status: 'disputed',
-            unread: false,
-            messages: [
-              { from: 'customer', text: 'I transferred via PalmPay 30 mins ago. Still no release.', time: '13:40', ts: Date.now() - 5400000 },
-              { from: 'merchant', text: 'No credit received on merchant account yet.', time: '13:48', ts: Date.now() - 5000000 },
-              { from: 'system', text: 'Dispute opened by buyer. Admin mediation requested.', time: '13:55', ts: Date.now() - 4600000 }
-            ]
-          },
-          {
-            id: 'chat-4',
-            order: 'ORD-8856',
-            merchant: 'EuroExpress_OTC',
-            merchantInitial: 'E',
-            buyer: 'Marcus Weber',
-            asset: 'ETH',
-            amount: '1.20',
-            fiat: '3,840.00 EUR',
-            side: 'BUY',
-            status: 'completed',
-            unread: false,
-            messages: [
-              { from: 'customer', text: 'SEPA instant transfer dispatched.', time: '11:15', ts: Date.now() - 10800000 },
-              { from: 'merchant', text: 'Received. Escrow released. Thank you!', time: '11:18', ts: Date.now() - 10600000 },
-              { from: 'system', text: 'Order completed successfully.', time: '11:18', ts: Date.now() - 10600000 }
             ]
           }
         ];
@@ -1784,10 +1726,9 @@
       thread.unread = false;
       saveChats();
 
-      // Mirror to customer P2P order chat in localStorage
       try {
         const key = `bp_p2p_chat_${thread.order}`;
-        const userChats = JSON.parse(localStorage.getItem(key) || '[]');
+        const userChats = readStorage(key, []);
         userChats.push({
           sender: 'merchant',
           merchant: thread.merchant,
@@ -1872,7 +1813,6 @@
           }
         });
       } catch (e) {
-        // Fallback prices if blocked by network/offline
         const fallbacks = { BTC: 81450, ETH: 3240, SOL: 158 };
         Object.keys(fallbacks).forEach(sym => {
           const el = document.getElementById(`bot-price-${sym}`);
@@ -1882,81 +1822,125 @@
     }
 
     /* ============================================================
-       KPIs & ALERTS
+       REAL DYNAMIC KPIs & NOTIFICATIONS
        ============================================================ */
     function loadMetrics() {
-      // Users
-      let userCount = 5;
-      try {
-        const users = JSON.parse(localStorage.getItem('bp_users') || '[]');
-        if (users.length) userCount = users.length;
-      } catch (e) {}
+      // 1. Registered users
+      const users = readStorage('bp_users', []);
+      const userCount = users.length > 0 ? users.length : 1;
+      document.getElementById('kpiUsers').textContent = userCount.toLocaleString();
+      document.getElementById('kpiUsersSub').textContent = `${userCount} verified client account${userCount > 1 ? 's' : ''}`;
 
-      // Orders
-      let orders = [];
-      try {
-        orders = JSON.parse(localStorage.getItem('bp_p2p_orders') || '[]');
-      } catch (e) {}
+      // 2. Active P2P Escrow
+      const orders = readStorage('bp_p2p_orders', []);
+      const activeEscrowOrders = orders.filter(o => ['pending', 'paid', 'disputed'].includes(o.status));
+      const escrowSum = activeEscrowOrders.reduce((sum, o) => sum + (parseFloat(o.cryptoAmount || o.amountUSD || o.amount || 0) || 0), 0);
+      document.getElementById('kpiEscrow').textContent = '$' + escrowSum.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      document.getElementById('kpiEscrowSub').textContent = `${activeEscrowOrders.length} order(s) currently locked`;
 
-      const activeEscrowOrders = orders.filter(o => o.status === 'pending' || o.status === 'paid' || o.status === 'disputed');
-      let escrowSum = activeEscrowOrders.reduce((sum, o) => sum + (parseFloat(o.cryptoAmount || o.amountUSD || 500) || 500), 0);
-      if (escrowSum === 0) escrowSum = 48500;
+      // 3. Pending Queue: Pending Withdrawals from withdraw.html + P2P + KYC
+      const withdrawals = readStorage('bp_withdrawals', []);
+      const pendingWithdrawals = withdrawals.filter(w => w.status === 'pending');
+      const kycStatus = localStorage.getItem('bp_kyc_status');
+      const pendingKyc = (kycStatus === 'pending') ? 1 : 0;
+      const totalPending = pendingWithdrawals.length + activeEscrowOrders.length + pendingKyc;
+
+      document.getElementById('kpiPending').textContent = totalPending;
+      document.getElementById('kpiPendingSub').textContent = `${pendingWithdrawals.length} withdrawal(s) &bull; ${activeEscrowOrders.length} escrow(s)`;
+
+      // 4. Cumulative Real Volume (Deposits + Settled trades)
+      const transactions = readStorage('bp_transactions', []);
+      let totalVolume = 0;
+      transactions.forEach(t => {
+        if (['Completed', 'completed', 'finished'].includes(t.status)) {
+          totalVolume += (parseFloat(t.amount || 0) || 0);
+        }
+      });
+      orders.forEach(o => {
+        if (o.status === 'completed') {
+          totalVolume += (parseFloat(o.cryptoAmount || o.amount || 0) || 0);
+        }
+      });
+      document.getElementById('kpiVolume').textContent = '$' + totalVolume.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
       // Badges
-      const pendingOrdersCount = activeEscrowOrders.length || 2;
-      document.getElementById('ordersBadge').textContent = pendingOrdersCount;
-      document.getElementById('ordersBadge').style.display = pendingOrdersCount > 0 ? 'inline-block' : 'none';
+      const ordersBadge = document.getElementById('ordersBadge');
+      ordersBadge.textContent = activeEscrowOrders.length;
+      ordersBadge.style.display = activeEscrowOrders.length > 0 ? 'inline-block' : 'none';
 
-      let pendingKyc = 1;
-      try {
-        const kycStatus = localStorage.getItem('bp_kyc_status');
-        if (kycStatus === 'pending') pendingKyc = 2;
-      } catch (e) {}
-      document.getElementById('kycBadge').textContent = pendingKyc;
+      const kycBadge = document.getElementById('kycBadge');
+      kycBadge.textContent = pendingKyc;
+      kycBadge.style.display = pendingKyc > 0 ? 'inline-block' : 'none';
 
-      document.getElementById('kpiVolume').textContent = '$1,482,900';
-      document.getElementById('kpiEscrow').textContent = '$' + escrowSum.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
-      document.getElementById('kpiEscrowSub').textContent = `${pendingOrdersCount} orders currently in escrow`;
-      document.getElementById('kpiUsers').textContent = userCount.toLocaleString();
-      document.getElementById('kpiUsersSub').textContent = `${Math.floor(userCount * 0.85)} Tier 2/3 verified`;
+      const txBadge = document.getElementById('txBadge');
+      if (txBadge) {
+        txBadge.textContent = pendingWithdrawals.length;
+        txBadge.style.display = pendingWithdrawals.length > 0 ? 'inline-block' : 'none';
+      }
 
-      const totalPendingActions = pendingOrdersCount + pendingKyc;
-      document.getElementById('kpiPending').textContent = totalPendingActions;
+      // Render Dynamic Alerts
+      renderDynamicAlerts(pendingWithdrawals, activeEscrowOrders, pendingKyc);
+    }
 
-      // Alerts
-      const alerts = [
-        {
-          type: 'warning',
-          icon: '🪪',
-          title: '2 KYC Tier 2 applications pending audit',
-          desc: 'High net worth client identities awaiting biometric validation.',
-          action: 'Audit KYC queue',
-          link: 'admin-kyc.html'
-        },
-        {
+    function renderDynamicAlerts(pendingWds, activeOrders, pendingKyc) {
+      const alerts = [];
+
+      // Alert for real client withdrawals waiting for approval
+      if (pendingWds.length > 0) {
+        alerts.push({
+          type: 'critical',
+          icon: '💸',
+          title: `${pendingWds.length} Client Withdrawal(s) Awaiting Approval`,
+          desc: `Latest: ${pendingWds[0].amount} ${pendingWds[0].asset} to ${pendingWds[0].address.slice(0, 10)}...`,
+          action: 'Authorize on Ledger',
+          link: 'admin-transactions.html'
+        });
+      }
+
+      // Escrow / Dispute alert
+      const disputed = activeOrders.filter(o => o.status === 'disputed');
+      if (disputed.length > 0) {
+        alerts.push({
           type: 'critical',
           icon: '⚖️',
-          title: '1 P2P Trade Escrow dispute flagged (Order #ORD-8845)',
-          desc: 'Buyer reported payment sent via PalmPay; seller dispute ongoing.',
+          title: `${disputed.length} P2P Trade Escrow Dispute Flagged`,
+          desc: `Buyer and seller dispute open on ${disputed[0].id || 'active order'}.`,
           action: 'Mediate dispute',
           link: 'admin-p2p-orders.html'
-        },
-        {
+        });
+      } else if (activeOrders.length > 0) {
+        alerts.push({
+          type: 'warning',
+          icon: '🛡️',
+          title: `${activeOrders.length} Active Escrow Order(s) In Progress`,
+          desc: 'Clients awaiting merchant payment confirmations.',
+          action: 'Review orders',
+          link: 'admin-p2p-orders.html'
+        });
+      }
+
+      // KYC Alert
+      if (pendingKyc > 0) {
+        alerts.push({
           type: 'info',
-          icon: '💬',
-          title: 'Unread buyer messages in P2P inbox',
-          desc: 'Clients waiting on merchant confirmations.',
-          action: 'Open first thread',
-          fn: () => {
-            const first = chatThreads.find(c => c.unread);
-            if (first) {
-              activeChatId = first.id;
-              renderThreadList();
-              renderActiveChat();
-            }
-          }
-        }
-      ];
+          icon: '🪪',
+          title: 'KYC Verification Application Pending',
+          desc: 'Client identity documents submitted for compliance review.',
+          action: 'Audit KYC queue',
+          link: 'admin-kyc.html'
+        });
+      }
+
+      if (!alerts.length) {
+        alerts.push({
+          type: 'info',
+          icon: '✅',
+          title: 'System Operating Normally',
+          desc: 'All client settlement ledgers and escrows are currently balanced.',
+          action: 'View All Users',
+          link: 'admin-users.html'
+        });
+      }
 
       document.getElementById('alertsList').innerHTML = alerts.map(a => `
         <div class="alert-item ${a.type}">
@@ -1964,16 +1948,14 @@
           <div class="alert-content">
             <div class="alert-title">${a.title}</div>
             <div class="alert-desc">${a.desc}</div>
-            ${a.link
-              ? `<a href="${a.link}" class="alert-action">${a.action} &rarr;</a>`
-              : `<button class="alert-action" onclick="alerts[2].fn()">${a.action} &rarr;</button>`}
+            <a href="${a.link}" class="alert-action">${a.action} &rarr;</a>
           </div>
         </div>
       `).join('');
     }
 
     /* ============================================================
-       VOLUME CHART
+       VOLUME CHART (7D & 30D)
        ============================================================ */
     function renderChart(period = '7d') {
       const days7 = [
@@ -2013,19 +1995,49 @@
     }
 
     /* ============================================================
-       LIVE OPERATIONS STREAM
+       REAL LIVE OPERATIONS STREAM (SYNCS WITH TRANSACTIONS & DEPOSITS)
        ============================================================ */
-    const ACTIVITIES = [
-      { type: 'p2p', title: 'Escrow released for <strong>Order #ORD-8821</strong>', meta: 'Kwame_P2P &bull; Just now', amount: '+$500.00', amountClass: 'positive' },
-      { type: 'deposit', title: 'TRC20 USDT Deposit confirmed', meta: 'Tx 0x8a91f... &bull; 4 min ago', amount: '+$2,500.00', amountClass: 'positive' },
-      { type: 'withdraw', title: 'ERC20 ETH Withdrawal processed', meta: 'Tx 0x3d01b... &bull; 12 min ago', amount: '-0.85 ETH', amountClass: 'negative' },
-      { type: 'kyc', title: 'User <strong>Alex Vance</strong> upgraded to Tier 2', meta: 'Compliance &bull; 35 min ago', amount: 'APPROVED' },
-      { type: 'user', title: 'New institutional account registered', meta: 'Apex Capital UK &bull; 1 hr ago', amount: 'ONBOARDED' }
-    ];
-
     function renderActivity(filter = 'all') {
       const container = document.getElementById('activityList');
-      const filtered = ACTIVITIES.filter(a => filter === 'all' || a.type === filter);
+      const rawTxs = readStorage('bp_transactions', []);
+      const rawOrders = readStorage('bp_p2p_orders', []);
+
+      const list = [];
+
+      // 1. Transactions from deposits and withdrawals
+      rawTxs.forEach((t, i) => {
+        const type = (t.type || 'deposit').toLowerCase();
+        const isDep = type === 'deposit';
+        list.push({
+          type: isDep ? 'deposit' : 'withdraw',
+          title: `${t.type} · <strong>${t.symbol || 'USDT'}</strong> (${t.status || 'Completed'})`,
+          meta: `Ref #${t.id || ('TX-' + i)} &bull; ${t.date || 'Recent'}`,
+          amount: `${isDep ? '+' : '-'}${parseFloat(t.amount || 0).toFixed(2)} ${t.symbol || 'USDT'}`,
+          amountClass: isDep ? 'positive' : 'negative'
+        });
+      });
+
+      // 2. Orders from P2P
+      rawOrders.forEach(o => {
+        list.push({
+          type: 'p2p',
+          title: `P2P ${o.mode || 'Trade'} · <strong>${o.crypto || 'USDT'}</strong> (${o.status || 'active'})`,
+          meta: `Order #${o.id} &bull; ${o.date || 'Recent'}`,
+          amount: `${parseFloat(o.cryptoAmount || o.amount || 0).toFixed(2)} ${o.crypto || 'USDT'}`,
+          amountClass: 'positive'
+        });
+      });
+
+      // Fallback activities if user hasn't made any transactions yet
+      if (!list.length) {
+        list.push(
+          { type: 'deposit', title: 'NOWPayments deposit webhook listener initialized', meta: 'Gateway engine active &bull; System', amount: 'READY', amountClass: 'positive' },
+          { type: 'p2p', title: 'P2P smart contract escrow vault initialized', meta: 'Decentralized liquidity &bull; System', amount: 'READY', amountClass: 'positive' },
+          { type: 'user', title: 'Institutional command console session loaded', meta: 'Super Admin &bull; Just now', amount: 'ONLINE', amountClass: 'positive' }
+        );
+      }
+
+      const filtered = list.filter(a => filter === 'all' || a.type === filter);
 
       container.innerHTML = filtered.map(a => `
         <div class="activity-item">
@@ -2124,18 +2136,14 @@
       }
 
       // Logout
-      document.getElementById('logoutBtn').addEventListener('click', () => {
+      const handleLogout = () => {
         if (confirm('Sign out from Bluepeak Capital Admin Desk?')) {
           localStorage.removeItem('bp_admin_session');
-          window.location.href = 'admin-users.html';
+          window.location.href = 'admin-login.html';
         }
-      });
-      document.getElementById('adminChip').addEventListener('click', () => {
-        if (confirm('Sign out from Bluepeak Capital Admin Desk?')) {
-          localStorage.removeItem('bp_admin_session');
-          window.location.href = 'admin-users.html';
-        }
-      });
+      };
+      document.getElementById('logoutBtn').addEventListener('click', handleLogout);
+      document.getElementById('adminChip').addEventListener('click', handleLogout);
 
       // Refresh Button
       document.getElementById('refreshBtn').addEventListener('click', () => {
@@ -2143,14 +2151,19 @@
         renderThreadList();
         renderActiveChat();
         loadMetrics();
+        renderActivity('all');
         fetchLivePrices();
         showToast('🔄 Dashboard operational state refreshed');
       });
 
       // Notifications Button
       document.getElementById('notifBtn').addEventListener('click', () => {
-        const unread = chatThreads.filter(c => c.unread).length;
-        showToast(unread > 0 ? `🔔 ${unread} unread buyer message(s) waiting` : '✅ All platform notifications acknowledged');
+        const withdrawals = readStorage('bp_withdrawals', []).filter(w => w.status === 'pending');
+        if (withdrawals.length > 0) {
+          showToast(`🔔 ${withdrawals.length} withdrawal(s) pending authorization!`);
+        } else {
+          showToast('✅ All platform settlement queues clear');
+        }
       });
 
       // Chat Search
@@ -2231,8 +2244,16 @@
         }
       });
 
-      // Live price polling every 20s
-      setInterval(fetchLivePrices, 20000);
+      // Live Storage Sync: Automatically refresh dashboard when deposits or withdrawals occur
+      window.addEventListener('storage', (e) => {
+        if (['bp_transactions', 'bp_withdrawals', 'bp_p2p_orders', 'bp_users'].includes(e.key)) {
+          loadMetrics();
+          renderActivity('all');
+        }
+      });
+
+      // Live price polling every 25s
+      setInterval(fetchLivePrices, 25000);
     });
   </script>
 </body>
