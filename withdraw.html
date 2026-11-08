@@ -282,11 +282,11 @@
     .security-note .text strong { font-weight: 800; }
 
     /* ============================================================
-       WITHDRAWAL PROCESSING STATE CARD (HIGH-END FINTECH)
+       WITHDRAWAL PROCESSING CARD
        ============================================================ */
     .processing-card {
       background: var(--white); border: 1px solid var(--gray-200);
-      border-radius: var(--radius-lg); padding: 26px 20px;
+      border-radius: var(--radius-lg); padding: 28px 20px;
       display: none; flex-direction: column; align-items: center; text-align: center;
       gap: 16px; box-shadow: var(--shadow-md); animation: fadeIn 0.3s ease;
     }
@@ -294,10 +294,10 @@
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
     .proc-icon-wrap {
-      width: 68px; height: 68px; border-radius: 50%;
+      width: 72px; height: 72px; border-radius: 50%;
       background: var(--gold-100); color: var(--gold-500);
       display: flex; align-items: center; justify-content: center;
-      font-size: 30px; position: relative; margin-bottom: 4px;
+      font-size: 32px; position: relative; margin-bottom: 2px;
     }
     .proc-icon-wrap.success {
       background: var(--green-100); color: var(--green-500);
@@ -310,17 +310,8 @@
     .proc-icon-wrap.success .proc-pulse { display: none; }
     @keyframes procRing { 0% { transform: scale(0.95); opacity: 0.8; } 100% { transform: scale(1.35); opacity: 0; } }
 
-    .proc-title { font-size: 21px; font-weight: 800; color: var(--navy-900); letter-spacing: -0.4px; }
-    .proc-desc { font-size: 13px; font-weight: 500; color: var(--gray-500); line-height: 1.55; max-width: 440px; }
-
-    .proc-badge {
-      display: inline-flex; align-items: center; gap: 6px;
-      font-size: 11.5px; font-weight: 800; padding: 6px 14px;
-      border-radius: var(--radius-pill); text-transform: uppercase;
-      letter-spacing: 0.5px; background: var(--gold-100); color: var(--gold-500);
-    }
-    .proc-badge.success { background: var(--green-100); color: var(--green-500); }
-    .proc-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+    .proc-title { font-size: 22px; font-weight: 800; color: var(--navy-900); letter-spacing: -0.4px; }
+    .proc-desc { font-size: 13.5px; font-weight: 500; color: var(--gray-500); line-height: 1.5; max-width: 440px; }
 
     .proc-details {
       width: 100%; background: var(--navy-50); border: 1px solid var(--gray-200);
@@ -558,19 +549,15 @@
 
     </div>
 
-    <!-- WITHDRAWAL PROCESSING / DISPATCH CARD (INSTITUTIONAL GRADE) -->
+    <!-- WITHDRAWAL PROCESSING CARD -->
     <div class="processing-card" id="processingCard">
       <div class="proc-icon-wrap" id="procIconWrap">
         <span class="proc-pulse"></span>
         <span id="procIcon">⏳</span>
       </div>
-      <div class="proc-badge" id="procBadge">
-        <span class="dot"></span>
-        <span id="procBadgeText">Withdrawal Processing</span>
-      </div>
       <h2 class="proc-title" id="procTitle">Withdrawal Processing</h2>
       <p class="proc-desc" id="procDesc">
-        Your transaction has been submitted to the blockchain network. Node validators are verifying network fees and broadcasting to the ledger.
+        Your transaction has been submitted to the blockchain network.
       </p>
 
       <div class="proc-details" id="procDetails"></div>
@@ -624,26 +611,6 @@
         toastEl.classList.add('show');
         clearTimeout(toastEl._t);
         toastEl._t = setTimeout(() => toastEl.classList.remove('show'), 2800);
-      }
-
-      // ============================================================
-      // STRICT REAL WALLET BALANCE ENGINE (ZERO PHANTOM BALANCES)
-      // ============================================================
-      function getUnifiedPortfolioBalance() {
-        const uBal = parseFloat(localStorage.getItem('bp_user_balance') || localStorage.getItem('user_balance') || localStorage.getItem('bp_wallet_balance') || '0');
-        return isNaN(uBal) ? 0 : Math.max(0, uBal);
-      }
-
-      function setUnifiedPortfolioBalance(val) {
-        const safeVal = Math.max(0, val).toFixed(2);
-        localStorage.setItem('bp_user_balance', safeVal);
-        localStorage.setItem('user_balance', safeVal);
-        localStorage.setItem('bp_wallet_balance', safeVal);
-        updateHeader();
-      }
-
-      function updateHeader() {
-        $('#headerBalance').textContent = '$' + getUnifiedPortfolioBalance().toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
       }
 
       // ============================================================
@@ -702,22 +669,71 @@
         },
       ];
 
+      // ============================================================
+      // REAL BALANCE ENGINE FOR ALL ASSETS
+      // ============================================================
       function getAssetBalance(asset) {
-        const key = 'bp_balance_' + asset.symbol;
-        const stored = localStorage.getItem(key);
+        // 1. Direct asset storage
+        const directKey = 'bp_balance_' + asset.symbol;
+        const stored = localStorage.getItem(directKey);
         if (stored !== null && !isNaN(parseFloat(stored))) {
-          return parseFloat(stored);
+          return Math.max(0, parseFloat(stored));
         }
-        
-        // If USDT and has unified balance, sync directly to user's real balance
+
+        // 2. Map storage
+        try {
+          const map = JSON.parse(localStorage.getItem('bp_crypto_balances') || '{}');
+          if (map[asset.symbol] !== undefined && !isNaN(parseFloat(map[asset.symbol]))) {
+            return Math.max(0, parseFloat(map[asset.symbol]));
+          }
+        } catch (e) {}
+
+        // 3. If USDT, read actual deposited balance
         if (asset.symbol === 'USDT') {
-          return getUnifiedPortfolioBalance();
+          const raw = parseFloat(localStorage.getItem('bp_user_balance') || localStorage.getItem('user_balance') || localStorage.getItem('bp_wallet_balance') || '0');
+          return isNaN(raw) ? 0 : Math.max(0, raw);
         }
-        return 0; // Strictly 0 for new or un-deposited accounts
+
+        // Real default for any asset is strictly 0
+        return 0;
       }
 
       function setAssetBalance(asset, amt) {
-        localStorage.setItem('bp_balance_' + asset.symbol, String(Math.max(0, amt)));
+        const safe = Math.max(0, amt);
+        localStorage.setItem('bp_balance_' + asset.symbol, String(safe));
+
+        try {
+          const map = JSON.parse(localStorage.getItem('bp_crypto_balances') || '{}');
+          map[asset.symbol] = safe;
+          localStorage.setItem('bp_crypto_balances', JSON.stringify(map));
+        } catch (e) {}
+
+        if (asset.symbol === 'USDT') {
+          setUnifiedPortfolioBalance(safe);
+        } else {
+          updateHeader();
+        }
+      }
+
+      function getUnifiedPortfolioBalance() {
+        // Calculate cumulative real USD value across all assets
+        let total = 0;
+        ASSETS.forEach(a => {
+          total += getAssetBalance(a) * a.price;
+        });
+        return Math.max(0, total);
+      }
+
+      function setUnifiedPortfolioBalance(val) {
+        const safeVal = Math.max(0, val).toFixed(2);
+        localStorage.setItem('bp_user_balance', safeVal);
+        localStorage.setItem('user_balance', safeVal);
+        localStorage.setItem('bp_wallet_balance', safeVal);
+        updateHeader();
+      }
+
+      function updateHeader() {
+        $('#headerBalance').textContent = '$' + getUnifiedPortfolioBalance().toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
       }
 
       const state = {
@@ -1008,11 +1024,6 @@
         const newAssetBal = bal - amt;
         setAssetBalance(state.asset, newAssetBal);
 
-        const price = state.asset.price || 1;
-        const usdVal = amt * price;
-        const currentPortfolio = getUnifiedPortfolioBalance();
-        setUnifiedPortfolioBalance(Math.max(0, currentPortfolio - usdVal));
-
         // 2. CREATE TRANSACTION RECORD (Stored as pending for Admin verification)
         const orderId = 'TX_' + Date.now().toString().slice(-6);
         const destination = $('#addressInput').value.trim();
@@ -1025,7 +1036,7 @@
           fee: state.network.fee,
           receive: (amt - state.network.fee),
           address: destination,
-          status: 'pending', // Under the hood status for admin-transactions.html
+          status: 'pending',
           date: new Date().toLocaleString(),
           time: new Date().toISOString()
         };
@@ -1041,9 +1052,9 @@
         localStorage.setItem('bp_active_withdrawal', JSON.stringify(withdrawalRecord));
 
         closeConfirm();
-        showToast(`Withdrawal of ${amt} ${state.asset.symbol} broadcasted to network.`);
+        showToast(`Withdrawal of ${amt} ${state.asset.symbol} submitted.`);
 
-        // 3. SHOW INSTITUTIONAL PROCESSING SCREEN
+        // 3. SHOW CLEAN PROCESSING SCREEN
         showProcessingState(withdrawalRecord);
       });
 
@@ -1064,7 +1075,6 @@
         renderProcessingDetails(record);
         window.scrollTo({ top: 0, behavior: 'smooth' });
 
-        // Polling to detect when transaction is confirmed/approved
         if (statusPollTimer) clearInterval(statusPollTimer);
         statusPollTimer = setInterval(() => {
           checkApprovalStatus(record.id);
@@ -1077,28 +1087,24 @@
         if (isApproved) {
           $('#procIconWrap').classList.add('success');
           $('#procIcon').textContent = '✓';
-          $('#procBadge').classList.add('success');
-          $('#procBadgeText').textContent = 'Network Dispatched';
           $('#procTitle').textContent = 'Withdrawal Successful';
-          $('#procDesc').textContent = 'Your withdrawal has been verified and confirmed on the blockchain network. Funds are now available in your external wallet.';
+          $('#procDesc').textContent = 'Your transaction has been confirmed on the blockchain network.';
           $('#viewAssetsBtn').style.display = 'block';
         } else {
           $('#procIconWrap').classList.remove('success');
           $('#procIcon').textContent = '⏳';
-          $('#procBadge').classList.remove('success');
-          $('#procBadgeText').textContent = 'Withdrawal Processing';
           $('#procTitle').textContent = 'Withdrawal Processing';
-          $('#procDesc').textContent = 'Your transaction has been submitted to the blockchain network. Node validators are verifying network fees and broadcasting to the ledger.';
+          $('#procDesc').textContent = 'Your transaction has been submitted to the blockchain network.';
           $('#viewAssetsBtn').style.display = 'none';
         }
 
         $('#procDetails').innerHTML = `
-          <div class="proc-row"><span>Transaction Hash / Ref</span><strong>${record.id}</strong></div>
+          <div class="proc-row"><span>Transaction Reference</span><strong>${record.id}</strong></div>
           <div class="proc-row"><span>Dispatched Amount</span><strong style="color:var(--navy-900);">${record.amount} ${record.asset}</strong></div>
           <div class="proc-row"><span>Network</span><strong>${record.network}</strong></div>
           <div class="proc-row"><span>Destination Address</span><strong>${record.address}</strong></div>
           <div class="proc-row"><span>Timestamp</span><strong>${record.date}</strong></div>
-          <div class="proc-row"><span>Status</span><strong style="color:${isApproved ? 'var(--green-500)' : 'var(--gold-500)'};">${isApproved ? 'Confirmed On-Chain ✓' : 'Processing On-Chain'}</strong></div>
+          <div class="proc-row"><span>Status</span><strong style="color:${isApproved ? 'var(--green-500)' : 'var(--gold-500)'};">${isApproved ? 'Completed ✓' : 'Processing'}</strong></div>
         `;
       }
 
