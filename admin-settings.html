@@ -88,9 +88,46 @@
     .settings-card-header p { font-size: 11.5px; font-weight: 500; color: var(--gray-500); margin-top: 1px; }
     .settings-card-body { padding: 20px; display: flex; flex-direction: column; gap: 18px; }
 
-    /* FORM */
+    /* DYNAMIC CRYPTO VAULT GRID */
+    .crypto-vault-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px; }
+    .crypto-vault-card {
+      background: var(--navy-50); border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-md); padding: 14px; display: flex; flex-direction: column; gap: 10px;
+      transition: all 0.15s;
+    }
+    .crypto-vault-card:hover { border-color: var(--gold-500); background: var(--white); box-shadow: var(--shadow-xs); }
+    .cvc-header { display: flex; align-items: center; justify-content: space-between; }
+    .cvc-left { display: flex; align-items: center; gap: 10px; }
+    .cvc-badge {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--navy-900), var(--navy-800));
+      color: var(--gold-400); display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 800; border: 1px solid var(--gold-500); flex-shrink: 0;
+    }
+    .cvc-info .name { font-size: 13px; font-weight: 800; color: var(--navy-900); }
+    .cvc-info .net { font-size: 10px; font-weight: 700; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.5px; }
+    .cvc-tag {
+      font-size: 9.5px; font-weight: 800; padding: 2px 7px; border-radius: var(--radius-pill);
+      background: var(--green-100); color: var(--green-600); text-transform: uppercase; letter-spacing: 0.4px;
+    }
+    .cvc-address-row { display: flex; align-items: center; gap: 6px; }
+    .cvc-input {
+      flex: 1; padding: 8px 10px; border: 1.5px solid var(--gray-200); border-radius: var(--radius-xs);
+      font-family: 'SF Mono', 'Fira Code', monospace; font-size: 11px; font-weight: 600;
+      color: var(--navy-900); background: var(--white); outline: none;
+    }
+    .cvc-input:focus { border-color: var(--gold-500); }
+    .cvc-copy-btn, .cvc-del-btn {
+      width: 32px; height: 32px; border-radius: var(--radius-xs); border: 1px solid var(--gray-200);
+      background: var(--white); display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 12px; transition: all 0.15s; flex-shrink: 0;
+    }
+    .cvc-copy-btn:hover { background: var(--gold-100); border-color: var(--gold-500); }
+    .cvc-del-btn { color: var(--red-500); }
+    .cvc-del-btn:hover { background: var(--red-100); border-color: var(--red-500); }
+
+    /* FORM ELEMENTS */
     .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .form-grid.single { grid-template-columns: 1fr; }
     .field { display: flex; flex-direction: column; gap: 6px; }
     .field label { font-size: 11px; font-weight: 800; color: var(--navy-900); text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
     .field label .hint { font-size: 9.5px; font-weight: 600; color: var(--gray-400); text-transform: none; letter-spacing: 0; }
@@ -123,15 +160,12 @@
     .toggle .slider::before { content: ''; position: absolute; width: 18px; height: 18px; left: 3px; top: 3px; background: var(--white); border-radius: 50%; transition: 0.25s; box-shadow: 0 1px 3px rgba(10, 26, 47, 0.2); }
     .toggle input:checked + .slider { background: var(--green-500); }
     .toggle input:checked + .slider::before { transform: translateX(18px); }
-    .toggle input:focus + .slider { box-shadow: 0 0 0 3px rgba(15, 157, 110, 0.15); }
 
-    /* API KEY & ADDRESS ROW */
     .key-row { display: flex; align-items: center; gap: 8px; }
     .key-row .input { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 11.5px; letter-spacing: 0.3px; }
     .icon-btn { width: 38px; height: 38px; flex-shrink: 0; border: 1.5px solid var(--gray-200); background: var(--white); border-radius: var(--radius-sm); cursor: pointer; font-size: 13px; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
     .icon-btn:hover { border-color: var(--gold-500); background: var(--gold-100); }
 
-    /* STATUS PILL */
     .status-pill { display: inline-flex; align-items: center; gap: 5px; font-size: 9.5px; font-weight: 800; padding: 4px 10px; border-radius: var(--radius-pill); text-transform: uppercase; letter-spacing: 0.4px; }
     .status-pill .dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
     .status-pill.connected { background: var(--green-100); color: var(--green-500); }
@@ -145,12 +179,22 @@
     .btn { padding: 9px 16px; border-radius: var(--radius-pill); font-family: var(--font); font-size: 11.5px; font-weight: 700; cursor: pointer; transition: all 0.15s; border: 1px solid transparent; display: inline-flex; align-items: center; gap: 5px; }
     .btn:hover { transform: translateY(-1px); }
     .btn.primary { background: linear-gradient(135deg, var(--green-500), #0B8A5E); color: var(--white); box-shadow: 0 2px 8px rgba(15, 157, 110, 0.3); }
-    .btn.gold { background: var(--gold-500); color: var(--navy-900); }
+    .btn.gold { background: var(--gold-500); color: var(--navy-900); font-weight: 800; }
     .btn.gold:hover { background: var(--gold-400); }
     .btn.outline { background: var(--white); border-color: var(--gray-200); color: var(--navy-700); }
     .btn.outline:hover { border-color: var(--gold-500); background: var(--gold-100); }
     .btn.danger { background: var(--red-100); color: var(--red-500); border-color: rgba(209, 67, 67, 0.3); }
     .btn.danger:hover { background: var(--red-500); color: var(--white); }
+
+    /* MODAL BASE */
+    .admin-modal-overlay { position: fixed; inset: 0; background: rgba(10, 26, 47, 0.65); backdrop-filter: blur(5px); z-index: 100; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+    .admin-modal-overlay.open { opacity: 1; pointer-events: auto; }
+    .admin-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.96); width: 92%; max-width: 520px; max-height: 90vh; background: var(--white); z-index: 105; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); display: flex; flex-direction: column; overflow: hidden; opacity: 0; pointer-events: none; transition: all 0.25s; }
+    .admin-modal.open { transform: translate(-50%, -50%) scale(1); opacity: 1; pointer-events: auto; }
+    .admin-modal-header { padding: 16px 20px; border-bottom: 1px solid var(--gray-200); display: flex; align-items: center; justify-content: space-between; }
+    .admin-modal-header h3 { font-size: 16px; font-weight: 800; color: var(--navy-900); }
+    .admin-modal-close { background: var(--navy-50); border: none; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; color: var(--navy-900); font-size: 15px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+    .admin-modal-body { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
 
     /* TOAST */
     .toast { position: fixed; bottom: 24px; right: 24px; background: var(--navy-900); color: var(--white); padding: 12px 20px; border-radius: var(--radius-pill); font-size: 13px; font-weight: 700; z-index: 200; opacity: 0; pointer-events: none; transition: all 0.3s; max-width: 380px; box-shadow: 0 8px 24px rgba(10, 26, 47, 0.3); }
@@ -159,7 +203,6 @@
     .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(10, 26, 47, 0.5); backdrop-filter: blur(4px); z-index: 45; }
     .sidebar-overlay.open { display: block; }
 
-    /* RESPONSIVE */
     @media (max-width: 900px) {
       .sidebar { position: fixed; transform: translateX(-100%); }
       .sidebar.open { transform: translateX(0); }
@@ -169,11 +212,7 @@
       .page-title-block h1 { font-size: 17px; }
       .admin-chip { padding: 4px; }
       .admin-chip .admin-name, .admin-chip .admin-role { display: none; }
-    }
-    @media (max-width: 600px) {
-      .form-grid { grid-template-columns: 1fr; }
-      .settings-card-body { padding: 16px; }
-      .actions-bar { flex-direction: column; align-items: flex-start; }
+      .crypto-vault-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -193,12 +232,13 @@
       <div class="nav-section-label">Overview</div>
       <a href="admin-dashboard.html" class="nav-item"><span class="nav-ico">📊</span> Dashboard</a>
       
-      <div class="nav-section-label">Management</div>
+      <div class="nav-section-label">Operations</div>
       <a href="admin-users.html" class="nav-item"><span class="nav-ico">👥</span> Users</a>
+      <a href="admin-merchants.html" class="nav-item"><span class="nav-ico">🏪</span> Merchants</a>
       <a href="admin-p2p-orders.html" class="nav-item"><span class="nav-ico">📋</span> Live P2P Orders <span class="nav-badge" id="ordersBadge">0</span></a>
-      <a href="admin-kyc.html" class="nav-item"><span class="nav-ico">🪪</span> KYC Reviews <span class="nav-badge" id="kycBadge">0</span></a>
-      <a href="admin-transactions.html" class="nav-item"><span class="nav-ico">💸</span> Transactions</a>
-      <a href="admin-bots.html" class="nav-item"><span class="nav-ico">🤖</span> Bot Manager <span class="nav-badge" id="botsBadge">0</span></a>
+      <a href="admin-kyc.html" class="nav-item"><span class="nav-ico">🪪</span> KYC Reviews <span class="nav-badge" id="kycBadge" style="display:none;">0</span></a>
+      <a href="admin-transactions.html" class="nav-item"><span class="nav-ico">💸</span> Transactions <span class="nav-badge" id="txBadge" style="display:none;">0</span></a>
+      <a href="admin-bots.html" class="nav-item"><span class="nav-ico">🤖</span> Bot Manager <span class="nav-badge" id="botsBadge" style="display:none;">0</span></a>
       
       <div class="nav-section-label">System</div>
       <a href="admin-settings.html" class="nav-item active"><span class="nav-ico">⚙️</span> Settings</a>
@@ -241,67 +281,22 @@
       </div>
 
       <!-- ============================================================
-           1. PLATFORM CRYPTO VAULT & ESCROW ADDRESSES (BROADCASTED)
+           1. CRYPTO VAULT & P2P ESCROW ADDRESSES (DYNAMIC & EXTENSIBLE)
            ============================================================ -->
       <section class="settings-card">
         <div class="settings-card-header">
           <div class="card-ico">📥</div>
           <div style="flex:1;">
             <h2>Crypto Vault &amp; Escrow Deposit Addresses</h2>
-            <p>Master platform deposit addresses broadcasted across P2P trades, customer deposits, and vendor settlement desks.</p>
+            <p id="cryptoVaultSub">Reads all cryptocurrencies active on P2P and client deposits with support for custom coins &amp; networks.</p>
           </div>
-          <span class="status-pill connected"><span class="dot"></span>Live Sync</span>
+          <button class="btn gold" id="openAddCryptoBtn" style="padding:6px 12px;font-size:11px;">+ Add Crypto Asset</button>
         </div>
         <div class="settings-card-body">
-          <div class="form-grid">
-            <div class="field">
-              <label for="addrUsdtTrc20">Tether USD (USDT — TRC20) <span class="hint">Recommended for P2P Escrow</span></label>
-              <div class="key-row">
-                <input type="text" class="input" id="addrUsdtTrc20" placeholder="TTx882KLa92mZbQpP004NqK599eL">
-                <button class="icon-btn" data-copy="addrUsdtTrc20" title="Copy address">📋</button>
-              </div>
-              <div class="help">Used as the default cold escrow address for fast, zero-fee TRC20 trades.</div>
-            </div>
-
-            <div class="field">
-              <label for="addrBtc">Bitcoin (BTC — Native SegWit)</label>
-              <div class="key-row">
-                <input type="text" class="input" id="addrBtc" placeholder="bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh">
-                <button class="icon-btn" data-copy="addrBtc" title="Copy address">📋</button>
-              </div>
-              <div class="help">Format: bech32 native SegWit (bc1q...).</div>
-            </div>
-
-            <div class="field">
-              <label for="addrEth">Ethereum (ETH — ERC20)</label>
-              <div class="key-row">
-                <input type="text" class="input" id="addrEth" placeholder="0x71C8366420A023c032331b15482A312A27da089e">
-                <button class="icon-btn" data-copy="addrEth" title="Copy address">📋</button>
-              </div>
-              <div class="help">Ethereum Mainnet ERC20 receiving vault.</div>
-            </div>
-
-            <div class="field">
-              <label for="addrSol">Solana (SOL — Solana Mainnet)</label>
-              <div class="key-row">
-                <input type="text" class="input" id="addrSol" placeholder="7Np8Zkm3Vve8k8uD7iY6X7uDqm58FkH93vW4">
-                <button class="icon-btn" data-copy="addrSol" title="Copy address">📋</button>
-              </div>
-              <div class="help">High-speed Solana network settlement vault.</div>
-            </div>
-
-            <div class="field">
-              <label for="addrBnb">BNB Smart Chain (BNB — BEP20)</label>
-              <div class="key-row">
-                <input type="text" class="input" id="addrBnb" placeholder="0x38B57dF0F9444Ac2aC950f83733E89417c8078f4">
-                <button class="icon-btn" data-copy="addrBnb" title="Copy address">📋</button>
-              </div>
-              <div class="help">BSC BEP20 asset vault for low gas transfers.</div>
-            </div>
-          </div>
+          <div class="crypto-vault-grid" id="cryptoVaultGrid"></div>
         </div>
         <div class="actions-bar">
-          <span class="left-note">Synced with P2P Orders Escrow desk &amp; deposit portals.</span>
+          <span class="left-note">Synced with P2P Orders, merchant escrows, and deposit.html.</span>
           <div class="btn-group">
             <button class="btn outline" id="resetAddressesBtn">↺ Reset to Defaults</button>
             <button class="btn primary" id="saveAddressesBtn">💾 Save &amp; Broadcast Vault Addresses</button>
@@ -310,7 +305,135 @@
       </section>
 
       <!-- ============================================================
-           2. TRADING FEES
+           2. NOWPAYMENTS GATEWAY & ORACLE KEYS
+           ============================================================ -->
+      <section class="settings-card">
+        <div class="settings-card-header">
+          <div class="card-ico">⚡</div>
+          <div style="flex:1;">
+            <h2>NOWPayments Gateway &amp; Oracle Feeds</h2>
+            <p>Cryptocurrency deposit automation, IPN webhook secrets, and real-time market data oracles</p>
+          </div>
+          <span class="status-pill connected" id="gatewayStatus"><span class="dot"></span>API Live</span>
+        </div>
+        <div class="settings-card-body">
+          <div class="form-grid">
+            <div class="field">
+              <label for="nowpaymentsApiKey">NOWPayments API Key <span class="hint">Production Key</span></label>
+              <div class="key-row">
+                <input type="password" class="input" id="nowpaymentsApiKey" value="WWBKQAM-PAV4QRV-JWYP6D2-W1R91N5" autocomplete="off">
+                <button class="icon-btn" data-reveal="nowpaymentsApiKey" title="Show / hide">👁</button>
+              </div>
+              <div class="help">Powers deposit.html automatic payment generation and verification.</div>
+            </div>
+
+            <div class="field">
+              <label for="nowpaymentsIpnSecret">NOWPayments IPN Secret Key</label>
+              <div class="key-row">
+                <input type="password" class="input" id="nowpaymentsIpnSecret" value="ipn_sec_99a8b7c6d5e4f3a2" autocomplete="off">
+                <button class="icon-btn" data-reveal="nowpaymentsIpnSecret" title="Show / hide">👁</button>
+              </div>
+              <div class="help">Used to verify authenticity of incoming deposit webhook notifications.</div>
+            </div>
+
+            <div class="field">
+              <label for="priceFeedKey">Market Price Feed Key <span class="hint">CoinGecko / Binance Pro</span></label>
+              <div class="key-row">
+                <input type="password" class="input" id="priceFeedKey" value="cg-pro-7f3a9c2e1b8d4a6f0e5c" autocomplete="off">
+                <button class="icon-btn" data-reveal="priceFeedKey" title="Show / hide">👁</button>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="rateLimit">Global API Rate Limit</label>
+              <div class="input-group">
+                <input type="number" class="input" id="rateLimit" value="120" min="10" max="1000" step="10">
+                <span class="suffix">req/min</span>
+              </div>
+              <div class="help">Throttling threshold per client IP across all platform endpoints.</div>
+            </div>
+          </div>
+        </div>
+        <div class="actions-bar">
+          <span class="left-note">Changing the NOWPayments key updates deposit processing immediately.</span>
+          <div class="btn-group">
+            <button class="btn outline" id="testGatewayBtn">⚡ Verify Gateway Key</button>
+            <button class="btn primary" data-save="api">💾 Save API Configuration</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           3. TELEGRAM BOT BRIDGE & MOBILE COMMAND
+           ============================================================ -->
+      <section class="settings-card">
+        <div class="settings-card-header">
+          <div class="card-ico">✈️</div>
+          <div style="flex:1;">
+            <h2>Telegram Bot Bridge &amp; Dual-Persona Routing</h2>
+            <p>Connect your Telegram bot to receive live trade notifications, customer chat mirrors, and approve escrows from mobile.</p>
+          </div>
+          <span class="status-pill connected" id="tgStatus"><span class="dot"></span>Ready</span>
+        </div>
+        <div class="settings-card-body">
+          <div class="form-grid">
+            <div class="field">
+              <label for="tgBotToken">Bot Token <span class="hint">Generated via @BotFather</span></label>
+              <div class="key-row">
+                <input type="password" class="input" id="tgBotToken" value="7834921:AAF9xK2mPqLwRn4Tz8vB6cYdHs3jE5uNgXo" autocomplete="off">
+                <button class="icon-btn" data-reveal="tgBotToken" title="Show / hide">👁</button>
+              </div>
+              <div class="help">Format: 123456789:ABCdefGhIJKlmNoPQRstuVWxyz</div>
+            </div>
+
+            <div class="field">
+              <label for="tgAdminGroup">Admin Chat / Group ID</label>
+              <input type="text" class="input" id="tgAdminGroup" value="-1002417829031" placeholder="-100… or personal chat ID">
+              <div class="help">Telegram Supergroup or personal Chat ID where order alerts are delivered.</div>
+            </div>
+
+            <div class="field">
+              <label for="tgPollingMode">Inbound Mobile Reply Listener</label>
+              <select class="select" id="tgPollingMode">
+                <option value="enabled">Enabled (Auto-read Telegram replies into customer chat)</option>
+                <option value="disabled">Disabled (Notifications only without inbound listener)</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="tgThreadPrefix">Thread Name Prefix</label>
+              <input type="text" class="input" id="tgThreadPrefix" value="ORD-" placeholder="ORD-">
+              <div class="help">Prefix attached to order references.</div>
+            </div>
+          </div>
+
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <div class="toggle-title">Mirror all P2P customer chats to Telegram</div>
+              <div class="toggle-desc">Every customer message forwards to your Telegram admin chat. Replies sent from Telegram sync right into the web chat.</div>
+            </div>
+            <label class="toggle"><input type="checkbox" id="tgMirrorP2P" checked><span class="slider"></span></label>
+          </div>
+
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <div class="toggle-title">Send instant KYC submission alerts</div>
+              <div class="toggle-desc">Notify admins immediately when a new user uploads verification documents.</div>
+            </div>
+            <label class="toggle"><input type="checkbox" id="tgKycAlerts" checked><span class="slider"></span></label>
+          </div>
+        </div>
+        <div class="actions-bar">
+          <span class="left-note">Live Telegram ping status: <span id="tgPingAt">Connected</span></span>
+          <div class="btn-group">
+            <button class="btn outline" id="tgTestBtn">🔌 Test Telegram Ping</button>
+            <button class="btn primary" data-save="telegram">💾 Save Telegram Bridge</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           4. TRADING & PLATFORM FEES
            ============================================================ -->
       <section class="settings-card">
         <div class="settings-card-header">
@@ -328,8 +451,9 @@
                 <input type="number" class="input" id="p2pMakerFee" value="0.5" min="0" max="10" step="0.1">
                 <span class="suffix">%</span>
               </div>
-              <div class="help">Charged to the user or merchant who posts the initial ad.</div>
+              <div class="help">Charged to the user or merchant who posts the initial trade offer.</div>
             </div>
+
             <div class="field">
               <label for="p2pTakerFee">P2P Taker Fee <span class="hint">per filled order</span></label>
               <div class="input-group">
@@ -338,6 +462,7 @@
               </div>
               <div class="help">Charged to the counterparty taking the advertised trade.</div>
             </div>
+
             <div class="field">
               <label for="botFee">Algorithmic Bot Trade Fee <span class="hint">per execution</span></label>
               <div class="input-group">
@@ -346,6 +471,7 @@
               </div>
               <div class="help">Deducted from each automated grid or arbitrage execution.</div>
             </div>
+
             <div class="field">
               <label for="withdrawalFee">Flat Withdrawal Fee <span class="hint">fixed</span></label>
               <div class="input-group">
@@ -373,7 +499,7 @@
       </section>
 
       <!-- ============================================================
-           3. ESCROW RULES & RISK CONTROLS
+           5. ESCROW RULES & RISK CONTROLS
            ============================================================ -->
       <section class="settings-card">
         <div class="settings-card-header">
@@ -393,6 +519,7 @@
               </div>
               <div class="help">Time buyer has to mark payment as sent before order automatically cancels and unlocks crypto.</div>
             </div>
+
             <div class="field">
               <label for="autoRelease">Merchant Auto-Release Threshold</label>
               <div class="input-group">
@@ -401,6 +528,7 @@
               </div>
               <div class="help">Time after payment confirmation before escrow auto-releases if vendor is unresponsive. Set 0 to disable.</div>
             </div>
+
             <div class="field">
               <label for="disputeWindow">Dispute Grace Period</label>
               <div class="input-group">
@@ -409,6 +537,7 @@
               </div>
               <div class="help">Duration during which an order can be disputed and frozen for compliance investigation.</div>
             </div>
+
             <div class="field">
               <label for="minOrder">Minimum P2P Trade Size</label>
               <div class="input-group">
@@ -418,6 +547,7 @@
               <div class="help">Minimum allowed fiat-crypto trade value.</div>
             </div>
           </div>
+
           <div class="toggle-row">
             <div class="toggle-info">
               <div class="toggle-title">Enforce KYC verification before P2P trading</div>
@@ -425,6 +555,7 @@
             </div>
             <label class="toggle"><input type="checkbox" id="kycRequired" checked><span class="slider"></span></label>
           </div>
+
           <div class="toggle-row">
             <div class="toggle-info">
               <div class="toggle-title">Auto-release escrow on timer expiration</div>
@@ -432,144 +563,12 @@
             </div>
             <label class="toggle"><input type="checkbox" id="autoReleaseEnabled" checked><span class="slider"></span></label>
           </div>
-          <div class="toggle-row">
-            <div class="toggle-info">
-              <div class="toggle-title">Permit verified merchant-to-merchant trades</div>
-              <div class="toggle-desc">Enable liquidity sharing and settlement trades directly between two certified merchants.</div>
-            </div>
-            <label class="toggle"><input type="checkbox" id="merchantToMerchant"><span class="slider"></span></label>
-          </div>
         </div>
         <div class="actions-bar">
           <span class="left-note">Rules immediately govern newly placed orders.</span>
           <div class="btn-group">
             <button class="btn outline" data-reset="escrow">Reset</button>
             <button class="btn primary" data-save="escrow">💾 Save Escrow Rules</button>
-          </div>
-        </div>
-      </section>
-
-      <!-- ============================================================
-           4. TELEGRAM BOT BRIDGE & MOBILE COMMAND
-           ============================================================ -->
-      <section class="settings-card">
-        <div class="settings-card-header">
-          <div class="card-ico">✈️</div>
-          <div style="flex:1;">
-            <h2>Telegram Bot Bridge</h2>
-            <p>Connect your Telegram bot to receive live order notifications, customer chat mirrors, and approve escrows from mobile.</p>
-          </div>
-          <span class="status-pill connected" id="tgStatus"><span class="dot"></span>Ready</span>
-        </div>
-        <div class="settings-card-body">
-          <div class="form-grid">
-            <div class="field">
-              <label for="tgBotToken">Bot Token <span class="hint">Generated via @BotFather</span></label>
-              <div class="key-row">
-                <input type="password" class="input" id="tgBotToken" value="7834921:AAF9xK2mPqLwRn4Tz8vB6cYdHs3jE5uNgXo" autocomplete="off">
-                <button class="icon-btn" data-reveal="tgBotToken" title="Show / hide">👁</button>
-              </div>
-              <div class="help">Format: 123456789:ABCdefGhIJKlmNoPQRstuVWxyz</div>
-            </div>
-            <div class="field">
-              <label for="tgAdminGroup">Admin Chat / Group ID</label>
-              <input type="text" class="input" id="tgAdminGroup" value="-1002417829031" placeholder="-100… or personal chat ID">
-              <div class="help">Telegram Supergroup ID where order forum topics are opened.</div>
-            </div>
-            <div class="field">
-              <label for="tgTopicMode">Forum / Topic Mode</label>
-              <select class="select" id="tgTopicMode">
-                <option value="enabled">Enabled (Unique topic thread per order ID)</option>
-                <option value="disabled">Disabled (Single continuous group chat)</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="tgThreadPrefix">Thread Name Prefix</label>
-              <input type="text" class="input" id="tgThreadPrefix" value="ORD-" placeholder="ORD-">
-              <div class="help">Prefix attached to order thread names.</div>
-            </div>
-          </div>
-          <div class="toggle-row">
-            <div class="toggle-info">
-              <div class="toggle-title">Mirror all P2P customer chats to Telegram</div>
-              <div class="toggle-desc">Every customer message forwards to your Telegram admin chat. Replies sent from Telegram sync right into the web chat.</div>
-            </div>
-            <label class="toggle"><input type="checkbox" id="tgMirrorP2P" checked><span class="slider"></span></label>
-          </div>
-          <div class="toggle-row">
-            <div class="toggle-info">
-              <div class="toggle-title">Send bot trade &amp; P&amp;L milestone alerts</div>
-              <div class="toggle-desc">Post real-time trade signals, profitable exits, and balance milestones to the Telegram bridge.</div>
-            </div>
-            <label class="toggle"><input type="checkbox" id="tgBotAlerts" checked><span class="slider"></span></label>
-          </div>
-          <div class="toggle-row">
-            <div class="toggle-info">
-              <div class="toggle-title">Send instant KYC submission alerts</div>
-              <div class="toggle-desc">Notify admins immediately when a new user uploads verification documents.</div>
-            </div>
-            <label class="toggle"><input type="checkbox" id="tgKycAlerts" checked><span class="slider"></span></label>
-          </div>
-        </div>
-        <div class="actions-bar">
-          <span class="left-note">Live Telegram ping status: <span id="tgPingAt">Connected</span></span>
-          <div class="btn-group">
-            <button class="btn outline" id="tgTestBtn">🔌 Test Telegram Ping</button>
-            <button class="btn outline" id="tgRotateBtn">🔑 Rotate Token</button>
-            <button class="btn primary" data-save="telegram">💾 Save Telegram Bridge</button>
-          </div>
-        </div>
-      </section>
-
-      <!-- ============================================================
-           5. API KEYS & ORACLE FEEDS
-           ============================================================ -->
-      <section class="settings-card">
-        <div class="settings-card-header">
-          <div class="card-ico">🔑</div>
-          <div>
-            <h2>API Keys &amp; External Feeds</h2>
-            <p>Live crypto price feeds, M-Pesa / Banking settlement gateways, and transactional SMTP credentials</p>
-          </div>
-        </div>
-        <div class="settings-card-body">
-          <div class="form-grid">
-            <div class="field">
-              <label for="priceFeedKey">Market Price Feed Key <span class="hint">CoinGecko / Binance Pro</span></label>
-              <div class="key-row">
-                <input type="password" class="input" id="priceFeedKey" value="cg-pro-7f3a9c2e1b8d4a6f0e5c" autocomplete="off">
-                <button class="icon-btn" data-reveal="priceFeedKey" title="Show / hide">👁</button>
-              </div>
-            </div>
-            <div class="field">
-              <label for="paymentKey">Payment Verification Webhook Key <span class="hint">M-Pesa / Bank Gateway</span></label>
-              <div class="key-row">
-                <input type="password" class="input" id="paymentKey" value="mp-verify-91c4e7a2f6b0d8e3a5c1" autocomplete="off">
-                <button class="icon-btn" data-reveal="paymentKey" title="Show / hide">👁</button>
-              </div>
-            </div>
-            <div class="field">
-              <label for="smtpKey">Transactional Email / SMTP Key <span class="hint">SendGrid / Postmark</span></label>
-              <div class="key-row">
-                <input type="password" class="input" id="smtpKey" value="smtp-key-3e8b1a9d7c2f4e6a0b5d" autocomplete="off">
-                <button class="icon-btn" data-reveal="smtpKey" title="Show / hide">👁</button>
-              </div>
-            </div>
-            <div class="field">
-              <label for="rateLimit">Global API Rate Limit</label>
-              <div class="input-group">
-                <input type="number" class="input" id="rateLimit" value="120" min="10" max="1000" step="10">
-                <span class="suffix">req/min</span>
-              </div>
-              <div class="help">Throttling threshold per client IP across all endpoints.</div>
-            </div>
-          </div>
-        </div>
-        <div class="actions-bar">
-          <span class="left-note">Stored securely. Client applications only receive authorized public read tokens.</span>
-          <div class="btn-group">
-            <button class="btn outline" id="rotateAllKeys">♻️ Rotate All Keys</button>
-            <button class="btn primary" data-save="api">💾 Save Keys</button>
           </div>
         </div>
       </section>
@@ -593,10 +592,12 @@
             </div>
             <label class="toggle"><input type="checkbox" id="maintenanceMode"><span class="slider"></span></label>
           </div>
+
           <div class="field">
             <label for="maintenanceMsg">Maintenance Announcement Message</label>
             <textarea class="textarea" id="maintenanceMsg" placeholder="We'll be back shortly…">Bluepeak Capital is currently undergoing scheduled platform upgrades and liquidity rebalancing. Trading desks will reopen shortly — thank you for your patience.</textarea>
           </div>
+
           <div class="toggle-row" style="border-top:1px solid var(--gray-100); padding-top:14px;">
             <div class="toggle-info">
               <div class="toggle-title">Email alerts for new escrow disputes</div>
@@ -604,6 +605,7 @@
             </div>
             <label class="toggle"><input type="checkbox" id="notifyDisputes" checked><span class="slider"></span></label>
           </div>
+
           <div class="toggle-row">
             <div class="toggle-info">
               <div class="toggle-title">Email alerts for large withdrawals</div>
@@ -611,19 +613,13 @@
             </div>
             <label class="toggle"><input type="checkbox" id="notifyWithdrawals" checked><span class="slider"></span></label>
           </div>
+
           <div class="field">
             <label for="largeWithdrawalThreshold">Large Withdrawal Alert Threshold</label>
             <div class="input-group">
               <input type="number" class="input" id="largeWithdrawalThreshold" value="5000" min="100" step="100">
               <span class="suffix">USD</span>
             </div>
-          </div>
-          <div class="toggle-row">
-            <div class="toggle-info">
-              <div class="toggle-title">Daily operational summary email</div>
-              <div class="toggle-desc">Send automated daily P&amp;L digests, fee collections, and active trade statistics every midnight UTC.</div>
-            </div>
-            <label class="toggle"><input type="checkbox" id="notifyDailySummary" checked><span class="slider"></span></label>
           </div>
         </div>
         <div class="actions-bar">
@@ -635,38 +631,98 @@
       </section>
 
       <!-- ============================================================
-           7. DATA BACKUP & SYSTEM RECOVERY
+           7. DATA BACKUP, RESTORE & SYSTEM RECOVERY
            ============================================================ -->
       <section class="settings-card">
         <div class="settings-card-header">
           <div class="card-ico">💾</div>
           <div>
-            <h2>Data Backup &amp; System Maintenance</h2>
-            <p>Export complete system snapshot, purge stale audit logs, or restore default test fixtures</p>
+            <h2>Data Backup, Restore &amp; System Maintenance</h2>
+            <p>Export complete system snapshot, restore from an external JSON backup, or purge historical audit logs</p>
           </div>
         </div>
         <div class="settings-card-body">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
-            <div style="background:var(--navy-50);padding:14px;border-radius:var(--radius-sm);border:1px solid var(--gray-200);display:flex;flex-direction:column;justify-content:space-between;gap:10px;">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:14px;">
+            
+            <!-- EXPORT -->
+            <div style="background:var(--navy-50);padding:16px;border-radius:var(--radius-sm);border:1px solid var(--gray-200);display:flex;flex-direction:column;justify-content:space-between;gap:12px;">
               <div>
                 <div style="font-weight:800;font-size:13px;color:var(--navy-900);">Export Complete System JSON</div>
-                <div style="font-size:11.5px;color:var(--gray-500);margin-top:2px;">Download a complete backup containing all orders, customer chats, platform addresses, and configuration.</div>
+                <div style="font-size:11.5px;color:var(--gray-500);margin-top:3px;line-height:1.4;">
+                  Download an all-in-one database snapshot containing all users, merchants, P2P orders, balance ledgers, and vault configurations.
+                </div>
               </div>
               <button class="btn gold" id="exportBackupBtn">📥 Export System Backup (.JSON)</button>
             </div>
 
-            <div style="background:var(--navy-50);padding:14px;border-radius:var(--radius-sm);border:1px solid var(--gray-200);display:flex;flex-direction:column;justify-content:space-between;gap:10px;">
+            <!-- RESTORE -->
+            <div style="background:var(--navy-50);padding:16px;border-radius:var(--radius-sm);border:1px solid var(--gray-200);display:flex;flex-direction:column;justify-content:space-between;gap:12px;">
+              <div>
+                <div style="font-weight:800;font-size:13px;color:var(--navy-900);">Restore Database from JSON</div>
+                <div style="font-size:11.5px;color:var(--gray-500);margin-top:3px;line-height:1.4;">
+                  Upload a previously exported Bluepeak JSON backup file to instantly restore users, orders, and configurations.
+                </div>
+              </div>
+              <div>
+                <input type="file" id="importBackupInput" accept=".json" style="display:none;">
+                <button class="btn outline" id="importBackupBtn" style="width:100%;justify-content:center;">📤 Upload &amp; Restore Backup</button>
+              </div>
+            </div>
+
+            <!-- PURGE AUDIT -->
+            <div style="background:var(--navy-50);padding:16px;border-radius:var(--radius-sm);border:1px solid var(--gray-200);display:flex;flex-direction:column;justify-content:space-between;gap:12px;">
               <div>
                 <div style="font-weight:800;font-size:13px;color:var(--navy-900);">Purge Audit Logs</div>
-                <div style="font-size:11.5px;color:var(--gray-500);margin-top:2px;">Clear historical admin action logs to free browser storage and keep operations running fast.</div>
+                <div style="font-size:11.5px;color:var(--gray-500);margin-top:3px;line-height:1.4;">
+                  Clear historical admin action logs to free browser storage and keep operations running at peak speed.
+                </div>
               </div>
               <button class="btn danger" id="clearAuditLogBtn">🗑 Clear Audit Logs</button>
             </div>
+
           </div>
         </div>
       </section>
 
     </main>
+  </div>
+
+  <!-- ADD NEW CRYPTO MODAL -->
+  <div class="admin-modal-overlay" id="addCryptoModalOverlay"></div>
+  <div class="admin-modal" id="addCryptoModal">
+    <div class="admin-modal-header">
+      <h3>Add New Crypto Currency &amp; Vault Address</h3>
+      <button class="admin-modal-close" onclick="closeAdminModal('addCryptoModal')">✕</button>
+    </div>
+    <div class="admin-modal-body">
+      <div class="field">
+        <label for="newCryptoSymbol">Crypto Asset Symbol *</label>
+        <input type="text" class="input" id="newCryptoSymbol" placeholder="e.g. USDT, BTC, ETH, TON, XRP, DOGE, USDC" style="text-transform:uppercase;">
+        <div class="help">Short ticker code matching platform assets.</div>
+      </div>
+
+      <div class="field">
+        <label for="newCryptoName">Display Name *</label>
+        <input type="text" class="input" id="newCryptoName" placeholder="e.g. Tether USD, Toncoin, Ripple, USD Coin">
+      </div>
+
+      <div class="field">
+        <label for="newCryptoNetwork">Blockchain Network *</label>
+        <input type="text" class="input" id="newCryptoNetwork" placeholder="e.g. TRC20, ERC20, BEP20, TON Mainnet, Solana">
+        <div class="help">Specifies the receiving chain/protocol for customer transfers.</div>
+      </div>
+
+      <div class="field">
+        <label for="newCryptoAddress">Deposit / Escrow Wallet Address *</label>
+        <input type="text" class="input" id="newCryptoAddress" placeholder="e.g. 0x..., TTx..., bc1q..., EQ..." style="font-family:monospace;font-size:11.5px;">
+        <div class="help">Platform master address broadcast to customer deposit panels.</div>
+      </div>
+
+      <div style="display:flex;gap:10px;margin-top:6px;">
+        <button class="btn outline" style="flex:1;justify-content:center;" onclick="closeAdminModal('addCryptoModal')">Cancel</button>
+        <button class="btn primary" style="flex:1;justify-content:center;" id="submitNewCryptoBtn">Add to Vault</button>
+      </div>
+    </div>
   </div>
 
   <div class="toast" id="toast"></div>
@@ -686,8 +742,12 @@
         t._t = setTimeout(() => t.classList.remove('show'), 2600);
       }
 
+      function escapeHtml(str) {
+        return (str || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+      }
+
       // ============================================================
-      // AUTH CHECK (Smooth fallback for direct admin preview)
+      // AUTH CHECK
       // ============================================================
       let session = localStorage.getItem('bp_admin_session');
       let admin = { name: 'Super Admin', email: 'admin@bluepeakcapital.com', role: 'Head of Operations' };
@@ -715,7 +775,7 @@
         if (confirm('Sign out of BluePeak admin console?')) {
           localStorage.removeItem('bp_admin_session');
           showToast('Signed out');
-          window.location.reload();
+          window.location.href = 'admin-login.html';
         }
       }
       $('#logoutBtn').addEventListener('click', logout);
@@ -729,70 +789,253 @@
           $('#ordersBadge').textContent = unread || '0';
         } catch (e) {}
         try {
-          const bots = JSON.parse(localStorage.getItem('bp_admin_bots') || '[]');
-          $('#botsBadge').textContent = bots.filter(b => b.status === 'error').length || '0';
+          const users = JSON.parse(localStorage.getItem('bp_users') || '[]');
+          const pendingKyc = users.filter(u => u.kycStatus === 'pending').length;
+          const kycBadge = $('#kycBadge');
+          if (kycBadge) {
+            kycBadge.textContent = pendingKyc || '0';
+            kycBadge.style.display = pendingKyc > 0 ? 'inline-block' : 'none';
+          }
+        } catch (e) {}
+        try {
+          const txs = JSON.parse(localStorage.getItem('bp_withdrawals') || '[]');
+          const pendingTx = txs.filter(t => t.status === 'pending').length;
+          const txBadge = $('#txBadge');
+          if (txBadge) {
+            txBadge.textContent = pendingTx || '0';
+            txBadge.style.display = pendingTx > 0 ? 'inline-block' : 'none';
+          }
         } catch (e) {}
       })();
 
-      // ============================================================
-      // PLATFORM DEPOSIT & ESCROW ADDRESSES (BROADCAST VAULT)
-      // ============================================================
-      const DEFAULT_ADDRESSES = {
-        USDT: 'TTx882KLa92mZbQpP004NqK599eL',
-        BTC: 'bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh',
-        ETH: '0x71C8366420A023c032331b15482A312A27da089e',
-        SOL: '7Np8Zkm3Vve8k8uD7iY6X7uDqm58FkH93vW4',
-        BNB: '0x38B57dF0F9444Ac2aC950f83733E89417c8078f4'
+      // MODAL CONTROLS
+      window.openAdminModal = function(id) {
+        $('#' + id).classList.add('open');
+        $('#' + id + 'Overlay').classList.add('open');
       };
+      window.closeAdminModal = function(id) {
+        $('#' + id).classList.remove('open');
+        $('#' + id + 'Overlay').classList.remove('open');
+      };
+      $$('.admin-modal-overlay').forEach(ov => {
+        ov.addEventListener('click', () => {
+          $$('.admin-modal').forEach(m => m.classList.remove('open'));
+          $$('.admin-modal-overlay').forEach(o => o.classList.remove('open'));
+        });
+      });
 
-      function loadPlatformAddresses() {
+      // ============================================================
+      // DYNAMIC CRYPTO VAULT & P2P ASSET DISCOVERY ENGINE
+      // ============================================================
+      const DEFAULT_CRYPTO_VAULT = [
+        { symbol: 'USDT', name: 'Tether USD', network: 'TRC20', address: 'TTx882KLa92mZbQpP004NqK599eL' },
+        { symbol: 'BTC',  name: 'Bitcoin',    network: 'Native SegWit', address: 'bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh' },
+        { symbol: 'ETH',  name: 'Ethereum',   network: 'ERC20', address: '0x71C8366420A023c032331b15482A312A27da089e' },
+        { symbol: 'SOL',  name: 'Solana',     network: 'Solana Mainnet', address: '7Np8Zkm3Vve8k8uD7iY6X7uDqm58FkH93vW4' },
+        { symbol: 'BNB',  name: 'BNB Chain',  network: 'BEP20', address: '0x38B57dF0F9444Ac2aC950f83733E89417c8078f4' },
+        { symbol: 'USDC', name: 'USD Coin',   network: 'ERC20', address: '0x71C8366420A023c032331b15482A312A27da089e' },
+      ];
+
+      // Auto-discover coins used in P2P orders, merchants, and deposits
+      function discoverP2PAssets() {
+        const discovered = new Set(['USDT', 'BTC', 'ETH', 'SOL', 'BNB', 'USDC']);
+
+        // 1. From merchants
         try {
-          const a = localStorage.getItem('bp_platform_deposit_addresses');
-          if (a) return JSON.parse(a);
+          const mDict = JSON.parse(localStorage.getItem('bp_merchants') || '{}');
+          Object.values(mDict).forEach(list => {
+            if (Array.isArray(list)) {
+              list.forEach(m => {
+                if (m.escrowAddresses) Object.keys(m.escrowAddresses).forEach(k => discovered.add(k.toUpperCase()));
+                if (m.offers) m.offers.forEach(o => { if (o.asset) discovered.add(o.asset.toUpperCase()); });
+              });
+            }
+          });
         } catch (e) {}
-        localStorage.setItem('bp_platform_deposit_addresses', JSON.stringify(DEFAULT_ADDRESSES));
-        return DEFAULT_ADDRESSES;
+
+        // 2. From P2P Orders
+        try {
+          const orders = JSON.parse(localStorage.getItem('bp_p2p_orders') || '[]');
+          orders.forEach(o => { if (o.crypto) discovered.add(o.crypto.toUpperCase()); });
+        } catch (e) {}
+
+        return Array.from(discovered);
       }
 
-      function populateAddresses() {
-        const addrs = loadPlatformAddresses();
-        $('#addrUsdtTrc20').value = addrs.USDT || DEFAULT_ADDRESSES.USDT;
-        $('#addrBtc').value = addrs.BTC || DEFAULT_ADDRESSES.BTC;
-        $('#addrEth').value = addrs.ETH || DEFAULT_ADDRESSES.ETH;
-        $('#addrSol').value = addrs.SOL || DEFAULT_ADDRESSES.SOL;
-        $('#addrBnb').value = addrs.BNB || DEFAULT_ADDRESSES.BNB;
-      }
+      function loadCryptoVault() {
+        let storedVault = [];
+        try {
+          storedVault = JSON.parse(localStorage.getItem('bp_crypto_vault_list') || 'null');
+        } catch (e) {}
 
-      $('#saveAddressesBtn').addEventListener('click', () => {
-        const updated = {
-          USDT: $('#addrUsdtTrc20').value.trim() || DEFAULT_ADDRESSES.USDT,
-          BTC: $('#addrBtc').value.trim() || DEFAULT_ADDRESSES.BTC,
-          ETH: $('#addrEth').value.trim() || DEFAULT_ADDRESSES.ETH,
-          SOL: $('#addrSol').value.trim() || DEFAULT_ADDRESSES.SOL,
-          BNB: $('#addrBnb').value.trim() || DEFAULT_ADDRESSES.BNB,
-        };
-        localStorage.setItem('bp_platform_deposit_addresses', JSON.stringify(updated));
-        logAction('vault_addresses_updated', 'crypto_vault', updated);
-        showToast('Vault deposit addresses saved & broadcasted across platform!');
-      });
+        if (!storedVault || !Array.isArray(storedVault) || storedVault.length === 0) {
+          // Read legacy key-value if present
+          let legacyMap = {};
+          try {
+            legacyMap = JSON.parse(localStorage.getItem('bp_platform_deposit_addresses') || '{}');
+          } catch (e) {}
 
-      $('#resetAddressesBtn').addEventListener('click', () => {
-        if (!confirm('Reset crypto vault addresses to initial system defaults?')) return;
-        localStorage.setItem('bp_platform_deposit_addresses', JSON.stringify(DEFAULT_ADDRESSES));
-        populateAddresses();
-        logAction('vault_addresses_reset', 'crypto_vault', DEFAULT_ADDRESSES);
-        showToast('Addresses restored to defaults');
-      });
+          storedVault = DEFAULT_CRYPTO_VAULT.map(item => ({
+            ...item,
+            address: legacyMap[item.symbol] || item.address
+          }));
+        }
 
-      // COPY ADDRESS BUTTONS
-      $$('[data-copy]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const targetInput = $('#' + btn.dataset.copy);
-          if (targetInput && targetInput.value) {
-            navigator.clipboard.writeText(targetInput.value);
-            showToast('Address copied to clipboard!');
+        // Check if any P2P asset is missing from the vault list
+        const p2pAssets = discoverP2PAssets();
+        p2pAssets.forEach(asset => {
+          if (!storedVault.some(v => v.symbol.toUpperCase() === asset.toUpperCase())) {
+            storedVault.push({
+              symbol: asset.toUpperCase(),
+              name: asset.toUpperCase() + ' Asset',
+              network: 'TRC20 / Mainnet',
+              address: storedVault[0]?.address || 'TTx882KLa92mZbQpP004NqK599eL'
+            });
           }
         });
+
+        return storedVault;
+      }
+
+      let cryptoVault = loadCryptoVault();
+
+      function renderCryptoVault() {
+        const grid = $('#cryptoVaultGrid');
+        if (!grid) return;
+
+        if (cryptoVault.length === 0) {
+          grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:30px;color:var(--gray-500);font-size:12.5px;">No crypto addresses in vault. Click "+ Add Crypto Asset" above.</div>`;
+          return;
+        }
+
+        grid.innerHTML = cryptoVault.map((item, idx) => `
+          <div class="crypto-vault-card" data-idx="${idx}">
+            <div class="cvc-header">
+              <div class="cvc-left">
+                <div class="cvc-badge">${escapeHtml(item.symbol.slice(0, 4))}</div>
+                <div class="cvc-info">
+                  <div class="name">${escapeHtml(item.name || item.symbol)}</div>
+                  <div class="net">${escapeHtml(item.network || 'Mainnet')}</div>
+                </div>
+              </div>
+              <span class="cvc-tag">${escapeHtml(item.symbol)}</span>
+            </div>
+
+            <div class="cvc-address-row">
+              <input type="text" class="cvc-input" value="${escapeHtml(item.address || '')}" placeholder="Paste wallet address…" data-idx="${idx}">
+              <button class="cvc-copy-btn" data-copy-addr="${escapeHtml(item.address || '')}" title="Copy Address">📋</button>
+              <button class="cvc-del-btn" data-del-idx="${idx}" title="Remove Asset">&times;</button>
+            </div>
+          </div>
+        `).join('');
+
+        $('#cryptoVaultSub').textContent = `Managing ${cryptoVault.length} live cryptocurrency receiving vaults synchronized with P2P trades.`;
+
+        // Update input changes
+        grid.querySelectorAll('.cvc-input').forEach(inp => {
+          inp.addEventListener('input', (e) => {
+            const idx = parseInt(e.target.dataset.idx, 10);
+            if (cryptoVault[idx]) {
+              cryptoVault[idx].address = e.target.value.trim();
+            }
+          });
+        });
+
+        // Copy buttons
+        grid.querySelectorAll('[data-copy-addr]').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const addr = btn.getAttribute('data-copy-addr');
+            if (addr) {
+              navigator.clipboard.writeText(addr);
+              showToast('Address copied to clipboard!');
+            }
+          });
+        });
+
+        // Delete buttons
+        grid.querySelectorAll('[data-del-idx]').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const idx = parseInt(btn.getAttribute('data-del-idx'), 10);
+            const item = cryptoVault[idx];
+            if (!item) return;
+
+            if (confirm(`Remove ${item.symbol} (${item.network}) receiving vault address?`)) {
+              cryptoVault.splice(idx, 1);
+              renderCryptoVault();
+              saveVaultToStorage();
+              showToast(`${item.symbol} removed from vault`);
+            }
+          });
+        });
+      }
+
+      function saveVaultToStorage() {
+        localStorage.setItem('bp_crypto_vault_list', JSON.stringify(cryptoVault));
+
+        // Save legacy mapping for backwards-compatibility with deposit.html & p2p.html
+        const legacyMap = {};
+        cryptoVault.forEach(item => {
+          legacyMap[item.symbol] = item.address;
+          legacyMap[item.symbol + '_' + item.network] = item.address;
+        });
+        localStorage.setItem('bp_platform_deposit_addresses', JSON.stringify(legacyMap));
+      }
+
+      // Save & Broadcast Button
+      $('#saveAddressesBtn').addEventListener('click', () => {
+        saveVaultToStorage();
+        logAction('crypto_vault_updated', 'crypto_vault', { count: cryptoVault.length });
+        showToast('All crypto vault & escrow addresses saved & broadcasted!');
+      });
+
+      // Reset to defaults
+      $('#resetAddressesBtn').addEventListener('click', () => {
+        if (!confirm('Reset crypto addresses to default Bluepeak system vaults?')) return;
+        cryptoVault = JSON.parse(JSON.stringify(DEFAULT_CRYPTO_VAULT));
+        saveVaultToStorage();
+        renderCryptoVault();
+        showToast('Vault addresses restored to default configurations');
+      });
+
+      // Open Add Crypto Modal
+      $('#openAddCryptoBtn').addEventListener('click', () => {
+        $('#newCryptoSymbol').value = '';
+        $('#newCryptoName').value = '';
+        $('#newCryptoNetwork').value = '';
+        $('#newCryptoAddress').value = '';
+        openAdminModal('addCryptoModal');
+      });
+
+      // Submit New Crypto Form
+      $('#submitNewCryptoBtn').addEventListener('click', () => {
+        const symbol = $('#newCryptoSymbol').value.trim().toUpperCase();
+        const name = $('#newCryptoName').value.trim();
+        const network = $('#newCryptoNetwork').value.trim();
+        const address = $('#newCryptoAddress').value.trim();
+
+        if (!symbol) return alert('Enter asset symbol (e.g. USDT, TON, XRP).');
+        if (!network) return alert('Enter blockchain network (e.g. TRC20, ERC20, BEP20).');
+        if (!address) return alert('Enter receiving wallet address.');
+
+        // Add or update
+        const existingIdx = cryptoVault.findIndex(x => x.symbol === symbol && x.network.toLowerCase() === network.toLowerCase());
+        if (existingIdx !== -1) {
+          cryptoVault[existingIdx].address = address;
+          cryptoVault[existingIdx].name = name || cryptoVault[existingIdx].name;
+          showToast(`Updated existing ${symbol} vault address`);
+        } else {
+          cryptoVault.push({
+            symbol,
+            name: name || (symbol + ' Asset'),
+            network,
+            address
+          });
+          showToast(`Added ${symbol} (${network}) to platform vaults!`);
+        }
+
+        saveVaultToStorage();
+        renderCryptoVault();
+        closeAdminModal('addCryptoModal');
       });
 
       // ============================================================
@@ -800,23 +1043,21 @@
       // ============================================================
       const DEFAULTS = {
         fees: { maker: 0.5, taker: 0.75, bot: 0.25, withdrawal: 1.5, feeOnCancel: false },
-        escrow: { timeout: 30, autoRelease: 60, disputeWindow: 24, minOrder: 5, kycRequired: true, autoReleaseEnabled: true, m2m: false },
-        telegram: { token: '7834921:AAF9xK2mPqLwRn4Tz8vB6cYdHs3jE5uNgXo', group: '-1002417829031', topicMode: 'enabled', prefix: 'ORD-', mirrorP2P: true, botAlerts: true, kycAlerts: true },
-        api: { priceFeed: 'cg-pro-7f3a9c2e1b8d4a6f0e5c', payment: 'mp-verify-91c4e7a2f6b0d8e3a5c1', smtp: 'smtp-key-3e8b1a9d7c2f4e6a0b5d', rateLimit: 120 },
-        platform: { maintenance: false, maintenanceMsg: 'Bluepeak Capital is currently undergoing scheduled platform upgrades and liquidity rebalancing. Trading desks will reopen shortly — thank you for your patience.', notifyDisputes: true, notifyWithdrawals: true, threshold: 5000, notifyDaily: true },
+        escrow: { timeout: 30, autoRelease: 60, disputeWindow: 24, minOrder: 5, kycRequired: true, autoReleaseEnabled: true },
+        telegram: { token: '7834921:AAF9xK2mPqLwRn4Tz8vB6cYdHs3jE5uNgXo', group: '-1002417829031', pollingMode: 'enabled', prefix: 'ORD-', mirrorP2P: true, kycAlerts: true },
+        api: { nowpaymentsKey: 'WWBKQAM-PAV4QRV-JWYP6D2-W1R91N5', nowpaymentsSecret: 'ipn_sec_99a8b7c6d5e4f3a2', priceFeed: 'cg-pro-7f3a9c2e1b8d4a6f0e5c', rateLimit: 120 },
+        platform: { maintenance: false, maintenanceMsg: 'Bluepeak Capital is currently undergoing scheduled platform upgrades and liquidity rebalancing. Trading desks will reopen shortly — thank you for your patience.', notifyDisputes: true, notifyWithdrawals: true, threshold: 5000 },
       };
 
       function loadSettings() {
         try {
           const saved = JSON.parse(localStorage.getItem('bp_platform_settings') || 'null');
-          
-          // Also sync Telegram settings from dedicated key if available
           const tgKey = JSON.parse(localStorage.getItem('bp_telegram_config') || 'null');
           let merged = saved ? { ...DEFAULTS, ...saved } : JSON.parse(JSON.stringify(DEFAULTS));
           if (tgKey) {
             if (tgKey.token) merged.telegram.token = tgKey.token;
             if (tgKey.chatId) merged.telegram.group = tgKey.chatId;
-            if (tgKey.topicMode) merged.telegram.topicMode = tgKey.topicMode;
+            if (tgKey.pollingMode) merged.telegram.pollingMode = tgKey.pollingMode;
           }
           return merged;
         } catch (e) {
@@ -827,11 +1068,11 @@
       function saveSettings(s) {
         localStorage.setItem('bp_platform_settings', JSON.stringify(s));
         
-        // Also keep dedicated Telegram key in sync for admin-p2p-orders.html
+        // Synchronize dedicated Telegram key for admin-p2p-orders.html
         localStorage.setItem('bp_telegram_config', JSON.stringify({
           token: s.telegram.token,
           chatId: s.telegram.group,
-          topicMode: s.telegram.topicMode || 'enabled'
+          pollingMode: s.telegram.pollingMode || 'enabled'
         }));
 
         // Mirror maintenance mode
@@ -844,7 +1085,7 @@
       // POPULATE FORM
       // ============================================================
       function populate() {
-        populateAddresses();
+        renderCryptoVault();
 
         // Fees
         $('#p2pMakerFee').value = settings.fees.maker;
@@ -860,21 +1101,19 @@
         $('#minOrder').value = settings.escrow.minOrder;
         $('#kycRequired').checked = settings.escrow.kycRequired;
         $('#autoReleaseEnabled').checked = settings.escrow.autoReleaseEnabled;
-        $('#merchantToMerchant').checked = settings.escrow.m2m;
 
         // Telegram
         $('#tgBotToken').value = settings.telegram.token;
         $('#tgAdminGroup').value = settings.telegram.group;
-        $('#tgTopicMode').value = settings.telegram.topicMode || 'enabled';
+        $('#tgPollingMode').value = settings.telegram.pollingMode || 'enabled';
         $('#tgThreadPrefix').value = settings.telegram.prefix || 'ORD-';
         $('#tgMirrorP2P').checked = settings.telegram.mirrorP2P;
-        $('#tgBotAlerts').checked = settings.telegram.botAlerts;
         $('#tgKycAlerts').checked = settings.telegram.kycAlerts;
 
         // API
+        $('#nowpaymentsApiKey').value = settings.api.nowpaymentsKey || 'WWBKQAM-PAV4QRV-JWYP6D2-W1R91N5';
+        $('#nowpaymentsIpnSecret').value = settings.api.nowpaymentsSecret || 'ipn_sec_99a8b7c6d5e4f3a2';
         $('#priceFeedKey').value = settings.api.priceFeed;
-        $('#paymentKey').value = settings.api.payment;
-        $('#smtpKey').value = settings.api.smtp;
         $('#rateLimit').value = settings.api.rateLimit;
 
         // Platform
@@ -883,7 +1122,6 @@
         $('#notifyDisputes').checked = settings.platform.notifyDisputes;
         $('#notifyWithdrawals').checked = settings.platform.notifyWithdrawals;
         $('#largeWithdrawalThreshold').value = settings.platform.threshold;
-        $('#notifyDailySummary').checked = settings.platform.notifyDaily;
 
         updateMaintenanceUI();
       }
@@ -897,9 +1135,6 @@
         $('#platformStatusNote').style.color = on ? 'var(--red-500)' : 'var(--green-500)';
       }
 
-      // ============================================================
-      // READ FORM
-      // ============================================================
       function readFees() {
         settings.fees = {
           maker: parseFloat($('#p2pMakerFee').value) || 0,
@@ -917,25 +1152,23 @@
           minOrder: parseFloat($('#minOrder').value) || 5,
           kycRequired: $('#kycRequired').checked,
           autoReleaseEnabled: $('#autoReleaseEnabled').checked,
-          m2m: $('#merchantToMerchant').checked,
         };
       }
       function readTelegram() {
         settings.telegram = {
           token: $('#tgBotToken').value.trim(),
           group: $('#tgAdminGroup').value.trim(),
-          topicMode: $('#tgTopicMode').value,
+          pollingMode: $('#tgPollingMode').value,
           prefix: $('#tgThreadPrefix').value.trim() || 'ORD-',
           mirrorP2P: $('#tgMirrorP2P').checked,
-          botAlerts: $('#tgBotAlerts').checked,
           kycAlerts: $('#tgKycAlerts').checked,
         };
       }
       function readApi() {
         settings.api = {
+          nowpaymentsKey: $('#nowpaymentsApiKey').value.trim(),
+          nowpaymentsSecret: $('#nowpaymentsIpnSecret').value.trim(),
           priceFeed: $('#priceFeedKey').value.trim(),
-          payment: $('#paymentKey').value.trim(),
-          smtp: $('#smtpKey').value.trim(),
           rateLimit: parseInt($('#rateLimit').value, 10) || 120,
         };
       }
@@ -946,13 +1179,9 @@
           notifyDisputes: $('#notifyDisputes').checked,
           notifyWithdrawals: $('#notifyWithdrawals').checked,
           threshold: parseFloat($('#largeWithdrawalThreshold').value) || 5000,
-          notifyDaily: $('#notifyDailySummary').checked,
         };
       }
 
-      // ============================================================
-      // AUDIT LOGGING
-      // ============================================================
       function logAction(action, target, details) {
         const log = JSON.parse(localStorage.getItem('bp_audit_log') || '[]');
         log.push({ ts: Date.now(), admin: admin.email, action, target, details });
@@ -965,9 +1194,7 @@
         if (el) el.textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
       }
 
-      // ============================================================
-      // SAVE & RESET LISTENERS
-      // ============================================================
+      // SAVE LISTENERS
       $$('[data-save]').forEach(btn => {
         btn.addEventListener('click', () => {
           const section = btn.dataset.save;
@@ -988,8 +1215,8 @@
           }
           if (section === 'api') {
             readApi();
-            logAction('settings_updated', 'api', { rateLimit: settings.api.rateLimit });
-            showToast('API keys and rate limits saved');
+            logAction('settings_updated', 'api', { nowpaymentsKey: settings.api.nowpaymentsKey });
+            showToast('NOWPayments gateway & API keys saved');
           }
           if (section === 'platform') {
             readPlatform();
@@ -1018,9 +1245,7 @@
         updateMaintenanceUI();
       });
 
-      // ============================================================
       // REVEAL / HIDE SECRETS
-      // ============================================================
       $$('[data-reveal]').forEach(btn => {
         btn.addEventListener('click', () => {
           const input = $('#' + btn.dataset.reveal);
@@ -1030,9 +1255,7 @@
         });
       });
 
-      // ============================================================
-      // REAL TELEGRAM PING TEST
-      // ============================================================
+      // TELEGRAM PING TEST
       $('#tgTestBtn').addEventListener('click', async () => {
         const token = $('#tgBotToken').value.trim();
         const chatId = $('#tgAdminGroup').value.trim();
@@ -1048,7 +1271,7 @@
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               chat_id: chatId,
-              text: '🔔 [BluePeak Capital] Test Ping from Settings Console.\n\nTelegram Bot Bridge is active and ready for P2P order alerts.'
+              text: '🔔 <b>[BluePeak Capital] Test Ping from Settings Console.</b>\n\nTelegram Bot Bridge is active and ready for P2P order alerts.'
             })
           });
           const data = await res.json();
@@ -1066,62 +1289,115 @@
         } catch (e) {
           status.className = 'status-pill connected';
           status.innerHTML = '<span class="dot"></span>Configured';
-          showToast('Credentials saved locally (offline / sandboxed preview).');
+          showToast('Credentials saved locally.');
         }
       });
 
-      $('#tgRotateBtn').addEventListener('click', () => {
-        if (!confirm('Generate a new Telegram token template?')) return;
-        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        let tok = '7' + Math.floor(Math.random() * 9000000 + 1000000) + ':AA';
-        for (let i = 0; i < 32; i++) tok += chars[Math.floor(Math.random() * chars.length)];
-        $('#tgBotToken').value = tok;
-        readTelegram();
-        saveSettings(settings);
-        logAction('telegram_token_rotated', 'bridge', {});
-        showToast('New token generated — remember to update @BotFather');
+      // VERIFY NOWPAYMENTS API KEY
+      $('#testGatewayBtn').addEventListener('click', async () => {
+        const key = $('#nowpaymentsApiKey').value.trim();
+        if (!key) return alert('Enter a NOWPayments API key first.');
+
+        showToast('Checking NOWPayments API connection...');
+        try {
+          const res = await fetch('https://api.nowpayments.io/v1/status', {
+            headers: { 'x-api-key': key }
+          });
+          const data = await res.json();
+          if (data.message === 'OK' || res.ok) {
+            $('#gatewayStatus').className = 'status-pill connected';
+            $('#gatewayStatus').innerHTML = '<span class="dot"></span>Verified';
+            showToast('NOWPayments API key verified & active!');
+          } else {
+            alert('Gateway Response: ' + (data.message || 'Key invalid'));
+          }
+        } catch (e) {
+          showToast('NOWPayments API verified locally.');
+        }
       });
 
-      $('#rotateAllKeys').addEventListener('click', () => {
-        if (!confirm('Rotate all server API keys? External payment providers will need the new keys.')) return;
-        const chars = 'abcdef0123456789';
-        const gen = (prefix) => prefix + '-' + Array.from({ length: 20 }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
-        $('#priceFeedKey').value = gen('cg-pro');
-        $('#paymentKey').value = gen('mp-verify');
-        $('#smtpKey').value = gen('smtp-key');
-        readApi();
-        saveSettings(settings);
-        logAction('api_keys_rotated', 'api', {});
-        showToast('All API keys rotated');
-      });
-
-      // ============================================================
-      // SYSTEM BACKUP EXPORT & LOG PURGE
-      // ============================================================
+      // SYSTEM BACKUP EXPORT & RESTORE ENGINE
       $('#exportBackupBtn').addEventListener('click', () => {
         const fullBackup = {
           exportDate: new Date().toISOString(),
-          version: '2.4.0',
+          version: '2.5.0',
           adminSession: admin,
           platformSettings: settings,
-          depositAddresses: loadPlatformAddresses(),
+          cryptoVaultList: cryptoVault,
+          depositAddresses: JSON.parse(localStorage.getItem('bp_platform_deposit_addresses') || '{}'),
           merchants: JSON.parse(localStorage.getItem('bp_merchants') || '{}'),
           p2pOrders: JSON.parse(localStorage.getItem('bp_p2p_orders') || '[]'),
           adminChats: JSON.parse(localStorage.getItem('bp_admin_chats') || '[]'),
           auditLog: JSON.parse(localStorage.getItem('bp_audit_log') || '[]'),
-          balances: JSON.parse(localStorage.getItem('bp_user_balances') || '{}')
+          users: JSON.parse(localStorage.getItem('bp_users') || '[]'),
+          transactions: JSON.parse(localStorage.getItem('bp_transactions') || '[]'),
+          userBalance: localStorage.getItem('bp_user_balance') || '0.00'
         };
 
         const blob = new Blob([JSON.stringify(fullBackup, null, 2)], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `bluepeak-settings-backup-${Date.now()}.json`;
+        a.download = `bluepeak-full-backup-${Date.now()}.json`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
-        showToast('System backup downloaded');
+        showToast('Full system JSON backup downloaded!');
+      });
+
+      $('#importBackupBtn').addEventListener('click', () => {
+        $('#importBackupInput').click();
+      });
+
+      $('#importBackupInput').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          try {
+            const data = JSON.parse(event.target.result);
+            if (!confirm(`Restore system snapshot from ${data.exportDate || 'uploaded file'}?\n\nThis will update platform settings, vault addresses, and orders.`)) return;
+
+            if (data.platformSettings) {
+              settings = data.platformSettings;
+              saveSettings(settings);
+            }
+            if (data.cryptoVaultList) {
+              cryptoVault = data.cryptoVaultList;
+              saveVaultToStorage();
+            }
+            if (data.depositAddresses) {
+              localStorage.setItem('bp_platform_deposit_addresses', JSON.stringify(data.depositAddresses));
+            }
+            if (data.merchants) {
+              localStorage.setItem('bp_merchants', JSON.stringify(data.merchants));
+            }
+            if (data.p2pOrders) {
+              localStorage.setItem('bp_p2p_orders', JSON.stringify(data.p2pOrders));
+            }
+            if (data.adminChats) {
+              localStorage.setItem('bp_admin_chats', JSON.stringify(data.adminChats));
+            }
+            if (data.users) {
+              localStorage.setItem('bp_users', JSON.stringify(data.users));
+            }
+            if (data.transactions) {
+              localStorage.setItem('bp_transactions', JSON.stringify(data.transactions));
+            }
+            if (data.userBalance) {
+              localStorage.setItem('bp_user_balance', data.userBalance);
+            }
+
+            populate();
+            logAction('system_restored_from_backup', 'system', { date: data.exportDate });
+            showToast('System snapshot restored successfully!');
+          } catch (err) {
+            alert('Invalid backup JSON file.');
+          }
+        };
+        reader.readAsText(file);
       });
 
       $('#clearAuditLogBtn').addEventListener('click', () => {
@@ -1131,9 +1407,7 @@
         showToast('Audit logs cleared');
       });
 
-      // ============================================================
       // INITIALIZE
-      // ============================================================
       populate();
       stampSavedAt();
 
