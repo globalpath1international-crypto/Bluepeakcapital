@@ -125,58 +125,53 @@
     .asset-trigger:hover { border-color: var(--gold-500); background: var(--gold-100); }
     .asset-trigger-left { display: flex; align-items: center; gap: 12px; }
     .asset-trigger-left img { width: 38px; height: 38px; border-radius: 50%; }
-    .asset-trigger-info .name {
-      font-size: 15px; font-weight: 800; color: var(--navy-900);
-    }
-    .asset-trigger-info .symbol {
-      font-size: 11px; font-weight: 700; color: var(--gray-500);
-      text-transform: uppercase; margin-top: 1px;
-    }
-    .asset-trigger-info .balance {
-      font-size: 11.5px; font-weight: 700; color: var(--green-500);
-      margin-top: 2px; font-variant-numeric: tabular-nums;
-    }
-    .asset-trigger-right {
-      display: flex; align-items: center; gap: 6px;
-      color: var(--gray-500); font-size: 12px; font-weight: 700;
-      flex-shrink: 0;
-    }
-    .asset-trigger-right svg {
-      width: 14px; height: 14px; stroke: currentColor; fill: none;
-      stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;
-    }
+    .asset-trigger-info .name { font-size: 15px; font-weight: 800; color: var(--navy-900); }
+    .asset-trigger-info .symbol { font-size: 11px; font-weight: 700; color: var(--gray-500); text-transform: uppercase; margin-top: 1px; }
+    .asset-trigger-info .balance { font-size: 11.5px; font-weight: 700; color: var(--green-500); margin-top: 2px; font-variant-numeric: tabular-nums; }
+    .asset-trigger-right { display: flex; align-items: center; gap: 6px; color: var(--gray-500); font-size: 12px; font-weight: 700; flex-shrink: 0; }
+    .asset-trigger-right svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
 
-    /* NETWORK TOGGLE */
-    .network-toggle {
-      display: flex; gap: 6px; flex-wrap: wrap;
+    /* COMPACT NETWORK TRIGGER & DROPDOWN */
+    .network-trigger {
+      display: flex; align-items: center; justify-content: space-between;
+      background: var(--navy-50); border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-md); padding: 13px 14px;
+      cursor: pointer; transition: all 0.2s;
     }
-    .network-option {
-      display: flex; align-items: center; gap: 8px;
-      padding: 10px 14px; border-radius: var(--radius-sm);
+    .network-trigger:hover { border-color: var(--gold-500); background: var(--gold-100); }
+    .network-trigger-left { display: flex; align-items: center; gap: 10px; }
+    .network-trigger-left .net-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold-500); }
+    .network-trigger-info { display: flex; flex-direction: column; }
+    .network-trigger-name { font-size: 13.5px; font-weight: 800; color: var(--navy-900); }
+    .network-trigger-label { font-size: 11px; font-weight: 600; color: var(--gray-500); margin-top: 1px; }
+    .network-trigger-right { display: flex; align-items: center; gap: 6px; color: var(--gray-500); font-size: 12px; font-weight: 700; }
+    .network-trigger-right svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.2s; }
+    .network-trigger.open .network-trigger-right svg { transform: rotate(180deg); }
+
+    .network-options-wrapper {
+      display: none; flex-direction: column; gap: 6px; margin-top: 6px;
+      animation: fadeIn 0.2s ease;
+    }
+    .network-options-wrapper.open { display: flex; }
+
+    .network-option-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 14px; border-radius: var(--radius-sm);
       background: var(--white); border: 1.5px solid var(--gray-200);
-      font-family: var(--font); font-size: 12.5px; font-weight: 700;
-      color: var(--navy-700); cursor: pointer;
-      transition: all 0.18s; flex: 1; min-width: 120px;
+      cursor: pointer; transition: all 0.15s;
     }
-    .network-option:hover { border-color: var(--gold-500); }
-    .network-option.active {
-      background: var(--navy-900); color: var(--white);
-      border-color: var(--navy-900);
-    }
-    .network-option .net-dot {
-      width: 8px; height: 8px; border-radius: 50%;
-      background: var(--gray-300); flex-shrink: 0;
-    }
-    .network-option.active .net-dot { background: var(--gold-400); }
-    .network-option .net-info { flex: 1; min-width: 0; }
-    .network-option .net-name {
-      font-weight: 800; font-size: 12.5px;
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    }
-    .network-option .net-fee {
-      font-size: 10.5px; font-weight: 600; opacity: 0.7; margin-top: 1px;
-    }
-    .network-option.active .net-fee { color: var(--gold-400); opacity: 1; }
+    .network-option-item:hover { border-color: var(--gold-500); background: var(--navy-50); }
+    .network-option-item.active { background: var(--navy-900); border-color: var(--navy-900); }
+    .network-option-item-left { display: flex; align-items: center; gap: 10px; }
+    .network-option-item-left .net-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gray-300); }
+    .network-option-item.active .net-dot { background: var(--gold-400); }
+    .network-option-item-info { display: flex; flex-direction: column; }
+    .network-option-item-name { font-size: 13px; font-weight: 800; color: var(--navy-900); }
+    .network-option-item.active .network-option-item-name { color: var(--white); }
+    .network-option-item-label { font-size: 10.5px; font-weight: 600; color: var(--gray-500); margin-top: 1px; }
+    .network-option-item.active .network-option-item-label { color: var(--gray-300); }
+    .network-option-item-fee { font-size: 11px; font-weight: 700; color: var(--green-500); text-align: right; }
+    .network-option-item.active .network-option-item-fee { color: var(--gold-400); }
 
     /* AMOUNT INPUT */
     .input-wrap { position: relative; }
@@ -208,11 +203,7 @@
     }
     .input-max-btn:hover { background: var(--gold-500); color: var(--white); }
 
-    /* AMOUNT USD HINT */
-    .amount-usd-hint {
-      font-size: 11.5px; font-weight: 600; color: var(--gray-500);
-      padding: 2px 0 0 2px;
-    }
+    .amount-usd-hint { font-size: 11.5px; font-weight: 600; color: var(--gray-500); padding: 2px 0 0 2px; }
     .amount-usd-hint strong { color: var(--navy-900); font-weight: 800; }
 
     /* ADDRESS */
@@ -225,9 +216,7 @@
       transition: border-color 0.2s, box-shadow 0.2s;
     }
     .address-input:focus { border-color: var(--gold-500); box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.15); }
-    .address-input::placeholder {
-      font-family: var(--font); font-weight: 500; color: var(--gray-400);
-    }
+    .address-input::placeholder { font-family: var(--font); font-weight: 500; color: var(--gray-400); }
     .paste-btn {
       position: absolute; right: 12px; top: 50%;
       transform: translateY(-50%);
@@ -251,18 +240,13 @@
       font-size: 12.5px; font-weight: 600; color: var(--gray-500);
       padding: 6px 0;
     }
-    .summary-row strong {
-      color: var(--navy-900); font-weight: 800; font-variant-numeric: tabular-nums;
-    }
+    .summary-row strong { color: var(--navy-900); font-weight: 800; font-variant-numeric: tabular-nums; }
     .summary-row.total {
       border-top: 1px solid var(--gray-200);
       padding-top: 12px; margin-top: 6px;
       font-size: 13.5px;
     }
-    .summary-row.total strong {
-      font-size: 17px; color: var(--green-500);
-      letter-spacing: -0.3px;
-    }
+    .summary-row.total strong { font-size: 17px; color: var(--green-500); letter-spacing: -0.3px; }
 
     /* WARNING */
     .warning-box {
@@ -275,7 +259,7 @@
     .warning-box.visible { display: flex; }
     .warning-box .icon { font-size: 16px; flex-shrink: 0; line-height: 1.2; }
 
-    /* BUTTON */
+    /* WITHDRAW BUTTON */
     .btn-withdraw {
       padding: 15px; border-radius: var(--radius-pill);
       background: linear-gradient(135deg, var(--red-500), #B03333);
@@ -294,208 +278,131 @@
       display: flex; gap: 10px; align-items: flex-start;
     }
     .security-note .icon { font-size: 16px; flex-shrink: 0; line-height: 1.2; }
-    .security-note .text {
-      font-size: 11.5px; font-weight: 600; color: var(--green-500);
-      line-height: 1.55;
-    }
+    .security-note .text { font-size: 11.5px; font-weight: 600; color: var(--green-500); line-height: 1.55; }
     .security-note .text strong { font-weight: 800; }
 
-    /* ASSET MODAL */
-    .modal-overlay {
-      position: fixed; inset: 0; background: rgba(10, 26, 47, 0.6);
-      backdrop-filter: blur(4px); z-index: 70;
-      opacity: 0; pointer-events: none; transition: opacity 0.25s;
+    /* ============================================================
+       WITHDRAWAL PROCESSING STATE CARD (HIGH-END FINTECH)
+       ============================================================ */
+    .processing-card {
+      background: var(--white); border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg); padding: 24px 20px;
+      display: none; flex-direction: column; align-items: center; text-align: center;
+      gap: 16px; box-shadow: var(--shadow-md); animation: fadeIn 0.3s ease;
     }
-    .modal-overlay.open { opacity: 1; pointer-events: auto; }
-    .bottom-sheet {
-      position: fixed; bottom: 0; left: 0; width: 100%; max-height: 88vh;
-      background: var(--white); z-index: 75;
-      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-      transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
-      display: flex; flex-direction: column; overflow: hidden;
-    }
-    .bottom-sheet.open { transform: translateY(0); }
-    .sheet-header {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 18px 20px; border-bottom: 1px solid var(--gray-200);
-      flex-shrink: 0;
-    }
-    .sheet-header h3 { font-size: 17px; font-weight: 800; color: var(--navy-900); }
-    .sheet-close {
-      background: var(--navy-50); border: none; width: 34px; height: 34px;
-      border-radius: 50%; font-size: 16px; cursor: pointer; color: var(--navy-900);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .sheet-search {
-      padding: 12px 20px; flex-shrink: 0; position: relative;
-    }
-    .sheet-search svg {
-      position: absolute; left: 32px; top: 50%;
-      transform: translateY(-50%);
-      width: 16px; height: 16px; stroke: var(--gray-500); fill: none;
-      stroke-width: 2; pointer-events: none;
-    }
-    .sheet-search input {
-      width: 100%; padding: 12px 16px 12px 38px;
-      border: 1.5px solid var(--gray-200); border-radius: var(--radius-sm);
-      font-family: var(--font); font-size: 14px; font-weight: 500;
-      background: var(--navy-50); color: var(--navy-900); outline: none;
-    }
-    .sheet-search input:focus { border-color: var(--gold-500); }
+    .processing-card.active { display: flex; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-    .sheet-list { flex: 1; overflow-y: auto; padding: 0 20px 24px; }
-    .coin-option {
-      display: flex; align-items: center; gap: 14px;
-      padding: 14px 12px; border-radius: var(--radius-sm);
-      cursor: pointer; transition: background 0.15s;
-      border-bottom: 1px solid var(--gray-200);
-      position: relative;
+    .proc-icon-wrap {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: var(--gold-100); color: var(--gold-500);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px; position: relative; margin-bottom: 4px;
     }
+    .proc-icon-wrap.success {
+      background: var(--green-100); color: var(--green-500);
+    }
+    .proc-pulse {
+      position: absolute; inset: -4px; border-radius: 50%;
+      border: 2px solid var(--gold-500); opacity: 0.7;
+      animation: procRing 2s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+    }
+    .proc-icon-wrap.success .proc-pulse { display: none; }
+    @keyframes procRing { 0% { transform: scale(0.95); opacity: 0.8; } 100% { transform: scale(1.35); opacity: 0; } }
+
+    .proc-title { font-size: 20px; font-weight: 800; color: var(--navy-900); letter-spacing: -0.4px; }
+    .proc-desc { font-size: 13px; font-weight: 500; color: var(--gray-500); line-height: 1.55; max-width: 440px; }
+
+    .proc-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11.5px; font-weight: 800; padding: 6px 14px;
+      border-radius: var(--radius-pill); text-transform: uppercase;
+      letter-spacing: 0.5px; background: var(--gold-100); color: var(--gold-500);
+    }
+    .proc-badge.success { background: var(--green-100); color: var(--green-500); }
+    .proc-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+    .proc-details {
+      width: 100%; background: var(--navy-50); border: 1px solid var(--gray-200);
+      border-radius: var(--radius-md); padding: 14px 16px;
+      display: flex; flex-direction: column; gap: 8px; text-align: left;
+    }
+    .proc-row { display: flex; justify-content: space-between; font-size: 12.5px; font-weight: 600; color: var(--gray-500); }
+    .proc-row strong { color: var(--navy-900); font-weight: 800; font-variant-numeric: tabular-nums; word-break: break-all; max-width: 62%; text-align: right; }
+
+    .btn-view-assets {
+      width: 100%; padding: 15px; border-radius: var(--radius-pill);
+      background: linear-gradient(135deg, var(--green-500), #0B8A5E);
+      color: var(--white); border: none; font-family: var(--font);
+      font-weight: 800; font-size: 15px; cursor: pointer;
+      box-shadow: 0 4px 16px rgba(15, 157, 110, 0.3); transition: all 0.2s;
+    }
+    .btn-view-assets:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(15, 157, 110, 0.42); }
+
+    .btn-new-withdraw {
+      background: none; border: none; color: var(--gray-500);
+      font-family: var(--font); font-size: 12.5px; font-weight: 700;
+      cursor: pointer; text-decoration: underline; margin-top: 2px;
+    }
+    .btn-new-withdraw:hover { color: var(--navy-900); }
+
+    /* ASSET MODAL */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(10, 26, 47, 0.6); backdrop-filter: blur(4px); z-index: 70; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+    .modal-overlay.open { opacity: 1; pointer-events: auto; }
+    .bottom-sheet { position: fixed; bottom: 0; left: 0; width: 100%; max-height: 88vh; background: var(--white); z-index: 75; border-radius: var(--radius-lg) var(--radius-lg) 0 0; transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1); display: flex; flex-direction: column; overflow: hidden; }
+    .bottom-sheet.open { transform: translateY(0); }
+    .sheet-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 20px; border-bottom: 1px solid var(--gray-200); flex-shrink: 0; }
+    .sheet-header h3 { font-size: 17px; font-weight: 800; color: var(--navy-900); }
+    .sheet-close { background: var(--navy-50); border: none; width: 34px; height: 34px; border-radius: 50%; font-size: 16px; cursor: pointer; color: var(--navy-900); display: flex; align-items: center; justify-content: center; }
+    .sheet-search { padding: 12px 20px; flex-shrink: 0; position: relative; }
+    .sheet-search svg { position: absolute; left: 32px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; stroke: var(--gray-500); fill: none; stroke-width: 2; pointer-events: none; }
+    .sheet-search input { width: 100%; padding: 12px 16px 12px 38px; border: 1.5px solid var(--gray-200); border-radius: var(--radius-sm); font-family: var(--font); font-size: 14px; font-weight: 500; background: var(--navy-50); color: var(--navy-900); outline: none; }
+    .sheet-search input:focus { border-color: var(--gold-500); }
+    .sheet-list { flex: 1; overflow-y: auto; padding: 0 20px 24px; }
+    .coin-option { display: flex; align-items: center; gap: 14px; padding: 14px 12px; border-radius: var(--radius-sm); cursor: pointer; transition: background 0.15s; border-bottom: 1px solid var(--gray-200); position: relative; }
     .coin-option:last-child { border-bottom: none; }
     .coin-option:hover { background: var(--navy-50); }
     .coin-option.selected { background: var(--gold-100); }
-    .coin-option.selected::after {
-      content: '✓'; position: absolute; right: 14px; top: 50%;
-      transform: translateY(-50%); color: var(--gold-500);
-      font-weight: 800; font-size: 16px;
-    }
-    .coin-option img {
-      width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0;
-    }
+    .coin-option.selected::after { content: '✓'; position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: var(--gold-500); font-weight: 800; font-size: 16px; }
+    .coin-option img { width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0; }
     .coin-option-info { flex: 1; min-width: 0; }
-    .coin-option-name {
-      font-size: 15px; font-weight: 800; color: var(--navy-900);
-    }
-    .coin-option-symbol {
-      font-size: 11.5px; font-weight: 600; color: var(--gray-500);
-      text-transform: uppercase; margin-top: 1px;
-    }
-    .coin-option-balance {
-      text-align: right; flex-shrink: 0; padding-right: 20px;
-    }
-    .coin-option-balance .amt {
-      font-size: 13px; font-weight: 800; color: var(--navy-900);
-      font-variant-numeric: tabular-nums;
-    }
-    .coin-option-balance .usd {
-      font-size: 10.5px; color: var(--gray-500); font-weight: 600;
-      margin-top: 1px;
-    }
-    .coin-option-balance .zero {
-      color: var(--gray-400);
-    }
+    .coin-option-name { font-size: 15px; font-weight: 800; color: var(--navy-900); }
+    .coin-option-symbol { font-size: 11.5px; font-weight: 600; color: var(--gray-500); text-transform: uppercase; margin-top: 1px; }
+    .coin-option-balance { text-align: right; flex-shrink: 0; padding-right: 20px; }
+    .coin-option-balance .amt { font-size: 13px; font-weight: 800; color: var(--navy-900); font-variant-numeric: tabular-nums; }
+    .coin-option-balance .usd { font-size: 10.5px; color: var(--gray-500); font-weight: 600; margin-top: 1px; }
+    .coin-option-balance .zero { color: var(--gray-400); }
     .coin-option.unavailable { opacity: 0.5; }
-
-    .empty-search {
-      text-align: center; padding: 30px 20px;
-      font-size: 13px; color: var(--gray-500); font-weight: 500;
-    }
+    .empty-search { text-align: center; padding: 30px 20px; font-size: 13px; color: var(--gray-500); font-weight: 500; }
 
     /* CONFIRM MODAL */
-    .confirm-overlay {
-      position: fixed; inset: 0; background: rgba(10, 26, 47, 0.75);
-      backdrop-filter: blur(6px); z-index: 100;
-      display: none; align-items: center; justify-content: center;
-      padding: 20px;
-    }
+    .confirm-overlay { position: fixed; inset: 0; background: rgba(10, 26, 47, 0.75); backdrop-filter: blur(6px); z-index: 100; display: none; align-items: center; justify-content: center; padding: 20px; }
     .confirm-overlay.open { display: flex; }
-    .confirm-card {
-      background: var(--white); border-radius: var(--radius-lg);
-      max-width: 420px; width: 100%; overflow: hidden;
-      box-shadow: var(--shadow-lg);
-      animation: popIn 0.3s ease;
-    }
-    @keyframes popIn {
-      from { opacity: 0; transform: scale(0.92) translateY(12px); }
-      to { opacity: 1; transform: scale(1) translateY(0); }
-    }
-    .confirm-header {
-      padding: 20px; border-bottom: 1px solid var(--gray-200);
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .confirm-header h3 {
-      font-size: 17px; font-weight: 800; color: var(--navy-900);
-    }
-    .confirm-body {
-      padding: 20px; display: flex; flex-direction: column; gap: 14px;
-    }
-    .confirm-warning {
-      background: var(--gold-100); border: 1px solid rgba(201, 168, 76, 0.3);
-      border-radius: var(--radius-sm); padding: 12px 14px;
-      font-size: 12px; font-weight: 600; color: var(--navy-800);
-      line-height: 1.5;
-    }
-    .confirm-details {
-      background: var(--navy-50); border-radius: var(--radius-sm);
-      padding: 14px 16px; display: flex; flex-direction: column; gap: 6px;
-    }
-    .confirm-row {
-      display: flex; justify-content: space-between;
-      font-size: 12.5px; font-weight: 600; color: var(--gray-500);
-    }
-    .confirm-row strong {
-      color: var(--navy-900); font-weight: 800;
-      font-variant-numeric: tabular-nums; text-align: right;
-      max-width: 60%; word-break: break-all;
-    }
-    .confirm-actions {
-      display: flex; gap: 8px; padding: 0 20px 20px;
-    }
-    .btn-cancel {
-      flex: 1; padding: 13px; border-radius: var(--radius-pill);
-      background: var(--white); border: 1.5px solid var(--gray-200);
-      color: var(--navy-900); font-family: var(--font);
-      font-weight: 800; font-size: 14px; cursor: pointer;
-    }
-    .btn-confirm {
-      flex: 1; padding: 13px; border-radius: var(--radius-pill);
-      background: linear-gradient(135deg, var(--red-500), #B03333);
-      color: var(--white); border: none; font-family: var(--font);
-      font-weight: 800; font-size: 14px; cursor: pointer;
-    }
+    .confirm-card { background: var(--white); border-radius: var(--radius-lg); max-width: 420px; width: 100%; overflow: hidden; box-shadow: var(--shadow-lg); animation: popIn 0.3s ease; }
+    @keyframes popIn { from { opacity: 0; transform: scale(0.92) translateY(12px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+    .confirm-header { padding: 20px; border-bottom: 1px solid var(--gray-200); display: flex; align-items: center; justify-content: space-between; }
+    .confirm-header h3 { font-size: 17px; font-weight: 800; color: var(--navy-900); }
+    .confirm-body { padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+    .confirm-warning { background: var(--gold-100); border: 1px solid rgba(201, 168, 76, 0.3); border-radius: var(--radius-sm); padding: 12px 14px; font-size: 12px; font-weight: 600; color: var(--navy-800); line-height: 1.5; }
+    .confirm-details { background: var(--navy-50); border-radius: var(--radius-sm); padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; }
+    .confirm-row { display: flex; justify-content: space-between; font-size: 12.5px; font-weight: 600; color: var(--gray-500); }
+    .confirm-row strong { color: var(--navy-900); font-weight: 800; font-variant-numeric: tabular-nums; text-align: right; max-width: 60%; word-break: break-all; }
+    .confirm-actions { display: flex; gap: 8px; padding: 0 20px 20px; }
+    .btn-cancel { flex: 1; padding: 13px; border-radius: var(--radius-pill); background: var(--white); border: 1.5px solid var(--gray-200); color: var(--navy-900); font-family: var(--font); font-weight: 800; font-size: 14px; cursor: pointer; }
+    .btn-confirm { flex: 1; padding: 13px; border-radius: var(--radius-pill); background: linear-gradient(135deg, var(--red-500), #B03333); color: var(--white); border: none; font-family: var(--font); font-weight: 800; font-size: 14px; cursor: pointer; }
 
     /* TOAST */
-    .toast {
-      position: fixed; bottom: 100px; left: 50%;
-      transform: translateX(-50%) translateY(20px);
-      background: var(--navy-900); color: var(--white);
-      padding: 12px 20px; border-radius: var(--radius-pill);
-      font-size: 13px; font-weight: 700; z-index: 200;
-      opacity: 0; pointer-events: none; transition: all 0.3s;
-      max-width: calc(100% - 40px); text-align: center;
-      box-shadow: 0 8px 24px rgba(10, 26, 47, 0.3);
-    }
+    .toast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--navy-900); color: var(--white); padding: 12px 20px; border-radius: var(--radius-pill); font-size: 13px; font-weight: 700; z-index: 200; opacity: 0; pointer-events: none; transition: all 0.3s; max-width: calc(100% - 40px); text-align: center; box-shadow: 0 8px 24px rgba(10, 26, 47, 0.3); }
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
     /* BOTTOM NAV */
-    .bottom-nav {
-      position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
-      width: 100%; max-width: 700px; background: rgba(255, 255, 255, 0.97);
-      backdrop-filter: blur(16px); border-top: 1px solid var(--gray-200);
-      display: flex; justify-content: space-around; align-items: center;
-      padding: 8px 8px calc(8px + env(safe-area-inset-bottom, 0px));
-      z-index: 40; box-shadow: 0 -4px 20px rgba(10, 26, 47, 0.06);
-    }
-    .bottom-nav-item {
-      display: flex; flex-direction: column; align-items: center; gap: 3px;
-      background: none; border: none; cursor: pointer;
-      padding: 6px 8px; border-radius: var(--radius-sm);
-      transition: all 0.2s; flex: 1; max-width: 80px;
-      color: var(--gray-500); font-family: var(--font);
-      font-size: 10px; font-weight: 600; letter-spacing: 0.2px;
-    }
+    .bottom-nav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 700px; background: rgba(255, 255, 255, 0.97); backdrop-filter: blur(16px); border-top: 1px solid var(--gray-200); display: flex; justify-content: space-around; align-items: center; padding: 8px 8px calc(8px + env(safe-area-inset-bottom, 0px)); z-index: 40; box-shadow: 0 -4px 20px rgba(10, 26, 47, 0.06); }
+    .bottom-nav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; background: none; border: none; cursor: pointer; padding: 6px 8px; border-radius: var(--radius-sm); transition: all 0.2s; flex: 1; max-width: 80px; color: var(--gray-500); font-family: var(--font); font-size: 10px; font-weight: 600; letter-spacing: 0.2px; }
     .bottom-nav-item.active { color: var(--navy-900); font-weight: 800; }
     .bottom-nav-item.active .bn-icon-wrap { background: var(--navy-900); }
     .bottom-nav-item.active .bn-icon-wrap svg { stroke: var(--gold-400); }
-    .bn-icon-wrap {
-      width: 38px; height: 26px; border-radius: var(--radius-xs);
-      display: flex; align-items: center; justify-content: center;
-      transition: background 0.2s;
-    }
-    .bottom-nav-item svg {
-      width: 20px; height: 20px; stroke: currentColor; fill: none;
-      stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round;
-    }
+    .bn-icon-wrap { width: 38px; height: 26px; border-radius: var(--radius-xs); display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+    .bottom-nav-item svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
 
     @media (min-width: 700px) {
       body { padding-bottom: 100px; }
@@ -527,7 +434,7 @@
       </div>
       <div class="confirm-body">
         <div class="confirm-warning">
-          ⚠️ Please verify the address and network carefully. Crypto withdrawals are irreversible.
+          ⚠️ Please verify the address and network carefully. Crypto withdrawals are irreversible once dispatched.
         </div>
         <div class="confirm-details" id="confirmDetails"></div>
       </div>
@@ -546,14 +453,15 @@
       <span class="header-title">Withdraw</span>
     </div>
     <div class="header-balance">
-      <div class="bal-label">Balance</div>
+      <div class="bal-label">Portfolio Balance</div>
       <div class="bal-value" id="headerBalance">$0.00</div>
     </div>
   </header>
 
   <main class="withdraw-main">
 
-    <div class="withdraw-card">
+    <!-- WITHDRAWAL FORM CARD -->
+    <div class="withdraw-card" id="withdrawCard">
 
       <!-- STEP 1: ASSET -->
       <div>
@@ -578,16 +486,27 @@
         </div>
       </div>
 
-      <!-- STEP 2: NETWORK -->
+      <!-- STEP 2: PROFESSIONAL NETWORK SELECTOR -->
       <div>
         <div class="section-eyebrow">
-          <span>Step 2 · Choose Network</span>
+          <span>Step 2 · Destination Network</span>
           <span class="step" id="networkStepStatus">Selected</span>
         </div>
-        <div class="field-label" style="margin-bottom:6px;">
-          <span>Select the network for the destination address</span>
+
+        <div class="network-trigger" id="networkTrigger">
+          <div class="network-trigger-left">
+            <span class="net-dot"></span>
+            <div class="network-trigger-info">
+              <div class="network-trigger-name" id="netTriggerName">TRC20</div>
+              <div class="network-trigger-label" id="netTriggerLabel">TRON (TRC20) · Instant · Fee: 1 USDT</div>
+            </div>
+          </div>
+          <div class="network-trigger-right">
+            <span>Change</span>
+            <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
         </div>
-        <div class="network-toggle" id="networkOptions"></div>
+        <div class="network-options-wrapper" id="networkOptionsWrapper"></div>
       </div>
 
       <!-- STEP 3: AMOUNT -->
@@ -612,7 +531,7 @@
       <!-- STEP 4: ADDRESS -->
       <div>
         <div class="section-eyebrow">
-          <span>Step 4 · Destination</span>
+          <span>Step 4 · Destination Address</span>
         </div>
         <div class="field-group">
           <label class="field-label">Destination Address</label>
@@ -635,13 +554,34 @@
         <span id="warningText">—</span>
       </div>
 
-      <button class="btn-withdraw" id="withdrawBtn">Withdraw</button>
+      <button class="btn-withdraw" id="withdrawBtn">Submit Withdrawal</button>
 
+    </div>
+
+    <!-- WITHDRAWAL PROCESSING / ORDER SUBMITTED CARD -->
+    <div class="processing-card" id="processingCard">
+      <div class="proc-icon-wrap" id="procIconWrap">
+        <span class="proc-pulse"></span>
+        <span id="procIcon">⏳</span>
+      </div>
+      <div class="proc-badge" id="procBadge">
+        <span class="dot"></span>
+        <span id="procBadgeText">Pending Admin Approval</span>
+      </div>
+      <h2 class="proc-title" id="procTitle">Withdrawal Processing</h2>
+      <p class="proc-desc" id="procDesc">
+        Your withdrawal request has been submitted and queued for administrator verification and automated blockchain dispatch.
+      </p>
+
+      <div class="proc-details" id="procDetails"></div>
+
+      <button class="btn-view-assets" id="viewAssetsBtn" style="display:none;">View Assets in Wallet →</button>
+      <button class="btn-new-withdraw" id="newWithdrawBtn">Submit another withdrawal</button>
     </div>
 
     <div class="security-note">
       <div class="icon">🔒</div>
-      <div class="text">Your security is our priority. All withdrawals are validated and monitored for suspicious activity. <strong>Never share your password or 2FA code.</strong></div>
+      <div class="text">All withdrawals undergo automated risk validation and administrator confirmation. <strong>Never share your private keys or credentials.</strong></div>
     </div>
 
   </main>
@@ -683,22 +623,32 @@
         toastEl.textContent = msg;
         toastEl.classList.add('show');
         clearTimeout(toastEl._t);
-        toastEl._t = setTimeout(() => toastEl.classList.remove('show'), 2600);
-      }
-
-      function getWalletBalance() {
-        return parseFloat(localStorage.getItem('bp_wallet_balance') || '0');
-      }
-      function setWalletBalance(v) {
-        localStorage.setItem('bp_wallet_balance', String(Math.max(0, v)));
-        updateHeader();
-      }
-      function updateHeader() {
-        $('#headerBalance').textContent = '$' + getWalletBalance().toFixed(2);
+        toastEl._t = setTimeout(() => toastEl.classList.remove('show'), 2800);
       }
 
       // ============================================================
-      // ASSETS (with networks)
+      // REAL UNIFIED USER BALANCE ENGINE
+      // ============================================================
+      function getUnifiedPortfolioBalance() {
+        const uBal = parseFloat(localStorage.getItem('bp_user_balance') || localStorage.getItem('user_balance') || '0');
+        const wBal = parseFloat(localStorage.getItem('bp_wallet_balance') || '0');
+        return Math.max(uBal, wBal);
+      }
+
+      function setUnifiedPortfolioBalance(val) {
+        const safeVal = Math.max(0, val).toFixed(2);
+        localStorage.setItem('bp_user_balance', safeVal);
+        localStorage.setItem('user_balance', safeVal);
+        localStorage.setItem('bp_wallet_balance', safeVal);
+        updateHeader();
+      }
+
+      function updateHeader() {
+        $('#headerBalance').textContent = '$' + getUnifiedPortfolioBalance().toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      }
+
+      // ============================================================
+      // ASSETS CONFIGURATION
       // ============================================================
       const ASSETS = [
         { id: 'tether', symbol: 'USDT', name: 'Tether',
@@ -706,16 +656,16 @@
           price: 1,
           networks: [
             { name: 'TRC20', label: 'TRON (TRC20)', fee: 1, time: 'Instant' },
-            { name: 'ERC20', label: 'Ethereum (ERC20)', fee: 5, time: '2–5 min' },
             { name: 'BEP20', label: 'BNB Chain (BEP20)', fee: 0.5, time: '1–3 min' },
-            { name: 'Polygon', label: 'Polygon', fee: 0.1, time: '1–2 min' },
+            { name: 'ERC20', label: 'Ethereum (ERC20)', fee: 5, time: '2–5 min' },
+            { name: 'Polygon', label: 'Polygon POS', fee: 0.2, time: '1–2 min' },
           ]
         },
         { id: 'bitcoin', symbol: 'BTC', name: 'Bitcoin',
           icon: 'https://blockchains.tatum.io/assets/img/bitcoin.svg',
           price: 81000,
           networks: [
-            { name: 'Bitcoin', label: 'Bitcoin Network', fee: 0.00005, time: '30–60 min' },
+            { name: 'Bitcoin', label: 'Bitcoin Network', fee: 0.00005, time: '20–40 min' },
             { name: 'BEP20', label: 'BNB Chain (BEP20)', fee: 0.00002, time: '1–3 min' },
           ]
         },
@@ -725,7 +675,7 @@
           networks: [
             { name: 'ERC20', label: 'Ethereum (ERC20)', fee: 0.002, time: '2–5 min' },
             { name: 'BEP20', label: 'BNB Chain (BEP20)', fee: 0.001, time: '1–3 min' },
-            { name: 'Arbitrum', label: 'Arbitrum L2', fee: 0.0005, time: '1–2 min' },
+            { name: 'Arbitrum', label: 'Arbitrum One', fee: 0.0005, time: '1–2 min' },
           ]
         },
         { id: 'usd-coin', symbol: 'USDC', name: 'USD Coin',
@@ -751,71 +701,31 @@
             { name: 'BEP20', label: 'BNB Chain (BEP20)', fee: 0.001, time: '1–3 min' },
           ]
         },
-        { id: 'ripple', symbol: 'XRP', name: 'XRP',
-          icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/xrp.svg',
-          price: 0.55,
-          networks: [
-            { name: 'XRP Ledger', label: 'XRP Ledger', fee: 0.1, time: 'Instant' },
-          ]
-        },
-        { id: 'cardano', symbol: 'ADA', name: 'Cardano',
-          icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/ada.svg',
-          price: 0.45,
-          networks: [
-            { name: 'Cardano', label: 'Cardano Network', fee: 1, time: '2–5 min' },
-          ]
-        },
-        { id: 'dogecoin', symbol: 'DOGE', name: 'Dogecoin',
-          icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/doge.svg',
-          price: 0.08,
-          networks: [
-            { name: 'Dogecoin', label: 'Dogecoin Network', fee: 5, time: '2–10 min' },
-          ]
-        },
-        { id: 'polygon-ecosystem-token', symbol: 'POL', name: 'Polygon',
-          icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/pol.svg',
-          price: 0.42,
-          networks: [
-            { name: 'Polygon', label: 'Polygon POS', fee: 0.01, time: 'Instant' },
-            { name: 'ERC20', label: 'Ethereum (ERC20)', fee: 5, time: '2–5 min' },
-          ]
-        },
-        { id: 'chainlink', symbol: 'LINK', name: 'Chainlink',
-          icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/link.svg',
-          price: 18,
-          networks: [
-            { name: 'ERC20', label: 'Ethereum (ERC20)', fee: 0.5, time: '2–5 min' },
-            { name: 'BEP20', label: 'BNB Chain (BEP20)', fee: 0.2, time: '1–3 min' },
-          ]
-        },
-        { id: 'litecoin', symbol: 'LTC', name: 'Litecoin',
-          icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/ltc.svg',
-          price: 85,
-          networks: [
-            { name: 'Litecoin', label: 'Litecoin Network', fee: 0.001, time: '2–5 min' },
-          ]
-        },
       ];
 
-      // Per-asset wallet balances (demo — distributed from total wallet balance)
-      // In production these come from the backend per-asset
       function getAssetBalance(asset) {
         const key = 'bp_balance_' + asset.symbol;
         const stored = localStorage.getItem(key);
         if (stored !== null) return parseFloat(stored);
+        
+        // If USDT has no independent balance, sync it with the unified deposited balance
+        if (asset.symbol === 'USDT') {
+          return getUnifiedPortfolioBalance();
+        }
         return 0;
       }
+
       function setAssetBalance(asset, amt) {
         localStorage.setItem('bp_balance_' + asset.symbol, String(Math.max(0, amt)));
       }
 
       const state = {
-        asset: null,
+        asset: ASSETS[0],
         network: null,
       };
 
       // ============================================================
-      // ASSET PICKER
+      // ASSET PICKER MODAL
       // ============================================================
       const assetModal = $('#assetModal');
       const assetModalOverlay = $('#assetModalOverlay');
@@ -859,7 +769,7 @@
                 <div class="coin-option-symbol">${a.symbol} · ${a.networks.length} network${a.networks.length > 1 ? 's' : ''}</div>
               </div>
               <div class="coin-option-balance">
-                <div class="amt ${isAvailable ? '' : 'zero'}">${bal.toFixed(bal > 0 ? 6 : 2)} ${a.symbol}</div>
+                <div class="amt ${isAvailable ? '' : 'zero'}">${bal.toFixed(bal > 0 ? (a.price > 10 ? 6 : 2) : 2)} ${a.symbol}</div>
                 <div class="usd">${usdVal > 0 ? '$' + usdVal.toFixed(2) : 'No balance'}</div>
               </div>
             </div>
@@ -883,9 +793,6 @@
       $('#assetTrigger').addEventListener('click', openAssetModal);
       assetSearchInput.addEventListener('input', (e) => renderAssetList(e.target.value));
 
-      // ============================================================
-      // SELECT ASSET + NETWORK
-      // ============================================================
       function selectAsset(asset) {
         state.asset = asset;
         state.network = asset.networks[0];
@@ -896,49 +803,56 @@
         const a = state.asset;
         if (!a) return;
 
-        // Asset trigger
         $('#assetIcon').src = a.icon;
         $('#assetName').textContent = a.name;
         $('#assetSymbol').textContent = a.symbol;
         const bal = getAssetBalance(a);
-        $('#assetBalanceText').textContent = bal.toFixed(6) + ' ' + a.symbol + ' available';
-
-        // Amount input
+        const formatDec = a.price > 10 ? 6 : 2;
+        $('#assetBalanceText').textContent = `${bal.toFixed(formatDec)} ${a.symbol} available`;
         $('#amountSuffix').textContent = a.symbol;
-        $('#availableBalance').textContent = bal.toFixed(6) + ' ' + a.symbol;
+        $('#availableBalance').textContent = `${bal.toFixed(formatDec)} ${a.symbol}`;
 
-        // Network options
-        renderNetworkOptions();
-
-        // Recalculate
+        renderNetworkTrigger();
         updateAmountHint();
         calculateSummary();
       }
 
-      function renderNetworkOptions() {
+      // ============================================================
+      // PROFESSIONAL NETWORK SELECTOR DROPDOWN
+      // ============================================================
+      function renderNetworkTrigger() {
         const a = state.asset;
-        if (!a) return;
-        const container = $('#networkOptions');
-        container.innerHTML = a.networks.map(n => {
-          const isActive = state.network && state.network.name === n.name;
+        if (!a || !state.network) return;
+
+        $('#netTriggerName').textContent = state.network.name;
+        $('#netTriggerLabel').textContent = `${state.network.label} · ${state.network.time} · Fee: ${state.network.fee} ${a.symbol}`;
+
+        const wrapper = $('#networkOptionsWrapper');
+        wrapper.innerHTML = a.networks.map(n => {
+          const isActive = state.network.name === n.name;
           return `
-            <button class="network-option ${isActive ? 'active' : ''}" data-net-name="${n.name}">
-              <span class="net-dot"></span>
-              <div class="net-info">
-                <div class="net-name">${n.name}</div>
-                <div class="net-fee">Fee: ${n.fee} ${a.symbol}</div>
+            <div class="network-option-item ${isActive ? 'active' : ''}" data-net-name="${n.name}">
+              <div class="network-option-item-left">
+                <span class="net-dot"></span>
+                <div class="network-option-item-info">
+                  <div class="network-option-item-name">${n.name}</div>
+                  <div class="network-option-item-label">${n.label} · ${n.time}</div>
+                </div>
               </div>
-            </button>
+              <div class="network-option-item-fee">Fee: ${n.fee} ${a.symbol}</div>
+            </div>
           `;
         }).join('');
 
-        container.querySelectorAll('.network-option').forEach(btn => {
-          btn.addEventListener('click', () => {
-            const netName = btn.dataset.netName;
+        wrapper.querySelectorAll('.network-option-item').forEach(opt => {
+          opt.addEventListener('click', () => {
+            const netName = opt.dataset.netName;
             const net = a.networks.find(n => n.name === netName);
             if (net) {
               state.network = net;
-              renderNetworkOptions();
+              $('#networkTrigger').classList.remove('open');
+              wrapper.classList.remove('open');
+              renderNetworkTrigger();
               updateAmountHint();
               calculateSummary();
             }
@@ -946,8 +860,13 @@
         });
       }
 
+      $('#networkTrigger').addEventListener('click', () => {
+        $('#networkTrigger').classList.toggle('open');
+        $('#networkOptionsWrapper').classList.toggle('open');
+      });
+
       // ============================================================
-      // AMOUNT HINT + SUMMARY
+      // AMOUNT HINT + SUMMARY CALCULATIONS
       // ============================================================
       function updateAmountHint() {
         const amt = parseFloat($('#amountInput').value) || 0;
@@ -961,10 +880,11 @@
         const fee = state.network.fee;
         const receive = Math.max(0, amt - fee);
         const a = state.asset;
+        const formatDec = a.price > 10 ? 6 : 2;
 
         $('#summaryFee').textContent = fee + ' ' + a.symbol;
         $('#summaryTime').textContent = state.network.time;
-        $('#summaryReceive').textContent = receive > 0 ? receive.toFixed(6) + ' ' + a.symbol : '—';
+        $('#summaryReceive').textContent = receive > 0 ? receive.toFixed(formatDec) + ' ' + a.symbol : '—';
 
         validate();
       }
@@ -978,7 +898,6 @@
 
         const warning = $('#warningBox');
         const btn = $('#withdrawBtn');
-
         warning.classList.remove('visible');
 
         if (amt <= 0) {
@@ -987,26 +906,23 @@
         }
         if (amt > bal) {
           warning.classList.add('visible');
-          $('#warningText').textContent = `Insufficient balance. You have ${bal.toFixed(6)} ${state.asset.symbol} available.`;
+          $('#warningText').textContent = `Insufficient balance. You have ${bal.toFixed(4)} ${state.asset.symbol} available.`;
           btn.disabled = true;
           return;
         }
         if (amt <= fee) {
           warning.classList.add('visible');
-          $('#warningText').textContent = `Amount must be greater than the network fee (${fee} ${state.asset.symbol}).`;
+          $('#warningText').textContent = `Amount must be higher than the network fee (${fee} ${state.asset.symbol}).`;
           btn.disabled = true;
           return;
         }
-        if (!addr || addr.length < 10) {
+        if (!addr || addr.length < 8) {
           btn.disabled = true;
           return;
         }
         btn.disabled = false;
       }
 
-      // ============================================================
-      // EVENTS
-      // ============================================================
       $('#amountInput').addEventListener('input', () => {
         updateAmountHint();
         calculateSummary();
@@ -1014,10 +930,12 @@
       $('#addressInput').addEventListener('input', validate);
 
       $('#maxBtn').addEventListener('click', () => {
-        if (!state.asset) return;
+        if (!state.asset || !state.network) return;
         const bal = getAssetBalance(state.asset);
-        const usable = Math.max(0, bal - state.network.fee);
-        $('#amountInput').value = usable.toFixed(6);
+        const fee = state.network.fee;
+        const usable = Math.max(0, bal);
+        const formatDec = state.asset.price > 10 ? 6 : 2;
+        $('#amountInput').value = usable.toFixed(formatDec);
         updateAmountHint();
         calculateSummary();
       });
@@ -1026,19 +944,19 @@
         try {
           if (navigator.clipboard && navigator.clipboard.readText) {
             const text = await navigator.clipboard.readText();
-            $('#addressInput').value = text;
+            $('#addressInput').value = text.trim();
             validate();
             showToast('Address pasted');
           } else {
-            showToast('Paste not supported — please type the address');
+            showToast('Clipboard access unavailable — please type address');
           }
         } catch (e) {
-          showToast('Paste not available — type address manually');
+          showToast('Paste unavailable — please enter manually');
         }
       });
 
       // ============================================================
-      // CONFIRM MODAL
+      // CONFIRM MODAL & ORDER SUBMISSION
       // ============================================================
       const confirmOverlay = $('#confirmOverlay');
 
@@ -1048,14 +966,15 @@
         const fee = state.network.fee;
         const receive = amt - fee;
         const a = state.asset;
+        const formatDec = a.price > 10 ? 6 : 2;
 
         $('#confirmDetails').innerHTML = `
           <div class="confirm-row"><span>Asset</span><strong>${a.name} (${a.symbol})</strong></div>
           <div class="confirm-row"><span>Network</span><strong>${state.network.label}</strong></div>
-          <div class="confirm-row"><span>Amount</span><strong>${amt} ${a.symbol}</strong></div>
+          <div class="confirm-row"><span>Gross Amount</span><strong>${amt} ${a.symbol}</strong></div>
           <div class="confirm-row"><span>Network Fee</span><strong>${fee} ${a.symbol}</strong></div>
-          <div class="confirm-row"><span>You'll Receive</span><strong style="color:var(--green-500);">${receive.toFixed(6)} ${a.symbol}</strong></div>
-          <div class="confirm-row"><span>Destination</span><strong>${addr.slice(0, 12)}...${addr.slice(-8)}</strong></div>
+          <div class="confirm-row"><span>Net Payout</span><strong style="color:var(--green-500);">${receive.toFixed(formatDec)} ${a.symbol}</strong></div>
+          <div class="confirm-row"><span>Destination</span><strong>${addr.slice(0, 10)}...${addr.slice(-6)}</strong></div>
         `;
         confirmOverlay.classList.add('open');
       }
@@ -1077,35 +996,50 @@
           return;
         }
 
-        setAssetBalance(state.asset, bal - amt);
+        // 1. DEDUCT REAL BALANCE
+        const newAssetBal = bal - amt;
+        setAssetBalance(state.asset, newAssetBal);
 
-        // Also update the total USD wallet balance
-        const price = state.asset.price || 0;
-        const usdAmount = amt * price;
-        const walletBal = getWalletBalance();
-        setWalletBalance(Math.max(0, walletBal - usdAmount));
+        const price = state.asset.price || 1;
+        const usdVal = amt * price;
+        const currentPortfolio = getUnifiedPortfolioBalance();
+        setUnifiedPortfolioBalance(Math.max(0, currentPortfolio - usdVal));
 
-        // Save record
-        const txs = JSON.parse(localStorage.getItem('bp_withdrawals') || '[]');
-        txs.unshift({
+        // 2. CREATE PENDING WITHDRAWAL RECORD
+        const orderId = 'WD_' + Date.now().toString().slice(-6);
+        const destination = $('#addressInput').value.trim();
+        const withdrawalRecord = {
+          id: orderId,
+          type: 'Withdrawal',
           asset: state.asset.symbol,
           network: state.network.name,
           amount: amt,
           fee: state.network.fee,
-          address: $('#addressInput').value.trim(),
-          time: new Date().toISOString(),
-          status: 'pending',
-        });
-        localStorage.setItem('bp_withdrawals', JSON.stringify(txs.slice(0, 20)));
+          receive: (amt - state.network.fee),
+          address: destination,
+          status: 'pending', // Pending Admin Approval
+          date: new Date().toLocaleString(),
+          time: new Date().toISOString()
+        };
+
+        // Save to withdrawals queue
+        const wds = JSON.parse(localStorage.getItem('bp_withdrawals') || '[]');
+        wds.unshift(withdrawalRecord);
+        localStorage.setItem('bp_withdrawals', JSON.stringify(wds));
+
+        // Save to general transactions ledger
+        const txs = JSON.parse(localStorage.getItem('bp_transactions') || '[]');
+        txs.unshift(withdrawalRecord);
+        localStorage.setItem('bp_transactions', JSON.stringify(txs));
+
+        // Save active withdrawal for real-time tracking
+        localStorage.setItem('bp_active_withdrawal', JSON.stringify(withdrawalRecord));
 
         closeConfirm();
-        showToast(`${amt} ${state.asset.symbol} withdrawal submitted via ${state.network.name}. Processing…`);
+        showToast(`Withdrawal of ${amt} ${state.asset.symbol} submitted successfully.`);
 
-        $('#amountInput').value = '';
-        $('#addressInput').value = '';
-        updateAmountHint();
-        updateUI();
-        validate();
+        // 3. SHOW THE PROFESSIONAL PROCESSING STATE
+        showProcessingState(withdrawalRecord);
       });
 
       confirmOverlay.addEventListener('click', (e) => {
@@ -1113,7 +1047,83 @@
       });
 
       // ============================================================
-      // NAV
+      // PROCESSING / SUCCESS STATE LOGIC
+      // ============================================================
+      let statusPollTimer = null;
+
+      function showProcessingState(record) {
+        $('#withdrawCard').style.display = 'none';
+        const pCard = $('#processingCard');
+        pCard.classList.add('active');
+
+        renderProcessingDetails(record);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // Periodically poll to see if Admin has approved the transaction
+        if (statusPollTimer) clearInterval(statusPollTimer);
+        statusPollTimer = setInterval(() => {
+          checkAdminApproval(record.id);
+        }, 3000);
+      }
+
+      function renderProcessingDetails(record) {
+        const isApproved = record.status === 'approved' || record.status === 'Completed' || record.status === 'finished';
+
+        if (isApproved) {
+          $('#procIconWrap').classList.add('success');
+          $('#procIcon').textContent = '✓';
+          $('#procBadge').classList.add('success');
+          $('#procBadgeText').textContent = 'Approved & Dispatched';
+          $('#procTitle').textContent = 'Withdrawal Successful';
+          $('#procDesc').textContent = 'Your withdrawal has been verified by the administrator and dispatched to the blockchain network.';
+          $('#viewAssetsBtn').style.display = 'block';
+        } else {
+          $('#procIconWrap').classList.remove('success');
+          $('#procIcon').textContent = '⏳';
+          $('#procBadge').classList.remove('success');
+          $('#procBadgeText').textContent = 'Pending Admin Approval';
+          $('#procTitle').textContent = 'Withdrawal Processing';
+          $('#procDesc').textContent = 'Your request has been submitted and securely queued for administrator verification and blockchain dispatch.';
+          $('#viewAssetsBtn').style.display = 'none';
+        }
+
+        $('#procDetails').innerHTML = `
+          <div class="proc-row"><span>Reference ID</span><strong>${record.id}</strong></div>
+          <div class="proc-row"><span>Payout Amount</span><strong style="color:var(--navy-900);">${record.amount} ${record.asset}</strong></div>
+          <div class="proc-row"><span>Network</span><strong>${record.network}</strong></div>
+          <div class="proc-row"><span>Destination</span><strong>${record.address}</strong></div>
+          <div class="proc-row"><span>Submitted Date</span><strong>${record.date}</strong></div>
+          <div class="proc-row"><span>Status</span><strong style="color:${isApproved ? 'var(--green-500)' : 'var(--gold-500)'};">${isApproved ? 'Dispatched ✓' : 'Under Review'}</strong></div>
+        `;
+      }
+
+      function checkAdminApproval(id) {
+        const wds = JSON.parse(localStorage.getItem('bp_withdrawals') || '[]');
+        const updated = wds.find(w => w.id === id);
+        if (updated && (updated.status === 'approved' || updated.status === 'Completed')) {
+          clearInterval(statusPollTimer);
+          localStorage.setItem('bp_active_withdrawal', JSON.stringify(updated));
+          renderProcessingDetails(updated);
+          showToast('Your withdrawal has been approved by the admin!');
+        }
+      }
+
+      $('#viewAssetsBtn').addEventListener('click', () => {
+        window.location.href = 'wallet.html';
+      });
+
+      $('#newWithdrawBtn').addEventListener('click', () => {
+        if (statusPollTimer) clearInterval(statusPollTimer);
+        localStorage.removeItem('bp_active_withdrawal');
+        $('#processingCard').classList.remove('active');
+        $('#withdrawCard').style.display = 'flex';
+        $('#amountInput').value = '';
+        $('#addressInput').value = '';
+        updateUI();
+      });
+
+      // ============================================================
+      // NAVIGATION
       // ============================================================
       $('#backBtn').addEventListener('click', () => window.location.href = 'wallet.html');
       $$('.bottom-nav-item').forEach(btn => {
@@ -1131,18 +1141,14 @@
       // INIT
       // ============================================================
       updateHeader();
-      // Seed some demo balances if nothing exists
-      if (!localStorage.getItem('bp_balance_USDT')) {
-        setAssetBalance(ASSETS[0], 250); // 250 USDT demo
-      }
-      if (!localStorage.getItem('bp_balance_BTC')) {
-        setAssetBalance(ASSETS[1], 0.004);
-      }
-      if (!localStorage.getItem('bp_balance_ETH')) {
-        setAssetBalance(ASSETS[2], 0.15);
-      }
+      state.network = state.asset.networks[0];
+      updateUI();
 
-      selectAsset(ASSETS[0]);
+      // Resume pending state if there is an active withdrawal
+      const activePending = JSON.parse(localStorage.getItem('bp_active_withdrawal') || 'null');
+      if (activePending && activePending.status === 'pending') {
+        showProcessingState(activePending);
+      }
 
     })();
   </script>
