@@ -118,8 +118,8 @@
 
     /* TABLE */
     .table-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-xs); }
-    .table-header { display: grid; grid-template-columns: 50px 1.4fr 130px 100px 100px 120px 60px; gap: 12px; padding: 12px 20px; background: var(--navy-50); border-bottom: 1px solid var(--gray-200); font-size: 10px; font-weight: 800; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.6px; align-items: center; }
-    .table-row { display: grid; grid-template-columns: 50px 1.4fr 130px 100px 100px 120px 60px; gap: 12px; padding: 14px 20px; align-items: center; border-bottom: 1px solid var(--gray-100); transition: background 0.15s; cursor: pointer; }
+    .table-header { display: grid; grid-template-columns: 80px 1.4fr 140px 100px 100px 120px 60px; gap: 12px; padding: 12px 20px; background: var(--navy-50); border-bottom: 1px solid var(--gray-200); font-size: 10px; font-weight: 800; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.6px; align-items: center; }
+    .table-row { display: grid; grid-template-columns: 80px 1.4fr 140px 100px 100px 120px 60px; gap: 12px; padding: 14px 20px; align-items: center; border-bottom: 1px solid var(--gray-100); transition: background 0.15s; cursor: pointer; }
     .table-row:last-child { border-bottom: none; }
     .table-row:hover { background: var(--navy-50); }
 
@@ -231,7 +231,7 @@
 
     @media (max-width: 1200px) {
       .stats-row { grid-template-columns: repeat(2, 1fr); }
-      .table-header, .table-row { grid-template-columns: 50px 1.4fr 120px 90px 90px 60px; }
+      .table-header, .table-row { grid-template-columns: 80px 1.4fr 120px 90px 90px 60px; }
       .table-header > .col-joined, .table-row > .cell-joined { display: none; }
     }
     @media (max-width: 900px) {
@@ -376,7 +376,7 @@
         <div class="table-header">
           <div>UID</div>
           <div>User &amp; Contact</div>
-          <div>Total Balance</div>
+          <div>Wallet Balance</div>
           <div>KYC Tier</div>
           <div>Status</div>
           <div class="col-joined">Joined</div>
@@ -410,14 +410,14 @@
       </div>
 
       <div class="field-group">
-        <label class="field-label">Email Address</label>
-        <input type="email" class="form-input" id="newUserEmail" placeholder="e.g. kwame@example.com">
+        <label class="field-label">Email Address (Must be unique)</label>
+        <input type="email" class="form-input" id="newUserEmail" placeholder="e.g. client@domain.com">
       </div>
 
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
         <div class="field-group">
           <label class="field-label">Phone</label>
-          <input type="text" class="form-input" id="newUserPhone" placeholder="+233 20 123 4567">
+          <input type="text" class="form-input" id="newUserPhone" placeholder="+254 700 000000">
         </div>
         <div class="field-group">
           <label class="field-label">Country</label>
@@ -426,6 +426,8 @@
             <option value="Nigeria">Nigeria</option>
             <option value="Ghana">Ghana</option>
             <option value="South Africa">South Africa</option>
+            <option value="Tanzania">Tanzania</option>
+            <option value="Uganda">Uganda</option>
             <option value="United States">United States</option>
             <option value="United Kingdom">United Kingdom</option>
           </select>
@@ -475,17 +477,36 @@
     </div>
 
     <div class="drawer-body">
-      <!-- TAB 1: OVERVIEW -->
+      <!-- TAB 1: OVERVIEW & FUNCTIONAL PROFILE EDITING -->
       <div class="detail-panel active" id="panel-overview">
         <div class="detail-section">
-          <h4>Account Profile</h4>
-          <div class="detail-row"><span class="lbl">Full Name</span><span class="val" id="d-name">—</span></div>
-          <div class="detail-row"><span class="lbl">Email</span><span class="val" id="d-email">—</span></div>
-          <div class="detail-row"><span class="lbl">Phone</span><span class="val" id="d-phone">—</span></div>
-          <div class="detail-row"><span class="lbl">Country</span><span class="val" id="d-country">—</span></div>
-          <div class="detail-row"><span class="lbl">Registration Date</span><span class="val" id="d-joined">—</span></div>
-          <div class="detail-row"><span class="lbl">Account Status</span><span class="val" id="d-status">—</span></div>
-          <div class="detail-row"><span class="lbl">KYC Tier</span><span class="val" id="d-tier">—</span></div>
+          <h4>Account Profile Details</h4>
+          <div class="field-group" style="margin-bottom:8px;">
+            <label class="field-label">Full Name</label>
+            <input type="text" class="form-input" id="editUserName">
+          </div>
+          <div class="field-group" style="margin-bottom:8px;">
+            <label class="field-label">Email Address (Unique)</label>
+            <input type="email" class="form-input" id="editUserEmail">
+          </div>
+          <div class="field-group" style="margin-bottom:8px;">
+            <label class="field-label">Phone</label>
+            <input type="text" class="form-input" id="editUserPhone">
+          </div>
+          <div class="field-group" style="margin-bottom:12px;">
+            <label class="field-label">Country</label>
+            <select class="select-field" id="editUserCountry">
+              <option value="Kenya">Kenya</option>
+              <option value="Nigeria">Nigeria</option>
+              <option value="Ghana">Ghana</option>
+              <option value="South Africa">South Africa</option>
+              <option value="Tanzania">Tanzania</option>
+              <option value="Uganda">Uganda</option>
+              <option value="United States">United States</option>
+              <option value="United Kingdom">United Kingdom</option>
+            </select>
+          </div>
+          <button class="btn-action-sm primary" id="saveProfileBtn" style="width:100%;justify-content:center;">💾 Save Profile Changes</button>
         </div>
 
         <div class="detail-section">
@@ -497,7 +518,7 @@
         </div>
       </div>
 
-      <!-- TAB 2: BALANCES -->
+      <!-- TAB 2: BALANCES & REAL WALLET ADJUSTMENT -->
       <div class="detail-panel" id="panel-balance">
         <div class="detail-section">
           <h4>Multi-Asset Vault Holdings</h4>
@@ -505,8 +526,6 @@
           <div class="detail-row"><span class="lbl">Bitcoin (BTC)</span><span class="val" id="bal-btc">0.00000000 BTC</span></div>
           <div class="detail-row"><span class="lbl">Ethereum (ETH)</span><span class="val" id="bal-eth">0.0000 ETH</span></div>
           <div class="detail-row"><span class="lbl">Solana (SOL)</span><span class="val" id="bal-sol">0.00 SOL</span></div>
-          <div class="detail-row"><span class="lbl">BNB Chain (BNB)</span><span class="val" id="bal-bnb">0.00 BNB</span></div>
-          <div class="detail-row"><span class="lbl">USD Fiat Balance</span><span class="val" id="bal-usd">$0.00 USD</span></div>
           <div class="detail-row" style="border-top:1.5px solid var(--gray-200);margin-top:6px;padding-top:8px;">
             <span class="lbl" style="font-weight:800;color:var(--navy-900);">Total Net Worth</span>
             <span class="val" style="color:var(--green-500);font-size:14px;" id="d-balance">$0.00</span>
@@ -514,16 +533,16 @@
         </div>
 
         <div class="detail-section">
-          <h4>Direct Balance Adjustment</h4>
-          <p style="font-size:11.5px;color:var(--gray-500);margin-bottom:10px;">Directly adjust USD balance. All adjustments are written to the audit log.</p>
+          <h4>Direct Real Wallet Balance Calibration</h4>
+          <p style="font-size:11.5px;color:var(--gray-500);margin-bottom:10px;">Directly adjust USD balance. Updates reflect on user's live wallet.html.</p>
           <div style="display:flex;gap:8px;">
             <input type="number" step="any" class="form-input" id="balanceInput" placeholder="New USD balance">
-            <button class="btn-action-sm primary" id="updateBalanceBtn">Update</button>
+            <button class="btn-action-sm primary" id="updateBalanceBtn">Update Balance</button>
           </div>
         </div>
       </div>
 
-      <!-- TAB 3: ACTIVITY -->
+      <!-- TAB 3: REAL ACTIVITY LEDGER -->
       <div class="detail-panel" id="panel-activity">
         <div class="detail-section">
           <h4>Recent Financial Ledger</h4>
@@ -555,7 +574,7 @@
 
         <div class="detail-section" style="border-color: rgba(209,67,67,0.3);">
           <h4 style="color: var(--red-500);">Compliance Deletion</h4>
-          <button class="btn-action-sm danger" id="actDelete">🗑️ Soft-Delete User</button>
+          <button class="btn-action-sm danger" id="actDelete">🗑️ Delete User</button>
         </div>
       </div>
     </div>
@@ -579,7 +598,7 @@
       }
 
       // ============================================================
-      // AUTH CHECK (Session fallback avoiding redirect loops)
+      // ADMIN SESSION
       // ============================================================
       let session = localStorage.getItem('bp_admin_session');
       let admin = { name: 'Super Admin', email: 'admin@bluepeakcapital.com', role: 'Head of Operations' };
@@ -593,7 +612,6 @@
       $('#adminAvatar').textContent = (admin.name || 'A').charAt(0).toUpperCase();
       $('#sidebarEmail').textContent = admin.email;
 
-      // SIDEBAR TOGGLE
       $('#menuToggle').addEventListener('click', () => {
         $('#sidebar').classList.add('open');
         $('#sidebarOverlay').classList.add('open');
@@ -613,20 +631,6 @@
       $('#logoutBtn').addEventListener('click', logout);
       $('#adminChip').addEventListener('click', logout);
 
-      // SIDEBAR BADGES
-      (function updateSidebarBadges() {
-        try {
-          const chats = JSON.parse(localStorage.getItem('bp_admin_chats') || '[]');
-          const unread = chats.filter(c => c.unread).length;
-          $('#ordersBadge').textContent = unread || '0';
-        } catch (e) {}
-        try {
-          const kyc = JSON.parse(localStorage.getItem('bp_admin_kyc') || '[]');
-          const pending = kyc.filter(k => k.status === 'pending').length;
-          $('#kycBadge').textContent = pending || '0';
-        } catch (e) {}
-      })();
-
       // ============================================================
       // AUDIT LOG
       // ============================================================
@@ -638,41 +642,89 @@
       }
 
       // ============================================================
-      // USER DATA
+      // UNIFIED REAL USER DISCOVERY (NO DUMMY DEMOS)
       // ============================================================
-      function loadUsers() {
-        let users = JSON.parse(localStorage.getItem('bp_admin_users') || '[]');
-        if (users.length === 0) {
-          users = [
-            { id: 8829101, name: 'Amina Okafor', email: 'amina.o@bluepeakcapital.com', phone: '+234 803 555 1234', country: 'Nigeria', balance: 1850.00, tier: 2, status: 'active', joined: '2024-02-15' },
-            { id: 8829102, name: 'Kwame Mensah', email: 'kwame@bluepeakcapital.com', phone: '+233 20 123 4567', country: 'Ghana', balance: 3420.50, tier: 2, status: 'active', joined: '2024-03-08' },
-            { id: 8829103, name: 'Alex Vance', email: 'alex.vance@example.com', phone: '+254 712 345 678', country: 'Kenya', balance: 950.00, tier: 1, status: 'active', joined: '2024-04-12' },
-            { id: 8829104, name: 'David Kim', email: 'david.k@example.com', phone: '+1 415 882 9102', country: 'United States', balance: 14250.00, tier: 3, status: 'active', joined: '2024-01-20' },
-            { id: 8829105, name: 'Lerato Dlamini', email: 'lerato@example.com', phone: '+27 82 555 0199', country: 'South Africa', balance: 410.20, tier: 1, status: 'active', joined: '2024-04-22' },
-            { id: 8829106, name: 'Elena Rostova', email: 'elena.r@example.com', phone: '+44 20 7946 0912', country: 'United Kingdom', balance: 8800.00, tier: 2, status: 'active', joined: '2024-02-28' },
-            { id: 8829107, name: 'Hassan Mwinyi', email: 'hassan@example.com', phone: '+255 712 345 678', country: 'Tanzania', balance: 25.00, tier: 1, status: 'flagged', joined: '2024-05-01' },
-            { id: 8829108, name: 'Musa Kiprop', email: 'musa@example.com', phone: '+254 721 333 444', country: 'Kenya', balance: 0.00, tier: 1, status: 'frozen', joined: '2024-05-04' }
-          ];
-          localStorage.setItem('bp_admin_users', JSON.stringify(users));
+      function loadRealUsers() {
+        let adminUsers = [];
+        try { adminUsers = JSON.parse(localStorage.getItem('bp_admin_users') || '[]'); } catch (e) {}
+
+        let siteUsers = [];
+        try { siteUsers = JSON.parse(localStorage.getItem('bp_users') || '[]'); } catch (e) {}
+
+        const emailMap = new Map();
+
+        // 1. Ingest real site registrations
+        siteUsers.forEach((u, i) => {
+          if (u && u.email) {
+            const emailKey = u.email.toLowerCase().trim();
+            emailMap.set(emailKey, {
+              id: u.id || (8829100 + i + 1),
+              name: u.name || u.fullName || u.username || 'Client',
+              email: u.email.toLowerCase().trim(),
+              phone: u.phone || '—',
+              country: u.country || 'Global',
+              balance: parseFloat(u.balance !== undefined ? u.balance : (localStorage.getItem('bp_user_balance') || '0')),
+              tier: u.tier || 1,
+              status: u.status || 'active',
+              joined: u.joined || u.createdAt || new Date().toISOString().split('T')[0]
+            });
+          }
+        });
+
+        // 2. Ingest stored admin users
+        adminUsers.forEach(u => {
+          if (u && u.email) {
+            const emailKey = u.email.toLowerCase().trim();
+            if (!emailMap.has(emailKey)) {
+              emailMap.set(emailKey, u);
+            } else {
+              const existing = emailMap.get(emailKey);
+              if (u.balance !== undefined) existing.balance = u.balance;
+              if (u.status) existing.status = u.status;
+              if (u.tier) existing.tier = u.tier;
+            }
+          }
+        });
+
+        // 3. Ingest active user from session if not present
+        const activeEmail = localStorage.getItem('bp_user_email') || localStorage.getItem('user_email');
+        if (activeEmail && !emailMap.has(activeEmail.toLowerCase().trim())) {
+          const activeBal = parseFloat(localStorage.getItem('bp_user_balance') || localStorage.getItem('user_balance') || '0');
+          emailMap.set(activeEmail.toLowerCase().trim(), {
+            id: 8829100 + emailMap.size + 1,
+            name: localStorage.getItem('bp_user_name') || 'Active Client',
+            email: activeEmail.toLowerCase().trim(),
+            phone: localStorage.getItem('bp_user_phone') || '—',
+            country: localStorage.getItem('bp_user_country') || 'Kenya',
+            balance: activeBal,
+            tier: 2,
+            status: 'active',
+            joined: new Date().toISOString().split('T')[0]
+          });
         }
-        return users;
+
+        const merged = Array.from(emailMap.values());
+        localStorage.setItem('bp_admin_users', JSON.stringify(merged));
+        return merged;
       }
 
       function saveUsers(u) {
         localStorage.setItem('bp_admin_users', JSON.stringify(u));
+        // Keep bp_users updated
+        localStorage.setItem('bp_users', JSON.stringify(u));
       }
 
-      let users = loadUsers();
+      let users = loadRealUsers();
       let filtered = [...users];
       let activeStatusFilter = 'all';
       let activeUserId = null;
 
       // ============================================================
-      // STATS
+      // STATS METRICS
       // ============================================================
       function updateStats() {
         const total = users.length;
-        const totalHoldings = users.reduce((s, u) => s + (u.balance || 0), 0);
+        const totalHoldings = users.reduce((s, u) => s + (parseFloat(u.balance) || 0), 0);
         const verified = users.filter(u => u.tier >= 2).length;
         const risk = users.filter(u => u.status === 'flagged' || u.status === 'frozen').length;
 
@@ -686,7 +738,7 @@
         $('#cntFrozen').textContent = users.filter(u => u.status === 'frozen').length;
         $('#cntFlagged').textContent = users.filter(u => u.status === 'flagged').length;
 
-        $('#userCountSub').textContent = `${filtered.length} of ${total} client profiles matching filters`;
+        $('#userCountSub').textContent = `${filtered.length} of ${total} verified client profiles matching filters`;
       }
 
       // ============================================================
@@ -713,12 +765,12 @@
       }
 
       // ============================================================
-      // RENDER TABLE
+      // RENDER DIRECTORY TABLE
       // ============================================================
       function renderTable() {
         const body = $('#userTableBody');
         if (filtered.length === 0) {
-          body.innerHTML = `<div class="empty-state">No users match your search criteria.</div>`;
+          body.innerHTML = `<div class="empty-state">No client accounts registered yet. Click "Add User" or register accounts via auth.html.</div>`;
           return;
         }
 
@@ -734,12 +786,12 @@
                 </div>
               </div>
               <div class="balance-cell">
-                $${(u.balance || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                <div class="sub">USD Net Balance</div>
+                $${(parseFloat(u.balance) || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                <div class="sub">Available Wallet</div>
               </div>
               <div class="cell-tier"><span class="tier-badge tier-${u.tier}">Tier ${u.tier}</span></div>
               <div class="cell-status"><span class="status-badge ${u.status}"><span class="dot"></span>${u.status}</span></div>
-              <div class="cell-joined" style="font-size:11px;font-weight:600;color:var(--gray-500);">${u.joined || '2024-01-01'}</div>
+              <div class="cell-joined" style="font-size:11px;font-weight:600;color:var(--gray-500);">${u.joined || 'Recent'}</div>
               <div class="actions-cell">
                 <button class="icon-action" data-open-user="${u.id}" title="Open profile drawer">
                   <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
@@ -780,24 +832,20 @@
         $('#drawerName').textContent = u.name;
         $('#drawerUid').textContent = `Account UID #${u.id}`;
 
-        $('#d-name').textContent = u.name;
-        $('#d-email').textContent = u.email;
-        $('#d-phone').textContent = u.phone || '—';
-        $('#d-country').textContent = u.country || 'Global';
-        $('#d-joined').textContent = u.joined || '2024-01-01';
-        $('#d-status').textContent = u.status.toUpperCase();
-        $('#d-tier').textContent = `Tier ${u.tier} Verified`;
-        $('#d-balance').textContent = '$' + (u.balance || 0).toLocaleString('en-US', { minimumFractionDigits: 2 });
+        // Populate functional edit form
+        $('#editUserName').value = u.name;
+        $('#editUserEmail').value = u.email;
+        $('#editUserPhone').value = u.phone || '';
+        $('#editUserCountry').value = u.country || 'Kenya';
+
+        $('#d-balance').textContent = '$' + (parseFloat(u.balance) || 0).toLocaleString('en-US', { minimumFractionDigits: 2 });
         $('#balanceInput').value = u.balance || 0;
 
-        // Populate multi-asset breakdown
-        let globalBalances = JSON.parse(localStorage.getItem('bp_user_balances') || '{}');
-        $('#bal-usdt').textContent = (globalBalances.USDT || (u.balance * 0.7).toFixed(2)) + ' USDT';
-        $('#bal-btc').textContent = (globalBalances.BTC || '0.04210000') + ' BTC';
-        $('#bal-eth').textContent = (globalBalances.ETH || '0.8500') + ' ETH';
-        $('#bal-sol').textContent = (globalBalances.SOL || '12.40') + ' SOL';
-        $('#bal-bnb').textContent = (globalBalances.BNB || '1.80') + ' BNB';
-        $('#bal-usd').textContent = '$' + (u.balance || 0).toFixed(2) + ' USD';
+        // Breakdown (USDT strictly reads real user balance)
+        $('#bal-usdt').textContent = (parseFloat(u.balance) || 0).toFixed(2) + ' USDT';
+        $('#bal-btc').textContent = '0.00000000 BTC';
+        $('#bal-eth').textContent = '0.0000 ETH';
+        $('#bal-sol').textContent = '0.00 SOL';
 
         // Toggle freeze button state
         if (u.status === 'frozen') {
@@ -808,21 +856,21 @@
           $('#actUnfreeze').style.display = 'none';
         }
 
-        // Render recent transactions for user
-        const ledger = JSON.parse(localStorage.getItem('bp_admin_transactions_ledger') || '[]');
-        const userTxs = ledger.filter(t => (t.user && t.user.toLowerCase().includes(u.name.toLowerCase())) || (t.email && t.email.toLowerCase() === u.email.toLowerCase()));
+        // Render actual transactions for user from bp_transactions
+        const ledger = JSON.parse(localStorage.getItem('bp_transactions') || '[]');
+        const userTxs = ledger.filter(t => (t.email && t.email.toLowerCase() === u.email.toLowerCase()) || (t.user && t.user.toLowerCase() === u.name.toLowerCase()));
         const txWrap = $('#userTxList');
         if (userTxs.length === 0) {
-          txWrap.innerHTML = `<div style="font-size:12px;color:var(--gray-500);text-align:center;padding:20px;">No recent ledger records for ${escapeHtml(u.name)}.</div>`;
+          txWrap.innerHTML = `<div style="font-size:12px;color:var(--gray-500);text-align:center;padding:20px;">No recent transactions recorded for ${escapeHtml(u.name)}.</div>`;
         } else {
           txWrap.innerHTML = userTxs.slice(0, 5).map(t => `
             <div style="display:flex;align-items:center;justify-content:space-between;background:var(--navy-50);padding:8px 12px;border-radius:var(--radius-xs);border:1px solid var(--gray-200);font-size:11.5px;">
               <div>
-                <div style="font-weight:800;color:var(--navy-900);">${t.ref} · ${t.type.toUpperCase()}</div>
-                <div style="color:var(--gray-500);font-size:10px;">${new Date(t.time).toLocaleDateString()}</div>
+                <div style="font-weight:800;color:var(--navy-900);">${t.id || 'TX'} · ${t.type.toUpperCase()}</div>
+                <div style="color:var(--gray-500);font-size:10px;">${t.date || 'Recent'}</div>
               </div>
-              <div style="font-weight:800;color:${t.type==='deposit'?'var(--green-500)':'var(--navy-900)'};">
-                ${t.amount > 0 ? '+' : ''}${t.amount} ${t.asset}
+              <div style="font-weight:800;color:${t.type==='Deposit'?'var(--green-500)':'var(--red-500)'};">
+                ${t.amount} ${t.symbol || 'USDT'}
               </div>
             </div>
           `).join('');
@@ -857,7 +905,41 @@
       });
 
       // ============================================================
-      // DRAWER USER ACTIONS
+      // EDIT PROFILE DETAILS WITH UNIQUE EMAIL VALIDATION
+      // ============================================================
+      $('#saveProfileBtn').addEventListener('click', () => {
+        if (!activeUserId) return;
+        const u = users.find(x => x.id === activeUserId);
+        if (!u) return;
+
+        const newName = $('#editUserName').value.trim();
+        const newEmail = $('#editUserEmail').value.trim().toLowerCase();
+        const newPhone = $('#editUserPhone').value.trim();
+        const newCountry = $('#editUserCountry').value;
+
+        if (!newName) return alert('Name cannot be empty.');
+        if (!newEmail || !newEmail.includes('@')) return alert('Please enter a valid email.');
+
+        // Email Uniqueness check
+        const emailCollision = users.some(x => x.id !== u.id && x.email.toLowerCase() === newEmail);
+        if (emailCollision) {
+          return alert('This email is already in use by another client account. Emails must be unique.');
+        }
+
+        u.name = newName;
+        u.email = newEmail;
+        u.phone = newPhone;
+        u.country = newCountry;
+
+        saveUsers(users);
+        logAction('user_profile_updated', u.id, { name: newName, email: newEmail });
+        showToast(`Profile details updated for ${u.name}`);
+        $('#drawerName').textContent = u.name;
+        applyFilters();
+      });
+
+      // ============================================================
+      // DIRECT REAL WALLET BALANCE CALIBRATION
       // ============================================================
       $('#updateBalanceBtn').addEventListener('click', () => {
         if (!activeUserId) return;
@@ -867,23 +949,30 @@
         const val = parseFloat($('#balanceInput').value);
         if (isNaN(val) || val < 0) return alert('Enter a valid non-negative balance.');
 
-        const reason = prompt(`Updating balance for ${u.name}.\nReason for audit trail:`, 'Manual ledger calibration');
+        const reason = prompt(`Updating real balance for ${u.name}.\nReason for audit trail:`, 'Manual administrative calibration');
         if (!reason) return;
 
         const oldBal = u.balance;
         u.balance = val;
         saveUsers(users);
 
+        // Sync directly with wallet.html storage keys
+        localStorage.setItem('bp_user_balance', val.toFixed(2));
+        localStorage.setItem('user_balance', val.toFixed(2));
+        localStorage.setItem('bp_wallet_balance', val.toFixed(2));
+        localStorage.setItem('bp_balance_USDT', val.toFixed(2));
+
         logAction('user_balance_adjusted', u.id, { old: oldBal, new: val, reason });
-        showToast(`Balance updated to $${val.toFixed(2)}`);
+        showToast(`Balance updated to $${val.toFixed(2)}. Synced with user wallet.`);
         $('#d-balance').textContent = '$' + val.toLocaleString('en-US', { minimumFractionDigits: 2 });
+        $('#bal-usdt').textContent = val.toFixed(2) + ' USDT';
         applyFilters();
       });
 
       $('#actFreeze').addEventListener('click', () => {
         if (!activeUserId) return;
         const u = users.find(x => x.id === activeUserId);
-        if (!u || !confirm(`Freeze account for ${u.name}? They will not be able to trade or withdraw.`)) return;
+        if (!u || !confirm(`Freeze account for ${u.name}? They will be locked out of withdrawals.`)) return;
 
         u.status = 'frozen';
         saveUsers(users);
@@ -891,7 +980,6 @@
         showToast('Account frozen');
         $('#actFreeze').style.display = 'none';
         $('#actUnfreeze').style.display = 'inline-flex';
-        $('#d-status').textContent = 'FROZEN';
         applyFilters();
       });
 
@@ -906,7 +994,6 @@
         showToast('Account restored to active');
         $('#actFreeze').style.display = 'inline-flex';
         $('#actUnfreeze').style.display = 'none';
-        $('#d-status').textContent = 'ACTIVE';
         applyFilters();
       });
 
@@ -922,7 +1009,6 @@
         saveUsers(users);
         logAction('account_flagged', u.id, { reason });
         showToast('Account marked as flagged');
-        $('#d-status').textContent = 'FLAGGED';
         applyFilters();
       });
 
@@ -941,7 +1027,7 @@
         if (!u || !confirm(`Revoke all active login sessions for ${u.name}?`)) return;
 
         logAction('sessions_revoked', u.id, {});
-        showToast('All active user JWT sessions terminated.');
+        showToast('Active login tokens terminated.');
       });
 
       $$('[data-set-tier]').forEach(btn => {
@@ -954,8 +1040,7 @@
           u.tier = newTier;
           saveUsers(users);
           logAction('kyc_tier_updated', u.id, { tier: newTier });
-          showToast(`User upgraded to Tier ${newTier}`);
-          $('#d-tier').textContent = `Tier ${newTier} Verified`;
+          showToast(`User set to Tier ${newTier}`);
           applyFilters();
         });
       });
@@ -965,18 +1050,18 @@
         const u = users.find(x => x.id === activeUserId);
         if (!u) return;
 
-        if (prompt(`Type "DELETE" to soft-delete account for ${u.name}:`) !== 'DELETE') return;
+        if (prompt(`Type "DELETE" to remove client account #${u.id}:`) !== 'DELETE') return;
 
         users = users.filter(x => x.id !== u.id);
         saveUsers(users);
-        logAction('user_soft_deleted', u.id, { name: u.name, email: u.email });
+        logAction('user_deleted', u.id, { name: u.name, email: u.email });
         closeDrawer();
         applyFilters();
         showToast(`User account #${u.id} deleted`);
       });
 
       // ============================================================
-      // ADD USER MODAL
+      // ADD USER MODAL WITH UNIQUE EMAIL VERIFICATION
       // ============================================================
       $('#openAddUserBtn').addEventListener('click', () => {
         $('#newUserName').value = '';
@@ -985,7 +1070,7 @@
         $('#newUserBalance').value = '0.00';
         $('#avatarPreview').textContent = 'U';
         $('#avatarPreviewName').textContent = 'New Client';
-        $('#avatarPreviewEmail').textContent = 'client@example.com';
+        $('#avatarPreviewEmail').textContent = 'client@domain.com';
         $('#addUserOverlay').classList.add('open');
         $('#addUserModal').classList.add('open');
       });
@@ -1006,7 +1091,7 @@
       });
 
       $('#newUserEmail').addEventListener('input', function() {
-        $('#avatarPreviewEmail').textContent = this.value.trim() || 'client@example.com';
+        $('#avatarPreviewEmail').textContent = this.value.trim() || 'client@domain.com';
       });
 
       $('#addUserCreate').addEventListener('click', () => {
@@ -1019,7 +1104,11 @@
 
         if (!name) return alert('Enter full name.');
         if (!email || !email.includes('@')) return alert('Enter valid email.');
-        if (users.some(x => x.email.toLowerCase() === email)) return alert('Email already registered.');
+
+        // Unique Email Check
+        if (users.some(x => x.email.toLowerCase() === email)) {
+          return alert('A client account with this email address already exists. Emails must be unique.');
+        }
 
         const newUid = 8829100 + users.length + 1;
         const newUser = {
@@ -1057,7 +1146,7 @@
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `bluepeak-users-${Date.now()}.csv`;
+        a.download = `bluepeak-clients-${Date.now()}.csv`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
@@ -1066,7 +1155,7 @@
       });
 
       // ============================================================
-      // TOOLBAR EVENT LISTENERS
+      // TOOLBAR LISTENERS
       // ============================================================
       $('#searchInput').addEventListener('input', applyFilters);
       $('#countryFilter').addEventListener('change', applyFilters);
@@ -1081,7 +1170,15 @@
         });
       });
 
-      // INITIALIZE
+      // Auto-refresh when users register or update in other tabs
+      window.addEventListener('storage', (e) => {
+        if (['bp_users', 'bp_admin_users', 'bp_user_balance'].includes(e.key)) {
+          users = loadRealUsers();
+          applyFilters();
+        }
+      });
+
+      // Initialize
       applyFilters();
 
     })();
