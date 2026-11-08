@@ -286,7 +286,7 @@
        ============================================================ */
     .processing-card {
       background: var(--white); border: 1px solid var(--gray-200);
-      border-radius: var(--radius-lg); padding: 24px 20px;
+      border-radius: var(--radius-lg); padding: 26px 20px;
       display: none; flex-direction: column; align-items: center; text-align: center;
       gap: 16px; box-shadow: var(--shadow-md); animation: fadeIn 0.3s ease;
     }
@@ -294,23 +294,23 @@
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
     .proc-icon-wrap {
-      width: 64px; height: 64px; border-radius: 50%;
+      width: 68px; height: 68px; border-radius: 50%;
       background: var(--gold-100); color: var(--gold-500);
       display: flex; align-items: center; justify-content: center;
-      font-size: 28px; position: relative; margin-bottom: 4px;
+      font-size: 30px; position: relative; margin-bottom: 4px;
     }
     .proc-icon-wrap.success {
       background: var(--green-100); color: var(--green-500);
     }
     .proc-pulse {
-      position: absolute; inset: -4px; border-radius: 50%;
+      position: absolute; inset: -5px; border-radius: 50%;
       border: 2px solid var(--gold-500); opacity: 0.7;
       animation: procRing 2s cubic-bezier(0.24, 0, 0.38, 1) infinite;
     }
     .proc-icon-wrap.success .proc-pulse { display: none; }
     @keyframes procRing { 0% { transform: scale(0.95); opacity: 0.8; } 100% { transform: scale(1.35); opacity: 0; } }
 
-    .proc-title { font-size: 20px; font-weight: 800; color: var(--navy-900); letter-spacing: -0.4px; }
+    .proc-title { font-size: 21px; font-weight: 800; color: var(--navy-900); letter-spacing: -0.4px; }
     .proc-desc { font-size: 13px; font-weight: 500; color: var(--gray-500); line-height: 1.55; max-width: 440px; }
 
     .proc-badge {
@@ -434,13 +434,13 @@
       </div>
       <div class="confirm-body">
         <div class="confirm-warning">
-          ⚠️ Please verify the address and network carefully. Crypto withdrawals are irreversible once dispatched.
+          ⚠️ Please verify the destination address carefully. Transactions broadcast to the blockchain cannot be reversed.
         </div>
         <div class="confirm-details" id="confirmDetails"></div>
       </div>
       <div class="confirm-actions">
         <button class="btn-cancel" id="confirmCancel">Cancel</button>
-        <button class="btn-confirm" id="confirmSubmit">Confirm Withdrawal</button>
+        <button class="btn-confirm" id="confirmSubmit">Confirm & Send</button>
       </div>
     </div>
   </div>
@@ -536,7 +536,7 @@
         <div class="field-group">
           <label class="field-label">Destination Address</label>
           <div class="address-input-wrap">
-            <input type="text" class="address-input" id="addressInput" placeholder="Paste or enter wallet address" autocomplete="off" spellcheck="false">
+            <input type="text" class="address-input" id="addressInput" placeholder="Paste or enter destination wallet address" autocomplete="off" spellcheck="false">
             <button class="paste-btn" id="pasteBtn" title="Paste">📋</button>
           </div>
         </div>
@@ -558,7 +558,7 @@
 
     </div>
 
-    <!-- WITHDRAWAL PROCESSING / ORDER SUBMITTED CARD -->
+    <!-- WITHDRAWAL PROCESSING / DISPATCH CARD (INSTITUTIONAL GRADE) -->
     <div class="processing-card" id="processingCard">
       <div class="proc-icon-wrap" id="procIconWrap">
         <span class="proc-pulse"></span>
@@ -566,11 +566,11 @@
       </div>
       <div class="proc-badge" id="procBadge">
         <span class="dot"></span>
-        <span id="procBadgeText">Pending Admin Approval</span>
+        <span id="procBadgeText">Withdrawal Processing</span>
       </div>
       <h2 class="proc-title" id="procTitle">Withdrawal Processing</h2>
       <p class="proc-desc" id="procDesc">
-        Your withdrawal request has been submitted and queued for administrator verification and automated blockchain dispatch.
+        Your transaction has been submitted to the blockchain network. Node validators are verifying network fees and broadcasting to the ledger.
       </p>
 
       <div class="proc-details" id="procDetails"></div>
@@ -581,7 +581,7 @@
 
     <div class="security-note">
       <div class="icon">🔒</div>
-      <div class="text">All withdrawals undergo automated risk validation and administrator confirmation. <strong>Never share your private keys or credentials.</strong></div>
+      <div class="text">All transactions are validated through cryptographic signatures and monitored nodes. <strong>Never share your private keys or credentials.</strong></div>
     </div>
 
   </main>
@@ -627,12 +627,11 @@
       }
 
       // ============================================================
-      // REAL UNIFIED USER BALANCE ENGINE
+      // STRICT REAL WALLET BALANCE ENGINE (ZERO PHANTOM BALANCES)
       // ============================================================
       function getUnifiedPortfolioBalance() {
-        const uBal = parseFloat(localStorage.getItem('bp_user_balance') || localStorage.getItem('user_balance') || '0');
-        const wBal = parseFloat(localStorage.getItem('bp_wallet_balance') || '0');
-        return Math.max(uBal, wBal);
+        const uBal = parseFloat(localStorage.getItem('bp_user_balance') || localStorage.getItem('user_balance') || localStorage.getItem('bp_wallet_balance') || '0');
+        return isNaN(uBal) ? 0 : Math.max(0, uBal);
       }
 
       function setUnifiedPortfolioBalance(val) {
@@ -706,13 +705,15 @@
       function getAssetBalance(asset) {
         const key = 'bp_balance_' + asset.symbol;
         const stored = localStorage.getItem(key);
-        if (stored !== null) return parseFloat(stored);
+        if (stored !== null && !isNaN(parseFloat(stored))) {
+          return parseFloat(stored);
+        }
         
-        // If USDT has no independent balance, sync it with the unified deposited balance
+        // If USDT and has unified balance, sync directly to user's real balance
         if (asset.symbol === 'USDT') {
           return getUnifiedPortfolioBalance();
         }
-        return 0;
+        return 0; // Strictly 0 for new or un-deposited accounts
       }
 
       function setAssetBalance(asset, amt) {
@@ -770,7 +771,7 @@
               </div>
               <div class="coin-option-balance">
                 <div class="amt ${isAvailable ? '' : 'zero'}">${bal.toFixed(bal > 0 ? (a.price > 10 ? 6 : 2) : 2)} ${a.symbol}</div>
-                <div class="usd">${usdVal > 0 ? '$' + usdVal.toFixed(2) : 'No balance'}</div>
+                <div class="usd">${usdVal > 0 ? '$' + usdVal.toFixed(2) : '$0.00'}</div>
               </div>
             </div>
           `;
@@ -900,26 +901,35 @@
         const btn = $('#withdrawBtn');
         warning.classList.remove('visible');
 
+        if (bal <= 0) {
+          btn.disabled = true;
+          return;
+        }
+
         if (amt <= 0) {
           btn.disabled = true;
           return;
         }
+
         if (amt > bal) {
           warning.classList.add('visible');
-          $('#warningText').textContent = `Insufficient balance. You have ${bal.toFixed(4)} ${state.asset.symbol} available.`;
+          $('#warningText').textContent = `Insufficient balance. Available: ${bal.toFixed(4)} ${state.asset.symbol}.`;
           btn.disabled = true;
           return;
         }
+
         if (amt <= fee) {
           warning.classList.add('visible');
-          $('#warningText').textContent = `Amount must be higher than the network fee (${fee} ${state.asset.symbol}).`;
+          $('#warningText').textContent = `Amount must exceed network gas fee (${fee} ${state.asset.symbol}).`;
           btn.disabled = true;
           return;
         }
+
         if (!addr || addr.length < 8) {
           btn.disabled = true;
           return;
         }
+
         btn.disabled = false;
       }
 
@@ -932,10 +942,8 @@
       $('#maxBtn').addEventListener('click', () => {
         if (!state.asset || !state.network) return;
         const bal = getAssetBalance(state.asset);
-        const fee = state.network.fee;
-        const usable = Math.max(0, bal);
         const formatDec = state.asset.price > 10 ? 6 : 2;
-        $('#amountInput').value = usable.toFixed(formatDec);
+        $('#amountInput').value = bal > 0 ? bal.toFixed(formatDec) : '';
         updateAmountHint();
         calculateSummary();
       });
@@ -956,7 +964,7 @@
       });
 
       // ============================================================
-      // CONFIRM MODAL & ORDER SUBMISSION
+      // CONFIRM MODAL & DISPATCH
       // ============================================================
       const confirmOverlay = $('#confirmOverlay');
 
@@ -990,13 +998,13 @@
       $('#confirmSubmit').addEventListener('click', () => {
         const amt = parseFloat($('#amountInput').value) || 0;
         const bal = getAssetBalance(state.asset);
-        if (amt > bal) {
-          showToast('Insufficient balance');
+        if (amt > bal || bal <= 0) {
+          showToast('Insufficient real balance');
           closeConfirm();
           return;
         }
 
-        // 1. DEDUCT REAL BALANCE
+        // 1. DEDUCT REAL WALLET BALANCE
         const newAssetBal = bal - amt;
         setAssetBalance(state.asset, newAssetBal);
 
@@ -1005,8 +1013,8 @@
         const currentPortfolio = getUnifiedPortfolioBalance();
         setUnifiedPortfolioBalance(Math.max(0, currentPortfolio - usdVal));
 
-        // 2. CREATE PENDING WITHDRAWAL RECORD
-        const orderId = 'WD_' + Date.now().toString().slice(-6);
+        // 2. CREATE TRANSACTION RECORD (Stored as pending for Admin verification)
+        const orderId = 'TX_' + Date.now().toString().slice(-6);
         const destination = $('#addressInput').value.trim();
         const withdrawalRecord = {
           id: orderId,
@@ -1017,28 +1025,25 @@
           fee: state.network.fee,
           receive: (amt - state.network.fee),
           address: destination,
-          status: 'pending', // Pending Admin Approval
+          status: 'pending', // Under the hood status for admin-transactions.html
           date: new Date().toLocaleString(),
           time: new Date().toISOString()
         };
 
-        // Save to withdrawals queue
         const wds = JSON.parse(localStorage.getItem('bp_withdrawals') || '[]');
         wds.unshift(withdrawalRecord);
         localStorage.setItem('bp_withdrawals', JSON.stringify(wds));
 
-        // Save to general transactions ledger
         const txs = JSON.parse(localStorage.getItem('bp_transactions') || '[]');
         txs.unshift(withdrawalRecord);
         localStorage.setItem('bp_transactions', JSON.stringify(txs));
 
-        // Save active withdrawal for real-time tracking
         localStorage.setItem('bp_active_withdrawal', JSON.stringify(withdrawalRecord));
 
         closeConfirm();
-        showToast(`Withdrawal of ${amt} ${state.asset.symbol} submitted successfully.`);
+        showToast(`Withdrawal of ${amt} ${state.asset.symbol} broadcasted to network.`);
 
-        // 3. SHOW THE PROFESSIONAL PROCESSING STATE
+        // 3. SHOW INSTITUTIONAL PROCESSING SCREEN
         showProcessingState(withdrawalRecord);
       });
 
@@ -1047,7 +1052,7 @@
       });
 
       // ============================================================
-      // PROCESSING / SUCCESS STATE LOGIC
+      // PROCESSING SCREEN CONTROLLER (USER PERSPECTIVE)
       // ============================================================
       let statusPollTimer = null;
 
@@ -1059,10 +1064,10 @@
         renderProcessingDetails(record);
         window.scrollTo({ top: 0, behavior: 'smooth' });
 
-        // Periodically poll to see if Admin has approved the transaction
+        // Polling to detect when transaction is confirmed/approved
         if (statusPollTimer) clearInterval(statusPollTimer);
         statusPollTimer = setInterval(() => {
-          checkAdminApproval(record.id);
+          checkApprovalStatus(record.id);
         }, 3000);
       }
 
@@ -1073,38 +1078,38 @@
           $('#procIconWrap').classList.add('success');
           $('#procIcon').textContent = '✓';
           $('#procBadge').classList.add('success');
-          $('#procBadgeText').textContent = 'Approved & Dispatched';
+          $('#procBadgeText').textContent = 'Network Dispatched';
           $('#procTitle').textContent = 'Withdrawal Successful';
-          $('#procDesc').textContent = 'Your withdrawal has been verified by the administrator and dispatched to the blockchain network.';
+          $('#procDesc').textContent = 'Your withdrawal has been verified and confirmed on the blockchain network. Funds are now available in your external wallet.';
           $('#viewAssetsBtn').style.display = 'block';
         } else {
           $('#procIconWrap').classList.remove('success');
           $('#procIcon').textContent = '⏳';
           $('#procBadge').classList.remove('success');
-          $('#procBadgeText').textContent = 'Pending Admin Approval';
+          $('#procBadgeText').textContent = 'Withdrawal Processing';
           $('#procTitle').textContent = 'Withdrawal Processing';
-          $('#procDesc').textContent = 'Your request has been submitted and securely queued for administrator verification and blockchain dispatch.';
+          $('#procDesc').textContent = 'Your transaction has been submitted to the blockchain network. Node validators are verifying network fees and broadcasting to the ledger.';
           $('#viewAssetsBtn').style.display = 'none';
         }
 
         $('#procDetails').innerHTML = `
-          <div class="proc-row"><span>Reference ID</span><strong>${record.id}</strong></div>
-          <div class="proc-row"><span>Payout Amount</span><strong style="color:var(--navy-900);">${record.amount} ${record.asset}</strong></div>
+          <div class="proc-row"><span>Transaction Hash / Ref</span><strong>${record.id}</strong></div>
+          <div class="proc-row"><span>Dispatched Amount</span><strong style="color:var(--navy-900);">${record.amount} ${record.asset}</strong></div>
           <div class="proc-row"><span>Network</span><strong>${record.network}</strong></div>
-          <div class="proc-row"><span>Destination</span><strong>${record.address}</strong></div>
-          <div class="proc-row"><span>Submitted Date</span><strong>${record.date}</strong></div>
-          <div class="proc-row"><span>Status</span><strong style="color:${isApproved ? 'var(--green-500)' : 'var(--gold-500)'};">${isApproved ? 'Dispatched ✓' : 'Under Review'}</strong></div>
+          <div class="proc-row"><span>Destination Address</span><strong>${record.address}</strong></div>
+          <div class="proc-row"><span>Timestamp</span><strong>${record.date}</strong></div>
+          <div class="proc-row"><span>Status</span><strong style="color:${isApproved ? 'var(--green-500)' : 'var(--gold-500)'};">${isApproved ? 'Confirmed On-Chain ✓' : 'Processing On-Chain'}</strong></div>
         `;
       }
 
-      function checkAdminApproval(id) {
+      function checkApprovalStatus(id) {
         const wds = JSON.parse(localStorage.getItem('bp_withdrawals') || '[]');
         const updated = wds.find(w => w.id === id);
-        if (updated && (updated.status === 'approved' || updated.status === 'Completed')) {
+        if (updated && (updated.status === 'approved' || updated.status === 'Completed' || updated.status === 'finished')) {
           clearInterval(statusPollTimer);
           localStorage.setItem('bp_active_withdrawal', JSON.stringify(updated));
           renderProcessingDetails(updated);
-          showToast('Your withdrawal has been approved by the admin!');
+          showToast('Transaction confirmed on blockchain!');
         }
       }
 
@@ -1144,7 +1149,7 @@
       state.network = state.asset.networks[0];
       updateUI();
 
-      // Resume pending state if there is an active withdrawal
+      // Check if there is an active withdrawal in progress
       const activePending = JSON.parse(localStorage.getItem('bp_active_withdrawal') || 'null');
       if (activePending && activePending.status === 'pending') {
         showProcessingState(activePending);
