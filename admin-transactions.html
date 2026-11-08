@@ -119,8 +119,8 @@
 
     /* TABLE */
     .table-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-xs); }
-    .table-header { display: grid; grid-template-columns: 44px 1.4fr 120px 110px 110px 110px 1.2fr 60px; gap: 12px; padding: 12px 20px; background: var(--navy-50); border-bottom: 1px solid var(--gray-200); font-size: 10px; font-weight: 800; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.6px; align-items: center; }
-    .table-row { display: grid; grid-template-columns: 44px 1.4fr 120px 110px 110px 110px 1.2fr 60px; gap: 12px; padding: 14px 20px; align-items: center; border-bottom: 1px solid var(--gray-100); transition: background 0.15s; cursor: pointer; }
+    .table-header { display: grid; grid-template-columns: 44px 1.4fr 130px 110px 110px 110px 1.2fr 60px; gap: 12px; padding: 12px 20px; background: var(--navy-50); border-bottom: 1px solid var(--gray-200); font-size: 10px; font-weight: 800; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.6px; align-items: center; }
+    .table-row { display: grid; grid-template-columns: 44px 1.4fr 130px 110px 110px 110px 1.2fr 60px; gap: 12px; padding: 14px 20px; align-items: center; border-bottom: 1px solid var(--gray-100); transition: background 0.15s; cursor: pointer; }
     .table-row:last-child { border-bottom: none; }
     .table-row:hover { background: var(--navy-50); }
 
@@ -149,10 +149,10 @@
 
     .status-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 9.5px; font-weight: 800; padding: 3px 10px; border-radius: var(--radius-pill); text-transform: uppercase; letter-spacing: 0.4px; }
     .status-badge .dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
-    .status-badge.completed { background: var(--green-100); color: var(--green-500); }
+    .status-badge.completed, .status-badge.approved { background: var(--green-100); color: var(--green-500); }
     .status-badge.pending { background: var(--gold-100); color: var(--gold-500); animation: pulse 2s infinite; }
     .status-badge.confirming { background: var(--blue-100); color: var(--blue-500); }
-    .status-badge.failed, .status-badge.cancelled { background: var(--red-100); color: var(--red-500); }
+    .status-badge.failed, .status-badge.cancelled, .status-badge.rejected { background: var(--red-100); color: var(--red-500); }
 
     @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.6; } 100% { opacity: 1; } }
 
@@ -238,15 +238,18 @@
       .admin-chip { padding: 4px; }
       .admin-chip .admin-name, .admin-chip .admin-role { display: none; }
       .table-header { display: none; }
-      .table-row { grid-template-columns: 1fr auto auto; gap: 8px; padding: 14px 16px; }
-      .table-row .tx-icon-cell, .table-row .cell-type, .table-row .cell-time, .table-row .cell-detail, .table-row .actions-cell { display: none; }
-      .table-row > .tx-user { grid-column: 1; }
-      .table-row > .tx-amount-cell { grid-column: 2; text-align: right; }
-      .table-row > .cell-status { grid-column: 3; }
-      .detail-modal { max-width: 100%; }
+      .table-row {
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 12px 16px; gap: 10px;
+      }
+      .table-row .cell-type, .table-row .cell-time, .table-row .cell-detail { display: none; }
+      .table-row > .tx-user { flex: 1; min-width: 0; }
+      .detail-modal { max-width: 100%; border-radius: var(--radius-md); }
     }
     @media (max-width: 500px) {
       .stats-row { grid-template-columns: 1fr; }
+      .toolbar-row { flex-direction: column; align-items: stretch; }
+      .search-wrap { width: 100%; min-width: 0; }
     }
   </style>
 </head>
@@ -349,8 +352,8 @@
             </select>
             <select class="filter-select" id="statusFilter">
               <option value="">All Statuses</option>
-              <option value="completed">Completed</option>
-              <option value="pending">Pending</option>
+              <option value="completed">Completed / Approved</option>
+              <option value="pending">Pending Review</option>
               <option value="confirming">Confirming</option>
               <option value="failed">Failed / Rejected</option>
             </select>
@@ -412,7 +415,7 @@
           <div class="detail-icon-big adjustment">⚖️</div>
           <div>
             <div class="detail-title">Manual Balance Adjustment</div>
-            <div class="detail-subtitle">Credit or debit user wallet with ledger recording</div>
+            <div class="detail-subtitle">Credit or debit user wallet with real ledger synchronization</div>
           </div>
         </div>
         <button class="detail-close" id="adjustClose">✕</button>
@@ -420,7 +423,7 @@
       <div class="detail-body">
         <div class="field-group">
           <label class="field-label">User Email or Name</label>
-          <input type="text" class="input-field" id="adjUserInp" placeholder="e.g. user@example.com or Kwame">
+          <input type="text" class="input-field" id="adjUserInp" placeholder="e.g. client@example.com or Kwame">
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
           <div class="field-group">
@@ -448,7 +451,7 @@
         </div>
         <div class="field-group">
           <label class="field-label">Reason / Reference Note</label>
-          <input type="text" class="input-field" id="adjReasonInp" placeholder="e.g. Wire transfer settlement, VIP bonus, reconciliation">
+          <input type="text" class="input-field" id="adjReasonInp" placeholder="e.g. Direct bank deposit, VIP credit, manual reconciliation">
         </div>
       </div>
       <div class="detail-footer">
@@ -475,8 +478,17 @@
         t._t = setTimeout(() => t.classList.remove('show'), 2600);
       }
 
+      function readStorage(key, fallback = []) {
+        try {
+          const v = localStorage.getItem(key);
+          return v ? JSON.parse(v) : fallback;
+        } catch (_) {
+          return fallback;
+        }
+      }
+
       // ============================================================
-      // AUTH CHECK (Session fallback avoiding redirect loops)
+      // ADMIN AUTH CHECK
       // ============================================================
       let session = localStorage.getItem('bp_admin_session');
       let admin = { name: 'Super Admin', email: 'admin@bluepeakcapital.com', role: 'Head of Operations' };
@@ -490,7 +502,6 @@
       $('#adminAvatar').textContent = (admin.name || 'A').charAt(0).toUpperCase();
       $('#sidebarEmail').textContent = admin.email;
 
-      // SIDEBAR TOGGLE
       $('#menuToggle').addEventListener('click', () => {
         $('#sidebar').classList.add('open');
         $('#sidebarOverlay').classList.add('open');
@@ -510,132 +521,111 @@
       $('#logoutBtn').addEventListener('click', logout);
       $('#adminChip').addEventListener('click', logout);
 
-      // SIDEBAR BADGES
-      (function updateSidebarBadges() {
-        try {
-          const chats = JSON.parse(localStorage.getItem('bp_admin_chats') || '[]');
-          const unread = chats.filter(c => c.unread).length;
-          $('#ordersBadge').textContent = unread || '0';
-        } catch (e) {}
-        try {
-          const kyc = JSON.parse(localStorage.getItem('bp_admin_kyc') || '[]');
-          const pendingKyc = kyc.filter(k => k.status === 'pending').length;
-          $('#kycBadge').textContent = pendingKyc || '0';
-        } catch (e) {}
-      })();
-
       // ============================================================
-      // AUDIT LOGGING
+      // AUDIT LOG
       // ============================================================
       function logAction(action, target, details) {
-        const log = JSON.parse(localStorage.getItem('bp_audit_log') || '[]');
+        const log = readStorage('bp_audit_log', []);
         log.push({ ts: Date.now(), admin: admin.email, action, target, details });
         if (log.length > 500) log.splice(0, log.length - 500);
         localStorage.setItem('bp_audit_log', JSON.stringify(log));
       }
 
       // ============================================================
-      // PLATFORM DEPOSIT ADDRESSES
+      // REAL TRANSACTION INGESTION & SYNCHRONIZATION
       // ============================================================
-      function getPlatformAddresses() {
-        try {
-          const a = localStorage.getItem('bp_platform_deposit_addresses');
-          if (a) return JSON.parse(a);
-        } catch (e) {}
-        return {
-          USDT: 'TTx882KLa92mZbQpP004NqK599eL',
-          BTC: 'bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh',
-          ETH: '0x71C8366420A023c032331b15482A312A27da089e',
-          SOL: '7Np8Zkm3Vve8k8uD7iY6X7uDqm58FkH93vW4',
-          BNB: '0x38B57dF0F9444Ac2aC950f83733E89417c8078f4'
-        };
-      }
-
-      // ============================================================
-      // LOAD ALL TRANSACTIONS ACROSS SYSTEM
-      // ============================================================
-      function loadTransactions() {
-        let master = JSON.parse(localStorage.getItem('bp_admin_transactions_ledger') || 'null');
-        if (master && master.length > 0) return master;
-
+      function loadRealTransactions() {
         const txs = [];
-        const vaultAddrs = getPlatformAddresses();
+        const seenIds = new Set();
 
-        // 1. Deposits
-        const deposits = JSON.parse(localStorage.getItem('bp_deposits') || '[]');
-        deposits.forEach((d, i) => {
+        // 1. Ingest real transactions (populated by deposit.html and withdraw.html)
+        const liveTxs = readStorage('bp_transactions', []);
+        liveTxs.forEach((t, i) => {
+          const id = t.id || ('live-tx-' + i);
+          seenIds.add(id);
           txs.push({
-            id: 'dep-' + (d.id || i),
-            ref: d.ref || ('DEP-' + (1000 + i)),
-            type: 'deposit',
-            user: d.user || localStorage.getItem('bp_user_name') || 'Amina Okafor',
-            email: d.email || localStorage.getItem('bp_user_email') || 'amina.o@bluepeakcapital.com',
-            asset: d.asset || 'USDT',
-            amount: parseFloat(d.amount) || 0,
-            usd: parseFloat(d.amountUSD) || (parseFloat(d.amount) || 0),
-            network: d.network || 'TRC20',
-            address: d.address || vaultAddrs[d.asset] || vaultAddrs.USDT,
-            txHash: d.txHash || '0x3a7f49c2e1b8d4a6f0e5c9b1a8d7c2f4e6a0b5d9',
-            status: d.status || 'completed',
-            time: d.time || new Date(Date.now() - 3600000).toISOString(),
-            fee: 0,
+            id: id,
+            ref: t.id || ('REF-' + (1000 + i)),
+            type: (t.type || 'deposit').toLowerCase(),
+            user: t.user || localStorage.getItem('bp_user_name') || 'Client',
+            email: t.email || localStorage.getItem('bp_user_email') || 'client@bluepeak.exchange',
+            asset: t.symbol || t.asset || 'USDT',
+            amount: parseFloat(t.amount || 0),
+            usd: parseFloat(t.amountUSD || t.amount || 0),
+            network: t.network || 'TRC20',
+            address: t.address || t.txHash || 'External Wallet',
+            txHash: t.txHash || '—',
+            status: (t.status || 'completed').toLowerCase(),
+            time: t.date || t.time || new Date().toISOString(),
+            fee: parseFloat(t.fee || 0)
           });
         });
 
-        // 2. Withdrawals
-        const withdrawals = JSON.parse(localStorage.getItem('bp_withdrawals') || '[]');
-        withdrawals.forEach((w, i) => {
-          txs.push({
-            id: 'wit-' + (w.id || i),
-            ref: w.ref || ('WIT-' + (2000 + i)),
-            type: 'withdraw',
-            user: w.user || localStorage.getItem('bp_user_name') || 'Alex Vance',
-            email: w.email || localStorage.getItem('bp_user_email') || 'alex.vance@example.com',
-            asset: w.asset || 'USDT',
-            amount: parseFloat(w.amount) || 0,
-            usd: parseFloat(w.amount) || 0,
-            network: w.network || 'TRC20',
-            address: w.address || 'TKy8cG0nPb94MmZaQpP004NqK599eL',
-            txHash: w.txHash || '—',
-            status: w.status || 'pending',
-            time: w.time || new Date(Date.now() - 7200000).toISOString(),
-            fee: w.fee || 1.5,
-          });
+        // 2. Ingest real withdrawals from withdraw.html
+        const liveWithdrawals = readStorage('bp_withdrawals', []);
+        liveWithdrawals.forEach((w, i) => {
+          const id = w.id || ('wd-rec-' + i);
+          if (!seenIds.has(id)) {
+            seenIds.add(id);
+            txs.push({
+              id: id,
+              ref: w.id || ('WIT-' + (2000 + i)),
+              type: 'withdraw',
+              user: w.user || localStorage.getItem('bp_user_name') || 'Client',
+              email: w.email || localStorage.getItem('bp_user_email') || 'client@bluepeak.exchange',
+              asset: w.asset || 'USDT',
+              amount: parseFloat(w.amount || 0),
+              usd: parseFloat(w.amount || 0),
+              network: w.network || 'TRC20',
+              address: w.address || 'External Wallet',
+              txHash: w.txHash || '—',
+              status: (w.status || 'pending').toLowerCase(),
+              time: w.date || w.time || new Date().toISOString(),
+              fee: parseFloat(w.fee || 1.0)
+            });
+          }
         });
 
-        // 3. P2P Orders
-        const p2pOrders = JSON.parse(localStorage.getItem('bp_p2p_orders') || '[]');
+        // 3. Ingest real P2P orders
+        const p2pOrders = readStorage('bp_p2p_orders', []);
         p2pOrders.forEach((o, i) => {
-          txs.push({
-            id: 'p2p-' + (o.id || i),
-            ref: o.id || ('P2P-' + (4000 + i)),
-            type: 'p2p',
-            user: o.buyer || 'Amina Okafor',
-            email: 'user@bluepeakcapital.com',
-            asset: o.asset || 'USDT',
-            amount: parseFloat(o.amount) || 0,
-            usd: parseFloat(o.amountUSD || o.fiatAmount) || 0,
-            network: o.payment || 'M-Pesa / Bank',
-            address: 'P2P Escrow Vault',
-            txHash: '—',
-            status: (o.status || 'completed').toLowerCase(),
-            time: o.date || new Date(Date.now() - 14400000).toISOString(),
-            fee: 0,
-            counterparty: o.merchant || 'Kwame_P2P',
-            side: o.side || 'buy',
-          });
+          const id = o.id || ('p2p-' + i);
+          if (!seenIds.has(id)) {
+            seenIds.add(id);
+            txs.push({
+              id: id,
+              ref: o.id || ('P2P-' + (4000 + i)),
+              type: 'p2p',
+              user: o.buyer || 'Client',
+              email: 'client@bluepeak.exchange',
+              asset: o.crypto || o.asset || 'USDT',
+              amount: parseFloat(o.cryptoAmount || o.amount || 0),
+              usd: parseFloat(o.fiatAmount || o.amountUSD || o.amount || 0),
+              network: o.paymentMethod || 'P2P Escrow',
+              address: 'P2P Escrow Vault',
+              txHash: '—',
+              status: (o.status || 'completed').toLowerCase(),
+              time: o.date || new Date().toISOString(),
+              fee: 0,
+              counterparty: o.merchant || 'P2P Merchant'
+            });
+          }
         });
 
-        // Default seed transactions if empty
+        // 4. Ingest existing ledger adjustments
+        const savedLedger = readStorage('bp_admin_transactions_ledger', []);
+        savedLedger.forEach(item => {
+          if (!seenIds.has(item.id)) {
+            seenIds.add(item.id);
+            txs.push(item);
+          }
+        });
+
+        // Fallback demo transactions if entirely fresh
         if (txs.length === 0) {
           const now = Date.now();
           txs.push(
-            { id: 'tx-1', ref: 'DEP-1001', type: 'deposit', user: 'Amina Okafor', email: 'amina.o@example.com', asset: 'USDT', amount: 500, usd: 500, network: 'TRC20', address: vaultAddrs.USDT, txHash: '0x3a7f8b9d2e1c4a6f0e5c9b1a8d7c2f4e6a0b5d92', status: 'completed', time: new Date(now - 1800000).toISOString(), fee: 0 },
-            { id: 'tx-2', ref: 'WIT-2001', type: 'withdraw', user: 'Alex Vance', email: 'alex.v@example.com', asset: 'USDT', amount: 250, usd: 250, network: 'TRC20', address: 'TKy8cG0nPb94MmZaQpP004NqK599eL', txHash: '—', status: 'pending', time: new Date(now - 3600000).toISOString(), fee: 1.5 },
-            { id: 'tx-3', ref: 'P2P-8821', type: 'p2p', user: 'Amina Okafor', email: 'amina.o@example.com', asset: 'USDT', amount: 100, usd: 103, network: 'M-Pesa', address: 'P2P Escrow', txHash: '—', status: 'completed', time: new Date(now - 5400000).toISOString(), fee: 0, counterparty: 'Kwame_P2P', side: 'buy' },
-            { id: 'tx-4', ref: 'DEP-1002', type: 'deposit', user: 'David Kim', email: 'david.k@example.com', asset: 'BTC', amount: 0.052, usd: 4350, network: 'Native SegWit', address: vaultAddrs.BTC, txHash: '0x8f2a1b9c7d4e6a0b5d923a7f8b9d2e1c4a6f0e5c', status: 'completed', time: new Date(now - 12000000).toISOString(), fee: 0 },
-            { id: 'tx-5', ref: 'WIT-2002', type: 'withdraw', user: 'Sarah Jenkins', email: 'sarah.j@example.com', asset: 'ETH', amount: 1.25, usd: 4125, network: 'ERC20', address: '0x71C8366420A023c032331b15482A312A27da089e', txHash: '—', status: 'confirming', time: new Date(now - 18000000).toISOString(), fee: 0.003 },
-            { id: 'tx-6', ref: 'ADJ-9001', type: 'adjustment', user: 'Elena Rostova', email: 'elena.r@example.com', asset: 'USDT', amount: 150, usd: 150, network: 'Ledger Credit', address: 'Internal Treasury', txHash: '—', status: 'completed', time: new Date(now - 25000000).toISOString(), fee: 0, reason: 'Promotional Liquidity Credit' }
+            { id: 'tx-1', ref: 'DEP-1001', type: 'deposit', user: 'Alex Vance', email: 'alex.v@example.com', asset: 'USDT', amount: 50.00, usd: 50.00, network: 'TRC20', address: 'TXk7bF9m2Kp4qWnE8v3Ls6HjR5tYcB2pQd', txHash: '0x3a7f8b9d2e1c4a6f0e5c9b1a8d7c2f4e6a0b5d92', status: 'completed', time: new Date(now - 1800000).toISOString(), fee: 0 }
           );
         }
 
@@ -647,7 +637,7 @@
         localStorage.setItem('bp_admin_transactions_ledger', JSON.stringify(txs));
       }
 
-      let transactions = loadTransactions();
+      let transactions = loadRealTransactions();
       let filtered = [...transactions];
       let activeType = 'all';
       let activeTx = null;
@@ -656,12 +646,12 @@
       // STATS CALCULATION
       // ============================================================
       function updateStats() {
-        const deposits = transactions.filter(t => t.type === 'deposit' && t.status === 'completed');
-        const withdrawals = transactions.filter(t => t.type === 'withdraw' && t.status === 'completed');
+        const deposits = transactions.filter(t => t.type === 'deposit' && (t.status === 'completed' || t.status === 'finished'));
+        const withdrawals = transactions.filter(t => t.type === 'withdraw' && (t.status === 'completed' || t.status === 'approved'));
         const pending = transactions.filter(t => t.status === 'pending' || t.status === 'confirming');
 
-        const totalDep = deposits.reduce((s, t) => s + (t.usd || 0), 0);
-        const totalWit = withdrawals.reduce((s, t) => s + (t.usd || 0), 0);
+        const totalDep = deposits.reduce((s, t) => s + (t.usd || t.amount || 0), 0);
+        const totalWit = withdrawals.reduce((s, t) => s + (t.usd || t.amount || 0), 0);
 
         $('#statDeposits').textContent = '$' + totalDep.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         $('#statWithdrawals').textContent = '$' + totalWit.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -733,7 +723,7 @@
               <div class="tx-icon-cell ${t.type}">${icons[t.type] || '•'}</div>
               <div class="tx-user">
                 <div class="tx-user-name">${escapeHtml(t.user)}</div>
-                <div class="tx-user-sub">${escapeHtml(t.ref)} · ${escapeHtml(t.network)}</div>
+                <div class="tx-user-sub">${escapeHtml(t.ref)} · ${escapeHtml(t.network || '')}</div>
               </div>
               <div class="tx-amount-cell ${amountClass}">
                 ${amountPrefix}${Math.abs(t.amount).toLocaleString('en-US', { maximumFractionDigits: 6 })} ${t.asset}
@@ -743,10 +733,10 @@
               <div class="cell-status"><span class="status-badge ${statusCls}"><span class="dot"></span>${t.status}</span></div>
               <div class="cell-time tx-time">${formatRelativeTime(t.time)}</div>
               <div class="cell-detail" style="font-size:11px;font-weight:600;color:var(--gray-500);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="${escapeHtml(destination)}">
-                ${escapeHtml(destination.substring(0, 26))}${destination.length > 26 ? '…' : ''}
+                ${escapeHtml(destination.substring(0, 24))}${destination.length > 24 ? '…' : ''}
               </div>
               <div class="actions-cell">
-                <button class="icon-action" data-open-tx="${t.id}" title="View details">
+                <button class="icon-action" data-open-tx="${t.id}" title="View receipt">
                   <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
                 </button>
               </div>
@@ -780,11 +770,11 @@
           if (diff < 3600) return Math.floor(diff / 60) + 'm ago';
           if (diff < 86400) return Math.floor(diff / 3600) + 'h ago';
           return Math.floor(diff / 86400) + 'd ago';
-        } catch (e) { return '—'; }
+        } catch (_) { return '—'; }
       }
 
       // ============================================================
-      // TRANSACTION DETAIL RECEIPT MODAL
+      // TRANSACTION RECEIPT MODAL (REAL WITHDRAWAL APPROVAL ENGINE)
       // ============================================================
       function openDetail(id) {
         const t = transactions.find(x => x.id === id);
@@ -794,7 +784,7 @@
         const icons = { deposit: '↓', withdraw: '↑', swap: '⇄', p2p: '🤝', adjustment: '⚖️' };
         $('#detailIcon').className = 'detail-icon-big ' + t.type;
         $('#detailIcon').textContent = icons[t.type] || '•';
-        $('#detailTitle').textContent = { deposit: 'Crypto Deposit', withdraw: 'Crypto Withdrawal', swap: 'Instant Swap', p2p: 'P2P Escrow Trade', adjustment: 'Manual Ledger Adjustment' }[t.type] || 'Transaction';
+        $('#detailTitle').textContent = { deposit: 'Crypto Deposit', withdraw: 'Crypto Withdrawal', swap: 'Instant Swap', p2p: 'P2P Trade Settlement', adjustment: 'Ledger Adjustment' }[t.type] || 'Transaction';
         $('#detailSubtitle').textContent = `${t.ref} · ${t.user}`;
 
         let isPositive = t.type === 'deposit' || (t.type === 'adjustment' && t.amount > 0);
@@ -802,23 +792,27 @@
 
         let extraRows = '';
         if (t.address && t.address !== '—') {
-          extraRows += `<div class="detail-row"><span class="lbl">Wallet / Vault Address</span><span class="val"><code>${escapeHtml(t.address)}</code><button class="copy-mini" data-copy-val="${escapeHtml(t.address)}">Copy</button></span></div>`;
+          extraRows += `<div class="detail-row"><span class="lbl">Destination Wallet Address</span><span class="val"><code>${escapeHtml(t.address)}</code><button class="copy-mini" data-copy-val="${escapeHtml(t.address)}">Copy</button></span></div>`;
         }
         if (t.txHash && t.txHash !== '—') {
           extraRows += `<div class="detail-row"><span class="lbl">Blockchain TxHash</span><span class="val"><code>${escapeHtml(t.txHash)}</code><button class="copy-mini" data-copy-val="${escapeHtml(t.txHash)}">Copy</button></span></div>`;
         }
-        if (t.network && t.network !== '—') {
+        if (t.network) {
           extraRows += `<div class="detail-row"><span class="lbl">Network / Protocol</span><span class="val">${escapeHtml(t.network)}</span></div>`;
         }
         if (t.fee) {
           extraRows += `<div class="detail-row"><span class="lbl">Network Fee</span><span class="val">${t.fee} ${t.asset}</span></div>`;
         }
-        if (t.counterparty && t.counterparty !== '—') {
-          extraRows += `<div class="detail-row"><span class="lbl">Counterparty / Merchant</span><span class="val">${escapeHtml(t.counterparty)}</span></div>`;
+        if (t.counterparty) {
+          extraRows += `<div class="detail-row"><span class="lbl">P2P Counterparty</span><span class="val">${escapeHtml(t.counterparty)}</span></div>`;
         }
         if (t.reason) {
-          extraRows += `<div class="detail-row"><span class="lbl">Adjustment Note</span><span class="val">${escapeHtml(t.reason)}</span></div>`;
+          extraRows += `<div class="detail-row"><span class="lbl">Audit Note</span><span class="val">${escapeHtml(t.reason)}</span></div>`;
         }
+
+        // Live real balance for context
+        const currentBal = parseFloat(localStorage.getItem('bp_user_balance') || localStorage.getItem('user_balance') || '0');
+        extraRows += `<div class="detail-row"><span class="lbl">User Current Balance</span><span class="val" style="color:var(--navy-900);font-weight:800;">$${currentBal.toFixed(2)} USD</span></div>`;
 
         const statusCls = (t.status || 'completed').toLowerCase().replace(' ', '-');
 
@@ -832,21 +826,20 @@
           </div>
 
           <div class="detail-section">
-            <h4>User Account</h4>
-            <div class="detail-row"><span class="lbl">Beneficiary</span><span class="val">${escapeHtml(t.user)}</span></div>
-            <div class="detail-row"><span class="lbl">Email</span><span class="val">${escapeHtml(t.email)}</span></div>
+            <h4>Account Profile</h4>
+            <div class="detail-row"><span class="lbl">Client Name</span><span class="val">${escapeHtml(t.user)}</span></div>
+            <div class="detail-row"><span class="lbl">Email Address</span><span class="val">${escapeHtml(t.email)}</span></div>
           </div>
 
           <div class="detail-section">
-            <h4>Ledger Verification Details</h4>
+            <h4>Ledger Verification</h4>
             <div class="detail-row"><span class="lbl">Internal Reference</span><span class="val"><code>${escapeHtml(t.ref)}</code></span></div>
             <div class="detail-row"><span class="lbl">Asset Symbol</span><span class="val">${escapeHtml(t.asset)}</span></div>
-            <div class="detail-row"><span class="lbl">Timestamp</span><span class="val">${new Date(t.time).toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</span></div>
+            <div class="detail-row"><span class="lbl">Timestamp</span><span class="val">${new Date(t.time).toLocaleString()}</span></div>
             ${extraRows}
           </div>
         `;
 
-        // Bind copy buttons
         $('#detailBody').querySelectorAll('[data-copy-val]').forEach(btn => {
           btn.addEventListener('click', () => {
             navigator.clipboard.writeText(btn.dataset.copyVal);
@@ -864,28 +857,32 @@
         closeBtn.addEventListener('click', closeDetail);
         footer.appendChild(closeBtn);
 
-        // Actions for pending withdrawals
+        // 1. APPROVE WITHDRAWAL ENGINE (SYNC WITH WITHDRAW.HTML)
         if (t.type === 'withdraw' && (t.status === 'pending' || t.status === 'confirming')) {
           const rejectBtn = document.createElement('button');
           rejectBtn.className = 'btn-detail danger';
-          rejectBtn.textContent = 'Reject Withdrawal';
+          rejectBtn.textContent = 'Reject & Refund';
           rejectBtn.addEventListener('click', () => {
-            const reason = prompt('Specify rejection reason (will notify customer):', 'Compliance verification failed or unconfirmed destination address');
+            const reason = prompt('Specify rejection reason (client will be refunded):', 'Destination wallet unconfirmed or risk verification failed');
             if (!reason) return;
 
-            t.status = 'failed';
+            t.status = 'rejected';
             saveLedger(transactions);
 
-            // Refund balance back to user
-            try {
-              let balances = JSON.parse(localStorage.getItem('bp_user_balances') || '{}');
-              const cur = parseFloat(balances[t.asset] || 0);
-              balances[t.asset] = (cur + parseFloat(t.amount || 0)).toFixed(4);
-              localStorage.setItem('bp_user_balances', JSON.stringify(balances));
-            } catch (e) {}
+            // Synchronize with user's real balance (refund back to user)
+            const refundAmt = Math.abs(parseFloat(t.amount || 0));
+            let curBal = parseFloat(localStorage.getItem('bp_user_balance') || localStorage.getItem('user_balance') || '0');
+            let updatedBal = (curBal + refundAmt).toFixed(2);
+            localStorage.setItem('bp_user_balance', updatedBal);
+            localStorage.setItem('user_balance', updatedBal);
+            localStorage.setItem('bp_wallet_balance', updatedBal);
+            localStorage.setItem('bp_balance_' + t.asset, updatedBal);
 
-            logAction('withdrawal_rejected', t.ref, { user: t.user, amount: t.amount, asset: t.asset, reason });
-            showToast('Withdrawal rejected and funds refunded to customer');
+            // Update in bp_withdrawals & bp_transactions & bp_active_withdrawal
+            updateStoredRecords(t.id, 'rejected');
+
+            logAction('withdrawal_rejected_refunded', t.ref, { user: t.user, amount: t.amount, refundAmt, reason });
+            showToast(`Withdrawal rejected. ${refundAmt} ${t.asset} refunded to user wallet.`);
             closeDetail();
             applyFilters();
           });
@@ -895,41 +892,47 @@
           approveBtn.className = 'btn-detail primary';
           approveBtn.innerHTML = '✓ Approve &amp; Release Crypto';
           approveBtn.addEventListener('click', () => {
-            if (!confirm(`Confirm blockchain broadcast for ${t.amount} ${t.asset} to ${t.user}?`)) return;
+            if (!confirm(`Authorize broadcast of ${t.amount} ${t.asset} to ${t.address}? This marks the withdrawal completed.`)) return;
 
-            t.status = 'completed';
+            t.status = 'Completed';
             t.txHash = '0x' + Array.from({length: 40}, () => Math.floor(Math.random()*16).toString(16)).join('');
             saveLedger(transactions);
 
-            logAction('withdrawal_approved', t.ref, { user: t.user, amount: t.amount, asset: t.asset, txHash: t.txHash });
-            showToast('Withdrawal broadcasted successfully!');
+            // Update in bp_withdrawals & bp_transactions & bp_active_withdrawal
+            updateStoredRecords(t.id, 'Completed', t.txHash);
+
+            logAction('withdrawal_authorized_dispatched', t.ref, { user: t.user, amount: t.amount, txHash: t.txHash });
+            showToast('Withdrawal authorized! Client page on withdraw.html now marked Successful.');
             closeDetail();
             applyFilters();
           });
           footer.appendChild(approveBtn);
         }
 
-        // Actions for pending deposits
-        if (t.type === 'deposit' && t.status !== 'completed') {
+        // 2. CREDIT UNCONFIRMED DEPOSITS
+        if (t.type === 'deposit' && (t.status === 'pending' || t.status === 'confirming')) {
           const creditBtn = document.createElement('button');
           creditBtn.className = 'btn-detail primary';
-          creditBtn.innerHTML = '✓ Manually Credit User Balance';
+          creditBtn.innerHTML = '✓ Manually Credit Balance';
           creditBtn.addEventListener('click', () => {
-            if (!confirm(`Manually credit ${t.amount} ${t.asset} to ${t.user}'s wallet balance?`)) return;
+            if (!confirm(`Credit ${t.amount} ${t.asset} to client's wallet?`)) return;
 
-            t.status = 'completed';
+            t.status = 'Completed';
             saveLedger(transactions);
 
-            // Credit balance in localStorage
-            try {
-              let balances = JSON.parse(localStorage.getItem('bp_user_balances') || '{}');
-              const cur = parseFloat(balances[t.asset] || 0);
-              balances[t.asset] = (cur + parseFloat(t.amount || 0)).toFixed(4);
-              localStorage.setItem('bp_user_balances', JSON.stringify(balances));
-            } catch (e) {}
+            // Synchronize with user's real balance
+            const depositAmt = parseFloat(t.amount || 0);
+            let curBal = parseFloat(localStorage.getItem('bp_user_balance') || localStorage.getItem('user_balance') || '0');
+            let updatedBal = (curBal + depositAmt).toFixed(2);
+            localStorage.setItem('bp_user_balance', updatedBal);
+            localStorage.setItem('user_balance', updatedBal);
+            localStorage.setItem('bp_wallet_balance', updatedBal);
+            localStorage.setItem('bp_balance_' + t.asset, updatedBal);
 
-            logAction('deposit_manually_credited', t.ref, { user: t.user, amount: t.amount, asset: t.asset });
-            showToast(`Credited ${t.amount} ${t.asset} to ${t.user}`);
+            updateStoredRecords(t.id, 'Completed');
+
+            logAction('deposit_manually_credited', t.ref, { user: t.user, amount: t.amount });
+            showToast(`Credited ${t.amount} ${t.asset} to user wallet.`);
             closeDetail();
             applyFilters();
           });
@@ -937,6 +940,38 @@
         }
 
         $('#detailOverlay').classList.add('open');
+      }
+
+      function updateStoredRecords(id, newStatus, txHash = null) {
+        // Update bp_withdrawals
+        const wds = readStorage('bp_withdrawals', []);
+        wds.forEach(w => {
+          if (w.id === id || w.ref === id) {
+            w.status = newStatus;
+            if (txHash) w.txHash = txHash;
+          }
+        });
+        localStorage.setItem('bp_withdrawals', JSON.stringify(wds));
+
+        // Update bp_transactions
+        const txs = readStorage('bp_transactions', []);
+        txs.forEach(tx => {
+          if (tx.id === id) {
+            tx.status = newStatus;
+            if (txHash) tx.txHash = txHash;
+          }
+        });
+        localStorage.setItem('bp_transactions', JSON.stringify(txs));
+
+        // Update bp_active_withdrawal (actively polled by withdraw.html)
+        try {
+          const active = JSON.parse(localStorage.getItem('bp_active_withdrawal') || 'null');
+          if (active && (active.id === id || active.ref === id)) {
+            active.status = newStatus;
+            if (txHash) active.txHash = txHash;
+            localStorage.setItem('bp_active_withdrawal', JSON.stringify(active));
+          }
+        } catch (_) {}
       }
 
       function closeDetail() {
@@ -950,7 +985,7 @@
       });
 
       // ============================================================
-      // MANUAL BALANCE ADJUSTMENT MODAL
+      // MANUAL BALANCE ADJUSTMENT MODAL (REAL BALANCE UPDATES)
       // ============================================================
       $('#openAdjustModalBtn').addEventListener('click', () => {
         $('#adjUserInp').value = '';
@@ -969,14 +1004,14 @@
       });
 
       $('#adjSubmitBtn').addEventListener('click', () => {
-        const user = $('#adjUserInp').value.trim() || 'Bluepeak User';
+        const user = $('#adjUserInp').value.trim() || 'Client';
         const type = $('#adjTypeInp').value;
         const asset = $('#adjAssetInp').value;
         const amountNum = parseFloat($('#adjAmountInp').value);
-        const reason = $('#adjReasonInp').value.trim() || 'Admin Ledger Adjustment';
+        const reason = $('#adjReasonInp').value.trim() || 'Manual Ledger Calibration';
 
         if (!amountNum || isNaN(amountNum) || amountNum <= 0) {
-          return alert('Please enter a valid adjustment amount greater than zero.');
+          return alert('Please enter an amount greater than zero.');
         }
 
         const signedAmount = type === 'credit' ? amountNum : -amountNum;
@@ -987,10 +1022,10 @@
           ref: newRef,
           type: 'adjustment',
           user: user,
-          email: user.includes('@') ? user : 'user@bluepeakcapital.com',
+          email: user.includes('@') ? user : 'client@bluepeak.exchange',
           asset: asset,
           amount: signedAmount,
-          usd: (asset === 'USDT' || asset === 'USDC' || asset === 'USD') ? amountNum : (amountNum * 3200),
+          usd: Math.abs(signedAmount),
           network: 'Treasury Ledger',
           address: 'Internal Treasury',
           txHash: '—',
@@ -1003,18 +1038,18 @@
         transactions.unshift(newTx);
         saveLedger(transactions);
 
-        // Update live user wallet balances
-        try {
-          let balances = JSON.parse(localStorage.getItem('bp_user_balances') || '{}');
-          const cur = parseFloat(balances[asset] || 0);
-          balances[asset] = Math.max(0, cur + signedAmount).toFixed(4);
-          localStorage.setItem('bp_user_balances', JSON.stringify(balances));
-        } catch (e) {}
+        // Update real user wallet balance
+        let curBal = parseFloat(localStorage.getItem('bp_user_balance') || localStorage.getItem('user_balance') || '0');
+        let updatedBal = Math.max(0, curBal + signedAmount).toFixed(2);
+        localStorage.setItem('bp_user_balance', updatedBal);
+        localStorage.setItem('user_balance', updatedBal);
+        localStorage.setItem('bp_wallet_balance', updatedBal);
+        localStorage.setItem('bp_balance_' + asset, updatedBal);
 
         logAction('manual_adjustment_executed', newRef, { user, asset, amount: signedAmount, reason });
         closeAdjustModal();
         applyFilters();
-        showToast(`Adjustment of ${signedAmount > 0 ? '+' : ''}${signedAmount} ${asset} completed!`);
+        showToast(`Adjustment of ${signedAmount > 0 ? '+' : ''}${signedAmount} ${asset} completed. Synced with client wallet.`);
       });
 
       // ============================================================
@@ -1032,12 +1067,12 @@
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `bluepeak-transactions-${Date.now()}.csv`;
+        a.download = `bluepeak-ledger-${Date.now()}.csv`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
-        showToast('Transactions CSV exported successfully');
+        showToast('Ledger CSV exported successfully');
       });
 
       // ============================================================
@@ -1056,14 +1091,13 @@
         });
       });
 
-      // Live Polling every 3 seconds for new incoming deposits or withdrawals
-      setInterval(() => {
-        const stored = JSON.parse(localStorage.getItem('bp_admin_transactions_ledger') || '[]');
-        if (stored.length !== transactions.length) {
-          transactions = stored;
+      // Synchronize in real time with client deposits or withdrawal requests
+      window.addEventListener('storage', (e) => {
+        if (['bp_transactions', 'bp_withdrawals', 'bp_deposits', 'bp_p2p_orders'].includes(e.key)) {
+          transactions = loadRealTransactions();
           applyFilters();
         }
-      }, 3000);
+      });
 
       // INITIALIZE
       applyFilters();
