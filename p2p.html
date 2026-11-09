@@ -114,14 +114,14 @@
     /* CAROUSEL */
     .promo-carousel {
       background: linear-gradient(135deg, var(--navy-50), #EEF2F8); border: 1px solid var(--gray-200);
-      border-radius: var(--radius-lg); padding: 16px 18px 24px; position: relative; overflow: hidden; box-shadow: var(--shadow-sm);
+      border-radius: var(--radius-lg); padding: 18px 20px 26px; position: relative; overflow: hidden; box-shadow: var(--shadow-sm);
     }
     .promo-slide { display: none; align-items: center; justify-content: space-between; gap: 16px; }
     .promo-slide.active { display: flex; }
-    .promo-text h3 { font-size: 15.5px; font-weight: 800; color: var(--navy-900); margin-bottom: 4px; }
-    .promo-text p { font-size: 12px; font-weight: 600; color: var(--gray-500); }
+    .promo-text h3 { font-size: 16px; font-weight: 800; color: var(--navy-900); margin-bottom: 4px; }
+    .promo-text p { font-size: 12.5px; font-weight: 600; color: var(--gray-500); }
     .promo-badge { display: inline-flex; background: var(--gold-100); color: var(--gold-500); font-size: 9.5px; font-weight: 800; padding: 3px 8px; border-radius: var(--radius-pill); margin-top: 6px; border: 1px solid rgba(201,168,76,0.3); }
-    .promo-icon { width: 46px; height: 46px; border-radius: var(--radius-md); background: linear-gradient(135deg, var(--navy-900), var(--navy-800)); color: var(--gold-400); display: flex; align-items: center; justify-content: center; font-size: 22px; box-shadow: 0 6px 20px rgba(10,26,47,0.25); flex-shrink: 0; }
+    .promo-icon { width: 50px; height: 50px; border-radius: var(--radius-md); background: linear-gradient(135deg, var(--navy-900), var(--navy-800)); color: var(--gold-400); display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: 0 6px 20px rgba(10,26,47,0.25); flex-shrink: 0; }
     .promo-dots { position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; }
     .promo-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gray-300); border: none; cursor: pointer; }
     .promo-dot.active { width: 22px; border-radius: 3px; background: var(--navy-900); }
@@ -130,7 +130,7 @@
     .trade-controls-row {
       display: flex !important; flex-direction: row !important; align-items: center !important;
       justify-content: space-between !important; gap: 10px !important; flex-wrap: nowrap !important;
-      margin-bottom: 2px;
+      margin-bottom: 6px;
     }
     .trade-controls-left { display: flex; align-items: center; flex: 1 1 auto; min-width: 0; }
     .buy-sell-toggle { display: flex; background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-pill); padding: 4px; gap: 4px; flex: 1; min-width: 0; box-shadow: var(--shadow-xs); }
@@ -163,26 +163,28 @@
     @media (min-width: 900px) {
       .offer-list { grid-template-columns: repeat(2, 1fr); }
     }
-    .offer-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 16px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between; gap: 12px; transition: transform 0.2s, box-shadow 0.2s; }
+    .offer-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 18px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between; gap: 12px; transition: transform 0.2s, box-shadow 0.2s; }
     .offer-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: var(--gray-300); }
     .merchant-row { display: flex; align-items: center; justify-content: space-between; }
     .merchant-identity { display: flex; align-items: center; gap: 10px; cursor: pointer; min-width: 0; }
-    .merchant-avatar { width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, var(--navy-800), var(--navy-900)); color: var(--gold-400); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13.5px; border: 1.5px solid var(--gold-500); flex-shrink: 0; }
-    .merchant-name { font-size: 14px; font-weight: 800; color: var(--navy-900); display: flex; align-items: center; gap: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .merchant-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--navy-800), var(--navy-900)); color: var(--gold-400); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px; border: 1.5px solid var(--gold-500); flex-shrink: 0; }
+    .merchant-name { font-size: 14.5px; font-weight: 800; color: var(--navy-900); display: flex; align-items: center; gap: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .verified-badge { width: 15px; height: 15px; border-radius: 50%; background: var(--gold-500); color: var(--white); display: inline-flex; align-items: center; justify-content: center; font-size: 9px; flex-shrink: 0; }
     .merchant-meta { font-size: 11px; font-weight: 600; color: var(--gray-500); margin-top: 1px; }
-    .profile-arrow-btn { width: 34px; height: 34px; border-radius: 50%; background: var(--navy-50); border: 1px solid var(--gray-200); color: var(--navy-900); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; flex-shrink: 0; }
-    .profile-arrow-btn:hover { background: var(--navy-900); color: var(--gold-400); border-color: var(--navy-900); }
-    .profile-arrow-btn svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+    .profile-arrow-btn { width: 36px; height: 36px; border-radius: 50%; background: var(--navy-50); border: 1px solid var(--gray-200); color: var(--navy-900); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; flex-shrink: 0; }
+    .profile-arrow-btn:hover { background: var(--navy-900); color: var(--gold-400); border-color: var(--navy-900); transform: translateX(2px); }
+    .profile-arrow-btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+    
+    /* ADAPTIVE OFFER PRICE */
     .offer-price { display: flex; align-items: baseline; gap: 4px; flex-wrap: nowrap; min-width: 0; }
-    .offer-price .price-amount { font-size: 24px; font-weight: 800; color: var(--navy-900); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
-    .offer-price .price-unit { font-size: 12.5px; font-weight: 700; color: var(--gray-500); white-space: nowrap; }
-    .limit-row { display: flex; flex-direction: column; gap: 3px; font-size: 12px; color: var(--gray-500); font-weight: 600; }
+    .offer-price .price-amount { font-size: clamp(18px, 4.5vw, 26px); font-weight: 800; color: var(--navy-900); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+    .offer-price .price-unit { font-size: 13px; font-weight: 700; color: var(--gray-500); white-space: nowrap; }
+    .limit-row { display: flex; flex-direction: column; gap: 3px; font-size: 12.5px; color: var(--gray-500); font-weight: 600; }
     .limit-row strong { color: var(--navy-900); }
     .payment-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-    .payment-tag { background: var(--gray-100); color: var(--navy-800); font-size: 10.5px; font-weight: 700; padding: 4px 8px; border-radius: var(--radius-xs); border: 1px solid var(--gray-200); }
+    .payment-tag { background: var(--gray-100); color: var(--navy-800); font-size: 11px; font-weight: 700; padding: 4px 8px; border-radius: var(--radius-xs); border: 1px solid var(--gray-200); }
     .offer-action-row { display: flex; justify-content: flex-end; }
-    .buy-btn { background: linear-gradient(135deg, var(--green-500), var(--green-600)); color: #fff; border: none; padding: 10px 28px; border-radius: var(--radius-pill); font-family: var(--font); font-weight: 800; font-size: 13.5px; cursor: pointer; box-shadow: 0 4px 14px rgba(15,157,110,0.3); transition: transform 0.15s, opacity 0.15s; }
+    .buy-btn { background: linear-gradient(135deg, var(--green-500), var(--green-600)); color: #fff; border: none; padding: 11px 30px; border-radius: var(--radius-pill); font-family: var(--font); font-weight: 800; font-size: 14px; cursor: pointer; box-shadow: 0 4px 14px rgba(15,157,110,0.3); transition: transform 0.15s, opacity 0.15s; }
     .buy-btn:hover { opacity: 0.95; transform: scale(1.02); }
     .buy-btn.sell-btn-style { background: linear-gradient(135deg, var(--red-500), #B03333); box-shadow: 0 4px 14px rgba(209,67,67,0.3); }
 
@@ -196,22 +198,21 @@
       .bottom-sheet.open { transform: translateX(-50%) translateY(0); }
     }
     .sheet-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--gray-200); flex-shrink: 0; }
-    .sheet-header h3 { font-size: 17px; font-weight: 800; color: var(--navy-900); }
-    .sheet-close { background: var(--navy-50); border: none; width: 32px; height: 32px; border-radius: 50%; font-size: 14px; cursor: pointer; color: var(--navy-900); display: flex; align-items: center; justify-content: center; }
+    .sheet-header h3 { font-size: 17.5px; font-weight: 800; color: var(--navy-900); }
+    .sheet-close { background: var(--navy-50); border: none; width: 34px; height: 34px; border-radius: 50%; font-size: 15px; cursor: pointer; color: var(--navy-900); display: flex; align-items: center; justify-content: center; }
     .sheet-body { flex: 1; overflow-y: auto; padding: 18px 20px 28px; display: flex; flex-direction: column; gap: 14px; }
 
     /* AMOUNT ADAPTIVE RESIZING CONTAINER */
     .amount-highlight-card {
       background: linear-gradient(135deg, var(--navy-900), var(--navy-800));
-      border-radius: var(--radius-md); padding: 14px; color: var(--white);
-      display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+      border-radius: var(--radius-md); padding: 16px; color: var(--white);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
     }
     .amount-highlight-box { min-width: 0; overflow: hidden; }
     .amount-highlight-box .lbl { font-size: 10px; font-weight: 700; color: var(--gold-400); text-transform: uppercase; }
     .amount-highlight-box .val {
-      font-size: 20px; font-weight: 800; color: var(--white); margin: 2px 0;
+      font-size: clamp(14px, 4.5vw, 22px); font-weight: 800; color: var(--white); margin: 2px 0;
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;
-      transition: font-size 0.15s ease;
     }
     .amount-highlight-box .sub { font-size: 11px; color: var(--gray-300); }
 
@@ -221,7 +222,7 @@
     .source-title { font-size: 13px; font-weight: 800; color: var(--navy-900); display: flex; justify-content: space-between; }
     .source-desc { font-size: 11px; color: var(--gray-500); margin-top: 2px; }
 
-    /* ESCROW BANNER & PROMINENT PAYMENT DETAILS BUTTON */
+    /* SHOUTING PAYMENT DETAILS BUTTON (Active Trade Room) */
     .btn-payment-details-shout {
       background: linear-gradient(135deg, #C9A84C 0%, #DDBE6B 100%);
       color: var(--navy-950); border: 1.5px solid #FBF5E6;
@@ -230,7 +231,7 @@
       justify-content: center; gap: 8px; cursor: pointer; width: 100%;
       box-shadow: 0 4px 18px rgba(201,168,76,0.35);
       animation: pulseGold 2s infinite ease-in-out;
-      margin-top: 4px;
+      margin: 4px 0;
     }
     @keyframes pulseGold {
       0%, 100% { transform: scale(1); box-shadow: 0 4px 14px rgba(201,168,76,0.25); }
@@ -255,12 +256,12 @@
 
     /* PROFESSIONAL ANIMATED TYPING DOTS */
     .typing-bubble {
-      display: inline-flex; align-items: center; gap: 4px;
+      display: inline-flex; align-items: center; gap: 5px;
       padding: 10px 14px; background: var(--white); border: 1px solid var(--gray-200);
       border-radius: 12px; border-bottom-left-radius: 3px; align-self: flex-start;
     }
     .typing-dot {
-      width: 7px; height: 7px; background: var(--gray-400); border-radius: 50%;
+      width: 6.5px; height: 6.5px; background: var(--gray-400); border-radius: 50%;
       animation: bounceDots 1.4s infinite ease-in-out both;
     }
     .typing-dot:nth-child(1) { animation-delay: -0.32s; }
@@ -273,7 +274,7 @@
     /* ACTIVE TRADE VIEW */
     .active-order-panel {
       background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg);
-      padding: 18px; display: flex; flex-direction: column; gap: 14px; box-shadow: var(--shadow-md);
+      padding: 20px; display: flex; flex-direction: column; gap: 14px; box-shadow: var(--shadow-md);
     }
     .order-timer-banner { background: linear-gradient(135deg, var(--navy-900), var(--navy-800)); border-radius: var(--radius-md); padding: 14px; text-align: center; color: var(--white); }
     .order-timer-banner h4 { font-size: 10.5px; font-weight: 700; text-transform: uppercase; color: var(--gold-400); letter-spacing: 1px; }
@@ -300,7 +301,7 @@
     .chat-bubble-author { font-size: 10.5px; font-weight: 800; margin-bottom: 2px; color: var(--gold-500); }
     .chat-bubble.user .chat-bubble-author { color: var(--gold-300); }
     .chat-bubble .meta { font-size: 9.5px; opacity: 0.65; margin-top: 4px; display: block; text-align: right; }
-    .chat-proof-img { max-width: 100%; max-height: 160px; border-radius: 8px; margin-top: 6px; border: 1px solid var(--gray-200); cursor: pointer; }
+    .chat-proof-img { max-width: 100%; max-height: 160px; border-radius: 8px; margin-top: 6px; border: 1px solid var(--gray-200); cursor: pointer; display: block; }
 
     .chat-input-wrap { display: flex; gap: 8px; }
     .chat-input-wrap input { flex: 1; padding: 10px 14px; border: 1.5px solid var(--gray-200); border-radius: var(--radius-pill); font-size: 13px; outline: none; }
@@ -316,6 +317,16 @@
     .field-label { font-size: 11px; font-weight: 700; color: var(--gray-500); text-transform: uppercase; }
     .input-field, .select-field { width: 100%; padding: 10px 14px; border: 1.5px solid var(--gray-200); border-radius: var(--radius-sm); font-size: 13.5px; font-weight: 600; outline: none; }
 
+    /* FILTERS GRID */
+    .filter-options-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    .filter-opt-btn { padding: 9px; border: 1.5px solid var(--gray-200); border-radius: var(--radius-xs); background: var(--white); font-size: 11.5px; font-weight: 700; color: var(--navy-900); cursor: pointer; text-align: center; }
+    .filter-opt-btn.active { background: var(--navy-900); color: var(--white); border-color: var(--navy-900); }
+
+    /* PAYMENT GROUPED MODAL */
+    .pay-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: var(--navy-50); border: 1px solid var(--gray-200); border-radius: var(--radius-sm); cursor: pointer; font-size: 13.5px; font-weight: 600; color: var(--navy-900); }
+    .pay-item:hover { background: var(--gold-100); border-color: var(--gold-500); }
+    .pay-group-label { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--gray-500); margin: 6px 0 2px; }
+
     /* EXPRESS STYLES */
     .express-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: clamp(14px, 3.5vw, 24px); box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 16px; max-width: 620px; margin: 0 auto; width: 100%; }
     .express-subtabs { display: flex; background: var(--navy-50); border-radius: var(--radius-pill); padding: 4px; gap: 4px; border: 1px solid var(--gray-200); }
@@ -325,9 +336,23 @@
     .express-input-box { background: var(--navy-50); border: 1.5px solid var(--gray-200); border-radius: var(--radius-md); padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; }
     .express-input-top { display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-weight: 700; color: var(--gray-500); }
     .express-input-row { display: flex; align-items: center; gap: 8px; min-width: 0; }
-    .express-input-row input { flex: 1; border: none; background: transparent; font-size: 24px; font-weight: 800; color: var(--navy-900); outline: none; min-width: 0; }
+    .express-input-row input { flex: 1; border: none; background: transparent; font-size: clamp(18px, 5vw, 24px); font-weight: 800; color: var(--navy-900); outline: none; min-width: 0; }
     .express-selector-btn { display: flex; align-items: center; gap: 6px; background: #fff; border: 1px solid var(--gray-200); border-radius: var(--radius-pill); padding: 6px 12px; font-size: 13px; font-weight: 800; cursor: pointer; white-space: nowrap; box-shadow: var(--shadow-xs); flex-shrink: 0; }
     .express-selector-btn img { width: 18px; height: 18px; object-fit: contain; border-radius: 50%; }
+
+    /* WALLET BALANCE CARD (PROFILE) */
+    .wallet-balance-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 16px; margin-bottom: 14px; box-shadow: var(--shadow-xs); }
+    .wallet-bal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .wallet-chips-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(88px, 1fr)); gap: 8px; }
+    .bal-chip { background: var(--navy-50); border: 1px solid var(--gray-200); border-radius: var(--radius-sm); padding: 8px 10px; display: flex; flex-direction: column; gap: 2px; }
+    .bal-chip-sym { font-size: 11px; font-weight: 700; color: var(--gray-500); }
+    .bal-chip-val { font-size: 13px; font-weight: 700; color: var(--navy-900); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    /* ORDERS SUB-TABS */
+    .ord-subtabs-bar { display: flex; align-items: center; gap: 8px; overflow-x: auto; padding: 4px 0 12px; scrollbar-width: none; }
+    .ord-subtabs-bar::-webkit-scrollbar { display: none; }
+    .ord-subtab { flex: 0 0 auto; padding: 6px 14px; border-radius: var(--radius-pill); border: 1px solid var(--gray-200); background: var(--white); color: var(--gray-500); font-size: 12.5px; font-weight: 700; cursor: pointer; }
+    .ord-subtab.active { background: var(--navy-900); color: var(--white); border-color: var(--navy-900); }
 
     /* BOTTOM NAV */
     .bottom-nav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 1080px; background: rgba(255,255,255,0.98); backdrop-filter: blur(16px); border-top: 1px solid var(--gray-200); display: flex; justify-content: space-around; align-items: center; padding: 8px 6px calc(8px + env(safe-area-inset-bottom, 0px)); z-index: 40; }
@@ -383,6 +408,49 @@
   <div class="bottom-sheet" id="cryptoModal">
     <div class="sheet-header"><h3>Select Cryptocurrency</h3><button class="sheet-close" onclick="closeSheet('cryptoModal')">✕</button></div>
     <div class="sheet-body" id="cryptoPickerList"></div>
+  </div>
+
+  <!-- AMOUNT MODAL -->
+  <div class="bottom-sheet" id="amountModal">
+    <div class="sheet-header"><h3>Filter by Amount</h3><button class="sheet-close" onclick="closeSheet('amountModal')">✕</button></div>
+    <div class="sheet-body">
+      <div style="display:flex;align-items:center;gap:10px;background:var(--navy-50);border:1.5px solid var(--gray-200);border-radius:var(--radius-md);padding:14px;">
+        <span id="amountCurrencySym" style="font-size:20px;font-weight:800;">$</span>
+        <input type="number" id="amountInput" placeholder="0.00" style="flex:1;border:none;background:transparent;font-size:22px;font-weight:800;outline:none;">
+      </div>
+      <button class="btn-solid-green" onclick="applyAmount()">Apply Amount</button>
+    </div>
+  </div>
+
+  <!-- COMPREHENSIVE PAYMENT MODAL -->
+  <div class="bottom-sheet" id="paymentModal">
+    <div class="sheet-header"><h3>Payment Method</h3><button class="sheet-close" onclick="closeSheet('paymentModal')">✕</button></div>
+    <div style="padding:10px 20px;border-bottom:1px solid var(--gray-200);"><input type="text" id="paymentSearchInput" placeholder="Search all payment methods..." class="input-field"></div>
+    <div class="sheet-body" id="paymentPickList" style="padding-top:10px;"></div>
+  </div>
+
+  <!-- ADVANCED FILTERS MODAL -->
+  <div class="bottom-sheet" id="advancedFilterModal">
+    <div class="sheet-header"><h3>Filter Offers</h3><button class="sheet-close" onclick="closeSheet('advancedFilterModal')">✕</button></div>
+    <div class="sheet-body">
+      <div class="field-group">
+        <label class="field-label">Payment Window</label>
+        <div class="filter-options-grid" id="limitPeriodGrid">
+          <button class="filter-opt-btn active" data-period="all">All</button>
+          <button class="filter-opt-btn" data-period="15">15 Min</button>
+          <button class="filter-opt-btn" data-period="30">30 Min</button>
+        </div>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Merchant Status</label>
+        <div class="filter-options-grid" id="merchantTypeGrid">
+          <button class="filter-opt-btn active" data-vtype="all">All Traders</button>
+          <button class="filter-opt-btn" data-vtype="verified">Verified</button>
+          <button class="filter-opt-btn" data-vtype="online">Online</button>
+        </div>
+      </div>
+      <button class="btn-solid-green" id="applyAdvancedFiltersBtn">Apply Filters</button>
+    </div>
   </div>
 
   <!-- ORDER MODAL (BUY & SELL) -->
@@ -480,6 +548,48 @@
     </div>
   </div>
 
+  <!-- CREATE AD MODAL -->
+  <div class="bottom-sheet" id="createAdModal">
+    <div class="sheet-header"><h3 id="createAdModalTitle">Create Trade Advertisement</h3><button class="sheet-close" onclick="closeSheet('createAdModal')">✕</button></div>
+    <div class="sheet-body">
+      <div class="field-group">
+        <label class="field-label">I Want To</label>
+        <div class="express-subtabs" id="adSideToggle">
+          <button class="express-subtab active" data-adside="buy">Buy Crypto</button>
+          <button class="express-subtab" data-adside="sell">Sell Crypto</button>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div class="field-group">
+          <label class="field-label">Asset</label>
+          <select class="select-field" id="adAssetSelect">
+            <option value="USDT">USDT</option>
+            <option value="BTC">BTC</option>
+            <option value="ETH">ETH</option>
+            <option value="SOL">SOL</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Fiat Currency</label>
+          <select class="select-field" id="adFiatSelect"></select>
+        </div>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Unit Price</label>
+        <input type="number" step="0.01" class="input-field" id="adUnitPrice" placeholder="e.g. 1.02">
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div class="field-group"><label class="field-label">Min Limit</label><input type="number" class="input-field" id="adMinLimit" placeholder="50"></div>
+        <div class="field-group"><label class="field-label">Max Limit</label><input type="number" class="input-field" id="adMaxLimit" placeholder="3000"></div>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Payment Methods</label>
+        <input type="text" class="input-field" id="adMethods" placeholder="M-Pesa, Bank Transfer, Zelle">
+      </div>
+      <button class="btn-solid-green" id="submitNewAdBtn">Publish Advertisement</button>
+    </div>
+  </div>
+
   <!-- HEADER -->
   <header class="p2p-header">
     <div class="p2p-header-left">
@@ -516,6 +626,9 @@
 
       <div class="filter-row">
         <button class="filter-pill" id="cryptoPill"><span class="pill-icon" id="cryptoPillIcon"><img src="https://essamamdani.github.io/open-crypto-icons/icons/colored/usdt.svg"></span><span id="cryptoPillLabel">USDT</span></button>
+        <button class="filter-pill" id="amountPill"><span id="amountPillLabel">Amount</span></button>
+        <button class="filter-pill" id="paymentPill"><span id="paymentPillLabel">Payment</span></button>
+        <button class="filter-pill" id="advancedFilterPill"><svg viewBox="0 0 24 24"><path d="M3 5h18l-7 8v6l-4-2v-4L3 5z"/></svg><span id="advancedFilterLabel">Filter</span></button>
       </div>
 
       <div class="live-rate-strip">
@@ -587,14 +700,39 @@
       <h2 style="font-size:18px;font-weight:800;">Trade History &amp; Orders</h2>
       <span id="ordersCountBadge" style="background:var(--navy-50);font-weight:800;font-size:12px;padding:5px 12px;border-radius:var(--radius-pill);">0 Orders</span>
     </div>
+    <div class="ord-subtabs-bar" style="padding:6px 20px;">
+      <button class="ord-subtab active" onclick="filterOrdersByTab('all')">All</button>
+      <button class="ord-subtab" onclick="filterOrdersByTab('pending')">Pending</button>
+      <button class="ord-subtab" onclick="filterOrdersByTab('paid')">Paid</button>
+      <button class="ord-subtab" onclick="filterOrdersByTab('completed')">Completed</button>
+      <button class="ord-subtab" onclick="filterOrdersByTab('disputed')">Disputed</button>
+    </div>
     <div class="p2p-main">
       <div id="ordersList" style="display:flex;flex-direction:column;gap:12px;"></div>
+    </div>
+  </main>
+
+  <!-- ADS VIEW -->
+  <main class="view-section" id="view-ads">
+    <div class="p2p-main" style="padding-top:16px;">
+      <div style="background:linear-gradient(135deg,#0A1A2F,#152E52);color:#fff;padding:20px;border-radius:16px;display:flex;justify-content:space-between;align-items:center;">
+        <div><h3 style="font-size:17px;font-weight:800;">Post Trade Advertisement</h3><p style="font-size:12px;color:var(--navy-100);">Earn spreads with 100% escrow protection</p></div>
+        <button class="btn-solid-green" style="width:auto;padding:10px 18px;" onclick="openSheet('createAdModal')">+ Post Ad</button>
+      </div>
+      <div id="myAdsList" style="display:flex;flex-direction:column;gap:12px;margin-top:10px;"></div>
     </div>
   </main>
 
   <!-- PROFILE VIEW -->
   <main class="view-section" id="view-profile">
     <div class="p2p-main" style="padding-top:16px;">
+      <div class="wallet-balance-card">
+        <div class="wallet-bal-header">
+          <div><span style="font-size:11px;font-weight:700;color:var(--gray-500);text-transform:uppercase;">Estimated Balance</span><div id="profTotalUsdBal" style="font-size:18px;font-weight:800;">$0.00 USD</div></div>
+          <a href="deposit.html" style="font-size:12px;font-weight:700;color:var(--blue-500);text-decoration:none;">+ Deposit</a>
+        </div>
+        <div class="wallet-chips-grid" id="profBalanceChipsGrid"></div>
+      </div>
       <div class="profile-hero-card" style="background:#fff;padding:24px;border-radius:16px;border:1px solid var(--gray-200);text-align:center;">
         <div style="width:68px;height:68px;border-radius:50%;background:var(--navy-900);color:var(--gold-400);margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;border:2px solid var(--gold-500);" id="profAvatar">U</div>
         <h3 id="profDisplayName" style="font-size:18px;font-weight:800;">Bluepeak Trader</h3>
@@ -608,15 +746,16 @@
     <button class="bottom-nav-item active" data-bnav="p2p"><div class="bn-icon-wrap"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M2.5 20c.8-3.5 3.2-5.5 6.5-5.5s5.7 2 6.5 5.5"/><circle cx="17.5" cy="8" r="2.8"/><path d="M15.5 14c2.5 0 4.8 1.5 5.5 4.5"/></svg></div><span>P2P</span></button>
     <button class="bottom-nav-item" data-bnav="express"><div class="bn-icon-wrap"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><span>Express</span></button>
     <button class="bottom-nav-item" data-bnav="orders"><div class="bn-icon-wrap"><svg viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1"/><path d="M9 9h6M9 13h6M9 17h4"/></svg></div><span>Orders</span></button>
+    <button class="bottom-nav-item" data-bnav="ads"><div class="bn-icon-wrap"><svg viewBox="0 0 24 24"><path d="M20 12l-8-8H4v8l8 8 8-8z"/><circle cx="8.5" cy="8.5" r="1.2"/></svg></div><span>Ads</span></button>
     <button class="bottom-nav-item" data-bnav="profile"><div class="bn-icon-wrap"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4.5 4.5-6.5 8-6.5s7 2 8 6.5"/></svg></div><span>Profile</span></button>
   </nav>
 
   <div class="toast" id="toast"></div>
 
-  <!-- SCRIPT ENGINE -->
+  <!-- COMPLETE SCRIPT ENGINE -->
   <script>
     // ============================================================
-    // 1. CROSS-DOMAIN AUTO-SYNC (From admin.bluepeak.exchange)
+    // 1. CROSS-DOMAIN AUTO-SYNC LISTENER (From admin.bluepeak.exchange)
     // ============================================================
     (function checkCrossDomainSync() {
       if (window.location.hash && window.location.hash.includes('syncPayload=')) {
@@ -626,7 +765,7 @@
           if (data.merchants) localStorage.setItem('bp_merchants', JSON.stringify(data.merchants));
           if (data.vault) localStorage.setItem('bp_platform_deposit_addresses', JSON.stringify(data.vault));
           history.replaceState(null, '', window.location.pathname + window.location.search);
-          setTimeout(() => showToast('🚀 Live merchants & rates synced successfully!'), 400);
+          setTimeout(() => showToast('🚀 Live merchants & offers synced successfully!'), 300);
         } catch (e) {
           console.error('Failed to parse cross-domain sync payload', e);
         }
@@ -651,6 +790,14 @@
       } catch (e) {}
     }
 
+    const ASSETS = [
+      { id: 'tether', symbol: 'USDT', name: 'Tether USD', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/usdt.svg', network: 'TRC20', defaultAddr: 'TTx882KLa92mZbQpP004NqK599eL' },
+      { id: 'bitcoin', symbol: 'BTC', name: 'Bitcoin', icon: 'https://blockchains.tatum.io/assets/img/bitcoin.svg', network: 'Native SegWit', defaultAddr: 'bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh' },
+      { id: 'ethereum', symbol: 'ETH', name: 'Ethereum', icon: 'https://blockchains.tatum.io/assets/img/ethereum.svg', network: 'ERC20', defaultAddr: '0x71C8366420A023c032331b15482A312A27da089e' },
+      { id: 'solana', symbol: 'SOL', name: 'Solana', icon: 'https://blockchains.tatum.io/assets/img/solana.svg', network: 'Solana', defaultAddr: '7Np8Zkm3Vve8k8uD7iY6X7uDqm58FkH93vW4' },
+      { id: 'binancecoin', symbol: 'BNB', name: 'BNB', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/bnb.svg', network: 'BEP20', defaultAddr: '0x38B57dF0F9444Ac2aC950f83cf2044F5927517A7' }
+    ];
+
     const CURRENCIES = [
       { code: 'USD', name: 'US Dollar', symbol: '$', flag: '🇺🇸', fxMultiplier: 1.0 },
       { code: 'EUR', name: 'Euro', symbol: '€', flag: '🇪🇺', fxMultiplier: 0.92 },
@@ -664,18 +811,57 @@
       { code: 'AED', name: 'UAE Dirham', symbol: 'AED ', flag: '🇦🇪', fxMultiplier: 3.67 }
     ];
 
-    const ASSETS = [
-      { id: 'tether', symbol: 'USDT', name: 'Tether USD', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/usdt.svg', network: 'TRC20', defaultAddr: 'TTx882KLa92mZbQpP004NqK599eL' },
-      { id: 'bitcoin', symbol: 'BTC', name: 'Bitcoin', icon: 'https://blockchains.tatum.io/assets/img/bitcoin.svg', network: 'Native SegWit', defaultAddr: 'bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh' },
-      { id: 'ethereum', symbol: 'ETH', name: 'Ethereum', icon: 'https://blockchains.tatum.io/assets/img/ethereum.svg', network: 'ERC20', defaultAddr: '0x71C8366420A023c032331b15482A312A27da089e' },
-      { id: 'solana', symbol: 'SOL', name: 'Solana', icon: 'https://blockchains.tatum.io/assets/img/solana.svg', network: 'Solana', defaultAddr: '7Np8Zkm3Vve8k8uD7iY6X7uDqm58FkH93vW4' },
-      { id: 'binancecoin', symbol: 'BNB', name: 'BNB', icon: 'https://essamamdani.github.io/open-crypto-icons/icons/colored/bnb.svg', network: 'BEP20', defaultAddr: '0x38B57dF0F9444Ac2aC950f83cf2044F5927517A7' }
+    const ALL_PAYMENT_METHODS = [
+      'M-Pesa', 'Bank Transfer', 'Zelle', 'Revolut', 'Wise', 'SEPA Instant', 
+      'OPay', 'Palmpay', 'Chipper Cash', 'MTN Mobile Money', 'Airtel Money', 
+      'Wire Transfer', 'Cash App', 'PayPal'
+    ];
+
+    const DEFAULT_MERCHANTS = [
+      {
+        id: 'bp-prime-1',
+        name: 'Apex Liquidity Desk',
+        verified: true,
+        isOnline: true,
+        trades: 2840,
+        completion: 99.8,
+        time: '15 min',
+        currencies: ['USD', 'EUR', 'GBP', 'KES', 'NGN'],
+        methods: ['Bank Transfer', 'SEPA Instant', 'M-Pesa', 'Wise'],
+        escrowAddr: 'TTx882KLa92mZbQpP004NqK599eL'
+      },
+      {
+        id: 'bp-prime-2',
+        name: 'Vanguard Global OTC',
+        verified: true,
+        isOnline: true,
+        trades: 1950,
+        completion: 99.4,
+        time: '15 min',
+        currencies: ['USD', 'EUR', 'KES', 'ZAR'],
+        methods: ['Bank Transfer', 'Zelle', 'Revolut', 'M-Pesa'],
+        escrowAddr: 'TTx882KLa92mZbQpP004NqK599eL'
+      },
+      {
+        id: 'bp-prime-3',
+        name: 'Sahara FastPay OTC',
+        verified: true,
+        isOnline: true,
+        trades: 4120,
+        completion: 99.9,
+        time: '10 min',
+        currencies: ['KES', 'NGN', 'GHS', 'TZS', 'USD'],
+        methods: ['M-Pesa', 'OPay', 'Palmpay', 'Bank Transfer'],
+        escrowAddr: 'TTx882KLa92mZbQpP004NqK599eL'
+      }
     ];
 
     const state = {
       p2pMode: 'buy',
       fiat: 'USD',
       crypto: 'USDT',
+      amountFilter: null,
+      paymentFilter: null,
       activeOrder: null,
       orderTimerInterval: null,
       allOffers: [],
@@ -748,15 +934,29 @@
       $('#drawerOverlay').classList.remove('open');
     });
 
-    // Font Auto-Scaler so typed amounts shrink cleanly
-    function autoFitAmountInput(el) {
+    // ============================================================
+    // 2. DYNAMIC FONT-SIZE AUTO-SHRINK (Fit perfectly on any device)
+    // ============================================================
+    function fitTextToBox(el, minPx = 11, maxPx = 22) {
       if (!el) return;
-      const valLen = (el.value || '').length;
-      if (valLen > 14) el.style.fontSize = '14px';
-      else if (valLen > 11) el.style.fontSize = '17px';
-      else if (valLen > 8) el.style.fontSize = '20px';
-      else el.style.fontSize = '24px';
+      let px = maxPx;
+      el.style.fontSize = px + 'px';
+      const boxW = el.clientWidth || el.parentElement?.clientWidth || 0;
+      if (!boxW) return;
+      while (el.scrollWidth > boxW && px > minPx) {
+        px -= 1;
+        el.style.fontSize = px + 'px';
+      }
     }
+
+    function fitAllAmountFields() {
+      ['ordDisp1', 'ordDisp2', 'expressBuyPayAmt', 'expressSellPayAmt', 'expressBuyRecAmt', 'expressSellRecAmt', 'ordInputAmt'].forEach(id => {
+        fitTextToBox(document.getElementById(id), 12, 22);
+      });
+      document.querySelectorAll('.amount-highlight-box .val').forEach(el => fitTextToBox(el, 12, 22));
+    }
+    document.addEventListener('input', fitAllAmountFields);
+    window.addEventListener('resize', fitAllAmountFields);
 
     function getAdminEscrowAddress(cryptoSymbol, fallbackAddr) {
       try {
@@ -769,23 +969,55 @@
     }
 
     // ============================================================
-    // 2. LOAD EXACT OFFERS CONFIGURED IN ADMIN
+    // 3. LOAD EXACT OFFERS & GUARANTEE OFFERS NEVER BLANK
     // ============================================================
-    function getLiveOffers() {
-      // Inverted Rule: Customer clicks BUY -> Merchant must be SELLING
-      //                Customer clicks SELL -> Merchant must be BUYING
-      const targetSide = state.p2pMode === 'buy' ? 'sell' : 'buy';
-      let dict = {};
+    function loadMerchants() {
       try {
-        dict = JSON.parse(localStorage.getItem('bp_merchants') || '{}');
+        const adminStored = localStorage.getItem('bp_admin_merchants');
+        if (adminStored) {
+          const list = JSON.parse(adminStored);
+          if (Array.isArray(list) && list.length > 0) return list;
+        }
+        const stored = localStorage.getItem('bp_merchants');
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed)) return parsed;
+          if (typeof parsed === 'object') {
+            return parsed[state.fiat] || parsed.USD || DEFAULT_MERCHANTS;
+          }
+        }
       } catch (e) {}
+      return DEFAULT_MERCHANTS;
+    }
 
-      // Fallback merchants if empty
-      const list = dict[state.fiat] || dict.USD || [];
+    function generateMarketOffers() {
+      const merchantsList = loadMerchants();
+      const targetSide = state.p2pMode === 'buy' ? 'sell' : 'buy';
+      const baseRate = getCryptoFiatRate(state.crypto, state.fiat);
       const offers = [];
 
-      list.forEach((m, idx) => {
-        // If merchant has exact active offers array configured
+      // Include published user ads if matching
+      try {
+        const userAds = JSON.parse(localStorage.getItem('bp_my_p2p_ads') || '[]');
+        userAds.forEach(a => {
+          if (a.asset === state.crypto && a.fiat === state.fiat && a.side === state.p2pMode && a.status !== 'paused') {
+            offers.push({
+              id: a.id,
+              isUserAd: true,
+              merchant: { id: 'my-desk', name: 'You (Published Offer)', verified: true, isOnline: true, trades: 125, completion: 100, time: '15 min' },
+              price: Number(a.price),
+              limitMin: a.min,
+              limitMax: a.max,
+              methods: a.methods ? a.methods.split(',').map(s=>s.trim()) : ['Bank Transfer'],
+              timeWindow: 15
+            });
+          }
+        });
+      } catch (e) {}
+
+      // Evaluate admin configured offers
+      merchantsList.forEach((m, idx) => {
+        let matched = false;
         if (Array.isArray(m.offers) && m.offers.length > 0) {
           m.offers.forEach((off, oIdx) => {
             const matchesAsset = off.asset ? off.asset.toUpperCase() === state.crypto.toUpperCase() : true;
@@ -794,40 +1026,51 @@
             const isActive = off.active !== false;
 
             if (matchesAsset && matchesFiat && matchesSide && isActive) {
+              matched = true;
               offers.push({
                 id: `off-${m.id}-${oIdx}`,
                 merchant: m,
-                price: parseFloat(off.price) || getCryptoFiatRate(state.crypto, state.fiat),
+                price: parseFloat(off.price) || baseRate,
                 limitMin: parseFloat(off.min) || 10,
                 limitMax: parseFloat(off.max) || 5000,
-                available: 10000,
                 methods: (off.methods && off.methods.length) ? off.methods : (m.methods || ['Bank Transfer']),
                 timeWindow: parseInt(m.time) || 15
               });
             }
           });
-        } else {
-          // Default baseline calculation
-          const baseRate = getCryptoFiatRate(state.crypto, state.fiat);
+        }
+
+        // Reliable fallback if no custom offer array configured
+        if (!matched) {
           const spreadMultiplier = state.p2pMode === 'buy' ? (1 + idx * 0.005) : (0.995 - idx * 0.005);
+          const currObj = CURRENCIES.find(c => c.code === state.fiat) || CURRENCIES[0];
           offers.push({
             id: `off-${m.id || 'm' + idx}`,
             merchant: m,
             price: Number((baseRate * spreadMultiplier).toFixed(2)),
-            limitMin: 15,
-            limitMax: 5000,
-            available: 8500,
+            limitMin: Math.round(15 * (currObj.fxMultiplier || 1)),
+            limitMax: Math.round(5000 * (currObj.fxMultiplier || 1)),
             methods: m.methods || ['Bank Transfer'],
             timeWindow: parseInt(m.time) || 15
           });
         }
       });
+
       return offers;
     }
 
     function applyFiltersAndRender() {
-      state.filteredOffers = getLiveOffers();
+      state.allOffers = generateMarketOffers();
+      let res = state.allOffers;
+      if (state.amountFilter !== null) {
+        res = res.filter(o => state.amountFilter >= o.limitMin && state.amountFilter <= o.limitMax);
+      }
+      if (state.paymentFilter !== null && state.paymentFilter !== 'All') {
+        res = res.filter(o => o.methods.some(m => m.toLowerCase().includes(state.paymentFilter.toLowerCase())));
+      }
+      state.filteredOffers = res;
       renderOfferPage();
+      fitAllAmountFields();
     }
 
     function renderOfferPage() {
@@ -837,7 +1080,7 @@
       const isBuy = state.p2pMode === 'buy';
 
       if (state.filteredOffers.length === 0) {
-        list.innerHTML = `<div style="text-align:center;padding:45px;background:#fff;border-radius:16px;grid-column:1/-1;color:var(--gray-500);font-size:13px;">🔍 No ${isBuy ? 'sell' : 'buy'} offers configured for ${state.crypto}/${state.fiat}.</div>`;
+        list.innerHTML = `<div style="text-align:center;padding:45px;background:#fff;border-radius:16px;grid-column:1/-1;color:var(--gray-500);font-size:13px;">🔍 No marketplace offers match the current filters.</div>`;
         return;
       }
 
@@ -872,7 +1115,7 @@
     }
 
     // ============================================================
-    // 3. IMMEDIATE TELEGRAM NOTIFICATION SYSTEM
+    // 4. IMMEDIATE TELEGRAM NOTIFICATION DISPATCH
     // ============================================================
     async function notifyTelegramOrder(order, actionType = 'OPENED', customDetail = '') {
       try {
@@ -886,7 +1129,7 @@
 
         if (actionType === 'PAID') {
           title = '💰 BUYER MARKED ORDER AS PAID';
-          detail = 'Customer uploaded bank receipt. Please review proof in admin chat and release crypto.';
+          detail = 'Customer uploaded bank receipt. Review proof and release crypto escrow.';
         } else if (actionType === 'SELLER_SENT_CRYPTO') {
           title = '🚀 SELLER REPORTED CRYPTO SENT TO ESCROW';
           detail = 'Seller initiated direct blockchain transfer to vault.';
@@ -925,7 +1168,7 @@ BluePeak Institutional Multi-Sig Desk`;
     }
 
     // ============================================================
-    // 4. ORDER CREATION WITH ANIMATED TYPING & PAYMENT MODAL
+    // 5. ORDER CREATION WITH ANIMATED TYPING & PAYMENT MODAL
     // ============================================================
     function openOrderModal(offerId) {
       const offer = state.filteredOffers.find(o => o.id === offerId);
@@ -980,7 +1223,6 @@ BluePeak Institutional Multi-Sig Desk`;
 
       const amtInput = $('#ordInputAmt');
       amtInput.addEventListener('input', () => {
-        autoFitAmountInput(amtInput);
         const raw = parseFloat(amtInput.value) || 0;
         if (isBuy) {
           const cryptoAmt = offer.price > 0 ? (raw / offer.price).toFixed(4) : '0.00';
@@ -991,6 +1233,7 @@ BluePeak Institutional Multi-Sig Desk`;
           $('#ordDisp1').textContent = raw + ' ' + state.crypto;
           $('#ordDisp2').textContent = sym + formatNum(fiatAmt, 2);
         }
+        fitAllAmountFields();
       });
 
       openSheet('orderModal');
@@ -1039,7 +1282,7 @@ BluePeak Institutional Multi-Sig Desk`;
         saveActiveOrderToHistory(state.activeOrder);
         renderActiveOrder();
 
-        // Animated Typing Simulation
+        // Animated Bouncing Dots Typing Simulation
         showMerchantTyping(offer.merchant.name, () => {
           const greetingText = `Hello! Order #${orderId} is active and locked in BluePeak Escrow. Please tap "Get Payment Details", complete payment of ${sym}${fiatAmt}, and upload receipt.`;
           state.activeOrder.messages.push({
@@ -1076,7 +1319,7 @@ BluePeak Institutional Multi-Sig Desk`;
     }
 
     // ============================================================
-    // 5. COPYABLE PAYMENT DETAILS MODAL
+    // 6. COPYABLE PAYMENT DETAILS MODAL
     // ============================================================
     function openMerchantPaymentDetails() {
       if (!state.activeOrder) return;
@@ -1096,7 +1339,6 @@ BluePeak Institutional Multi-Sig Desk`;
           </div>
         `).join('');
       } else {
-        // Formatted fallback details
         detailsHtml = `
           <div class="pay-detail-row">
             <div class="pay-detail-left">
@@ -1114,7 +1356,7 @@ BluePeak Institutional Multi-Sig Desk`;
           </div>
           <div class="pay-detail-row">
             <div class="pay-detail-left">
-              <span class="pay-detail-lbl">Total Exact Amount</span>
+              <span class="pay-detail-lbl">Exact Amount To Pay</span>
               <span class="pay-detail-val">${sym}${o.fiatAmount} ${o.fiat}</span>
             </div>
             <button class="btn-copy-chip" onclick="copyText('${o.fiatAmount}')">📋 Copy</button>
@@ -1124,11 +1366,11 @@ BluePeak Institutional Multi-Sig Desk`;
 
       $('#merchantPaymentDetailsBody').innerHTML = `
         <div style="background:var(--gold-100);border:1px solid var(--gold-400);padding:12px;border-radius:10px;font-size:12px;color:var(--navy-900);">
-          ⚠️ Please transfer the exact amount. Copy and paste details directly to avoid mistakes.
+          ⚠️ Please transfer the exact amount. 1-click copy each field directly to avoid mistakes.
         </div>
         ${detailsHtml}
         <div style="background:var(--navy-50);border:1px solid var(--gray-200);border-radius:10px;padding:12px;">
-          <span class="pay-detail-lbl">Vendor Instructions</span>
+          <span class="pay-detail-lbl">Vendor Payment Instructions</span>
           <p style="font-size:12.5px;color:var(--navy-900);margin-top:4px;">${o.paymentInstructions || 'Transfer via selected payment channel and upload transaction screenshot.'}</p>
         </div>
       `;
@@ -1136,17 +1378,37 @@ BluePeak Institutional Multi-Sig Desk`;
     }
 
     // ============================================================
-    // 6. ACTIVE TRADE ROOM & VERIFICATION LOGIC
+    // 7. ACTIVE TRADE ROOM & VERIFICATION LOGIC
     // ============================================================
     function renderActiveOrder() {
       const o = state.activeOrder;
       const isBuy = o.mode === 'buy';
+      const isCompleted = o.status === 'Completed';
       const sym = fiatSym(o.fiat);
+
+      if (isCompleted) {
+        $('#p2pMainContent').innerHTML = `
+          <div class="active-order-panel" style="text-align:center;padding:32px 20px;">
+            <div style="width:68px;height:68px;border-radius:50%;background:var(--green-100);color:var(--green-500);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 14px;">✓</div>
+            <h2 style="font-size:22px;font-weight:800;color:var(--navy-900);margin-bottom:6px;">Trade Completed Successfully!</h2>
+            <p style="font-size:13.5px;color:var(--gray-500);max-width:440px;margin:0 auto 20px;">
+              ${isBuy 
+                ? `<strong>${o.cryptoAmount} ${o.crypto}</strong> has been released from escrow and credited to your BluePeak wallet.` 
+                : `Escrow for <strong>${o.cryptoAmount} ${o.crypto}</strong> has been settled. Payout verified.`}
+            </p>
+            <div style="display:flex;gap:12px;justify-content:center;max-width:460px;margin:0 auto;flex-wrap:wrap;">
+              <a href="wallet.html" class="btn-solid-green" style="flex:1;min-width:180px;text-decoration:none;">💼 View Assets in Wallet &rarr;</a>
+              <button class="btn-solid-green" style="flex:1;min-width:180px;background:var(--navy-900);" onclick="returnToOffersFromCancel()">Trade More</button>
+            </div>
+          </div>
+        `;
+        return;
+      }
 
       $('#p2pMainContent').innerHTML = `
         <div class="active-order-panel">
           <div class="order-timer-banner">
-            <h4>${o.status === 'Paid' ? 'Counterparty Verification Window' : 'Payment Window'}</h4>
+            <h4>${o.status === 'Paid' ? 'Merchant Payment Verification Window' : 'Payment Settlement Window'}</h4>
             <div class="order-timer-value" id="orderTimerDisplay">15:00</div>
           </div>
 
@@ -1161,7 +1423,7 @@ BluePeak Institutional Multi-Sig Desk`;
           <!-- SHOUTING PAYMENT DETAILS BUTTON (For Buyers) -->
           ${isBuy ? `
             <button class="btn-payment-details-shout" onclick="openMerchantPaymentDetails()">
-              <span>💳</span> Click Here: Get Payment Details &amp; Copy Accounts
+              <span>💳</span> GET PAYMENT DETAILS (1-CLICK COPY ACCOUNTS)
             </button>
           ` : ''}
 
@@ -1183,7 +1445,7 @@ BluePeak Institutional Multi-Sig Desk`;
 
               <div class="action-buttons-grid">
                 <button class="btn-outline-danger" id="cancelBtn">Cancel Trade</button>
-                <button class="btn-solid-green" id="confirmPaidBtn">${isBuy ? 'I Have Paid' : 'I Have Sent Crypto'}</button>
+                <button class="btn-solid-green" id="confirmPaidBtn">${isBuy ? (o.status === 'Paid' ? 'Awaiting Merchant Release' : 'I Have Paid') : 'I Have Sent Crypto'}</button>
               </div>
             </div>
 
@@ -1207,7 +1469,7 @@ BluePeak Institutional Multi-Sig Desk`;
         if (isBuy) {
           if (o.status === 'Paid') {
             if (o.timeLeft <= 0) openSheet('disputeModal');
-            else showToast('Awaiting merchant to verify payment.');
+            else showToast('15-minute verification window active. Please await merchant confirmation.');
             return;
           }
           openSheet('paymentProofModal');
@@ -1254,7 +1516,7 @@ BluePeak Institutional Multi-Sig Desk`;
     }
 
     // ============================================================
-    // 7. PAYMENT PROOF & MANUAL CONFIRMATION (NO AUTO RELEASE)
+    // 8. PAYMENT PROOF & MANUAL CONFIRMATION (NO AUTO-RELEASE)
     // ============================================================
     let selectedProofBase64 = null;
     let selectedProofName = '';
@@ -1287,7 +1549,7 @@ BluePeak Institutional Multi-Sig Desk`;
       o.messages.push({
         sender: 'user',
         senderName: 'You',
-        text: `I have completed payment${note ? ' (Ref: ' + note + ')' : ''}. Here is my receipt. Please verify and release crypto escrow.`,
+        text: `I have completed payment${note ? ' (Ref: ' + note + ')' : ''}. Attached is my receipt. Please verify and release crypto escrow.`,
         image: selectedProofBase64,
         time: nowTime
       });
@@ -1303,7 +1565,7 @@ BluePeak Institutional Multi-Sig Desk`;
     };
 
     // ============================================================
-    // 8. EXTERNAL WALLET SELL (BLOCKCHAIN VERIFICATION)
+    // 9. EXTERNAL WALLET SELL (BLOCKCHAIN VERIFICATION)
     // ============================================================
     function handleSellerSentCrypto() {
       const o = state.activeOrder;
@@ -1317,7 +1579,6 @@ BluePeak Institutional Multi-Sig Desk`;
         btn.disabled = true;
       }
 
-      // Check on-chain / simulate verification response
       setTimeout(() => {
         if (!state.activeOrder) return;
         const nowTime = new Date().toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
@@ -1337,11 +1598,11 @@ BluePeak Institutional Multi-Sig Desk`;
           btn.textContent = 'I Have Sent Crypto';
           btn.disabled = false;
         }
-      }, 4000);
+      }, 3500);
     }
 
     // ============================================================
-    // 9. TIMER & DISPUTE UNLOCK
+    // 10. TIMER & DISPUTE UNLOCK
     // ============================================================
     function startOrderTimer() {
       if (state.orderTimerInterval) clearInterval(state.orderTimerInterval);
@@ -1369,7 +1630,7 @@ BluePeak Institutional Multi-Sig Desk`;
     }
 
     // ============================================================
-    // 10. SMOOTH CANCELLATION NAVIGATION
+    // 11. SMOOTH CANCELLATION NAVIGATION (Returns to exact category)
     // ============================================================
     window.executeOrderCancellation = function() {
       if (!state.activeOrder) return;
@@ -1388,10 +1649,14 @@ BluePeak Institutional Multi-Sig Desk`;
       document.querySelectorAll('.bottom-sheet').forEach(s => s.classList.remove('open'));
       $('#globalOverlay').classList.remove('open');
 
-      // Smooth navigation back to exact offers
+      returnToOffersFromCancel();
+    };
+
+    window.returnToOffersFromCancel = function() {
+      state.activeOrder = null;
       switchMainView('p2p');
       applyFiltersAndRender();
-      showToast('Trade cancelled. Returned to marketplace offers.');
+      showToast('Returned to marketplace offers.');
     };
 
     window.submitDispute = function() {
@@ -1452,7 +1717,7 @@ BluePeak Institutional Multi-Sig Desk`;
       list.innerHTML = orders.map(o => `
         <div class="trade-submain-card" style="cursor:pointer;" onclick="resumeOrder('${o.id}')">
           <div style="display:flex;justify-content:space-between;font-weight:800;">
-            <span>${o.mode.toUpperCase()} ${o.crypto}</span>
+            <span>${(o.mode || 'BUY').toUpperCase()} ${o.crypto}</span>
             <span style="color:${o.status === 'Completed' ? 'var(--green-500)' : 'var(--navy-900)'};">${o.status}</span>
           </div>
           <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--gray-500);">
@@ -1485,6 +1750,8 @@ BluePeak Institutional Multi-Sig Desk`;
       $$('.bottom-nav-item').forEach(b => b.classList.toggle('active', b.dataset.bnav === id));
       $$('.p2p-tab').forEach(t => t.classList.toggle('active', t.dataset.p2ptab === id));
       if (id === 'orders') renderOrdersList();
+      if (id === 'ads') renderMyAds();
+      if (id === 'profile') renderProfileWalletBalances();
       if (id === 'p2p' && !state.activeOrder) applyFiltersAndRender();
     }
 
@@ -1503,7 +1770,52 @@ BluePeak Institutional Multi-Sig Desk`;
 
     $('#backBtn').addEventListener('click', () => { window.location.href = 'index.html'; });
 
-    // Express desk calculation & hooks
+    // Amount Filter Pill
+    $('#amountPill').addEventListener('click', () => {
+      $('#amountCurrencySym').textContent = fiatSym();
+      openSheet('amountModal');
+    });
+    window.applyAmount = function() {
+      const val = parseFloat($('#amountInput').value);
+      state.amountFilter = isNaN(val) ? null : val;
+      $('#amountPillLabel').textContent = state.amountFilter ? `${fiatSym()}${state.amountFilter}` : 'Amount';
+      $('#amountPill').classList.toggle('active-filter', !!state.amountFilter);
+      closeSheet('amountModal');
+      applyFiltersAndRender();
+    };
+
+    // Payment Filter Pill
+    $('#paymentPill').addEventListener('click', () => {
+      renderPaymentOptions(ALL_PAYMENT_METHODS);
+      openSheet('paymentModal');
+    });
+    function renderPaymentOptions(list) {
+      $('#paymentPickList').innerHTML = `
+        <div class="pay-item" onclick="selectPayment('All')">🌐 All Payment Methods</div>
+        ${list.map(p => `<div class="pay-item" onclick="selectPayment('${p}')">${p}</div>`).join('')}
+      `;
+    }
+    $('#paymentSearchInput').addEventListener('input', (e) => {
+      const q = e.target.value.toLowerCase();
+      renderPaymentOptions(ALL_PAYMENT_METHODS.filter(p => p.toLowerCase().includes(q)));
+    });
+    window.selectPayment = function(name) {
+      state.paymentFilter = name === 'All' ? null : name;
+      $('#paymentPillLabel').textContent = state.paymentFilter || 'Payment';
+      $('#paymentPill').classList.toggle('active-filter', !!state.paymentFilter);
+      closeSheet('paymentModal');
+      applyFiltersAndRender();
+    };
+
+    // Advanced Filter Pill
+    $('#advancedFilterPill').addEventListener('click', () => openSheet('advancedFilterModal'));
+    $('#applyAdvancedFiltersBtn').addEventListener('click', () => {
+      closeSheet('advancedFilterModal');
+      applyFiltersAndRender();
+      showToast('Filters applied.');
+    });
+
+    // Express Desk
     function initExpressDesk() {
       const updateExpress = () => {
         const rate = getCryptoFiatRate(state.expressCrypto, state.expressFiat);
@@ -1512,8 +1824,8 @@ BluePeak Institutional Multi-Sig Desk`;
         const sellPay = parseFloat($('#expressSellPayAmt').value) || 0;
         $('#expressSellRecAmt').value = (sellPay * rate * 0.995).toFixed(2);
       };
-      $('#expressBuyPayAmt').addEventListener('input', () => { autoFitAmountInput($('#expressBuyPayAmt')); updateExpress(); });
-      $('#expressSellPayAmt').addEventListener('input', () => { autoFitAmountInput($('#expressSellPayAmt')); updateExpress(); });
+      $('#expressBuyPayAmt').addEventListener('input', () => { fitAllAmountFields(); updateExpress(); });
+      $('#expressSellPayAmt').addEventListener('input', () => { fitAllAmountFields(); updateExpress(); });
       updateExpress();
 
       $$('#expressSideToggle .express-subtab').forEach(btn => {
@@ -1546,7 +1858,7 @@ BluePeak Institutional Multi-Sig Desk`;
       };
     }
 
-    // Currency selector
+    // Currency Selector
     $('#fiatDropdown').addEventListener('click', () => {
       $('#currencyList').innerHTML = CURRENCIES.map(c => `
         <div style="display:flex;justify-content:space-between;align-items:center;padding:12px;cursor:pointer;border-bottom:1px solid #eee;" onclick="selectFiat('${c.code}')">
@@ -1566,20 +1878,52 @@ BluePeak Institutional Multi-Sig Desk`;
       applyFiltersAndRender();
     };
 
-    // Live storage sync across tabs
+    // Profile Balances
+    function renderProfileWalletBalances() {
+      const b = JSON.parse(localStorage.getItem('bp_user_balances') || '{"USDT":0,"BTC":0,"ETH":0,"SOL":0}');
+      let tot = 0;
+      $('#profBalanceChipsGrid').innerHTML = ASSETS.map(a => {
+        const val = Number(b[a.symbol] || 0);
+        tot += val * (liveRatesUsd[a.symbol] || 1);
+        return `<div class="bal-chip"><span class="bal-chip-sym">${a.symbol}</span><span class="bal-chip-val">${val.toFixed(2)}</span></div>`;
+      }).join('');
+      $('#profTotalUsdBal').textContent = '$' + formatNum(tot, 2) + ' USD';
+    }
+
+    // Ads Handling
+    function renderMyAds() {
+      const ads = JSON.parse(localStorage.getItem('bp_my_p2p_ads') || '[]');
+      const list = $('#myAdsList');
+      if (ads.length === 0) {
+        list.innerHTML = `<div style="text-align:center;padding:30px;background:#fff;border-radius:12px;color:var(--gray-500);font-size:13px;">No active advertisements.</div>`;
+        return;
+      }
+      list.innerHTML = ads.map(a => `
+        <div class="trade-submain-card">
+          <div style="display:flex;justify-content:space-between;font-weight:800;">
+            <span>${a.side.toUpperCase()} ${a.asset}</span>
+            <span style="color:var(--green-500);">Active</span>
+          </div>
+          <div>${fiatSym(a.fiat)}${formatNum(a.price, 2)} / ${a.asset} · Limit: ${a.min} - ${a.max}</div>
+        </div>
+      `).join('');
+    }
+
+    // Live Cross-Tab Event Listener
     window.addEventListener('storage', (e) => {
       if (e.key === 'bp_merchants' || e.key === 'bp_admin_merchants') {
         applyFiltersAndRender();
       }
       if (e.key === 'bp_p2p_orders') {
         renderOrdersList();
-        // Check if active order was released by merchant on admin side
+        // Check if admin manually released the escrow
         if (state.activeOrder) {
           const orders = JSON.parse(e.newValue || '[]');
           const mine = orders.find(o => o.id === state.activeOrder.id);
           if (mine && mine.status === 'Completed') {
             state.activeOrder.status = 'Completed';
-            showToast('Escrow released! Trade completed.');
+            playChimePing();
+            showToast('Escrow released by counterparty! Trade completed.');
             renderActiveOrder();
           }
         }
