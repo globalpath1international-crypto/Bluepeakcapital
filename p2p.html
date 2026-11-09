@@ -1431,7 +1431,9 @@
         const assetObj = ASSETS.find(a => a.symbol === state.crypto) || ASSETS[0];
         const cryptoAmt = isBuy ? (val / offer.price).toFixed(4) : val.toFixed(4);
         const fiatAmt = isBuy ? val.toFixed(2) : (val * offer.price).toFixed(2);
-        const escrowAddr = getAdminEscrowAddress(state.crypto, offer.merchant.escrowAddr || assetObj.defaultAddr);
+       const escrowObj = (offer.merchant.escrowAddresses && offer.merchant.escrowAddresses[state.crypto]) || {};
+const network = escrowObj.network || assetObj.network || 'TRC20';
+const escrowAddr = escrowObj.address || getAdminEscrowAddress(state.crypto, offer.merchant.escrowAddr || assetObj.defaultAddr);
         const nowTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
         state.activeOrder = {
@@ -1453,7 +1455,7 @@
           paymentMethod: isBuy ? $('#ordMethodSelect').value : (srcType === 'internal' ? (selectedUserMethod?.method || 'Bank Transfer') : 'Direct Escrow'),
           payoutDetails: srcType === 'internal' ? selectedUserMethod : null,
           escrowAddr: escrowAddr,
-          network: assetObj.network,
+          network: network,
           userName: userProf.name || 'P2P Trader',
           merchantId: offer.merchant.id,
           merchantName: offer.merchant.name,
@@ -1665,13 +1667,30 @@
                 <div class="submain-row"><span>Order ID:</span><strong>#${o.id}</strong></div>
                 <div class="submain-row"><span>Amount:</span><strong>${isBuy ? sym + o.fiatAmount : o.cryptoAmount + ' ' + o.crypto}</strong></div>
                 <div class="submain-row"><span>Receive:</span><strong>${isBuy ? o.cryptoAmount + ' ' + o.crypto : sym + o.fiatAmount}</strong></div>
-                ${!isBuy && o.srcType === 'external' ? `
-                  <div style="margin-top:8px;padding:10px;background:var(--navy-950);color:#fff;border-radius:8px;">
-                    <div style="font-size:10px;color:var(--gold-400);font-weight:800;">ESCROW DEPOSIT VAULT ADDRESS</div>
-                    <div style="font-family:monospace;font-size:11.5px;color:var(--gold-300);word-break:break-all;margin:4px 0;">${o.escrowAddr}</div>
-                    <button class="btn-copy-chip" onclick="copyText('${o.escrowAddr}')">📋 Copy Address</button>
-                  </div>
-                ` : ''}
+               ${!isBuy && o.srcType === 'external' ? `
+  <div style="margin-top:10px;padding:14px;background:var(--navy-950);color:#fff;border-radius:12px;border:1.5px solid var(--gold-500);box-shadow:0 4px 14px rgba(10,26,47,0.25);">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+      <span style="font-size:10.5px;color:var(--gold-400);font-weight:800;letter-spacing:0.5px;text-transform:uppercase;">ESCROW DEPOSIT VAULT</span>
+      <span style="background:var(--gold-500);color:var(--navy-950);font-size:10px;font-weight:900;padding:2px 8px;border-radius:4px;text-transform:uppercase;">
+        ${o.crypto} &bull; ${o.network || 'TRC20'}
+      </span>
+    </div>
+
+    <div style="font-size:11px;color:var(--navy-100);opacity:0.85;margin-bottom:6px;">
+      Send only <strong>${o.crypto}</strong> on the <strong>${o.network || 'TRC20'}</strong> network to this escrow address:
+    </div>
+
+    <div style="font-family:monospace;font-size:12px;color:var(--gold-300);word-break:break-all;padding:8px 10px;background:rgba(255,255,255,0.06);border-radius:6px;border:1px dashed rgba(201,168,76,0.3);margin-bottom:10px;">
+      ${o.escrowAddr}
+    </div>
+
+    <div style="display:flex;gap:8px;">
+      <button class="btn-copy-chip" style="flex:1;justify-content:center;padding:8px;" onclick="copyText('${o.escrowAddr}')">
+        📋 Copy Escrow Address
+      </button>
+    </div>
+  </div>
+` : ''}
               </div>
 
               <div class="action-buttons-grid">
