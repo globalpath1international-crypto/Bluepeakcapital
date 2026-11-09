@@ -471,7 +471,7 @@
     </div>
   </div>
 
-  <!-- ORDER MODAL (BUY & SELL WITH BOTH WALLET OPTIONS) -->
+  <!-- ORDER MODAL (BUY & SELL WITH BOTH WALLET OPTIONS PRESERVED) -->
   <div class="bottom-sheet" id="orderModal">
     <div class="sheet-header"><h3 id="orderModalTitle">Create Order</h3><button class="sheet-close" onclick="closeSheet('orderModal')">✕</button></div>
     <div class="sheet-body" id="orderModalBody"></div>
@@ -796,10 +796,10 @@
 
   <div class="toast" id="toast"></div>
 
-  <!-- SCRIPT ENGINE -->
+  <!-- COMPLETE ENGINE SCRIPT -->
   <script>
     // ============================================================
-    // 1. CROSS-DOMAIN AUTO-SYNC LISTENER (From admin.bluepeak.exchange)
+    // 1. CROSS-DOMAIN AUTO-SYNC (From admin.bluepeak.exchange)
     // ============================================================
     (function checkCrossDomainSync() {
       if (window.location.hash && window.location.hash.includes('syncPayload=')) {
@@ -817,7 +817,6 @@
       }
     })();
 
-    // Audio Ping Tone on payment reports / notifications
     function playChimePing() {
       try {
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -826,8 +825,8 @@
         osc.connect(gain);
         gain.connect(audioCtx.destination);
         osc.type = 'sine';
-        osc.frequency.setValueAtTime(587.33, audioCtx.currentTime); // D5
-        osc.frequency.setValueAtTime(880, audioCtx.currentTime + 0.1); // A5
+        osc.frequency.setValueAtTime(587.33, audioCtx.currentTime);
+        osc.frequency.setValueAtTime(880, audioCtx.currentTime + 0.1);
         gain.gain.setValueAtTime(0.18, audioCtx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.35);
         osc.start();
@@ -1055,82 +1054,115 @@
           const list = JSON.parse(adminStored);
           if (Array.isArray(list) && list.length > 0) return list;
         }
-        const stored = localStorage.getItem('bp_merchants');
-        if (stored) {
-          const parsed = JSON.parse(stored);
-          if (Array.isArray(parsed)) return parsed;
+
+        const portalStored = localStorage.getItem('bp_merchants');
+        if (portalStored) {
+          const parsed = JSON.parse(portalStored);
+          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
           if (typeof parsed === 'object') {
-            return parsed[state.fiat] || parsed.USD || DEFAULT_MERCHANTS;
+            const flattened = [];
+            Object.keys(parsed).forEach(k => {
+              if (Array.isArray(parsed[k])) {
+                parsed[k].forEach(m => {
+                  if (!flattened.some(x => x.id === m.id)) flattened.push(m);
+                });
+              }
+            });
+            if (flattened.length > 0) return flattened;
           }
         }
       } catch (e) {}
+
       return DEFAULT_MERCHANTS;
     }
 
     function generateMarketOffers() {
-      const merchantsList = loadMerchants();
-      const targetSide = state.p2pMode === 'buy' ? 'sell' : 'buy';
-      const baseRate = getCryptoFiatRate(state.crypto, state.fiat);
-      const offers = [];
+      const allMerchantsList = loadMerchants();
+      const currentFiat = (state.fiat || 'USD').toUpperCase();
+      const currentCrypto = (state.crypto || 'USDT').toUpperCase();
+      const isCustomerBuy = state.p2pMode === 'buy';
+      // Inverted Rule: Customer BUY -> Merchant SELL | Customer SELL -> Merchant BUY
+      const targetMerchantSide = isCustomerBuy ? 'sell' : 'buy';
+      const baseMarketRate = getCryptoFiatRate(currentCrypto, currentFiat);
+      const activeOffers = [];
 
+      // Include user published ads
       try {
         const userAds = JSON.parse(localStorage.getItem('bp_my_p2p_ads') || '[]');
         userAds.forEach(a => {
-          if (a.asset === state.crypto && a.fiat === state.fiat && a.side === state.p2pMode && a.status !== 'paused') {
-            offers.push({
+          if (
+            a.asset?.toUpperCase() === currentCrypto &&
+            a.fiat?.toUpperCase() === currentFiat &&
+            a.side?.toLowerCase() === state.p2pMode &&
+            a.status !== 'paused'
+          ) {
+            activeOffers.push({
               id: a.id,
               isUserAd: true,
               merchant: { id: 'my-desk', name: 'You (Published Offer)', verified: true, isOnline: true, trades: 125, completion: 100, time: '15 min' },
               price: Number(a.price),
-              limitMin: a.min,
-              limitMax: a.max,
-              methods: a.methods ? a.methods.split(',').map(s=>s.trim()) : ['Bank Transfer'],
+              limitMin: Number(a.min || 10),
+              limitMax: Number(a.max || 5000),
+              methods: a.methods ? a.methods.split(',').map(s => s.trim()) : ['Bank Transfer'],
               timeWindow: 15
             });
           }
         });
       } catch (e) {}
 
-      merchantsList.forEach((m, idx) => {
-        let matched = false;
-        if (Array.isArray(m.offers) && m.offers.length > 0) {
-          m.offers.forEach((off, oIdx) => {
-            const matchesAsset = off.asset ? off.asset.toUpperCase() === state.crypto.toUpperCase() : true;
-            const matchesFiat = off.fiat ? off.fiat.toUpperCase() === state.fiat.toUpperCase() : true;
-            const matchesSide = off.side ? off.side.toLowerCase() === targetSide : true;
-            const isActive = off.active !== false;
+      // Match Admin Configured Merchants
+      allMerchantsList.forEach((m, idx) => {
+        if (m.status === 'suspended') return;
 
-            if (matchesAsset && matchesFiat && matchesSide && isActive) {
-              matched = true;
-              offers.push({
+        const supportedCurrs = (m.currencies || ['USD']).map(c => c.toUpperCase());
+        const merchantOffers = Array.isArray(m.offers) ? m.offers : [];
+        let matchedFromAdmin = false;
+
+        merchantOffers.forEach((off, oIdx) => {
+          if (off.active === false) return;
+
+          const offAsset = (off.asset || 'USDT').toUpperCase();
+          const offFiat = (off.fiat || currentFiat).toUpperCase();
+          const offSide = (off.side || 'sell').toLowerCase();
+
+          if (offAsset === currentCrypto && offFiat === currentFiat) {
+            // Smart side matching: standard inverted rule OR direct fallback
+            if (offSide === targetMerchantSide || offSide === state.p2pMode) {
+              matchedFromAdmin = true;
+              activeOffers.push({
                 id: `off-${m.id}-${oIdx}`,
                 merchant: m,
-                price: parseFloat(off.price) || baseRate,
+                price: parseFloat(off.price) || baseMarketRate,
                 limitMin: parseFloat(off.min) || 10,
                 limitMax: parseFloat(off.max) || 5000,
-                methods: (off.methods && off.methods.length) ? off.methods : (m.methods || ['Bank Transfer']),
+                methods: (off.methods && off.methods.length) 
+                  ? off.methods 
+                  : (m.methods && m.methods.length ? m.methods : ['Bank Transfer']),
                 timeWindow: parseInt(m.time) || 15
               });
             }
-          });
-        }
+          }
+        });
 
-        if (!matched) {
-          const spreadMultiplier = state.p2pMode === 'buy' ? (1 + idx * 0.005) : (0.995 - idx * 0.005);
-          const currObj = CURRENCIES.find(c => c.code === state.fiat) || CURRENCIES[0];
-          offers.push({
-            id: `off-${m.id || 'm' + idx}`,
+        // Baseline fallback: if merchant supports this fiat currency, display active rate
+        if (!matchedFromAdmin && supportedCurrs.includes(currentFiat)) {
+          const spread = isCustomerBuy ? (1 + (idx * 0.005)) : (0.995 - (idx * 0.005));
+          const calculatedPrice = Number((baseMarketRate * spread).toFixed(2));
+          const currObj = CURRENCIES.find(c => c.code === currentFiat) || CURRENCIES[0];
+
+          activeOffers.push({
+            id: `off-${m.id || 'm' + idx}-auto`,
             merchant: m,
-            price: Number((baseRate * spreadMultiplier).toFixed(2)),
+            price: calculatedPrice,
             limitMin: Math.round(15 * (currObj.fxMultiplier || 1)),
             limitMax: Math.round(5000 * (currObj.fxMultiplier || 1)),
-            methods: m.methods || ['Bank Transfer'],
+            methods: (m.methods && m.methods.length) ? m.methods : ['Bank Transfer'],
             timeWindow: parseInt(m.time) || 15
           });
         }
       });
 
-      return offers;
+      return activeOffers;
     }
 
     function applyFiltersAndRender() {
