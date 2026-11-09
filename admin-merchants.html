@@ -1683,10 +1683,34 @@
       saveMerchants();
     }
 
-    function saveMerchants() {
-      localStorage.setItem('bp_admin_merchants', JSON.stringify(merchants));
-      syncToCustomerPortal();
+    async function saveMerchants() {
+  localStorage.setItem('bp_admin_merchants', JSON.stringify(merchants));
+  syncToCustomerPortal();
+
+  // CLOUD SYNC: Broadcast to all phones and laptops globally
+  const BIN_ID = '6af254b5ac6210605a7b4b0a';
+  const API_KEY = '$2a$10$FD3u2Z2U5i.oRHs2w5GQNOBbd6.pgNeTghjQigdGcpz7pHy4TDNAK';
+
+  try {
+    const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Master-Key': API_KEY
+      },
+      body: JSON.stringify({
+        merchants: merchants,
+        vault: JSON.parse(localStorage.getItem('bp_platform_deposit_addresses') || '{}')
+      })
+    });
+    if (res.ok) {
+      console.log('✅ Global cloud sync successful!');
+      showToast('🚀 Updated live on all devices globally!');
     }
+  } catch (e) {
+    console.error('Cloud sync error:', e);
+  }
+}
 
     function syncToCustomerPortal() {
       let existing = {};
