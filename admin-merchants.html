@@ -248,6 +248,16 @@
       transition: all 0.15s;
     }
     .action-header-btn:hover { background: var(--navy-50); border-color: var(--gray-300); }
+    .action-header-btn.broadcast {
+      background: linear-gradient(135deg, var(--green-500), #0B8A5E);
+      color: var(--white);
+      border: none;
+      box-shadow: 0 2px 8px rgba(15, 157, 110, 0.3);
+    }
+    .action-header-btn.broadcast:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(15, 157, 110, 0.4);
+    }
     .action-header-btn.primary {
       background: var(--navy-900);
       color: var(--white);
@@ -1220,7 +1230,7 @@
       <a href="admin-users.html" class="nav-item"><span class="nav-ico">👥</span> Users</a>
       <a href="admin-merchants.html" class="nav-item active"><span class="nav-ico">🏪</span> Merchants</a>
       <a href="admin-p2p-orders.html" class="nav-item"><span class="nav-ico">📋</span> Live P2P Orders <span class="nav-badge" id="ordersBadge">0</span></a>
-      <a href="admin-kyc.html" class="nav-item"><span class="nav-ico">🪪</span> KYC Reviews <span class="nav-badge" id="kycBadge">0</span></a>
+      <a href="admin-kyc.html" class="nav-item"><span class="nav-ico">🪪</span> KYC Reviews <span class="nav-badge" id="kycBadge" style="display:none;">0</span></a>
       <a href="admin-transactions.html" class="nav-item"><span class="nav-ico">💸</span> Transactions</a>
       <a href="admin-bots.html" class="nav-item"><span class="nav-ico">🤖</span> Bot Manager</a>
 
@@ -1248,6 +1258,7 @@
       </div>
       <div class="topbar-right">
         <button class="action-header-btn" id="exportCsvBtn"><span>📥</span> Export CSV</button>
+        <button class="action-header-btn broadcast" id="broadcastLiveBtn"><span>🚀</span> Broadcast to Live bluepeak.exchange</button>
         <button class="action-header-btn primary" id="openAddMerchantBtn"><span>➕</span> Add Merchant</button>
         <div class="admin-chip" id="adminChip">
           <div class="admin-avatar" id="adminAvatar">A</div>
@@ -1329,7 +1340,7 @@
             <button class="filter-pill" data-status="hasSell">Has Sell Offers <span class="count" id="countHasSell">0</span></button>
             <button class="filter-pill" data-status="hasBuy">Has Buy Offers <span class="count" id="countHasBuy">0</span></button>
           </div>
-          <button class="action-header-btn" id="syncPortalBtn" title="Sync changes to P2P Trading portal"><span>🔄</span> Force P2P Sync</button>
+          <button class="action-header-btn" id="syncPortalBtn" title="Sync changes to local portal"><span>🔄</span> Force Local Sync</button>
         </div>
       </div>
 
@@ -1682,6 +1693,8 @@
       try { existing = JSON.parse(localStorage.getItem('bp_merchants') || '{}') || {}; } catch (e) {}
 
       const adminMap = {};
+      const allActiveOffers = [];
+
       merchants.forEach(m => {
         if (m.status !== 'suspended') {
           (m.currencies || ['USD']).forEach(curr => {
@@ -1704,6 +1717,21 @@
               escrowAddr: m.escrowAddr || getPlatformDefaultEscrow()
             });
           });
+
+          // Also collect all active offers into flat registry
+          (m.offers || []).forEach(off => {
+            if (off.active !== false) {
+              allActiveOffers.push({
+                ...off,
+                merchantId: m.id,
+                merchantName: m.name,
+                verified: m.verified !== false,
+                isOnline: m.isOnline === true,
+                paymentDetails: m.paymentDetails || [],
+                escrowAddress: m.escrowAddr || getPlatformDefaultEscrow()
+              });
+            }
+          });
         }
       });
 
@@ -1718,6 +1746,38 @@
       });
 
       localStorage.setItem('bp_merchants', JSON.stringify(result));
+      localStorage.setItem('bp_p2p_active_offers', JSON.stringify(allActiveOffers));
+      localStorage.setItem('bp_all_merchants', JSON.stringify(merchants));
+    }
+
+    // 1-CLICK CROSS-DOMAIN BROADCASTER
+    function broadcastToLivePortal() {
+      saveMerchants();
+      const allMerchants = localStorage.getItem('bp_merchants') || '{}';
+      const vaultAddrs = localStorage.getItem('bp_platform_deposit_addresses') || '{}';
+      const adminMerchants = localStorage.getItem('bp_admin_merchants') || '[]';
+
+      const payloadData = {
+        merchants: JSON.parse(allMerchants),
+        adminMerchants: JSON.parse(adminMerchants),
+        vault: JSON.parse(vaultAddrs),
+        ts: Date.now()
+      };
+
+      const encoded = encodeURIComponent(JSON.stringify(payloadData));
+      const targetUrl = `https://bluepeak.exchange/p2p.html#syncPayload=${encoded}`;
+
+      const win = window.open(targetUrl, '_blank');
+      if (!win || win.closed || typeof win.closed === 'undefined') {
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(targetUrl);
+          showToast('Popup blocked! 1-click sync link copied to clipboard.');
+        } else {
+          showToast('Please allow popups to open bluepeak.exchange');
+        }
+      } else {
+        showToast('🚀 Broadcasting live merchants to bluepeak.exchange…');
+      }
     }
 
     function updateSidebarBadges() {
@@ -2264,7 +2324,6 @@
         out.push({ method, account, holder, extra });
       });
 
-      // Guarantee at least 1 verified payment account
       if (!out.length) {
         if (currency === 'KES') {
           out.push({ method: 'M-Pesa (Safaricom)', account: '0700000000', holder: fallbackName, extra: 'Paybill / Send Money' });
@@ -2306,7 +2365,6 @@
         out.push({ side, asset, fiat, price, min, max, methods: methods.length ? methods : ['Bank Transfer'], active });
       });
 
-      // Guarantee active buy & sell offers if left empty
       if (!out.length) {
         const baseRate = currency === 'KES' ? 130 : (currency === 'NGN' ? 1480 : 1.0);
         out.push({ side: 'sell', asset: 'USDT', fiat: currency, price: baseRate * 1.02, min: 10, max: 5000, methods: ['Bank Transfer'], active: true });
@@ -2550,7 +2608,8 @@
         render();
       });
 
-      document.getElementById('syncPortalBtn').addEventListener('click', () => { syncToCustomerPortal(); showToast('✅ Forced P2P sync complete'); });
+      document.getElementById('broadcastLiveBtn').addEventListener('click', broadcastToLivePortal);
+      document.getElementById('syncPortalBtn').addEventListener('click', () => { syncToCustomerPortal(); showToast('✅ Forced local storage sync complete'); });
       document.getElementById('exportCsvBtn').addEventListener('click', exportCsv);
       document.getElementById('openAddMerchantBtn').addEventListener('click', openAddModal);
       document.getElementById('closeModalBtn').addEventListener('click', closeModal);
