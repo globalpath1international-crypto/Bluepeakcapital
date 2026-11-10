@@ -794,41 +794,59 @@
     <button class="bottom-nav-item" data-bnav="profile"><div class="bn-icon-wrap"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4.5 4.5-6.5 8-6.5s7 2 8 6.5"/></svg></div><span>Profile</span></button>
   </nav>
 
-  <div class="toast" id="toast"></div>
+<div class="toast" id="toast"></div>
 
   <!-- COMPLETE ENGINE SCRIPT -->
   <script>
     // ============================================================
     // 1. CROSS-DOMAIN AUTO-SYNC (From admin.bluepeak.exchange)
     // ============================================================
-   async function saveMerchants() {
-  localStorage.setItem('bp_admin_merchants', JSON.stringify(merchants));
-  syncToCustomerPortal();
+    (function checkCrossDomainSync() {
+      if (window.location.hash && window.location.hash.includes('syncPayload=')) {
+        try {
+          const raw = window.location.hash.split('syncPayload=')[1];
+          const data = JSON.parse(decodeURIComponent(raw));
+          if (data.merchants) localStorage.setItem('bp_merchants', JSON.stringify(data.merchants));
+          if (data.adminMerchants) localStorage.setItem('bp_admin_merchants', JSON.stringify(data.adminMerchants));
+          if (data.vault) localStorage.setItem('bp_platform_deposit_addresses', JSON.stringify(data.vault));
+          history.replaceState(null, '', window.location.pathname + window.location.search);
+          
+          // Immediately refresh offers on screen!
+          setTimeout(() => {
+            if (typeof applyFiltersAndRender === 'function') applyFiltersAndRender();
+            showToast('🚀 Live merchants & rates synced successfully!');
+          }, 150);
+        } catch (e) {
+          console.error('Failed to parse cross-domain sync payload', e);
+        }
+      }
+    })();
 
-  // CLOUD PUSH: Send to all devices globally
-  const BIN_ID = '6af254b5ac6210605a7b4b0a';
-  const API_KEY = '$2a$10$FD3u2Z2U5i.oRHs2w5GQNOBbd6.pgNeTghjQigdGcpz7pHy4TDNAK'; // <-- Put your Master Key here
-
-  try {
-    const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Master-Key': API_KEY
-      },
-      body: JSON.stringify({
-        merchants: merchants,
-        vault: JSON.parse(localStorage.getItem('bp_platform_deposit_addresses') || '{}')
-      })
-    });
-    if (res.ok) {
-      console.log('✅ Cloud updated!');
-      showToast('🚀 Updated live on all devices globally!');
-    }
-  } catch (e) {
-    console.error('Cloud error:', e);
-  }
-}
+    // ============================================================
+    // 2. GLOBAL CLOUD LOADER (Loads latest admin offers on any phone/device)
+    // ============================================================
+    (async function syncGlobalCloudMerchants() {
+      const BIN_ID = '6af254b5ac6210605a7b4b0a';
+      try {
+        const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data.record && Array.isArray(data.record.merchants) && data.record.merchants.length > 0) {
+            localStorage.setItem('bp_admin_merchants', JSON.stringify(data.record.merchants));
+            localStorage.setItem('bp_merchants', JSON.stringify(data.record.merchants));
+            if (data.record.vault) {
+              localStorage.setItem('bp_platform_deposit_addresses', JSON.stringify(data.record.vault));
+            }
+            if (typeof applyFiltersAndRender === 'function') {
+              applyFiltersAndRender();
+            }
+            console.log('✅ Live offers synced from cloud across all devices!');
+          }
+        }
+      } catch (e) {
+        console.warn('Using local storage fallback');
+      }
+    })();
 
     function playChimePing() {
       try {
