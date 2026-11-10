@@ -801,21 +801,34 @@
     // ============================================================
     // 1. CROSS-DOMAIN AUTO-SYNC (From admin.bluepeak.exchange)
     // ============================================================
-    (function checkCrossDomainSync() {
-      if (window.location.hash && window.location.hash.includes('syncPayload=')) {
-        try {
-          const raw = window.location.hash.split('syncPayload=')[1];
-          const data = JSON.parse(decodeURIComponent(raw));
-          if (data.merchants) localStorage.setItem('bp_merchants', JSON.stringify(data.merchants));
-          if (data.adminMerchants) localStorage.setItem('bp_admin_merchants', JSON.stringify(data.adminMerchants));
-          if (data.vault) localStorage.setItem('bp_platform_deposit_addresses', JSON.stringify(data.vault));
-          history.replaceState(null, '', window.location.pathname + window.location.search);
-          setTimeout(() => showToast('🚀 Live merchants & rates synced successfully!'), 400);
-        } catch (e) {
-          console.error('Failed to parse cross-domain sync payload', e);
-        }
-      }
-    })();
+   async function saveMerchants() {
+  localStorage.setItem('bp_admin_merchants', JSON.stringify(merchants));
+  syncToCustomerPortal();
+
+  // CLOUD PUSH: Send to all devices globally
+  const BIN_ID = '6af254b5ac6210605a7b4b0a';
+  const API_KEY = '$2a$10$FD3u2Z2U5i.oRHs2w5GQNOBbd6.pgNeTghjQigdGcpz7pHy4TDNAK'; // <-- Put your Master Key here
+
+  try {
+    const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Master-Key': API_KEY
+      },
+      body: JSON.stringify({
+        merchants: merchants,
+        vault: JSON.parse(localStorage.getItem('bp_platform_deposit_addresses') || '{}')
+      })
+    });
+    if (res.ok) {
+      console.log('✅ Cloud updated!');
+      showToast('🚀 Updated live on all devices globally!');
+    }
+  } catch (e) {
+    console.error('Cloud error:', e);
+  }
+}
 
     function playChimePing() {
       try {
