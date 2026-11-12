@@ -57,7 +57,7 @@
       background: radial-gradient(circle, rgba(201, 168, 76, 0.15), transparent 70%);
       pointer-events: none;
     }
-    .auth-logo { font-size: 28px; font-weight: 800; letter-spacing: -1px; margin-bottom: 20px; position: relative; z-index: 1; }
+    .auth-logo { font-size: 28px; font-weight: 800; letter-spacing: -1px; margin-bottom: 20px; position: relative; z-index: 1; cursor: pointer; user-select: none; }
     .auth-logo .blue { color: var(--white); }
     .auth-logo .peak { color: var(--gold-500); }
     .auth-logo small { display: block; font-size: 9px; font-weight: 700; color: var(--gray-400); letter-spacing: 2px; margin-top: 2px; }
@@ -128,7 +128,7 @@
 
   <div class="auth-container">
     <div class="auth-left">
-      <div class="auth-logo">
+      <div class="auth-logo" onclick="window.location.href='index.html'" title="Back to Bluepeak Capital">
         <span class="blue">BLUE</span><span class="peak">PEAK</span>
         <small>CAPITAL</small>
       </div>
@@ -182,7 +182,7 @@
         </div>
         <div class="form-group">
           <label class="form-label" for="countrySelect">Country</label>
-          <select class="form-input" id="countrySelect" style="appearance:none; background-image:url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%2364748B%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%2F%3E%3C%2Fsvg%3E'); background-repeat:no-repeat; background-position:right 14px center; padding-right:38px;">
+          <select class="form-input" id="countrySelect" style="appearance:none; background-image:url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%2364748B%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%2F%3E%3C%2Fsvg%3E'); background-repeat:no-repeat; background-position:right 14px center; padding-right:38px;">
             <option value="" disabled selected>Select your country</option>
             <option value="KE" data-dial="+254" data-flag="🇰🇪">🇰🇪 Kenya (+254)</option>
             <option value="NG" data-dial="+234" data-flag="🇳🇬">🇳🇬 Nigeria (+234)</option>
@@ -235,6 +235,9 @@
 
       const $ = (s) => document.querySelector(s);
 
+      // Default clean balances structure
+      const DEFAULT_BALANCES = { USDT: 0, BTC: 0, ETH: 0, SOL: 0, BNB: 0, USD: 0 };
+
       // ============================================================
       // If already signed in, go straight to index.html — no flash
       // ============================================================
@@ -245,17 +248,6 @@
 
       // Not signed in — reveal the auth form
       document.body.classList.add('ready');
-
-      // Ensure zero balances exist even before signup/login (safe — only if key missing)
-      (function ensureZeroOnLoad() {
-        try {
-          if (!localStorage.getItem('bp_user_balances')) {
-            localStorage.setItem('bp_user_balances', JSON.stringify({
-              USDT: 0, BTC: 0, ETH: 0, SOL: 0, BNB: 0, USD: 0
-            }));
-          }
-        } catch (_) {}
-      })();
 
       const tabLogin = $('#tabLogin');
       const tabSignup = $('#tabSignup');
@@ -338,12 +330,11 @@
       function rememberAccount(email, data) {
         try {
           const accounts = JSON.parse(localStorage.getItem('bp_accounts') || '{}');
-          accounts[email] = data;
+          accounts[email] = Object.assign(accounts[email] || {}, data);
           localStorage.setItem('bp_accounts', JSON.stringify(accounts));
         } catch (e) {}
       }
 
-      // ===== Auth helpers (added) =====
       function hashPassword(pw) {
         try {
           let h = 5381;
@@ -380,28 +371,6 @@
         } catch (_) {}
       }
 
-      function ensureZeroBalancesSeed() {
-        // Seeds bp_user_balances with all zeros ONLY if the key does not exist yet.
-        // Never overwrites an existing balance (deposits, P2P credits stay intact).
-        try {
-          if (!localStorage.getItem('bp_user_balances')) {
-            localStorage.setItem('bp_user_balances', JSON.stringify({
-              USDT: 0, BTC: 0, ETH: 0, SOL: 0, BNB: 0, USD: 0
-            }));
-          }
-        } catch (_) {}
-      }
-
-      function ensureEmptyTxListsSeed() {
-        // Seeds empty transaction arrays ONLY if missing. Never overwrites.
-        try {
-          if (!localStorage.getItem('bp_deposits')) localStorage.setItem('bp_deposits', '[]');
-          if (!localStorage.getItem('bp_withdrawals')) localStorage.setItem('bp_withdrawals', '[]');
-          if (!localStorage.getItem('bp_recent_swaps')) localStorage.setItem('bp_recent_swaps', '[]');
-          if (!localStorage.getItem('bp_p2p_orders')) localStorage.setItem('bp_p2p_orders', '[]');
-        } catch (_) {}
-      }
-
       // ============================================================
       // LOGIN
       // ============================================================
@@ -424,34 +393,42 @@
           return;
         }
 
-        // Ensure new user has zeros (safe — only if key missing)
-        ensureZeroBalancesSeed();
-        ensureEmptyTxListsSeed();
+        // Restore this specific user's balances
+        const userBalances = known.balances || Object.assign({}, DEFAULT_BALANCES);
+        localStorage.setItem('bp_user_balances', JSON.stringify(userBalances));
+
+        // Restore this specific user's transactions if saved, or empty
+        localStorage.setItem('bp_deposits', JSON.stringify(known.deposits || []));
+        localStorage.setItem('bp_withdrawals', JSON.stringify(known.withdrawals || []));
+        localStorage.setItem('bp_recent_swaps', JSON.stringify(known.swaps || []));
+        localStorage.setItem('bp_p2p_orders', JSON.stringify(known.p2pOrders || []));
 
         // Ensure bp_user_profile exists so other pages know identity
         try {
-          if (!localStorage.getItem('bp_user_profile') || (known && known.name)) {
-            const initials = (known && known.name)
-              ? known.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase()
-              : 'U';
-            const existing = (() => {
-              try { return JSON.parse(localStorage.getItem('bp_user_profile') || 'null'); } catch (_) { return null; }
-            })();
-            const profile = existing || {};
-            profile.id = profile.id || (known && known.id) || '';
-            profile.name = profile.name || (known && known.name) || '';
-            profile.email = profile.email || email;
-            profile.kyc = profile.kyc || 'Unverified';
-            profile.initials = profile.initials || initials;
-            localStorage.setItem('bp_user_profile', JSON.stringify(profile));
-          }
+          const initials = (known.name)
+            ? known.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase()
+            : 'U';
+          const profile = {
+            id: known.id || '',
+            name: known.name || '',
+            email: email,
+            phone: known.phone || '',
+            country: known.country || '',
+            kyc: known.kyc || 'Unverified',
+            initials: initials
+          };
+          localStorage.setItem('bp_user_profile', JSON.stringify(profile));
+          localStorage.setItem('bp_user_name', profile.name);
+          localStorage.setItem('bp_user_email', profile.email);
+          localStorage.setItem('bp_user_country', profile.country);
         } catch (_) {}
 
         writeSession({
-          id: (known && known.id) || '',
+          id: known.id || '',
           email: email,
-          name: (known && known.name) || '',
-          country: (known && known.country) || ''
+          name: known.name || '',
+          country: known.country || '',
+          loggedInAt: Date.now()
         });
         goToDashboard();
       });
@@ -482,9 +459,12 @@
 
         // Generate a stable user id
         const userId = 'u_' + (crypto?.randomUUID ? crypto.randomUUID() : (Date.now() + '_' + Math.random().toString(36).slice(2)));
-
         const fullName = (firstName + ' ' + lastName).trim();
         const dial = countrySelect.options[countrySelect.selectedIndex].getAttribute('data-dial') || '';
+
+        // Strict clean $0.00 balances for this new user
+        const initialBalances = Object.assign({}, DEFAULT_BALANCES);
+
         const account = {
           id: userId,
           name: fullName,
@@ -492,30 +472,48 @@
           country: country,
           phone: dial + phone,
           pwHash: hashPassword(password),
+          kyc: 'Unverified',
+          balances: initialBalances,
+          deposits: [],
+          withdrawals: [],
+          swaps: [],
+          p2pOrders: [],
           createdAt: new Date().toISOString()
         };
         rememberAccount(email, account);
 
-        // Zero balances for new user (safe — only if key missing)
-        ensureZeroBalancesSeed();
-        ensureEmptyTxListsSeed();
+        // Reset active session state in localStorage to clean zeros
+        localStorage.setItem('bp_user_balances', JSON.stringify(initialBalances));
+        localStorage.setItem('bp_deposits', '[]');
+        localStorage.setItem('bp_withdrawals', '[]');
+        localStorage.setItem('bp_recent_swaps', '[]');
+        localStorage.setItem('bp_p2p_orders', '[]');
+        localStorage.setItem('bp_user_notifications', '[]');
 
         // Seed profile for downstream pages
+        const initials = ((firstName[0] || '') + (lastName[0] || '')).toUpperCase();
         try {
-          localStorage.setItem('bp_user_profile', JSON.stringify({
+          const profile = {
             id: userId,
             name: fullName,
             email: email,
+            phone: dial + phone,
+            country: country,
             kyc: 'Unverified',
-            initials: ((firstName[0] || '') + (lastName[0] || '')).toUpperCase()
-          }));
+            initials: initials
+          };
+          localStorage.setItem('bp_user_profile', JSON.stringify(profile));
+          localStorage.setItem('bp_user_name', fullName);
+          localStorage.setItem('bp_user_email', email);
+          localStorage.setItem('bp_user_country', country);
         } catch (_) {}
 
         writeSession({
           id: userId,
           name: fullName,
           email: email,
-          country: country
+          country: country,
+          loggedInAt: Date.now()
         });
         goToDashboard();
       });
