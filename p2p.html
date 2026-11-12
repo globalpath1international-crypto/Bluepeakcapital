@@ -515,6 +515,303 @@
         grid-template-columns: 1.15fr 1fr;
       }
     }
+  
+    /* ===== ADDITIONS (Changes 1-9) ===== */
+    /* CHANGE 1: Trade controls single row (no wrap) */
+    .trade-controls-row {
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      gap: 10px !important;
+      flex-wrap: nowrap !important;
+      margin-bottom: 12px;
+    }
+    @media (max-width: 360px) {
+      .trade-controls-row {
+        gap: 6px !important;
+      }
+    }
+    .trade-controls-left {
+      display: flex;
+      align-items: center;
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+    .buy-sell-toggle {
+      flex: 1 1 auto !important;
+      min-width: 0 !important;
+    }
+    .trade-controls-right {
+      display: flex;
+      align-items: center;
+      flex: 0 0 auto;
+    }
+    .fiat-dropdown {
+      flex: 0 0 auto !important;
+      align-self: center !important;
+      margin-top: 0 !important;
+      min-height: 40px;
+      white-space: nowrap;
+    }
+    @media (max-width: 480px) {
+      .fiat-dropdown {
+        padding: 8px 12px !important;
+        font-size: 13px !important;
+      }
+    }
+
+    /* CHANGE 2: Payment Modal Grouped & Search Styles */
+    .pay-groups-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 4px 0 16px;
+    }
+    .pay-group-section {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .pay-group-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--gray-500);
+      padding: 4px 8px;
+    }
+    .pay-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      background: var(--navy-50);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--navy-900);
+      transition: all 0.15s ease;
+    }
+    .pay-item:hover, .pay-item:active {
+      background: var(--gold-100);
+      border-color: var(--gold-500);
+    }
+    .pay-item-icon {
+      font-size: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+    }
+    .pill-label-truncate {
+      max-width: 120px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    /* CHANGE 3: Express Submain Framing */
+    #view-express {
+      overflow-x: hidden !important;
+    }
+    .express-card {
+      padding: clamp(14px, 4vw, 24px) !important;
+    }
+    .express-selector-btn {
+      flex-shrink: 0 !important;
+      white-space: nowrap !important;
+      max-width: 42% !important;
+    }
+    .express-input-row {
+      display: flex !important;
+      align-items: center !important;
+      gap: 10px !important;
+      min-width: 0 !important;
+    }
+    .express-input-row input {
+      font-size: clamp(18px, 5.5vw, 26px) !important;
+      min-width: 0 !important;
+    }
+    .express-subtabs button {
+      font-size: clamp(12px, 3.6vw, 14px) !important;
+      padding: clamp(8px, 2.2vw, 11px) 0 !important;
+    }
+
+    /* CHANGE 4: Profile Balance Card */
+    .wallet-balance-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow-xs);
+    }
+    .wallet-bal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .wallet-bal-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--navy-700);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .wallet-bal-links {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .wallet-bal-link {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--blue-500);
+      text-decoration: none;
+      padding: 4px 8px;
+      border-radius: var(--radius-xs);
+      background: var(--blue-100);
+      transition: opacity 0.2s;
+    }
+    .wallet-bal-link:hover {
+      opacity: 0.85;
+    }
+    .wallet-chips-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
+      gap: 8px;
+    }
+    .bal-chip {
+      background: var(--navy-50);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      padding: 8px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .bal-chip-sym {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--gray-500);
+    }
+    .bal-chip-val {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--navy-900);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* CHANGE 5: Orders Sub-tabs & Status Pills */
+    .ord-subtabs-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 4px 0 14px;
+      margin-bottom: 8px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .ord-subtabs-bar::-webkit-scrollbar {
+      display: none;
+    }
+    .ord-subtab {
+      flex: 0 0 auto;
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--gray-200);
+      background: var(--white);
+      color: var(--gray-500);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .ord-subtab.active {
+      background: var(--navy-900);
+      color: var(--white);
+      border-color: var(--navy-900);
+    }
+    .status-proof {
+      background: var(--blue-100) !important;
+      color: var(--blue-500) !important;
+    }
+    .status-disputed {
+      background: var(--red-100) !important;
+      color: var(--red-500) !important;
+    }
+    .order-card-timestamp {
+      font-size: 11px;
+      color: var(--gray-400);
+      margin-top: 4px;
+    }
+    .order-open-dispute-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 8px;
+      padding: 4px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--red-500);
+      background: var(--red-100);
+      border: 1px solid rgba(209,67,67,0.3);
+      border-radius: var(--radius-xs);
+      cursor: pointer;
+    }
+    .order-open-dispute-btn:hover {
+      background: var(--red-500);
+      color: var(--white);
+    }
+
+    /* Modal read-only details table */
+    .order-detail-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0;
+      font-size: 13px;
+    }
+    .order-detail-table tr {
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .order-detail-table td {
+      padding: 10px 4px;
+    }
+    .order-detail-label {
+      color: var(--gray-500);
+      font-weight: 500;
+      width: 40%;
+    }
+    .order-detail-value {
+      font-weight: 600;
+      color: var(--navy-900);
+      text-align: right;
+    }
+
+    /* §2 Amount overflow fix */
+    .amount-highlight-box .val,#ordDisp1,#ordDisp2,#expressBuyPayAmt,#expressSellPayAmt,#expressBuyRecAmt,#expressSellRecAmt{font-size:clamp(12px,4.5vw,20px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;display:block}#ordInputAmt{font-size:clamp(14px,5vw,20px)!important;max-width:100%;box-sizing:border-box}.express-input-row input{font-size:clamp(16px,5vw,22px)!important;min-width:0!important}
+    /* §6 Typing dots animation */
+    .chat-bubble.is-typing::after{content:'';display:inline-block;width:18px;height:8px;background:linear-gradient(90deg,var(--gray-400) 25%,transparent 25%,transparent 50%,var(--gray-400) 50%,var(--gray-400) 75%,transparent 75%);background-size:200% 100%;animation:typingDots 1s steps(3) infinite;border-radius:2px}@keyframes typingDots{to{background-position:-200% 0}}
+  
+    /* ===== PATCH v5 FINAL CSS ===== */
+    #backBtn { position: relative; z-index: 9999; pointer-events: auto !important; }
+    .p2p-header { z-index: 50 !important; }
+    #expressSellRecAmt, #expressBuyRecAmt { color: var(--green-500) !important; font-weight: 800 !important; background: rgba(15,157,110,0.06); border-radius: 8px; padding: 2px 6px; }
+    .status-pill { padding: 3px 10px; border-radius: 999px; font-size: 10.5px; font-weight: 800; text-transform: capitalize; }
+    .status-pill.status-escrow { background: var(--gold-100); color: var(--gold-500); }
+    .status-pill.status-paid, .status-pill.status-proof { background: var(--blue-100); color: var(--blue-500); }
+    .status-pill.status-completed { background: var(--green-100); color: var(--green-500); }
+    .status-pill.status-cancelled, .status-pill.status-disputed { background: var(--red-100); color: var(--red-500); }
   </style></head>
 <body>
 
@@ -647,7 +944,7 @@
 
   <!-- CREATE AD MODAL -->
   <div class="bottom-sheet" id="createAdModal">
-    <div class="sheet-header"><h3>Create Trade Advertisement</h3><button class="sheet-close" onclick="closeSheet('createAdModal')">✕</button></div>
+    <div class="sheet-header"><h3 id="createAdModalTitle">Create Trade Advertisement</h3><button class="sheet-close" onclick="closeSheet('createAdModal')">✕</button></div>
     <div class="sheet-body">
       <div class="field-group">
         <label class="field-label">I Want To</label>
@@ -702,7 +999,7 @@
   <header class="p2p-header">
     <div class="p2p-header-left">
       <button class="icon-btn" id="menuBtn"><svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
-      <button class="icon-btn" id="backBtn"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <button class="icon-btn" id="backBtn" type="button" aria-label="Back to Home"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
       <div class="p2p-tabs">
         <button class="p2p-tab active" data-p2ptab="p2p">P2P</button>
         <button class="p2p-tab" data-p2ptab="express">Express</button>
@@ -794,7 +1091,7 @@
               <span class="express-wallet-hint" id="expressBuyBalHint">Wallet: --</span>
             </div>
             <div class="express-input-row">
-              <input type="number" id="expressBuyRecAmt" placeholder="0.00" readonly style="color:var(--green-500);">
+              <input type="number" id="expressBuyRecAmt" placeholder="0.00" style="color:var(--green-500);">
               <button class="express-selector-btn" id="expressBuyCryptoBtn">
                 <img id="expressBuyCryptoIcon" src="https://essamamdani.github.io/open-crypto-icons/icons/colored/usdt.svg">
                 <span id="expressBuyCryptoLabel">USDT</span>
@@ -839,7 +1136,7 @@
               <span class="express-wallet-hint">Local Bank / Payout</span>
             </div>
             <div class="express-input-row">
-              <input type="number" id="expressSellRecAmt" placeholder="0.00" readonly style="color:var(--green-500);">
+              <input type="number" id="expressSellRecAmt" placeholder="0.00" style="color:var(--green-500);">
               <button class="express-selector-btn" id="expressSellFiatBtn">
                 <span id="expressSellFiatFlag">🇺🇸</span>
                 <span id="expressSellFiatLabel">USD</span>
@@ -867,6 +1164,16 @@
         <p style="font-size:12.5px;color:var(--gray-500);">All your active &amp; completed P2P escrow trades</p>
       </div>
       <span id="ordersCountBadge" style="background:var(--navy-50);font-weight:800;font-size:12px;padding:5px 12px;border-radius:var(--radius-pill);color:var(--navy-900);">0 Orders</span>
+    </div>
+
+    <!-- ORDERS SUB-TABS (CHANGE 5) -->
+    <div class="ord-subtabs-bar" id="ordersSubtabsBar">
+      <button class="ord-subtab active" data-tab="all" onclick="filterOrdersByTab('all')">All</button>
+      <button class="ord-subtab" data-tab="pending" onclick="filterOrdersByTab('pending')">Pending</button>
+      <button class="ord-subtab" data-tab="paid" onclick="filterOrdersByTab('paid')">Paid</button>
+      <button class="ord-subtab" data-tab="completed" onclick="filterOrdersByTab('completed')">Completed</button>
+      <button class="ord-subtab" data-tab="disputed" onclick="filterOrdersByTab('disputed')">Disputed</button>
+      <button class="ord-subtab" data-tab="cancelled" onclick="filterOrdersByTab('cancelled')">Cancelled</button>
     </div>
     <div class="p2p-main">
       <div id="ordersList" style="display:flex;flex-direction:column;gap:12px;"></div>
@@ -914,7 +1221,24 @@
   <!-- PROFILE VIEW -->
   <main class="view-section" id="view-profile">
     <div class="p2p-main" style="padding-top:20px;">
-      <div class="profile-hero-card">
+      <!-- WALLET BALANCE CARD (CHANGE 4) -->
+    <div class="wallet-balance-card" id="profileBalanceCard">
+      <div class="wallet-bal-header">
+        <div>
+          <span class="wallet-bal-title">Estimated Total Balance</span>
+          <div style="font-size:18px; font-weight:800; color:var(--navy-900);" id="profTotalUsdBal">$0.00 USD</div>
+        </div>
+        <div class="wallet-bal-links">
+          <a href="deposit.html" class="wallet-bal-link">+ Deposit</a>
+          <a href="wallet.html" class="wallet-bal-link">Wallet &rarr;</a>
+        </div>
+      </div>
+      <div class="wallet-chips-grid" id="profBalanceChipsGrid">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+
+    <div class="profile-hero-card">
         <div class="profile-avatar-lg" id="profAvatar">U</div>
         <h3 style="font-size:19px;font-weight:800;" id="profDisplayName">Bluepeak Trader</h3>
         <span style="font-size:12px;color:var(--green-500);font-weight:800;background:var(--green-100);padding:3px 12px;border-radius:12px;">● Verified Tier 2 KYC</span>
@@ -947,20 +1271,18 @@
     <button class="bottom-nav-item" data-bnav="profile"><div class="bn-icon-wrap"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4.5 4.5-6.5 8-6.5s7 2 8 6.5"/></svg></div><span>Profile</span></button>
   </nav>
 
-  <div class="toast" id="toast"></div>  <script>
-    /*
-     * BluePeak P2P & Express Trading System
-     * Updates:
-     * - Institutional Desk header badge removed.
-     * - Merchant avatar letter circles removed from marketplace cards.
-     * - Profile action replaced with arrow-only circular button.
-     * - Trade controls reframed with responsive spacing between Buy/Sell and Currency selector.
-     * - 20-minute confirmation window with live countdown timer.
-     * - Proof upload flow with preview on payment confirmation.
-     * - Multi-reason cancellation modal returning cleanly to offers.
-     * - Admin deposit address fallback integration.
-     * - Telegram inbound routing with support tag instead of Telegram label.
-     */
+  <div class="toast" id="toast"></div>
+
+  <script>
+    /* BluePeak P2P updates applied:
+   1. Trade controls row (buy/sell + currency single row)
+   2. Payment methods grouped + live search
+   3. Express card responsive fit
+   4. Profile real data + wallet balance card
+   5. Orders sub-tabs (All/Pending/Paid/Disputed/Cancelled) + status pills + card click + dispute shortcut
+   6. Cancel → smooth back to offers
+   7. Global smooth navigation
+*/
 
     function getAdminEscrowAddress(cryptoSymbol, fallbackAddr) {
       try {
@@ -993,6 +1315,16 @@
       { code: 'RWF', name: 'Rwandan Franc', symbol: 'FRw ', flag: '🇷🇼', fxMultiplier: 1380.0 },
       { code: 'AED', name: 'UAE Dirham', symbol: 'AED ', flag: '🇦🇪', fxMultiplier: 3.67 }
     ];
+
+    const CRYPTO_DECIMALS = {
+      BTC: 8, ETH: 6, SOL: 6, BNB: 6, USDT: 2, USDC: 2, USD: 2,
+      KES: 2, NGN: 2, EUR: 2, GBP: 2, ZAR: 2, TZS: 2, UGX: 2,
+      GHS: 2, RWF: 2, AED: 2
+    };
+    function fmtAmount(sym, val) {
+      const d = (typeof CRYPTO_DECIMALS !== 'undefined' && CRYPTO_DECIMALS && CRYPTO_DECIMALS[sym] !== undefined) ? CRYPTO_DECIMALS[sym] : 6;
+      return Number(val || 0).toFixed(d);
+    }
 
     const ALL_PAYMENT_METHODS = [
       'M-Pesa', 'Bank Transfer', 'Zelle', 'Revolut', 'Wise', 'SEPA Instant', 
@@ -1122,9 +1454,7 @@
         const u = localStorage.getItem('bp_user_profile');
         if (u) return JSON.parse(u);
       } catch (e) {}
-      const def = { name: 'Alex Vance', email: 'user@bluepeakcapital.com', kyc: 'Tier 2 Verified', initials: 'AV' };
-      localStorage.setItem('bp_user_profile', JSON.stringify(def));
-      return def;
+      return { id: '', name: '', email: '', kyc: '', initials: 'U' };
     }
 
     function getUserPaymentMethods() {
@@ -1132,9 +1462,7 @@
         const p = localStorage.getItem('bp_user_payment_methods');
         if (p) return JSON.parse(p);
       } catch (e) {}
-      const def = [
-        { method: 'Bank Transfer', number: '1098472918', holder: 'Alex Vance', extra: 'Domestic Wire' }
-      ];
+      const def = [];
       localStorage.setItem('bp_user_payment_methods', JSON.stringify(def));
       return def;
     }
@@ -1212,6 +1540,10 @@
     }
 
     function closeSheet(id) {
+      if (id === 'orderModal' && state._typingTimer) {
+        clearTimeout(state._typingTimer);
+        state._typingTimer = null;
+      }
       const el = $(`#${id}`);
       if (el) el.classList.remove('open');
       const openSheets = $$('.bottom-sheet.open');
@@ -1242,7 +1574,7 @@
         const stored = localStorage.getItem('bp_user_balances');
         if (stored) return JSON.parse(stored);
       } catch (e) {}
-      const def = { USDT: 450.00, BTC: 0.045, ETH: 1.25, SOL: 12.00, BNB: 2.50 };
+      const def = { USDT: 0, BTC: 0, ETH: 0, SOL: 0, BNB: 0, USD: 0 };
       localStorage.setItem('bp_user_balances', JSON.stringify(def));
       return def;
     }
@@ -1489,7 +1821,7 @@ Reply directly to this message or send "#${order.id} <your message>" to chat bac
       if (!offer) return;
       const sym = fiatSym();
       const isBuy = state.p2pMode === 'buy';
-      const userCryptoBal = getUserBalances()[state.crypto] || 0;
+      const userCryptoBal = getWalletBalance(state.crypto);
       const userMethods = getUserPaymentMethods();
 
       let selectedUserMethod = userMethods.length > 0 ? userMethods[0] : null;
@@ -1512,6 +1844,8 @@ Reply directly to this message or send "#${order.id} <your message>" to chat bac
         <div class="field-group">
           <label class="field-label">${isBuy ? 'Spend Amount (' + state.fiat + ')' : 'Quantity to Sell (' + state.crypto + ')'}</label>
           <input type="number" id="ordInputAmt" placeholder="0.00" class="input-field" style="font-size:18px;font-weight:800;">
+          <div id="ordBuyMaxWarn" style="display:none;margin-top:6px;padding:8px 10px;background:var(--red-100);border:1px solid rgba(209,67,67,0.35);border-radius:8px;color:var(--red-500);font-size:11.5px;font-weight:700;">Maximum $20,000 per order. Amount has been capped.</div>
+          <div id="ordRateLine" style="font-size:11.5px;color:var(--navy-900);font-weight:700;margin-top:4px;">Rate: ${sym}${formatNum(offer.price, 2)} / ${state.crypto}</div>
           <div style="font-size:11px;color:var(--gray-500);margin-top:4px;">
             ${isBuy ? `Limit: ${sym}${formatNum(offer.limitMin, 0)} – ${sym}${formatNum(offer.limitMax, 0)}` : `Available Balance: ${userCryptoBal} ${state.crypto}`}
           </div>
@@ -1565,6 +1899,10 @@ Reply directly to this message or send "#${order.id} <your message>" to chat bac
           <span>I agree to the BluePeak P2P Escrow terms. I understand that assets remain in cold custody until payment confirmation.</span>
         </div>
 
+        <div id="ordSummaryRow" style="background:var(--gold-100);border:1px solid var(--gold-400);border-radius:10px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:700;">
+          <span style="color:var(--navy-900);">${isBuy ? 'You will receive' : 'You will be paid'}</span>
+          <span id="ordSummaryVal" style="color:var(--navy-900);font-size:14px;">0.00</span>
+        </div>
         <button class="btn-solid-green ${isBuy ? '' : 'sell-btn-style'}" id="ordConfirmBtn">${isBuy ? 'Confirm & Open Escrow' : 'Lock Escrow & Open Trade'}</button>
       `;
 
@@ -1612,18 +1950,33 @@ Reply directly to this message or send "#${order.id} <your message>" to chat bac
         });
       }
 
-      $('#ordInputAmt').addEventListener('input', () => {
-        const val = parseFloat($('#ordInputAmt').value) || 0;
+      const amtInput = $('#ordInputAmt');
+      const refreshAmts = () => {
+        const raw = parseFloat(amtInput.value) || 0;
+        const price = Number(offer.price) || 0;
+        const sym2 = fiatSym(state.fiat);
         if (isBuy) {
-          const cryptoAmt = val / offer.price;
-          $('#ordDisp1').textContent = sym + formatNum(val, 2);
-          $('#ordDisp2').textContent = formatNum(cryptoAmt, 4) + ' ' + state.crypto;
+          const cryptoAmt = price > 0 ? raw / price : 0;
+          const d1 = $('#ordDisp1'); if (d1) d1.textContent = sym2 + formatNum(raw, 2);
+          const d2 = $('#ordDisp2'); if (d2) d2.textContent = fmtAmount(state.crypto, cryptoAmt) + ' ' + state.crypto;
         } else {
-          const fiatAmt = val * offer.price;
-          $('#ordDisp1').textContent = formatNum(val, 4) + ' ' + state.crypto;
-          $('#ordDisp2').textContent = sym + formatNum(fiatAmt, 2);
+          const fiatAmt = raw * price;
+          const d1 = $('#ordDisp1'); if (d1) d1.textContent = fmtAmount(state.crypto, raw) + ' ' + state.crypto;
+          const d2 = $('#ordDisp2'); if (d2) d2.textContent = sym2 + formatNum(fiatAmt, 2);
+          const rateEl = document.getElementById('ordRateLine');
+          if (rateEl) rateEl.textContent = 'Rate: ' + sym2 + formatNum(price, 2) + ' / ' + state.crypto;
         }
-      });
+        const sv = document.getElementById('ordSummaryVal');
+        if (sv) {
+          sv.textContent = isBuy
+            ? fmtAmount(state.crypto, price > 0 ? raw / price : 0) + ' ' + state.crypto
+            : sym2 + formatNum(raw * price, 2);
+        }
+        applyBuyMaxWarning();
+      };
+      amtInput.addEventListener('input', refreshAmts);
+      amtInput.addEventListener('change', refreshAmts);
+      refreshAmts();
 
       openSheet('orderModal');
 
@@ -1649,7 +2002,7 @@ Reply directly to this message or send "#${order.id} <your message>" to chat bac
         const userProf = getUserProfile();
         const orderId = 'ORD-' + Math.floor(100000 + Math.random() * 900000);
         const assetObj = ASSETS.find(a => a.symbol === state.crypto) || ASSETS[0];
-        const cryptoAmt = isBuy ? (val / offer.price).toFixed(4) : val.toFixed(4);
+        const cryptoAmt = isBuy ? fmtAmount(state.crypto, val / offer.price) : fmtAmount(state.crypto, val);
         const fiatAmt = isBuy ? val.toFixed(2) : (val * offer.price).toFixed(2);
         const escrowAddr = getAdminEscrowAddress(state.crypto, offer.merchant.escrowAddr || assetObj.defaultAddr);
         const nowTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -1711,14 +2064,50 @@ Reply directly to this message or send "#${order.id} <your message>" to chat bac
           payoutDetails: srcType === 'internal' ? activeMethod : null,
           escrowAddr: escrowAddr,
           network: assetObj.network,
-          userName: userProf.name,
+          userId: getOrCreateUserId(),
+          userName: userProf.name || 'P2P Trader',
+          merchantId: offer.merchant.id,
           merchantName: offer.merchant.name,
+          paidAt: null,
+          paidDeadline: null,
+          disputedAt: null,
+          disputeDeadline: null,
+          timeline: [{ status: 'Escrow Locked', ts: Date.now(), actor: 'system' }],
           timeLeft: (offer.timeWindow || 20) * 60,
           confirmDeadline: Date.now() + (offer.timeWindow || 20) * 60 * 1000,
           status: 'Escrow Locked',
           date: new Date().toLocaleDateString() + ' ' + nowTime,
           messages
         };
+
+        if (state._typingTimer) clearTimeout(state._typingTimer);
+        state.activeOrder.messages.push({
+          sender: 'merchant',
+          senderName: offer.merchant.name,
+          isTyping: true,
+          text: '…',
+          time: nowTime
+        });
+        state._typingTimer = setTimeout(() => {
+          if (!state.activeOrder) return;
+          const adminM = (JSON.parse(localStorage.getItem('bp_admin_merchants') || '[]') || []).find(x => x.id === offer.merchant.id);
+          const instr = adminM?.paymentInstructions || adminM?.paymentDetails || (JSON.parse(localStorage.getItem('bp_platform_deposit_addresses') || '{}')[state.crypto] || '') || 'Please pay to the account details below and upload proof of payment.';
+          const methodName = isBuy ? (document.getElementById('ordMethodSelect')?.value || 'your payment method') : 'your payout account';
+          const instructionMsg = {
+            sender: 'merchant',
+            senderName: offer.merchant.name,
+            text: 'Pay via ' + methodName + '\n' + instr,
+            time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+          };
+          state.activeOrder.messages = state.activeOrder.messages.filter(m => !m.isTyping);
+          state.activeOrder.messages.push(instructionMsg);
+          syncOrderStorage(state.activeOrder);
+          const cc = document.getElementById('chatContainer');
+          if (cc) {
+            cc.innerHTML = renderBubbles(state.activeOrder.messages);
+            cc.scrollTop = cc.scrollHeight;
+          }
+        }, 3000);
 
         saveOrderToHistory(state.activeOrder);
         syncOrderStorage(state.activeOrder);
@@ -1777,9 +2166,18 @@ Reply directly to this message or send "#${order.id} <your message>" to chat bac
           fiatAmount: order.fiatAmount,
           merchantName: order.merchantName,
           status: order.status,
-          date: order.date
+          date: order.date,
+          userId: order.userId || getOrCreateUserId(),
+          userName: order.userName || getUserProfile().name || 'P2P Trader',
+          merchantId: order.offer?.merchant?.id || order.merchantId || '',
+          paidAt: order.paidAt || null,
+          paidDeadline: order.confirmDeadline || null,
+          disputedAt: order.disputedAt || null,
+          disputeDeadline: order.disputeDeadline || null,
+          cancelReason: order.cancelReason || null,
+          timeline: order.timeline || []
         };
-        if (idx >= 0) orders[idx] = record; else orders.unshift(record);
+        if (idx >= 0) orders[idx] = Object.assign({}, orders[idx], record); else orders.unshift(record);
         localStorage.setItem('bp_p2p_orders', JSON.stringify(orders));
         renderOrdersHistory();
       } catch (e) {}
@@ -1806,6 +2204,14 @@ Reply directly to this message or send "#${order.id} <your message>" to chat bac
         status: order.status || 'active',
         unread: true,
         created: new Date().toISOString(),
+        userId: order.userId || getOrCreateUserId(),
+        userName: order.userName || getUserProfile().name || 'P2P Trader',
+        merchantId: order.offer?.merchant?.id || order.merchantId || '',
+        merchantName: order.merchantName,
+        paidAt: order.paidAt || null,
+        paidDeadline: order.confirmDeadline || null,
+        disputedAt: order.disputedAt || null,
+        disputeDeadline: order.disputeDeadline || null,
         messages: order.messages.map(m => ({
           from: m.sender,
           sender: m.sender,
@@ -1838,11 +2244,39 @@ Reply directly to this message or send "#${order.id} <your message>" to chat bac
             }
           } catch(e) {}
         }
+        try {
+          const adminChats = JSON.parse(localStorage.getItem('bp_admin_chats') || '[]');
+          const mine = adminChats.find(c => c.order === state.activeOrder.id);
+          if (mine && Array.isArray(mine.messages)) {
+            const localCount = state.activeOrder.messages.length;
+            if (mine.messages.length > localCount) {
+              mine.messages.slice(localCount).forEach(m => {
+                if (m.from === 'merchant' || m.from === 'admin') {
+                  state.activeOrder.messages.push({
+                    sender: 'merchant',
+                    senderName: m.sender || 'Support',
+                    text: m.text,
+                    time: m.time
+                  });
+                }
+              });
+              localStorage.setItem('bp_p2p_chat_' + state.activeOrder.id, JSON.stringify(state.activeOrder.messages));
+              const c = document.getElementById('chatContainer');
+              if (c) {
+                c.innerHTML = renderBubbles(state.activeOrder.messages);
+                c.scrollTop = c.scrollHeight;
+              }
+            }
+          }
+        } catch(err) {}
       }, 1000);
     }
 
     function renderBubbles(msgs) {
       return msgs.map(m => {
+        if (m.isTyping) {
+          return `<div class="chat-bubble merchant is-typing"><div class="chat-bubble-author">${m.senderName}</div></div>`;
+        }
         const isUser = m.sender === 'user';
         const isSystem = m.sender === 'system';
         return `
@@ -1942,6 +2376,7 @@ Reply directly to this message or send "#${order.id} <your message>" to chat bac
             <!-- RIGHT COLUMN: CHAT INTERACTION -->
             <div style="display:flex;flex-direction:column;gap:10px;">
               <div class="chat-mock" id="chatContainer">${renderBubbles(o.messages)}</div>
+              <div id="countdownStrip" style="display:flex;flex-direction:column;gap:6px;"></div>
               <div class="chat-input-wrap">
                 <input type="text" id="chatInput" placeholder="Message ${o.merchantName}...">
                 <button id="chatSendBtn">Send</button>
@@ -1971,6 +2406,10 @@ Reply directly to this message or send "#${order.id} <your message>" to chat bac
       $('#chatInput').addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMsg(); });
 
       $('#cancelBtn').addEventListener('click', () => {
+        if (state._typingTimer) {
+          clearTimeout(state._typingTimer);
+          state._typingTimer = null;
+        }
         openSheet('cancelReasonModal');
       });
 
@@ -1990,6 +2429,7 @@ Reply directly to this message or send "#${order.id} <your message>" to chat bac
         }
         openSheet('paymentProofModal');
       });
+      if (typeof tickCountdowns === 'function') tickCountdowns();
     }
 
     function renderOrdersHistory() {
@@ -2094,9 +2534,8 @@ Reply directly to this message or send "#${order.id} <your message>" to chat bac
     });
 
     function initExpressDesk() {
-      const userBals = getUserBalances();
-      $('#expressBuyBalHint').textContent = `Bal: ${userBals[state.expressCrypto] || 0} ${state.expressCrypto}`;
-      $('#expressSellBalHint').textContent = `Available: ${userBals[state.expressCrypto] || 0} ${state.expressCrypto}`;
+      $('#expressBuyBalHint').textContent = `Bal: ${getWalletBalance(state.expressCrypto)} ${state.expressCrypto}`;
+      $('#expressSellBalHint').textContent = `Available: ${getWalletBalance(state.expressCrypto)} ${state.expressCrypto}`;
 
       $('#expressBuyPayAmt').addEventListener('input', updateExpressCalculations);
       $('#expressSellPayAmt').addEventListener('input', updateExpressCalculations);
@@ -2108,8 +2547,7 @@ Reply directly to this message or send "#${order.id} <your message>" to chat bac
       $('#expressSellCryptoBtn').addEventListener('click', () => openCryptoPickerForExpress('expressSellCrypto'));
 
       $('#expressSellMaxBtn').addEventListener('click', () => {
-        const bal = userBals[state.expressCrypto] || 0;
-        $('#expressSellPayAmt').value = bal;
+        $('#expressSellPayAmt').value = getWalletBalance(state.expressCrypto);
         updateExpressCalculations();
       });
 
@@ -2162,6 +2600,10 @@ Reply directly to this message or send "#${order.id} <your message>" to chat bac
           showToast('Please enter crypto quantity to sell.');
           return;
         }
+        if (val > getWalletBalance(state.expressCrypto)) {
+          showToast('Insufficient wallet balance. Deposit first.');
+          return;
+        }
         state.p2pMode = 'sell';
         state.fiat = state.expressFiat;
         state.crypto = state.expressCrypto;
@@ -2193,7 +2635,7 @@ Reply directly to this message or send "#${order.id} <your message>" to chat bac
 
       const buyPay = parseFloat($('#expressBuyPayAmt').value) || 0;
       const buyRec = rate > 0 ? (buyPay / rate) : 0;
-      $('#expressBuyRecAmt').value = buyRec.toFixed(4);
+      $('#expressBuyRecAmt').value = fmtAmount(state.expressCrypto, buyRec);
       $('#expressBuyRateLabel').textContent = `1 ${state.expressCrypto} ≈ ${sym}${formatNum(rate, decimals)} ${state.expressFiat}`;
 
       const sellPay = parseFloat($('#expressSellPayAmt').value) || 0;
@@ -2248,9 +2690,8 @@ Reply directly to this message or send "#${order.id} <your message>" to chat bac
         $('#expressSellCryptoIcon').src = a.icon;
         $('#expressSellCryptoLabel').textContent = sym;
       }
-      const userBals = getUserBalances();
-      $('#expressBuyBalHint').textContent = `Bal: ${userBals[sym] || 0} ${sym}`;
-      $('#expressSellBalHint').textContent = `Available: ${userBals[sym] || 0} ${sym}`;
+      $('#expressBuyBalHint').textContent = `Bal: ${getWalletBalance(sym)} ${sym}`;
+      $('#expressSellBalHint').textContent = `Available: ${getWalletBalance(sym)} ${sym}`;
       closeSheet('cryptoModal');
       updateExpressCalculations();
     };
@@ -2415,7 +2856,7 @@ Reply directly to this message or send "#${order.id} <your message>" to chat bac
       if (id === 'ads') renderMyAds();
       if (id === 'profile') {
         const u = getUserProfile();
-        $('#profDisplayName').textContent = u.name;
+        document.getElementById('profDisplayName').textContent = u.name || 'Bluepeak Trader';
         $('#profAvatar').textContent = u.initials || 'U';
         renderProfilePaymentMethods();
       }
@@ -2561,12 +3002,16 @@ Reply directly to this message or send "#${order.id} <your message>" to chat bac
       o.status = 'Paid';
       o.timeLeft = 20 * 60; // 20 minutes confirmation window
       o.confirmDeadline = Date.now() + 20 * 60 * 1000;
+      o.paidAt = Date.now();
+      o.timeline = o.timeline || [];
+      o.timeline.push({ status: 'Paid', ts: Date.now(), actor: 'buyer' });
+      o.systemDeadlines = [{ id: 'paid', label: 'Awaiting counterparty to check payment', endsAt: o.confirmDeadline }];
 
       const nowTime = new Date().toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
       o.messages.push({
         sender: 'system',
         senderName: 'BluePeak Escrow',
-        text: '📎 Payment proof uploaded. Trade marked as PAID. Counterparty has 20 minutes to verify payment and release coins.',
+        text: 'Payment proof uploaded. Awaiting counterparty to check payment.',
         time: nowTime
       });
 
@@ -2612,6 +3057,8 @@ Reply directly to this message or send "#${order.id} <your message>" to chat bac
 
       o.status = 'Cancelled';
       o.cancelReason = fullReason;
+      o.timeline = o.timeline || [];
+      o.timeline.push({ status: 'Cancelled', ts: Date.now(), actor: 'buyer' });
       const nowTime = new Date().toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
       o.messages.push({
         sender: 'system',
@@ -2632,8 +3079,38 @@ Reply directly to this message or send "#${order.id} <your message>" to chat bac
     };
 
     window.returnToOffersFromCancel = function() {
-      closeSheet('postCancelModal');
-      applyFiltersAndRender();
+      const o = state.activeOrder || {};
+      const wasBuy = o.mode === 'buy';
+      const asset = o.crypto || state.crypto;
+      const fiat = o.fiat || state.fiat;
+      if (state.orderTimerInterval) clearInterval(state.orderTimerInterval);
+      if (state.chatPollInterval) clearInterval(state.chatPollInterval);
+      state.activeOrder = null;
+      localStorage.removeItem('bp_active_order');
+      document.querySelectorAll('.bottom-sheet').forEach(s => s.classList.remove('open'));
+      document.getElementById('globalOverlay')?.classList.remove('open');
+      document.body.style.overflow = '';
+      state.p2pMode = wasBuy ? 'buy' : 'sell';
+      state.crypto = asset;
+      state.fiat = fiat;
+      state.amountFilter = null;
+      state.paymentFilter = null;
+      document.querySelectorAll('#buySellToggle .bs-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.mode === state.p2pMode);
+        b.classList.toggle('sell-active', state.p2pMode === 'sell' && b.dataset.mode === 'sell');
+      });
+      const fiatLabel = document.getElementById('fiatLabel');
+      if (fiatLabel) fiatLabel.textContent = fiat;
+      const cryptoLabel = document.getElementById('cryptoPillLabel');
+      if (cryptoLabel) cryptoLabel.textContent = asset;
+      const pill = document.getElementById('paymentPillLabel');
+      if (pill) pill.textContent = 'Payment';
+      const pill2 = document.getElementById('amountPillLabel');
+      if (pill2) pill2.textContent = 'Amount';
+      requestAnimationFrame(() => {
+        switchMainView('p2p', { scroll: true });
+        applyFiltersAndRender();
+      });
       showToast('Returned to active marketplace offers.');
     };
 
@@ -2648,6 +3125,13 @@ Reply directly to this message or send "#${order.id} <your message>" to chat bac
       }
 
       o.status = 'Disputed';
+      o.disputedAt = Date.now();
+      o.disputeDeadline = Date.now() + 24 * 60 * 60 * 1000;
+      o.timeline = o.timeline || [];
+      o.timeline.push({ status: 'Disputed', ts: Date.now(), actor: 'buyer' });
+      o.systemDeadlines = o.systemDeadlines || [];
+      o.systemDeadlines.push({ id: 'dispute', label: 'Dispute opened. Counterparty has 24 hours to respond.', endsAt: o.disputeDeadline });
+
       o.dispute = {
         reason: reason,
         explanation: explanation,
@@ -2658,7 +3142,7 @@ Reply directly to this message or send "#${order.id} <your message>" to chat bac
       o.messages.push({
         sender: 'system',
         senderName: 'BluePeak Escrow',
-        text: '🚩 Dispute opened: ' + reason + '. BluePeak multi-sig dispute mediation desk is actively reviewing this trade.',
+        text: 'Dispute opened. Counterparty has 24 hours to respond. Support will step in if unresolved.',
         time: nowTime
       });
 
@@ -2697,6 +3181,7 @@ Reply directly to this message or send "#${order.id} <your message>" to chat bac
         const s = state.activeOrder.timeLeft % 60;
         const el = $('#orderTimerDisplay');
         if (el) el.textContent = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+        if (typeof tickCountdowns === 'function') tickCountdowns();
 
         if (state.activeOrder.timeLeft <= 0) {
           clearInterval(state.orderTimerInterval);
@@ -2720,8 +3205,7 @@ Reply directly to this message or send "#${order.id} <your message>" to chat bac
         applyFiltersAndRender();
       }
       if (e.key === 'bp_user_balances') {
-        const b = getUserBalances();
-        if ($('#expressBuyBalHint')) $('#expressBuyBalHint').textContent = `Bal: ${b[state.expressCrypto] || 0} ${state.expressCrypto}`;
+        if ($('#expressBuyBalHint')) $('#expressBuyBalHint').textContent = `Bal: ${getWalletBalance(state.expressCrypto)} ${state.expressCrypto}`;
       }
       if (e.key === 'bp_user_payment_methods') {
         renderProfilePaymentMethods();
@@ -2733,6 +3217,409 @@ Reply directly to this message or send "#${order.id} <your message>" to chat bac
     });
 
     applyFiltersAndRender();
+
+    /* ===== ADDITIONS (Changes 1-9) ===== */
+
+    // --- CHANGE 2: GROUPED PAYMENT METHODS & LIVE SEARCH ---
+    const GROUPED_PAYMENT_METHODS = {
+      "Banks & Transfers": [
+        { name: "Bank Transfer", icon: "🏦" },
+        { name: "Wire Transfer", icon: "🏛️" },
+        { name: "SWIFT", icon: "🌐" },
+        { name: "SEPA", icon: "💶" },
+        { name: "SEPA Instant", icon: "⚡" },
+        { name: "Faster Payments", icon: "💷" },
+        { name: "ACH", icon: "🏢" },
+        { name: "FedNow", icon: "🇺🇸" },
+        { name: "EFT", icon: "💼" },
+        { name: "PIX", icon: "🇧🇷" },
+        { name: "UPI", icon: "🇮🇳" },
+        { name: "IMPS", icon: "🇮🇳" },
+        { name: "NEFT", icon: "🇮🇳" },
+        { name: "RTGS", icon: "🇮🇳" }
+      ],
+      "Mobile Money": [
+        { name: "M-Pesa", icon: "📱" },
+        { name: "Airtel Money", icon: "📲" },
+        { name: "MTN Mobile Money", icon: "🟡" },
+        { name: "Vodafone Cash", icon: "🔴" },
+        { name: "Tigo Pesa", icon: "🔵" },
+        { name: "OPay", icon: "🟢" },
+        { name: "PalmPay", icon: "🌴" },
+        { name: "Chipper Cash", icon: "🟣" },
+        { name: "MoMo Pay", icon: "💛" },
+        { name: "EcoCash", icon: "🌍" },
+        { name: "Orange Money", icon: "🍊" },
+        { name: "Wave", icon: "🌊" },
+        { name: "Kuda Bank", icon: "🟣" }
+      ],
+      "Cards & Wallets": [
+        { name: "Visa / Mastercard", icon: "💳" },
+        { name: "Apple Pay", icon: "🍏" },
+        { name: "Google Pay", icon: "🇬" },
+        { name: "Cash App", icon: "💵" },
+        { name: "Venmo", icon: "✌️" },
+        { name: "PayPal", icon: "🅿️" },
+        { name: "Revolut", icon: "🇷" },
+        { name: "Wise", icon: "🌐" },
+        { name: "Zelle", icon: "⚡" },
+        { name: "Skrill", icon: "💰" },
+        { name: "Payoneer", icon: "💳" },
+        { name: "Stripe", icon: "💲" },
+        { name: "Chime", icon: "🔔" }
+      ],
+      "Crypto Rails": [
+        { name: "Binance Pay", icon: "🔶" },
+        { name: "Crypto.com Pay", icon: "🦁" },
+        { name: "MoonPay", icon: "🌙" },
+        { name: "Ramp", icon: "🔄" },
+        { name: "Transak", icon: "⚡" },
+        { name: "Yellow Card", icon: "🟨" }
+      ]
+    };
+
+    function renderGroupedPaymentOptions(searchQuery) {
+      const container = $('#paymentPickList');
+      if (!container) return;
+
+      const q = (searchQuery || '').trim().toLowerCase();
+      let html = `
+        <div class="pay-item ${state.paymentFilter === 'All' ? 'active' : ''}" onclick="selectPayment('All')" style="margin-bottom:8px;">
+          <span class="pay-item-icon">🌐</span>
+          <span style="font-weight:600;">All Payment Methods</span>
+        </div>
+      `;
+
+      let totalMatches = 0;
+      Object.keys(GROUPED_PAYMENT_METHODS).forEach(groupName => {
+        const methods = GROUPED_PAYMENT_METHODS[groupName];
+        const filtered = methods.filter(it => {
+          if (!q) return true;
+          return it.name.toLowerCase().includes(q) || groupName.toLowerCase().includes(q);
+        });
+
+        if (filtered.length > 0) {
+          totalMatches += filtered.length;
+          html += `<div class="pay-group-section">`;
+          html += `<div class="pay-group-label">${groupName}</div>`;
+          filtered.forEach(it => {
+            const isSel = (state.paymentFilter === it.name);
+            html += `
+              <div class="pay-item ${isSel ? 'active' : ''}" onclick="selectPayment('${it.name.replace(/'/g, "\\'")}')">
+                <span class="pay-item-icon">${it.icon}</span>
+                <span>${it.name}</span>
+              </div>
+            `;
+          });
+          html += `</div>`;
+        }
+      });
+
+      if (totalMatches === 0 && q) {
+        html += `<div style="text-align:center; padding:20px; color:var(--gray-400); font-size:13px;">No payment methods matching "${q}"</div>`;
+      }
+
+      container.innerHTML = html;
+    }
+
+    // Wrap / override selectPayment to update pill label with ellipsis truncation
+    const _origSelectPayment = typeof selectPayment === 'function' ? selectPayment : null;
+    selectPayment = function(name) {
+      if (_origSelectPayment) {
+        _origSelectPayment(name);
+      } else {
+        state.paymentFilter = name;
+        state.page = 1;
+        applyFiltersAndRender();
+        closeSheet('paymentModal');
+      }
+      const pill = $('#paymentPillLabel');
+      if (pill) {
+        pill.innerHTML = '<span class="pill-label-truncate">' + (name === 'All' ? 'All Payments' : name) + '</span>';
+      }
+    };
+
+    // Live search debounced
+    const paySearchInput = document.getElementById('paymentSearchInput');
+    if (paySearchInput) {
+      let debounceTimer = null;
+      paySearchInput.addEventListener('input', function(e) {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+          renderGroupedPaymentOptions(e.target.value);
+        }, 120);
+      });
+    }
+
+    // --- CHANGE 5: ORDERS SUB-TABS LOGIC & DETAILS MODAL ---
+    let currentOrdersTab = 'all';
+
+    function filterOrdersByTab(tab) {
+      currentOrdersTab = tab;
+      const buttons = document.querySelectorAll('.ord-subtab');
+      buttons.forEach(b => {
+        b.classList.toggle('active', b.getAttribute('data-tab') === tab);
+      });
+      renderOrdersHistory();
+    }
+
+    // Override renderOrdersHistory to support subtabs, status pills, card click, & dispute shortcut
+    renderOrdersHistory = function() {
+      const list = $('#ordersList');
+      const badge = $('#ordersCountBadge');
+      if (!list) return;
+
+      const orders = getOrders();
+      if (!orders || orders.length === 0) {
+        list.innerHTML = `<div class="empty-state"><div class="empty-icon">📭</div><div class="empty-text">No P2P trades executed yet.</div></div>`;
+        if (badge) badge.textContent = '0 Orders';
+        return;
+      }
+
+      // Filter by currentOrdersTab
+      const filtered = orders.filter(o => {
+        const s = (o.status || '').trim();
+        if (currentOrdersTab === 'all') return true;
+        if (currentOrdersTab === 'pending') return s === 'Escrow Locked' || s === 'Proof Submitted';
+        if (currentOrdersTab === 'paid') return s === 'Paid' || s === 'Completed';
+        if (currentOrdersTab === 'disputed') return s === 'Disputed';
+        if (currentOrdersTab === 'cancelled') return s === 'Cancelled';
+        return true;
+      });
+
+      // Update badge
+      if (badge) {
+        if (currentOrdersTab === 'all') {
+          badge.textContent = orders.length + ' Orders';
+        } else {
+          const capitalized = currentOrdersTab.charAt(0).toUpperCase() + currentOrdersTab.slice(1);
+          badge.textContent = filtered.length + ' ' + capitalized;
+        }
+      }
+
+      if (filtered.length === 0) {
+        const tabName = currentOrdersTab === 'all' ? 'P2P' : currentOrdersTab;
+        list.innerHTML = `<div class="empty-state"><div class="empty-icon">📭</div><div class="empty-text">No ${tabName} trades found.</div></div>`;
+        return;
+      }
+
+      list.innerHTML = filtered.map(o => {
+        const isBuy = (o.side === 'Buy');
+        const sideColor = isBuy ? 'var(--green-500)' : 'var(--blue-500)';
+        const st = (o.status || '').trim();
+
+        // Status pill class
+        let statusClass = 'status-escrow';
+        if (st === 'Completed') statusClass = 'status-completed';
+        else if (st === 'Cancelled') statusClass = 'status-cancelled';
+        else if (st === 'Proof Submitted') statusClass = 'status-proof';
+        else if (st === 'Disputed') statusClass = 'status-disputed';
+
+        const lastUpdated = o.date || new Date().toLocaleString();
+        const canDispute = (st === 'Paid' || st === 'Proof Submitted') && o.confirmDeadline && (Date.now() > Number(o.confirmDeadline));
+
+        return `
+          <div class="order-card" style="cursor:pointer;" onclick="handleOrderCardClick('${o.id}')">
+            <div class="order-card-header">
+              <div class="order-id">
+                <strong style="color:${sideColor}; font-size:14px;">${o.side ? o.side.toUpperCase() : ''} ${o.crypto}</strong>
+                <span style="font-size:11px; color:var(--gray-400); margin-left:6px;">#${o.id.slice(-6)}</span>
+              </div>
+              <span class="status-pill ${statusClass}">${st}</span>
+            </div>
+            <div class="order-card-body">
+              <div class="order-metric">
+                <span class="order-metric-label">Amount</span>
+                <span class="order-metric-value">${o.fiatAmount} ${o.fiat}</span>
+              </div>
+              <div class="order-metric">
+                <span class="order-metric-label">Crypto Quantity</span>
+                <span class="order-metric-value">${fmtAmount(o.crypto, o.cryptoAmount)} ${o.crypto}</span>
+              </div>
+              <div class="order-metric">
+                <span class="order-metric-label">Counterparty</span>
+                <span class="order-metric-value">${o.merchantName || 'BluePeak Desk'}</span>
+              </div>
+              <div class="order-metric">
+                <span class="order-metric-label">Payment Method</span>
+                <span class="order-metric-value">${o.paymentMethod || 'Bank Transfer'}</span>
+              </div>
+            </div>
+            <div class="order-card-timestamp">Last updated: ${lastUpdated}</div>
+            ${canDispute ? `
+              <button class="order-open-dispute-btn" onclick="event.stopPropagation(); triggerOrderDisputeShortcut('${o.id}');">
+                ⚠️ Open Dispute (Timer Expired)
+              </button>
+            ` : ''}
+          </div>
+        `;
+      }).join('');
+    };
+
+    function handleOrderCardClick(orderId) {
+      const orders = getOrders();
+      const order = orders.find(o => o.id === orderId);
+      if (!order) return;
+
+      const st = (order.status || '').trim();
+      if (st === 'Completed' || st === 'Cancelled') {
+        openOrderDetailModal(order);
+      } else {
+        // Active / Pending / Paid / Disputed -> smoothly reopen active trade
+        state.activeOrder = order;
+        localStorage.setItem('bp_active_order', JSON.stringify(order));
+
+        if (typeof startTimer === 'function') startTimer();
+        if (typeof startChatSync === 'function') startChatSync();
+        if (typeof renderActiveOrder === 'function') renderActiveOrder();
+        if (typeof switchMainView === 'function') switchMainView('p2p', { scroll: true });
+      }
+    }
+
+    function triggerOrderDisputeShortcut(orderId) {
+      const orders = getOrders();
+      const order = orders.find(o => o.id === orderId);
+      if (!order) return;
+
+      state.activeOrder = order;
+      localStorage.setItem('bp_active_order', JSON.stringify(order));
+
+      if (typeof switchMainView === 'function') switchMainView('p2p', { scroll: true });
+      if (typeof renderActiveOrder === 'function') renderActiveOrder();
+      if (typeof startTimer === 'function') startTimer();
+      if (typeof startChatSync === 'function') startChatSync();
+      if (typeof openSheet === 'function') openSheet('disputeModal');
+    }
+
+    function openOrderDetailModal(order) {
+      const table = $('#orderDetailTable');
+      if (!table) return;
+
+      table.innerHTML = `
+        <tr><td class="order-detail-label">Order ID</td><td class="order-detail-value">#${order.id}</td></tr>
+        <tr><td class="order-detail-label">Type</td><td class="order-detail-value">${order.side || (order.mode ? order.mode.toUpperCase() : '')} ${order.crypto}</td></tr>
+        <tr><td class="order-detail-label">Status</td><td class="order-detail-value">${order.status}</td></tr>
+        <tr><td class="order-detail-label">Fiat Amount</td><td class="order-detail-value">${order.fiatAmount} ${order.fiat}</td></tr>
+        <tr><td class="order-detail-label">Crypto Quantity</td><td class="order-detail-value">${typeof fmtAmount === 'function' ? fmtAmount(order.crypto, order.cryptoAmount) : order.cryptoAmount} ${order.crypto}</td></tr>
+        <tr><td class="order-detail-label">Exchange Rate</td><td class="order-detail-value">${order.rate || '—'} ${order.fiat}</td></tr>
+        <tr><td class="order-detail-label">Counterparty</td><td class="order-detail-value">${order.merchantName || 'BluePeak Desk'}</td></tr>
+        <tr><td class="order-detail-label">Payment Method</td><td class="order-detail-value">${order.paymentMethod || 'Bank Transfer'}</td></tr>
+        <tr><td class="order-detail-label">Timestamp</td><td class="order-detail-value">${order.date || '—'}</td></tr>
+        ${order.proofNote ? `<tr><td class="order-detail-label">Payment Proof Note</td><td class="order-detail-value">${order.proofNote}</td></tr>` : ''}
+        ${order.disputeReason ? `<tr><td class="order-detail-label">Dispute Reason</td><td class="order-detail-value" style="color:var(--red-500);">${order.disputeReason}</td></tr>` : ''}
+        ${Array.isArray(order.timeline) && order.timeline.length ? `<tr><td class="order-detail-label" colspan="2" style="padding-top:14px;border-bottom:none;font-weight:800;">Timeline</td></tr>${order.timeline.map(t => `<tr><td class="order-detail-label">${new Date(t.ts).toLocaleString()}</td><td class="order-detail-value">${t.status} <span style="color:var(--gray-400);">(${t.actor})</span></td></tr>`).join('')}` : ''}
+      `;
+
+      if (typeof openSheet === 'function') openSheet('orderDetailModal');
+    }
+
+    // --- CHANGE 4: PROFILE REAL DATA & WALLET BALANCES ---
+    function renderProfileWalletBalances() {
+      const chipsGrid = $('#profBalanceChipsGrid');
+      const totalDisplay = $('#profTotalUsdBal');
+
+      let totalUsd = 0;
+      ASSETS.forEach(a => {
+        const amt = getWalletBalance(a.symbol);
+        const rate = liveRatesUsd[a.symbol] || 1.0;
+        totalUsd += amt * rate;
+      });
+
+      if (totalDisplay) totalDisplay.textContent = '$' + formatNum(totalUsd, 2) + ' USD';
+
+      if (chipsGrid) {
+        chipsGrid.innerHTML = ASSETS.map(a => {
+          const amt = getWalletBalance(a.symbol);
+          return `
+            <div class="bal-chip">
+              <span class="bal-chip-sym">${a.symbol}</span>
+              <span class="bal-chip-val">${fmtAmount(a.symbol, amt)}</span>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Update profile stats from real orders
+      const orders = getOrders();
+      const completed = orders.filter(o => o.status === 'Completed');
+      const countEl = $('#profTradeCount');
+      if (countEl) countEl.textContent = completed.length;
+
+      const ratingEl = $('#profRating');
+      if (ratingEl) {
+        if (orders.length === 0) {
+          ratingEl.textContent = '—';
+        } else {
+          const pct = ((completed.length / orders.length) * 100).toFixed(1);
+          ratingEl.textContent = pct + '%';
+        }
+      }
+
+      // User identity
+      const prof = getUserProfile();
+      const nameEl = $('#profDisplayName');
+      if (nameEl && prof.name) nameEl.textContent = prof.name;
+      const avEl = $('#profAvatar');
+      if (avEl && prof.name) {
+        const initials = prof.initials || prof.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+        avEl.textContent = initials;
+      }
+    }
+
+    // --- CHANGE 6: Handled by §9 returnToOffersFromCancel ---
+    returnToOffersFromCancel = window.returnToOffersFromCancel;
+
+    // --- CHANGE 7: DIRECT SMOOTH NAVIGATION WRAPPER ---
+    const _origSwitchMainView = typeof switchMainView === 'function' ? switchMainView : null;
+    switchMainView = function(viewId, options = { scroll: true }) {
+      document.body.style.overflow = '';
+
+      if (_origSwitchMainView) {
+        _origSwitchMainView(viewId);
+      }
+
+      if (options && options.scroll !== false) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      // If switching to P2P and there is no active order, ensure offers are rendered
+      if (viewId === 'p2p' && !state.activeOrder) {
+        if (typeof applyFiltersAndRender === 'function') applyFiltersAndRender();
+      }
+
+      // If switching to profile, refresh wallet balance card
+      if (viewId === 'profile') {
+        renderProfileWalletBalances();
+      }
+
+      // If switching to orders, refresh orders tab
+      if (viewId === 'orders') {
+        renderOrdersHistory();
+      }
+    };
+
+    // Global listener for nav / tab clicks to dismiss any open sheet
+    document.querySelectorAll('.bottom-nav-item, .header-tab').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.bottom-sheet').forEach(s => s.classList.remove('open'));
+        const ov = $('#globalOverlay');
+        if (ov) ov.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // Storage listener to refresh profile and orders across tabs
+    window.addEventListener('storage', function(e) {
+      if (e.key === 'bp_user_balances' || e.key === 'bp_p2p_orders' || e.key === 'bp_user_profile') {
+        renderProfileWalletBalances();
+        if (typeof renderOrdersHistory === 'function') renderOrdersHistory();
+      }
+    });
+
+    // --- CHANGE 8: INITIALIZATION FOR NEW COMPONENTS ---
+    renderGroupedPaymentOptions('');
+    renderProfileWalletBalances();
+
     fetchLiveRates();
     renderOrdersHistory();
     renderProfilePaymentMethods();
@@ -2748,6 +3635,1383 @@ Reply directly to this message or send "#${order.id} <your message>" to chat bac
         renderActiveOrder();
       }
     } catch (e) {}
+
+    /* ===== PATCH v2 ===== */
+    // §2 Amount Overflow Helpers & Wrappers
+    function fitTextToBox(el, minPx = 11, maxPx = 22) {
+      if (!el) return;
+      let px = maxPx;
+      el.style.fontSize = px + 'px';
+      const boxW = el.clientWidth || el.parentElement?.clientWidth || 0;
+      if (!boxW) return;
+      while (el.scrollWidth > boxW && px > minPx) {
+        px -= 1;
+        el.style.fontSize = px + 'px';
+      }
+    }
+    function fitAllAmountFields() {
+      ['ordDisp1', 'ordDisp2', 'expressBuyPayAmt', 'expressSellPayAmt', 'expressBuyRecAmt', 'expressSellRecAmt', 'ordInputAmt'].forEach(id => fitTextToBox(document.getElementById(id), 11, 22));
+      document.querySelectorAll('.amount-highlight-box .val').forEach(el => fitTextToBox(el, 11, 22));
+    }
+    document.addEventListener('input', e => {
+      if (['ordInputAmt', 'expressBuyPayAmt', 'expressSellPayAmt', 'expressBuyRecAmt', 'expressSellRecAmt'].includes(e.target.id)) fitTextToBox(e.target, 13, 20);
+    });
+    window.addEventListener('resize', fitAllAmountFields);
+    document.addEventListener('DOMContentLoaded', fitAllAmountFields);
+    (function() {
+      const _wrap = n => {
+        const orig = window[n];
+        if (typeof orig !== 'function') return;
+        window[n] = function(...a) {
+          const r = orig.apply(this, a);
+          try { fitAllAmountFields(); } catch(e) {}
+          return r;
+        };
+      };
+      ['applyFiltersAndRender', 'renderOrdersHistory', 'updateExpressCalculations', 'renderActiveOrder', 'openOrderModal'].forEach(_wrap);
+    })();
+
+    // §3 Wallet & User ID Helpers
+    function getWalletBalance(sym) {
+      const b = getUserBalances() || {};
+      return Number(b[sym] || 0);
+    }
+    function getOrCreateUserId() {
+      let id = localStorage.getItem('bp_user_id');
+      if (!id) {
+        id = 'u_' + (crypto?.randomUUID ? crypto.randomUUID() : (Date.now() + '_' + Math.random().toString(36).slice(2)));
+        localStorage.setItem('bp_user_id', id);
+      }
+      return id;
+    }
+
+    // §4 Orders Storage Helpers
+    function getOrders() {
+      try {
+        const raw = localStorage.getItem('bp_p2p_orders');
+        const arr = raw ? JSON.parse(raw) : [];
+        return Array.isArray(arr) ? arr : [];
+      } catch(e) {
+        return [];
+      }
+    }
+    function saveOrders(arr) {
+      try {
+        localStorage.setItem('bp_p2p_orders', JSON.stringify(arr || []));
+      } catch(e) {}
+    }
+
+    // Â§14 Decimals Configuration & Formatter (initialized above to prevent TDZ)
+
+    // §8 Countdown Timer Helper
+    function tickCountdowns() {
+      const strip = document.getElementById('countdownStrip');
+      if (!strip || !state.activeOrder) return;
+      const lines = [];
+      (state.activeOrder.systemDeadlines || []).forEach(d => {
+        const left = Math.max(0, Math.floor((d.endsAt - Date.now()) / 1000));
+        const mm = String(Math.floor(left / 60)).padStart(2, '0');
+        const ss = String(left % 60).padStart(2, '0');
+        lines.push('<div style="font-size:12px;font-weight:700;color:' + (left === 0 ? 'var(--red-500)' : 'var(--navy-900)') + ';background:var(--navy-50);border:1px solid var(--gray-200);border-radius:8px;padding:8px 10px;">' + d.label + ' · <span style="font-family:monospace;font-size:13px;">' + mm + ':' + ss + '</span></div>');
+      });
+      strip.innerHTML = lines.join('');
+    }
+
+    // §13 Release Order & Storage Credit Listener
+    function releaseOrderToBuyer(order) {
+      if (!order || order.status === 'Completed') return;
+      const asset = order.crypto;
+      const amount = Number(order.cryptoAmount) || 0;
+      const bals = getUserBalances();
+      bals[asset] = Number(bals[asset] || 0) + amount;
+      localStorage.setItem('bp_user_balances', JSON.stringify(bals));
+      order.status = 'Completed';
+      order.completedAt = Date.now();
+      order.timeline = order.timeline || [];
+      order.timeline.push({ status: 'Completed', ts: Date.now(), actor: 'merchant' });
+      saveOrderToHistory(order);
+      syncOrderStorage(order);
+      if (state.activeOrder && state.activeOrder.id === order.id) {
+        state.activeOrder = order;
+        const btn = document.getElementById('confirmPaidBtn');
+        if (btn) {
+          btn.textContent = 'Completed';
+          btn.disabled = true;
+        }
+      }
+      if (typeof renderProfileWalletBalances === 'function') renderProfileWalletBalances();
+    }
+    window.addEventListener('storage', e => {
+      if (e.key !== 'bp_p2p_orders') return;
+      try {
+        const arr = JSON.parse(e.newValue || '[]');
+        const completed = arr.filter(o => o.status === 'Completed');
+        const bals = getUserBalances();
+        let changed = false;
+        completed.forEach(o => {
+          const key = 'bp_credited_' + o.id;
+          if (!localStorage.getItem(key)) {
+            const amt = Number(o.cryptoAmount) || 0;
+            bals[o.crypto] = Number(bals[o.crypto] || 0) + amt;
+            localStorage.setItem(key, '1');
+            changed = true;
+          }
+        });
+        if (changed) {
+          localStorage.setItem('bp_user_balances', JSON.stringify(bals));
+          renderProfileWalletBalances();
+        }
+      } catch(err) {}
+    });
+
+    // §5 Post Ad Balance Gate + Edit + Appear on P2P
+    (function() {
+      const btn = document.getElementById('submitNewAdBtn');
+      if (btn) {
+        const newBtn = btn.cloneNode(true);
+        btn.parentNode.replaceChild(newBtn, btn);
+        newBtn.addEventListener('click', () => {
+          const asset = document.getElementById('adAssetSelect').value;
+          const fiat = document.getElementById('adFiatSelect').value;
+          const price = parseFloat(document.getElementById('adUnitPrice').value);
+          const min = parseFloat(document.getElementById('adMinLimit').value);
+          const max = parseFloat(document.getElementById('adMaxLimit').value);
+          const methods = document.getElementById('adMethods').value.trim();
+          const adEscrowAddr = document.getElementById('adEscrowAddr').value.trim();
+
+          // Ensure inline error container exists
+          let inlineErr = document.getElementById('adInlineError');
+          if (!inlineErr) {
+            inlineErr = document.createElement('div');
+            inlineErr.id = 'adInlineError';
+            inlineErr.style.cssText = 'color:var(--red-500);font-size:12px;font-weight:700;margin-top:6px;';
+            newBtn.parentElement.insertBefore(inlineErr, newBtn);
+          }
+          inlineErr.textContent = '';
+
+          // (a) Validate
+          if (!price || !min || !max || !methods) {
+            inlineErr.textContent = 'Please complete all advertisement fields.';
+            showToast('Please complete all advertisement fields.');
+            return;
+          }
+
+          // (b) Balance gate
+          if (currentAdSide === 'sell') {
+            if (getWalletBalance(asset) < min) {
+              inlineErr.textContent = 'Insufficient ' + asset + ' balance. Deposit first.';
+              showToast('Insufficient ' + asset + ' balance. Deposit first.');
+              return;
+            }
+          } else if (currentAdSide === 'buy') {
+            if (getWalletBalance(fiat) < min) {
+              inlineErr.textContent = 'Insufficient ' + asset + ' balance. Deposit first.';
+              showToast('Insufficient ' + asset + ' balance. Deposit first.');
+              return;
+            }
+          }
+
+          // (c) Success
+          let ads = JSON.parse(localStorage.getItem('bp_my_p2p_ads') || '[]');
+          const merchants = JSON.parse(localStorage.getItem('bp_merchants') || '{}');
+          if (!merchants[fiat]) merchants[fiat] = [];
+
+          let adId = window.editingAdId;
+          if (adId) {
+            const existingAd = ads.find(x => x.id === adId);
+            if (existingAd) {
+              existingAd.side = currentAdSide;
+              existingAd.asset = asset;
+              existingAd.fiat = fiat;
+              existingAd.price = price;
+              existingAd.min = min;
+              existingAd.max = max;
+              existingAd.methods = methods;
+              existingAd.escrowAddr = adEscrowAddr;
+            }
+            // Update bp_merchants in place
+            Object.keys(merchants).forEach(k => {
+              merchants[k] = merchants[k].filter(m => m.id !== adId);
+            });
+            merchants[fiat].push({
+              id: adId,
+              name: getUserProfile().name || 'You (Published Offer)',
+              initial: '★',
+              verified: true,
+              isOnline: true,
+              trades: 0,
+              completion: 100,
+              time: '15 min',
+              currencies: [fiat],
+              methods: methods.split(',').map(s => s.trim()),
+              escrowAddr: adEscrowAddr || 'TTx882KLa92mZbQpP004NqK599eL',
+              bond: 10000
+            });
+          } else {
+            adId = 'ad_' + (crypto?.randomUUID ? crypto.randomUUID() : Date.now());
+            const newAd = {
+              id: adId,
+              ownerId: getOrCreateUserId(),
+              status: 'active',
+              createdAt: new Date().toISOString(),
+              side: currentAdSide,
+              asset,
+              fiat,
+              price,
+              min,
+              max,
+              methods,
+              escrowAddr: adEscrowAddr
+            };
+            ads.unshift(newAd);
+            merchants[fiat].push({
+              id: adId,
+              name: getUserProfile().name || 'You (Published Offer)',
+              initial: '★',
+              verified: true,
+              isOnline: true,
+              trades: 0,
+              completion: 100,
+              time: '15 min',
+              currencies: [fiat],
+              methods: methods.split(',').map(s => s.trim()),
+              escrowAddr: adEscrowAddr || 'TTx882KLa92mZbQpP004NqK599eL',
+              bond: 10000
+            });
+          }
+
+          localStorage.setItem('bp_my_p2p_ads', JSON.stringify(ads));
+          localStorage.setItem('bp_merchants', JSON.stringify(merchants));
+          allMerchants = loadMerchants();
+          applyFiltersAndRender();
+          closeSheet('createAdModal');
+          renderMyAds();
+          window.editingAdId = null;
+          newBtn.textContent = 'Publish Advertisement';
+          showToast('Advertisement published to marketplace!');
+        });
+      }
+    })();
+
+    // Override renderMyAds to include Edit, Pause/Activate, Delete buttons
+    renderMyAds = function() {
+      const list = $('#myAdsList');
+      const ads = JSON.parse(localStorage.getItem('bp_my_p2p_ads') || '[]');
+      if ($('#myAdsCount')) $('#myAdsCount').textContent = `${ads.length} Published`;
+      if (!list) return;
+
+      if (ads.length === 0) {
+        list.innerHTML = `<div style="text-align:center;padding:35px;background:#fff;border-radius:16px;color:var(--gray-500);font-size:13px;">You have no active advertisements. Tap "+ Post Ad" to create one.</div>`;
+        return;
+      }
+
+      list.innerHTML = ads.map(a => `
+        <div class="offer-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <strong>${a.side.toUpperCase()} ${a.asset}</strong>
+            <span style="font-size:11px;font-weight:800;color:${a.status === 'paused' ? 'var(--gray-400)' : 'var(--green-500)'};">● ${a.status === 'paused' ? 'Paused' : 'Active'}</span>
+          </div>
+          <div style="font-size:20px;font-weight:800;">${fiatSym(a.fiat)}${formatNum(a.price, 2)} / ${a.asset}</div>
+          <div style="font-size:12px;color:var(--gray-500);">Limit: ${fiatSym(a.fiat)}${a.min} - ${fiatSym(a.fiat)}${a.max} · ${a.methods}</div>
+          <div style="display:flex;gap:8px;margin-top:10px;">
+            <button class="view-profile" style="flex:1;" onclick="openEditAd('${a.id}')">Edit</button>
+            <button class="view-profile" style="flex:1;" onclick="pauseMyAd('${a.id}')">${a.status === 'paused' ? 'Activate' : 'Pause'}</button>
+            <button class="view-profile" style="flex:1;color:var(--red-500);" onclick="deleteMyAd('${a.id}')">Delete</button>
+          </div>
+        </div>
+      `).join('');
+    };
+
+    window.openEditAd = function(id) {
+      const ads = JSON.parse(localStorage.getItem('bp_my_p2p_ads') || '[]');
+      const a = ads.find(x => x.id === id);
+      if (!a) return;
+      document.getElementById('adAssetSelect').value = a.asset;
+      document.getElementById('adFiatSelect').innerHTML = CURRENCIES.map(c => '<option value="' + c.code + '"' + (c.code === a.fiat ? ' selected' : '') + '>' + c.code + ' (' + c.name + ')</option>').join('');
+      document.getElementById('adUnitPrice').value = a.price;
+      document.getElementById('adMinLimit').value = a.min;
+      document.getElementById('adMaxLimit').value = a.max;
+      document.getElementById('adMethods').value = a.methods;
+      document.getElementById('adEscrowAddr').value = a.escrowAddr || '';
+      currentAdSide = a.side;
+      document.querySelectorAll('#adSideToggle .express-subtab').forEach(b => b.classList.toggle('active', b.dataset.adside === a.side));
+      window.editingAdId = id;
+      const btn = document.getElementById('submitNewAdBtn');
+      if (btn) btn.textContent = 'Save Changes';
+      openSheet('createAdModal');
+    };
+
+    window.pauseMyAd = function(id) {
+      const ads = JSON.parse(localStorage.getItem('bp_my_p2p_ads') || '[]');
+      const a = ads.find(x => x.id === id);
+      if (!a) return;
+      a.status = a.status === 'paused' ? 'active' : 'paused';
+      localStorage.setItem('bp_my_p2p_ads', JSON.stringify(ads));
+      const merchants = JSON.parse(localStorage.getItem('bp_merchants') || '{}');
+      Object.keys(merchants).forEach(k => {
+        merchants[k] = merchants[k].filter(m => m.id !== id);
+        if (a.status === 'active' && k === a.fiat) {
+          merchants[k].push({
+            id: a.id,
+            name: getUserProfile().name || 'You (Published Offer)',
+            initial: '★',
+            verified: true,
+            isOnline: true,
+            trades: 0,
+            completion: 100,
+            time: '15 min',
+            currencies: [a.fiat],
+            methods: a.methods.split(',').map(s => s.trim()),
+            escrowAddr: a.escrowAddr || 'TTx882KLa92mZbQpP004NqK599eL',
+            bond: 10000
+          });
+        }
+      });
+      localStorage.setItem('bp_merchants', JSON.stringify(merchants));
+      allMerchants = loadMerchants();
+      applyFiltersAndRender();
+      renderMyAds();
+    };
+
+    window.deleteMyAd = function(id) {
+      let ads = JSON.parse(localStorage.getItem('bp_my_p2p_ads') || '[]');
+      ads = ads.filter(x => x.id !== id);
+      localStorage.setItem('bp_my_p2p_ads', JSON.stringify(ads));
+      const merchants = JSON.parse(localStorage.getItem('bp_merchants') || '{}');
+      Object.keys(merchants).forEach(k => {
+        merchants[k] = merchants[k].filter(m => m.id !== id);
+      });
+      localStorage.setItem('bp_merchants', JSON.stringify(merchants));
+      allMerchants = loadMerchants();
+      applyFiltersAndRender();
+      renderMyAds();
+    };
+  
+    /* ===== PATCH v5 FINAL ===== */
+    (function wireBackButtonV5() {
+      const attach = () => {
+        const btn = document.getElementById('backBtn');
+        if (!btn) { setTimeout(attach, 200); return; }
+        btn.onclick = null;
+        btn.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          try { window.location.assign('index.html'); }
+          catch (_) { window.location.href = 'index.html'; }
+        }, true);
+        let p = btn;
+        while (p && p !== document.body) {
+          if (getComputedStyle(p).pointerEvents === 'none') p.style.pointerEvents = 'auto';
+          p = p.parentElement;
+        }
+      };
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', attach);
+      else attach();
+    })();
+
+    const BUY_ORDER_MAX_USD = 20000;
+    function applyBuyMaxWarning() {
+      if (state.p2pMode !== 'buy') {
+        const w = document.getElementById('ordBuyMaxWarn'); if (w) w.style.display = 'none';
+        return;
+      }
+      const inp = document.getElementById('ordInputAmt');
+      const warn = document.getElementById('ordBuyMaxWarn');
+      if (!inp || !warn) return;
+      const fx = (CURRENCIES.find(c => c.code === state.fiat) || { fxMultiplier: 1 }).fxMultiplier || 1;
+      const capLocal = BUY_ORDER_MAX_USD * fx;
+      const val = parseFloat(inp.value) || 0;
+      if (val > capLocal) {
+        inp.value = capLocal;
+        inp.dispatchEvent(new Event('input'));
+        warn.style.display = 'block';
+        showToast('Maximum $20,000 per order. Amount capped.');
+      } else {
+        warn.style.display = 'none';
+      }
+    }
+    (function finalBuyCapGuardV5() {
+      document.addEventListener('click', function (e) {
+        const btn = e.target && e.target.closest && e.target.closest('#ordConfirmBtn');
+        if (!btn || state.p2pMode !== 'buy') return;
+        const inp = document.getElementById('ordInputAmt');
+        if (!inp) return;
+        const raw = parseFloat(inp.value) || 0;
+        const fx = (CURRENCIES.find(c => c.code === state.fiat) || { fxMultiplier: 1 }).fxMultiplier || 1;
+        const capLocal = 20000 * fx;
+        if (raw > capLocal) {
+          inp.value = capLocal.toFixed(2);
+          const w = document.getElementById('ordBuyMaxWarn');
+          if (w) w.style.display = 'block';
+          try { showToast('Maximum $20,000 per order. Amount capped.'); } catch (_) {}
+          e.preventDefault();
+          e.stopPropagation();
+          inp.dispatchEvent(new Event('input'));
+        }
+      }, true);
+    })();
+
+    (function expressLiveReceiveV5() {
+      const hook = (id) => {
+        const el = document.getElementById(id);
+        if (!el || el.dataset.v5Hooked) return;
+        el.dataset.v5Hooked = '1';
+        ['input', 'change', 'keyup', 'paste'].forEach(ev =>
+          el.addEventListener(ev, () => { try { updateExpressCalculations(); } catch (_) {} })
+        );
+      };
+      ['expressBuyPayAmt', 'expressSellPayAmt'].forEach(hook);
+    })();
+    (function expressRepaintOnTabV5() {
+      document.addEventListener('click', function (e) {
+        const btn = e.target && e.target.closest && e.target.closest('#expressSideToggle .express-subtab');
+        if (!btn) return;
+        setTimeout(() => { try { updateExpressCalculations(); } catch (_) {} }, 50);
+      }, true);
+    })();
+    (function expressPaintOnViewV5() {
+      const orig = window.switchMainView;
+      if (typeof orig === 'function') {
+        window.switchMainView = function (id, opts) {
+          const r = orig.apply(this, arguments);
+          if (id === 'express') { try { updateExpressCalculations(); } catch (_) {} }
+          return r;
+        };
+      }
+    })();
+
+    (function enhanceOfferCardsV5() {
+      const orig = window.renderOfferPage;
+      if (typeof orig !== 'function') return;
+      window.renderOfferPage = function () {
+        orig.apply(this, arguments);
+        try {
+          const cards = document.querySelectorAll('#offerList .offer-card');
+          const isBuy = state.p2pMode === 'buy';
+          cards.forEach((card, i) => {
+            const o = state.filteredOffers[i];
+            if (!o || card.querySelector('.offer-preview')) return;
+            const sym = fiatSym();
+            const sample = o.limitMin || 50;
+            const preview = document.createElement('div');
+            preview.className = 'offer-preview';
+            preview.style.cssText = 'margin-top:8px;padding:8px 10px;background:var(--gold-100);border:1px dashed var(--gold-400);border-radius:8px;font-size:11.5px;font-weight:700;color:var(--navy-900);display:flex;justify-content:space-between;align-items:center;';
+            const leftTxt = isBuy
+              ? 'Spend ' + sym + formatNum(sample, 0) + ' → get'
+              : 'Sell ' + fmtAmount(state.crypto, sample / (o.price || 1)) + ' ' + state.crypto + ' → get';
+            const rightTxt = isBuy
+              ? fmtAmount(state.crypto, sample / (o.price || 1)) + ' ' + state.crypto
+              : sym + formatNum(sample, 0);
+            preview.innerHTML = '<span>' + leftTxt + '</span><span style="font-size:13px;color:var(--green-600);">' + rightTxt + '</span>';
+            const priceRow = card.querySelector('.offer-price');
+            if (priceRow && priceRow.parentElement) priceRow.parentElement.insertBefore(preview, priceRow.nextSibling);
+          });
+        } catch (_) {}
+      };
+    })();
+
+    setInterval(function () {
+      try {
+        if (state.activeOrder) return;
+        const v = document.getElementById('view-p2p');
+        if (v && v.classList.contains('active')) fitAllAmountFields();
+      } catch (_) {}
+    }, 8000);
+  
+/* ===== P2P COMPLETE FUNCTIONALITY ENGINE (EXPRESS, TRADING, ADS, WALLET, ORDERS) ===== */
+
+// --- 1. TELEGRAM NOTIFICATIONS ENHANCEMENT & DEDUPLICATION ---
+var _sentTgNotifs = {};
+var _origNotifyTelegramOrder = typeof notifyTelegramOrder === 'function' ? notifyTelegramOrder : null;
+notifyTelegramOrder = async function(order, actionType = 'OPENED', customDetail = '') {
+  if (!order || !order.id) return;
+  const dedupeKey = order.id + '_' + actionType;
+  if (actionType !== 'CHAT' && _sentTgNotifs[dedupeKey]) return;
+  if (actionType !== 'CHAT') _sentTgNotifs[dedupeKey] = true;
+
+  try {
+    const confStr = localStorage.getItem('bp_telegram_config');
+    if (!confStr) return;
+    const tg = JSON.parse(confStr);
+    if (!tg.enabled || !tg.token || !tg.chatId) return;
+
+    let title = '🤝 NEW P2P ESCROW TRADE';
+    let detail = 'Order opened and locked in BluePeak Multi-Sig Escrow.';
+
+    if (actionType === 'PAID') {
+      title = '💰 BUYER MARKED ORDER AS PAID';
+      detail = 'Customer confirmed payment transfer. Verify bank receipt and release crypto escrow.';
+    } else if (actionType === 'COMPLETED' || actionType === 'RELEASED') {
+      title = '✅ P2P TRADE COMPLETED & ESCROW RELEASED';
+      detail = 'Escrow funds successfully released and credited to trader wallet.';
+    } else if (actionType === 'CANCELLED') {
+      title = '❌ P2P TRADE CANCELLED';
+      detail = 'Trade has been cancelled. Funds returned to wallet.';
+    } else if (actionType === 'CHAT') {
+      title = '💬 NEW P2P CHAT MESSAGE';
+      detail = 'Message: ' + customDetail;
+    } else if (actionType === 'PROOF') {
+      title = '📎 PAYMENT PROOF UPLOADED';
+      detail = 'Buyer uploaded bank receipt. Counterparty 20-min window active.';
+    } else if (actionType === 'DISPUTE') {
+      title = '🚩 P2P ESCROW DISPUTE OPENED';
+      detail = 'Mediation requested. Awaiting administrator review.';
+    }
+
+    const sym = fiatSym(order.fiat);
+    const msgText = `${title}\n───────────────────────\nOrder ID: #${order.id}\nType: ${(order.side || order.mode || 'BUY').toUpperCase()} ${order.crypto}\nFiat Amount: ${sym}${order.fiatAmount} ${order.fiat}\nCrypto Quantity: ${order.cryptoAmount} ${order.crypto}\nCounterparty: ${order.merchantName || 'BluePeak Desk'}\nTrader Name: ${order.userName || 'P2P Trader'}\nStatus: ${order.status}\nNotice: ${detail}\n───────────────────────\nBluePeak Institutional Escrow Desk`;
+
+    await fetch(`https://api.telegram.org/bot${tg.token}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: tg.chatId, text: msgText })
+    });
+  } catch (_) {}
+};
+window.notifyTelegramOrder = notifyTelegramOrder;
+
+// --- SAFE WRAPPER FOR SYNC ORDER STORAGE ---
+var _origSyncOrderStorage = typeof syncOrderStorage === 'function' ? syncOrderStorage : null;
+syncOrderStorage = function(order) {
+  if (order) {
+    if (!Array.isArray(order.messages)) {
+      try {
+        order.messages = JSON.parse(localStorage.getItem('bp_p2p_chat_' + order.id) || '[]');
+      } catch (_) {
+        order.messages = [];
+      }
+    }
+  }
+  if (typeof _origSyncOrderStorage === 'function') {
+    return _origSyncOrderStorage(order);
+  }
+};
+window.syncOrderStorage = syncOrderStorage;
+
+// --- 2. EXPRESS LIVE TWO-WAY CALCULATIONS & INSTANT MATCHING ---
+var _expressTypingSource = null;
+function updateExpressCalculations() {
+  const crypto = state.expressCrypto || 'USDT';
+  const fiat = state.expressFiat || 'USD';
+  const rate = getCryptoFiatRate(crypto, fiat);
+  const sym = fiatSym(fiat);
+  const decimals = (crypto === 'BTC' || fiat === 'NGN' || fiat === 'TZS') ? 0 : 2;
+
+  // Buy side
+  const buyPayInp = document.getElementById('expressBuyPayAmt');
+  const buyRecInp = document.getElementById('expressBuyRecAmt');
+  const buyRateLbl = document.getElementById('expressBuyRateLabel');
+  if (buyRateLbl) {
+    buyRateLbl.textContent = '1 ' + crypto + ' ≈ ' + sym + formatNum(rate, decimals) + ' ' + fiat;
+  }
+  if (buyPayInp && buyRecInp) {
+    if (_expressTypingSource === 'buyRec') {
+      const recVal = parseFloat(buyRecInp.value) || 0;
+      buyPayInp.value = rate > 0 ? (recVal * rate).toFixed(2) : '0.00';
+    } else {
+      const payVal = parseFloat(buyPayInp.value) || 0;
+      const rec = rate > 0 ? payVal / rate : 0;
+      buyRecInp.value = fmtAmount(crypto, rec);
+    }
+  }
+
+  // Sell side
+  const sellPayInp = document.getElementById('expressSellPayAmt');
+  const sellRecInp = document.getElementById('expressSellRecAmt');
+  const sellRateLbl = document.getElementById('expressSellRateLabel');
+  const effectiveSellRate = rate * 0.992;
+  if (sellRateLbl) {
+    sellRateLbl.textContent = '1 ' + crypto + ' ≈ ' + sym + formatNum(effectiveSellRate, decimals) + ' ' + fiat;
+  }
+  if (sellPayInp && sellRecInp) {
+    if (_expressTypingSource === 'sellRec') {
+      const recVal = parseFloat(sellRecInp.value) || 0;
+      const payVal = effectiveSellRate > 0 ? recVal / effectiveSellRate : 0;
+      sellPayInp.value = fmtAmount(crypto, payVal);
+    } else {
+      const payVal = parseFloat(sellPayInp.value) || 0;
+      const rec = payVal * effectiveSellRate;
+      sellRecInp.value = rec.toFixed(decimals);
+    }
+  }
+
+  // Update balance hints
+  const buyBalHint = document.getElementById('expressBuyBalHint');
+  const sellBalHint = document.getElementById('expressSellBalHint');
+  const bal = getWalletBalance(crypto);
+  if (buyBalHint) buyBalHint.textContent = 'Bal: ' + fmtAmount(crypto, bal) + ' ' + crypto;
+  if (sellBalHint) sellBalHint.textContent = 'Available: ' + fmtAmount(crypto, bal) + ' ' + crypto;
+}
+window.updateExpressCalculations = updateExpressCalculations;
+
+// Attach two-way listeners for express inputs
+(function wireExpressTwoWayInputs() {
+  const attach = () => {
+    const buyPay = document.getElementById('expressBuyPayAmt');
+    const buyRec = document.getElementById('expressBuyRecAmt');
+    const sellPay = document.getElementById('expressSellPayAmt');
+    const sellRec = document.getElementById('expressSellRecAmt');
+
+    if (buyPay && !buyPay.dataset.twoWay) {
+      buyPay.dataset.twoWay = '1';
+      ['input', 'change', 'keyup'].forEach(ev => buyPay.addEventListener(ev, () => {
+        _expressTypingSource = 'buyPay';
+        updateExpressCalculations();
+      }));
+    }
+    if (buyRec && !buyRec.dataset.twoWay) {
+      buyRec.dataset.twoWay = '1';
+      ['input', 'change', 'keyup'].forEach(ev => buyRec.addEventListener(ev, () => {
+        _expressTypingSource = 'buyRec';
+        updateExpressCalculations();
+      }));
+    }
+    if (sellPay && !sellPay.dataset.twoWay) {
+      sellPay.dataset.twoWay = '1';
+      ['input', 'change', 'keyup'].forEach(ev => sellPay.addEventListener(ev, () => {
+        _expressTypingSource = 'sellPay';
+        updateExpressCalculations();
+      }));
+    }
+    if (sellRec && !sellRec.dataset.twoWay) {
+      sellRec.dataset.twoWay = '1';
+      ['input', 'change', 'keyup'].forEach(ev => sellRec.addEventListener(ev, () => {
+        _expressTypingSource = 'sellRec';
+        updateExpressCalculations();
+      }));
+    }
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', attach);
+  else attach();
+})();
+
+// Guaranteed Express Matching Offer Fallback
+function getGuaranteedExpressOffer(isBuy, crypto, fiat) {
+  let offer = (state.filteredOffers || [])[0];
+  if (!offer) {
+    const rate = getCryptoFiatRate(crypto, fiat);
+    offer = {
+      id: 'express_desk_' + crypto.toLowerCase() + '_' + fiat.toLowerCase(),
+      isExpressDesk: true,
+      price: isBuy ? rate * 1.002 : rate * 0.992,
+      limitMin: 10,
+      limitMax: 50000,
+      methods: ['Bank Transfer', 'M-Pesa', 'Wise', 'Instant Card'],
+      timeWindow: 15,
+      merchant: {
+        id: 'bp_instant_desk',
+        name: 'BluePeak Instant Liquidity Desk',
+        initial: '⚡',
+        verified: true,
+        isOnline: true,
+        trades: 5240,
+        completion: 100,
+        bond: 50000,
+        escrowAddr: getAdminEscrowAddress(crypto, 'TTx882KLa92mZbQpP004NqK599eL')
+      }
+    };
+  }
+  return offer;
+}
+
+// Enhance Express Buy Button
+(function wireExpressExecutionButtons() {
+  const attach = () => {
+    const buyBtn = document.getElementById('executeExpressBuyBtn');
+    if (buyBtn && !buyBtn.dataset.v6Hooked) {
+      buyBtn.dataset.v6Hooked = '1';
+      buyBtn.onclick = (e) => {
+        e.preventDefault();
+        const val = parseFloat(document.getElementById('expressBuyPayAmt')?.value) || 0;
+        if (!val || val <= 0) {
+          showToast('Please enter an amount to buy.');
+          return;
+        }
+        state.p2pMode = 'buy';
+        state.fiat = state.expressFiat || 'USD';
+        state.crypto = state.expressCrypto || 'USDT';
+        applyFiltersAndRender();
+
+        const offer = getGuaranteedExpressOffer(true, state.crypto, state.fiat);
+        switchMainView('p2p');
+        openOrderModal(offer.id);
+        setTimeout(() => {
+          const inp = document.getElementById('ordInputAmt');
+          if (inp) {
+            inp.value = val;
+            inp.dispatchEvent(new Event('input'));
+          }
+        }, 300);
+      };
+    }
+
+    const sellBtn = document.getElementById('executeExpressSellBtn');
+    if (sellBtn && !sellBtn.dataset.v6Hooked) {
+      sellBtn.dataset.v6Hooked = '1';
+      sellBtn.onclick = (e) => {
+        e.preventDefault();
+        const val = parseFloat(document.getElementById('expressSellPayAmt')?.value) || 0;
+        if (!val || val <= 0) {
+          showToast('Please enter crypto quantity to sell.');
+          return;
+        }
+        const currentBal = getWalletBalance(state.expressCrypto || 'USDT');
+        if (val > currentBal) {
+          showToast('Insufficient wallet balance (' + currentBal + ' ' + state.expressCrypto + '). Deposit or switch to external wallet.');
+          return;
+        }
+        state.p2pMode = 'sell';
+        state.fiat = state.expressFiat || 'USD';
+        state.crypto = state.expressCrypto || 'USDT';
+        applyFiltersAndRender();
+
+        const offer = getGuaranteedExpressOffer(false, state.crypto, state.fiat);
+        switchMainView('p2p');
+        openOrderModal(offer.id);
+        setTimeout(() => {
+          const inp = document.getElementById('ordInputAmt');
+          if (inp) {
+            inp.value = val;
+            inp.dispatchEvent(new Event('input'));
+          }
+        }, 300);
+      };
+    }
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', attach);
+  else attach();
+})();
+
+// --- 3. COMPLETE P2P BUY & SELL TRANSACTION LIFECYCLE ---
+function completeOrderAndRelease(orderId) {
+  let order = (state.activeOrder && state.activeOrder.id === orderId) ? state.activeOrder : null;
+  const orders = getOrders();
+  const stored = orders.find(x => x.id === orderId);
+  order = order || stored;
+  if (!order || order.status === 'Completed') return;
+
+  order.status = 'Completed';
+  order.completedAt = Date.now();
+  order.timeline = order.timeline || [];
+  order.timeline.push({ status: 'Completed', ts: Date.now(), actor: order.mode === 'buy' ? 'merchant' : 'seller' });
+
+  // If Buy trade: credit buyer's wallet balance
+  if (order.mode === 'buy' || order.side === 'Buy') {
+    const asset = order.crypto;
+    const amount = Number(order.cryptoAmount) || 0;
+    const bals = getUserBalances();
+    bals[asset] = Number(bals[asset] || 0) + amount;
+    localStorage.setItem('bp_user_balances', JSON.stringify(bals));
+    localStorage.setItem('bp_credited_' + order.id, '1');
+  }
+
+  saveOrderToHistory(order);
+  syncOrderStorage(order);
+  notifyTelegramOrder(order, 'COMPLETED');
+
+  if (state.activeOrder && state.activeOrder.id === order.id) {
+    state.activeOrder = order;
+    renderActiveOrder();
+  }
+  renderProfileWalletBalances();
+  renderOrdersHistory();
+  showToast('Trade completed successfully! Escrow released.');
+}
+window.completeOrderAndRelease = completeOrderAndRelease;
+
+// Wrap saveOrderToHistory to ensure side and price are always captured accurately
+var _origSaveOrderToHistory = typeof saveOrderToHistory === 'function' ? saveOrderToHistory : null;
+saveOrderToHistory = function(order) {
+  if (!order) return;
+  order.side = order.side || (order.mode === 'buy' ? 'Buy' : 'Sell');
+  order.mode = order.mode || (order.side === 'Buy' ? 'buy' : 'sell');
+  if (!order.price && order.offer && order.offer.price) order.price = order.offer.price;
+  if (!order.price && order.fiatAmount && order.cryptoAmount) {
+    order.price = (Number(order.fiatAmount) / Number(order.cryptoAmount)).toFixed(2);
+  }
+  if (_origSaveOrderToHistory) {
+    _origSaveOrderToHistory(order);
+  } else {
+    try {
+      let list = JSON.parse(localStorage.getItem('bp_p2p_orders') || '[]');
+      const idx = list.findIndex(x => x.id === order.id);
+      if (idx >= 0) list[idx] = Object.assign({}, list[idx], order);
+      else list.unshift(order);
+      localStorage.setItem('bp_p2p_orders', JSON.stringify(list));
+    } catch (_) {}
+  }
+};
+window.saveOrderToHistory = saveOrderToHistory;
+
+// Override submitPaymentProof for robust Buy confirmation & simulated release
+var _origSubmitPaymentProof = window.submitPaymentProof;
+window.submitPaymentProof = function() {
+  if (!state.activeOrder) return;
+  const o = state.activeOrder;
+  const note = document.getElementById('proofRefNote') ? document.getElementById('proofRefNote').value.trim() : '';
+
+  o.proof = {
+    name: selectedProofName || 'payment_receipt.jpg',
+    dataUrl: selectedProofBase64 || null,
+    note: note,
+    uploadedAt: new Date().toISOString()
+  };
+
+  o.status = 'Paid';
+  o.timeLeft = 20 * 60;
+  o.confirmDeadline = Date.now() + 20 * 60 * 1000;
+  o.paidAt = Date.now();
+  o.timeline = o.timeline || [];
+  o.timeline.push({ status: 'Paid', ts: Date.now(), actor: 'buyer' });
+
+  const nowTime = new Date().toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
+  o.messages.push({
+    sender: 'system',
+    senderName: 'BluePeak Escrow',
+    text: 'Payment proof uploaded. Awaiting merchant to confirm bank transfer.',
+    time: nowTime
+  });
+  o.messages.push({
+    sender: 'user',
+    senderName: o.userName || 'P2P Trader',
+    text: 'I have transferred the payment and uploaded the receipt' + (note ? ' (Ref: ' + note + ')' : '') + '. Please verify and release crypto escrow.',
+    time: nowTime
+  });
+
+  saveOrderToHistory(o);
+  syncOrderStorage(o);
+  notifyTelegramOrder(o, 'PROOF');
+  closeSheet('paymentProofModal');
+
+  // Update UI immediately
+  const btn = document.getElementById('confirmPaidBtn');
+  if (btn) {
+    btn.textContent = 'Awaiting Counterparty Confirmation';
+    btn.className = 'btn-solid-green';
+    btn.style.opacity = '0.85';
+  }
+  const banner = document.querySelector('.order-timer-banner h4');
+  if (banner) banner.textContent = 'Counterparty Confirmation Window';
+
+  const c = document.getElementById('chatContainer');
+  if (c) {
+    c.innerHTML = renderBubbles(o.messages);
+    c.scrollTop = c.scrollHeight;
+  }
+  showToast('Payment marked paid! Verifying with counterparty...');
+
+  // Counterparty automated release timer for simulated / demo sessions
+  if (o._autoReleaseTimer) clearTimeout(o._autoReleaseTimer);
+  o._autoReleaseTimer = setTimeout(() => {
+    if (!state.activeOrder || state.activeOrder.id !== o.id || state.activeOrder.status === 'Completed') return;
+    const replyTime = new Date().toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
+    state.activeOrder.messages.push({
+      sender: 'merchant',
+      senderName: o.merchantName || 'BluePeak Desk',
+      text: 'Payment verified and confirmed in bank account! Releasing ' + o.cryptoAmount + ' ' + o.crypto + ' from escrow to your wallet now. Thank you for trading with us!',
+      time: replyTime
+    });
+    completeOrderAndRelease(o.id);
+  }, 7000);
+};
+
+// Override executeOrderCancellation to refund escrow on cancelled internal sell
+var _origExecuteOrderCancellation = window.executeOrderCancellation;
+window.executeOrderCancellation = function() {
+  if (!state.activeOrder) return;
+  const o = state.activeOrder;
+
+  // If internal sell was locked in escrow, refund back to wallet balance
+  if (o.mode === 'sell' && o.srcType === 'internal' && o.escrowDeducted && !o.escrowRefunded) {
+    const bals = getUserBalances();
+    const amt = Number(o.cryptoAmount) || 0;
+    bals[o.crypto] = Number(bals[o.crypto] || 0) + amt;
+    localStorage.setItem('bp_user_balances', JSON.stringify(bals));
+    o.escrowRefunded = true;
+    renderProfileWalletBalances();
+  }
+
+  if (typeof _origExecuteOrderCancellation === 'function') {
+    _origExecuteOrderCancellation();
+  }
+};
+
+// Wrap renderActiveOrder to render Completed Celebration view & Seller Payout Controls
+var _origRenderActiveOrder = typeof renderActiveOrder === 'function' ? renderActiveOrder : null;
+renderActiveOrder = function() {
+  if (!state.activeOrder) return;
+  const o = state.activeOrder;
+  const isBuy = (o.mode === 'buy' || o.side === 'Buy');
+  const isCompleted = (o.status === 'Completed');
+  const sym = fiatSym(o.fiat);
+
+  if (_origRenderActiveOrder) _origRenderActiveOrder();
+
+  const mainContent = document.getElementById('p2pMainContent');
+  if (!mainContent) return;
+
+  // Completed View State
+  if (isCompleted) {
+    const completionHtml = `
+      <div class="active-order-panel" style="background:#fff;border-radius:20px;box-shadow:var(--shadow-md);padding:28px 24px;text-align:center;">
+        <div style="width:68px;height:68px;border-radius:50%;background:var(--green-100);color:var(--green-500);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 16px;">✓</div>
+        <h2 style="font-size:22px;font-weight:800;color:var(--navy-900);margin-bottom:8px;">Trade Completed Successfully!</h2>
+        <p style="font-size:14px;color:var(--gray-500);max-width:460px;margin:0 auto 20px;">
+          ${isBuy 
+            ? '<strong>' + o.cryptoAmount + ' ' + o.crypto + '</strong> has been released from escrow and deposited into your BluePeak wallet.' 
+            : 'Escrow for <strong>' + o.cryptoAmount + ' ' + o.crypto + '</strong> has been settled. Payout of <strong>' + sym + o.fiatAmount + ' ' + o.fiat + '</strong> confirmed.'}
+        </p>
+        <div style="background:var(--navy-50);border:1px solid var(--gray-200);border-radius:12px;padding:16px;max-width:480px;margin:0 auto 24px;display:grid;grid-template-columns:1fr 1fr;gap:12px;text-align:left;">
+          <div><span style="font-size:11px;color:var(--gray-500);">Order ID</span><div style="font-weight:800;font-size:13.5px;">#${o.id}</div></div>
+          <div><span style="font-size:11px;color:var(--gray-500);">Counterparty</span><div style="font-weight:800;font-size:13.5px;">${o.merchantName || 'BluePeak Desk'}</div></div>
+          <div><span style="font-size:11px;color:var(--gray-500);">Fiat Amount</span><div style="font-weight:800;font-size:13.5px;">${sym}${o.fiatAmount} ${o.fiat}</div></div>
+          <div><span style="font-size:11px;color:var(--gray-500);">Crypto Received</span><div style="font-weight:800;font-size:13.5px;color:var(--green-600);">${o.cryptoAmount} ${o.crypto}</div></div>
+        </div>
+        <div style="display:flex;gap:12px;justify-content:center;max-width:480px;margin:0 auto;flex-wrap:wrap;">
+          <button class="btn-solid-green" style="flex:1;min-width:180px;" onclick="switchMainView('orders')">View Orders History</button>
+          <button class="btn-solid-green" style="flex:1;min-width:180px;background:var(--navy-900);" onclick="returnToOffersFromCancel()">Trade More</button>
+        </div>
+      </div>
+    `;
+    mainContent.innerHTML = completionHtml;
+    return;
+  }
+
+  // Sell Order Actions & Counterparty Interaction
+  if (!isBuy) {
+    const actionGrid = document.querySelector('.action-buttons-grid');
+    if (actionGrid) {
+      if (o.status === 'Paid') {
+        actionGrid.innerHTML = `
+          <button class="btn-outline-danger" id="cancelBtn" onclick="openSheet('cancelReasonModal')">Cancel Trade</button>
+          <button class="btn-solid-green" id="sellerReleaseBtn" style="background:var(--green-500);animation:pulse 2s infinite;">Confirm Payment Received &amp; Release Crypto</button>
+        `;
+        const sBtn = document.getElementById('sellerReleaseBtn');
+        if (sBtn) {
+          sBtn.onclick = () => {
+            if (confirm('Please confirm: Have you verified the receipt of ' + sym + o.fiatAmount + ' ' + o.fiat + ' in your account? Once confirmed, crypto escrow is permanently released to the buyer.')) {
+              completeOrderAndRelease(o.id);
+            }
+          };
+        }
+      } else {
+        actionGrid.innerHTML = `
+          <button class="btn-outline-danger" id="cancelBtn" onclick="openSheet('cancelReasonModal')">Cancel Trade</button>
+          <button class="btn-solid-green" id="awaitingPaymentBtn" style="opacity:0.85;cursor:default;">Awaiting Buyer Payment (${sym}${o.fiatAmount})</button>
+        `;
+        // Simulated buyer payout notification after 5 seconds
+        if (!o._buyerPaymentSimTimer) {
+          o._buyerPaymentSimTimer = setTimeout(() => {
+            if (!state.activeOrder || state.activeOrder.id !== o.id || state.activeOrder.status !== 'Escrow Locked') return;
+            const timeStr = new Date().toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
+            state.activeOrder.status = 'Paid';
+            state.activeOrder.messages.push({
+              sender: 'merchant',
+              senderName: o.merchantName || 'Buyer Desk',
+              text: 'Payment of ' + sym + o.fiatAmount + ' has been transferred to your payout details (' + (o.payoutDetails?.method || 'Bank Transfer') + ' · ' + (o.payoutDetails?.number || '') + '). Ref: BP-TX-' + Math.floor(100000 + Math.random() * 900000) + '. Please confirm receipt and release crypto escrow.',
+              time: timeStr
+            });
+            syncOrderStorage(state.activeOrder);
+            saveOrderToHistory(state.activeOrder);
+            notifyTelegramOrder(state.activeOrder, 'PAID');
+            renderActiveOrder();
+            showToast('Buyer marked payment sent! Please verify your bank receipt.');
+          }, 5000);
+        }
+      }
+    }
+  }
+};
+window.renderActiveOrder = renderActiveOrder;
+
+// --- 4. ADS MANAGEMENT: COMPLETE EDITING & SYNC ---
+window.openEditAd = function(id) {
+  const ads = JSON.parse(localStorage.getItem('bp_my_p2p_ads') || '[]');
+  const a = ads.find(x => x.id === id);
+  if (!a) return;
+  window.editingAdId = id;
+
+  const title = document.getElementById('createAdModalTitle');
+  if (title) title.textContent = 'Edit Trade Advertisement';
+
+  const btn = document.getElementById('submitNewAdBtn');
+  if (btn) btn.textContent = 'Save Changes';
+
+  const assetSel = document.getElementById('adAssetSelect');
+  if (assetSel) assetSel.value = a.asset;
+
+  const fiatSel = document.getElementById('adFiatSelect');
+  if (fiatSel) {
+    fiatSel.innerHTML = CURRENCIES.map(c => '<option value="' + c.code + '"' + (c.code === a.fiat ? ' selected' : '') + '>' + c.code + ' (' + c.name + ')</option>').join('');
+  }
+
+  const pInp = document.getElementById('adUnitPrice');
+  if (pInp) pInp.value = a.price;
+
+  const minInp = document.getElementById('adMinLimit');
+  if (minInp) minInp.value = a.min;
+
+  const maxInp = document.getElementById('adMaxLimit');
+  if (maxInp) maxInp.value = a.max;
+
+  const mInp = document.getElementById('adMethods');
+  if (mInp) mInp.value = a.methods;
+
+  const escInp = document.getElementById('adEscrowAddr');
+  if (escInp) escInp.value = a.escrowAddr || '';
+
+  currentAdSide = a.side;
+  document.querySelectorAll('#adSideToggle .express-subtab').forEach(b => b.classList.toggle('active', b.dataset.adside === a.side));
+  openSheet('createAdModal');
+};
+
+// Reset editing state when "+ Post Ad" is opened
+(function wireOpenCreateAdReset() {
+  const attach = () => {
+    const btn = document.getElementById('openCreateAdBtn');
+    if (btn && !btn.dataset.editResetHooked) {
+      btn.dataset.editResetHooked = '1';
+      btn.addEventListener('click', () => {
+        window.editingAdId = null;
+        const title = document.getElementById('createAdModalTitle');
+        if (title) title.textContent = 'Create Trade Advertisement';
+        const sBtn = document.getElementById('submitNewAdBtn');
+        if (sBtn) sBtn.textContent = 'Publish Advertisement';
+        const err = document.getElementById('adInlineError');
+        if (err) err.textContent = '';
+      });
+    }
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', attach);
+  else attach();
+})();
+
+// Robust Ad Publishing & Saving Handler
+(function wireSubmitAdV6() {
+  const attach = () => {
+    const btn = document.getElementById('submitNewAdBtn');
+    if (!btn || btn.dataset.v6AdHooked) return;
+    btn.dataset.v6AdHooked = '1';
+    btn.onclick = (e) => {
+      e.preventDefault();
+      const asset = document.getElementById('adAssetSelect')?.value || 'USDT';
+      const fiat = document.getElementById('adFiatSelect')?.value || 'USD';
+      const price = parseFloat(document.getElementById('adUnitPrice')?.value);
+      const min = parseFloat(document.getElementById('adMinLimit')?.value);
+      const max = parseFloat(document.getElementById('adMaxLimit')?.value);
+      const methods = (document.getElementById('adMethods')?.value || '').trim();
+      const adEscrowAddr = (document.getElementById('adEscrowAddr')?.value || '').trim();
+
+      let inlineErr = document.getElementById('adInlineError');
+      if (!inlineErr && btn.parentElement) {
+        inlineErr = document.createElement('div');
+        inlineErr.id = 'adInlineError';
+        inlineErr.style.cssText = 'color:var(--red-500);font-size:12px;font-weight:700;margin-top:6px;';
+        btn.parentElement.insertBefore(inlineErr, btn);
+      }
+      if (inlineErr) inlineErr.textContent = '';
+
+      if (!price || !min || !max || !methods) {
+        const msg = 'Please complete all advertisement fields.';
+        if (inlineErr) inlineErr.textContent = msg;
+        showToast(msg);
+        return;
+      }
+
+      let ads = JSON.parse(localStorage.getItem('bp_my_p2p_ads') || '[]');
+      const merchants = JSON.parse(localStorage.getItem('bp_merchants') || '{}');
+      if (!merchants[fiat]) merchants[fiat] = [];
+
+      const isEditing = Boolean(window.editingAdId);
+      let adId = window.editingAdId;
+
+      if (isEditing) {
+        const existingAd = ads.find(x => x.id === adId);
+        if (existingAd) {
+          existingAd.side = currentAdSide;
+          existingAd.asset = asset;
+          existingAd.fiat = fiat;
+          existingAd.price = price;
+          existingAd.min = min;
+          existingAd.max = max;
+          existingAd.methods = methods;
+          existingAd.escrowAddr = adEscrowAddr;
+          existingAd.updatedAt = new Date().toISOString();
+        }
+        // Update bp_merchants in place across all currency keys
+        Object.keys(merchants).forEach(k => {
+          merchants[k] = merchants[k].filter(m => m.id !== adId);
+        });
+        merchants[fiat].push({
+          id: adId,
+          name: getUserProfile().name || 'You (Published Offer)',
+          initial: '★',
+          verified: true,
+          isOnline: true,
+          trades: 125,
+          completion: 100,
+          time: '15 min',
+          currencies: [fiat],
+          methods: methods.split(',').map(s => s.trim()),
+          escrowAddr: adEscrowAddr || 'TTx882KLa92mZbQpP004NqK599eL',
+          bond: 10000
+        });
+        showToast('Advertisement updated successfully!');
+      } else {
+        adId = 'ad_' + (crypto?.randomUUID ? crypto.randomUUID() : Date.now());
+        const newAd = {
+          id: adId,
+          ownerId: getOrCreateUserId(),
+          status: 'active',
+          createdAt: new Date().toISOString(),
+          side: currentAdSide,
+          asset,
+          fiat,
+          price,
+          min,
+          max,
+          methods,
+          escrowAddr: adEscrowAddr
+        };
+        ads.unshift(newAd);
+        merchants[fiat].push({
+          id: adId,
+          name: getUserProfile().name || 'You (Published Offer)',
+          initial: '★',
+          verified: true,
+          isOnline: true,
+          trades: 125,
+          completion: 100,
+          time: '15 min',
+          currencies: [fiat],
+          methods: methods.split(',').map(s => s.trim()),
+          escrowAddr: adEscrowAddr || 'TTx882KLa92mZbQpP004NqK599eL',
+          bond: 10000
+        });
+        showToast('Advertisement published to marketplace!');
+      }
+
+      localStorage.setItem('bp_my_p2p_ads', JSON.stringify(ads));
+      localStorage.setItem('bp_merchants', JSON.stringify(merchants));
+      allMerchants = loadMerchants();
+      applyFiltersAndRender();
+      closeSheet('createAdModal');
+      renderMyAds();
+
+      window.editingAdId = null;
+      btn.textContent = 'Publish Advertisement';
+      const title = document.getElementById('createAdModalTitle');
+      if (title) title.textContent = 'Create Trade Advertisement';
+    };
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', attach);
+  else attach();
+})();
+
+// --- 5. PROFILE WALLET INTEGRATION & REAL-TIME SYNC ---
+renderProfileWalletBalances = function() {
+  const chipsGrid = document.getElementById('profBalanceChipsGrid');
+  const totalDisplay = document.getElementById('profTotalUsdBal');
+  const countEl = document.getElementById('profTradeCount');
+  const ratingEl = document.getElementById('profRating');
+
+  let totalUsd = 0;
+  ASSETS.forEach(a => {
+    const amt = getWalletBalance(a.symbol);
+    const rate = (typeof liveRatesUsd !== 'undefined' && liveRatesUsd[a.symbol]) ? liveRatesUsd[a.symbol] : 1.0;
+    totalUsd += amt * rate;
+  });
+
+  if (totalDisplay) {
+    totalDisplay.textContent = '$' + formatNum(totalUsd, 2) + ' USD';
+  }
+
+  if (chipsGrid) {
+    chipsGrid.innerHTML = ASSETS.map(a => {
+      const amt = getWalletBalance(a.symbol);
+      return `
+        <div class="bal-chip">
+          <span class="bal-chip-sym">${a.symbol}</span>
+          <span class="bal-chip-val">${fmtAmount(a.symbol, amt)}</span>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // Live Stats from Genuine Orders
+  const orders = getOrders();
+  const completed = orders.filter(o => o.status === 'Completed');
+  if (countEl) countEl.textContent = completed.length;
+
+  if (ratingEl) {
+    if (orders.length === 0) {
+      ratingEl.textContent = '—';
+    } else {
+      const pct = ((completed.length / orders.length) * 100).toFixed(1);
+      ratingEl.textContent = pct + '%';
+    }
+  }
+
+  const prof = getUserProfile();
+  const nameEl = document.getElementById('profDisplayName');
+  if (nameEl && prof.name) nameEl.textContent = prof.name;
+  const avEl = document.getElementById('profAvatar');
+  if (avEl && prof.name) {
+    const initials = prof.initials || prof.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+    avEl.textContent = initials;
+  }
+};
+window.renderProfileWalletBalances = renderProfileWalletBalances;
+
+// Global storage listener for instant cross-tab & internal wallet sync
+window.addEventListener('storage', (e) => {
+  if (e.key === 'bp_user_balances' || e.key === 'bp_p2p_orders') {
+    renderProfileWalletBalances();
+    renderOrdersHistory();
+    updateExpressCalculations();
+  }
+});
+
+// --- 6. COMPLETED TRADES & ORDERS HISTORY WITH ACTUAL TRADE RECORDS ---
+filterOrdersByTab = function(tab) {
+  currentOrdersTab = tab;
+  const buttons = document.querySelectorAll('.ord-subtab');
+  buttons.forEach(b => {
+    b.classList.toggle('active', b.getAttribute('data-tab') === tab);
+  });
+  renderOrdersHistory();
+};
+window.filterOrdersByTab = filterOrdersByTab;
+
+renderOrdersHistory = function() {
+  const list = document.getElementById('ordersList');
+  const badge = document.getElementById('ordersCountBadge');
+  if (!list) return;
+
+  const orders = getOrders();
+  if (!orders || orders.length === 0) {
+    list.innerHTML = `<div class="empty-state"><div class="empty-icon">📭</div><div class="empty-text">No P2P trades executed yet.</div></div>`;
+    if (badge) badge.textContent = '0 Orders';
+    return;
+  }
+
+  const filtered = orders.filter(o => {
+    const s = (o.status || '').trim();
+    if (currentOrdersTab === 'all') return true;
+    if (currentOrdersTab === 'pending') return s === 'Escrow Locked' || s === 'Pending';
+    if (currentOrdersTab === 'paid') return s === 'Paid' || s === 'Proof Submitted';
+    if (currentOrdersTab === 'completed') return s === 'Completed';
+    if (currentOrdersTab === 'disputed') return s === 'Disputed';
+    if (currentOrdersTab === 'cancelled') return s === 'Cancelled';
+    return true;
+  });
+
+  if (badge) {
+    if (currentOrdersTab === 'all') badge.textContent = orders.length + ' Orders';
+    else badge.textContent = filtered.length + ' ' + (currentOrdersTab.charAt(0).toUpperCase() + currentOrdersTab.slice(1));
+  }
+
+  if (filtered.length === 0) {
+    const tabName = currentOrdersTab === 'all' ? 'P2P' : currentOrdersTab;
+    list.innerHTML = `<div class="empty-state"><div class="empty-icon">📭</div><div class="empty-text">No ${tabName} trades found.</div></div>`;
+    return;
+  }
+
+  list.innerHTML = filtered.map(o => {
+    const side = (o.side || (o.mode ? o.mode.toUpperCase() : 'BUY')).toUpperCase();
+    const isBuy = side === 'BUY';
+    const sideColor = isBuy ? 'var(--green-500)' : 'var(--blue-500)';
+    const st = (o.status || 'Escrow Locked').trim();
+
+    let statusClass = 'status-escrow';
+    if (st === 'Completed') statusClass = 'status-completed';
+    else if (st === 'Cancelled') statusClass = 'status-cancelled';
+    else if (st === 'Paid' || st === 'Proof Submitted') statusClass = 'status-paid';
+    else if (st === 'Disputed') statusClass = 'status-disputed';
+
+    const lastUpdated = o.date || new Date().toLocaleString();
+    const sym = fiatSym(o.fiat);
+    const unitRate = o.price || (o.fiatAmount && o.cryptoAmount ? (Number(o.fiatAmount) / Number(o.cryptoAmount)).toFixed(2) : '1.00');
+    const canDispute = (st === 'Paid' || st === 'Proof Submitted') && o.confirmDeadline && (Date.now() > Number(o.confirmDeadline));
+
+    return `
+      <div class="order-card" style="cursor:pointer;" onclick="handleOrderCardClick('${o.id}')">
+        <div class="order-card-header">
+          <div class="order-id">
+            <strong style="color:${sideColor}; font-size:14px;">${side} ${o.crypto}</strong>
+            <span style="font-size:11px; color:var(--gray-400); margin-left:6px;">#${o.id.slice(-6)}</span>
+          </div>
+          <span class="status-pill ${statusClass}">${st}</span>
+        </div>
+        <div class="order-card-body">
+          <div class="order-metric">
+            <span class="order-metric-label">Amount</span>
+            <span class="order-metric-value">${sym}${o.fiatAmount} ${o.fiat}</span>
+          </div>
+          <div class="order-metric">
+            <span class="order-metric-label">Crypto Quantity</span>
+            <span class="order-metric-value">${fmtAmount(o.crypto, o.cryptoAmount)} ${o.crypto}</span>
+          </div>
+          <div class="order-metric">
+            <span class="order-metric-label">Price / Rate</span>
+            <span class="order-metric-value">${sym}${unitRate} / ${o.crypto}</span>
+          </div>
+          <div class="order-metric">
+            <span class="order-metric-label">Counterparty</span>
+            <span class="order-metric-value">${o.merchantName || 'BluePeak Desk'}</span>
+          </div>
+          <div class="order-metric">
+            <span class="order-metric-label">Payment Channel</span>
+            <span class="order-metric-value">${o.paymentMethod || 'Bank Transfer'}</span>
+          </div>
+          <div class="order-metric">
+            <span class="order-metric-label">Date &amp; Time</span>
+            <span class="order-metric-value" style="font-size:11.5px;">${lastUpdated}</span>
+          </div>
+        </div>
+        ${canDispute ? `
+          <button class="order-open-dispute-btn" onclick="event.stopPropagation(); triggerOrderDisputeShortcut('${o.id}');">
+            ⚠️ Open Dispute (Timer Expired)
+          </button>
+        ` : ''}
+      </div>
+    `;
+  }).join('');
+};
+window.renderOrdersHistory = renderOrdersHistory;
+
+// Ensure Order Details Modal displays unit price and full parameters
+openOrderDetailModal = function(order) {
+  const table = document.getElementById('orderDetailTable');
+  if (!table || !order) return;
+  const sym = fiatSym(order.fiat);
+  const side = (order.side || (order.mode ? order.mode.toUpperCase() : 'BUY')).toUpperCase();
+  const unitRate = order.price || (order.fiatAmount && order.cryptoAmount ? (Number(order.fiatAmount) / Number(order.cryptoAmount)).toFixed(2) : '1.00');
+
+  table.innerHTML = `
+    <tr><td class="order-detail-label">Order ID</td><td class="order-detail-value">#${order.id}</td></tr>
+    <tr><td class="order-detail-label">Type</td><td class="order-detail-value" style="font-weight:800;color:${side === 'BUY' ? 'var(--green-500)' : 'var(--blue-500)'};">${side} ${order.crypto}</td></tr>
+    <tr><td class="order-detail-label">Status</td><td class="order-detail-value"><span class="status-pill status-${(order.status || '').toLowerCase().replace(/\\s+/g, '-')}" style="padding:2px 8px;font-size:11px;">${order.status}</span></td></tr>
+    <tr><td class="order-detail-label">Counterparty</td><td class="order-detail-value"><strong>${order.merchantName || 'BluePeak Desk'}</strong></td></tr>
+    <tr><td class="order-detail-label">Fiat Amount</td><td class="order-detail-value"><strong>${sym}${order.fiatAmount} ${order.fiat}</strong></td></tr>
+    <tr><td class="order-detail-label">Crypto Quantity</td><td class="order-detail-value"><strong style="color:var(--green-600);">${fmtAmount(order.crypto, order.cryptoAmount)} ${order.crypto}</strong></td></tr>
+    <tr><td class="order-detail-label">Execution Price</td><td class="order-detail-value">${sym}${unitRate} / ${order.crypto}</td></tr>
+    <tr><td class="order-detail-label">Payment Channel</td><td class="order-detail-value">${order.paymentMethod || 'Bank Transfer'}</td></tr>
+    <tr><td class="order-detail-label">Escrow Address</td><td class="order-detail-value" style="font-family:monospace;font-size:10.5px;word-break:break-all;">${order.escrowAddr || 'Multi-Sig Cold Vault'}</td></tr>
+    <tr><td class="order-detail-label">Timestamp</td><td class="order-detail-value">${order.date || '-'}</td></tr>
+    ${order.proof ? `<tr><td class="order-detail-label">Payment Proof Note</td><td class="order-detail-value">${order.proof.note || 'Receipt Attached'}</td></tr>` : ''}
+    ${order.cancelReason ? `<tr><td class="order-detail-label">Cancellation Reason</td><td class="order-detail-value" style="color:var(--red-500);">${order.cancelReason}</td></tr>` : ''}
+    ${order.disputeReason ? `<tr><td class="order-detail-label">Dispute Reason</td><td class="order-detail-value" style="color:var(--red-500);">${order.disputeReason}</td></tr>` : ''}
+    ${Array.isArray(order.timeline) && order.timeline.length ? `
+      <tr><td class="order-detail-label" colspan="2" style="padding-top:14px;border-bottom:none;font-weight:800;">Audit Timeline</td></tr>
+      ${order.timeline.map(t => `<tr><td class="order-detail-label">${new Date(t.ts).toLocaleString()}</td><td class="order-detail-value">${t.status} <span style="color:var(--gray-400);">(${t.actor})</span></td></tr>`).join('')}
+    ` : ''}
+  `;
+
+  if (typeof openSheet === 'function') openSheet('orderDetailModal');
+};
+window.openOrderDetailModal = openOrderDetailModal;
+
   </script>
 
   <!-- PAYMENT PROOF MODAL -->
@@ -2833,7 +5097,7 @@ Reply directly to this message or send "#${order.id} <your message>" to chat bac
       <div style="width:52px;height:52px;border-radius:50%;background:var(--red-100);color:var(--red-500);display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 12px;">✕</div>
       <h4 style="font-size:16px;font-weight:800;color:var(--navy-900);margin-bottom:6px;">Trade Has Been Cancelled</h4>
       <p style="font-size:12.5px;color:var(--gray-500);margin-bottom:20px;">The escrow reservation has been cleared. You can return to the P2P marketplace to browse other offers.</p>
-      <button class="btn-solid-green" style="width:100%;" onclick="returnToOffersFromCancel()">Return to P2P Offers</button>
+      <button class="btn-solid-green" style="width:100%;" onclick="returnToOffersFromCancel()">Browse Other Vendors</button>
     </div>
   </div>
 
@@ -2869,5 +5133,22 @@ Reply directly to this message or send "#${order.id} <your message>" to chat bac
     </div>
   </div>
 
+
+  <!-- ORDER DETAIL MODAL (Read-Only) -->
+  <div class="bottom-sheet" id="orderDetailModal">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <h3 class="sheet-title">Trade Summary</h3>
+      <button class="sheet-close" onclick="closeSheet('orderDetailModal')">&times;</button>
+    </div>
+    <div class="sheet-body" style="padding: 16px 20px;">
+      <table class="order-detail-table" id="orderDetailTable">
+        <!-- Injected via openOrderDetailModal -->
+      </table>
+      <div style="margin-top: 18px;">
+        <button class="p2p-btn p2p-btn-secondary" style="width: 100%; justify-content: center;" onclick="closeSheet('orderDetailModal')">Close</button>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
